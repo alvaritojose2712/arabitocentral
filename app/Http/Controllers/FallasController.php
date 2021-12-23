@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\fallas;
+use App\Models\sucursal;
 use App\Http\Requests\StorefallasRequest;
 use App\Http\Requests\UpdatefallasRequest;
+use Illuminate\Http\Request;
+use Response;
+
 
 class FallasController extends Controller
 {
@@ -13,19 +17,38 @@ class FallasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function setFallas(Request $req)
     {
-        //
+
+        $sucursal = sucursal::where("codigo",$req->sucursal_code)->first();
+
+        if (!$sucursal) {
+            return Response::json([
+                "msj"=>"No se encontró sucursal",
+                "estado"=>false
+            ]);
+        }
+
+        $fallas = $req->fallas;
+        // return Response::json(["msj"=>$fallas,"estado"=>true]);
+        foreach ($fallas as $val) {
+            // code...
+            fallas::UpdateOrCreate([
+                "id_producto"=>$val["id_producto"],
+                "id_sucursal"=>$sucursal->id,
+            ],[
+
+                "cantidad"=>$val["cantidad"],
+                "id_producto"=>$val["id_producto"],
+                "id_sucursal"=>$sucursal->id,
+            ]);
+        }
+        return Response::json(["msj"=>"Éxito","estado"=>true]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getFallas(Request $req)
     {
-        //
+        return fallas::with("producto")->where("id_sucursal",$req->id_sucursal)->get();
     }
 
     /**

@@ -16,9 +16,13 @@ class CreateFallasTable extends Migration
         Schema::create('fallas', function (Blueprint $table) {
             $table->increments("id");
 
-            $table->integer("id_producto")->unsigned()->unique();
+            $table->integer("id_sucursal")->unsigned();
+            $table->foreign('id_sucursal')->references('id')->on('sucursals');
+
+            $table->integer("id_producto")->unsigned();
             $table->foreign('id_producto')->references('id')->on('inventarios');
-            $table->decimal("cantidad",10,2)->nullable();
+
+            $table->float("cantidad",10,2)->nullable();
             
             $table->timestamps();
 

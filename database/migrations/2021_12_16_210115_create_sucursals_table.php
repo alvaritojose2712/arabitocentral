@@ -16,18 +16,19 @@ class CreateSucursalsTable extends Migration
         Schema::create('sucursals', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->string('char')->unique();
             $table->string('codigo')->unique();
 
             $table->timestamps();
         });
 
         DB::table("sucursals")->insert([
-            ["nombre"=>"Mantecal","codigo"=>"ARAMCAL"],
-            ["nombre"=>"Elorza","codigo"=>"ARAELZ"],
-            ["nombre"=>"Achaguas","codigo"=>"ARAAGS"],
-            ["nombre"=>"El Samán","codigo"=>"ARASMAN"],
-            ["nombre"=>"Bruzual","codigo"=>"ARABZAL"],
-            ["nombre"=>"San Fernando","codigo"=>"ARASFDO"]
+            ["char"=>"EZ","nombre"=>"Elorza","codigo"=>"ARAELZ"],
+            ["char"=>"ML","nombre"=>"Mantecal","codigo"=>"ARAMCAL"],
+            ["char"=>"AG","nombre"=>"Achaguas","codigo"=>"ARAAGS"],
+            ["char"=>"SM","nombre"=>"El Samán","codigo"=>"ARASMAN"],
+            ["char"=>"BZ","nombre"=>"Bruzual","codigo"=>"ARABZAL"],
+            ["char"=>"SF","nombre"=>"San Fernando","codigo"=>"ARASFDO"]
         ]);
     }
 

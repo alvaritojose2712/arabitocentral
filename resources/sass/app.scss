@@ -1,0 +1,15 @@
+// Fonts
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+@font-face {
+	font-family: "Nunito";
+	src: url("../fonts/Nunito-Regular.ttf") format("trueType");
+}
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import '~font-awesome/scss/font-awesome';
+@import './custom.css';
+

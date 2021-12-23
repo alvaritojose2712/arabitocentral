@@ -14,7 +14,18 @@ class CreateCtSucursalsTable extends Migration
     public function up()
     {
         Schema::create('ct_sucursals', function (Blueprint $table) {
-            $table->id();
+            $table->increments("id");
+
+            $table->integer("id_sucursal")->unsigned();
+            $table->foreign('id_sucursal')->references('id')->on('sucursals');
+
+            $table->integer("id_producto")->unsigned();
+            $table->foreign('id_producto')->references('id')->on('inventarios');
+
+            $table->float("cantidad",10,2);
+
+            $table->float("precio",10,2)->nullable(); //En caso de precio especial para la zona
+
             $table->timestamps();
         });
     }
