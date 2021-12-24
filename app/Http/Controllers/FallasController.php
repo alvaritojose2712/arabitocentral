@@ -31,9 +31,11 @@ class FallasController extends Controller
 
         $fallas = $req->fallas;
         // return Response::json(["msj"=>$fallas,"estado"=>true]);
+
+        $arr_ok = [];
         foreach ($fallas as $val) {
             // code...
-            fallas::UpdateOrCreate([
+            $uoc = fallas::UpdateOrCreate([
                 "id_producto"=>$val["id_producto"],
                 "id_sucursal"=>$sucursal->id,
             ],[
@@ -42,8 +44,11 @@ class FallasController extends Controller
                 "id_producto"=>$val["id_producto"],
                 "id_sucursal"=>$sucursal->id,
             ]);
+            if ($uoc) {
+                $arr_ok[] = $val["id_producto"];
+            }
         }
-        return Response::json(["msj"=>"Éxito","estado"=>true]);
+        return Response::json(["msj"=>"Éxito","estado"=>true,"ids_ok"=>$arr_ok]);
     }
 
     public function getFallas(Request $req)

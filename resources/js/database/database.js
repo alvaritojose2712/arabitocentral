@@ -13,6 +13,8 @@ const db = {
   getSucursales: data=>axios.get(host+"/getSucursales",{params:data}),
   getFallas: data=>axios.get(host+"/getFallas",{params:data}),
 
+  getGastos: data=>axios.get(host+"/getGastos",{params:data}),
+  getVentas: data=>axios.get(host+"/getVentas",{params:data}),
   
   
 

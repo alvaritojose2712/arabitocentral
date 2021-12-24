@@ -8,6 +8,14 @@
   width: 100%;
 }
 
+.toplabel{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+
 .input-ct{
   border: none;
   width: 165px;
@@ -354,6 +362,12 @@ body{
   padding-top: 1em;
 }
 
+.marginb-6{
+  margin-bottom: 4rem !important;
+}
+.margint-6{
+  margin-top: 4rem !important;
+}
 
 @charset "UTF-8";
 @font-face {

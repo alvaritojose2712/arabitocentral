@@ -17,15 +17,16 @@ export default function Header({
 	      </div>
 	      :null}
       {sucursalSelect!==null?
-      <div className=" d-flex justify-content-between">
-        <span className="p-1 bg-light d-flex align-items-center">
+      <div className=" d-flex justify-content-between bg-light">
+        <span className="p-1 d-flex align-items-center">
         	<img src={icon} alt="icon" className="icon"/>
         </span>
         
         <div className="d-flex justify-content-center">
           <span className={(view=="inventario"?"btn btn-arabito":null)+(" p-1 d-flex align-items-center pointer")} onClick={()=>setView("inventario")}>Inventario</span>
           <span className={(view=="fallas"?"btn btn-arabito":null)+(" p-1 d-flex align-items-center pointer")} onClick={()=>setView("fallas")}>Fallas</span>
-          <span className={(view=="reportes"?"btn btn-arabito":null)+(" p-1 d-flex align-items-center pointer")} onClick={()=>setView("reportes")}>Reportes</span>
+          <span className={(view=="ventas"?"btn btn-arabito":null)+(" p-1 d-flex align-items-center pointer")} onClick={()=>setView("ventas")}>Reportes</span>
+          <span className={(view=="gastos"?"btn btn-arabito":null)+(" p-1 d-flex align-items-center pointer")} onClick={()=>setView("gastos")}>Gastos</span>
         </div>
 
         <span className="p-1 bg-light pointer d-flex align-items-center" onClick={()=>setsucursalSelect(null)}>

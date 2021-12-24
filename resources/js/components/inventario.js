@@ -8,7 +8,11 @@ import Header from './header';
 import SelectSucursal from './selectSucursal';
 
 import FallasComponent from './fallas';
-import Reportes from './reportes';
+import VentasComponent from './ventas';
+import GastosComponent from './gastos';
+
+import Toplabel from './toplabel';
+
 
 
 
@@ -20,6 +24,8 @@ function Inventario() {
   const [sucursalSelect,setsucursalSelect] = useState(null)
 
   const [fallas,setfallas] = useState([])
+  const [gastos,setgastos] = useState([])
+  const [ventas,setventas] = useState([])
   const getSucursales = () => {
     setLoading(true)
     db.getSucursales().then(res=>{
@@ -40,6 +46,30 @@ function Inventario() {
     }
   }
 
+  const getGastos = () => {
+    setLoading(true)
+
+    if (sucursales.filter(e=>e.char==sucursalSelect).length) {
+      db.getGastos({id_sucursal: sucursales.filter(e=>e.char==sucursalSelect)[0].id }).then(res=>{
+        setgastos(res.data)
+        setLoading(false)
+      })
+
+    }
+  }
+
+  const getVentas = () => {
+    setLoading(true)
+
+    if (sucursales.filter(e=>e.char==sucursalSelect).length) {
+      db.getVentas({id_sucursal: sucursales.filter(e=>e.char==sucursalSelect)[0].id }).then(res=>{
+        setventas(res.data)
+        setLoading(false)
+      })
+
+    }
+  }
+
 
 
   useEffect(()=>{
@@ -54,6 +84,10 @@ function Inventario() {
     if (view=="fallas") {
       getFallas()
 
+    }else if (view=="gastos") {
+      getGastos()
+    }else if (view=="ventas") {
+      getVentas()
     }
   },[view])
   return(
@@ -64,7 +98,8 @@ function Inventario() {
       sucursalSelect={sucursalSelect}
       setsucursalSelect={setsucursalSelect}
       />
-      <div className="container">
+      <Toplabel sucursales={sucursales} sucursalSelect={sucursalSelect}/>
+      <div className="container marginb-6 margint-6">
         {sucursalSelect===null?
           <SelectSucursal 
           setsucursalSelect={setsucursalSelect} 
@@ -75,12 +110,21 @@ function Inventario() {
           {view=="fallas"?<FallasComponent
             fallas={fallas}
           />:null}
+
+          {view=="gastos"?<GastosComponent
+            gastos={gastos}
+          />:null}
+
+          {view=="ventas"?<VentasComponent
+            ventas={ventas}
+          />:null}
+
+          
           
           
         </>}
-
-
       </div>
+
     </>
   );
 }

@@ -2100,6 +2100,47 @@ function FallasComponent(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/components/gastos.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/gastos.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Gastos)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function Gastos(_ref) {
+  var gastos = _ref.gastos;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    children: gastos.map(function (e) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "card-pedidos d-flex justify-content-between",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("b", {
+              children: [e.categoria == 1 ? " Vueltos" : null, e.categoria == 2 ? " Nómina" : null, e.categoria == 3 ? " Funcionamiento" : null, e.categoria == 4 ? " Pago a proveedores" : null, e.categoria == 5 ? " Otros" : null, e.categoria == 6 ? " Devolución" : null]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h5", {
+            children: e.descripcion
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+            className: "btn " + (!e.tipo ? "btn-outline-danger" : "btn-outline-success"),
+            children: e.monto
+          })
+        })]
+      }, e.id);
+    })
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/header.js":
 /*!*******************************************!*\
   !*** ./resources/js/components/header.js ***!
@@ -2136,9 +2177,9 @@ function Header(_ref) {
         })
       })
     }) : null, sucursalSelect !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: " d-flex justify-content-between",
+      className: " d-flex justify-content-between bg-light",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-        className: "p-1 bg-light d-flex align-items-center",
+        className: "p-1 d-flex align-items-center",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: _images_icon_png__WEBPACK_IMPORTED_MODULE_1__["default"],
           alt: "icon",
@@ -2159,11 +2200,17 @@ function Header(_ref) {
           },
           children: "Fallas"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-          className: (view == "reportes" ? "btn btn-arabito" : null) + " p-1 d-flex align-items-center pointer",
+          className: (view == "ventas" ? "btn btn-arabito" : null) + " p-1 d-flex align-items-center pointer",
           onClick: function onClick() {
-            return setView("reportes");
+            return setView("ventas");
           },
           children: "Reportes"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+          className: (view == "gastos" ? "btn btn-arabito" : null) + " p-1 d-flex align-items-center pointer",
+          onClick: function onClick() {
+            return setView("gastos");
+          },
+          children: "Gastos"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
         className: "p-1 bg-light pointer d-flex align-items-center",
@@ -2176,50 +2223,6 @@ function Header(_ref) {
         })
       })]
     }) : null]
-  });
-}
-
-/***/ }),
-
-/***/ "./resources/js/components/reportes.js":
-/*!*********************************************!*\
-  !*** ./resources/js/components/reportes.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Reportes)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-function Reportes(_ref) {
-  var resportes = _ref.resportes;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", {
-    className: "table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-          children: "ID"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-          children: "Descripci\xF3n"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-          children: "Sucursal"
-        })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
-      children: resportes.map(function (e) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-            children: e.id_producto
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-            children: e.id_sucursal
-          })]
-        }, e.id);
-      })
-    })]
   });
 }
 
@@ -2267,6 +2270,117 @@ function SelectSucursal(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/components/toplabel.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/toplabel.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Toplabel)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+function Toplabel(_ref) {
+  var sucursales = _ref.sucursales,
+      sucursalSelect = _ref.sucursalSelect;
+
+  var name = function name() {
+    if (sucursales.filter(function (e) {
+      return e["char"] == sucursalSelect;
+    }).length) {
+      return sucursales.filter(function (e) {
+        return e["char"] == sucursalSelect;
+      })[0].nombre;
+    }
+
+    return "";
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    className: "bg-light toplabel d-flex justify-content-center",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+      className: "h3 m-1",
+      children: name()
+    })
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/ventas.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/ventas.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Ventas)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function Ventas(_ref) {
+  var ventas = _ref.ventas;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    children: ventas.map(function (e) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "card-pedidos",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "w-100",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "d-flex justify-content-between",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+              className: "",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("b", {
+                children: ["Ventas: ", e.num_ventas]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+              className: "text-success",
+              children: e.fecha
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
+              className: "list-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", {
+                className: "list-group-item d-flex justify-content-between align-items-center",
+                children: ["Efectivo", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "badge bg-arabito badge-pill",
+                  children: e.efectivo
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", {
+                className: "list-group-item d-flex justify-content-between align-items-center",
+                children: ["D\xE9bito", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "badge bg-arabito badge-pill",
+                  children: e.debito
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", {
+                className: "list-group-item d-flex justify-content-between align-items-center",
+                children: ["Transferencia", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "badge bg-arabito badge-pill",
+                  children: e.transferencia
+                })]
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h4", {
+              children: ["Tasa: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
+                children: e.tasa
+              })]
+            })
+          })]
+        })
+      }, e.id);
+    })
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/database/database.js":
 /*!*******************************************!*\
   !*** ./resources/js/database/database.js ***!
@@ -2294,6 +2408,16 @@ var db = {
   },
   getFallas: function getFallas(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "/getFallas", {
+      params: data
+    });
+  },
+  getGastos: function getGastos(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "/getGastos", {
+      params: data
+    });
+  },
+  getVentas: function getVentas(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "/getVentas", {
       params: data
     });
   }
@@ -34381,8 +34505,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./header */ "./resources/js/components/header.js");
 /* harmony import */ var _selectSucursal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./selectSucursal */ "./resources/js/components/selectSucursal.js");
 /* harmony import */ var _fallas__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./fallas */ "./resources/js/components/fallas.js");
-/* harmony import */ var _reportes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reportes */ "./resources/js/components/reportes.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _ventas__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ventas */ "./resources/js/components/ventas.js");
+/* harmony import */ var _gastos__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./gastos */ "./resources/js/components/gastos.js");
+/* harmony import */ var _toplabel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./toplabel */ "./resources/js/components/toplabel.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -34394,6 +34520,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -34433,6 +34561,16 @@ function Inventario() {
       fallas = _useState10[0],
       setfallas = _useState10[1];
 
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState12 = _slicedToArray(_useState11, 2),
+      gastos = _useState12[0],
+      setgastos = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState14 = _slicedToArray(_useState13, 2),
+      ventas = _useState14[0],
+      setventas = _useState14[1];
+
   var getSucursales = function getSucursales() {
     setLoading(true);
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getSucursales().then(function (res) {
@@ -34458,6 +34596,40 @@ function Inventario() {
     }
   };
 
+  var getGastos = function getGastos() {
+    setLoading(true);
+
+    if (sucursales.filter(function (e) {
+      return e["char"] == sucursalSelect;
+    }).length) {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getGastos({
+        id_sucursal: sucursales.filter(function (e) {
+          return e["char"] == sucursalSelect;
+        })[0].id
+      }).then(function (res) {
+        setgastos(res.data);
+        setLoading(false);
+      });
+    }
+  };
+
+  var getVentas = function getVentas() {
+    setLoading(true);
+
+    if (sucursales.filter(function (e) {
+      return e["char"] == sucursalSelect;
+    }).length) {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getVentas({
+        id_sucursal: sucursales.filter(function (e) {
+          return e["char"] == sucursalSelect;
+        })[0].id
+      }).then(function (res) {
+        setventas(res.data);
+        setLoading(false);
+      });
+    }
+  };
+
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     getSucursales();
   }, []);
@@ -34467,30 +34639,41 @@ function Inventario() {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     if (view == "fallas") {
       getFallas();
+    } else if (view == "gastos") {
+      getGastos();
+    } else if (view == "ventas") {
+      getVentas();
     }
   }, [view]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
       setView: setView,
       view: view,
       sucursalSelect: sucursalSelect,
       setsucursalSelect: setsucursalSelect
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-      className: "container",
-      children: sucursalSelect === null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_selectSucursal__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_toplabel__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      sucursales: sucursales,
+      sucursalSelect: sucursalSelect
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+      className: "container marginb-6 margint-6",
+      children: sucursalSelect === null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_selectSucursal__WEBPACK_IMPORTED_MODULE_5__["default"], {
         setsucursalSelect: setsucursalSelect,
         sucursalSelect: sucursalSelect,
         sucursales: sucursales
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-        children: view == "fallas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_fallas__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
+        children: [view == "fallas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_fallas__WEBPACK_IMPORTED_MODULE_6__["default"], {
           fallas: fallas
-        }) : null
+        }) : null, view == "gastos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          gastos: gastos
+        }) : null, view == "ventas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ventas__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          ventas: ventas
+        }) : null]
       })
     })]
   });
 }
 
-(0,react_dom__WEBPACK_IMPORTED_MODULE_2__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Inventario, {}), document.getElementById('app'));
+(0,react_dom__WEBPACK_IMPORTED_MODULE_2__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Inventario, {}), document.getElementById('app'));
 })();
 
 /******/ })()
