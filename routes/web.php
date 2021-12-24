@@ -43,3 +43,20 @@ Route::post('/setVentas', [VentasController::class,"setVentas"]);
 Route::get('/getVentas', [VentasController::class,"getVentas"]);
 
 
+Route::get('/cache', function () {
+    $clearcache = Artisan::call('cache:clear');
+    echo "Cache cleared<br>";
+
+    $clearview = Artisan::call('view:clear');
+    echo "View cleared<br>";
+
+    $clearconfig = Artisan::call('config:cache');
+    echo "Config cleared<br>";
+
+   
+});
+
+Route::get('/migrate', function () {
+    $clearcache = Artisan::call('migrate:fresh');
+    echo "Migrate cleared<br>";
+});
