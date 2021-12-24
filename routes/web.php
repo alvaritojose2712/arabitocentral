@@ -57,6 +57,11 @@ Route::get('/cache', function () {
 });
 
 Route::get('/migrate', function () {
-    $clearcache = Artisan::call('migrate:fresh');
+    Artisan::call('migrate:fresh');
     echo "Migrate cleared<br>";
+});
+
+Route::get('/key', function () {
+    Artisan::call('key:generate');
+    echo "key generated<br>";
 });
