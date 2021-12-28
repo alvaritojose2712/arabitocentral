@@ -2054,6 +2054,1088 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/components/cargando.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/cargando.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+function Cargando(props) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: "loaders text-center cargando btn-arabito p-2 rounded",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "loader",
+      style: {
+        display: props.active ? "" : "none"
+      },
+      children: ["Trabajando...", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "loader-inner ball-pulse",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "bg-arabito"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "bg-arabito"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "bg-arabito"
+        })]
+      })]
+    })
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Cargando);
+
+/***/ }),
+
+/***/ "./resources/js/components/cargarproducto.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/cargarproducto.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+function Cargarproducto(_ref) {
+  var productosInventario = _ref.productosInventario,
+      qBuscarInventario = _ref.qBuscarInventario,
+      setQBuscarInventario = _ref.setQBuscarInventario,
+      setIndexSelectInventario = _ref.setIndexSelectInventario,
+      indexSelectInventario = _ref.indexSelectInventario,
+      inputBuscarInventario = _ref.inputBuscarInventario,
+      inpInvbarras = _ref.inpInvbarras,
+      setinpInvbarras = _ref.setinpInvbarras,
+      inpInvcantidad = _ref.inpInvcantidad,
+      setinpInvcantidad = _ref.setinpInvcantidad,
+      inpInvalterno = _ref.inpInvalterno,
+      setinpInvalterno = _ref.setinpInvalterno,
+      inpInvunidad = _ref.inpInvunidad,
+      setinpInvunidad = _ref.setinpInvunidad,
+      inpInvcategoria = _ref.inpInvcategoria,
+      setinpInvcategoria = _ref.setinpInvcategoria,
+      inpInvdescripcion = _ref.inpInvdescripcion,
+      setinpInvdescripcion = _ref.setinpInvdescripcion,
+      inpInvbase = _ref.inpInvbase,
+      setinpInvbase = _ref.setinpInvbase,
+      inpInvventa = _ref.inpInvventa,
+      setinpInvventa = _ref.setinpInvventa,
+      inpInviva = _ref.inpInviva,
+      setinpInviva = _ref.setinpInviva,
+      number = _ref.number,
+      guardarNuevoProducto = _ref.guardarNuevoProducto,
+      proveedoresList = _ref.proveedoresList,
+      delProveedor = _ref.delProveedor,
+      delProducto = _ref.delProducto,
+      inpInvid_proveedor = _ref.inpInvid_proveedor,
+      setinpInvid_proveedor = _ref.setinpInvid_proveedor,
+      inpInvid_marca = _ref.inpInvid_marca,
+      setinpInvid_marca = _ref.setinpInvid_marca,
+      inpInvid_deposito = _ref.inpInvid_deposito,
+      setinpInvid_deposito = _ref.setinpInvid_deposito,
+      depositosList = _ref.depositosList,
+      Invnum = _ref.Invnum,
+      setInvnum = _ref.setInvnum,
+      InvorderColumn = _ref.InvorderColumn,
+      setInvorderColumn = _ref.setInvorderColumn,
+      InvorderBy = _ref.InvorderBy,
+      setInvorderBy = _ref.setInvorderBy,
+      subviewCargarProductos = _ref.subviewCargarProductos,
+      setsubviewCargarProductos = _ref.setsubviewCargarProductos;
+
+  var setIndexSelectInventarioFun = function setIndexSelectInventarioFun(e) {
+    var index = e.currentTarget.attributes["data-index"].value;
+
+    if (index == indexSelectInventario) {
+      setIndexSelectInventario(null);
+    } else {
+      setIndexSelectInventario(index);
+      setsubviewCargarProductos("editar");
+    }
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+      className: "container",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "btn-group w-100",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          className: "btn " + (subviewCargarProductos == "buscar" ? "btn-dark" : "btn-outline-arabito"),
+          onClick: function onClick() {
+            return setsubviewCargarProductos("buscar");
+          },
+          children: "Buscar"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          className: "btn " + (subviewCargarProductos == "editar" ? "btn-dark" : "btn-outline-arabito"),
+          onClick: function onClick() {
+            return setsubviewCargarProductos("editar");
+          },
+          children: indexSelectInventario == null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            children: "Crear"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+            children: ["Editar", indexSelectInventario != null ? productosInventario[indexSelectInventario] ? "-" + productosInventario[indexSelectInventario].descripcion.substr(0, 10) + "..." : null : null]
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "row",
+        children: [subviewCargarProductos == "buscar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "mb-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "input-group w-100 ",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                type: "text",
+                required: true,
+                ref: inputBuscarInventario,
+                className: "form-control",
+                placeholder: "Buscar...",
+                value: qBuscarInventario,
+                onChange: function onChange(e) {
+                  return setQBuscarInventario(e.target.value);
+                }
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "input-group w-100",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+                value: Invnum,
+                className: "form-control",
+                onChange: function onChange(e) {
+                  return setInvnum(e.target.value);
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "25",
+                  children: "25"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "50",
+                  children: "50"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "100",
+                  children: "100"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "500",
+                  children: "500"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "2000",
+                  children: "2000"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+                value: InvorderColumn,
+                className: "form-control",
+                onChange: function onChange(e) {
+                  return setInvorderColumn(e.target.value);
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "id",
+                  children: "id"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "descripcion",
+                  children: "descripcion"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "precio",
+                  children: "precio"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "cantidad",
+                  children: "cantidad"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "codigo",
+                  children: "codigo"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+                value: InvorderBy,
+                className: "form-control",
+                onChange: function onChange(e) {
+                  return setInvorderBy(e.target.value);
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "asc",
+                  children: "Asc"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "desc",
+                  children: "Desc"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "input-group-prepend",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                  className: "btn btn-outline-secondary",
+                  type: "button",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                    className: "fa fa-search"
+                  })
+                })
+              })]
+            })]
+          }), productosInventario.length ? productosInventario.map(function (e, i) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              onClick: setIndexSelectInventarioFun,
+              "data-index": i,
+              className: (indexSelectInventario == i ? "bg-arabito" : "bg-light text-secondary") + " card mt-2 pointer",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "card-header flex-row row justify-content-between",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("small", {
+                    children: ["ID.", e.id]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                  className: "d-flex justify-content-between",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      children: e.codigo_proveedor
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      className: "h3 text-success",
+                      children: e.precio
+                    })
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "card-body d-flex justify-content-between",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  className: "/personal/vermas",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h5", {
+                    className: "card-title",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
+                      children: e.descripcion
+                    })
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
+                  className: "card-text p-1",
+                  children: ["Ct. ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
+                    children: e.cantidad
+                  })]
+                })]
+              })]
+            }, e.id);
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            className: "h3 text-center text-dark mt-2",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+              children: "\xA1Sin resultados!"
+            })
+          })]
+        }) : null, subviewCargarProductos == "editar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "col",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
+            className: "container-fluid",
+            onSubmit: guardarNuevoProducto,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "row",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "col text-center",
+                children: ["Bar. ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                  className: "m-2 h4",
+                  type: "text",
+                  required: true,
+                  value: inpInvbarras,
+                  onChange: function onChange(e) {
+                    return setinpInvbarras(e.target.value);
+                  },
+                  placeholder: "Barras."
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "row",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "col text-center",
+                children: ["Ct. ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                  className: "h1 m-2 input-ct",
+                  type: "text",
+                  required: true,
+                  value: inpInvcantidad,
+                  onChange: function onChange(e) {
+                    return setinpInvcantidad(number(e.target.value));
+                  },
+                  placeholder: "Ct."
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "row",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                  className: "form-control",
+                  type: "text",
+                  required: true,
+                  value: inpInvalterno,
+                  onChange: function onChange(e) {
+                    return setinpInvalterno(e.target.value);
+                  },
+                  placeholder: "Alterno."
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+                  className: "form-control",
+                  value: inpInvunidad,
+                  required: true,
+                  onChange: function onChange(e) {
+                    return setinpInvunidad(e.target.value);
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "UND",
+                    children: "UND"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "PAR",
+                    children: "PAR"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "JUEGO",
+                    children: "JUEGO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "PQT",
+                    children: "PQT"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "MTR",
+                    children: "MTR"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "KG",
+                    children: "KG"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "LTR",
+                    children: "LTR"
+                  })]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+                  className: "form-control",
+                  value: inpInvcategoria,
+                  required: true,
+                  onChange: function onChange(e) {
+                    return setinpInvcategoria(e.target.value);
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "1",
+                    children: "VETERINARIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "2",
+                    children: "TORNILLERIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "3",
+                    children: "TERMOS"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "4",
+                    children: "TELEFONIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "5",
+                    children: "TECNOLOGIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "6",
+                    children: "REPUESTOS"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "7",
+                    children: "REFRIGERACION"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "8",
+                    children: "QUINCALLERIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "9",
+                    children: "PLOMERIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "10",
+                    children: "PLANTAS"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "11",
+                    children: "PINTURA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "12",
+                    children: "PESCA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "13",
+                    children: "PEGAS"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "14",
+                    children: "NAILOS"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "15",
+                    children: "MOTOS"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "16",
+                    children: "MECANICA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "17",
+                    children: "MALLAS"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "18",
+                    children: "LENTES"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "19",
+                    children: "JARDINERIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "20",
+                    children: "INTERNET"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "21",
+                    children: "ILUMINACION>"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "22",
+                    children: "HOGAR"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "23",
+                    children: "HERRERIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "24",
+                    children: "HERRAMIENTAS"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "25",
+                    children: "GRIFERIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "26",
+                    children: "GAS"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "27",
+                    children: "FONTANERIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "28",
+                    children: "ELECTRONICA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "29",
+                    children: "ELECTRODOMESTICO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "30",
+                    children: "ELECTRICIDAD"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "31",
+                    children: "DISCO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "32",
+                    children: "CORDONES"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "33",
+                    children: "CONSTRUCCION"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "34",
+                    children: "CERRADURA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "35",
+                    children: "CERAMICA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "36",
+                    children: "BATERIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "37",
+                    children: "ALAMBRE"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "38",
+                    children: "AGRICOLA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "39",
+                    children: "ACEITES"
+                  })]
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "row",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "col",
+                children: ["Proveedor", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+                  className: "form-control",
+                  required: true,
+                  onChange: function onChange(e) {
+                    return setinpInvid_proveedor(e.target.value);
+                  },
+                  value: inpInvid_proveedor,
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "",
+                    children: "----"
+                  }), proveedoresList.map(function (e) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                      value: e.id,
+                      children: e.descripcion
+                    }, e.id);
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "col",
+                children: ["Dep\xF3sito", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+                  className: "form-control",
+                  required: true,
+                  onChange: function onChange(e) {
+                    return setinpInvid_deposito(e.target.value);
+                  },
+                  value: inpInvid_deposito,
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "",
+                    children: "----"
+                  }), depositosList.map(function (e) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                      value: e.id,
+                      children: e.descripcion
+                    }, e.id);
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "col",
+                children: ["Marca", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                  type: "text",
+                  required: true,
+                  className: "form-control",
+                  onChange: function onChange(e) {
+                    return setinpInvid_marca(e.target.value);
+                  },
+                  value: inpInvid_marca
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "row",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col text-center",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("textarea", {
+                  className: "m-3 h5",
+                  rows: "3",
+                  value: inpInvdescripcion,
+                  onChange: function onChange(e) {
+                    return setinpInvdescripcion(e.target.value);
+                  },
+                  placeholder: "Descripci\xF3n"
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "row",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col text-right",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                  className: "bg-arabito p-2",
+                  children: ["Base. ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                    className: "h1 input-ct",
+                    type: "text",
+                    required: true,
+                    value: inpInvbase,
+                    onChange: function onChange(e) {
+                      return setinpInvbase(number(e.target.value));
+                    },
+                    placeholder: "Base."
+                  })]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                  className: "bg-primary p-2",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                    className: "h1 input-ct",
+                    type: "text",
+                    required: true,
+                    value: inpInvventa,
+                    onChange: function onChange(e) {
+                      return setinpInvventa(number(e.target.value));
+                    },
+                    placeholder: "Venta."
+                  }), " Venta."]
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "row",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col text-center",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  className: "mt-2",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
+                    htmlFor: "",
+                    children: ["IVA % ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                      className: "input-ct",
+                      type: "text",
+                      required: true,
+                      value: inpInviva,
+                      onChange: function onChange(e) {
+                        return setinpInviva(number(e.target.value));
+                      },
+                      placeholder: "Iva."
+                    })]
+                  })
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "row",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col text-center",
+                children: indexSelectInventario == null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                  className: "btn btn-outline-success btn-block",
+                  type: "submit",
+                  children: "Guardar"
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                  className: "btn-group",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                    className: "btn btn-arabito btn-block",
+                    type: "submit",
+                    children: "Editar"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                    className: "btn btn-outline-danger btn-block",
+                    onClick: delProducto,
+                    type: "button",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                      className: "fa fa-times"
+                    })
+                  })]
+                })
+              })
+            })]
+          })
+        }) : null]
+      })]
+    })
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Cargarproducto);
+
+/***/ }),
+
+/***/ "./resources/js/components/facturas.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/facturas.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+function Facturas(_ref) {
+  var facturas = _ref.facturas,
+      factqBuscar = _ref.factqBuscar,
+      setfactqBuscar = _ref.setfactqBuscar,
+      factqBuscarDate = _ref.factqBuscarDate,
+      setfactqBuscarDate = _ref.setfactqBuscarDate,
+      factsubView = _ref.factsubView,
+      setfactsubView = _ref.setfactsubView,
+      factSelectIndex = _ref.factSelectIndex,
+      setfactSelectIndex = _ref.setfactSelectIndex,
+      factOrderBy = _ref.factOrderBy,
+      setfactOrderBy = _ref.setfactOrderBy,
+      factOrderDescAsc = _ref.factOrderDescAsc,
+      setfactOrderDescAsc = _ref.setfactOrderDescAsc,
+      setfactInpdescripcion = _ref.setfactInpdescripcion,
+      factInpdescripcion = _ref.factInpdescripcion,
+      factInpid_proveedor = _ref.factInpid_proveedor,
+      setfactInpid_proveedor = _ref.setfactInpid_proveedor,
+      factInpnumfact = _ref.factInpnumfact,
+      setfactInpnumfact = _ref.setfactInpnumfact,
+      factInpmonto = _ref.factInpmonto,
+      setfactInpmonto = _ref.setfactInpmonto,
+      factInpfechavencimiento = _ref.factInpfechavencimiento,
+      setfactInpfechavencimiento = _ref.setfactInpfechavencimiento,
+      setFactura = _ref.setFactura,
+      proveedoresList = _ref.proveedoresList,
+      number = _ref.number,
+      factInpestatus = _ref.factInpestatus,
+      setfactInpestatus = _ref.setfactInpestatus,
+      delFactura = _ref.delFactura,
+      delItemFact = _ref.delItemFact,
+      moneda = _ref.moneda;
+
+  var setfactOrderByFun = function setfactOrderByFun(val) {
+    if (val == factOrderBy) {
+      if (factOrderDescAsc == "desc") {
+        setfactOrderDescAsc("asc");
+      } else {
+        setfactOrderDescAsc("desc");
+      }
+    } else {
+      setfactOrderBy(val);
+    }
+  };
+
+  var setfactSelectIndexFun = function setfactSelectIndexFun(i, view) {
+    setfactSelectIndex(i);
+    setfactsubView(view);
+
+    if (facturas[i]) {
+      var obj = facturas[i];
+      setfactInpid_proveedor(obj.id_proveedor);
+      setfactInpnumfact(obj.numfact);
+      setfactInpdescripcion(obj.descripcion);
+      setfactInpmonto(obj.monto);
+      setfactInpfechavencimiento(obj.fechavencimiento);
+      setfactInpestatus(obj.estatus);
+    }
+  };
+
+  var setfactSelectIndexFunInv = function setfactSelectIndexFunInv(i) {
+    setfactSelectIndex(i);
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+    className: "container",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", {
+      children: "Facturas"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+      className: "btn-group mb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+        className: "btn " + (factsubView == "buscar" ? "btn-dark" : "btn-outline-arabito"),
+        onClick: function onClick() {
+          return setfactsubView("buscar");
+        },
+        children: "Buscar"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+        className: "btn " + (factsubView == "agregar" ? "btn-dark" : "btn-outline-arabito"),
+        onClick: function onClick() {
+          return setfactsubView("agregar");
+        },
+        children: factSelectIndex == null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+          children: "Agregar"
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+          children: ["Editar", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
+            children: [" ", facturas[factSelectIndex] ? facturas[factSelectIndex].numfact : null]
+          }), "-", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            children: facturas[factSelectIndex] ? facturas[factSelectIndex].proveedor.descripcion : null
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+        className: "btn " + (factsubView == "detalles" ? "btn-dark" : "btn-outline-arabito"),
+        onClick: function onClick() {
+          return setfactsubView("detalles");
+        },
+        children: "Detalles"
+      })]
+    }), factsubView == "buscar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "input-group ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+          type: "text",
+          className: "form-control",
+          placeholder: "Buscar...",
+          value: factqBuscar,
+          onChange: function onChange(e) {
+            return setfactqBuscar(e.target.value);
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+          type: "date",
+          className: "form-control",
+          value: factqBuscarDate,
+          onChange: function onChange(e) {
+            return setfactqBuscarDate(e.target.value);
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "input-group-prepend",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+            className: "btn btn-outline-secondary",
+            type: "button",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+              className: "fa fa-search"
+            })
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "btn-group w-100 mb-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+          className: "pointer btn btn-sm btn-outline-arabito",
+          onClick: function onClick() {
+            return setfactOrderByFun("id");
+          },
+          children: ["ID", factOrderBy == "id" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+            className: factOrderDescAsc == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"
+          }) : null]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+          className: "pointer btn btn-sm btn-outline-arabito",
+          onClick: function onClick() {
+            return setfactOrderByFun("numfact");
+          },
+          children: ["Num.", factOrderBy == "numfact" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+            className: factOrderDescAsc == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"
+          }) : null]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+          className: "pointer btn btn-sm btn-outline-arabito",
+          onClick: function onClick() {
+            return setfactOrderByFun("id_proveedor");
+          },
+          children: ["Provee.", factOrderBy == "id_proveedor" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+            className: factOrderDescAsc == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"
+          }) : null]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+          className: "pointer btn btn-sm btn-outline-arabito",
+          onClick: function onClick() {
+            return setfactOrderByFun("monto");
+          },
+          children: ["Monto", factOrderBy == "monto" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+            className: factOrderDescAsc == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"
+          }) : null]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+          className: "pointer btn btn-sm btn-outline-arabito",
+          onClick: function onClick() {
+            return setfactOrderByFun("estatus");
+          },
+          children: ["Estado", factOrderBy == "estatus" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+            className: factOrderDescAsc == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"
+          }) : null]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+          className: "pointer btn btn-sm btn-outline-arabito",
+          onClick: function onClick() {
+            return setfactOrderByFun("created_at");
+          },
+          children: ["Fecha", factOrderBy == "created_at" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+            className: factOrderDescAsc == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"
+          }) : null]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        children: facturas.map(function (e, i) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            className: "card-pedidos",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "d-flex flex-column w-100",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "text-muted",
+                children: e.created_at
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "d-flex justify-content-between",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+                  onClick: function onClick() {
+                    return setfactSelectIndexFunInv(i);
+                  },
+                  className: "pointer",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                    className: "badge bg-secondary w-100",
+                    children: e.numfact
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
+                  className: "text-muted font-italic text-right",
+                  children: ["Vence: ", e.fechavencimiento]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
+                  children: [e.proveedor.descripcion, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
+                    children: e.descripcion
+                  })]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "d-flex justify-content-between",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                    className: "btn btn-outline-success",
+                    onClick: function onClick() {
+                      return setfactSelectIndexFun(i, "agregar");
+                    },
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                      className: "fa fa-pencil"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                    className: "btn btn-outline-success",
+                    onClick: function onClick() {
+                      return setfactSelectIndexFun(i, "detalles");
+                    },
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                      className: "fa fa-send"
+                    })
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  className: "d-flex justify-content-between",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "btn-group",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                      className: (e.estatus == "1" ? "btn-success" : "btn-danger") + " btn",
+                      children: moneda(e.monto)
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                      className: (e.estatus == "1" ? "btn-success" : "btn-danger") + " btn",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                        className: (e.estatus == "1" ? "fa fa-check" : "fa fa-times") + " text-light"
+                      })
+                    })]
+                  })
+                })]
+              })]
+            })
+          }, e.id);
+        })
+      })]
+    }) : null, factsubView == "agregar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
+      onSubmit: setFactura,
+      children: [factSelectIndex == null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+        children: "Registrar Factura"
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", {
+          children: ["Editar Factura ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+            className: "btn btn-outline-danger",
+            title: "Cancelar",
+            onClick: function onClick() {
+              return setfactSelectIndex(null);
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+              className: "fa fa-times"
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
+          className: "text-right",
+          children: facturas[factSelectIndex] ? facturas[factSelectIndex].numfact : null
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
+          className: "text-right",
+          children: facturas[factSelectIndex] ? facturas[factSelectIndex].proveedor.descripcion : null
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "form-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+          htmlFor: "",
+          children: "Descripci\xF3n"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+          type: "text",
+          value: factInpdescripcion,
+          onChange: function onChange(e) {
+            return setfactInpdescripcion(e.target.value);
+          },
+          className: "form-control"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "form-group",
+        children: ["Proveedor", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setfactInpid_proveedor(e.target.value);
+          },
+          value: factInpid_proveedor,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+            value: "",
+            children: "----"
+          }), proveedoresList.map(function (e) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: e.id,
+              children: e.descripcion
+            }, e.id);
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "form-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+          htmlFor: "",
+          children: "N\xFAmero de Factura"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+          type: "text",
+          value: factInpnumfact,
+          onChange: function onChange(e) {
+            return setfactInpnumfact(e.target.value);
+          },
+          className: "form-control"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "form-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+          htmlFor: "",
+          children: "Monto"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+          type: "text",
+          value: factInpmonto,
+          onChange: function onChange(e) {
+            return setfactInpmonto(number(e.target.value));
+          },
+          className: "form-control"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "form-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+          htmlFor: "",
+          children: "Fecha de Vencimiento"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+          type: "date",
+          value: factInpfechavencimiento,
+          onChange: function onChange(e) {
+            return setfactInpfechavencimiento(e.target.value);
+          },
+          className: "form-control"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "form-group",
+        children: ["Estatus", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setfactInpestatus(e.target.value);
+          },
+          value: factInpestatus,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+            value: "0",
+            children: "No"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+            value: "1",
+            children: "S\xED"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "form-group",
+        children: factSelectIndex == null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          className: "btn btn-outline-success btn-block",
+          type: "submit",
+          children: "Guardar"
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "btn-group",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+            className: "btn btn-arabito btn-block",
+            type: "submit",
+            children: "Editar"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+            className: "btn btn-outline-danger btn-block",
+            onClick: delFactura,
+            type: "button",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+              className: "fa fa-times"
+            })
+          })]
+        })
+      })]
+    }) : null, factsubView == "detalles" ? facturas[factSelectIndex] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+      children: facturas[factSelectIndex].items.map(function (e) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "card-pedidos",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "d-flex flex-column w-100",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
+                children: ["Alterno: ", e.producto.codigo_proveedor, " | Barras: ", e.producto.codigo_barras, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
+                  children: e.producto.descripcion
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "d-flex justify-content-between",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                  className: "fa fa-times text-danger",
+                  "data-id": e.id,
+                  onClick: delItemFact
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "d-flex justify-content-between",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+                  className: "btn btn-arabito",
+                  children: ["Ct. ", e.cantidad]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                  className: "btn-group",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                    className: "btn btn-arabito",
+                    children: e.producto.precio_base
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                    className: "btn btn-success",
+                    children: e.producto.precio
+                  })]
+                })]
+              })]
+            })]
+          })
+        }, e.id);
+      })
+    }) : null : null]
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Facturas);
+
+/***/ }),
+
 /***/ "./resources/js/components/fallas.js":
 /*!*******************************************!*\
   !*** ./resources/js/components/fallas.js ***!
@@ -2342,6 +3424,571 @@ function Header(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/components/inventario.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/inventario.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Inventario)
+/* harmony export */ });
+/* harmony import */ var _components_proveedores__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/proveedores */ "./resources/js/components/proveedores.js");
+/* harmony import */ var _components_cargarproducto__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/cargarproducto */ "./resources/js/components/cargarproducto.js");
+/* harmony import */ var _components_facturas__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/facturas */ "./resources/js/components/facturas.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+function Inventario(_ref) {
+  var productosInventario = _ref.productosInventario,
+      qBuscarInventario = _ref.qBuscarInventario,
+      setQBuscarInventario = _ref.setQBuscarInventario,
+      setIndexSelectInventario = _ref.setIndexSelectInventario,
+      indexSelectInventario = _ref.indexSelectInventario,
+      inputBuscarInventario = _ref.inputBuscarInventario,
+      inpInvbarras = _ref.inpInvbarras,
+      setinpInvbarras = _ref.setinpInvbarras,
+      inpInvcantidad = _ref.inpInvcantidad,
+      setinpInvcantidad = _ref.setinpInvcantidad,
+      inpInvalterno = _ref.inpInvalterno,
+      setinpInvalterno = _ref.setinpInvalterno,
+      inpInvunidad = _ref.inpInvunidad,
+      setinpInvunidad = _ref.setinpInvunidad,
+      inpInvcategoria = _ref.inpInvcategoria,
+      setinpInvcategoria = _ref.setinpInvcategoria,
+      inpInvdescripcion = _ref.inpInvdescripcion,
+      setinpInvdescripcion = _ref.setinpInvdescripcion,
+      inpInvbase = _ref.inpInvbase,
+      setinpInvbase = _ref.setinpInvbase,
+      inpInvventa = _ref.inpInvventa,
+      setinpInvventa = _ref.setinpInvventa,
+      inpInviva = _ref.inpInviva,
+      setinpInviva = _ref.setinpInviva,
+      number = _ref.number,
+      guardarNuevoProducto = _ref.guardarNuevoProducto,
+      setProveedor = _ref.setProveedor,
+      proveedordescripcion = _ref.proveedordescripcion,
+      setproveedordescripcion = _ref.setproveedordescripcion,
+      proveedorrif = _ref.proveedorrif,
+      setproveedorrif = _ref.setproveedorrif,
+      proveedordireccion = _ref.proveedordireccion,
+      setproveedordireccion = _ref.setproveedordireccion,
+      proveedortelefono = _ref.proveedortelefono,
+      setproveedortelefono = _ref.setproveedortelefono,
+      subViewInventario = _ref.subViewInventario,
+      setsubViewInventario = _ref.setsubViewInventario,
+      setIndexSelectProveedores = _ref.setIndexSelectProveedores,
+      indexSelectProveedores = _ref.indexSelectProveedores,
+      qBuscarProveedor = _ref.qBuscarProveedor,
+      setQBuscarProveedor = _ref.setQBuscarProveedor,
+      proveedoresList = _ref.proveedoresList,
+      delProveedor = _ref.delProveedor,
+      delProducto = _ref.delProducto,
+      inpInvid_proveedor = _ref.inpInvid_proveedor,
+      setinpInvid_proveedor = _ref.setinpInvid_proveedor,
+      inpInvid_marca = _ref.inpInvid_marca,
+      setinpInvid_marca = _ref.setinpInvid_marca,
+      inpInvid_deposito = _ref.inpInvid_deposito,
+      setinpInvid_deposito = _ref.setinpInvid_deposito,
+      depositosList = _ref.depositosList,
+      setshowModalFacturas = _ref.setshowModalFacturas,
+      showModalFacturas = _ref.showModalFacturas,
+      facturas = _ref.facturas,
+      factqBuscar = _ref.factqBuscar,
+      setfactqBuscar = _ref.setfactqBuscar,
+      factqBuscarDate = _ref.factqBuscarDate,
+      setfactqBuscarDate = _ref.setfactqBuscarDate,
+      factsubView = _ref.factsubView,
+      setfactsubView = _ref.setfactsubView,
+      factSelectIndex = _ref.factSelectIndex,
+      setfactSelectIndex = _ref.setfactSelectIndex,
+      factOrderBy = _ref.factOrderBy,
+      setfactOrderBy = _ref.setfactOrderBy,
+      factOrderDescAsc = _ref.factOrderDescAsc,
+      setfactOrderDescAsc = _ref.setfactOrderDescAsc,
+      factInpid_proveedor = _ref.factInpid_proveedor,
+      setfactInpid_proveedor = _ref.setfactInpid_proveedor,
+      factInpnumfact = _ref.factInpnumfact,
+      setfactInpnumfact = _ref.setfactInpnumfact,
+      factInpdescripcion = _ref.factInpdescripcion,
+      setfactInpdescripcion = _ref.setfactInpdescripcion,
+      factInpmonto = _ref.factInpmonto,
+      setfactInpmonto = _ref.setfactInpmonto,
+      factInpfechavencimiento = _ref.factInpfechavencimiento,
+      setfactInpfechavencimiento = _ref.setfactInpfechavencimiento,
+      setFactura = _ref.setFactura,
+      factInpestatus = _ref.factInpestatus,
+      setfactInpestatus = _ref.setfactInpestatus,
+      delFactura = _ref.delFactura,
+      Invnum = _ref.Invnum,
+      setInvnum = _ref.setInvnum,
+      InvorderColumn = _ref.InvorderColumn,
+      setInvorderColumn = _ref.setInvorderColumn,
+      InvorderBy = _ref.InvorderBy,
+      setInvorderBy = _ref.setInvorderBy,
+      delItemFact = _ref.delItemFact,
+      subviewProveedores = _ref.subviewProveedores,
+      setsubviewProveedores = _ref.setsubviewProveedores,
+      subviewCargarProductos = _ref.subviewCargarProductos,
+      setsubviewCargarProductos = _ref.setsubviewCargarProductos,
+      moneda = _ref.moneda;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "container",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "row",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "col",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "btn-group mb-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "btn btn-sm " + (subViewInventario == "facturas" ? "btn-dark" : "btn-outline-arabito"),
+              onClick: function onClick() {
+                return setsubViewInventario("facturas");
+              },
+              children: "Facturas"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "btn btn-sm " + (subViewInventario == "proveedores" ? "btn-dark" : "btn-outline-arabito"),
+              onClick: function onClick() {
+                return setsubViewInventario("proveedores");
+              },
+              children: "Proveedores"
+            }), factSelectIndex !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "btn btn-sm " + (subViewInventario == "inventario" ? "btn-dark" : "btn-outline-arabito"),
+              onClick: function onClick() {
+                return setsubViewInventario("inventario");
+              },
+              children: "Inventario"
+            }) : null]
+          })
+        }), factSelectIndex == null ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "col shadow ",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "card-pedido mt-3",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
+              className: "text-right d-flex align-items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                className: "badge bg-secondary pointer",
+                onClick: function onClick() {
+                  return setfactSelectIndex(null);
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: "fa fa-arrow-left"
+                }), " ", facturas[factSelectIndex] ? facturas[factSelectIndex].numfact : null]
+              }), facturas[factSelectIndex] ? facturas[factSelectIndex].proveedor.descripcion : null]
+            })
+          })
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {}), subViewInventario == "facturas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_facturas__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      facturas: facturas,
+      factqBuscar: factqBuscar,
+      setfactqBuscar: setfactqBuscar,
+      factqBuscarDate: factqBuscarDate,
+      setfactqBuscarDate: setfactqBuscarDate,
+      factsubView: factsubView,
+      setfactsubView: setfactsubView,
+      factSelectIndex: factSelectIndex,
+      setfactSelectIndex: setfactSelectIndex,
+      factOrderBy: factOrderBy,
+      setfactOrderBy: setfactOrderBy,
+      factOrderDescAsc: factOrderDescAsc,
+      setfactOrderDescAsc: setfactOrderDescAsc,
+      factInpid_proveedor: factInpid_proveedor,
+      setfactInpid_proveedor: setfactInpid_proveedor,
+      factInpnumfact: factInpnumfact,
+      setfactInpnumfact: setfactInpnumfact,
+      factInpdescripcion: factInpdescripcion,
+      setfactInpdescripcion: setfactInpdescripcion,
+      factInpmonto: factInpmonto,
+      setfactInpmonto: setfactInpmonto,
+      factInpfechavencimiento: factInpfechavencimiento,
+      setfactInpfechavencimiento: setfactInpfechavencimiento,
+      setFactura: setFactura,
+      proveedoresList: proveedoresList,
+      number: number,
+      factInpestatus: factInpestatus,
+      setfactInpestatus: setfactInpestatus,
+      delFactura: delFactura,
+      delItemFact: delItemFact,
+      moneda: moneda
+    }) : null, factSelectIndex !== null ? subViewInventario == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_cargarproducto__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      productosInventario: productosInventario,
+      qBuscarInventario: qBuscarInventario,
+      setQBuscarInventario: setQBuscarInventario,
+      setIndexSelectInventario: setIndexSelectInventario,
+      indexSelectInventario: indexSelectInventario,
+      inputBuscarInventario: inputBuscarInventario,
+      inpInvbarras: inpInvbarras,
+      setinpInvbarras: setinpInvbarras,
+      inpInvcantidad: inpInvcantidad,
+      setinpInvcantidad: setinpInvcantidad,
+      inpInvalterno: inpInvalterno,
+      setinpInvalterno: setinpInvalterno,
+      inpInvunidad: inpInvunidad,
+      setinpInvunidad: setinpInvunidad,
+      inpInvcategoria: inpInvcategoria,
+      setinpInvcategoria: setinpInvcategoria,
+      inpInvdescripcion: inpInvdescripcion,
+      setinpInvdescripcion: setinpInvdescripcion,
+      inpInvbase: inpInvbase,
+      setinpInvbase: setinpInvbase,
+      inpInvventa: inpInvventa,
+      setinpInvventa: setinpInvventa,
+      inpInviva: inpInviva,
+      setinpInviva: setinpInviva,
+      number: number,
+      guardarNuevoProducto: guardarNuevoProducto,
+      setProveedor: setProveedor,
+      proveedordescripcion: proveedordescripcion,
+      setproveedordescripcion: setproveedordescripcion,
+      proveedorrif: proveedorrif,
+      setproveedorrif: setproveedorrif,
+      proveedordireccion: proveedordireccion,
+      setproveedordireccion: setproveedordireccion,
+      proveedortelefono: proveedortelefono,
+      setproveedortelefono: setproveedortelefono,
+      subViewInventario: subViewInventario,
+      setsubViewInventario: setsubViewInventario,
+      setIndexSelectProveedores: setIndexSelectProveedores,
+      indexSelectProveedores: indexSelectProveedores,
+      qBuscarProveedor: qBuscarProveedor,
+      setQBuscarProveedor: setQBuscarProveedor,
+      proveedoresList: proveedoresList,
+      delProveedor: delProveedor,
+      delProducto: delProducto,
+      inpInvid_proveedor: inpInvid_proveedor,
+      setinpInvid_proveedor: setinpInvid_proveedor,
+      inpInvid_marca: inpInvid_marca,
+      setinpInvid_marca: setinpInvid_marca,
+      inpInvid_deposito: inpInvid_deposito,
+      setinpInvid_deposito: setinpInvid_deposito,
+      depositosList: depositosList,
+      Invnum: Invnum,
+      setInvnum: setInvnum,
+      InvorderColumn: InvorderColumn,
+      setInvorderColumn: setInvorderColumn,
+      InvorderBy: InvorderBy,
+      setInvorderBy: setInvorderBy,
+      subviewCargarProductos: subviewCargarProductos,
+      setsubviewCargarProductos: setsubviewCargarProductos
+    }) : null : null, subViewInventario == "proveedores" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_proveedores__WEBPACK_IMPORTED_MODULE_0__["default"], {
+      number: number,
+      setProveedor: setProveedor,
+      proveedordescripcion: proveedordescripcion,
+      setproveedordescripcion: setproveedordescripcion,
+      proveedorrif: proveedorrif,
+      setproveedorrif: setproveedorrif,
+      proveedordireccion: proveedordireccion,
+      setproveedordireccion: setproveedordireccion,
+      proveedortelefono: proveedortelefono,
+      setproveedortelefono: setproveedortelefono,
+      subViewInventario: subViewInventario,
+      setsubViewInventario: setsubViewInventario,
+      setIndexSelectProveedores: setIndexSelectProveedores,
+      indexSelectProveedores: indexSelectProveedores,
+      qBuscarProveedor: qBuscarProveedor,
+      setQBuscarProveedor: setQBuscarProveedor,
+      proveedoresList: proveedoresList,
+      delProveedor: delProveedor,
+      delProducto: delProducto,
+      inpInvid_proveedor: inpInvid_proveedor,
+      setinpInvid_proveedor: setinpInvid_proveedor,
+      inpInvid_marca: inpInvid_marca,
+      setinpInvid_marca: setinpInvid_marca,
+      inpInvid_deposito: inpInvid_deposito,
+      setinpInvid_deposito: setinpInvid_deposito,
+      depositosList: depositosList,
+      subviewProveedores: subviewProveedores,
+      setsubviewProveedores: setsubviewProveedores
+    }) : null]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/notificacion.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/notificacion.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+function Notificacion(_ref) {
+  var msj = _ref.msj,
+      notificar = _ref.notificar;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+    className: "notificacion",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h5", {
+      children: ["Notificaci\xF3n: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+        className: "fa fa-times",
+        onClick: function onClick() {
+          return notificar("");
+        }
+      })]
+    }), msj]
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Notificacion);
+
+/***/ }),
+
+/***/ "./resources/js/components/proveedores.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/proveedores.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+function Proveedores(_ref) {
+  var number = _ref.number,
+      setProveedor = _ref.setProveedor,
+      proveedordescripcion = _ref.proveedordescripcion,
+      setproveedordescripcion = _ref.setproveedordescripcion,
+      proveedorrif = _ref.proveedorrif,
+      setproveedorrif = _ref.setproveedorrif,
+      proveedordireccion = _ref.proveedordireccion,
+      setproveedordireccion = _ref.setproveedordireccion,
+      proveedortelefono = _ref.proveedortelefono,
+      setproveedortelefono = _ref.setproveedortelefono,
+      subViewInventario = _ref.subViewInventario,
+      setsubViewInventario = _ref.setsubViewInventario,
+      setIndexSelectProveedores = _ref.setIndexSelectProveedores,
+      indexSelectProveedores = _ref.indexSelectProveedores,
+      qBuscarProveedor = _ref.qBuscarProveedor,
+      setQBuscarProveedor = _ref.setQBuscarProveedor,
+      proveedoresList = _ref.proveedoresList,
+      delProveedor = _ref.delProveedor,
+      delProducto = _ref.delProducto,
+      inpInvid_proveedor = _ref.inpInvid_proveedor,
+      setinpInvid_proveedor = _ref.setinpInvid_proveedor,
+      inpInvid_marca = _ref.inpInvid_marca,
+      setinpInvid_marca = _ref.setinpInvid_marca,
+      inpInvid_deposito = _ref.inpInvid_deposito,
+      setinpInvid_deposito = _ref.setinpInvid_deposito,
+      subviewProveedores = _ref.subviewProveedores,
+      setsubviewProveedores = _ref.setsubviewProveedores;
+
+  var setIndexSelectProveedoresFun = function setIndexSelectProveedoresFun(e) {
+    var index = e.currentTarget.attributes["data-index"].value;
+
+    if (index == indexSelectProveedores) {
+      setIndexSelectProveedores(null);
+    } else {
+      setIndexSelectProveedores(index);
+      setsubviewProveedores("editar");
+    }
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+      className: "container",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "btn-group w-100",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          className: "btn " + (subviewProveedores == "buscar" ? "btn-dark" : "btn-outline-arabito"),
+          onClick: function onClick() {
+            return setsubviewProveedores("buscar");
+          },
+          children: "Buscar"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          className: "btn " + (subviewProveedores == "editar" ? "btn-dark" : "btn-outline-arabito"),
+          onClick: function onClick() {
+            return setsubviewProveedores("editar");
+          },
+          children: indexSelectProveedores == null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            children: "Crear"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+            children: ["Editar", indexSelectProveedores != null ? proveedoresList[indexSelectProveedores] ? "-" + proveedoresList[indexSelectProveedores].descripcion.substr(0, 10) + "..." : null : null]
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "row",
+        children: [subviewProveedores == "buscar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            className: "",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "input-group ",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                type: "text",
+                className: "form-control",
+                placeholder: "Buscar...",
+                value: qBuscarProveedor,
+                onChange: function onChange(e) {
+                  return setQBuscarProveedor(e.target.value);
+                }
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "input-group-prepend",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                  className: "btn btn-outline-secondary",
+                  type: "button",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                    className: "fa fa-search"
+                  })
+                })
+              })]
+            })
+          }), proveedoresList.length ? proveedoresList.map(function (e, i) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              onClick: setIndexSelectProveedoresFun,
+              "data-index": i,
+              className: (indexSelectProveedores == i ? "bg-arabito" : "bg-light text-secondary") + " card mt-2 pointer",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "card-header flex-row row justify-content-between",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("small", {
+                    children: ["ID.", e.id]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                  className: "d-flex justify-content-between",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      children: e.rif
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      className: "",
+                      children: e.telefono
+                    })
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "card-body",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  className: "/personal/vermas",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h5", {
+                    className: "card-title",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
+                      children: e.descripcion
+                    })
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+                  className: "card-text"
+                })]
+              })]
+            }, e.id);
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            className: "h3 text-center text-dark mt-2",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+              children: "\xA1Sin resultados!"
+            })
+          })]
+        }) : null, subviewProveedores == "editar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "col",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
+            onSubmit: setProveedor,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+              children: "Registrar Proveedores"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                htmlFor: "",
+                children: "Descripci\xF3n"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                type: "text",
+                value: proveedordescripcion,
+                onChange: function onChange(e) {
+                  return setproveedordescripcion(e.target.value);
+                },
+                className: "form-control"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                htmlFor: "",
+                children: "RIF"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                type: "text",
+                value: proveedorrif,
+                onChange: function onChange(e) {
+                  return setproveedorrif(e.target.value);
+                },
+                className: "form-control"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                htmlFor: "",
+                children: "Direcci\xF3n"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                type: "text",
+                value: proveedordireccion,
+                onChange: function onChange(e) {
+                  return setproveedordireccion(e.target.value);
+                },
+                className: "form-control"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                htmlFor: "",
+                children: "Tel\xE9fono"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                type: "text",
+                value: proveedortelefono,
+                onChange: function onChange(e) {
+                  return setproveedortelefono(e.target.value);
+                },
+                className: "form-control"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "form-group",
+              children: indexSelectProveedores == null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                className: "btn btn-outline-success btn-block",
+                type: "submit",
+                children: "Guardar"
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "btn-group",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                  className: "btn btn-arabito btn-block",
+                  type: "submit",
+                  children: "Editar"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                  className: "btn btn-outline-danger btn-block",
+                  onClick: delProveedor,
+                  type: "button",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                    className: "fa fa-times"
+                  })
+                })]
+              })
+            })]
+          })
+        }) : null]
+      })]
+    })
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Proveedores);
+
+/***/ }),
+
 /***/ "./resources/js/components/selectSucursal.js":
 /*!***************************************************!*\
   !*** ./resources/js/components/selectSucursal.js ***!
@@ -2555,38 +4202,70 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+var _db;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
  // import '../css/loading.css';
 
 var host = ""; // const host = "http://localhost/arabitoapp"
 
-var db = {
+var db = (_db = {
   getSucursales: function getSucursales(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "/getSucursales", {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "getSucursales", {
       params: data
     });
   },
   getFallas: function getFallas(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "/getFallas", {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "getFallas", {
       params: data
     });
   },
   getGastos: function getGastos(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "/getGastos", {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "getGastos", {
       params: data
     });
   },
   getVentas: function getVentas(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "/getVentas", {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "getVentas", {
       params: data
     });
   },
   today: function today(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "/today", {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "today", {
       params: data
     });
   }
-};
+}, _defineProperty(_db, "today", function today(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "today", {
+    params: data
+  });
+}), _defineProperty(_db, "getinventario", function getinventario(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getinventario", data);
+}), _defineProperty(_db, "guardarNuevoProducto", function guardarNuevoProducto(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "guardarNuevoProducto", data);
+}), _defineProperty(_db, "delProducto", function delProducto(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "delProducto", data);
+}), _defineProperty(_db, "setProveedor", function setProveedor(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "setProveedor", data);
+}), _defineProperty(_db, "delProveedor", function delProveedor(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "delProveedor", data);
+}), _defineProperty(_db, "getProveedores", function getProveedores(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getProveedores", data);
+}), _defineProperty(_db, "getMarcas", function getMarcas(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getMarcas", data);
+}), _defineProperty(_db, "getDepositos", function getDepositos(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getDepositos", data);
+}), _defineProperty(_db, "setFactura", function setFactura(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "setFactura", data);
+}), _defineProperty(_db, "getFacturas", function getFacturas(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getFacturas", data);
+}), _defineProperty(_db, "delFactura", function delFactura(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "delFactura", data);
+}), _defineProperty(_db, "delItemFact", function delItemFact(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "delItemFact", data);
+}), _db);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (db);
 
 /***/ }),
@@ -34659,9 +36338,9 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
-/*!***********************************************!*\
-  !*** ./resources/js/components/inventario.js ***!
-  \***********************************************/
+/*!*****************************************!*\
+  !*** ./resources/js/components/home.js ***!
+  \*****************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_hotkeys_hook__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-hotkeys-hook */ "./node_modules/react-hotkeys-hook/dist/react-hotkeys-hook.esm.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -34672,8 +36351,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fallas__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./fallas */ "./resources/js/components/fallas.js");
 /* harmony import */ var _ventas__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ventas */ "./resources/js/components/ventas.js");
 /* harmony import */ var _gastos__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./gastos */ "./resources/js/components/gastos.js");
-/* harmony import */ var _toplabel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./toplabel */ "./resources/js/components/toplabel.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _inventario__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./inventario */ "./resources/js/components/inventario.js");
+/* harmony import */ var _components_notificacion__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/notificacion */ "./resources/js/components/notificacion.js");
+/* harmony import */ var _components_cargando__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/cargando */ "./resources/js/components/cargando.js");
+/* harmony import */ var _toplabel__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./toplabel */ "./resources/js/components/toplabel.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -34700,67 +36382,405 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
 function Home() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
-      view = _useState2[0],
-      setView = _useState2[1];
+      msj = _useState2[0],
+      setMsj = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
-      loading = _useState4[0],
-      setLoading = _useState4[1];
+      view = _useState4[0],
+      setView = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState6 = _slicedToArray(_useState5, 2),
-      sucursales = _useState6[0],
-      setsucursales = _useState6[1];
+      loading = _useState6[0],
+      setLoading = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState8 = _slicedToArray(_useState7, 2),
-      sucursalSelect = _useState8[0],
-      setsucursalSelect = _useState8[1];
+      sucursales = _useState8[0],
+      setsucursales = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
       _useState10 = _slicedToArray(_useState9, 2),
-      fallas = _useState10[0],
-      setfallas = _useState10[1];
+      sucursalSelect = _useState10[0],
+      setsucursalSelect = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      gastos = _useState12[0],
-      setgastos = _useState12[1];
+      fallas = _useState12[0],
+      setfallas = _useState12[1];
 
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState14 = _slicedToArray(_useState13, 2),
-      ventas = _useState14[0],
-      setventas = _useState14[1];
+      gastos = _useState14[0],
+      setgastos = _useState14[1];
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("*"),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState16 = _slicedToArray(_useState15, 2),
-      selectgastos = _useState16[0],
-      setselectgastos = _useState16[1];
+      ventas = _useState16[0],
+      setventas = _useState16[1];
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("*"),
       _useState18 = _slicedToArray(_useState17, 2),
-      fechaGastos = _useState18[0],
-      setfechaGastos = _useState18[1];
+      selectgastos = _useState18[0],
+      setselectgastos = _useState18[1];
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(1),
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState20 = _slicedToArray(_useState19, 2),
-      tipogasto = _useState20[0],
-      settipogasto = _useState20[1];
+      fechaGastos = _useState20[0],
+      setfechaGastos = _useState20[1];
 
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(1),
       _useState22 = _slicedToArray(_useState21, 2),
-      selectfechaventa = _useState22[0],
-      setselectfechaventa = _useState22[1];
+      tipogasto = _useState22[0],
+      settipogasto = _useState22[1];
+
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState24 = _slicedToArray(_useState23, 2),
+      selectfechaventa = _useState24[0],
+      setselectfechaventa = _useState24[1]; ///////////Inventario
+
+
+  var inputBuscarInventario = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState26 = _slicedToArray(_useState25, 2),
+      productosInventario = _useState26[0],
+      setProductosInventario = _useState26[1];
+
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState28 = _slicedToArray(_useState27, 2),
+      qBuscarInventario = _useState28[0],
+      setQBuscarInventario = _useState28[1];
+
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+      _useState30 = _slicedToArray(_useState29, 2),
+      indexSelectInventario = _useState30[0],
+      setIndexSelectInventario = _useState30[1];
+
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState32 = _slicedToArray(_useState31, 2),
+      inpInvbarras = _useState32[0],
+      setinpInvbarras = _useState32[1];
+
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState34 = _slicedToArray(_useState33, 2),
+      inpInvcantidad = _useState34[0],
+      setinpInvcantidad = _useState34[1];
+
+  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState36 = _slicedToArray(_useState35, 2),
+      inpInvalterno = _useState36[0],
+      setinpInvalterno = _useState36[1];
+
+  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("UND"),
+      _useState38 = _slicedToArray(_useState37, 2),
+      inpInvunidad = _useState38[0],
+      setinpInvunidad = _useState38[1];
+
+  var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("24"),
+      _useState40 = _slicedToArray(_useState39, 2),
+      inpInvcategoria = _useState40[0],
+      setinpInvcategoria = _useState40[1];
+
+  var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState42 = _slicedToArray(_useState41, 2),
+      inpInvdescripcion = _useState42[0],
+      setinpInvdescripcion = _useState42[1];
+
+  var _useState43 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState44 = _slicedToArray(_useState43, 2),
+      inpInvbase = _useState44[0],
+      setinpInvbase = _useState44[1];
+
+  var _useState45 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState46 = _slicedToArray(_useState45, 2),
+      inpInvventa = _useState46[0],
+      setinpInvventa = _useState46[1];
+
+  var _useState47 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("0"),
+      _useState48 = _slicedToArray(_useState47, 2),
+      inpInviva = _useState48[0],
+      setinpInviva = _useState48[1];
+
+  var _useState49 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState50 = _slicedToArray(_useState49, 2),
+      inpInvid_proveedor = _useState50[0],
+      setinpInvid_proveedor = _useState50[1];
+
+  var _useState51 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState52 = _slicedToArray(_useState51, 2),
+      inpInvid_marca = _useState52[0],
+      setinpInvid_marca = _useState52[1];
+
+  var _useState53 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState54 = _slicedToArray(_useState53, 2),
+      inpInvid_deposito = _useState54[0],
+      setinpInvid_deposito = _useState54[1];
+
+  var _useState55 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+      _useState56 = _slicedToArray(_useState55, 2),
+      inpInvporcentaje_ganancia = _useState56[0],
+      setinpInvporcentaje_ganancia = _useState56[1];
+
+  var _useState57 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState58 = _slicedToArray(_useState57, 2),
+      proveedordescripcion = _useState58[0],
+      setproveedordescripcion = _useState58[1];
+
+  var _useState59 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState60 = _slicedToArray(_useState59, 2),
+      proveedorrif = _useState60[0],
+      setproveedorrif = _useState60[1];
+
+  var _useState61 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState62 = _slicedToArray(_useState61, 2),
+      proveedordireccion = _useState62[0],
+      setproveedordireccion = _useState62[1];
+
+  var _useState63 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState64 = _slicedToArray(_useState63, 2),
+      proveedortelefono = _useState64[0],
+      setproveedortelefono = _useState64[1];
+
+  var _useState65 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("inventario"),
+      _useState66 = _slicedToArray(_useState65, 2),
+      subViewInventario = _useState66[0],
+      setsubViewInventario = _useState66[1];
+
+  var _useState67 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+      _useState68 = _slicedToArray(_useState67, 2),
+      indexSelectProveedores = _useState68[0],
+      setIndexSelectProveedores = _useState68[1];
+
+  var _useState69 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState70 = _slicedToArray(_useState69, 2),
+      qBuscarProveedor = _useState70[0],
+      setQBuscarProveedor = _useState70[1];
+
+  var _useState71 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState72 = _slicedToArray(_useState71, 2),
+      proveedoresList = _useState72[0],
+      setProveedoresList = _useState72[1];
+
+  var _useState73 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState74 = _slicedToArray(_useState73, 2),
+      depositosList = _useState74[0],
+      setdepositosList = _useState74[1];
+
+  var _useState75 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState76 = _slicedToArray(_useState75, 2),
+      facturas = _useState76[0],
+      setfacturas = _useState76[1];
+
+  var _useState77 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState78 = _slicedToArray(_useState77, 2),
+      factqBuscar = _useState78[0],
+      setfactqBuscar = _useState78[1];
+
+  var _useState79 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState80 = _slicedToArray(_useState79, 2),
+      factqBuscarDate = _useState80[0],
+      setfactqBuscarDate = _useState80[1];
+
+  var _useState81 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("id"),
+      _useState82 = _slicedToArray(_useState81, 2),
+      factOrderBy = _useState82[0],
+      setfactOrderBy = _useState82[1];
+
+  var _useState83 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
+      _useState84 = _slicedToArray(_useState83, 2),
+      factOrderDescAsc = _useState84[0],
+      setfactOrderDescAsc = _useState84[1];
+
+  var _useState85 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("buscar"),
+      _useState86 = _slicedToArray(_useState85, 2),
+      factsubView = _useState86[0],
+      setfactsubView = _useState86[1];
+
+  var _useState87 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+      _useState88 = _slicedToArray(_useState87, 2),
+      factSelectIndex = _useState88[0],
+      setfactSelectIndex = _useState88[1];
+
+  var _useState89 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState90 = _slicedToArray(_useState89, 2),
+      factInpid_proveedor = _useState90[0],
+      setfactInpid_proveedor = _useState90[1];
+
+  var _useState91 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState92 = _slicedToArray(_useState91, 2),
+      factInpnumfact = _useState92[0],
+      setfactInpnumfact = _useState92[1];
+
+  var _useState93 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState94 = _slicedToArray(_useState93, 2),
+      factInpdescripcion = _useState94[0],
+      setfactInpdescripcion = _useState94[1];
+
+  var _useState95 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState96 = _slicedToArray(_useState95, 2),
+      factInpmonto = _useState96[0],
+      setfactInpmonto = _useState96[1];
+
+  var _useState97 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState98 = _slicedToArray(_useState97, 2),
+      factInpfechavencimiento = _useState98[0],
+      setfactInpfechavencimiento = _useState98[1];
+
+  var _useState99 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+      _useState100 = _slicedToArray(_useState99, 2),
+      factInpestatus = _useState100[0],
+      setfactInpestatus = _useState100[1];
+
+  var _useState101 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(25),
+      _useState102 = _slicedToArray(_useState101, 2),
+      Invnum = _useState102[0],
+      setInvnum = _useState102[1];
+
+  var _useState103 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("id"),
+      _useState104 = _slicedToArray(_useState103, 2),
+      InvorderColumn = _useState104[0],
+      setInvorderColumn = _useState104[1];
+
+  var _useState105 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
+      _useState106 = _slicedToArray(_useState105, 2),
+      InvorderBy = _useState106[0],
+      setInvorderBy = _useState106[1];
+
+  var _useState107 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("buscar"),
+      _useState108 = _slicedToArray(_useState107, 2),
+      subviewProveedores = _useState108[0],
+      setsubviewProveedores = _useState108[1];
+
+  var _useState109 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("buscar"),
+      _useState110 = _slicedToArray(_useState109, 2),
+      subviewCargarProductos = _useState110[0],
+      setsubviewCargarProductos = _useState110[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    getToday();
+    getSucursales();
+    getProveedores();
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    getVentas();
+  }, [selectfechaventa]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    getGastos();
+  }, [fechaGastos]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    getFacturas();
+  }, [factqBuscar, factqBuscarDate, factOrderBy, factOrderDescAsc]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    buscarInventario();
+  }, [Invnum, InvorderColumn, InvorderBy, qBuscarInventario]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    setInputsInventario();
+  }, [indexSelectInventario]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (view == "fallas") {
+      getFallas();
+    } else if (view == "gastos") {
+      getGastos();
+    } else if (view == "ventas") {
+      getVentas();
+    }
+  }, [view]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    setInputsProveedores();
+  }, [indexSelectProveedores]);
+
+  var moneda = function moneda(value) {
+    var decimals = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+    var separators = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['.', ".", ','];
+    decimals = decimals >= 0 ? parseInt(decimals, 0) : 2;
+    separators = separators || ['.', "'", ','];
+    var number = (parseFloat(value) || 0).toFixed(decimals);
+    if (number.length <= 4 + decimals) return number.replace('.', separators[separators.length - 1]);
+    var parts = number.split(/[-.]/);
+    value = parts[parts.length > 1 ? parts.length - 2 : 0];
+    var result = value.substr(value.length - 3, 3) + (parts.length > 1 ? separators[separators.length - 1] + parts[parts.length - 1] : '');
+    var start = value.length - 6;
+    var idx = 0;
+
+    while (start > -3) {
+      result = (start > 0 ? value.substr(start, 3) : value.substr(0, 3 + start)) + separators[idx] + result;
+      idx = ++idx % 2;
+      start -= 3;
+    }
+
+    return (parts.length == 3 ? '-' : '') + result;
+  };
+
+  var number = function number(val) {
+    if (val == "") return "";
+    return val.replace(/[^\d|\.]+/g, '');
+  };
+
+  var notificar = function notificar(msj) {
+    var fixed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+    if (fixed) {
+      setTimeout(function () {
+        setMsj("");
+      }, 3000);
+    }
+
+    if (msj == "") {
+      setMsj("");
+    } else {
+      if (msj.data) {
+        if (msj.data.msj) {
+          setMsj(msj.data.msj);
+        } else {
+          setMsj(JSON.stringify(msj.data));
+        }
+      }
+    }
+  }; ///////////Inventario
+
+
+  var setInputsProveedores = function setInputsProveedores() {
+    if (proveedoresList[indexSelectProveedores]) {
+      var obj = proveedoresList[indexSelectProveedores];
+      setproveedordescripcion(obj.descripcion);
+      setproveedorrif(obj.rif);
+      setproveedordireccion(obj.direccion);
+      setproveedortelefono(obj.telefono);
+    }
+  };
+
+  var setInputsInventario = function setInputsInventario() {
+    if (productosInventario[indexSelectInventario]) {
+      var obj = productosInventario[indexSelectInventario];
+      setinpInvbarras(obj.codigo_barras);
+      setinpInvcantidad(obj.cantidad);
+      setinpInvalterno(obj.codigo_proveedor);
+      setinpInvunidad(obj.unidad);
+      setinpInvdescripcion(obj.descripcion);
+      setinpInvbase(obj.precio_base);
+      setinpInvventa(obj.precio);
+      setinpInviva(obj.iva);
+      setinpInvcategoria(obj.id_categoria);
+      setinpInvid_proveedor(obj.id_proveedor);
+      setinpInvid_marca(obj.id_marca);
+      setinpInvid_deposito(obj.id_deposito);
+    }
+  };
 
   var getToday = function getToday() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].today({}).then(function (res) {
       var today = res.data;
       setfechaGastos(today);
       setselectfechaventa(today);
+      setfactqBuscarDate(today);
     });
   };
 
@@ -34825,67 +36845,294 @@ function Home() {
     }
   };
 
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    getToday();
-    getSucursales();
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    getVentas();
-  }, [selectfechaventa]);
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    getGastos();
-  }, [fechaGastos]);
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    if (view == "fallas") {
-      getFallas();
-    } else if (view == "gastos") {
-      getGastos();
-    } else if (view == "ventas") {
-      getVentas();
-    }
-  }, [view]);
+  var buscarInventario = function buscarInventario(e) {
+    setLoading(true);
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getinventario({
+      num: Invnum,
+      itemCero: true,
+      qProductosMain: qBuscarInventario,
+      orderColumn: InvorderColumn,
+      orderBy: InvorderBy
+    }).then(function (res) {
+      setProductosInventario(res.data);
+      setLoading(false);
+      setIndexSelectInventario(null);
 
-  var moneda = function moneda(value) {
-    var decimals = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-    var separators = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['.', ".", ','];
-    decimals = decimals >= 0 ? parseInt(decimals, 0) : 2;
-    separators = separators || ['.', "'", ','];
-    var number = (parseFloat(value) || 0).toFixed(decimals);
-    if (number.length <= 4 + decimals) return number.replace('.', separators[separators.length - 1]);
-    var parts = number.split(/[-.]/);
-    value = parts[parts.length > 1 ? parts.length - 2 : 0];
-    var result = value.substr(value.length - 3, 3) + (parts.length > 1 ? separators[separators.length - 1] + parts[parts.length - 1] : '');
-    var start = value.length - 6;
-    var idx = 0;
-
-    while (start > -3) {
-      result = (start > 0 ? value.substr(start, 3) : value.substr(0, 3 + start)) + separators[idx] + result;
-      idx = ++idx % 2;
-      start -= 3;
-    }
-
-    return (parts.length == 3 ? '-' : '') + result;
+      if (res.data.length === 1) {
+        setIndexSelectInventario(0);
+      } else if (res.data.length == 0) {
+        setinpInvbarras(qBuscarInventario);
+      }
+    });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  var guardarNuevoProducto = function guardarNuevoProducto(e) {
+    e.preventDefault();
+    setLoading(true);
+    var id = null;
+
+    if (indexSelectInventario != null) {
+      if (productosInventario[indexSelectInventario]) {
+        id = productosInventario[indexSelectInventario].id;
+      }
+    }
+
+    var id_factura = null;
+
+    if (factSelectIndex != null) {
+      if (facturas[factSelectIndex]) {
+        id_factura = facturas[factSelectIndex].id;
+      }
+    }
+
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].guardarNuevoProducto({
+      id: id,
+      inpInvbarras: inpInvbarras,
+      inpInvcantidad: inpInvcantidad,
+      inpInvalterno: inpInvalterno,
+      inpInvunidad: inpInvunidad,
+      inpInvcategoria: inpInvcategoria,
+      inpInvdescripcion: inpInvdescripcion,
+      inpInvbase: inpInvbase,
+      inpInvventa: inpInvventa,
+      inpInviva: inpInviva,
+      inpInvid_proveedor: inpInvid_proveedor,
+      inpInvid_marca: inpInvid_marca,
+      inpInvid_deposito: inpInvid_deposito,
+      inpInvporcentaje_ganancia: inpInvporcentaje_ganancia,
+      id_factura: id_factura
+    }).then(function (res) {
+      notificar(res);
+      buscarInventario();
+      getFacturas(null);
+      setLoading(false);
+
+      if (res.data.estado) {
+        setinpInvbarras("");
+        setinpInvcantidad("");
+        setinpInvalterno("");
+        setinpInvunidad("UND");
+        setinpInvcategoria("24");
+        setinpInvdescripcion("");
+        setinpInvbase("");
+        setinpInvventa("");
+        setinpInviva("");
+        setinpInvid_marca("");
+      }
+    });
+  };
+
+  var delProducto = function delProducto(e) {
+    var id;
+
+    if (indexSelectInventario != null) {
+      if (productosInventario[indexSelectInventario]) {
+        id = productosInventario[indexSelectInventario].id;
+      }
+    }
+
+    if (confirm("¿Desea Eliminar?")) {
+      setLoading(true);
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delProducto({
+        id: id
+      }).then(function (res) {
+        setLoading(false);
+        buscarInventario();
+        notificar(res);
+
+        if (res.data.estado) {
+          setIndexSelectInventario(null);
+        }
+      });
+    }
+  };
+
+  var setProveedor = function setProveedor(e) {
+    setLoading(true);
+    e.preventDefault();
+    var id = null;
+
+    if (indexSelectProveedores != null) {
+      if (proveedoresList[indexSelectProveedores]) {
+        id = proveedoresList[indexSelectProveedores].id;
+      }
+    }
+
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].setProveedor({
+      proveedordescripcion: proveedordescripcion,
+      proveedorrif: proveedorrif,
+      proveedordireccion: proveedordireccion,
+      proveedortelefono: proveedortelefono,
+      id: id
+    }).then(function (res) {
+      notificar(res);
+      getProveedores();
+      setLoading(false);
+    });
+  };
+
+  var delProveedor = function delProveedor(e) {
+    var id;
+
+    if (indexSelectProveedores != null) {
+      if (proveedoresList[indexSelectProveedores]) {
+        id = proveedoresList[indexSelectProveedores].id;
+      }
+    }
+
+    if (confirm("¿Desea Eliminar?")) {
+      setLoading(true);
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delProveedor({
+        id: id
+      }).then(function (res) {
+        setLoading(false);
+        getProveedores();
+        notificar(res);
+
+        if (res.data.estado) {
+          setIndexSelectProveedores(null);
+        }
+      });
+    }
+  };
+
+  var getProveedores = function getProveedores(e) {
+    setLoading(true);
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getProveedores({
+      q: qBuscarProveedor
+    }).then(function (res) {
+      setProveedoresList(res.data);
+      setLoading(false);
+
+      if (res.data.length === 1) {
+        setIndexSelectProveedores(0);
+      }
+    });
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getDepositos({
+      q: qBuscarProveedor
+    }).then(function (res) {
+      setdepositosList(res.data);
+    });
+  };
+
+  var setFactura = function setFactura(e) {
+    e.preventDefault();
+    setLoading(true);
+    var id = null;
+
+    if (factSelectIndex != null) {
+      if (facturas[factSelectIndex]) {
+        id = facturas[factSelectIndex].id;
+      }
+    }
+
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].setFactura({
+      factInpid_proveedor: factInpid_proveedor,
+      factInpnumfact: factInpnumfact,
+      factInpdescripcion: factInpdescripcion,
+      factInpmonto: factInpmonto,
+      factInpfechavencimiento: factInpfechavencimiento,
+      factInpestatus: factInpestatus,
+      id: id
+    }).then(function (res) {
+      notificar(res);
+      getFacturas();
+      setLoading(false);
+
+      if (res.data.estado) {
+        setfactsubView("buscar");
+        setfactSelectIndex(null);
+      }
+    });
+  };
+
+  var getFacturas = function getFacturas() {
+    var clean = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+    setLoading(true);
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getFacturas({
+      factqBuscar: factqBuscar,
+      factqBuscarDate: factqBuscarDate,
+      factOrderBy: factOrderBy,
+      factOrderDescAsc: factOrderDescAsc
+    }).then(function (res) {
+      setLoading(false);
+      setfacturas(res.data);
+
+      if (clean) {
+        setfactSelectIndex(null);
+      }
+    });
+  };
+
+  var delFactura = function delFactura(e) {
+    var id = null;
+
+    if (factSelectIndex != null) {
+      if (facturas[factSelectIndex]) {
+        id = facturas[factSelectIndex].id;
+      }
+    }
+
+    if (confirm("¿Desea Eliminar?")) {
+      setLoading(true);
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delFactura({
+        id: id
+      }).then(function (res) {
+        setLoading(false);
+        getFacturas();
+        notificar(res);
+
+        if (res.data.estado) {
+          setfactsubView("buscar");
+          setfactSelectIndex(null);
+        }
+      });
+    }
+  };
+
+  var delItemFact = function delItemFact(e) {
+    var id = e.currentTarget.attributes["data-id"].value;
+
+    if (confirm("¿Desea Eliminar?")) {
+      setLoading(true);
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delItemFact({
+        id: id
+      }).then(function (res) {
+        setLoading(false);
+        notificar(res);
+
+        if (res.data.estado) {
+          getFacturas(false);
+          buscarInventario();
+        }
+      });
+    }
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+    children: [msj != "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_notificacion__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      msj: msj,
+      notificar: notificar
+    }) : null, loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_cargando__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      active: loading
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
       setView: setView,
       view: view,
       sucursalSelect: sucursalSelect,
       setsucursalSelect: setsucursalSelect
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_toplabel__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_toplabel__WEBPACK_IMPORTED_MODULE_12__["default"], {
       sucursales: sucursales,
       sucursalSelect: sucursalSelect
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
       className: "container marginb-6 margint-6 p-0",
-      children: sucursalSelect === null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_selectSucursal__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      children: sucursalSelect === null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_selectSucursal__WEBPACK_IMPORTED_MODULE_5__["default"], {
         setsucursalSelect: setsucursalSelect,
         sucursalSelect: sucursalSelect,
         sucursales: sucursales
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
-        children: [view == "fallas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_fallas__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+        children: [view == "fallas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_fallas__WEBPACK_IMPORTED_MODULE_6__["default"], {
           fallas: fallas
-        }) : null, view == "gastos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        }) : null, view == "gastos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_8__["default"], {
           gastos: gastos,
           selectgastos: selectgastos,
           setselectgastos: setselectgastos,
@@ -34894,18 +37141,109 @@ function Home() {
           tipogasto: tipogasto,
           settipogasto: settipogasto,
           moneda: moneda
-        }) : null, view == "ventas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ventas__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        }) : null, view == "ventas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ventas__WEBPACK_IMPORTED_MODULE_7__["default"], {
           ventas: ventas,
           selectfechaventa: selectfechaventa,
           setselectfechaventa: setselectfechaventa,
           moneda: moneda
+        }) : null, view == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_inventario__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          productosInventario: productosInventario,
+          qBuscarInventario: qBuscarInventario,
+          setQBuscarInventario: setQBuscarInventario,
+          setIndexSelectInventario: setIndexSelectInventario,
+          indexSelectInventario: indexSelectInventario,
+          inputBuscarInventario: inputBuscarInventario,
+          inpInvbarras: inpInvbarras,
+          setinpInvbarras: setinpInvbarras,
+          inpInvcantidad: inpInvcantidad,
+          setinpInvcantidad: setinpInvcantidad,
+          inpInvalterno: inpInvalterno,
+          setinpInvalterno: setinpInvalterno,
+          inpInvunidad: inpInvunidad,
+          setinpInvunidad: setinpInvunidad,
+          inpInvcategoria: inpInvcategoria,
+          setinpInvcategoria: setinpInvcategoria,
+          inpInvdescripcion: inpInvdescripcion,
+          setinpInvdescripcion: setinpInvdescripcion,
+          inpInvbase: inpInvbase,
+          setinpInvbase: setinpInvbase,
+          inpInvventa: inpInvventa,
+          setinpInvventa: setinpInvventa,
+          inpInviva: inpInviva,
+          setinpInviva: setinpInviva,
+          number: number,
+          guardarNuevoProducto: guardarNuevoProducto,
+          setProveedor: setProveedor,
+          proveedordescripcion: proveedordescripcion,
+          setproveedordescripcion: setproveedordescripcion,
+          proveedorrif: proveedorrif,
+          setproveedorrif: setproveedorrif,
+          proveedordireccion: proveedordireccion,
+          setproveedordireccion: setproveedordireccion,
+          proveedortelefono: proveedortelefono,
+          setproveedortelefono: setproveedortelefono,
+          subViewInventario: subViewInventario,
+          setsubViewInventario: setsubViewInventario,
+          setIndexSelectProveedores: setIndexSelectProveedores,
+          indexSelectProveedores: indexSelectProveedores,
+          qBuscarProveedor: qBuscarProveedor,
+          setQBuscarProveedor: setQBuscarProveedor,
+          proveedoresList: proveedoresList,
+          delProveedor: delProveedor,
+          delProducto: delProducto,
+          inpInvid_proveedor: inpInvid_proveedor,
+          setinpInvid_proveedor: setinpInvid_proveedor,
+          inpInvid_marca: inpInvid_marca,
+          setinpInvid_marca: setinpInvid_marca,
+          inpInvid_deposito: inpInvid_deposito,
+          setinpInvid_deposito: setinpInvid_deposito,
+          depositosList: depositosList,
+          facturas: facturas,
+          factqBuscar: factqBuscar,
+          setfactqBuscar: setfactqBuscar,
+          factqBuscarDate: factqBuscarDate,
+          setfactqBuscarDate: setfactqBuscarDate,
+          factsubView: factsubView,
+          setfactsubView: setfactsubView,
+          factSelectIndex: factSelectIndex,
+          setfactSelectIndex: setfactSelectIndex,
+          factOrderBy: factOrderBy,
+          setfactOrderBy: setfactOrderBy,
+          factOrderDescAsc: factOrderDescAsc,
+          setfactOrderDescAsc: setfactOrderDescAsc,
+          factInpid_proveedor: factInpid_proveedor,
+          setfactInpid_proveedor: setfactInpid_proveedor,
+          factInpnumfact: factInpnumfact,
+          setfactInpnumfact: setfactInpnumfact,
+          factInpdescripcion: factInpdescripcion,
+          setfactInpdescripcion: setfactInpdescripcion,
+          factInpmonto: factInpmonto,
+          setfactInpmonto: setfactInpmonto,
+          factInpfechavencimiento: factInpfechavencimiento,
+          setfactInpfechavencimiento: setfactInpfechavencimiento,
+          factInpestatus: factInpestatus,
+          setfactInpestatus: setfactInpestatus,
+          setFactura: setFactura,
+          delFactura: delFactura,
+          Invnum: Invnum,
+          setInvnum: setInvnum,
+          InvorderColumn: InvorderColumn,
+          setInvorderColumn: setInvorderColumn,
+          InvorderBy: InvorderBy,
+          setInvorderBy: setInvorderBy,
+          delItemFact: delItemFact,
+          moneda: moneda,
+          subviewProveedores: subviewProveedores,
+          setsubviewProveedores: setsubviewProveedores,
+          subviewCargarProductos: subviewCargarProductos,
+          setsubviewCargarProductos: setsubviewCargarProductos
         }) : null]
       })
     })]
   });
 }
 
-(0,react_dom__WEBPACK_IMPORTED_MODULE_2__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Home, {}), document.getElementById('app'));
+(0,react_dom__WEBPACK_IMPORTED_MODULE_2__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Home, {}), document.getElementById('app'));
 })();
 
 /******/ })()

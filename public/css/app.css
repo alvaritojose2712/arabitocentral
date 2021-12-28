@@ -112,7 +112,7 @@ td,th{
   box-shadow: 1px 8px 13px -14px black;
   color: #fff;
   bottom: 5px;
-  left: 5px;
+  right: 5px;
   max-width: 500px;
   font-size: 1em;
   padding: 5px;
@@ -374,7 +374,7 @@ body{
 }
 
 .marginb-6{
-  margin-bottom: 4rem !important;
+  margin-bottom: 5rem !important;
 }
 .margint-6{
   margin-top: 4rem !important;

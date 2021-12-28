@@ -47,6 +47,11 @@ class FallasController extends Controller
             ]);
             if ($uoc) {
                 $arr_ok[] = $val["id"];
+            }else{
+                return Response::json([
+                    "msj"=>"No se encontró producto",
+                    "estado"=>false
+                ]);       
             }
         }
         fallas::where("id_sucursal",$sucursal->id)->whereNotIn("id_local",$arr_ok)->delete();

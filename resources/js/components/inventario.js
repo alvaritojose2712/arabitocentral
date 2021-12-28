@@ -1,192 +1,303 @@
-import { useHotkeys } from 'react-hotkeys-hook';
+import Proveedores from '../components/proveedores';
+import CargarProducto from '../components/cargarproducto';
+import Facturas from '../components/facturas';
 
+export default function Inventario({
+	productosInventario,
+  qBuscarInventario,
+  setQBuscarInventario,
 
-import {useState,useEffect, useRef,StrictMode} from 'react';
-import ReactDOM, {render} from 'react-dom';
-import db from '../database/database';
-import Header from './header';
-import SelectSucursal from './selectSucursal';
+  setIndexSelectInventario,
+  indexSelectInventario,
 
-import FallasComponent from './fallas';
-import VentasComponent from './ventas';
-import GastosComponent from './gastos';
+  inputBuscarInventario,
 
-import Toplabel from './toplabel';
+  inpInvbarras,
+  setinpInvbarras,
+  inpInvcantidad,
+  setinpInvcantidad,
+  inpInvalterno,
+  setinpInvalterno,
+  inpInvunidad,
+  setinpInvunidad,
+  inpInvcategoria,
+  setinpInvcategoria,
+  inpInvdescripcion,
+  setinpInvdescripcion,
+  inpInvbase,
+  setinpInvbase,
+  inpInvventa,
+  setinpInvventa,
+  inpInviva,
+  setinpInviva,
 
+  number,
+  guardarNuevoProducto,
 
+  setProveedor,
+  proveedordescripcion,
+  setproveedordescripcion,
+  proveedorrif,
+  setproveedorrif,
+  proveedordireccion,
+  setproveedordireccion,
+  proveedortelefono,
+  setproveedortelefono,
 
+  subViewInventario,
+  setsubViewInventario,
 
+  setIndexSelectProveedores,
+  indexSelectProveedores,
+  qBuscarProveedor,
+  setQBuscarProveedor,
+  proveedoresList,
 
-function Inventario() {
-  const [view,setView] = useState("")
-  const [loading,setLoading] = useState(false)
+  delProveedor,
+  delProducto,
 
-  const [sucursales,setsucursales] = useState([])
-  const [sucursalSelect,setsucursalSelect] = useState(null)
+  inpInvid_proveedor,
+  setinpInvid_proveedor,
+  inpInvid_marca,
+  setinpInvid_marca,
+  inpInvid_deposito,
+  setinpInvid_deposito,
 
-  const [fallas,setfallas] = useState([])
-  const [gastos,setgastos] = useState([])
-  const [ventas,setventas] = useState([])
+  depositosList,
 
-  const [selectgastos,setselectgastos] = useState("*")
-  const [fechaGastos,setfechaGastos] = useState("")
+  setshowModalFacturas,
+  showModalFacturas,
+  facturas,
 
-  const [tipogasto,settipogasto] = useState(1)
+  factqBuscar,
+  setfactqBuscar,
+  factqBuscarDate,
+  setfactqBuscarDate,
+  factsubView,
+  setfactsubView,
+  factSelectIndex,
+  setfactSelectIndex,
+  factOrderBy,
+  setfactOrderBy,
+  factOrderDescAsc,
+  setfactOrderDescAsc,
+  factInpid_proveedor,
+  setfactInpid_proveedor,
+  factInpnumfact,
+  setfactInpnumfact,
+  factInpdescripcion,
+  setfactInpdescripcion,
+  factInpmonto,
+  setfactInpmonto,
+  factInpfechavencimiento,
+  setfactInpfechavencimiento,
 
-  const [selectfechaventa,setselectfechaventa] = useState("")
+  setFactura,
 
+  factInpestatus,
+  setfactInpestatus,
 
-   const getToday = () =>{
-    db.today({}).then(res=>{
-      let today = res.data
-      setfechaGastos(today)
-      setselectfechaventa(today)
+  delFactura,
 
-    })
-  }
+  Invnum,
+  setInvnum,
+  InvorderColumn,
+  setInvorderColumn,
+  InvorderBy,
+  setInvorderBy,
 
+  delItemFact,
 
-  const getSucursales = () => {
-    setLoading(true)
-    db.getSucursales().then(res=>{
-      setsucursales(res.data)
-      setLoading(false)
-    })
-  }
+  subviewProveedores,
+	setsubviewProveedores,
 
-  const getFallas = () => {
-    setLoading(true)
+	subviewCargarProductos,
+	setsubviewCargarProductos,
 
-    if (sucursales.filter(e=>e.char==sucursalSelect).length) {
-      db.getFallas({id_sucursal: sucursales.filter(e=>e.char==sucursalSelect)[0].id }).then(res=>{
-        setfallas(res.data)
-        setLoading(false)
-      })
+	moneda,
+}) {
+	return (
+		 <>
+      <div className="container">
+        <div className="row">
+	        <div className="col">
 
-    }
-  }
-
-  const getGastos = () => {
-    setLoading(true)
-
-    if (sucursales.filter(e=>e.char==sucursalSelect).length) {
-      db.getGastos({fechaGastos, id_sucursal: sucursales.filter(e=>e.char==sucursalSelect)[0].id }).then(res=>{
-        setgastos(res.data)
-        setLoading(false)
-      })
-
-    }
-  }
-
-  const getVentas = () => {
-    setLoading(true)
-
-    if (sucursales.filter(e=>e.char==sucursalSelect).length) {
-      db.getVentas({selectfechaventa,id_sucursal: sucursales.filter(e=>e.char==sucursalSelect)[0].id }).then(res=>{
-        setventas(res.data)
-        setLoading(false)
-      })
-
-    }
-  }
-
-
-
-  useEffect(()=>{
-    getToday()
-    getSucursales()
-  },[])
-
-  useEffect(()=>{
-    getVentas()
-  },[selectfechaventa])
-
-
-  useEffect(()=>{
-    getGastos()
-  },[fechaGastos])
-
-
-  useEffect(()=>{
-    if (view=="fallas") {
-      getFallas()
-
-    }else if (view=="gastos") {
-      getGastos()
-    }else if (view=="ventas") {
-      getVentas()
-    }
-  },[view])
-
-  const moneda = (value, decimals=2, separators=['.',".",',']) => {
-    decimals = decimals >= 0 ? parseInt(decimals, 0) : 2;
-    separators = separators || ['.', "'", ','];
-    var number = (parseFloat(value) || 0).toFixed(decimals);
-    if (number.length <= (4 + decimals))
-        return number.replace('.', separators[separators.length - 1]);
-    var parts = number.split(/[-.]/);
-    value = parts[parts.length > 1 ? parts.length - 2 : 0];
-    var result = value.substr(value.length - 3, 3) + (parts.length > 1 ?
-        separators[separators.length - 1] + parts[parts.length - 1] : '');
-    var start = value.length - 6;
-    var idx = 0;
-    while (start > -3) {
-        result = (start > 0 ? value.substr(start, 3) : value.substr(0, 3 + start))
-            + separators[idx] + result;
-        idx = (++idx) % 2;
-        start -= 3;
-    }
-    return (parts.length == 3 ? '-' : '') + result;
-}
-
-  return(
-    <>
-      <Header 
-      setView={setView} 
-      view={view}
-      sucursalSelect={sucursalSelect}
-      setsucursalSelect={setsucursalSelect}
-      />
-      <Toplabel sucursales={sucursales} sucursalSelect={sucursalSelect}/>
-      <div className="container marginb-6 margint-6 p-0">
-        {sucursalSelect===null?
-          <SelectSucursal 
-          setsucursalSelect={setsucursalSelect} 
-          sucursalSelect={sucursalSelect}
-          sucursales={sucursales}
-          />
-        :<>
-          {view=="fallas"?<FallasComponent
-            fallas={fallas}
-          />:null}
-
-          {view=="gastos"?<GastosComponent
-            gastos={gastos}
-            selectgastos={selectgastos}
-            setselectgastos={setselectgastos}
-            setfechaGastos={setfechaGastos}
-            fechaGastos={fechaGastos}
-            tipogasto={tipogasto}
-            settipogasto={settipogasto}
-            moneda={moneda}
-
-          />:null}
-
-          {view=="ventas"?<VentasComponent
-            ventas={ventas}
-            selectfechaventa={selectfechaventa}
-            setselectfechaventa={setselectfechaventa}
-            moneda={moneda}
-          />:null}
-
+	          <div className="btn-group mb-2">              
+	              <button className={("btn btn-sm ")+(subViewInventario=="facturas"?"btn-dark":"btn-outline-arabito")} onClick={()=>setsubViewInventario("facturas")}>Facturas</button>
+	              <button className={("btn btn-sm ")+(subViewInventario=="proveedores"?"btn-dark":"btn-outline-arabito")} onClick={()=>setsubViewInventario("proveedores")}>Proveedores</button>
+	              {factSelectIndex!==null?<button className={("btn btn-sm ")+(subViewInventario=="inventario"?"btn-dark":"btn-outline-arabito")} onClick={()=>setsubViewInventario("inventario")}>Inventario</button>
+	              :null}
+	          </div>
+	        </div>
+          {factSelectIndex==null?null
+          : 
+	          <div className="col shadow ">
+	          		
+	          	<div className="card-pedido mt-3">
+	              <h4 className="text-right d-flex align-items-center">
+	                <span className="badge bg-secondary pointer"  onClick={()=>setfactSelectIndex(null)}><i className="fa fa-arrow-left"></i> {facturas[factSelectIndex]?facturas[factSelectIndex].numfact:null}</span> 
+	                {facturas[factSelectIndex]?facturas[factSelectIndex].proveedor.descripcion:null}  
+	              </h4>
+	          	</div>
+	          </div>
+          }
           
-          
-          
-        </>}
+        </div>
       </div>
+      <hr/>
+      {subViewInventario=="facturas"?<Facturas
+        facturas={facturas}
+
+        factqBuscar={factqBuscar}
+        setfactqBuscar={setfactqBuscar}
+        factqBuscarDate={factqBuscarDate}
+        setfactqBuscarDate={setfactqBuscarDate}
+        factsubView={factsubView}
+        setfactsubView={setfactsubView}
+        factSelectIndex={factSelectIndex}
+        setfactSelectIndex={setfactSelectIndex}
+        factOrderBy={factOrderBy}
+        setfactOrderBy={setfactOrderBy}
+        factOrderDescAsc={factOrderDescAsc}
+        setfactOrderDescAsc={setfactOrderDescAsc}
+        factInpid_proveedor={factInpid_proveedor}
+        setfactInpid_proveedor={setfactInpid_proveedor}
+        factInpnumfact={factInpnumfact}
+        setfactInpnumfact={setfactInpnumfact}
+        factInpdescripcion={factInpdescripcion}
+        setfactInpdescripcion={setfactInpdescripcion}
+        factInpmonto={factInpmonto}
+        setfactInpmonto={setfactInpmonto}
+        factInpfechavencimiento={factInpfechavencimiento}
+        setfactInpfechavencimiento={setfactInpfechavencimiento}
+        setFactura={setFactura}
+        proveedoresList={proveedoresList}
+
+        number={number}
+        
+        factInpestatus={factInpestatus}
+        setfactInpestatus={setfactInpestatus}
+        delFactura={delFactura}
+        delItemFact={delItemFact}
+
+        moneda={moneda}
+      />
+      :null}
+      {factSelectIndex!==null?
+        subViewInventario=="inventario"?
+          <CargarProducto 
+            productosInventario={productosInventario}
+            qBuscarInventario={qBuscarInventario}
+            setQBuscarInventario={setQBuscarInventario}
+
+            setIndexSelectInventario={setIndexSelectInventario}
+            indexSelectInventario={indexSelectInventario}
+            inputBuscarInventario={inputBuscarInventario}
+
+            inpInvbarras={inpInvbarras}
+            setinpInvbarras={setinpInvbarras}
+            inpInvcantidad={inpInvcantidad}
+            setinpInvcantidad={setinpInvcantidad}
+            inpInvalterno={inpInvalterno}
+            setinpInvalterno={setinpInvalterno}
+            inpInvunidad={inpInvunidad}
+            setinpInvunidad={setinpInvunidad}
+            inpInvcategoria={inpInvcategoria}
+            setinpInvcategoria={setinpInvcategoria}
+            inpInvdescripcion={inpInvdescripcion}
+            setinpInvdescripcion={setinpInvdescripcion}
+            inpInvbase={inpInvbase}
+            setinpInvbase={setinpInvbase}
+            inpInvventa={inpInvventa}
+            setinpInvventa={setinpInvventa}
+            inpInviva={inpInviva}
+            setinpInviva={setinpInviva}
+
+            number={number}
+
+            guardarNuevoProducto={guardarNuevoProducto}
+
+            setProveedor={setProveedor}
+            proveedordescripcion={proveedordescripcion}
+            setproveedordescripcion={setproveedordescripcion}
+            proveedorrif={proveedorrif}
+            setproveedorrif={setproveedorrif}
+            proveedordireccion={proveedordireccion}
+            setproveedordireccion={setproveedordireccion}
+            proveedortelefono={proveedortelefono}
+            setproveedortelefono={setproveedortelefono}
+
+            subViewInventario={subViewInventario}
+            setsubViewInventario={setsubViewInventario}
+
+            setIndexSelectProveedores={setIndexSelectProveedores}
+            indexSelectProveedores={indexSelectProveedores}
+            qBuscarProveedor={qBuscarProveedor}
+            setQBuscarProveedor={setQBuscarProveedor}
+            proveedoresList={proveedoresList}
+
+            delProveedor={delProveedor}
+            delProducto={delProducto}
+
+            inpInvid_proveedor={inpInvid_proveedor}
+            setinpInvid_proveedor={setinpInvid_proveedor}
+            inpInvid_marca={inpInvid_marca}
+            setinpInvid_marca={setinpInvid_marca}
+            inpInvid_deposito={inpInvid_deposito}
+            setinpInvid_deposito={setinpInvid_deposito}
+            
+            depositosList={depositosList}
+     
+
+            Invnum={Invnum}
+            setInvnum={setInvnum}
+            InvorderColumn={InvorderColumn}
+            setInvorderColumn={setInvorderColumn}
+            InvorderBy={InvorderBy}
+            setInvorderBy={setInvorderBy}
+
+            subviewCargarProductos={subviewCargarProductos}
+						setsubviewCargarProductos={setsubviewCargarProductos}
+          />
+        :null
+
+      :null}
+      {subViewInventario=="proveedores"?<Proveedores 
+
+        number={number}
+        setProveedor={setProveedor}
+        proveedordescripcion={proveedordescripcion}
+        setproveedordescripcion={setproveedordescripcion}
+        proveedorrif={proveedorrif}
+        setproveedorrif={setproveedorrif}
+        proveedordireccion={proveedordireccion}
+        setproveedordireccion={setproveedordireccion}
+        proveedortelefono={proveedortelefono}
+        setproveedortelefono={setproveedortelefono}
+        subViewInventario={subViewInventario}
+        setsubViewInventario={setsubViewInventario}
+        setIndexSelectProveedores={setIndexSelectProveedores}
+        indexSelectProveedores={indexSelectProveedores}
+        qBuscarProveedor={qBuscarProveedor}
+        setQBuscarProveedor={setQBuscarProveedor}
+        proveedoresList={proveedoresList}
+        delProveedor={delProveedor}
+        delProducto={delProducto}
+        inpInvid_proveedor={inpInvid_proveedor}
+        setinpInvid_proveedor={setinpInvid_proveedor}
+        inpInvid_marca={inpInvid_marca}
+        setinpInvid_marca={setinpInvid_marca}
+        inpInvid_deposito={inpInvid_deposito}
+        setinpInvid_deposito={setinpInvid_deposito}
+        depositosList={depositosList}
+        
+
+        subviewProveedores={subviewProveedores}
+				setsubviewProveedores={setsubviewProveedores}
+
+
+      />:null}
 
     </>
-  );
+	)
 }
-render(<Inventario/>,document.getElementById('app'));
-

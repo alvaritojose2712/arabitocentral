@@ -27,7 +27,7 @@ class GastosController extends Controller
         $gastos = $req->movimientos_caja;
         foreach ($gastos as $val) {
             // code...
-            gastos::UpdateOrCreate([
+            $obj = gastos::UpdateOrCreate([
                 "id_local"=>$val["id"],
                 "id_sucursal"=>$sucursal->id,
             ],[
@@ -47,7 +47,7 @@ class GastosController extends Controller
 
         gastos::where("id_sucursal",$sucursal->id)->whereNotIn("id_local",$arr_ok)->delete();
 
-        return Response::json(["msj"=>"Éxito","estado"=>true]);
+        return Response::json(["msj"=>"Éxito al Registrar gastos","estado"=>true]);
     }
 
     public function getGastos(Request $req)

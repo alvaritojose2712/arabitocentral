@@ -14,6 +14,11 @@ use App\Http\Controllers\GastosController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\home;
 
+use App\Http\Controllers\FacturasController;
+use App\Http\Controllers\ItemsFacturasController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +34,7 @@ use App\Http\Controllers\home;
 Route::get('/welcome', function () {
     return view('welcome');
 });
-Route::get('/', [InventarioController::class,"index"]);
+Route::get('/', [home::class,"index"]);
 Route::get('/today', [home::class,"today"]);
 Route::get('/getSucursales', [SucursalController::class,"getSucursales"]);
 
@@ -46,6 +51,23 @@ Route::post('/setVentas', [VentasController::class,"setVentas"]);
 Route::get('/getVentas', [VentasController::class,"getVentas"]);
 
 
+Route::post('getinventario', [InventarioController::class,"index"]);
+Route::post('guardarNuevoProducto', [InventarioController::class,"guardarNuevoProducto"]);
+Route::post('delProducto', [InventarioController::class,"delProducto"]);
+
+
+Route::post('setProveedor', [ProveedoresController::class,"setProveedor"]);
+Route::post('delProveedor', [ProveedoresController::class,"delProveedor"]);
+Route::post('getProveedores', [ProveedoresController::class,"getProveedores"]);
+
+Route::post('getDepositos', [DepositoController::class,"getDepositos"]);
+
+Route::post('getFacturas', [FacturasController::class,"getFacturas"]);
+Route::post('setFactura', [FacturasController::class,"setFactura"]);
+  
+
+Route::post('delFactura', [FacturasController::class,"delFactura"]);
+Route::post('delItemFact', [ItemsFacturasController::class,"delItemFact"]);
 
 
 // Route::get('/cache', function () {

@@ -26,8 +26,7 @@ class CreateInventariosTable extends Migration
             $table->integer("id_categoria")->unsigned();
             $table->foreign('id_categoria')->references('id')->on('categorias');
 
-            $table->integer("id_marca")->unsigned();
-            $table->foreign('id_marca')->references('id')->on('marcas');
+            $table->string("id_marca")->nullable();
 
             $table->string("unidad");
 
@@ -44,9 +43,10 @@ class CreateInventariosTable extends Migration
 
             $table->float("iva",10,2);
 
-            $table->float("porcentaje_ganancia",10,2);
+            $table->float("porcentaje_ganancia",10,2)->default(0);
             $table->float("precio_base",10,2);
             $table->float("precio",10,2);
+            $table->float("cantidad",10,2);
 
             $table->timestamps();
             
@@ -3910,7 +3910,9 @@ class CreateInventariosTable extends Migration
                     "iva" => 0,
                     "porcentaje_ganancia" => 0,
                     "precio_base" => 1,
-                    "precio" => $value[7]
+                    "precio" => $value[7],
+                    "cantidad" => $value[8],
+
                 ]
             );
         }
