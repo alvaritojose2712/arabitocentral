@@ -18,10 +18,10 @@ class CreateLocalsVersionsTable extends Migration
             $table->string("version")->unique();
             $table->timestamps();
         });
+        DB::table("locals_versions")->insert([
+            ["version"=>2]
+        ]);
     }
-    DB::table("locals_versions")->insert([
-        "version"=>2
-    ]);
     /**
      * Reverse the migrations.
      *
