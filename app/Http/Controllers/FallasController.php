@@ -36,19 +36,21 @@ class FallasController extends Controller
         foreach ($fallas as $val) {
             // code...
             $uoc = fallas::UpdateOrCreate([
-                "id_producto"=>$val["id_producto"],
+                "id_local"=>$val["id"],
                 "id_sucursal"=>$sucursal->id,
             ],[
 
-                "cantidad"=>$val["cantidad"],
+                "id_local"=>$val["id"],
                 "id_producto"=>$val["id_producto"],
                 "id_sucursal"=>$sucursal->id,
+                "cantidad"=>$val["cantidad"],
             ]);
             if ($uoc) {
-                $arr_ok[] = $val["id_producto"];
+                $arr_ok[] = $val["id"];
             }
         }
-        return Response::json(["msj"=>"Éxito","estado"=>true,"ids_ok"=>$arr_ok]);
+        fallas::where("id_sucursal",$sucursal->id)->whereNotIn("id_local",$arr_ok)->delete();
+        return Response::json(["msj"=>"Éxito al registrar fallas","estado"=>true]);
     }
 
     public function getFallas(Request $req)
@@ -56,59 +58,5 @@ class FallasController extends Controller
         return fallas::with("producto")->where("id_sucursal",$req->id_sucursal)->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorefallasRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorefallasRequest $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\fallas  $fallas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(fallas $fallas)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\fallas  $fallas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(fallas $fallas)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatefallasRequest  $request
-     * @param  \App\Models\fallas  $fallas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatefallasRequest $request, fallas $fallas)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\fallas  $fallas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(fallas $fallas)
-    {
-        //
-    }
 }

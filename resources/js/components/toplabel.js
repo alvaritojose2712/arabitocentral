@@ -1,3 +1,6 @@
+import logo from "../../images/logo.png"
+
+
 export default function Toplabel({sucursales,sucursalSelect}) {
 	let name = () => {
 		if (sucursales.filter(e=>e.char==sucursalSelect).length) {
@@ -7,8 +10,13 @@ export default function Toplabel({sucursales,sucursalSelect}) {
 		return ""
 	}
 	return(
-		<div className="bg-light toplabel d-flex justify-content-center">
-			<span className="h3 m-1">{name()}</span>
+		<div className="bg-light toplabel d-flex justify-content-center p-2">
+			{name()?
+	    	<>
+	    		<img src={logo} alt="arabito" className="logo-header" /> <span className="h3 m-1">{name()}</span>
+	    	</>
+	    :null
+			}
 		</div>
 	)
 }

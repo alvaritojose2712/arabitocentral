@@ -15,7 +15,13 @@ class VentasController extends Controller
 {
     public function getVentas(Request $req)
     {
-        return ventas::where("id_sucursal",$req->id_sucursal)->get();
+        $fecha = $req->selectfechaventa;
+
+        if (!$fecha) {
+            return ventas::where("id_sucursal",$req->id_sucursal)->orderBy("fecha","desc")->get();
+            // code...
+        }
+        return ventas::where("id_sucursal",$req->id_sucursal)->where("fecha","LIKE",$fecha."%")->orderBy("fecha","desc")->get();
 
     }
 

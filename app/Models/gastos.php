@@ -14,5 +14,6 @@ class gastos extends Model
         "categoria",
         "monto",
         "id_sucursal",
+        "id_local",
     ];
 }

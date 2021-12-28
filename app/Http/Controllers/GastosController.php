@@ -27,24 +27,42 @@ class GastosController extends Controller
         $gastos = $req->movimientos_caja;
         foreach ($gastos as $val) {
             // code...
-            $obj = new gastos;
+            gastos::UpdateOrCreate([
+                "id_local"=>$val["id"],
+                "id_sucursal"=>$sucursal->id,
+            ],[
+                "id_sucursal" => $sucursal->id,
+                "descripcion" => $val["descripcion"],
+                "tipo" => $val["tipo"],
+                "categoria" => $val["categoria"],
+                "monto" => $val["monto"],
 
-            $obj->id_sucursal = $sucursal->id;
-            $obj->descripcion = $val["descripcion"];
-            $obj->tipo = $val["tipo"];
-            $obj->categoria = $val["categoria"];
-            $obj->monto = $val["monto"];
-            $obj->save();
+                "id_local"=>$val["id"],
+            ]);
                 
             if ($obj) {
                 $arr_ok[] = $val["id"];
             }
         }
-        return Response::json(["msj"=>"Éxito","estado"=>true,"ids_ok"=>$arr_ok]);
+
+        gastos::where("id_sucursal",$sucursal->id)->whereNotIn("id_local",$arr_ok)->delete();
+
+        return Response::json(["msj"=>"Éxito","estado"=>true]);
     }
 
     public function getGastos(Request $req)
-    {
-        return gastos::where("id_sucursal",$req->id_sucursal)->get();
+    {   
+        $fecha = $req->fechaGastos;
+        if (!$fecha) {
+            $get = gastos::where("id_sucursal",$req->id_sucursal)->orderBy("id","desc");
+            // code...
+        }else{
+            $get = gastos::where("id_sucursal",$req->id_sucursal)->where("created_at","LIKE",$fecha."%")->orderBy("id","desc");
+
+        }
+        
+        $gastos = $get->get();
+        
+        return $gastos;
     }
 }

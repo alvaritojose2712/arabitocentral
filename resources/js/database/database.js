@@ -15,6 +15,8 @@ const db = {
 
   getGastos: data=>axios.get(host+"/getGastos",{params:data}),
   getVentas: data=>axios.get(host+"/getVentas",{params:data}),
+  today: data=>axios.get(host+"/today",{params:data}),
+  
   
   
 

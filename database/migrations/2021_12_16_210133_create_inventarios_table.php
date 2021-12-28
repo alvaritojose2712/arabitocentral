@@ -3898,7 +3898,7 @@ class CreateInventariosTable extends Migration
         foreach ($inventario as $key => $value) {
             array_push($arr, 
                 [
-                    "id" => $value[0],
+                    // "id" => $value[0],
                     "codigo_proveedor" => $value[0].$value[2],
                     "codigo_barras" => "MAN".$value[0],
                     "id_proveedor" => 1,

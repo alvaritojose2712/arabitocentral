@@ -13,6 +13,7 @@ class fallas extends Model
         "id_sucursal",
         "id_producto",
         "cantidad",
+        "id_local",
     ];
 
     protected function serializeDate(DateTimeInterface $date)

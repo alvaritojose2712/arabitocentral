@@ -22,11 +22,17 @@ export default function Header({
         	<img src={icon} alt="icon" className="icon"/>
         </span>
         
-        <div className="d-flex justify-content-center">
-          <span className={(view=="inventario"?"btn btn-arabito":null)+(" p-1 d-flex align-items-center pointer")} onClick={()=>setView("inventario")}>Inventario</span>
-          <span className={(view=="fallas"?"btn btn-arabito":null)+(" p-1 d-flex align-items-center pointer")} onClick={()=>setView("fallas")}>Fallas</span>
-          <span className={(view=="ventas"?"btn btn-arabito":null)+(" p-1 d-flex align-items-center pointer")} onClick={()=>setView("ventas")}>Reportes</span>
-          <span className={(view=="gastos"?"btn btn-arabito":null)+(" p-1 d-flex align-items-center pointer")} onClick={()=>setView("gastos")}>Gastos</span>
+        <div className="d-flex justify-content-center align-items-center">
+          <span className={(view=="ventas"?"btn btn-arabito":null)+(" btn btn-circle pointer")} onClick={()=>setView("ventas")}><i className="fa fa-shopping-cart"></i></span>
+          <span className={(view=="inventario"?"btn-arabito":null)+(" btn btn-circle pointer")} onClick={()=>setView("inventario")}>
+          	<i className="fa fa-product-hunt"></i>
+          </span>
+          <span className={(view=="fallas"?"btn btn-arabito":null)+(" btn btn-circle pointer")} onClick={()=>setView("fallas")}>
+          	<i className="fa fa-product-hunt"></i>
+          	<i className="fa fa-exclamation"></i>
+          	
+          </span>
+          <span className={(view=="gastos"?"btn btn-arabito":null)+(" btn btn-circle pointer")} onClick={()=>setView("gastos")}><i className="fa fa-file"></i></span>
         </div>
 
         <span className="p-1 bg-light pointer d-flex align-items-center" onClick={()=>setsucursalSelect(null)}>
