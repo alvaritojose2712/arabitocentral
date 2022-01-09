@@ -25,6 +25,9 @@ class CreateFacturasTable extends Migration
             $table->decimal("monto",10,2);
             $table->date("fechavencimiento");
             $table->boolean("estatus");
+            //0 Pend
+            //1 Procesado
+            //2 Extraido
 
 
 

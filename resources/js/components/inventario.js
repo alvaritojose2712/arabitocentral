@@ -1,6 +1,8 @@
 import Proveedores from '../components/proveedores';
 import CargarProducto from '../components/cargarproducto';
 import Facturas from '../components/facturas';
+import Pedidos from '../components/pedidos';
+
 
 export default function Inventario({
 	productosInventario,
@@ -115,76 +117,184 @@ export default function Inventario({
 	setsubviewCargarProductos,
 
 	moneda,
+  viewProductos,
+  setviewProductos,
+
+  indexSelectCarrito,
+  setindexSelectCarrito,
+
+  showCantidadCarritoFun,
+  showCantidadCarrito,
+  setshowCantidadCarrito,
+
+  sucursales,
+  ctSucursales,
+  setctSucursales,
+  setCarrito,
+  pedidoList,
+  setid_pedido,
+  id_pedido,
+
+  qpedido,
+  setqpedido,
+  qpedidoDateFrom,
+  setqpedidoDateFrom,
+  qpedidoDateTo,
+  setqpedidoDateTo,
+  qpedidoOrderBy,
+  setqpedidoOrderBy,
+  qpedidoOrderByDescAsc,
+  setqpedidoOrderByDescAsc,
+  pedidos,
+  setpedidos,
+  pedidoData,
+  setpedidoData,
+  qestadopedido,
+  setqestadopedido,
+
+  getPedidos,
+  delPedido,
+  selectPedido,
+
+  setDelCarrito,
+  setCtCarrito,
+  setProdCarritoInterno,
+  sendPedidoSucursal,
+  showPedidoBarras,
 }) {
 	return (
 		 <>
-      <div className="container">
-        <div className="row">
-	        <div className="col">
+      
 
-	          <div className="btn-group mb-2">              
-	              <button className={("btn btn-sm ")+(subViewInventario=="facturas"?"btn-dark":"btn-outline-arabito")} onClick={()=>setsubViewInventario("facturas")}>Facturas</button>
-	              <button className={("btn btn-sm ")+(subViewInventario=="proveedores"?"btn-dark":"btn-outline-arabito")} onClick={()=>setsubViewInventario("proveedores")}>Proveedores</button>
-	              {factSelectIndex!==null?<button className={("btn btn-sm ")+(subViewInventario=="inventario"?"btn-dark":"btn-outline-arabito")} onClick={()=>setsubViewInventario("inventario")}>Inventario</button>
-	              :null}
-	          </div>
-	        </div>
-          {factSelectIndex==null?null
-          : 
-	          <div className="col shadow ">
-	          		
-	          	<div className="card-pedido mt-3">
-	              <h4 className="text-right d-flex align-items-center">
-	                <span className="badge bg-secondary pointer"  onClick={()=>setfactSelectIndex(null)}><i className="fa fa-arrow-left"></i> {facturas[factSelectIndex]?facturas[factSelectIndex].numfact:null}</span> 
-	                {facturas[factSelectIndex]?facturas[factSelectIndex].proveedor.descripcion:null}  
-	              </h4>
-	          	</div>
-	          </div>
-          }
-          
-        </div>
-      </div>
-      <hr/>
-      {subViewInventario=="facturas"?<Facturas
-        facturas={facturas}
+      {viewProductos=="salida"?
+        <Pedidos
+          inputBuscarInventario={inputBuscarInventario}
+          qBuscarInventario={qBuscarInventario}
+          setQBuscarInventario={setQBuscarInventario}
+          Invnum={Invnum}
+          setInvnum={setInvnum}
+          InvorderColumn={InvorderColumn}
+          setInvorderColumn={setInvorderColumn}
+          InvorderBy={InvorderBy}
+          setInvorderBy={setInvorderBy}
+          productosInventario={productosInventario}
 
-        factqBuscar={factqBuscar}
-        setfactqBuscar={setfactqBuscar}
-        factqBuscarDate={factqBuscarDate}
-        setfactqBuscarDate={setfactqBuscarDate}
-        factsubView={factsubView}
-        setfactsubView={setfactsubView}
-        factSelectIndex={factSelectIndex}
-        setfactSelectIndex={setfactSelectIndex}
-        factOrderBy={factOrderBy}
-        setfactOrderBy={setfactOrderBy}
-        factOrderDescAsc={factOrderDescAsc}
-        setfactOrderDescAsc={setfactOrderDescAsc}
-        factInpid_proveedor={factInpid_proveedor}
-        setfactInpid_proveedor={setfactInpid_proveedor}
-        factInpnumfact={factInpnumfact}
-        setfactInpnumfact={setfactInpnumfact}
-        factInpdescripcion={factInpdescripcion}
-        setfactInpdescripcion={setfactInpdescripcion}
-        factInpmonto={factInpmonto}
-        setfactInpmonto={setfactInpmonto}
-        factInpfechavencimiento={factInpfechavencimiento}
-        setfactInpfechavencimiento={setfactInpfechavencimiento}
-        setFactura={setFactura}
-        proveedoresList={proveedoresList}
+          indexSelectCarrito={indexSelectCarrito}
+          setindexSelectCarrito={setindexSelectCarrito}
 
-        number={number}
-        
-        factInpestatus={factInpestatus}
-        setfactInpestatus={setfactInpestatus}
-        delFactura={delFactura}
-        delItemFact={delItemFact}
+          showCantidadCarritoFun={showCantidadCarritoFun}
+          showCantidadCarrito={showCantidadCarrito}
+          setshowCantidadCarrito={setshowCantidadCarrito}
 
-        moneda={moneda}
-      />
+          sucursales={sucursales}
+          ctSucursales={ctSucursales}
+          setctSucursales={setctSucursales}
+
+          number={number}
+          setCarrito={setCarrito}
+
+          pedidoList={pedidoList}
+          setid_pedido={setid_pedido}
+          id_pedido={id_pedido}
+
+          qpedido={qpedido}
+          setqpedido={setqpedido}
+          qpedidoDateFrom={qpedidoDateFrom}
+          setqpedidoDateFrom={setqpedidoDateFrom}
+          qpedidoDateTo={qpedidoDateTo}
+          setqpedidoDateTo={setqpedidoDateTo}
+          qpedidoOrderBy={qpedidoOrderBy}
+          setqpedidoOrderBy={setqpedidoOrderBy}
+          qpedidoOrderByDescAsc={qpedidoOrderByDescAsc}
+          setqpedidoOrderByDescAsc={setqpedidoOrderByDescAsc}
+          pedidos={pedidos}
+          setpedidos={setpedidos}
+          pedidoData={pedidoData}
+          setpedidoData={setpedidoData}
+
+          qestadopedido={qestadopedido}
+          setqestadopedido={setqestadopedido}
+
+          getPedidos={getPedidos}
+          delPedido={delPedido}
+          selectPedido={selectPedido}
+          moneda={moneda}
+
+          setDelCarrito={setDelCarrito}
+          setCtCarrito={setCtCarrito}
+          setProdCarritoInterno={setProdCarritoInterno}
+          sendPedidoSucursal={sendPedidoSucursal}
+          showPedidoBarras={showPedidoBarras}
+
+        />
       :null}
-      {factSelectIndex!==null?
-        subViewInventario=="inventario"?
+      {viewProductos=="entrada"?
+      <>
+        <div className="container">
+          <div className="row">
+  	        <div className="col">
+
+  	          <div className="btn-group mb-2">              
+  	              <button className={("btn btn-sm ")+(subViewInventario=="facturas"?"btn-dark":"btn-outline-arabito")} onClick={()=>setsubViewInventario("facturas")}>Facturas</button>
+  	              <button className={("btn btn-sm ")+(subViewInventario=="proveedores"?"btn-dark":"btn-outline-arabito")} onClick={()=>setsubViewInventario("proveedores")}>Proveedores</button>
+  	              <button className={("btn btn-sm ")+(subViewInventario=="inventario"?"btn-dark":"btn-outline-arabito")} onClick={()=>setsubViewInventario("inventario")}>Inventario</button>
+  	          </div>
+  	        </div>
+            {factSelectIndex==null?null
+            : 
+  	          <div className="col shadow ">
+  	          		
+  	          	<div className="card-pedido mt-3">
+  	              <h4 className="text-right d-flex align-items-center">
+  	                <span className="badge bg-secondary pointer"  onClick={()=>setfactSelectIndex(null)}><i className="fa fa-arrow-left"></i> {facturas[factSelectIndex]?facturas[factSelectIndex].numfact:null}</span> 
+  	                {facturas[factSelectIndex]?facturas[factSelectIndex].proveedor.descripcion:null}  
+  	              </h4>
+  	          	</div>
+  	          </div>
+            }
+            
+          </div>
+        </div>
+        <hr/>
+        {subViewInventario=="facturas"?<Facturas
+          facturas={facturas}
+
+          factqBuscar={factqBuscar}
+          setfactqBuscar={setfactqBuscar}
+          factqBuscarDate={factqBuscarDate}
+          setfactqBuscarDate={setfactqBuscarDate}
+          factsubView={factsubView}
+          setfactsubView={setfactsubView}
+          factSelectIndex={factSelectIndex}
+          setfactSelectIndex={setfactSelectIndex}
+          factOrderBy={factOrderBy}
+          setfactOrderBy={setfactOrderBy}
+          factOrderDescAsc={factOrderDescAsc}
+          setfactOrderDescAsc={setfactOrderDescAsc}
+          factInpid_proveedor={factInpid_proveedor}
+          setfactInpid_proveedor={setfactInpid_proveedor}
+          factInpnumfact={factInpnumfact}
+          setfactInpnumfact={setfactInpnumfact}
+          factInpdescripcion={factInpdescripcion}
+          setfactInpdescripcion={setfactInpdescripcion}
+          factInpmonto={factInpmonto}
+          setfactInpmonto={setfactInpmonto}
+          factInpfechavencimiento={factInpfechavencimiento}
+          setfactInpfechavencimiento={setfactInpfechavencimiento}
+          setFactura={setFactura}
+          proveedoresList={proveedoresList}
+
+          number={number}
+          
+          factInpestatus={factInpestatus}
+          setfactInpestatus={setfactInpestatus}
+          delFactura={delFactura}
+          delItemFact={delItemFact}
+
+          moneda={moneda}
+        />
+        :null}
+        {subViewInventario=="inventario"?
           <CargarProducto 
             productosInventario={productosInventario}
             qBuscarInventario={qBuscarInventario}
@@ -258,46 +368,45 @@ export default function Inventario({
 
             subviewCargarProductos={subviewCargarProductos}
 						setsubviewCargarProductos={setsubviewCargarProductos}
+
+            factSelectIndex={factSelectIndex}
+            setfactSelectIndex={setfactSelectIndex}
           />
-        :null
+        :null}
+        {subViewInventario=="proveedores"?<Proveedores 
 
-      :null}
-      {subViewInventario=="proveedores"?<Proveedores 
+          number={number}
+          setProveedor={setProveedor}
+          proveedordescripcion={proveedordescripcion}
+          setproveedordescripcion={setproveedordescripcion}
+          proveedorrif={proveedorrif}
+          setproveedorrif={setproveedorrif}
+          proveedordireccion={proveedordireccion}
+          setproveedordireccion={setproveedordireccion}
+          proveedortelefono={proveedortelefono}
+          setproveedortelefono={setproveedortelefono}
+          subViewInventario={subViewInventario}
+          setsubViewInventario={setsubViewInventario}
+          setIndexSelectProveedores={setIndexSelectProveedores}
+          indexSelectProveedores={indexSelectProveedores}
+          qBuscarProveedor={qBuscarProveedor}
+          setQBuscarProveedor={setQBuscarProveedor}
+          proveedoresList={proveedoresList}
+          delProveedor={delProveedor}
+          delProducto={delProducto}
+          inpInvid_proveedor={inpInvid_proveedor}
+          setinpInvid_proveedor={setinpInvid_proveedor}
+          inpInvid_marca={inpInvid_marca}
+          setinpInvid_marca={setinpInvid_marca}
+          inpInvid_deposito={inpInvid_deposito}
+          setinpInvid_deposito={setinpInvid_deposito}
+          depositosList={depositosList}
+          
 
-        number={number}
-        setProveedor={setProveedor}
-        proveedordescripcion={proveedordescripcion}
-        setproveedordescripcion={setproveedordescripcion}
-        proveedorrif={proveedorrif}
-        setproveedorrif={setproveedorrif}
-        proveedordireccion={proveedordireccion}
-        setproveedordireccion={setproveedordireccion}
-        proveedortelefono={proveedortelefono}
-        setproveedortelefono={setproveedortelefono}
-        subViewInventario={subViewInventario}
-        setsubViewInventario={setsubViewInventario}
-        setIndexSelectProveedores={setIndexSelectProveedores}
-        indexSelectProveedores={indexSelectProveedores}
-        qBuscarProveedor={qBuscarProveedor}
-        setQBuscarProveedor={setQBuscarProveedor}
-        proveedoresList={proveedoresList}
-        delProveedor={delProveedor}
-        delProducto={delProducto}
-        inpInvid_proveedor={inpInvid_proveedor}
-        setinpInvid_proveedor={setinpInvid_proveedor}
-        inpInvid_marca={inpInvid_marca}
-        setinpInvid_marca={setinpInvid_marca}
-        inpInvid_deposito={inpInvid_deposito}
-        setinpInvid_deposito={setinpInvid_deposito}
-        depositosList={depositosList}
-        
-
-        subviewProveedores={subviewProveedores}
-				setsubviewProveedores={setsubviewProveedores}
-
-
-      />:null}
-
+          subviewProveedores={subviewProveedores}
+  				setsubviewProveedores={setsubviewProveedores}
+        />:null}
+      </>:null}
     </>
 	)
 }

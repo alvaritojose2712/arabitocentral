@@ -11,6 +11,7 @@ use Response;
 
 class FacturasController extends Controller
 {
+    
     public function getFacturas(Request $req)
     {
         $factqBuscar = $req->factqBuscar;

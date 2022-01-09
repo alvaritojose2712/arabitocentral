@@ -33,18 +33,17 @@ const db = {
   delFactura: data=>axios.post(host+"delFactura",data),
   delItemFact: data=>axios.post(host+"delItemFact",data),
 
-  
-  
+  setCarrito: data=>axios.post(host+"setCarrito",data),
 
+  getPedidosList: data=>axios.post(host+"getPedidosList",data),
 
+  getPedidos: data=>axios.post(host+"getPedidos",data),
+  delPedido: data=>axios.post(host+"delPedido",data),
+  getPedido: data=>axios.post(host+"getPedido",data),
 
-
-
-
-
-
-  
-  
+  setCtCarrito: data=>axios.post(host+"setCtCarrito",data),
+  setDelCarrito: data=>axios.post(host+"setDelCarrito",data),  
+  sendPedidoSucursal: data=>axios.post(host+"sendPedidoSucursal",data),  
   
 
 }

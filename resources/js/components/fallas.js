@@ -1,7 +1,7 @@
 export default function FallasComponent({fallas}) {
 	return(
 		<>
-			<h2>Fallas y pedido</h2>
+			<h2>Fallas</h2>
 
 			<table className="table">
 				<thead>

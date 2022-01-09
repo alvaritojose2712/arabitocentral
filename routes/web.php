@@ -16,6 +16,14 @@ use App\Http\Controllers\home;
 
 use App\Http\Controllers\FacturasController;
 use App\Http\Controllers\ItemsFacturasController;
+use App\Http\Controllers\ItemsPedidosController;
+use App\Http\Controllers\PedidosController;
+use App\Http\Controllers\MonedaController;
+use App\Http\Controllers\LocalsVersionController;
+
+
+
+
 
 
 
@@ -31,9 +39,16 @@ use App\Http\Controllers\ItemsFacturasController;
 |
 */
 
+Route::get('/hora', function () {
+    return date("Y-m-d H:i:s");
+});
+
 Route::get('/welcome', function () {
     return view('welcome');
 });
+Route::get('/getMoneda', [MonedaController::class,"getMoneda"]);
+Route::get('/getVersionRemote', [LocalsVersionController::class,"getVersion"]);
+
 Route::get('/', [home::class,"index"]);
 Route::get('/today', [home::class,"today"]);
 Route::get('/getSucursales', [SucursalController::class,"getSucursales"]);
@@ -64,10 +79,34 @@ Route::post('getDepositos', [DepositoController::class,"getDepositos"]);
 
 Route::post('getFacturas', [FacturasController::class,"getFacturas"]);
 Route::post('setFactura', [FacturasController::class,"setFactura"]);
+
   
 
 Route::post('delFactura', [FacturasController::class,"delFactura"]);
 Route::post('delItemFact', [ItemsFacturasController::class,"delItemFact"]);
+
+Route::post('setCarrito', [PedidosController::class,"setCarrito"]);
+
+Route::post('getPedidosList', [PedidosController::class,"getPedidosList"]);
+
+Route::post('getPedidos', [PedidosController::class,"getPedidos"]);
+Route::post('delPedido', [PedidosController::class,"delPedido"]);
+Route::post('getPedido', [PedidosController::class,"getPedido"]);
+Route::post('setConfirmFacturas', [PedidosController::class,"setConfirmFacturas"]);
+
+Route::post('setCtCarrito', [PedidosController::class,"setCtCarrito"]);
+Route::post('setDelCarrito', [PedidosController::class,"setDelCarrito"]);
+
+Route::post('sendPedidoSucursal', [PedidosController::class,"sendPedidoSucursal"]);
+Route::get('showPedidoBarras', [PedidosController::class,"showPedidoBarras"]);
+
+Route::post('getPedidoPendSucursal', [PedidosController::class,"getPedidoPendSucursal"]);
+Route::post('extraerPedidoPendSucursal', [PedidosController::class,"extraerPedidoPendSucursal"]);
+
+
+
+
+
 
 
 // Route::get('/cache', function () {

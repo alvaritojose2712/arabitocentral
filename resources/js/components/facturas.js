@@ -74,7 +74,6 @@ function Facturas({
   }
   return (
     <div className="container">
-    <h2>Facturas</h2>
       <div className="btn-group mb-4">
         <button className={("btn ")+(factsubView=="buscar"?"btn-dark":"btn-outline-arabito")} onClick={()=>setfactsubView("buscar")}>Buscar</button>
         <button className={("btn ")+(factsubView=="agregar"?"btn-dark":"btn-outline-arabito")} onClick={()=>setfactsubView("agregar")}>
@@ -273,24 +272,19 @@ function Facturas({
               <div key={e.id} className="card-pedidos">
                 <div className="d-flex flex-column w-100">
                   <div>
-                    <p>
+                    <div className="mb-1">
+                      <i className="fa fa-times text-danger pull-right" data-id={e.id} onClick={delItemFact}></i>
                       Alterno: {e.producto.codigo_proveedor} | Barras: {e.producto.codigo_barras}
                       <br/>
                       <b>{e.producto.descripcion}</b>
-                    </p>
+                    </div>
                   </div>
                   <div className="d-flex justify-content-between">
-                    <div>
-                       <i className="fa fa-times text-danger" data-id={e.id} onClick={delItemFact}></i>
-                      
-                    </div>
-                    <div className="d-flex justify-content-between">
-                        <button className={"btn btn-arabito"}>Ct. {e.cantidad}</button>
+                    <button className={"btn btn-arabito"}>Ct. {e.cantidad}</button>
 
-                      <div className="btn-group">
-                        <button className={"btn btn-arabito"}>{e.producto.precio_base}</button>
-                        <button className={"btn btn-success"}>{e.producto.precio}</button>
-                      </div>
+                    <div className="btn-group">
+                      <button className={"btn btn-arabito"}>{e.producto.precio_base}</button>
+                      <button className={"btn btn-success"}>{e.producto.precio}</button>
                     </div>
                   </div>
                 </div>

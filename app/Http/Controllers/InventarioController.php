@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\inventario;
 use App\Models\facturas;
 use App\Models\items_facturas;
+use App\Models\moneda;
 
 
 use App\Http\Requests\StoreinventarioRequest;
@@ -24,6 +25,11 @@ class InventarioController extends Controller
                 $exacto = true;
             }
         }
+
+        $cop = moneda::where("tipo",2)->orderBy("id","desc")->first();
+        $bs = moneda::where("tipo",1)->orderBy("id","desc")->first();
+        
+        
 
         $data = [];
 
@@ -61,9 +67,15 @@ class InventarioController extends Controller
             ->orderBy($orderColumn,$orderBy)
             ->get();
         }
+
+        $data->map(function($q) use ($bs,$cop)
+        {
+            $q->bs = number_format($q->precio*$bs["valor"],2,".",",");
+            $q->cop = number_format($q->precio*$cop["valor"],2,".",",");
+            return $q;
+        });
        
-        return $data;
-        
+        return $data; 
     }
 
     public function guardarNuevoProducto(Request $req)
@@ -168,6 +180,5 @@ class InventarioController extends Controller
 
             fallas::updateOrCreate(["id_producto"=>$id],["id_producto"=>$id]);
         }
-
     }
 }

@@ -1,5 +1,8 @@
 
 function Cargarproducto({
+  factSelectIndex,
+  setfactSelectIndex,
+
   productosInventario,
   qBuscarInventario,
   setQBuscarInventario,
@@ -93,7 +96,8 @@ function Cargarproducto({
         
         <div className="row">
 
-          {subviewCargarProductos=="buscar"?<div className="col">
+          {subviewCargarProductos=="buscar"?
+          <div className="col">
             <div className="mb-3">
               <div className="input-group w-100 ">
                 <input type="text"
@@ -136,7 +140,7 @@ function Cargarproducto({
                   data-index={i}
                   key={e.id}
                   className={(indexSelectInventario==i?"bg-arabito":"bg-light text-secondary")+" card mt-2 pointer"}>
-                    <div className="card-header flex-row row justify-content-between">
+                    <div className="card-header flex-row justify-content-between">
                       <div>
                         <small>ID.{e.id}</small>
                       </div>
@@ -171,16 +175,19 @@ function Cargarproducto({
                 onChange={e=>setinpInvbarras(e.target.value)} 
                 placeholder="Barras."/></div>
               </div>
-              <div className="row">
-                <div className="col text-center">
-                  Ct. <input className="h1 m-2 input-ct" 
-                  type="text"
-                  required={true}
-                  value={inpInvcantidad} 
-                  onChange={e=>setinpInvcantidad(number(e.target.value))}
-                  placeholder="Ct."/>
+
+              {factSelectIndex!==null?
+                <div className="row">
+                  <div className="col text-center">
+                    Ct. <input className="h1 m-2 input-ct" 
+                    type="text"
+                    required={true}
+                    value={inpInvcantidad} 
+                    onChange={e=>setinpInvcantidad(number(e.target.value))}
+                    placeholder="Ct."/>
+                  </div>
                 </div>
-              </div>
+              :null}
               <div className="row">
                 <div className="col">
                   <input className="form-control" 
@@ -292,42 +299,47 @@ function Cargarproducto({
                   placeholder="Descripción"></textarea>
                 </div>
               </div>
-              <div className="row">
-                <div className="col text-right">
-                  <div className="bg-arabito p-2">
-                    Base. <input className="h1 input-ct" 
-                    type="text"
-                    required={true}
-                    value={inpInvbase} 
-                    onChange={e=>setinpInvbase(number(e.target.value))}
-                    placeholder="Base."/>
+              {factSelectIndex!==null?
+              <>
+                <div className="row">
+                  <div className="col text-right">
+                    <div className="bg-arabito p-2">
+                      Base. <input className="h1 input-ct" 
+                      type="text"
+                      required={true}
+                      value={inpInvbase} 
+                      onChange={e=>setinpInvbase(number(e.target.value))}
+                      placeholder="Base."/>
+                    </div>
+                  </div>
+                  <div className="col">
+                    <div className="bg-primary p-2">
+                      <input className="h1 input-ct" 
+                      type="text"
+                      required={true}
+                      value={inpInvventa} 
+                      onChange={e=>setinpInvventa(number(e.target.value))}
+                      placeholder="Venta."/> Venta.
+                    </div>
                   </div>
                 </div>
-                <div className="col">
-                  <div className="bg-primary p-2">
-                    <input className="h1 input-ct" 
-                    type="text"
-                    required={true}
-                    value={inpInvventa} 
-                    onChange={e=>setinpInvventa(number(e.target.value))}
-                    placeholder="Venta."/> Venta.
+                <div className="row">
+                  <div className="col text-center">
+                    <div className="mt-2">
+                      <label htmlFor="">
+                      IVA % <input className="input-ct" 
+                      type="text"
+                      required={true}
+                      value={inpInviva} 
+                      onChange={e=>setinpInviva(number(e.target.value))}
+                      placeholder="Iva."/>
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="row">
-                <div className="col text-center">
-                  <div className="mt-2">
-                    <label htmlFor="">
-                    IVA % <input className="input-ct" 
-                    type="text"
-                    required={true}
-                    value={inpInviva} 
-                    onChange={e=>setinpInviva(number(e.target.value))}
-                    placeholder="Iva."/>
-                    </label>
-                  </div>
-                </div>
-              </div>
+              </>
+              :null}
+              
               <div className="row">
                 <div className="col text-center">
                   {indexSelectInventario==null?

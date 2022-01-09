@@ -50,11 +50,20 @@ td,th{
 .cell2{
   width: 20%;
 }
+.cell25{
+  width: 25%;
+}
 .cell3{
   width: 30%;
 }
 .cell4{
   width: 40%;
+}
+.cell5{
+  width: 50%;
+}
+.cell6{
+  width: 60%;
 }
 .cargando{
   position: fixed;
@@ -324,8 +333,16 @@ body{
   background-color: #ec7311 !important;
   color: #fff !important;
   text-shadow: 0 0 black;
-
 }
+
+.bg-arabito-light{
+
+  background-color: #ec731112 !important;
+  text-shadow: 0 0 black;
+}
+
+
+
 .text-arabito{
   color: #ec7311 !important;
 
@@ -337,8 +354,13 @@ body{
 .btn-arabito{
   color: white !important;
   background-color: #ec7311 !important;
-
 }
+
+.text-arabito{
+  color: #ec7311 !important;
+}
+
+
 
 .btn-outline-arabito{
 

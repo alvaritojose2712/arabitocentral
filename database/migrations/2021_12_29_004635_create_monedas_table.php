@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLocalsVersionsTable extends Migration
+class CreateMonedasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,18 @@ class CreateLocalsVersionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('locals_versions', function (Blueprint $table) {
-            $table->increments("id");
-            $table->string("version")->unique();
+        Schema::create('monedas', function (Blueprint $table) {
+            $table->increments('id');
+            $table->enum("tipo",[1,2]);
+            $table->decimal("valor",10,2);
             $table->timestamps();
         });
-        DB::table("locals_versions")->insert([
-            ["version"=>1]
+        DB::table("monedas")->insert([
+            ["tipo"=>1,"valor"=>"4.31"],
+            ["tipo"=>2,"valor"=>"3800"],
         ]);
     }
+
     /**
      * Reverse the migrations.
      *
@@ -29,6 +32,6 @@ class CreateLocalsVersionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locals_versions');
+        Schema::dropIfExists('monedas');
     }
 }
