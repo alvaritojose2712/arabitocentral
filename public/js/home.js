@@ -4256,6 +4256,205 @@ function Inventario(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/components/login.js":
+/*!******************************************!*\
+  !*** ./resources/js/components/login.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_login_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css/login.css */ "./resources/css/login.css");
+/* harmony import */ var _images_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../images/logo.png */ "./resources/images/logo.png");
+/* harmony import */ var _images_tools_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../images/tools.png */ "./resources/images/tools.png");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _cargando__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./cargando */ "./resources/js/components/cargando.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } Object.defineProperty(subClass, "prototype", { value: Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }), writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+ // import {handleNotification,Notification} from './handleNotification';
+
+
+
+
+var Login = /*#__PURE__*/function (_Component) {
+  _inherits(Login, _Component);
+
+  var _super = _createSuper(Login);
+
+  function Login() {
+    var _this;
+
+    _classCallCheck(this, Login);
+
+    _this = _super.call(this);
+    _this.state = {
+      clave: "",
+      usuario: "",
+      activeLoading: false
+    };
+    _this.loc = window.location.origin;
+    _this.getApiData = _this.getApiData.bind(_assertThisInitialized(_this));
+    _this.changeUniqueState = _this.changeUniqueState.bind(_assertThisInitialized(_this));
+    _this.submit = _this.submit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Login, [{
+    key: "getApiData",
+    value: function getApiData(e, url, prop) {
+      var _this2 = this;
+
+      axios.get(url, {
+        params: {
+          q: e ? e.target.value : ""
+        }
+      }).then(function (data) {
+        _this2.setState(_defineProperty({}, prop, data.data));
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "changeUniqueState",
+    value: function changeUniqueState(newState) {
+      var _this3 = this;
+
+      return new Promise(function (solve) {
+        return _this3.setState(newState, solve);
+      });
+    }
+  }, {
+    key: "submit",
+    value: function submit(event) {
+      var _this4 = this;
+
+      event.preventDefault();
+      this.setState({
+        activeLoading: true
+      });
+      axios.post("/login", {
+        clave: this.state.clave,
+        usuario: this.state.usuario
+      }).then(function (data) {
+        _this4.setState({
+          activeLoading: false
+        });
+
+        if (data.data) {
+          _this4.props.loginRes(data);
+        } // handleNotification(data)
+
+      }); // .catch(error=>{handleNotification(error)})
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this5 = this;
+
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "login",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "wrap-login100",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
+            className: "login100-form validate-form",
+            onSubmit: this.submit,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "wrap-input100 validate-input",
+              "data-validate": "Introduzca Usuario",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                className: "input100",
+                type: "text",
+                value: this.state.usuario,
+                name: "usuario",
+                onChange: function onChange(event) {
+                  return _this5.changeUniqueState({
+                    usuario: event.target.value
+                  });
+                },
+                placeholder: "Usuario",
+                required: true
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "focus-input100",
+                "data-placeholder": "U"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "wrap-input100 validate-input",
+              "data-validate": "Introduzca Contrase\xF1a",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                className: "input100",
+                type: "password",
+                value: this.state.clave,
+                name: "clave",
+                onChange: function onChange(event) {
+                  return _this5.changeUniqueState({
+                    clave: event.target.value
+                  });
+                },
+                placeholder: "Contrase\xF1a",
+                required: true
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "focus-input100",
+                "data-placeholder": "C"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "container-login100-form-btn",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                className: "login100-form-btn",
+                children: "Iniciar"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_cargando__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              active: this.state.activeLoading
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+          className: "text-muted mt-4 text-center",
+          children: ["Ao Systems", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+            src: _images_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"],
+            alt: "logo ao",
+            height: "50px"
+          })]
+        })]
+      });
+    }
+  }]);
+
+  return Login;
+}(react__WEBPACK_IMPORTED_MODULE_3__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Login);
+
+/***/ }),
+
 /***/ "./resources/js/components/notificacion.js":
 /*!*************************************************!*\
   !*** ./resources/js/components/notificacion.js ***!
@@ -5329,6 +5528,106 @@ var db = (_db = {
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/login.css":
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/login.css ***!
+  \*******************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".login{\r\n  width: 100%;\r\n  height: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  flex-direction: column;\r\n}\r\n.wraper-panel-pre-inscripcion{\r\n  width: 100%;\r\n  height: 100%;\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n}\r\n\r\n.header-register{\r\n  font-size: 2em;\r\n  font-weight:bolder;\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  box-shadow: 5px 5px 5px #adb5bd;\r\n  margin-bottom: 60px; \r\n}\r\n.header-register-logo img{\r\n  height: 150px;\r\n}\r\n\r\n.panel-pre-inscripcion{\r\n  width: auto;\r\n  border-radius: 10px;\r\n\r\n  padding: 55px 55px 37px 55px;\r\n  \r\n \r\n  box-shadow: 0px 10px 8px #e0e0e0;\r\n}\r\n.container-login100 {\r\n  width: 100%;  \r\n  min-height: 100vh;\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\r\n  align-items: center;\r\n  padding: 15px;\r\n\r\n  background-repeat: no-repeat;\r\n  background-position: center;\r\n  background-size: cover;\r\n  position: relative;\r\n  z-index: 1;  \r\n}\r\n\r\n.container-login100::before {\r\n  content: \"\";\r\n  display: block;\r\n  position: absolute;\r\n  z-index: -1;\r\n  width: 100%;\r\n  height: 100%;\r\n  top: 0;\r\n  left: 0;\r\n  background-color: rgba(255,255,255,0.9);\r\n}\r\n\r\n.wrap-login100 {\r\n  width: 400px;\r\n  border-radius: 10px;\r\n  overflow: hidden;\r\n  padding: 55px 55px 37px 55px;\r\n\r\n  \r\n \r\n  background: linear-gradient(180deg,#f26d0a,#ffa969 12%,rgba(255,255,255,0) 85%)\r\n}\r\n\r\n\r\n/*------------------------------------------------------------------\r\n[ Form ]*/\r\n\r\n.login100-form {\r\n  width: 100%;\r\n}\r\n.login100-form-logo{\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n.login100-form-logo img{\r\n  \r\n  \r\n  height: 220px;\r\n \r\n}\r\n\r\n.login100-form-title {\r\n  font-size: 30px;\r\n  color: #fff;\r\n  line-height: 1.2;\r\n  text-align: center;\r\n  text-transform: uppercase;\r\n\r\n  display: block;\r\n}\r\n\r\n\r\n/*------------------------------------------------------------------\r\n[ Input ]*/\r\n\r\n.wrap-input100 {\r\n  width: 100%;\r\n  position: relative;\r\n  border-bottom: 2px solid rgba(255,255,255,0.24);\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.input100 {\r\n  font-size: 16px;\r\n  color: #fff;\r\n  line-height: 1.2;\r\n\r\n  display: block;\r\n  width: 100%;\r\n  height: 45px;\r\n  background: transparent;\r\n  padding: 0 5px 0 38px;\r\n}\r\n\r\n/*---------------------------------------------*/ \r\n.focus-input100 {\r\n  position: absolute;\r\n  display: block;\r\n  width: 100%;\r\n  height: 100%;\r\n  top: 0;\r\n  left: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.focus-input100::before {\r\n  font-family: Material-Design-Iconic-Font;\r\n  content: \"\";\r\n  display: block;\r\n  position: absolute;\r\n  bottom: -2px;\r\n  left: 0;\r\n  width: 0;\r\n  height: 2px;\r\n  transition: all 0.4s;\r\n\r\n  background: #fff;\r\n}\r\n\r\n.focus-input100::after {\r\n  font-family: Material-Design-Iconic-Font;\r\n  font-size: 22px;\r\n  color: #fff;\r\n\r\n  content: attr(data-placeholder);\r\n  display: block;\r\n  width: 100%;\r\n  position: absolute;\r\n  top: 6px;\r\n  left: 0px;\r\n  padding-left: 5px;\r\n  transition: all 0.4s;\r\n}\r\n\r\n.input100:focus {\r\n  padding-left: 5px;\r\n  transition: all .5s;\r\n}\r\n\r\n.input100:focus + .focus-input100::after {\r\n  top: -22px;\r\n  font-size: 18px;\r\n}\r\n\r\n.input100:focus + .focus-input100::before {\r\n  width: 100%;\r\n}\r\n\r\n.has-val.input100 + .focus-input100::after {\r\n  top: -22px;\r\n  font-size: 18px;\r\n}\r\n\r\n.has-val.input100 + .focus-input100::before {\r\n  width: 100%;\r\n}\r\n\r\n.has-val.input100 {\r\n  padding-left: 5px;\r\n}\r\n\r\n\r\n/*==================================================================\r\n[ Restyle Checkbox ]*/\r\n\r\n.contact100-form-checkbox {\r\n  padding-left: 5px;\r\n  padding-top: 5px;\r\n  padding-bottom: 35px;\r\n}\r\n\r\n.input-checkbox100 {\r\n  display: none;\r\n}\r\n\r\n.label-checkbox100 {\r\n  font-size: 13px;\r\n  color: #fff;\r\n  line-height: 1.2;\r\n\r\n  display: block;\r\n  position: relative;\r\n  padding-left: 26px;\r\n  cursor: pointer;\r\n}\r\n\r\n.label-checkbox100::before {\r\n  content: \"\\F26B\";\r\n  font-size: 13px;\r\n  color: transparent;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  position: absolute;\r\n  width: 16px;\r\n  height: 16px;\r\n  border-radius: 2px;\r\n  background: #fff;\r\n  left: 0;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n}\r\n\r\n.input-checkbox100:checked + .label-checkbox100::before {\r\n  color: #555555;\r\n}\r\n\r\n\r\n/*------------------------------------------------------------------\r\n[ Button ]*/\r\n.container-login100-form-btn {\r\n  width: 100%;\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\r\n}\r\n\r\n.login100-form-btn {\r\n  font-size: 16px;\r\n  color: #555555;\r\n  line-height: 1.2;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  padding: 0 20px;\r\n  min-width: 120px;\r\n  height: 50px;\r\n  border-radius: 25px;\r\n\r\n  \r\n \r\n  background: linear-gradient(0deg, rgba(242,109,10,1) 0%, rgba(255,169,105,1) 22%, rgba(255,255,255,0) 85%);\r\n\r\n  position: relative;\r\n  z-index: 1;\r\n  transition: all 0.4s;\r\n}\r\n\r\n.login100-form-btn::before {\r\n  content: \"\";\r\n  display: block;\r\n  position: absolute;\r\n  z-index: -1;\r\n  width: 100%;\r\n  height: 100%;\r\n  border-radius: 25px;\r\n  background-color: #fff;\r\n  top: 0;\r\n  left: 0;\r\n  opacity: 1;\r\n  transition: all 0.4s;\r\n}\r\n\r\n.login100-form-btn:hover {\r\n  color: #fff;\r\n}\r\n\r\n.login100-form-btn:hover:before {\r\n  opacity: 0;\r\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/api.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
+  \*****************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+// eslint-disable-next-line func-names
+module.exports = function (cssWithMappingToString) {
+  var list = []; // return the list of modules as css string
+
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item);
+
+      if (item[2]) {
+        return "@media ".concat(item[2], " {").concat(content, "}");
+      }
+
+      return content;
+    }).join("");
+  }; // import a list of modules into the list
+  // eslint-disable-next-line func-names
+
+
+  list.i = function (modules, mediaQuery, dedupe) {
+    if (typeof modules === "string") {
+      // eslint-disable-next-line no-param-reassign
+      modules = [[null, modules, ""]];
+    }
+
+    var alreadyImportedModules = {};
+
+    if (dedupe) {
+      for (var i = 0; i < this.length; i++) {
+        // eslint-disable-next-line prefer-destructuring
+        var id = this[i][0];
+
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
+      }
+    }
+
+    for (var _i = 0; _i < modules.length; _i++) {
+      var item = [].concat(modules[_i]);
+
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+
+      if (mediaQuery) {
+        if (!item[2]) {
+          item[2] = mediaQuery;
+        } else {
+          item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
+        }
+      }
+
+      list.push(item);
+    }
+  };
+
+  return list;
+};
+
+/***/ }),
+
 /***/ "./resources/images/icon.png":
 /*!***********************************!*\
   !*** ./resources/images/icon.png ***!
@@ -5356,6 +5655,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/logo.png?6e1f2e40dfe9085fe5e23f222eb1c722");
+
+/***/ }),
+
+/***/ "./resources/images/tools.png":
+/*!************************************!*\
+  !*** ./resources/images/tools.png ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/tools.png?5541662be3f61fa92f510640f8a524b5");
 
 /***/ }),
 
@@ -37314,6 +37628,315 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./resources/css/login.css":
+/*!*********************************!*\
+  !*** ./resources/css/login.css ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_login_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./login.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/login.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_login_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_login_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
+  \****************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var isOldIE = function isOldIE() {
+  var memo;
+  return function memorize() {
+    if (typeof memo === 'undefined') {
+      // Test for IE <= 9 as proposed by Browserhacks
+      // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+      // Tests for existence of standard globals is to allow style-loader
+      // to operate correctly into non-standard environments
+      // @see https://github.com/webpack-contrib/style-loader/issues/177
+      memo = Boolean(window && document && document.all && !window.atob);
+    }
+
+    return memo;
+  };
+}();
+
+var getTarget = function getTarget() {
+  var memo = {};
+  return function memorize(target) {
+    if (typeof memo[target] === 'undefined') {
+      var styleTarget = document.querySelector(target); // Special case to return head of iframe instead of iframe itself
+
+      if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+        try {
+          // This will throw an exception if access to iframe is blocked
+          // due to cross-origin restrictions
+          styleTarget = styleTarget.contentDocument.head;
+        } catch (e) {
+          // istanbul ignore next
+          styleTarget = null;
+        }
+      }
+
+      memo[target] = styleTarget;
+    }
+
+    return memo[target];
+  };
+}();
+
+var stylesInDom = [];
+
+function getIndexByIdentifier(identifier) {
+  var result = -1;
+
+  for (var i = 0; i < stylesInDom.length; i++) {
+    if (stylesInDom[i].identifier === identifier) {
+      result = i;
+      break;
+    }
+  }
+
+  return result;
+}
+
+function modulesToDom(list, options) {
+  var idCountMap = {};
+  var identifiers = [];
+
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i];
+    var id = options.base ? item[0] + options.base : item[0];
+    var count = idCountMap[id] || 0;
+    var identifier = "".concat(id, " ").concat(count);
+    idCountMap[id] = count + 1;
+    var index = getIndexByIdentifier(identifier);
+    var obj = {
+      css: item[1],
+      media: item[2],
+      sourceMap: item[3]
+    };
+
+    if (index !== -1) {
+      stylesInDom[index].references++;
+      stylesInDom[index].updater(obj);
+    } else {
+      stylesInDom.push({
+        identifier: identifier,
+        updater: addStyle(obj, options),
+        references: 1
+      });
+    }
+
+    identifiers.push(identifier);
+  }
+
+  return identifiers;
+}
+
+function insertStyleElement(options) {
+  var style = document.createElement('style');
+  var attributes = options.attributes || {};
+
+  if (typeof attributes.nonce === 'undefined') {
+    var nonce =  true ? __webpack_require__.nc : 0;
+
+    if (nonce) {
+      attributes.nonce = nonce;
+    }
+  }
+
+  Object.keys(attributes).forEach(function (key) {
+    style.setAttribute(key, attributes[key]);
+  });
+
+  if (typeof options.insert === 'function') {
+    options.insert(style);
+  } else {
+    var target = getTarget(options.insert || 'head');
+
+    if (!target) {
+      throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
+    }
+
+    target.appendChild(style);
+  }
+
+  return style;
+}
+
+function removeStyleElement(style) {
+  // istanbul ignore if
+  if (style.parentNode === null) {
+    return false;
+  }
+
+  style.parentNode.removeChild(style);
+}
+/* istanbul ignore next  */
+
+
+var replaceText = function replaceText() {
+  var textStore = [];
+  return function replace(index, replacement) {
+    textStore[index] = replacement;
+    return textStore.filter(Boolean).join('\n');
+  };
+}();
+
+function applyToSingletonTag(style, index, remove, obj) {
+  var css = remove ? '' : obj.media ? "@media ".concat(obj.media, " {").concat(obj.css, "}") : obj.css; // For old IE
+
+  /* istanbul ignore if  */
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = replaceText(index, css);
+  } else {
+    var cssNode = document.createTextNode(css);
+    var childNodes = style.childNodes;
+
+    if (childNodes[index]) {
+      style.removeChild(childNodes[index]);
+    }
+
+    if (childNodes.length) {
+      style.insertBefore(cssNode, childNodes[index]);
+    } else {
+      style.appendChild(cssNode);
+    }
+  }
+}
+
+function applyToTag(style, options, obj) {
+  var css = obj.css;
+  var media = obj.media;
+  var sourceMap = obj.sourceMap;
+
+  if (media) {
+    style.setAttribute('media', media);
+  } else {
+    style.removeAttribute('media');
+  }
+
+  if (sourceMap && typeof btoa !== 'undefined') {
+    css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
+  } // For old IE
+
+  /* istanbul ignore if  */
+
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    while (style.firstChild) {
+      style.removeChild(style.firstChild);
+    }
+
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var singleton = null;
+var singletonCounter = 0;
+
+function addStyle(obj, options) {
+  var style;
+  var update;
+  var remove;
+
+  if (options.singleton) {
+    var styleIndex = singletonCounter++;
+    style = singleton || (singleton = insertStyleElement(options));
+    update = applyToSingletonTag.bind(null, style, styleIndex, false);
+    remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+  } else {
+    style = insertStyleElement(options);
+    update = applyToTag.bind(null, style, options);
+
+    remove = function remove() {
+      removeStyleElement(style);
+    };
+  }
+
+  update(obj);
+  return function updateStyle(newObj) {
+    if (newObj) {
+      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) {
+        return;
+      }
+
+      update(obj = newObj);
+    } else {
+      remove();
+    }
+  };
+}
+
+module.exports = function (list, options) {
+  options = options || {}; // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+  // tags it will allow on a page
+
+  if (!options.singleton && typeof options.singleton !== 'boolean') {
+    options.singleton = isOldIE();
+  }
+
+  list = list || [];
+  var lastIdentifiers = modulesToDom(list, options);
+  return function update(newList) {
+    newList = newList || [];
+
+    if (Object.prototype.toString.call(newList) !== '[object Array]') {
+      return;
+    }
+
+    for (var i = 0; i < lastIdentifiers.length; i++) {
+      var identifier = lastIdentifiers[i];
+      var index = getIndexByIdentifier(identifier);
+      stylesInDom[index].references--;
+    }
+
+    var newLastIdentifiers = modulesToDom(newList, options);
+
+    for (var _i = 0; _i < lastIdentifiers.length; _i++) {
+      var _identifier = lastIdentifiers[_i];
+
+      var _index = getIndexByIdentifier(_identifier);
+
+      if (stylesInDom[_index].references === 0) {
+        stylesInDom[_index].updater();
+
+        stylesInDom.splice(_index, 1);
+      }
+    }
+
+    lastIdentifiers = newLastIdentifiers;
+  };
+};
+
+/***/ }),
+
 /***/ "./node_modules/axios/package.json":
 /*!*****************************************!*\
   !*** ./node_modules/axios/package.json ***!
@@ -37339,7 +37962,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
+/******/ 			id: moduleId,
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
@@ -37413,8 +38036,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inventario__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./inventario */ "./resources/js/components/inventario.js");
 /* harmony import */ var _components_notificacion__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/notificacion */ "./resources/js/components/notificacion.js");
 /* harmony import */ var _components_cargando__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/cargando */ "./resources/js/components/cargando.js");
-/* harmony import */ var _toplabel__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./toplabel */ "./resources/js/components/toplabel.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/login */ "./resources/js/components/login.js");
+/* harmony import */ var _toplabel__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./toplabel */ "./resources/js/components/toplabel.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -37426,6 +38050,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -37460,338 +38085,343 @@ function Home() {
       loading = _useState6[0],
       setLoading = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      sucursales = _useState8[0],
-      setsucursales = _useState8[1];
+      loginActive = _useState8[0],
+      setLoginActive = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState10 = _slicedToArray(_useState9, 2),
-      sucursalSelect = _useState10[0],
-      setsucursalSelect = _useState10[1];
+      sucursales = _useState10[0],
+      setsucursales = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
       _useState12 = _slicedToArray(_useState11, 2),
-      fallas = _useState12[0],
-      setfallas = _useState12[1];
+      sucursalSelect = _useState12[0],
+      setsucursalSelect = _useState12[1];
 
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState14 = _slicedToArray(_useState13, 2),
-      gastos = _useState14[0],
-      setgastos = _useState14[1];
+      fallas = _useState14[0],
+      setfallas = _useState14[1];
 
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState16 = _slicedToArray(_useState15, 2),
-      ventas = _useState16[0],
-      setventas = _useState16[1];
+      gastos = _useState16[0],
+      setgastos = _useState16[1];
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("*"),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState18 = _slicedToArray(_useState17, 2),
-      selectgastos = _useState18[0],
-      setselectgastos = _useState18[1];
+      ventas = _useState18[0],
+      setventas = _useState18[1];
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("*"),
       _useState20 = _slicedToArray(_useState19, 2),
-      fechaGastos = _useState20[0],
-      setfechaGastos = _useState20[1];
+      selectgastos = _useState20[0],
+      setselectgastos = _useState20[1];
 
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(1),
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState22 = _slicedToArray(_useState21, 2),
-      tipogasto = _useState22[0],
-      settipogasto = _useState22[1];
+      fechaGastos = _useState22[0],
+      setfechaGastos = _useState22[1];
 
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(1),
       _useState24 = _slicedToArray(_useState23, 2),
-      selectfechaventa = _useState24[0],
-      setselectfechaventa = _useState24[1]; ///////////Inventario
+      tipogasto = _useState24[0],
+      settipogasto = _useState24[1];
+
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState26 = _slicedToArray(_useState25, 2),
+      selectfechaventa = _useState26[0],
+      setselectfechaventa = _useState26[1]; ///////////Inventario
 
 
   var inputBuscarInventario = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
 
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-      _useState26 = _slicedToArray(_useState25, 2),
-      productosInventario = _useState26[0],
-      setProductosInventario = _useState26[1];
-
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState28 = _slicedToArray(_useState27, 2),
-      qBuscarInventario = _useState28[0],
-      setQBuscarInventario = _useState28[1];
+      productosInventario = _useState28[0],
+      setProductosInventario = _useState28[1];
 
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState30 = _slicedToArray(_useState29, 2),
-      indexSelectInventario = _useState30[0],
-      setIndexSelectInventario = _useState30[1];
+      qBuscarInventario = _useState30[0],
+      setQBuscarInventario = _useState30[1];
 
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
       _useState32 = _slicedToArray(_useState31, 2),
-      inpInvbarras = _useState32[0],
-      setinpInvbarras = _useState32[1];
+      indexSelectInventario = _useState32[0],
+      setIndexSelectInventario = _useState32[1];
 
   var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState34 = _slicedToArray(_useState33, 2),
-      inpInvcantidad = _useState34[0],
-      setinpInvcantidad = _useState34[1];
+      inpInvbarras = _useState34[0],
+      setinpInvbarras = _useState34[1];
 
   var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState36 = _slicedToArray(_useState35, 2),
-      inpInvalterno = _useState36[0],
-      setinpInvalterno = _useState36[1];
+      inpInvcantidad = _useState36[0],
+      setinpInvcantidad = _useState36[1];
 
-  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("UND"),
+  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState38 = _slicedToArray(_useState37, 2),
-      inpInvunidad = _useState38[0],
-      setinpInvunidad = _useState38[1];
+      inpInvalterno = _useState38[0],
+      setinpInvalterno = _useState38[1];
 
-  var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("24"),
+  var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("UND"),
       _useState40 = _slicedToArray(_useState39, 2),
-      inpInvcategoria = _useState40[0],
-      setinpInvcategoria = _useState40[1];
+      inpInvunidad = _useState40[0],
+      setinpInvunidad = _useState40[1];
 
-  var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("24"),
       _useState42 = _slicedToArray(_useState41, 2),
-      inpInvdescripcion = _useState42[0],
-      setinpInvdescripcion = _useState42[1];
+      inpInvcategoria = _useState42[0],
+      setinpInvcategoria = _useState42[1];
 
   var _useState43 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState44 = _slicedToArray(_useState43, 2),
-      inpInvbase = _useState44[0],
-      setinpInvbase = _useState44[1];
+      inpInvdescripcion = _useState44[0],
+      setinpInvdescripcion = _useState44[1];
 
   var _useState45 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState46 = _slicedToArray(_useState45, 2),
-      inpInvventa = _useState46[0],
-      setinpInvventa = _useState46[1];
+      inpInvbase = _useState46[0],
+      setinpInvbase = _useState46[1];
 
-  var _useState47 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("0"),
+  var _useState47 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState48 = _slicedToArray(_useState47, 2),
-      inpInviva = _useState48[0],
-      setinpInviva = _useState48[1];
+      inpInvventa = _useState48[0],
+      setinpInvventa = _useState48[1];
 
-  var _useState49 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState49 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("0"),
       _useState50 = _slicedToArray(_useState49, 2),
-      inpInvid_proveedor = _useState50[0],
-      setinpInvid_proveedor = _useState50[1];
+      inpInviva = _useState50[0],
+      setinpInviva = _useState50[1];
 
   var _useState51 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState52 = _slicedToArray(_useState51, 2),
-      inpInvid_marca = _useState52[0],
-      setinpInvid_marca = _useState52[1];
+      inpInvid_proveedor = _useState52[0],
+      setinpInvid_proveedor = _useState52[1];
 
   var _useState53 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState54 = _slicedToArray(_useState53, 2),
-      inpInvid_deposito = _useState54[0],
-      setinpInvid_deposito = _useState54[1];
+      inpInvid_marca = _useState54[0],
+      setinpInvid_marca = _useState54[1];
 
-  var _useState55 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+  var _useState55 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState56 = _slicedToArray(_useState55, 2),
-      inpInvporcentaje_ganancia = _useState56[0],
-      setinpInvporcentaje_ganancia = _useState56[1];
+      inpInvid_deposito = _useState56[0],
+      setinpInvid_deposito = _useState56[1];
 
-  var _useState57 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState57 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
       _useState58 = _slicedToArray(_useState57, 2),
-      proveedordescripcion = _useState58[0],
-      setproveedordescripcion = _useState58[1];
+      inpInvporcentaje_ganancia = _useState58[0],
+      setinpInvporcentaje_ganancia = _useState58[1];
 
   var _useState59 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState60 = _slicedToArray(_useState59, 2),
-      proveedorrif = _useState60[0],
-      setproveedorrif = _useState60[1];
+      proveedordescripcion = _useState60[0],
+      setproveedordescripcion = _useState60[1];
 
   var _useState61 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState62 = _slicedToArray(_useState61, 2),
-      proveedordireccion = _useState62[0],
-      setproveedordireccion = _useState62[1];
+      proveedorrif = _useState62[0],
+      setproveedorrif = _useState62[1];
 
   var _useState63 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState64 = _slicedToArray(_useState63, 2),
-      proveedortelefono = _useState64[0],
-      setproveedortelefono = _useState64[1];
+      proveedordireccion = _useState64[0],
+      setproveedordireccion = _useState64[1];
 
-  var _useState65 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("inventario"),
+  var _useState65 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState66 = _slicedToArray(_useState65, 2),
-      subViewInventario = _useState66[0],
-      setsubViewInventario = _useState66[1];
+      proveedortelefono = _useState66[0],
+      setproveedortelefono = _useState66[1];
 
-  var _useState67 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+  var _useState67 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("inventario"),
       _useState68 = _slicedToArray(_useState67, 2),
-      indexSelectProveedores = _useState68[0],
-      setIndexSelectProveedores = _useState68[1];
+      subViewInventario = _useState68[0],
+      setsubViewInventario = _useState68[1];
 
-  var _useState69 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState69 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
       _useState70 = _slicedToArray(_useState69, 2),
-      qBuscarProveedor = _useState70[0],
-      setQBuscarProveedor = _useState70[1];
+      indexSelectProveedores = _useState70[0],
+      setIndexSelectProveedores = _useState70[1];
 
-  var _useState71 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState71 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState72 = _slicedToArray(_useState71, 2),
-      proveedoresList = _useState72[0],
-      setProveedoresList = _useState72[1];
+      qBuscarProveedor = _useState72[0],
+      setQBuscarProveedor = _useState72[1];
 
   var _useState73 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState74 = _slicedToArray(_useState73, 2),
-      depositosList = _useState74[0],
-      setdepositosList = _useState74[1];
+      proveedoresList = _useState74[0],
+      setProveedoresList = _useState74[1];
 
   var _useState75 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState76 = _slicedToArray(_useState75, 2),
-      facturas = _useState76[0],
-      setfacturas = _useState76[1];
+      depositosList = _useState76[0],
+      setdepositosList = _useState76[1];
 
-  var _useState77 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState77 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState78 = _slicedToArray(_useState77, 2),
-      factqBuscar = _useState78[0],
-      setfactqBuscar = _useState78[1];
+      facturas = _useState78[0],
+      setfacturas = _useState78[1];
 
   var _useState79 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState80 = _slicedToArray(_useState79, 2),
-      factqBuscarDate = _useState80[0],
-      setfactqBuscarDate = _useState80[1];
+      factqBuscar = _useState80[0],
+      setfactqBuscar = _useState80[1];
 
-  var _useState81 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("id"),
+  var _useState81 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState82 = _slicedToArray(_useState81, 2),
-      factOrderBy = _useState82[0],
-      setfactOrderBy = _useState82[1];
+      factqBuscarDate = _useState82[0],
+      setfactqBuscarDate = _useState82[1];
 
-  var _useState83 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
+  var _useState83 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("id"),
       _useState84 = _slicedToArray(_useState83, 2),
-      factOrderDescAsc = _useState84[0],
-      setfactOrderDescAsc = _useState84[1];
+      factOrderBy = _useState84[0],
+      setfactOrderBy = _useState84[1];
 
-  var _useState85 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("buscar"),
+  var _useState85 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
       _useState86 = _slicedToArray(_useState85, 2),
-      factsubView = _useState86[0],
-      setfactsubView = _useState86[1];
+      factOrderDescAsc = _useState86[0],
+      setfactOrderDescAsc = _useState86[1];
 
-  var _useState87 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+  var _useState87 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("buscar"),
       _useState88 = _slicedToArray(_useState87, 2),
-      factSelectIndex = _useState88[0],
-      setfactSelectIndex = _useState88[1];
+      factsubView = _useState88[0],
+      setfactsubView = _useState88[1];
 
-  var _useState89 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState89 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
       _useState90 = _slicedToArray(_useState89, 2),
-      factInpid_proveedor = _useState90[0],
-      setfactInpid_proveedor = _useState90[1];
+      factSelectIndex = _useState90[0],
+      setfactSelectIndex = _useState90[1];
 
   var _useState91 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState92 = _slicedToArray(_useState91, 2),
-      factInpnumfact = _useState92[0],
-      setfactInpnumfact = _useState92[1];
+      factInpid_proveedor = _useState92[0],
+      setfactInpid_proveedor = _useState92[1];
 
   var _useState93 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState94 = _slicedToArray(_useState93, 2),
-      factInpdescripcion = _useState94[0],
-      setfactInpdescripcion = _useState94[1];
+      factInpnumfact = _useState94[0],
+      setfactInpnumfact = _useState94[1];
 
   var _useState95 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState96 = _slicedToArray(_useState95, 2),
-      factInpmonto = _useState96[0],
-      setfactInpmonto = _useState96[1];
+      factInpdescripcion = _useState96[0],
+      setfactInpdescripcion = _useState96[1];
 
   var _useState97 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState98 = _slicedToArray(_useState97, 2),
-      factInpfechavencimiento = _useState98[0],
-      setfactInpfechavencimiento = _useState98[1];
+      factInpmonto = _useState98[0],
+      setfactInpmonto = _useState98[1];
 
-  var _useState99 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+  var _useState99 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState100 = _slicedToArray(_useState99, 2),
-      factInpestatus = _useState100[0],
-      setfactInpestatus = _useState100[1];
+      factInpfechavencimiento = _useState100[0],
+      setfactInpfechavencimiento = _useState100[1];
 
-  var _useState101 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(25),
+  var _useState101 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
       _useState102 = _slicedToArray(_useState101, 2),
-      Invnum = _useState102[0],
-      setInvnum = _useState102[1];
+      factInpestatus = _useState102[0],
+      setfactInpestatus = _useState102[1];
 
-  var _useState103 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("id"),
+  var _useState103 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(25),
       _useState104 = _slicedToArray(_useState103, 2),
-      InvorderColumn = _useState104[0],
-      setInvorderColumn = _useState104[1];
+      Invnum = _useState104[0],
+      setInvnum = _useState104[1];
 
-  var _useState105 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
+  var _useState105 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("id"),
       _useState106 = _slicedToArray(_useState105, 2),
-      InvorderBy = _useState106[0],
-      setInvorderBy = _useState106[1];
+      InvorderColumn = _useState106[0],
+      setInvorderColumn = _useState106[1];
 
-  var _useState107 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("buscar"),
+  var _useState107 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
       _useState108 = _slicedToArray(_useState107, 2),
-      subviewProveedores = _useState108[0],
-      setsubviewProveedores = _useState108[1];
+      InvorderBy = _useState108[0],
+      setInvorderBy = _useState108[1];
 
   var _useState109 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("buscar"),
       _useState110 = _slicedToArray(_useState109, 2),
-      subviewCargarProductos = _useState110[0],
-      setsubviewCargarProductos = _useState110[1];
+      subviewProveedores = _useState110[0],
+      setsubviewProveedores = _useState110[1];
 
-  var _useState111 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState111 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("buscar"),
       _useState112 = _slicedToArray(_useState111, 2),
-      viewProductos = _useState112[0],
-      setviewProductos = _useState112[1];
+      subviewCargarProductos = _useState112[0],
+      setsubviewCargarProductos = _useState112[1];
 
-  var _useState113 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+  var _useState113 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState114 = _slicedToArray(_useState113, 2),
-      indexSelectCarrito = _useState114[0],
-      setindexSelectCarrito = _useState114[1];
+      viewProductos = _useState114[0],
+      setviewProductos = _useState114[1];
 
-  var _useState115 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("buscar"),
+  var _useState115 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
       _useState116 = _slicedToArray(_useState115, 2),
-      showCantidadCarrito = _useState116[0],
-      setshowCantidadCarrito = _useState116[1];
+      indexSelectCarrito = _useState116[0],
+      setindexSelectCarrito = _useState116[1];
 
-  var _useState117 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState117 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("buscar"),
       _useState118 = _slicedToArray(_useState117, 2),
-      ctSucursales = _useState118[0],
-      setctSucursales = _useState118[1];
+      showCantidadCarrito = _useState118[0],
+      setshowCantidadCarrito = _useState118[1];
 
-  var _useState119 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("nuevo"),
+  var _useState119 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState120 = _slicedToArray(_useState119, 2),
-      id_pedido = _useState120[0],
-      setid_pedido = _useState120[1];
+      ctSucursales = _useState120[0],
+      setctSucursales = _useState120[1];
 
-  var _useState121 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState121 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("nuevo"),
       _useState122 = _slicedToArray(_useState121, 2),
-      pedidoList = _useState122[0],
-      setpedidoList = _useState122[1];
+      id_pedido = _useState122[0],
+      setid_pedido = _useState122[1];
 
-  var _useState123 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState123 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState124 = _slicedToArray(_useState123, 2),
-      qpedido = _useState124[0],
-      setqpedido = _useState124[1];
+      pedidoList = _useState124[0],
+      setpedidoList = _useState124[1];
 
   var _useState125 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState126 = _slicedToArray(_useState125, 2),
-      qpedidoDateFrom = _useState126[0],
-      setqpedidoDateFrom = _useState126[1];
+      qpedido = _useState126[0],
+      setqpedido = _useState126[1];
 
   var _useState127 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState128 = _slicedToArray(_useState127, 2),
-      qpedidoDateTo = _useState128[0],
-      setqpedidoDateTo = _useState128[1];
+      qpedidoDateFrom = _useState128[0],
+      setqpedidoDateFrom = _useState128[1];
 
-  var _useState129 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("id"),
+  var _useState129 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState130 = _slicedToArray(_useState129, 2),
-      qpedidoOrderBy = _useState130[0],
-      setqpedidoOrderBy = _useState130[1];
+      qpedidoDateTo = _useState130[0],
+      setqpedidoDateTo = _useState130[1];
 
-  var _useState131 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
+  var _useState131 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("id"),
       _useState132 = _slicedToArray(_useState131, 2),
-      qpedidoOrderByDescAsc = _useState132[0],
-      setqpedidoOrderByDescAsc = _useState132[1];
+      qpedidoOrderBy = _useState132[0],
+      setqpedidoOrderBy = _useState132[1];
 
-  var _useState133 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState133 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
       _useState134 = _slicedToArray(_useState133, 2),
-      pedidos = _useState134[0],
-      setpedidos = _useState134[1];
+      qpedidoOrderByDescAsc = _useState134[0],
+      setqpedidoOrderByDescAsc = _useState134[1];
 
-  var _useState135 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+  var _useState135 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState136 = _slicedToArray(_useState135, 2),
-      pedidoData = _useState136[0],
-      setpedidoData = _useState136[1];
+      pedidos = _useState136[0],
+      setpedidos = _useState136[1];
 
-  var _useState137 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+  var _useState137 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
       _useState138 = _slicedToArray(_useState137, 2),
-      qestadopedido = _useState138[0],
-      setqestadopedido = _useState138[1];
+      pedidoData = _useState138[0],
+      setpedidoData = _useState138[1];
+
+  var _useState139 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+      _useState140 = _slicedToArray(_useState139, 2),
+      qestadopedido = _useState140[0],
+      setqestadopedido = _useState140[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     getToday();
@@ -37855,6 +38485,14 @@ function Home() {
   var number = function number(val) {
     if (val == "") return "";
     return val.replace(/[^\d|\.]+/g, '');
+  };
+
+  var loginRes = function loginRes(res) {
+    notificar(res);
+
+    if (res.data) {
+      setLoginActive(res.data.estado);
+    }
   };
 
   var notificar = function notificar(msj) {
@@ -38454,183 +39092,187 @@ function Home() {
     window.open("showPedidoBarras?id=" + pedidoData.id, "targed=blank");
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
-    children: [msj != "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_notificacion__WEBPACK_IMPORTED_MODULE_10__["default"], {
-      msj: msj,
-      notificar: notificar
-    }) : null, loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_cargando__WEBPACK_IMPORTED_MODULE_11__["default"], {
-      active: loading
-    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      setView: setView,
-      view: view,
-      sucursalSelect: sucursalSelect,
-      setsucursalSelect: setsucursalSelect,
-      viewProductos: viewProductos,
-      showCantidadCarrito: showCantidadCarrito,
-      setshowCantidadCarrito: setshowCantidadCarrito,
-      pedidoData: pedidoData
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_toplabel__WEBPACK_IMPORTED_MODULE_12__["default"], {
-      sucursales: sucursales,
-      sucursalSelect: sucursalSelect
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-      className: "container marginb-6 margint-6 p-0",
-      children: [sucursalSelect === null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_selectSucursal__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        setsucursalSelect: setsucursalSelect,
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.Fragment, {
+    children: !loginActive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_login__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      loginRes: loginRes
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.Fragment, {
+      children: [msj != "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_notificacion__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        msj: msj,
+        notificar: notificar
+      }) : null, loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_cargando__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        active: loading
+      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        setView: setView,
+        view: view,
         sucursalSelect: sucursalSelect,
-        sucursales: sucursales,
+        setsucursalSelect: setsucursalSelect,
         viewProductos: viewProductos,
-        setviewProductos: setviewProductos
-      }) : null, selectView("fallas") ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_fallas__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        fallas: fallas
-      }) : null, selectView("gastos") ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_8__["default"], {
-        gastos: gastos,
-        selectgastos: selectgastos,
-        setselectgastos: setselectgastos,
-        setfechaGastos: setfechaGastos,
-        fechaGastos: fechaGastos,
-        tipogasto: tipogasto,
-        settipogasto: settipogasto,
-        moneda: moneda
-      }) : null, selectView("ventas") ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ventas__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        ventas: ventas,
-        selectfechaventa: selectfechaventa,
-        setselectfechaventa: setselectfechaventa,
-        moneda: moneda
-      }) : null, sucursalSelect === "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_inventario__WEBPACK_IMPORTED_MODULE_9__["default"], {
-        showPedidoBarras: showPedidoBarras,
-        productosInventario: productosInventario,
-        qBuscarInventario: qBuscarInventario,
-        setQBuscarInventario: setQBuscarInventario,
-        setIndexSelectInventario: setIndexSelectInventario,
-        indexSelectInventario: indexSelectInventario,
-        inputBuscarInventario: inputBuscarInventario,
-        inpInvbarras: inpInvbarras,
-        setinpInvbarras: setinpInvbarras,
-        inpInvcantidad: inpInvcantidad,
-        setinpInvcantidad: setinpInvcantidad,
-        inpInvalterno: inpInvalterno,
-        setinpInvalterno: setinpInvalterno,
-        inpInvunidad: inpInvunidad,
-        setinpInvunidad: setinpInvunidad,
-        inpInvcategoria: inpInvcategoria,
-        setinpInvcategoria: setinpInvcategoria,
-        inpInvdescripcion: inpInvdescripcion,
-        setinpInvdescripcion: setinpInvdescripcion,
-        inpInvbase: inpInvbase,
-        setinpInvbase: setinpInvbase,
-        inpInvventa: inpInvventa,
-        setinpInvventa: setinpInvventa,
-        inpInviva: inpInviva,
-        setinpInviva: setinpInviva,
-        number: number,
-        guardarNuevoProducto: guardarNuevoProducto,
-        setProveedor: setProveedor,
-        proveedordescripcion: proveedordescripcion,
-        setproveedordescripcion: setproveedordescripcion,
-        proveedorrif: proveedorrif,
-        setproveedorrif: setproveedorrif,
-        proveedordireccion: proveedordireccion,
-        setproveedordireccion: setproveedordireccion,
-        proveedortelefono: proveedortelefono,
-        setproveedortelefono: setproveedortelefono,
-        subViewInventario: subViewInventario,
-        setsubViewInventario: setsubViewInventario,
-        setIndexSelectProveedores: setIndexSelectProveedores,
-        indexSelectProveedores: indexSelectProveedores,
-        qBuscarProveedor: qBuscarProveedor,
-        setQBuscarProveedor: setQBuscarProveedor,
-        proveedoresList: proveedoresList,
-        delProveedor: delProveedor,
-        delProducto: delProducto,
-        inpInvid_proveedor: inpInvid_proveedor,
-        setinpInvid_proveedor: setinpInvid_proveedor,
-        inpInvid_marca: inpInvid_marca,
-        setinpInvid_marca: setinpInvid_marca,
-        inpInvid_deposito: inpInvid_deposito,
-        setinpInvid_deposito: setinpInvid_deposito,
-        depositosList: depositosList,
-        facturas: facturas,
-        factqBuscar: factqBuscar,
-        setfactqBuscar: setfactqBuscar,
-        factqBuscarDate: factqBuscarDate,
-        setfactqBuscarDate: setfactqBuscarDate,
-        factsubView: factsubView,
-        setfactsubView: setfactsubView,
-        factSelectIndex: factSelectIndex,
-        setfactSelectIndex: setfactSelectIndex,
-        factOrderBy: factOrderBy,
-        setfactOrderBy: setfactOrderBy,
-        factOrderDescAsc: factOrderDescAsc,
-        setfactOrderDescAsc: setfactOrderDescAsc,
-        factInpid_proveedor: factInpid_proveedor,
-        setfactInpid_proveedor: setfactInpid_proveedor,
-        factInpnumfact: factInpnumfact,
-        setfactInpnumfact: setfactInpnumfact,
-        factInpdescripcion: factInpdescripcion,
-        setfactInpdescripcion: setfactInpdescripcion,
-        factInpmonto: factInpmonto,
-        setfactInpmonto: setfactInpmonto,
-        factInpfechavencimiento: factInpfechavencimiento,
-        setfactInpfechavencimiento: setfactInpfechavencimiento,
-        factInpestatus: factInpestatus,
-        setfactInpestatus: setfactInpestatus,
-        setFactura: setFactura,
-        delFactura: delFactura,
-        Invnum: Invnum,
-        setInvnum: setInvnum,
-        InvorderColumn: InvorderColumn,
-        setInvorderColumn: setInvorderColumn,
-        InvorderBy: InvorderBy,
-        setInvorderBy: setInvorderBy,
-        delItemFact: delItemFact,
-        moneda: moneda,
-        subviewProveedores: subviewProveedores,
-        setsubviewProveedores: setsubviewProveedores,
-        subviewCargarProductos: subviewCargarProductos,
-        setsubviewCargarProductos: setsubviewCargarProductos,
-        viewProductos: viewProductos,
-        setviewProductos: setviewProductos,
-        indexSelectCarrito: indexSelectCarrito,
-        setindexSelectCarrito: setindexSelectCarrito,
-        showCantidadCarritoFun: showCantidadCarritoFun,
         showCantidadCarrito: showCantidadCarrito,
         setshowCantidadCarrito: setshowCantidadCarrito,
+        pedidoData: pedidoData
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_toplabel__WEBPACK_IMPORTED_MODULE_13__["default"], {
         sucursales: sucursales,
-        ctSucursales: ctSucursales,
-        setctSucursales: setctSucursales,
-        setCarrito: setCarrito,
-        pedidoList: pedidoList,
-        id_pedido: id_pedido,
-        setid_pedido: setid_pedido,
-        qpedido: qpedido,
-        setqpedido: setqpedido,
-        qpedidoDateFrom: qpedidoDateFrom,
-        setqpedidoDateFrom: setqpedidoDateFrom,
-        qpedidoDateTo: qpedidoDateTo,
-        setqpedidoDateTo: setqpedidoDateTo,
-        qpedidoOrderBy: qpedidoOrderBy,
-        setqpedidoOrderBy: setqpedidoOrderBy,
-        qpedidoOrderByDescAsc: qpedidoOrderByDescAsc,
-        setqpedidoOrderByDescAsc: setqpedidoOrderByDescAsc,
-        pedidos: pedidos,
-        setpedidos: setpedidos,
-        pedidoData: pedidoData,
-        setpedidoData: setpedidoData,
-        qestadopedido: qestadopedido,
-        setqestadopedido: setqestadopedido,
-        getPedidos: getPedidos,
-        delPedido: delPedido,
-        selectPedido: selectPedido,
-        setDelCarrito: setDelCarrito,
-        setCtCarrito: setCtCarrito,
-        setProdCarritoInterno: setProdCarritoInterno,
-        sendPedidoSucursal: sendPedidoSucursal
-      }) : null]
-    })]
+        sucursalSelect: sucursalSelect
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+        className: "container marginb-6 margint-6 p-0",
+        children: [sucursalSelect === null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_selectSucursal__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          setsucursalSelect: setsucursalSelect,
+          sucursalSelect: sucursalSelect,
+          sucursales: sucursales,
+          viewProductos: viewProductos,
+          setviewProductos: setviewProductos
+        }) : null, selectView("fallas") ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_fallas__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          fallas: fallas
+        }) : null, selectView("gastos") ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          gastos: gastos,
+          selectgastos: selectgastos,
+          setselectgastos: setselectgastos,
+          setfechaGastos: setfechaGastos,
+          fechaGastos: fechaGastos,
+          tipogasto: tipogasto,
+          settipogasto: settipogasto,
+          moneda: moneda
+        }) : null, selectView("ventas") ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_ventas__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          ventas: ventas,
+          selectfechaventa: selectfechaventa,
+          setselectfechaventa: setselectfechaventa,
+          moneda: moneda
+        }) : null, sucursalSelect === "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_inventario__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          showPedidoBarras: showPedidoBarras,
+          productosInventario: productosInventario,
+          qBuscarInventario: qBuscarInventario,
+          setQBuscarInventario: setQBuscarInventario,
+          setIndexSelectInventario: setIndexSelectInventario,
+          indexSelectInventario: indexSelectInventario,
+          inputBuscarInventario: inputBuscarInventario,
+          inpInvbarras: inpInvbarras,
+          setinpInvbarras: setinpInvbarras,
+          inpInvcantidad: inpInvcantidad,
+          setinpInvcantidad: setinpInvcantidad,
+          inpInvalterno: inpInvalterno,
+          setinpInvalterno: setinpInvalterno,
+          inpInvunidad: inpInvunidad,
+          setinpInvunidad: setinpInvunidad,
+          inpInvcategoria: inpInvcategoria,
+          setinpInvcategoria: setinpInvcategoria,
+          inpInvdescripcion: inpInvdescripcion,
+          setinpInvdescripcion: setinpInvdescripcion,
+          inpInvbase: inpInvbase,
+          setinpInvbase: setinpInvbase,
+          inpInvventa: inpInvventa,
+          setinpInvventa: setinpInvventa,
+          inpInviva: inpInviva,
+          setinpInviva: setinpInviva,
+          number: number,
+          guardarNuevoProducto: guardarNuevoProducto,
+          setProveedor: setProveedor,
+          proveedordescripcion: proveedordescripcion,
+          setproveedordescripcion: setproveedordescripcion,
+          proveedorrif: proveedorrif,
+          setproveedorrif: setproveedorrif,
+          proveedordireccion: proveedordireccion,
+          setproveedordireccion: setproveedordireccion,
+          proveedortelefono: proveedortelefono,
+          setproveedortelefono: setproveedortelefono,
+          subViewInventario: subViewInventario,
+          setsubViewInventario: setsubViewInventario,
+          setIndexSelectProveedores: setIndexSelectProveedores,
+          indexSelectProveedores: indexSelectProveedores,
+          qBuscarProveedor: qBuscarProveedor,
+          setQBuscarProveedor: setQBuscarProveedor,
+          proveedoresList: proveedoresList,
+          delProveedor: delProveedor,
+          delProducto: delProducto,
+          inpInvid_proveedor: inpInvid_proveedor,
+          setinpInvid_proveedor: setinpInvid_proveedor,
+          inpInvid_marca: inpInvid_marca,
+          setinpInvid_marca: setinpInvid_marca,
+          inpInvid_deposito: inpInvid_deposito,
+          setinpInvid_deposito: setinpInvid_deposito,
+          depositosList: depositosList,
+          facturas: facturas,
+          factqBuscar: factqBuscar,
+          setfactqBuscar: setfactqBuscar,
+          factqBuscarDate: factqBuscarDate,
+          setfactqBuscarDate: setfactqBuscarDate,
+          factsubView: factsubView,
+          setfactsubView: setfactsubView,
+          factSelectIndex: factSelectIndex,
+          setfactSelectIndex: setfactSelectIndex,
+          factOrderBy: factOrderBy,
+          setfactOrderBy: setfactOrderBy,
+          factOrderDescAsc: factOrderDescAsc,
+          setfactOrderDescAsc: setfactOrderDescAsc,
+          factInpid_proveedor: factInpid_proveedor,
+          setfactInpid_proveedor: setfactInpid_proveedor,
+          factInpnumfact: factInpnumfact,
+          setfactInpnumfact: setfactInpnumfact,
+          factInpdescripcion: factInpdescripcion,
+          setfactInpdescripcion: setfactInpdescripcion,
+          factInpmonto: factInpmonto,
+          setfactInpmonto: setfactInpmonto,
+          factInpfechavencimiento: factInpfechavencimiento,
+          setfactInpfechavencimiento: setfactInpfechavencimiento,
+          factInpestatus: factInpestatus,
+          setfactInpestatus: setfactInpestatus,
+          setFactura: setFactura,
+          delFactura: delFactura,
+          Invnum: Invnum,
+          setInvnum: setInvnum,
+          InvorderColumn: InvorderColumn,
+          setInvorderColumn: setInvorderColumn,
+          InvorderBy: InvorderBy,
+          setInvorderBy: setInvorderBy,
+          delItemFact: delItemFact,
+          moneda: moneda,
+          subviewProveedores: subviewProveedores,
+          setsubviewProveedores: setsubviewProveedores,
+          subviewCargarProductos: subviewCargarProductos,
+          setsubviewCargarProductos: setsubviewCargarProductos,
+          viewProductos: viewProductos,
+          setviewProductos: setviewProductos,
+          indexSelectCarrito: indexSelectCarrito,
+          setindexSelectCarrito: setindexSelectCarrito,
+          showCantidadCarritoFun: showCantidadCarritoFun,
+          showCantidadCarrito: showCantidadCarrito,
+          setshowCantidadCarrito: setshowCantidadCarrito,
+          sucursales: sucursales,
+          ctSucursales: ctSucursales,
+          setctSucursales: setctSucursales,
+          setCarrito: setCarrito,
+          pedidoList: pedidoList,
+          id_pedido: id_pedido,
+          setid_pedido: setid_pedido,
+          qpedido: qpedido,
+          setqpedido: setqpedido,
+          qpedidoDateFrom: qpedidoDateFrom,
+          setqpedidoDateFrom: setqpedidoDateFrom,
+          qpedidoDateTo: qpedidoDateTo,
+          setqpedidoDateTo: setqpedidoDateTo,
+          qpedidoOrderBy: qpedidoOrderBy,
+          setqpedidoOrderBy: setqpedidoOrderBy,
+          qpedidoOrderByDescAsc: qpedidoOrderByDescAsc,
+          setqpedidoOrderByDescAsc: setqpedidoOrderByDescAsc,
+          pedidos: pedidos,
+          setpedidos: setpedidos,
+          pedidoData: pedidoData,
+          setpedidoData: setpedidoData,
+          qestadopedido: qestadopedido,
+          setqestadopedido: setqestadopedido,
+          getPedidos: getPedidos,
+          delPedido: delPedido,
+          selectPedido: selectPedido,
+          setDelCarrito: setDelCarrito,
+          setCtCarrito: setCtCarrito,
+          setProdCarritoInterno: setProdCarritoInterno,
+          sendPedidoSucursal: sendPedidoSucursal
+        }) : null]
+      })]
+    })
   });
 }
 
-(0,react_dom__WEBPACK_IMPORTED_MODULE_2__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Home, {}), document.getElementById('app'));
+(0,react_dom__WEBPACK_IMPORTED_MODULE_2__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(Home, {}), document.getElementById('app'));
 })();
 
 /******/ })()

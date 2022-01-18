@@ -15,6 +15,8 @@ import InventarioComponent from './inventario';
 import Notificacion from '../components/notificacion';
 
 import Cargando from '../components/cargando';
+import Login from '../components/login';
+
 
 
 import Toplabel from './toplabel';
@@ -24,6 +26,8 @@ function Home() {
   const [msj,setMsj] = useState("")
   const [view,setView] = useState("")
   const [loading,setLoading] = useState(false)
+  const [loginActive,setLoginActive] = useState(false)
+
 
   const [sucursales,setsucursales] = useState([])
   const [sucursalSelect,setsucursalSelect] = useState(null)
@@ -215,6 +219,13 @@ function Home() {
     if (val=="") return ""
     return val.replace(/[^\d|\.]+/g,'')
   }
+  const loginRes = res => {
+    notificar(res)
+    if (res.data) {
+      setLoginActive(res.data.estado)
+    }
+  } 
+
   const notificar = (msj,fixed=true) => {
     if (fixed) {
       setTimeout(()=>{
@@ -767,213 +778,214 @@ function Home() {
 
   return(
     <>
-      {msj!=""?<Notificacion msj={msj} notificar={notificar}/>:null}
+      {!loginActive?<Login loginRes={loginRes}/>:<>
+        {msj!=""?<Notificacion msj={msj} notificar={notificar}/>:null}
 
-      {loading?<Cargando active={loading}/>:null}
+        {loading?<Cargando active={loading}/>:null}
 
-      <Header 
-      setView={setView} 
-      view={view}
-      sucursalSelect={sucursalSelect}
-      setsucursalSelect={setsucursalSelect}
-      viewProductos={viewProductos}
-      showCantidadCarrito={showCantidadCarrito}
-      setshowCantidadCarrito={setshowCantidadCarrito}
-      pedidoData={pedidoData}
-      />
-      <Toplabel 
-        sucursales={sucursales} 
-        sucursalSelect={sucursalSelect}
-      />
-      <div className="container marginb-6 margint-6 p-0">
-        {sucursalSelect===null?
-          <SelectSucursal 
-          setsucursalSelect={setsucursalSelect} 
+        <Header 
+          setView={setView} 
+          view={view}
           sucursalSelect={sucursalSelect}
-          sucursales={sucursales}
+          setsucursalSelect={setsucursalSelect}
           viewProductos={viewProductos}
-          setviewProductos={setviewProductos}
-          />
-        :null}
-
-        {selectView("fallas")?<FallasComponent
-          fallas={fallas}
-        />:null}
-        {selectView("gastos")?<GastosComponent
-          gastos={gastos}
-          selectgastos={selectgastos}
-          setselectgastos={setselectgastos}
-          setfechaGastos={setfechaGastos}
-          fechaGastos={fechaGastos}
-          tipogasto={tipogasto}
-          settipogasto={settipogasto}
-          moneda={moneda}
-        />:null}
-        {selectView("ventas")?<VentasComponent
-          ventas={ventas}
-          selectfechaventa={selectfechaventa}
-          setselectfechaventa={setselectfechaventa}
-          moneda={moneda}
-        />:null}
-
-
-        {sucursalSelect==="inventario"?<InventarioComponent
-          showPedidoBarras={showPedidoBarras}
-          productosInventario={productosInventario}
-          qBuscarInventario={qBuscarInventario}
-          setQBuscarInventario={setQBuscarInventario}
-          setIndexSelectInventario={setIndexSelectInventario}
-          indexSelectInventario={indexSelectInventario}
-          inputBuscarInventario={inputBuscarInventario}
-          
-          inpInvbarras={inpInvbarras}
-          setinpInvbarras={setinpInvbarras}
-          inpInvcantidad={inpInvcantidad}
-          setinpInvcantidad={setinpInvcantidad}
-          inpInvalterno={inpInvalterno}
-          setinpInvalterno={setinpInvalterno}
-          inpInvunidad={inpInvunidad}
-          setinpInvunidad={setinpInvunidad}
-          inpInvcategoria={inpInvcategoria}
-          setinpInvcategoria={setinpInvcategoria}
-          inpInvdescripcion={inpInvdescripcion}
-          setinpInvdescripcion={setinpInvdescripcion}
-          inpInvbase={inpInvbase}
-          setinpInvbase={setinpInvbase}
-          inpInvventa={inpInvventa}
-          setinpInvventa={setinpInvventa}
-          inpInviva={inpInviva}
-          setinpInviva={setinpInviva}
-
-          number={number}
-          guardarNuevoProducto={guardarNuevoProducto}
-
-          setProveedor={setProveedor}
-          proveedordescripcion={proveedordescripcion}
-          setproveedordescripcion={setproveedordescripcion}
-          proveedorrif={proveedorrif}
-          setproveedorrif={setproveedorrif}
-          proveedordireccion={proveedordireccion}
-          setproveedordireccion={setproveedordireccion}
-          proveedortelefono={proveedortelefono}
-          setproveedortelefono={setproveedortelefono}
-
-          subViewInventario={subViewInventario}
-          setsubViewInventario={setsubViewInventario}
-
-          setIndexSelectProveedores={setIndexSelectProveedores}
-          indexSelectProveedores={indexSelectProveedores}
-          qBuscarProveedor={qBuscarProveedor}
-          setQBuscarProveedor={setQBuscarProveedor}
-          proveedoresList={proveedoresList}
-
-          delProveedor={delProveedor}
-          delProducto={delProducto}
-
-          inpInvid_proveedor={inpInvid_proveedor}
-          setinpInvid_proveedor={setinpInvid_proveedor}
-          inpInvid_marca={inpInvid_marca}
-          setinpInvid_marca={setinpInvid_marca}
-          inpInvid_deposito={inpInvid_deposito}
-          setinpInvid_deposito={setinpInvid_deposito}
-
-          depositosList={depositosList}
-                
-          facturas={facturas}
-
-          factqBuscar={factqBuscar}
-          setfactqBuscar={setfactqBuscar}
-          factqBuscarDate={factqBuscarDate}
-          setfactqBuscarDate={setfactqBuscarDate}
-          factsubView={factsubView}
-          setfactsubView={setfactsubView}
-          factSelectIndex={factSelectIndex}
-          setfactSelectIndex={setfactSelectIndex}
-          factOrderBy={factOrderBy}
-          setfactOrderBy={setfactOrderBy}
-          factOrderDescAsc={factOrderDescAsc}
-          setfactOrderDescAsc={setfactOrderDescAsc}
-          factInpid_proveedor={factInpid_proveedor}
-          setfactInpid_proveedor={setfactInpid_proveedor}
-          factInpnumfact={factInpnumfact}
-          setfactInpnumfact={setfactInpnumfact}
-          factInpdescripcion={factInpdescripcion}
-          setfactInpdescripcion={setfactInpdescripcion}
-          factInpmonto={factInpmonto}
-          setfactInpmonto={setfactInpmonto}
-          factInpfechavencimiento={factInpfechavencimiento}
-          setfactInpfechavencimiento={setfactInpfechavencimiento}
-
-          factInpestatus={factInpestatus}
-          setfactInpestatus={setfactInpestatus}
-
-          setFactura={setFactura}
-          delFactura={delFactura}
-
-          Invnum={Invnum}
-          setInvnum={setInvnum}
-          InvorderColumn={InvorderColumn}
-          setInvorderColumn={setInvorderColumn}
-          InvorderBy={InvorderBy}
-          setInvorderBy={setInvorderBy}
-          delItemFact={delItemFact}
-
-          moneda={moneda}
-
-          subviewProveedores={subviewProveedores}
-          setsubviewProveedores={setsubviewProveedores}
-
-          subviewCargarProductos={subviewCargarProductos}
-          setsubviewCargarProductos={setsubviewCargarProductos}
-          viewProductos={viewProductos}
-          setviewProductos={setviewProductos}
-          
-          indexSelectCarrito={indexSelectCarrito}
-          setindexSelectCarrito={setindexSelectCarrito}
-
-          showCantidadCarritoFun={showCantidadCarritoFun}
           showCantidadCarrito={showCantidadCarrito}
           setshowCantidadCarrito={setshowCantidadCarrito}
-
-          sucursales={sucursales}
-          ctSucursales={ctSucursales}
-          setctSucursales={setctSucursales}
-
-          setCarrito={setCarrito}
-
-          pedidoList={pedidoList}
-          id_pedido={id_pedido}
-          setid_pedido={setid_pedido}
-
-          qpedido={qpedido}
-          setqpedido={setqpedido}
-          qpedidoDateFrom={qpedidoDateFrom}
-          setqpedidoDateFrom={setqpedidoDateFrom}
-          qpedidoDateTo={qpedidoDateTo}
-          setqpedidoDateTo={setqpedidoDateTo}
-          qpedidoOrderBy={qpedidoOrderBy}
-          setqpedidoOrderBy={setqpedidoOrderBy}
-          qpedidoOrderByDescAsc={qpedidoOrderByDescAsc}
-          setqpedidoOrderByDescAsc={setqpedidoOrderByDescAsc}
-          pedidos={pedidos}
-          setpedidos={setpedidos}
           pedidoData={pedidoData}
-          setpedidoData={setpedidoData}
-          qestadopedido={qestadopedido}
-          setqestadopedido={setqestadopedido}
+          />
+        <Toplabel 
+          sucursales={sucursales} 
+          sucursalSelect={sucursalSelect}
+        />
+        <div className="container marginb-6 margint-6 p-0">
+          {sucursalSelect===null?
+            <SelectSucursal 
+            setsucursalSelect={setsucursalSelect} 
+            sucursalSelect={sucursalSelect}
+            sucursales={sucursales}
+            viewProductos={viewProductos}
+            setviewProductos={setviewProductos}
+            />
+          :null}
 
-          getPedidos={getPedidos}
-          delPedido={delPedido}
-          selectPedido={selectPedido}
+          {selectView("fallas")?<FallasComponent
+            fallas={fallas}
+          />:null}
+          {selectView("gastos")?<GastosComponent
+            gastos={gastos}
+            selectgastos={selectgastos}
+            setselectgastos={setselectgastos}
+            setfechaGastos={setfechaGastos}
+            fechaGastos={fechaGastos}
+            tipogasto={tipogasto}
+            settipogasto={settipogasto}
+            moneda={moneda}
+          />:null}
+          {selectView("ventas")?<VentasComponent
+            ventas={ventas}
+            selectfechaventa={selectfechaventa}
+            setselectfechaventa={setselectfechaventa}
+            moneda={moneda}
+          />:null}
 
-          setDelCarrito={setDelCarrito}
-          setCtCarrito={setCtCarrito}
-          setProdCarritoInterno={setProdCarritoInterno}
-          sendPedidoSucursal={sendPedidoSucursal}
 
-        />:null}
-      </div>
+          {sucursalSelect==="inventario"?<InventarioComponent
+            showPedidoBarras={showPedidoBarras}
+            productosInventario={productosInventario}
+            qBuscarInventario={qBuscarInventario}
+            setQBuscarInventario={setQBuscarInventario}
+            setIndexSelectInventario={setIndexSelectInventario}
+            indexSelectInventario={indexSelectInventario}
+            inputBuscarInventario={inputBuscarInventario}
+            
+            inpInvbarras={inpInvbarras}
+            setinpInvbarras={setinpInvbarras}
+            inpInvcantidad={inpInvcantidad}
+            setinpInvcantidad={setinpInvcantidad}
+            inpInvalterno={inpInvalterno}
+            setinpInvalterno={setinpInvalterno}
+            inpInvunidad={inpInvunidad}
+            setinpInvunidad={setinpInvunidad}
+            inpInvcategoria={inpInvcategoria}
+            setinpInvcategoria={setinpInvcategoria}
+            inpInvdescripcion={inpInvdescripcion}
+            setinpInvdescripcion={setinpInvdescripcion}
+            inpInvbase={inpInvbase}
+            setinpInvbase={setinpInvbase}
+            inpInvventa={inpInvventa}
+            setinpInvventa={setinpInvventa}
+            inpInviva={inpInviva}
+            setinpInviva={setinpInviva}
 
+            number={number}
+            guardarNuevoProducto={guardarNuevoProducto}
+
+            setProveedor={setProveedor}
+            proveedordescripcion={proveedordescripcion}
+            setproveedordescripcion={setproveedordescripcion}
+            proveedorrif={proveedorrif}
+            setproveedorrif={setproveedorrif}
+            proveedordireccion={proveedordireccion}
+            setproveedordireccion={setproveedordireccion}
+            proveedortelefono={proveedortelefono}
+            setproveedortelefono={setproveedortelefono}
+
+            subViewInventario={subViewInventario}
+            setsubViewInventario={setsubViewInventario}
+
+            setIndexSelectProveedores={setIndexSelectProveedores}
+            indexSelectProveedores={indexSelectProveedores}
+            qBuscarProveedor={qBuscarProveedor}
+            setQBuscarProveedor={setQBuscarProveedor}
+            proveedoresList={proveedoresList}
+
+            delProveedor={delProveedor}
+            delProducto={delProducto}
+
+            inpInvid_proveedor={inpInvid_proveedor}
+            setinpInvid_proveedor={setinpInvid_proveedor}
+            inpInvid_marca={inpInvid_marca}
+            setinpInvid_marca={setinpInvid_marca}
+            inpInvid_deposito={inpInvid_deposito}
+            setinpInvid_deposito={setinpInvid_deposito}
+
+            depositosList={depositosList}
+                  
+            facturas={facturas}
+
+            factqBuscar={factqBuscar}
+            setfactqBuscar={setfactqBuscar}
+            factqBuscarDate={factqBuscarDate}
+            setfactqBuscarDate={setfactqBuscarDate}
+            factsubView={factsubView}
+            setfactsubView={setfactsubView}
+            factSelectIndex={factSelectIndex}
+            setfactSelectIndex={setfactSelectIndex}
+            factOrderBy={factOrderBy}
+            setfactOrderBy={setfactOrderBy}
+            factOrderDescAsc={factOrderDescAsc}
+            setfactOrderDescAsc={setfactOrderDescAsc}
+            factInpid_proveedor={factInpid_proveedor}
+            setfactInpid_proveedor={setfactInpid_proveedor}
+            factInpnumfact={factInpnumfact}
+            setfactInpnumfact={setfactInpnumfact}
+            factInpdescripcion={factInpdescripcion}
+            setfactInpdescripcion={setfactInpdescripcion}
+            factInpmonto={factInpmonto}
+            setfactInpmonto={setfactInpmonto}
+            factInpfechavencimiento={factInpfechavencimiento}
+            setfactInpfechavencimiento={setfactInpfechavencimiento}
+
+            factInpestatus={factInpestatus}
+            setfactInpestatus={setfactInpestatus}
+
+            setFactura={setFactura}
+            delFactura={delFactura}
+
+            Invnum={Invnum}
+            setInvnum={setInvnum}
+            InvorderColumn={InvorderColumn}
+            setInvorderColumn={setInvorderColumn}
+            InvorderBy={InvorderBy}
+            setInvorderBy={setInvorderBy}
+            delItemFact={delItemFact}
+
+            moneda={moneda}
+
+            subviewProveedores={subviewProveedores}
+            setsubviewProveedores={setsubviewProveedores}
+
+            subviewCargarProductos={subviewCargarProductos}
+            setsubviewCargarProductos={setsubviewCargarProductos}
+            viewProductos={viewProductos}
+            setviewProductos={setviewProductos}
+            
+            indexSelectCarrito={indexSelectCarrito}
+            setindexSelectCarrito={setindexSelectCarrito}
+
+            showCantidadCarritoFun={showCantidadCarritoFun}
+            showCantidadCarrito={showCantidadCarrito}
+            setshowCantidadCarrito={setshowCantidadCarrito}
+
+            sucursales={sucursales}
+            ctSucursales={ctSucursales}
+            setctSucursales={setctSucursales}
+
+            setCarrito={setCarrito}
+
+            pedidoList={pedidoList}
+            id_pedido={id_pedido}
+            setid_pedido={setid_pedido}
+
+            qpedido={qpedido}
+            setqpedido={setqpedido}
+            qpedidoDateFrom={qpedidoDateFrom}
+            setqpedidoDateFrom={setqpedidoDateFrom}
+            qpedidoDateTo={qpedidoDateTo}
+            setqpedidoDateTo={setqpedidoDateTo}
+            qpedidoOrderBy={qpedidoOrderBy}
+            setqpedidoOrderBy={setqpedidoOrderBy}
+            qpedidoOrderByDescAsc={qpedidoOrderByDescAsc}
+            setqpedidoOrderByDescAsc={setqpedidoOrderByDescAsc}
+            pedidos={pedidos}
+            setpedidos={setpedidos}
+            pedidoData={pedidoData}
+            setpedidoData={setpedidoData}
+            qestadopedido={qestadopedido}
+            setqestadopedido={setqestadopedido}
+
+            getPedidos={getPedidos}
+            delPedido={delPedido}
+            selectPedido={selectPedido}
+
+            setDelCarrito={setDelCarrito}
+            setCtCarrito={setCtCarrito}
+            setProdCarritoInterno={setProdCarritoInterno}
+            sendPedidoSucursal={sendPedidoSucursal}
+
+          />:null}
+        </div>
+      </>}
     </>
   );
 }

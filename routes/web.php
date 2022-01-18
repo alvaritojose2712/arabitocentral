@@ -39,6 +39,14 @@ use App\Http\Controllers\LocalsVersionController;
 |
 */
 
+Route::post('login', [home::class,"login"]);
+
+Route::get('logout', [home::class,"logout"]);
+
+Route::post('verificarLogin', [home::class,"verificarLogin"]);
+
+
+
 Route::get('/hora', function () {
     return date("Y-m-d H:i:s");
 });
