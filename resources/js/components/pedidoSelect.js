@@ -84,7 +84,7 @@ export default function PedidoSelect({
 					:null
 				:null}
 
-				<button className="btn btn-circle btn-xl m-3 btn-outline-success" title="Ver reporte sucursal" onClick={showPedidoBarras}><i className="fa fa-paper fa-3x"></i></button>
+				<button className="btn btn-circle btn-xl m-3 btn-outline-success" title="Ver reporte sucursal" onClick={showPedidoBarras}><i className="fa fa-print fa-3x"></i></button>
 				<button className="btn btn-circle btn-xl m-3 btn-outline-success" title="Enviar a sucursal" onClick={sendPedidoSucursal}><i className="fa fa-send fa-3x"></i></button>
 			</div>
 		</div>
