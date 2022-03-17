@@ -111,6 +111,9 @@ Route::get('showPedidoBarras', [PedidosController::class,"showPedidoBarras"]);
 Route::post('getPedidoPendSucursal', [PedidosController::class,"getPedidoPendSucursal"]);
 Route::post('extraerPedidoPendSucursal', [PedidosController::class,"extraerPedidoPendSucursal"]);
 
+Route::post('sendInventario', [InventarioController::class,"sendInventario"]);
+
+
 
 
 

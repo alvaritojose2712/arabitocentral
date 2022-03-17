@@ -16,6 +16,13 @@ use Response;
 
 class InventarioController extends Controller
 {
+    public function sendInventario(Request $req)
+    {
+        $inv = $req->inventario;
+
+
+        
+    }
     public function index(Request $req)
     {
         $exacto = false;
