@@ -23,8 +23,8 @@ import Toplabel from './toplabel';
 
 
 function Home() {
-  const [msj,setMsj] = useState("")
-  const [view,setView] = useState("")
+  const [view, setView] = useState("")
+  const [msj, setMsj] = useState("")
   const [loading,setLoading] = useState(false)
   const [loginActive,setLoginActive] = useState(false)
 
@@ -48,61 +48,61 @@ function Home() {
   ///////////Inventario
   const inputBuscarInventario = useRef(null)
 
-  const [productosInventario,setProductosInventario] = useState([])
-  const [qBuscarInventario,setQBuscarInventario] = useState("")
-  const [indexSelectInventario,setIndexSelectInventario] = useState(null)
+  // const [productosInventario,setProductosInventario] = useState([])
+  // const [qBuscarInventario,setQBuscarInventario] = useState("")
+  // const [indexSelectInventario,setIndexSelectInventario] = useState(null)
 
-  const [inpInvbarras,setinpInvbarras] = useState("")
-  const [inpInvcantidad,setinpInvcantidad] = useState("")
-  const [inpInvalterno,setinpInvalterno] = useState("")
-  const [inpInvunidad,setinpInvunidad] = useState("UND")
-  const [inpInvcategoria,setinpInvcategoria] = useState("24")
-  const [inpInvdescripcion,setinpInvdescripcion] = useState("")
-  const [inpInvbase,setinpInvbase] = useState("")
-  const [inpInvventa,setinpInvventa] = useState("")
-  const [inpInviva,setinpInviva] = useState("0")
+  // const [inpInvbarras,setinpInvbarras] = useState("")
+  // const [inpInvcantidad,setinpInvcantidad] = useState("")
+  // const [inpInvalterno,setinpInvalterno] = useState("")
+  // const [inpInvunidad,setinpInvunidad] = useState("UND")
+  // const [inpInvcategoria,setinpInvcategoria] = useState("24")
+  // const [inpInvdescripcion,setinpInvdescripcion] = useState("")
+  // const [inpInvbase,setinpInvbase] = useState("")
+  // const [inpInvventa,setinpInvventa] = useState("")
+  // const [inpInviva,setinpInviva] = useState("0")
 
-  const [inpInvid_proveedor,setinpInvid_proveedor] = useState("")
-  const [inpInvid_marca,setinpInvid_marca] = useState("")
-  const [inpInvid_deposito,setinpInvid_deposito] = useState("")
-  const [inpInvporcentaje_ganancia,setinpInvporcentaje_ganancia] = useState(0)
+  // const [inpInvid_proveedor,setinpInvid_proveedor] = useState("")
+  // const [inpInvid_marca,setinpInvid_marca] = useState("")
+  // const [inpInvid_deposito,setinpInvid_deposito] = useState("")
+  // const [inpInvporcentaje_ganancia,setinpInvporcentaje_ganancia] = useState(0)
       
 
 
-  const [proveedordescripcion,setproveedordescripcion] = useState("")
-  const [proveedorrif,setproveedorrif] = useState("")
-  const [proveedordireccion,setproveedordireccion] = useState("")
-  const [proveedortelefono,setproveedortelefono] = useState("")
+  // const [proveedordescripcion,setproveedordescripcion] = useState("")
+  // const [proveedorrif,setproveedorrif] = useState("")
+  // const [proveedordireccion,setproveedordireccion] = useState("")
+  // const [proveedortelefono,setproveedortelefono] = useState("")
 
-  const [subViewInventario,setsubViewInventario] = useState("inventario")
+  // const [subViewInventario,setsubViewInventario] = useState("inventario")
 
-  const [indexSelectProveedores,setIndexSelectProveedores] = useState(null)
+  // const [indexSelectProveedores,setIndexSelectProveedores] = useState(null)
 
-  const [qBuscarProveedor,setQBuscarProveedor] = useState("")
+  // const [qBuscarProveedor,setQBuscarProveedor] = useState("")
 
-  const [proveedoresList,setProveedoresList] = useState([])
+  // const [proveedoresList,setProveedoresList] = useState([])
 
-  const [depositosList,setdepositosList] = useState([])
+  // const [depositosList,setdepositosList] = useState([])
 
-  const [facturas,setfacturas] = useState([])
+  // const [facturas,setfacturas] = useState([])
 
-  const [factqBuscar,setfactqBuscar] = useState("")
-  const [factqBuscarDate,setfactqBuscarDate] = useState("")
-  const [factOrderBy,setfactOrderBy] = useState("id")
-  const [factOrderDescAsc,setfactOrderDescAsc] = useState("desc")
-  const [factsubView,setfactsubView] = useState("buscar")
-  const [factSelectIndex,setfactSelectIndex] = useState(null)
-  const [factInpid_proveedor,setfactInpid_proveedor] = useState("")
-  const [factInpnumfact,setfactInpnumfact] = useState("")
-  const [factInpdescripcion,setfactInpdescripcion] = useState("")
-  const [factInpmonto,setfactInpmonto] = useState("")
-  const [factInpfechavencimiento,setfactInpfechavencimiento] = useState("")
+  // const [factqBuscar,setfactqBuscar] = useState("")
+  // const [factqBuscarDate,setfactqBuscarDate] = useState("")
+  // const [factOrderBy,setfactOrderBy] = useState("id")
+  // const [factOrderDescAsc,setfactOrderDescAsc] = useState("desc")
+  // const [factsubView,setfactsubView] = useState("buscar")
+  // const [factSelectIndex,setfactSelectIndex] = useState(null)
+  // const [factInpid_proveedor,setfactInpid_proveedor] = useState("")
+  // const [factInpnumfact,setfactInpnumfact] = useState("")
+  // const [factInpdescripcion,setfactInpdescripcion] = useState("")
+  // const [factInpmonto,setfactInpmonto] = useState("")
+  // const [factInpfechavencimiento,setfactInpfechavencimiento] = useState("")
 
-  const [factInpestatus,setfactInpestatus] = useState(0)
+  // const [factInpestatus,setfactInpestatus] = useState(0)
 
-  const [Invnum,setInvnum] = useState(25)
-  const [InvorderColumn,setInvorderColumn] = useState("id")
-  const [InvorderBy,setInvorderBy] = useState("desc")
+  // const [Invnum,setInvnum] = useState(25)
+  // const [InvorderColumn,setInvorderColumn] = useState("id")
+  // const [InvorderBy,setInvorderBy] = useState("desc")
 
   const [subviewProveedores,setsubviewProveedores] = useState("buscar")
   const [subviewCargarProductos,setsubviewCargarProductos] = useState("buscar")
@@ -125,6 +125,1046 @@ function Home() {
   const [pedidos,setpedidos] = useState([])
   const [pedidoData,setpedidoData] = useState(null)
   const [qestadopedido,setqestadopedido] = useState(0)
+
+  ////IMPORT VENTAS
+    const [num,setNum] = useState(50)
+  const [itemCero,setItemCero] = useState(true)
+  const [qProductosMain,setQProductosMain] = useState("")
+
+  const [orderColumn, setOrderColumn] = useState("descripcion")
+  const [orderBy, setOrderBy] = useState("asc")
+  
+  const [inputaddCarritoFast, setinputaddCarritoFast] = useState("")
+
+  const [dolar,setDolar] = useState("")
+  const [peso,setPeso] = useState("")
+
+  const [typingTimeout,setTypingTimeout] = useState(0)
+
+  useEffect(()=>{
+    getFallas()
+  },[
+    qFallas,
+    orderCatFallas,
+    orderSubCatFallas,
+    ascdescFallas
+  ])
+  
+  useEffect(()=>{
+    getFacturas(false)
+  },[
+  factqBuscar,
+  factqBuscarDate,
+  factOrderBy,
+  factOrderDescAsc
+  ])
+  useEffect(()=>{
+    buscarInventario()
+  },[
+    Invnum,
+    InvorderColumn,
+    InvorderBy,
+    qBuscarInventario,
+  ]);
+  
+
+  useEffect(()=>{
+    getProveedores()
+  },[qBuscarProveedor])
+  useEffect(()=>{
+    if (view=="inventario") {
+      if (subViewInventario=="fallas") {
+        getFallas()
+      }else if (subViewInventario=="inventario") {
+        getProductos()
+      }else if (subViewInventario=="proveedores") {
+        getProveedores()
+      }else if (subViewInventario=="pedidosCentral") {
+        getPedidosCentral()
+      }
+
+    }
+  },[view,subViewInventario])  
+
+  useEffect(()=>{
+    setInputsInventario()
+  },[indexSelectInventario])
+
+  useEffect(()=>{
+    if (subViewInventario =="proveedores") {
+      setInputsProveedores()
+      
+    } else if (subViewInventario == "facturas"){
+      getPagoProveedor()
+    }
+
+  }, [subViewInventario,indexSelectProveedores])
+
+  useEffect(()=>{
+    getEstaInventario()
+  },[
+fechaQEstaInve,
+fechaFromEstaInve,
+fechaToEstaInve,
+orderByEstaInv,
+orderByColumEstaInv])
+
+
+
+const [modViewInventario, setmodViewInventario] = useState("unique")
+
+const [loteIdCarrito, setLoteIdCarrito] = useState(null)
+const refsInpInvList = useRef(null)
+
+
+const [valheaderpedidocentral, setvalheaderpedidocentral] = useState("12340005ARAMCAL")
+const [valbodypedidocentral, setvalbodypedidocentral] = useState("12341238123456123456123451234123712345612345612345123412361234561234561234512341235123456123456123451234123412345612345612345")
+
+
+const [tipopagoproveedor, settipopagoproveedor] = useState("");
+const [montopagoproveedor, setmontopagoproveedor] = useState("");
+const [pagosproveedor, setpagosproveedor] = useState([]);
+
+const [fechaQEstaInve, setfechaQEstaInve] = useState("")
+const [fechaFromEstaInve, setfechaFromEstaInve] = useState("")
+const [fechaToEstaInve, setfechaToEstaInve] = useState("")
+const [orderByEstaInv, setorderByEstaInv] = useState("desc")
+const [orderByColumEstaInv, setorderByColumEstaInv] = useState("cantidadtotal")
+const [dataEstaInven, setdataEstaInven] = useState([])
+
+const [pedidosCentral,setpedidoCentral] = useState([])
+const [indexPedidoCentral, setIndexPedidoCentral] = useState(null)
+
+const [showaddpedidocentral, setshowaddpedidocentral] = useState(false)
+
+const [qFallas,setqFallas] = useState("")
+const [orderCatFallas,setorderCatFallas] = useState("proveedor")
+const [orderSubCatFallas,setorderSubCatFallas] = useState("todos")
+const [ascdescFallas,setascdescFallas] = useState("")
+
+  const [productos,setProductos] = useState([])
+  const [categorias,setcategorias] = useState([])
+
+  const [productosInventario,setProductosInventario] = useState([])
+
+  const [qBuscarInventario,setQBuscarInventario] = useState("")
+  const [indexSelectInventario,setIndexSelectInventario] = useState(null)
+
+
+  const [inpInvbarras,setinpInvbarras] = useState("")
+  const [inpInvcantidad,setinpInvcantidad] = useState("")
+  const [inpInvalterno,setinpInvalterno] = useState("")
+  const [inpInvunidad,setinpInvunidad] = useState("UND")
+  const [inpInvcategoria,setinpInvcategoria] = useState("24")
+  const [inpInvdescripcion,setinpInvdescripcion] = useState("")
+  const [inpInvbase,setinpInvbase] = useState("")
+  const [inpInvventa,setinpInvventa] = useState("")
+  const [inpInviva,setinpInviva] = useState("0")
+  const [inpInvporcentaje_ganancia, setinpInvporcentaje_ganancia] = useState("0")
+  
+  const [inpInvLotes,setinpInvLotes] = useState([])
+
+  const [inpInvid_proveedor,setinpInvid_proveedor] = useState("")
+  const [inpInvid_marca,setinpInvid_marca] = useState("")
+  const [inpInvid_deposito,setinpInvid_deposito] = useState("")
+  
+  const [depositosList,setdepositosList] = useState([])
+  const [marcasList,setmarcasList] = useState([])
+
+  const [Invnum,setInvnum] = useState(25)
+  const [InvorderColumn,setInvorderColumn] = useState("id")
+  const [InvorderBy,setInvorderBy] = useState("desc")
+
+  const [proveedordescripcion,setproveedordescripcion] = useState("")
+  const [proveedorrif,setproveedorrif] = useState("")
+  const [proveedordireccion,setproveedordireccion] = useState("")
+  const [proveedortelefono,setproveedortelefono] = useState("")
+
+  const [subViewInventario,setsubViewInventario] = useState("inventario")
+
+  const [indexSelectProveedores,setIndexSelectProveedores] = useState(null)
+
+  const [qBuscarProveedor,setQBuscarProveedor] = useState("")
+
+  const [proveedoresList,setProveedoresList] = useState([])
+
+   const [showModalFacturas,setshowModalFacturas] = useState(false)
+  
+  const [facturas,setfacturas] = useState([])
+
+  const [factqBuscar,setfactqBuscar] = useState("")
+  const [factqBuscarDate,setfactqBuscarDate] = useState("")
+  const [factOrderBy,setfactOrderBy] = useState("id")
+  const [factOrderDescAsc,setfactOrderDescAsc] = useState("desc")
+  const [factsubView,setfactsubView] = useState("buscar")
+  const [factSelectIndex,setfactSelectIndex] = useState(null)
+  const [factInpid_proveedor,setfactInpid_proveedor] = useState("")
+  const [factInpnumfact,setfactInpnumfact] = useState("")
+  const [factInpdescripcion,setfactInpdescripcion] = useState("")
+  const [factInpmonto,setfactInpmonto] = useState("")
+  const [factInpfechavencimiento,setfactInpfechavencimiento] = useState("")
+
+  const [factInpestatus,setfactInpestatus] = useState(0)
+
+  const [modFact, setmodFact] = useState("factura")
+
+  
+
+
+const openReporteFalla = (id) => {
+  if (id) {
+    db.openReporteFalla(id)
+    
+  }
+} 
+const getPagoProveedor = () => {
+  if (proveedoresList[indexSelectProveedores]) {
+    setLoading(true)
+    db.getPagoProveedor({
+      id_proveedor: proveedoresList[indexSelectProveedores].id,
+    }).then(res => {
+      setLoading(false)
+      setpagosproveedor(res.data)
+    })
+  }
+}
+const setPagoProveedor = e => {
+  e.preventDefault()
+  if (tipopagoproveedor&&montopagoproveedor){
+    if (proveedoresList[indexSelectProveedores]) {
+      db.setPagoProveedor({
+        tipo: tipopagoproveedor,
+        monto: montopagoproveedor,
+        id_proveedor: proveedoresList[indexSelectProveedores].id,
+      }).then(res=>{
+        getPagoProveedor()
+        notificar(res)
+      })
+    }
+  }
+
+}
+
+const getPedidosCentral = () => {
+  setLoading(true)
+  db.getPedidosCentral({}).then(res=>{
+    setLoading(false)
+    if (res.data) {
+      if (res.data.length) {
+        setpedidoCentral(res.data)
+      }
+      if (res.data.msj) {
+        notificar(res)
+      }
+    }
+  })
+}
+const selectPedidosCentral = e => {
+
+  try{
+    let index = e.currentTarget.attributes["data-index"].value
+    let tipo = e.currentTarget.attributes["data-tipo"].value
+
+    let pedidosCentral_copy = cloneDeep(pedidosCentral)
+
+    if (tipo=="select") {
+      if (pedidosCentral_copy[indexPedidoCentral].items[index].aprobado===true) {
+        
+        pedidosCentral_copy[indexPedidoCentral].items[index].aprobado = false
+        pedidosCentral_copy[indexPedidoCentral].items[index].ct_real = ""
+
+      }else if (pedidosCentral_copy[indexPedidoCentral].items[index].aprobado===false) {
+
+        delete pedidosCentral_copy[indexPedidoCentral].items[index].aprobado
+        delete pedidosCentral_copy[indexPedidoCentral].items[index].ct_real
+      
+      }else if (typeof(pedidosCentral_copy[indexPedidoCentral].items[index].aprobado) === "undefined") {
+        pedidosCentral_copy[indexPedidoCentral].items[index].aprobado = true
+
+      }
+
+    }else if(tipo=="changect_real"){
+      pedidosCentral_copy[indexPedidoCentral].items[index].ct_real = number(e.currentTarget.value,4)
+    }
+    
+    setpedidoCentral(pedidosCentral_copy)
+
+
+
+    // console.log(pedidosCentral_copy)
+
+  }catch(err){
+    console.log(err)
+  }
+}
+const checkPedidosCentral = () => {
+  if (indexPedidoCentral!==null&&pedidosCentral) {
+    if (pedidosCentral[indexPedidoCentral]) {
+      setLoading(true)
+      db.checkPedidosCentral({pedido:pedidosCentral[indexPedidoCentral]}).then(res=>{
+        setLoading(false)
+        
+        notificar(res)
+        if (res.data.estado) {
+          getPedidosCentral()
+        }
+      })
+    }
+  }
+}
+const delItemFact = e =>{
+  let id = e.currentTarget.attributes["data-id"].value
+
+  if (confirm("¿Desea Eliminar?")) {
+    setLoading(true)
+    db.delItemFact({id}).then(res=>{
+      setLoading(false)
+      notificar(res)
+      if (res.data.estado) {
+        getFacturas(false)
+        buscarInventario()
+      }
+    })
+  }
+}
+const delFalla = e => {
+  if (confirm("¿Desea Eliminar?")) {
+    let id = e.currentTarget.attributes["data-id"].value 
+    db.delFalla({id}).then(res=>{
+      notificar(res)
+      getFallas()
+    })
+  }
+}
+const setFactura = e => {
+  e.preventDefault()
+  setLoading(true)
+
+  let id = null
+
+  if (factSelectIndex!=null) {
+    if (facturas[factSelectIndex]) {
+      id = facturas[factSelectIndex].id
+    }
+  }
+  db.setFactura({
+    factInpid_proveedor,
+    factInpnumfact,
+    factInpdescripcion,
+    factInpmonto,
+    factInpfechavencimiento,
+    factInpestatus,
+    id
+  }).then(res=>{
+    notificar(res)
+    getFacturas()
+    setLoading(false)
+    if (res.data.estado) {
+      setfactsubView("buscar")
+      setfactSelectIndex(null)
+    }
+
+  })
+}
+const delFactura = e => {
+  let id = null
+
+  if (factSelectIndex!=null) {
+    if (facturas[factSelectIndex]) {
+      id = facturas[factSelectIndex].id
+    }
+  }
+  if (confirm("¿Desea Eliminar?")) {
+    setLoading(true)
+    db.delFactura({id}).then(res=>{
+      setLoading(false)
+      getFacturas()
+      notificar(res)
+      if (res.data.estado) {
+        setfactsubView("buscar")
+        setfactSelectIndex(null)
+      }
+    })
+    
+  }
+}
+const saveFactura = () => {
+
+  if (facturas[factSelectIndex]) {
+    let id = facturas[factSelectIndex].id
+    let monto = facturas[factSelectIndex].summonto_base_clean
+    db.saveMontoFactura({id,monto}).then(e=>{
+      getFacturas(false)
+    })
+  }
+}
+
+const delProveedor = e => {
+  let id;
+  if (indexSelectProveedores!=null) {
+    if (proveedoresList[indexSelectProveedores]) {
+      id = proveedoresList[indexSelectProveedores].id
+    }
+  }
+  if (confirm("¿Desea Eliminar?")) {
+    setLoading(true)
+    db.delProveedor({id}).then(res=>{
+      setLoading(false)
+      getProveedores()
+      notificar(res)
+
+      if (res.data.estado) {
+        setIndexSelectProveedores(null)
+      }
+    })
+
+  }
+
+}
+const delProducto = e => {
+  let id;
+  if (indexSelectInventario!=null) {
+    if (productosInventario[indexSelectInventario]) {
+      id = productosInventario[indexSelectInventario].id
+    }
+  }
+  if (confirm("¿Desea Eliminar?")) {
+    setLoading(true)
+    db.delProducto({id}).then(res=>{
+      setLoading(false)
+      buscarInventario()
+      notificar(res)
+      if (res.data.estado) {
+        setIndexSelectInventario(null)
+      }
+    })
+    
+  }
+}
+const getFacturas = (clean = true) =>{
+
+  if (time!=0) {
+      clearTimeout(typingTimeout)
+    }
+
+    let time = window.setTimeout(()=>{
+      setLoading(true)
+      db.getFacturas({
+        factqBuscar,
+        factqBuscarDate,
+        factOrderBy,
+        factOrderDescAsc
+      }).then(res=>{
+        setLoading(false)
+        setfacturas(res.data)
+
+        if (res.data.length === 1) {
+          setfactSelectIndex(0)
+        }
+
+        if (clean) {
+          setfactSelectIndex(null)
+        }
+      })
+
+    },100)
+    setTypingTimeout(time)
+
+}
+
+const setInputsInventario = () =>{
+  if (productosInventario[indexSelectInventario]) {
+    let obj = productosInventario[indexSelectInventario]
+    setinpInvbarras(obj.codigo_barras?obj.codigo_barras:"")
+    setinpInvcantidad(obj.cantidad?obj.cantidad:"")
+    setinpInvalterno(obj.codigo_proveedor?obj.codigo_proveedor:"")
+    setinpInvunidad(obj.unidad?obj.unidad:"")
+    setinpInvdescripcion(obj.descripcion?obj.descripcion:"")
+    setinpInvbase(obj.precio_base?obj.precio_base:"")
+    setinpInvventa(obj.precio?obj.precio:"")
+    setinpInviva(obj.iva?obj.iva:"")
+
+    setinpInvcategoria(obj.id_categoria?obj.id_categoria:"")
+    setinpInvid_proveedor(obj.id_proveedor?obj.id_proveedor:"")
+    setinpInvid_marca(obj.id_marca?obj.id_marca:"")
+    setinpInvid_deposito(obj.id_deposito?obj.id_deposito:"")
+
+    setinpInvLotes(obj.lotes ? obj.lotes : [])
+
+  }
+}
+const setNewProducto = () => {
+  setIndexSelectInventario(null)
+  setinpInvbarras("")
+  setinpInvcantidad("")
+  setinpInvalterno("")
+  setinpInvunidad("UND")
+  setinpInvdescripcion("")
+  setinpInvbase("")
+  setinpInvventa("")
+  setinpInviva("0")
+
+  setinpInvLotes([])
+
+  if (facturas[factSelectIndex]) {
+    setinpInvid_proveedor(facturas[factSelectIndex].proveedor.id)
+  }
+  
+
+  setinpInvid_marca("GENÉRICO")
+  setinpInvid_deposito(1)
+}
+const setInputsProveedores = () =>{
+  if (proveedoresList[indexSelectProveedores]) {
+    let obj = proveedoresList[indexSelectProveedores]
+
+    setproveedordescripcion(obj.descripcion)
+    setproveedorrif(obj.rif)
+    setproveedordireccion(obj.direccion)
+    setproveedortelefono(obj.telefono)
+  
+
+  }
+}
+const guardarNuevoProducto = e => {
+  e.preventDefault()
+  setLoading(true)
+
+  let id = null
+
+  if (indexSelectInventario!=null) {
+    if (productosInventario[indexSelectInventario]) {
+      id = productosInventario[indexSelectInventario].id
+    }
+  }
+
+  let id_factura = null
+
+  if (factSelectIndex!=null) {
+    if (facturas[factSelectIndex]) {
+      id_factura = facturas[factSelectIndex].id
+    }
+  }
+
+  db.guardarNuevoProducto({
+    id,
+    inpInvbarras,
+    inpInvcantidad,
+    inpInvalterno,
+    inpInvunidad,
+    inpInvcategoria,
+    inpInvdescripcion,
+    inpInvbase,
+    inpInvventa,
+    inpInviva,
+    inpInvid_proveedor,
+    inpInvid_marca,
+    inpInvid_deposito,
+    inpInvporcentaje_ganancia,
+    id_factura,
+
+    inpInvLotes,
+
+  }).then(res=>{
+    notificar(res)
+
+    setLoading(false)
+
+    if (res.data.estado) {
+      buscarInventario()
+      getFacturas(false)
+
+      setinpInvbarras("")
+      setinpInvcantidad("")
+      setinpInvalterno("")
+      setinpInvunidad("UND")
+      setinpInvcategoria("24")
+      setinpInvdescripcion("")
+      setinpInvbase("")
+      setinpInvventa("")
+      setinpInviva("0")
+      setinpInvid_marca("")
+    }
+  })
+}
+const setProveedor = e =>{
+  setLoading(true)
+  e.preventDefault()
+
+  let id = null
+
+  if (indexSelectProveedores!=null) {
+    if (proveedoresList[indexSelectProveedores]) {
+      id = proveedoresList[indexSelectProveedores].id
+    }
+  }
+  db.setProveedor({
+    proveedordescripcion,
+    proveedorrif,
+    proveedordireccion,
+    proveedortelefono,
+    id
+  }).then(res=>{
+    notificar(res)
+    getProveedores()
+    setLoading(false)
+
+  })
+} 
+const changeModLote = (val, i, id, type, name = null) => {
+  
+    let lote = cloneDeep(inpInvLotes)
+
+    switch (type) {
+      case "update":
+        if (lote[i].type != "new") {
+          lote[i].type = "update"
+        }
+        break;
+      case "delModeUpdateDelete":
+        delete lote[i].type
+        break;
+      case "delNew":
+        lote = lote.filter((e, ii) => ii !== i)
+        break;
+      case "changeInput":
+        lote[i][name] = val
+        break;
+
+      case "delMode":
+        lote[i].type = "delete"
+        let id_replace = 0
+        lote[i].id_replace = id_replace
+        break;
+    }
+    setinpInvLotes(lote)
+}
+const reporteInventario = () => {
+  db.openReporteInventario()
+}
+const guardarNuevoProductoLote = () => {
+  let id_factura = null
+
+  if (factSelectIndex != null) {
+    if (facturas[factSelectIndex]) {
+      id_factura = facturas[factSelectIndex].id
+    }
+  }
+  let lotesFil = productosInventario.filter(e => e.type)
+
+
+  let checkempty = lotesFil.filter(e=>
+    e.codigo_barras == ""||
+    e.descripcion == ""||
+    e.id_categoria == ""||
+    e.unidad == ""||
+    e.id_proveedor == ""||
+    e.cantidad == ""||
+    e.precio_base == ""||
+    e.precio == "")
+
+  if (lotesFil.length && !checkempty.length) {
+    
+    setLoading(true)
+    db.guardarNuevoProductoLote({ lotes: lotesFil, id_factura}).then(res=>{
+      notificar(res)
+      setLoading(false)
+      try{
+        if (res.data.estado) {
+          getFacturas(null)
+
+          buscarInventario()
+          
+        }
+      }catch(err){}
+    })
+  }else{
+    alert("¡Error con los campos! Algunos pueden estar vacíos"+JSON.stringify(checkempty))
+  }
+
+}
+const changeInventario = (val, i, id, type, name = null) => {
+  let obj = cloneDeep(productosInventario)
+
+  switch (type) {
+    case "update":
+      if (obj[i].type != "new") {
+        obj[i].type = "update"
+      }
+      break;
+    case "delModeUpdateDelete":
+      delete obj[i].type
+      break;
+    case "delNew":
+      obj = obj.filter((e, ii) => ii !== i)
+      break;
+    case "changeInput":
+      obj[i][name] = val
+      break;
+    case "add":
+      let pro = ""
+
+      if (facturas[factSelectIndex]) {
+        pro = facturas[factSelectIndex].proveedor.id
+      }
+      let newObj = [{
+        id:null,
+        codigo_proveedor: "",
+        codigo_barras: "",
+        descripcion: "",
+        id_categoria: "40",
+        id_marca: "",
+        unidad: "UND",
+        id_proveedor: pro,
+        cantidad: "",
+        precio_base: "",
+        precio: "",
+        iva: "0",
+        type: "new",
+
+      }] 
+
+      obj = newObj.concat(obj)
+    break;
+
+    case "delMode":
+      obj[i].type = "delete"
+      let id_replace = 0
+      obj[i].id_replace = id_replace
+      break;
+  }
+  setProductosInventario(obj)
+}
+const getEstaInventario = () => {
+
+  if (time!=0) {
+    clearTimeout(typingTimeout)
+  }
+
+  let time = window.setTimeout(()=>{
+    setLoading(true)
+    db.getEstaInventario({
+      fechaQEstaInve,
+      fechaFromEstaInve,
+      fechaToEstaInve,
+      orderByEstaInv,
+      orderByColumEstaInv})
+    .then(e=>{
+      setdataEstaInven(e.data)
+      setLoading(false)
+    })
+  },150)
+  setTypingTimeout(time)
+
+}
+const setporcenganancia = (tipo,base=0,fun=null) => {
+  let insert = window.prompt("Porcentaje")
+  if (insert) {
+    if (number(insert)) {
+      if (tipo=="unique") {
+        let re = Math.round(parseFloat(inpInvbase) + (parseFloat(inpInvbase)*(parseFloat(insert)/100)))
+        if (re) {
+          setinpInvventa(re)
+
+        }
+      }else if("list"){
+        let re = Math.round(parseFloat(base) + (parseFloat(base)*(parseFloat(insert)/100)))
+        if (re) {
+          fun(re)
+
+        }
+      }
+    }
+
+  }
+
+}
+
+const focusInputSibli = (tar, mov) => {
+  let inputs = [].slice.call(refsInpInvList.current.elements)
+  let index;
+  if (tar.tagName == "INPUT") {
+
+    if (mov == "down") {
+      mov = 11
+    } else if (mov == "up") {
+      mov = -11
+    }
+  }
+  for (let i in inputs) {
+    if (tar == inputs[i]) {
+      index = parseInt(i) + mov
+      if (refsInpInvList.current[index]) {
+        refsInpInvList.current[index].focus()
+      }
+      break
+    }
+  }
+  if (typeof (index) === "undefined") {
+    if (refsInpInvList.current[0]) {
+      refsInpInvList.current[0].focus()
+    }
+  }
+}
+const addNewLote = e => {
+  let addObj = {
+    lote: "",
+    creacion: "",
+    vence: "",
+    cantidad: "",
+    type: "new",
+    id: null,
+  }
+  setinpInvLotes(inpInvLotes.concat(addObj))
+}
+
+const buscarInventario = e => {
+
+  let checkempty = productosInventario.filter(e => e.type).filter(e=>
+    e.codigo_barras == ""||
+    e.descripcion == ""||
+    e.id_categoria == ""||
+    e.unidad == ""||
+    e.id_proveedor == ""||
+    e.cantidad == ""||
+    e.precio_base == ""||
+    e.precio == "")
+
+  if (!checkempty.length) {
+    setLoading(true)
+
+    if (time!=0) {
+      clearTimeout(typingTimeout)
+    }
+
+    let time = window.setTimeout(()=>{
+      db.getinventario({
+        num:Invnum,
+        itemCero:true,
+        qProductosMain:qBuscarInventario,
+        orderColumn:InvorderColumn,
+        orderBy:InvorderBy
+      }).then(res=>{
+        setProductosInventario(res.data)
+        setLoading(false)
+        setIndexSelectInventario(null)
+        if (res.data.length===1) {
+          setIndexSelectInventario(0)
+        }else if(res.data.length==0){
+          setinpInvbarras(qBuscarInventario)
+        }
+      })
+    },150)
+    setTypingTimeout(time)
+
+  }else{
+    alert("Hay productos pendientes en carga de Inventario List!")
+  }
+
+
+
+}
+const getProveedores = e => {
+  if (time != 0) {
+    clearTimeout(typingTimeout)
+  }
+
+  let time = window.setTimeout(() => {
+    setLoading(true)
+    db.getProveedores({
+      q:qBuscarProveedor
+    }).then(res=>{
+      setProveedoresList(res.data)
+      setLoading(false)
+      if (res.data.length===1) {
+        setIndexSelectProveedores(0)
+      }
+    })
+  }, 150)
+  setTypingTimeout(time)
+
+  if (!categorias.length) {
+    db.getCategorias({
+    }).then(res=>{
+      setcategorias(res.data)
+    })
+  }
+  if (!depositosList.length) {
+    db.getDepositos({
+      q:qBuscarProveedor
+    }).then(res=>{
+      setdepositosList(res.data)
+    })
+  }
+
+
+}
+const getFallas = () => {
+  setLoading(true)
+  db.getFallas({qFallas,orderCatFallas,orderSubCatFallas,ascdescFallas}).then(res=>{
+    setfallas(res.data)
+    setLoading(false)
+  })
+}
+const setFalla = e => {
+  let id_producto = e.currentTarget.attributes["data-id"].value 
+  db.setFalla({id:null,id_producto}).then(res=>{
+    notificar(res)
+    setSelectItem(null)
+
+  })
+}
+const procesarImportPedidoCentral = () => {
+  // console.log(valbodypedidocentral)
+  // Id pedido 4
+  // Count items pedido 4
+  // sucursal code *
+
+
+  // console.log(valheaderpedidocentral)
+  //id_pedido 4 (0)
+  //id_producto 4 (0)
+  //base 6 (2)
+  //venta 6 (2)
+  //cantidad 5 (1)
+
+  try{
+
+    // Header...
+    let id_pedido_header = valheaderpedidocentral.substring(0,4).replace(/\b0*/g, '')
+    let count = valheaderpedidocentral.substring(4,8).replace(/\b0*/g, '')
+    let sucursal_code = valheaderpedidocentral.substring(8)
+
+    let import_pedido = {}
+
+    if (id_pedido_header&&count&&sucursal_code) {
+
+      db.getSucursal({}).then(res=>{
+        try{
+          if (res.data) {
+            if (res.data.codigo) {
+              if (res.data.codigo!=sucursal_code) {
+                throw("Error: Pedido no pertenece a esta sucursal!")
+              }else{
+                import_pedido.created_at = today
+                import_pedido.sucursal = sucursal_code
+                import_pedido.id = id_pedido_header
+                import_pedido.base = 0
+                import_pedido.venta = 0
+                import_pedido.items = []
+
+                let body = valbodypedidocentral.toString().replace(/[^0-9]/g,"")
+                if (!body) {
+                  
+                  throw("Error: Cuerpo incorrecto!")
+                }else{
+                  
+                  let ids_productos = body.match(/.{1,25}/g).map((e,i)=>{
+
+                    if (e.length!=25) {
+                      throw("Error: Líneas no tienen la longitud!")
+
+                    }
+                    let id_pedido = e.substring(0,4).replace(/\b0*/g, '')
+                    let id_producto = e.substring(4,8).replace(/\b0*/g, '')
+
+                    let base = e.substring(8,12).replace(/\b0*/g, '')+"."+e.substring(12,14)
+                    let venta = e.substring(14,18).replace(/\b0*/g, '')+"."+e.substring(18,20)
+                    
+                    let cantidad = e.substring(20,24).replace(/\b0*/g, '')+"."+e.substring(24,25)
+
+                    // if (id_pedido_header!=id_pedido) {
+                    //   
+                    //   throw("Error: Producto #"+(i+1)+" no pertenece a este pedido!")
+                    // }
+
+
+                    
+                    return {id_producto,
+                      id_pedido,
+                      base,
+                      venta,
+                      cantidad}
+                  })
+                  db.getProductosSerial({count,ids_productos:ids_productos.map(e=>e.id_producto)})
+                  .then(res=>{
+                    try{
+
+                      let obj = res.data
+
+                      if (obj.estado) {
+                        if (obj.msj) {
+                          let pro = obj.msj.map((e,i)=>{
+                            let filter = ids_productos.filter(ee=>ee.id_producto==e.id)[0];
+
+                            let cantidad = filter.cantidad
+                            let base = filter.base
+                            let venta = filter.venta
+                            let monto = cantidad*venta
+
+                            import_pedido.items.push({
+                              cantidad: cantidad,
+                              producto: {
+                                precio_base: base,
+                                precio: venta,
+                                codigo_barras: e.codigo_barras,
+                                codigo_proveedor: e.codigo_proveedor,
+                                descripcion: e.descripcion,
+                                id: e.id,
+                              },
+                              id:i,
+                              monto,
+                            })
+
+                            import_pedido.base += parseFloat(cantidad*base)
+                            import_pedido.venta += parseFloat(monto)
+
+
+                          })
+                          // console.log("import_pedido",import_pedido)
+                          setpedidoCentral(pedidosCentral.concat(import_pedido))
+                          setshowaddpedidocentral(false)
+
+                        }
+                      }else{
+                        alert(obj.msj)
+                      } 
+
+                    }catch(err){
+                      alert(err)
+                    }
+
+                  })
+                  
+                }
+
+              }
+            }
+          }
+        }catch(err){
+          alert(err)
+        }
+      })
+
+    }else{
+      throw("Error: Cabezera incorrecta!")
+    }
+  }catch(err){
+    alert(err)
+  }
+}
+
+const verDetallesFactura = (e=null) => {
+  let id = facturas[factSelectIndex]
+  if (e) {
+    id = e
+  } 
+  if (id) {
+    db.openVerFactura({ id: facturas[factSelectIndex].id})
+  }
+  
+}
+  /////CLOSE VENTAS IMPORT
 
 
 
@@ -250,36 +1290,6 @@ function Home() {
 
 
   ///////////Inventario
-  const setInputsProveedores = () =>{
-    if (proveedoresList[indexSelectProveedores]) {
-      let obj = proveedoresList[indexSelectProveedores]
-
-      setproveedordescripcion(obj.descripcion)
-      setproveedorrif(obj.rif)
-      setproveedordireccion(obj.direccion)
-      setproveedortelefono(obj.telefono)
-    }
-  }
-
-  const setInputsInventario = () =>{
-    if (productosInventario[indexSelectInventario]) {
-      let obj = productosInventario[indexSelectInventario]
-      setinpInvbarras(obj.codigo_barras)
-      setinpInvcantidad(obj.cantidad)
-      setinpInvalterno(obj.codigo_proveedor)
-      setinpInvunidad(obj.unidad)
-      setinpInvdescripcion(obj.descripcion)
-      setinpInvbase(obj.precio_base)
-      setinpInvventa(obj.precio)
-      setinpInviva(obj.iva)
-
-      setinpInvcategoria(obj.id_categoria)
-      setinpInvid_proveedor(obj.id_proveedor)
-      setinpInvid_marca(obj.id_marca)
-      setinpInvid_deposito(obj.id_deposito)
-
-    }
-  }
 
    const getToday = () =>{
     db.today({}).then(res=>{
@@ -303,17 +1313,7 @@ function Home() {
     })
   }
 
-  const getFallas = () => {
-    setLoading(true)
-
-    if (sucursales.filter(e=>e.char==sucursalSelect).length) {
-      db.getFallas({id_sucursal: sucursales.filter(e=>e.char==sucursalSelect)[0].id }).then(res=>{
-        setfallas(res.data)
-        setLoading(false)
-      })
-
-    }
-  }
+  
 
   const getGastos = () => {
     setLoading(true)
@@ -338,261 +1338,7 @@ function Home() {
 
     }
   }
-  const buscarInventario = e => {
-    setLoading(true)
-    db.getinventario({
-      num:Invnum,
-      itemCero:true,
-      qProductosMain:qBuscarInventario,
-      orderColumn:InvorderColumn,
-      orderBy:InvorderBy
-    }).then(res=>{
-      setProductosInventario(res.data)
-      setLoading(false)
-      setIndexSelectInventario(null)
-      if (res.data.length===1) {
-        setIndexSelectInventario(0)
-      }else if(res.data.length==0){
-        setinpInvbarras(qBuscarInventario)
-      }
-    })
-  }
-
-  const guardarNuevoProducto = e => {
-    e.preventDefault()
-    setLoading(true)
-
-    let id = null
-
-    if (indexSelectInventario!=null) {
-      if (productosInventario[indexSelectInventario]) {
-        id = productosInventario[indexSelectInventario].id
-      }
-    }
-
-    let id_factura = null
-
-    if (factSelectIndex!=null) {
-      if (facturas[factSelectIndex]) {
-        id_factura = facturas[factSelectIndex].id
-      }
-    }
-
-    db.guardarNuevoProducto({
-      id,
-      inpInvbarras,
-      inpInvcantidad,
-      inpInvalterno,
-      inpInvunidad,
-      inpInvcategoria,
-      inpInvdescripcion,
-      inpInvbase,
-      inpInvventa,
-      inpInviva,
-      inpInvid_proveedor,
-      inpInvid_marca,
-      inpInvid_deposito,
-      inpInvporcentaje_ganancia,
-      id_factura,
-
-    }).then(res=>{
-      notificar(res)
-      buscarInventario()
-      getFacturas(null)
-
-      setLoading(false)
-
-      if (res.data.estado) {
-
-        setinpInvbarras("")
-        setinpInvcantidad("")
-        setinpInvalterno("")
-        setinpInvunidad("UND")
-        setinpInvcategoria("24")
-        setinpInvdescripcion("")
-        setinpInvbase("")
-        setinpInvventa("")
-        setinpInviva("")
-        setinpInvid_marca("")
-      }
-    })
-  }
-
-  const delProducto = e => {
-    let id;
-    if (indexSelectInventario!=null) {
-      if (productosInventario[indexSelectInventario]) {
-        id = productosInventario[indexSelectInventario].id
-      }
-    }
-    if (confirm("¿Desea Eliminar?")) {
-      setLoading(true)
-      db.delProducto({id}).then(res=>{
-        setLoading(false)
-        buscarInventario()
-        notificar(res)
-        if (res.data.estado) {
-          setIndexSelectInventario(null)
-        }
-      })
-      
-    }
-  }
-
-  const setProveedor = e =>{
-    setLoading(true)
-    e.preventDefault()
-
-    let id = null
-
-    if (indexSelectProveedores!=null) {
-      if (proveedoresList[indexSelectProveedores]) {
-        id = proveedoresList[indexSelectProveedores].id
-      }
-    }
-    db.setProveedor({
-      proveedordescripcion,
-      proveedorrif,
-      proveedordireccion,
-      proveedortelefono,
-      id
-    }).then(res=>{
-      notificar(res)
-      getProveedores()
-      setLoading(false)
-
-    })
-  } 
-  const delProveedor = e => {
-    let id;
-    if (indexSelectProveedores!=null) {
-      if (proveedoresList[indexSelectProveedores]) {
-        id = proveedoresList[indexSelectProveedores].id
-      }
-    }
-    if (confirm("¿Desea Eliminar?")) {
-      setLoading(true)
-      db.delProveedor({id}).then(res=>{
-        setLoading(false)
-        getProveedores()
-        notificar(res)
-
-        if (res.data.estado) {
-          setIndexSelectProveedores(null)
-        }
-      })
-
-    }
-
-  }
-
-  const getProveedores = e => {
-    setLoading(true)
-    db.getProveedores({
-      q:qBuscarProveedor
-    }).then(res=>{
-      setProveedoresList(res.data)
-      setLoading(false)
-      if (res.data.length===1) {
-        setIndexSelectProveedores(0)
-      }
-    })
-
-    
-
-    db.getDepositos({
-      q:qBuscarProveedor
-    }).then(res=>{
-      setdepositosList(res.data)
-    })
-  }
-
-   const setFactura = e => {
-    e.preventDefault()
-    setLoading(true)
-
-    let id = null
-
-    if (factSelectIndex!=null) {
-      if (facturas[factSelectIndex]) {
-        id = facturas[factSelectIndex].id
-      }
-    }
-    db.setFactura({
-      factInpid_proveedor,
-      factInpnumfact,
-      factInpdescripcion,
-      factInpmonto,
-      factInpfechavencimiento,
-      factInpestatus,
-      id
-    }).then(res=>{
-      notificar(res)
-      getFacturas()
-      setLoading(false)
-      if (res.data.estado) {
-        setfactsubView("buscar")
-        setfactSelectIndex(null)
-      }
-
-    })
-  }
-  const getFacturas = (clean = true) =>{
-    setLoading(true)
-    db.getFacturas({
-      factqBuscar,
-      factqBuscarDate,
-      factOrderBy,
-      factOrderDescAsc
-    }).then(res=>{
-      setLoading(false)
-      setfacturas(res.data)
-
-      if (clean) {
-        setfactSelectIndex(null)
-
-      }
-    })
-  }
-
-  const delFactura = e => {
-    let id = null
-
-    if (factSelectIndex!=null) {
-      if (facturas[factSelectIndex]) {
-        id = facturas[factSelectIndex].id
-      }
-    }
-    if (confirm("¿Desea Eliminar?")) {
-      setLoading(true)
-      db.delFactura({id}).then(res=>{
-        setLoading(false)
-        getFacturas()
-        notificar(res)
-        if (res.data.estado) {
-          setfactsubView("buscar")
-          setfactSelectIndex(null)
-        }
-      })
-    }
-  }
-
-  const delItemFact = e =>{
-    let id = e.currentTarget.attributes["data-id"].value
-
-    if (confirm("¿Desea Eliminar?")) {
-      setLoading(true)
-      db.delItemFact({id}).then(res=>{
-        setLoading(false)
-        notificar(res)
-        if (res.data.estado) {
-          getFacturas(false)
-          buscarInventario()
-        }
-      })
-    }
-  }
-
+  
   const showCantidadCarritoFun = () => {
     showCantidadCarrito("carrito")
   } 
@@ -771,9 +1517,6 @@ function Home() {
   }  
   
   
-  
-  
-  
 
 
   return(
@@ -857,7 +1600,6 @@ function Home() {
             inpInviva={inpInviva}
             setinpInviva={setinpInviva}
 
-            number={number}
             guardarNuevoProducto={guardarNuevoProducto}
 
             setProveedor={setProveedor}
@@ -930,8 +1672,6 @@ function Home() {
             setInvorderBy={setInvorderBy}
             delItemFact={delItemFact}
 
-            moneda={moneda}
-
             subviewProveedores={subviewProveedores}
             setsubviewProveedores={setsubviewProveedores}
 
@@ -983,6 +1723,153 @@ function Home() {
             setProdCarritoInterno={setProdCarritoInterno}
             sendPedidoSucursal={sendPedidoSucursal}
 
+        openReporteFalla={openReporteFalla}
+        getPagoProveedor={getPagoProveedor}
+        setPagoProveedor={setPagoProveedor}
+        pagosproveedor={pagosproveedor}
+        tipopagoproveedor={tipopagoproveedor}
+        settipopagoproveedor={settipopagoproveedor}
+        montopagoproveedor={montopagoproveedor}
+        setmontopagoproveedor={setmontopagoproveedor}
+        setmodFact={setmodFact}
+        modFact={modFact}
+        saveFactura={saveFactura}
+        categorias={categorias}
+        setporcenganancia={setporcenganancia}
+        refsInpInvList={refsInpInvList}
+        guardarNuevoProductoLote={guardarNuevoProductoLote}
+        changeInventario={changeInventario}
+        reporteInventario={reporteInventario}
+        addNewLote={addNewLote}
+        changeModLote={changeModLote}
+        modViewInventario={modViewInventario}
+        setmodViewInventario={setmodViewInventario}
+        setNewProducto={setNewProducto}
+        verDetallesFactura={verDetallesFactura}
+        showaddpedidocentral={showaddpedidocentral}
+        setshowaddpedidocentral={setshowaddpedidocentral}
+        valheaderpedidocentral={valheaderpedidocentral}
+        setvalheaderpedidocentral={setvalheaderpedidocentral}
+        valbodypedidocentral={valbodypedidocentral}
+        setvalbodypedidocentral={setvalbodypedidocentral}
+        procesarImportPedidoCentral={procesarImportPedidoCentral}
+        moneda={moneda}
+        productosInventario={productosInventario}
+        qBuscarInventario={qBuscarInventario}
+        setQBuscarInventario={setQBuscarInventario}
+        setIndexSelectInventario={setIndexSelectInventario}
+        indexSelectInventario={indexSelectInventario}
+        inputBuscarInventario={inputBuscarInventario}
+        inpInvbarras={inpInvbarras}
+        setinpInvbarras={setinpInvbarras}
+        inpInvcantidad={inpInvcantidad}
+        setinpInvcantidad={setinpInvcantidad}
+        inpInvalterno={inpInvalterno}
+        setinpInvalterno={setinpInvalterno}
+        inpInvunidad={inpInvunidad}
+        setinpInvunidad={setinpInvunidad}
+        inpInvcategoria={inpInvcategoria}
+        setinpInvcategoria={setinpInvcategoria}
+        inpInvdescripcion={inpInvdescripcion}
+        setinpInvdescripcion={setinpInvdescripcion}
+        inpInvbase={inpInvbase}
+        setinpInvbase={setinpInvbase}
+        inpInvventa={inpInvventa}
+        setinpInvventa={setinpInvventa}
+        inpInviva={inpInviva}
+        setinpInviva={setinpInviva}
+        inpInvLotes={inpInvLotes}
+        number={number}
+        guardarNuevoProducto={guardarNuevoProducto}
+        setProveedor={setProveedor}
+        proveedordescripcion={proveedordescripcion}
+        setproveedordescripcion={setproveedordescripcion}
+        proveedorrif={proveedorrif}
+        setproveedorrif={setproveedorrif}
+        proveedordireccion={proveedordireccion}
+        setproveedordireccion={setproveedordireccion}
+        proveedortelefono={proveedortelefono}
+        setproveedortelefono={setproveedortelefono}
+        subViewInventario={subViewInventario}
+        setsubViewInventario={setsubViewInventario}
+        setIndexSelectProveedores={setIndexSelectProveedores}
+        indexSelectProveedores={indexSelectProveedores}
+        qBuscarProveedor={qBuscarProveedor}
+        setQBuscarProveedor={setQBuscarProveedor}
+        proveedoresList={proveedoresList}
+        delProveedor={delProveedor}
+        delProducto={delProducto}
+        inpInvid_proveedor={inpInvid_proveedor}
+        setinpInvid_proveedor={setinpInvid_proveedor}
+        inpInvid_marca={inpInvid_marca}
+        setinpInvid_marca={setinpInvid_marca}
+        inpInvid_deposito={inpInvid_deposito}
+        setinpInvid_deposito={setinpInvid_deposito}
+        depositosList={depositosList}
+        marcasList={marcasList}
+        setshowModalFacturas={setshowModalFacturas}
+        showModalFacturas={showModalFacturas}
+        facturas={facturas}
+        factqBuscar={factqBuscar}
+        setfactqBuscar={setfactqBuscar}
+        factqBuscarDate={factqBuscarDate}
+        setfactqBuscarDate={setfactqBuscarDate}
+        factsubView={factsubView}
+        setfactsubView={setfactsubView}
+        factSelectIndex={factSelectIndex}
+        setfactSelectIndex={setfactSelectIndex}
+        factOrderBy={factOrderBy}
+        setfactOrderBy={setfactOrderBy}
+        factOrderDescAsc={factOrderDescAsc}
+        setfactOrderDescAsc={setfactOrderDescAsc}
+        factInpid_proveedor={factInpid_proveedor}
+        setfactInpid_proveedor={setfactInpid_proveedor}
+        factInpnumfact={factInpnumfact}
+        setfactInpnumfact={setfactInpnumfact}
+        factInpdescripcion={factInpdescripcion}
+        setfactInpdescripcion={setfactInpdescripcion}
+        factInpmonto={factInpmonto}
+        setfactInpmonto={setfactInpmonto}
+        factInpfechavencimiento={factInpfechavencimiento}
+        setfactInpfechavencimiento={setfactInpfechavencimiento}
+        factInpestatus={factInpestatus}
+        setfactInpestatus={setfactInpestatus}
+        setFactura={setFactura}
+        delFactura={delFactura}
+        Invnum={Invnum}
+        setInvnum={setInvnum}
+        InvorderColumn={InvorderColumn}
+        setInvorderColumn={setInvorderColumn}
+        InvorderBy={InvorderBy}
+        setInvorderBy={setInvorderBy}
+        delItemFact={delItemFact}
+        qFallas={qFallas}
+        setqFallas={setqFallas}
+        orderCatFallas={orderCatFallas}
+        setorderCatFallas={setorderCatFallas}
+        orderSubCatFallas={orderSubCatFallas}
+        setorderSubCatFallas={setorderSubCatFallas}
+        ascdescFallas={ascdescFallas}
+        setascdescFallas={setascdescFallas}
+        fallas={fallas}
+        delFalla={delFalla}
+        getPedidosCentral={getPedidosCentral}
+        selectPedidosCentral={selectPedidosCentral}
+        checkPedidosCentral={checkPedidosCentral}
+        pedidosCentral={pedidosCentral}
+        setIndexPedidoCentral={setIndexPedidoCentral}
+        indexPedidoCentral={indexPedidoCentral}
+        fechaQEstaInve={fechaQEstaInve}
+        setfechaQEstaInve={setfechaQEstaInve}
+        fechaFromEstaInve={fechaFromEstaInve}
+        setfechaFromEstaInve={setfechaFromEstaInve}
+        fechaToEstaInve={fechaToEstaInve}
+        setfechaToEstaInve={setfechaToEstaInve}
+        orderByEstaInv={orderByEstaInv}
+        setorderByEstaInv={setorderByEstaInv}
+        orderByColumEstaInv={orderByColumEstaInv}
+        setorderByColumEstaInv={setorderByColumEstaInv}
+        dataEstaInven={dataEstaInven}
           />:null}
         </div>
       </>}

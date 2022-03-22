@@ -20,6 +20,8 @@ use App\Http\Controllers\ItemsPedidosController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\MonedaController;
 use App\Http\Controllers\LocalsVersionController;
+use App\Http\Controllers\CategoriasController;
+
 
 
 
@@ -51,47 +53,30 @@ Route::get('/hora', function () {
     return date("Y-m-d H:i:s");
 });
 
-Route::get('/welcome', function () {
+Route::get('welcome', function () {
     return view('welcome');
 });
-Route::get('/getMoneda', [MonedaController::class,"getMoneda"]);
-Route::get('/getVersionRemote', [LocalsVersionController::class,"getVersion"]);
+Route::get('getMoneda', [MonedaController::class,"getMoneda"]);
+Route::get('getVersionRemote', [LocalsVersionController::class,"getVersion"]);
 
-Route::get('/', [home::class,"index"]);
-Route::get('/today', [home::class,"today"]);
-Route::get('/getSucursales', [SucursalController::class,"getSucursales"]);
-
-
+Route::get('', [home::class,"index"]);
+Route::get('today', [home::class,"today"]);
+Route::get('getSucursales', [SucursalController::class,"getSucursales"]);
 
 
-Route::post('/setFalla', [FallasController::class,"setFallas"]);
-Route::get('/getFallas', [FallasController::class,"getFallas"]);
 
-Route::post('/setGastos', [GastosController::class,"setGastos"]);
-Route::get('/getGastos', [GastosController::class,"getGastos"]);
 
-Route::post('/setVentas', [VentasController::class,"setVentas"]);
-Route::get('/getVentas', [VentasController::class,"getVentas"]);
+Route::post('setFalla', [FallasController::class,"setFallas"]);
+Route::get('getFallas', [FallasController::class,"getFallas"]);
+
+Route::post('setGastos', [GastosController::class,"setGastos"]);
+Route::get('getGastos', [GastosController::class,"getGastos"]);
+
+Route::post('setVentas', [VentasController::class,"setVentas"]);
+Route::get('getVentas', [VentasController::class,"getVentas"]);
 
 
 Route::post('getinventario', [InventarioController::class,"index"]);
-Route::post('guardarNuevoProducto', [InventarioController::class,"guardarNuevoProducto"]);
-Route::post('delProducto', [InventarioController::class,"delProducto"]);
-
-
-Route::post('setProveedor', [ProveedoresController::class,"setProveedor"]);
-Route::post('delProveedor', [ProveedoresController::class,"delProveedor"]);
-Route::post('getProveedores', [ProveedoresController::class,"getProveedores"]);
-
-Route::post('getDepositos', [DepositoController::class,"getDepositos"]);
-
-Route::post('getFacturas', [FacturasController::class,"getFacturas"]);
-Route::post('setFactura', [FacturasController::class,"setFactura"]);
-
-  
-
-Route::post('delFactura', [FacturasController::class,"delFactura"]);
-Route::post('delItemFact', [ItemsFacturasController::class,"delItemFact"]);
 
 Route::post('setCarrito', [PedidosController::class,"setCarrito"]);
 
@@ -112,6 +97,39 @@ Route::post('getPedidoPendSucursal', [PedidosController::class,"getPedidoPendSuc
 Route::post('extraerPedidoPendSucursal', [PedidosController::class,"extraerPedidoPendSucursal"]);
 
 Route::post('sendInventario', [InventarioController::class,"sendInventario"]);
+
+
+
+Route::post('getinventario', [InventarioController::class,"index"]);
+Route::post('guardarNuevoProducto', [InventarioController::class,"guardarNuevoProducto"]);
+Route::post('guardarNuevoProductoLote', [InventarioController::class,"guardarNuevoProductoLote"]);
+Route::post('delProducto', [InventarioController::class,"delProducto"]);
+Route::post('getFallas', [InventarioController::class,"getFallas"]);
+Route::post('setFalla', [InventarioController::class,"setFalla"]);
+Route::post('delFalla', [InventarioController::class,"delFalla"]);
+Route::post('getEstaInventario', [InventarioController::class,"getEstaInventario"]);
+Route::get('reporteInventario', [InventarioController::class,"reporteInventario"]);
+Route::get('reporteFalla', [InventarioController::class,"reporteFalla"]);
+
+Route::post('setProveedor', [ProveedoresController::class,"setProveedor"]);
+Route::post('getProveedores', [ProveedoresController::class,"getProveedores"]);
+Route::post('delProveedor', [ProveedoresController::class,"delProveedor"]);
+
+Route::post('getDepositos', [DepositoController::class,"getDepositos"]);
+
+Route::post('getFacturas', [FacturasController::class,"getFacturas"]);
+Route::post('setFactura', [FacturasController::class,"setFactura"]);
+Route::post('delFactura', [FacturasController::class,"delFactura"]);
+Route::post('saveMontoFactura', [FacturasController::class,"saveMontoFactura"]);
+Route::get('verFactura', [FacturasController::class,"verFactura"]);
+
+Route::post('delItemFact', [ItemsFacturasController::class,"delItemFact"]);
+
+Route::post('setPagoProveedor', [PagoFacturasController::class,"setPagoProveedor"]);
+Route::post('getPagoProveedor', [PagoFacturasController::class,"getPagoProveedor"]);
+
+Route::get('getCategorias', [CategoriasController::class,"getCategorias"]);
+
 
 
 

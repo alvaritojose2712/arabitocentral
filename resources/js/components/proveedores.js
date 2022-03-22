@@ -12,8 +12,6 @@ function Proveedores({
   setproveedordireccion,
   proveedortelefono,
   setproveedortelefono,
-  subViewInventario,
-  setsubViewInventario,
 
   setIndexSelectProveedores,
   indexSelectProveedores,
@@ -22,19 +20,10 @@ function Proveedores({
   proveedoresList,
 
   delProveedor,
-  delProducto,
 
-  inpInvid_proveedor,
-  setinpInvid_proveedor,
 
-  inpInvid_marca,
-  setinpInvid_marca,
 
-  inpInvid_deposito,
-  setinpInvid_deposito,
 
-  subviewProveedores,
-  setsubviewProveedores,
 }) {
 
  
@@ -46,31 +35,15 @@ function Proveedores({
       setIndexSelectProveedores(null)
     }else{
       setIndexSelectProveedores(index)
-      setsubviewProveedores("editar")
     }
   }
   return (
     <>
       <div className="container">
-        <div className="btn-group w-100">
-          <button className={("btn ")+(subviewProveedores=="buscar"?"btn-dark":"btn-outline-arabito")} onClick={()=>setsubviewProveedores("buscar")}>Buscar</button>
-          <button className={("btn ")+(subviewProveedores=="editar"?"btn-dark":"btn-outline-arabito")} onClick={()=>setsubviewProveedores("editar")}>
-          {indexSelectProveedores==null?<span>Crear</span>:
-            <>
-              Editar 
-                {(indexSelectProveedores!=null)?
-                  proveedoresList[indexSelectProveedores]?
-                    "-"+proveedoresList[indexSelectProveedores].descripcion.substr(0,10)+"..."
-                  :null
-                :null}
-            </>
-            }
-          </button>
-        </div>
         <div className="row">
-        {subviewProveedores=="buscar"?
           <div className="col">
-            
+              <h1>Proveedores</h1>
+
               <div className="">
                 <div className="input-group ">
                   <input type="text" 
@@ -90,7 +63,7 @@ function Proveedores({
                   onClick={setIndexSelectProveedoresFun} 
                   data-index={i}
                   key={e.id}
-                  className={(indexSelectProveedores==i?"bg-arabito":"bg-light text-secondary")+" card mt-2 pointer"}>
+                  className={(indexSelectProveedores==i?"bg-sinapsis":"bg-light text-secondary")+" card mt-2 pointer"}>
                     <div className="card-header flex-row row justify-content-between">
                       <div>
                         <small>ID.{e.id}</small>
@@ -115,13 +88,9 @@ function Proveedores({
               }
             
           </div>
-        :null}
-        {subviewProveedores=="editar"?
-
           <div className="col">
             
               <form onSubmit={setProveedor}>
-                <h3>Registrar Proveedores</h3>
                 <div className="form-group">
                   <label htmlFor="">
                     Descripción
@@ -163,7 +132,7 @@ function Proveedores({
                   <button className="btn btn-outline-success btn-block" type="submit">Guardar</button>
                 : 
                   <div className="btn-group">
-                    <button className="btn btn-arabito btn-block" type="submit">Editar</button>
+                    <button className="btn btn-sinapsis btn-block" type="submit">Editar</button>
                     <button className="btn btn-outline-danger btn-block" onClick={delProveedor} type="button"><i className="fa fa-times"></i></button>
                     
                   </div>
@@ -171,8 +140,6 @@ function Proveedores({
                 </div>
               </form>            
           </div>
-        :null}
-
         </div>
       </div>
     </>

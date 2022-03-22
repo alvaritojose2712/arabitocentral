@@ -15,21 +15,22 @@ class CreateFacturasTable extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->increments("id");
-
+            
             $table->integer("id_proveedor")->unsigned();
             $table->foreign('id_proveedor')->references('id')->on('proveedores');
-
+            
             $table->string("numfact");
             $table->unique(["numfact","id_proveedor"]);
             $table->string("descripcion");
-            $table->decimal("monto",10,2);
+            $table->decimal("monto",10,2)->nullable()->default(0);
             $table->date("fechavencimiento");
-            $table->boolean("estatus");
+            
+            $table->boolean("push")->default(0);
+            
+            $table->integer("estatus");
             //0 Pend
             //1 Procesado
             //2 Extraido
-
-
 
             $table->timestamps();
         });

@@ -20,9 +20,10 @@ class CreateItemsFacturasTable extends Migration
             $table->foreign('id_factura')->references('id')->on('facturas');
 
             $table->integer("id_producto")->unsigned();
-            $table->foreign('id_producto')->references('id')->on('inventarios');
+            $table->foreign('id_producto')->references('id')
+            ->on('inventarios')->onDelete("cascade");
 
-            $table->decimal("cantidad",10,2);
+            $table->decimal("cantidad",8,2);
             $table->string("tipo");
 
             $table->unique(["id_factura","id_producto"]);

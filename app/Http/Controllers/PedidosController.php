@@ -62,10 +62,10 @@ class PedidosController extends Controller
             $setcantidad = $cantidad;
             $setprecio = $precio;
             
-            $checkIfExits = items_pedidos::where("id_producto",$id)->where("id_pedido",$id_pedido);
+            $checkIfExits = items_pedidos::where("id_producto",$id)->where("id_pedido",$id_pedido)->first();
             
             if ($checkIfExits) {
-                $old_ct = $checkIfExits->first()["cantidad"];
+                $old_ct = $checkIfExits["cantidad"];
 
                 $setcantidad = $cantidad + $old_ct;
                 $setprecio = $setcantidad*$precio;

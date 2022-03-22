@@ -9,7 +9,6 @@ use DateTimeInterface;
 class inventario extends Model
 {
     use HasFactory;
-
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
@@ -21,8 +20,14 @@ class inventario extends Model
     public function categoria() { 
         return $this->hasOne(\App\Models\categorias::class,"id","id_categoria"); 
     }
+    public function marca() { 
+        return $this->hasOne(\App\Models\marcas::class,"id","id_marca"); 
+    }
     public function deposito() { 
         return $this->hasOne(\App\Models\deposito::class,"id","id_deposito"); 
+    }
+    public function lotes() { 
+        return $this->hasMany('App\Models\lotes',"id_producto","id"); 
     }
 
     protected $fillable = [

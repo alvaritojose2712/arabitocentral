@@ -11,7 +11,7 @@ use Response;
 
 class ProveedoresController extends Controller
 {
-    public function setProveedor(Request $req)
+   public function setProveedor(Request $req)
     {   
         try {
             $id = $req->id;

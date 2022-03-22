@@ -16,7 +16,7 @@ class ItemsFacturasController extends Controller
     {
         try {
             $id = $req->id;
-            $items_factura = items_facturas::find($id);
+            $items_factura = items_factura::find($id);
             $inv = inventario::find($items_factura->id_producto);
             $inv->cantidad = $inv->cantidad - ($items_factura->cantidad);
             if ($inv->save()) {
