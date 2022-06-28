@@ -21,6 +21,9 @@ use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\MonedaController;
 use App\Http\Controllers\LocalsVersionController;
 use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\sockets;
+use App\Http\Controllers\InventarioSucursalController;
+
 
 
 
@@ -130,6 +133,20 @@ Route::post('getPagoProveedor', [PagoFacturasController::class,"getPagoProveedor
 
 Route::get('getCategorias', [CategoriasController::class,"getCategorias"]);
 
+
+Route::post('setPedidoInCentralFromMasters', [PedidosController::class,"setPedidoInCentralFromMasters"]);
+Route::post('respedidos', [PedidosController::class,"respedidos"]);
+Route::post('changeExtraidoEstadoPed', [PedidosController::class,"changeExtraidoEstadoPed"]);
+
+
+///eventscentral
+Route::post('setNuevaTareaCentral', [sockets::class,"setNuevaTareaCentral"]);
+Route::post('setInventarioFromSucursal', [InventarioSucursalController::class,"setInventarioFromSucursal"]);
+Route::post('getInventarioSucursalFromCentral', [InventarioSucursalController::class,"getInventarioSucursalFromCentral"]);
+Route::post('setCambiosInventarioSucursal', [InventarioSucursalController::class,"setCambiosInventarioSucursal"]);
+
+Route::post('getInventarioFromSucursal', [InventarioSucursalController::class,"getInventarioFromSucursal"]);
+Route::post('changeEstatusProductoProceced', [InventarioSucursalController::class,"changeEstatusProductoProceced"]);
 
 
 

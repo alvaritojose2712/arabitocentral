@@ -9,6 +9,7 @@ use DateTimeInterface;
 class proveedores extends Model
 {
     use HasFactory;
+    public $incrementing = false;
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

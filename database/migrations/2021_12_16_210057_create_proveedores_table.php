@@ -20,8 +20,8 @@ class CreateProveedoresTable extends Migration
             $table->text('direccion');
             $table->string('telefono');
 
-            $table->unique("rif");
-            $table->unique("descripcion");
+            // $table->unique("rif");
+            // $table->unique("descripcion");
 
             $table->timestamps();
         });
