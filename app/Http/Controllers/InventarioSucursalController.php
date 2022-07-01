@@ -158,11 +158,37 @@ class InventarioSucursalController extends Controller
         }
     }
     public function getInventarioSucursalFromCentral(Request $req)
-    {
-        return inventario_sucursal::with(["proveedor","categoria"])
-        //->where("check",0)
-        ->where("id_sucursal",$req->id)
-        ->get();
+    {   
+        $type = $req->type;
+        $id = $req->id;
+
+        switch ($type) {
+            case 'inventariSucursalFromCentral':
+                return inventario_sucursal::with(["proveedor","categoria"])
+                ->where("id_sucursal",$req->id)
+                ->get();
+                break;
+            case 'fallaspanelcentroacopio':
+                return [];
+                break;
+            case 'estadisticaspanelcentroacopio':
+                return [];
+                break;
+            case 'gastospanelcentroacopio':
+                return [];
+                break;
+            case 'cierrespanelcentroacopio':
+                return [];
+                break;
+            case 'diadeventapanelcentroacopio':
+                return [];
+                break;
+            case 'tasaventapanelcentroacopio':
+                return [];
+                break;
+            
+            
+        }
     }
 
     
