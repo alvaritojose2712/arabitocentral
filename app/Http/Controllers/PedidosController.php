@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categorias;
+use App\Models\proveedores;
 use App\Models\pedidos;
 use App\Models\inventario;
 use App\Models\sucursal;
@@ -14,7 +16,130 @@ use Response;
 
 class PedidosController extends Controller
 {   
+    public function setPedidoInCentralFromMasters(Request $req)
+    {
+        $pedidos = $req->pedidos;
+        $type = $req->type;
+        try {
+            
+            
+                
+                foreach ($pedidos as $key => $e) {
+                    if ($type=="add") {
+                        $ped = new pedidos;
 
+                        $ped->id = $e["id"];
+                        $ped->estado = 1;
+                        $ped->id_sucursal = $e["id_cliente"];
+                        if ($ped->save()) {
+                            $count = 0;
+                            foreach ($e["items"] as $k => $ee) {
+
+                                // $categorias = categorias::updateOrCreate([
+                                //     "id"=>$ee["producto"]["categoria"]["id"],
+                                // ],[
+                                //     "id"=>$ee["producto"]["categoria"]["id"],
+                                //     "descripcion"=>$ee["producto"]["categoria"]["descripcion"],
+                                // ]);
+                                // $proveedores = proveedores::updateOrCreate([
+                                //     "id" => $ee["producto"]["proveedor"]["id"],
+                                // ],[
+                                //     "id" => $ee["producto"]["proveedor"]["id"],
+                                //     "rif" => $ee["producto"]["proveedor"]["rif"],
+                                //     "descripcion" => $ee["producto"]["proveedor"]["descripcion"],
+                                //     "direccion" => $ee["producto"]["proveedor"]["direccion"],
+                                //     "telefono" => $ee["producto"]["proveedor"]["telefono"],
+                                // ]);
+
+                                // if ($categorias&&$proveedores) {
+                                //     # code...
+                                    $inv = inventario::updateOrCreate([
+                                        "id" => $ee["id_producto"],
+                                    ],[
+                                        "id" => $ee["id_producto"],
+                                        "codigo_barras" => $ee["producto"]["codigo_barras"],
+                                        "cantidad" => $ee["producto"]["cantidad"],
+                                        "codigo_proveedor" => $ee["producto"]["codigo_proveedor"],
+                                        "unidad" => $ee["producto"]["unidad"],
+                                        "id_categoria" => $ee["producto"]["id_categoria"] ,
+                                        "descripcion" => $ee["producto"]["descripcion"],
+                                        "precio_base" => $ee["producto"]["precio_base"],
+                                        "precio" => $ee["producto"]["precio"],
+                                        "iva" => $ee["producto"]["iva"],
+                                        "id_proveedor" => $ee["producto"]["id_proveedor"],
+                                        "id_marca" => $ee["producto"]["id_marca"],
+                                        "id_deposito" => $ee["producto"]["id_deposito"],
+                                        "porcentaje_ganancia" => $ee["producto"]["porcentaje_ganancia"]
+                                    ]);
+                                    if ($inv) {
+                                        
+                                        $items_pedidos = new items_pedidos;
+                                        
+                                        $items_pedidos->id_producto = $ee["id_producto"];
+                                        $items_pedidos->id_pedido = $ee["id_pedido"];
+                                        $items_pedidos->cantidad = $ee["cantidad"];
+                                        $items_pedidos->descuento = $ee["descuento"];
+                                        $items_pedidos->monto = $ee["monto"];
+
+                                        if ($items_pedidos->save()) {
+                                            $count++;  
+                                        }
+                                    } 
+                                //}
+                            }
+                            return ["estado"=>true, "msj"=>"Desde Central: $count items exportados"];
+                        }
+                    }else{
+                       if(pedidos::find($e["id"])->delete()){
+                            return ["estado"=>true, "msj"=>"Desde Central: Pedido ".$e["id"]." eliminado de central"];
+
+                       };
+                    }
+                }
+
+            
+
+
+        } catch (\Exception $e) {
+
+            if ($e->errorInfo[1]=="1062") {
+                throw new \Exception("Pedido Duplicado. ".$e->errorInfo[2], 1);
+            }else{
+                throw new \Exception("Error: ".$e->getMessage(), 1);
+
+            }
+        }
+    }
+    public function changeExtraidoEstadoPed(Request $req)
+    {
+        $p = pedidos::find($req->id);
+        if ($p) {
+            $p->estado = 2;
+            $p->save();
+        }
+    }
+    public function respedidos(Request $req)
+    {
+        $codigo = $req->codigo;
+        $ped = pedidos::with(["sucursal","items"=>function($q){
+            $q->with(["producto"=>function($q){
+                $q->with(["proveedor","categoria"]);
+            }]);
+        }])
+        ->where("estado",1)
+        ->whereIn("id_sucursal",sucursal::where("codigo",$codigo)->select("id"))
+        ->orderBy("id","desc")
+        ->get()
+        ->map(function($q){
+            $q->base = $q->items->map(function($q){
+                return $q->producto->precio_base*$q->cantidad;
+            })->sum();
+            $q->venta = $q->items->sum("monto");
+            return $q;
+
+        });
+        return ["pedido"=>$ped,"codigo"=>$codigo];
+    }
     public function setConfirmFacturas(Request $req)
     {
         try {

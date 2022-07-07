@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class moneda extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "tipo",
+        "valor",
+        "id_sucursal",
+    ];
 }

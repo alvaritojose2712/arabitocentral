@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class categorias extends Model
+class items_movimiento extends Model
 {
     use HasFactory;
-    protected $fillable = ["descripcion"];
-    public $incrementing = false;
 }
