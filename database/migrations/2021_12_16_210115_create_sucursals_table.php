@@ -28,7 +28,8 @@ class CreateSucursalsTable extends Migration
             ["char"=>"AG","nombre"=>"Achaguas","codigo"=>"ARAAGS"],
             ["char"=>"SM","nombre"=>"El Samán","codigo"=>"ARASMAN"],
             ["char"=>"BZ","nombre"=>"Bruzual","codigo"=>"ARABZAL"],
-            ["char"=>"SF","nombre"=>"San Fernando","codigo"=>"ARASFDO"]
+            ["char"=>"SF","nombre"=>"San Fernando","codigo"=>"ARASFDO"],
+            ["char"=>"AC","nombre"=>"CENTRAL","codigo"=>"ARACENTRAL"],
         ]);
     }
 
