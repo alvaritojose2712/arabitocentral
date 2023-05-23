@@ -31,7 +31,7 @@ class CreateFallasTable extends Migration
 
         });
 
-        DB::table("fallas")->insert([
+        /* DB::table("fallas")->insert([
             ["id_sucursal"=>1,"id_producto"=>12, "id_local"=>1],
             ["id_sucursal"=>1,"id_producto"=>13, "id_local"=>2],
             ["id_sucursal"=>1,"id_producto"=>14, "id_local"=>3],
@@ -167,7 +167,7 @@ class CreateFallasTable extends Migration
             ["id_sucursal"=>6,"id_producto"=>27, "id_local"=>106],
             ["id_sucursal"=>6,"id_producto"=>28, "id_local"=>107],
             ["id_sucursal"=>6,"id_producto"=>29, "id_local"=>108],
-        ]);
+        ]); */
     }
 
     /**

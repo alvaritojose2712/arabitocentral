@@ -21,9 +21,11 @@ class CreatePedidosTable extends Migration
             //1 "Procesado"
             //2 "Extraído"
 
+            $table->integer("id_origen")->unsigned();
+            $table->foreign('id_origen')->references('id')->on('sucursals');
 
-            $table->integer("id_sucursal")->unsigned();
-            $table->foreign('id_sucursal')->references('id')->on('sucursals');
+            $table->integer("id_destino")->unsigned();
+            $table->foreign('id_destino')->references('id')->on('sucursals');
 
             $table->timestamps();
         });

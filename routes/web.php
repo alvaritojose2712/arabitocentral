@@ -23,6 +23,9 @@ use App\Http\Controllers\LocalsVersionController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\sockets;
 use App\Http\Controllers\InventarioSucursalController;
+use App\Http\Controllers\TareasController;
+use App\Http\Controllers\CierresController;
+
 
 
 
@@ -143,12 +146,20 @@ Route::post('changeExtraidoEstadoPed', [PedidosController::class,"changeExtraido
 Route::post('setNuevaTareaCentral', [sockets::class,"setNuevaTareaCentral"]);
 Route::post('setInventarioFromSucursal', [InventarioSucursalController::class,"setInventarioFromSucursal"]);
 Route::post('getInventarioSucursalFromCentral', [InventarioSucursalController::class,"getInventarioSucursalFromCentral"]);
+Route::post('setInventarioSucursalFromCentral', [InventarioSucursalController::class,"setInventarioSucursalFromCentral"]);
+
 Route::post('setCambiosInventarioSucursal', [InventarioSucursalController::class,"setCambiosInventarioSucursal"]);
 
 Route::post('getInventarioFromSucursal', [InventarioSucursalController::class,"getInventarioFromSucursal"]);
 Route::post('changeEstatusProductoProceced', [InventarioSucursalController::class,"changeEstatusProductoProceced"]);
 Route::post('setnewtasainsucursal', [MonedaController::class,"setnewtasainsucursal"]);
 Route::post('getMonedaSucursal', [MonedaController::class,"getMonedaSucursal"]);
+
+Route::get('getTareasCentral', [TareasController::class,"getTareasCentral"]);
+
+Route::post('resolveTareaCentral', [TareasController::class,"resolveTareaCentral"]);
+
+Route::post('setCierreFromSucursalToCentral', [CierresController::class,"setCierreFromSucursalToCentral"]);
 
 
 

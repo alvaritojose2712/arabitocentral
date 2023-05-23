@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class cierres extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "debito",
+        "efectivo",
+        "transferencia",
+        "caja_biopago",
+        "dejar_dolar",
+        "dejar_peso",
+        "dejar_bss",
+        "efectivo_guardado",
+        "efectivo_guardado_cop",
+        "efectivo_guardado_bs",
+        "tasa",
+        "nota",
+        "id_usuario",
+        "fecha",
+        "numventas",
+        "precio",
+        "precio_base",
+        "ganancia",
+        "porcentaje",
+        "desc_total",
+        "efectivo_actual",
+        "efectivo_actual_cop",
+        "efectivo_actual_bs",
+        "puntodeventa_actual_bs",
+        "id_sucursal"
+    ];
+}

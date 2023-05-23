@@ -31,7 +31,7 @@ class CreateCtSucursalsTable extends Migration
             $table->timestamps();
         });
 
-        DB::table("ct_sucursals")->insert([
+        /* DB::table("ct_sucursals")->insert([
             ["id_sucursal"=>1,"id_producto"=>1,"cantidad"=>561],
             ["id_sucursal"=>1,"id_producto"=>2,"cantidad"=>342],
             ["id_sucursal"=>1,"id_producto"=>3,"cantidad"=>543],
@@ -103,7 +103,7 @@ class CreateCtSucursalsTable extends Migration
             ["id_sucursal"=>6,"id_producto"=>9,"cantidad"=>5564],
             ["id_sucursal"=>6,"id_producto"=>10,"cantidad"=>5765],
             ["id_sucursal"=>6,"id_producto"=>11,"cantidad"=>2166],
-        ]);
+        ]); */
     }
 
     /**

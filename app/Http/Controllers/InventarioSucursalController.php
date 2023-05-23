@@ -8,6 +8,7 @@ use App\Models\sucursal;
 use App\Models\categorias;
 use App\Models\proveedores;
 use App\Models\moneda;
+use App\Models\tareas;
 
 use App\Http\Requests\Storeinventario_sucursalRequest;
 use App\Http\Requests\Updateinventario_sucursalRequest;
@@ -135,16 +136,139 @@ class InventarioSucursalController extends Controller
             
         }
     }
+    public function retOrigenDestino($origen,$destino)
+    {
+        $query = sucursal::whereIn("codigo",[$origen,$destino])->get();
+
+        $id_origen = $query->where("codigo",$origen)->first();
+        $id_destino = $query->where("codigo",$destino)->first();
+
+        return [
+            "id_origen" => $id_origen?$id_origen->id:"no se encontró origen ".$origen,
+            "id_destino" => $id_destino?$id_destino->id:"no se encontró destino ".$destino,
+        ];
+    }
     public function getInventarioSucursalFromCentral(Request $req)
     {   
         $type = $req->type;
-        $id = $req->id;
+        
+        
+        //Acciones
+        //
+        try {
+            switch ($type) {
+                case 'inventarioSucursalFromCentral':
+                    //Consultar nueva informacion en Sucursal desde central
+                    $codigo_origen = $req->codigo_origen;
+                    $codigo_destino = $req->codigo_destino;
+                    $qinventario = $req->qinventario ? $req->qinventario : "";
+                    $numinventario = $req->numinventario ? $req->numinventario : "";
+                    $novinculados = $req->novinculados ? $req->novinculados : "";
+                    
+                    $id_ruta = $this->retOrigenDestino($codigo_origen,$codigo_destino);
+                    $id_origen = $id_ruta["id_origen"];
+                    $id_destino = $id_ruta["id_destino"];
+                    $accion = "inventarioSucursalFromCentral";
+    
+                    $tareacheck = tareas::where("origen", $id_origen)
+                    ->where("destino", $id_destino)
+                    ->where("accion", $accion)->first();
+                    if ($tareacheck) {
+                        if ($tareacheck->estado==2) {
+                            throw new \Exception("No puede consultar. Hay una tarea pendiente por resolver en Sucursal", 1);
+                        }
+                    }
+                    
+                    $tarea = tareas::updateOrCreate([
+                        "origen" => $id_origen,
+                        "destino" => $id_destino,
+                        "accion" => $accion,
+                    ],[
+    
+                        "origen" => $id_origen,
+                        "destino" => $id_destino,
+                        "accion" => $accion,
+                        "solicitud" => json_encode([
+                            "qinventario" => $qinventario,
+                            "numinventario" => $numinventario,
+                            "novinculados" => $novinculados,
+                            
+                        ]),
+                        //"respuesta" => "",
+                        "estado" => 0,
+                    ]);
+                    if ($tarea) {
+                        return "Desde central: Nueva tarea guardada ".$accion;
+                    }
+                    break;
+                case 'inventarioSucursalFromCentralmodify':
+                    $id_tarea = $req->id_tarea;
+                    $find_tarea = tareas::find($id_tarea);
+                    if ($find_tarea->estado==2) {
+                        
+                        return "Error: No se puede Editar/Guardar debido a que hay una tarea de modificación aún no resuelta por la sucursal 'inventarioSucursalFromCentralmodify'";
+                    }else{
+    
+                        $find_tarea->respuesta = collect($req->productos)->map(function($q){
+                            $q["estatus"] = 2;//Pasan a estatus 2 (Cargado)
+                            return $q;
+                        }); //Productos modificados o insertados //Estatus (1)
+                        $find_tarea->estado = 2;
+                        $find_tarea->solicitud = json_encode([
+                            "insercion" => "modificacion|eliminacion" 
+                        ]);
+                        if ($find_tarea->save()) {
+                            return "Se ha resuelto la tarea 'inventarioSucursalFromCentralmodify' con éxito";
+                        }
+                    }
+                    
+    
+                    break;
+                case 'estadisticaspanelcentroacopio':
+                    return [];
+                    break;
+                case 'gastospanelcentroacopio':
+                    return [];
+                    break;
+                case 'cierrespanelcentroacopio':
+                    return [];
+                    break;
+                case 'diadeventapanelcentroacopio':
+                    return [];
+                    break;
+                case 'tasaventapanelcentroacopio':
+                    //return moneda::where("id_sucursal",$id)->get();
+                    break;
+                
+                
+            }
+        } catch (\Exception $e) {
+            return "Error: ".$e->getMessage();
+        }
+    }
+    public function setInventarioSucursalFromCentral(Request $req)
+    {
+        $codigo_origen = $req->codigo_origen;
+        $codigo_destino = $req->codigo_destino;
 
-        switch ($type) {
-            case 'inventariSucursalFromCentral':
-                return inventario_sucursal::with(["proveedor","categoria"])
-                ->where("id_sucursal",$id)
-                ->get();
+        $id_ruta = $this->retOrigenDestino($codigo_origen,$codigo_destino);
+        $id_origen = $id_ruta["id_origen"];
+        $id_destino = $id_ruta["id_destino"];
+        
+        $accion = $req->type;
+
+        switch ($accion) {
+            case 'inventarioSucursalFromCentral':
+                $accion = "inventarioSucursalFromCentral";
+                $respuesta = tareas::where("origen",$id_origen)->where("destino",$id_destino)->where("accion",$accion)->get();
+
+                if ($respuesta->first()) {
+                    return $respuesta->first();
+                }else {
+                    return "Desde central: No se ha resuelto la tarea Origen:".$codigo_origen." Destino:".$codigo_destino." Acción:".$accion;
+                }
+                
+                
                 break;
             case 'fallaspanelcentroacopio':
                 return [];
@@ -162,11 +286,12 @@ class InventarioSucursalController extends Controller
                 return [];
                 break;
             case 'tasaventapanelcentroacopio':
-                return moneda::where("id_sucursal",$id)->get();
+                //return moneda::where("id_sucursal",$id)->get();
                 break;
             
             
         }
+        
     }
 
     

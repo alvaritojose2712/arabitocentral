@@ -13,7 +13,7 @@ class CreateInventarioSucursalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventario_sucursals', function (Blueprint $table) {
+       /*  Schema::create('inventario_sucursals', function (Blueprint $table) {
             $table->increments('id');
             $table->integer("id_pro_sucursal")->unsigned();
             $table->integer("id_pro_sucursal_fixed")->unsigned();
@@ -52,7 +52,7 @@ class CreateInventarioSucursalsTable extends Migration
             $table->decimal("cantidad",9,2)->nullable()->default(0);
             $table->timestamps();
             $table->unique(["id_pro_sucursal","id_sucursal"]);
-        });
+        }); */
     }
 
     /**

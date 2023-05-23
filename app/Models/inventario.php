@@ -31,6 +31,7 @@ class inventario extends Model
     }
 
     protected $fillable = [
+        "id",
         "codigo_proveedor",
         "codigo_barras",
         "id_proveedor",
@@ -44,6 +45,12 @@ class inventario extends Model
         "precio_base",
         "precio",
         "cantidad",
+        "bulto",
+        "precio1",
+        "precio2",
+        "precio3",
+        "stockmin",
+        "stockmax",
     ];
     
 }

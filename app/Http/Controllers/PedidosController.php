@@ -18,90 +18,109 @@ class PedidosController extends Controller
 {   
     public function setPedidoInCentralFromMasters(Request $req)
     {
+        $codigo_origen = $req->codigo_origen;
+        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
+        $id_origen = $id_ruta["id_origen"];
+
         $pedidos = $req->pedidos;
         $type = $req->type;
+        
         try {
-            
-            
-                
-                foreach ($pedidos as $key => $e) {
-                    if ($type=="add") {
-                        $ped = new pedidos;
+            foreach ($pedidos as $key => $e) {
+                if ($type=="add") {
 
-                        $ped->id = $e["id"];
-                        $ped->estado = 1;
-                        $ped->id_sucursal = $e["id_cliente"];
-                        if ($ped->save()) {
-                            $count = 0;
-                            foreach ($e["items"] as $k => $ee) {
+                    $id_destino_query = sucursal::where("codigo",$e["cliente"]["identificacion"])->first();
 
-                                // $categorias = categorias::updateOrCreate([
-                                //     "id"=>$ee["producto"]["categoria"]["id"],
-                                // ],[
-                                //     "id"=>$ee["producto"]["categoria"]["id"],
-                                //     "descripcion"=>$ee["producto"]["categoria"]["descripcion"],
-                                // ]);
-                                // $proveedores = proveedores::updateOrCreate([
-                                //     "id" => $ee["producto"]["proveedor"]["id"],
-                                // ],[
-                                //     "id" => $ee["producto"]["proveedor"]["id"],
-                                //     "rif" => $ee["producto"]["proveedor"]["rif"],
-                                //     "descripcion" => $ee["producto"]["proveedor"]["descripcion"],
-                                //     "direccion" => $ee["producto"]["proveedor"]["direccion"],
-                                //     "telefono" => $ee["producto"]["proveedor"]["telefono"],
-                                // ]);
-
-                                // if ($categorias&&$proveedores) {
-                                //     # code...
-                                    $inv = inventario::updateOrCreate([
-                                        "id" => $ee["id_producto"],
-                                    ],[
-                                        "id" => $ee["id_producto"],
-                                        "codigo_barras" => $ee["producto"]["codigo_barras"],
-                                        "cantidad" => $ee["producto"]["cantidad"],
-                                        "codigo_proveedor" => $ee["producto"]["codigo_proveedor"],
-                                        "unidad" => $ee["producto"]["unidad"],
-                                        "id_categoria" => $ee["producto"]["id_categoria"] ,
-                                        "descripcion" => $ee["producto"]["descripcion"],
-                                        "precio_base" => $ee["producto"]["precio_base"],
-                                        "precio" => $ee["producto"]["precio"],
-                                        "iva" => $ee["producto"]["iva"],
-                                        "id_proveedor" => $ee["producto"]["id_proveedor"],
-                                        "id_marca" => $ee["producto"]["id_marca"],
-                                        "id_deposito" => $ee["producto"]["id_deposito"],
-                                        "porcentaje_ganancia" => $ee["producto"]["porcentaje_ganancia"]
-                                    ]);
-                                    if ($inv) {
-                                        
-                                        $items_pedidos = new items_pedidos;
-                                        
-                                        $items_pedidos->id_producto = $ee["id_producto"];
-                                        $items_pedidos->id_pedido = $ee["id_pedido"];
-                                        $items_pedidos->cantidad = $ee["cantidad"];
-                                        $items_pedidos->descuento = $ee["descuento"];
-                                        $items_pedidos->monto = $ee["monto"];
-
-                                        if ($items_pedidos->save()) {
-                                            $count++;  
-                                        }
-                                    } 
-                                //}
-                            }
-                            return ["estado"=>true, "msj"=>"Desde Central: $count items exportados"];
-                        }
+                    $id_destino = 0;
+                    if($id_destino_query){
+                        $id_destino = $id_destino_query->id;
                     }else{
-                       if(pedidos::find($e["id"])->delete()){
-                            return ["estado"=>true, "msj"=>"Desde Central: Pedido ".$e["id"]." eliminado de central"];
-
-                       };
+                        return "Error: No existe sucursal ".$e["cliente"]["identificacion"];
+                        
                     }
+                    $ped = new pedidos;
+
+                    $ped->id = $e["id"];
+                    $ped->estado = 1;
+                    $ped->id_origen = $id_origen;
+                    $ped->id_destino = $id_destino;//id Destino
+                    if ($ped->save()) {
+                        $count = 0;
+                        foreach ($e["items"] as $k => $ee) {
+
+                            // $categorias = categorias::updateOrCreate([
+                            //     "id"=>$ee["producto"]["categoria"]["id"],
+                            // ],[
+                            //     "id"=>$ee["producto"]["categoria"]["id"],
+                            //     "descripcion"=>$ee["producto"]["categoria"]["descripcion"],
+                            // ]);
+                            // $proveedores = proveedores::updateOrCreate([
+                            //     "id" => $ee["producto"]["proveedor"]["id"],
+                            // ],[
+                            //     "id" => $ee["producto"]["proveedor"]["id"],
+                            //     "rif" => $ee["producto"]["proveedor"]["rif"],
+                            //     "descripcion" => $ee["producto"]["proveedor"]["descripcion"],
+                            //     "direccion" => $ee["producto"]["proveedor"]["direccion"],
+                            //     "telefono" => $ee["producto"]["proveedor"]["telefono"],
+                            // ]);
+
+                            // if ($categorias&&$proveedores) {
+                            //     # code...
+                                $inv = inventario::updateOrCreate([
+                                    "id" => $ee["id_producto"],
+                                ],[
+                                    "id" => $ee["id_producto"],
+                                    "codigo_proveedor" => $ee["producto"]["codigo_proveedor"],
+                                    "codigo_barras" => $ee["producto"]["codigo_barras"],
+                                    "id_proveedor" => $ee["producto"]["id_proveedor"],
+                                    "id_categoria" => $ee["producto"]["id_categoria"],
+                                    "id_marca" => $ee["producto"]["id_marca"],
+                                    "unidad" => $ee["producto"]["unidad"],
+                                    "id_deposito" => $ee["producto"]["id_deposito"],
+                                    "descripcion" => $ee["producto"]["descripcion"],
+                                    "iva" => $ee["producto"]["iva"],
+                                    "porcentaje_ganancia" => $ee["producto"]["porcentaje_ganancia"],
+                                    "precio_base" => $ee["producto"]["precio_base"],
+                                    "precio" => $ee["producto"]["precio"],
+                                    "cantidad" => $ee["producto"]["cantidad"],
+                                    "bulto" => $ee["producto"]["bulto"],
+                                    "precio1" => $ee["producto"]["precio1"],
+                                    "precio2" => $ee["producto"]["precio2"],
+                                    "precio3" => $ee["producto"]["precio3"],
+                                    "stockmin" => $ee["producto"]["stockmin"],
+                                    "stockmax" => $ee["producto"]["stockmax"],
+                                ]);
+                                if ($inv) {
+                                    
+                                    $items_pedidos = new items_pedidos;
+                                    
+                                    $items_pedidos->id_producto = $ee["id_producto"];
+                                    $items_pedidos->id_pedido = $ee["id_pedido"];
+                                    $items_pedidos->cantidad = $ee["cantidad"];
+                                    $items_pedidos->descuento = $ee["descuento"];
+                                    $items_pedidos->monto = $ee["monto"];
+
+                                    if ($items_pedidos->save()) {
+                                        $count++;  
+                                    }
+                                } 
+                            //}
+                        }
+                        return ["estado"=>true, "msj"=>"Desde Central: $count items exportados"];
+                    }
+                }else{
+                    $f = pedidos::find($e["id"]); 
+                    if($f){
+                        if ($f->delete()) {
+                            return ["estado"=>true, "msj"=>"Desde Central: Pedido ".$e["id"]." eliminado de central"];
+                        }else{
+                            return "No se encontró pedido ".$e["id"];
+                        }
+
+                    };
                 }
-
-            
-
-
+            }
         } catch (\Exception $e) {
-
             if ($e->errorInfo[1]=="1062") {
                 throw new \Exception("Pedido Duplicado. ".$e->errorInfo[2], 1);
             }else{
@@ -120,14 +139,18 @@ class PedidosController extends Controller
     }
     public function respedidos(Request $req)
     {
-        $codigo = $req->codigo;
-        $ped = pedidos::with(["sucursal","items"=>function($q){
+        $codigo_origen = $req->codigo_origen;
+        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
+        $id_origen = $id_ruta["id_origen"];
+
+
+        $ped = pedidos::with(["destino","origen","items"=>function($q){
             $q->with(["producto"=>function($q){
                 $q->with(["proveedor","categoria"]);
             }]);
         }])
         ->where("estado",1)
-        ->whereIn("id_sucursal",sucursal::where("codigo",$codigo)->select("id"))
+        ->where("id_destino",$id_origen)
         ->orderBy("id","desc")
         ->get()
         ->map(function($q){
@@ -138,7 +161,7 @@ class PedidosController extends Controller
             return $q;
 
         });
-        return ["pedido"=>$ped,"codigo"=>$codigo];
+        return ["pedido"=>$ped,"codigo"=>$codigo_origen];
     }
     public function setConfirmFacturas(Request $req)
     {
