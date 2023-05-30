@@ -16,20 +16,26 @@ class CreateSucursalsTable extends Migration
         Schema::create('sucursals', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('char')->unique();
             $table->string('codigo')->unique();
-
+            
+            $table->string('direccion')->nullable();
+            $table->string('gerente')->nullable();
             $table->timestamps();
         });
 
         DB::table("sucursals")->insert([
-            ["char"=>"EZ","nombre"=>"Elorza","codigo"=>"ARAELZ"],
-            ["char"=>"ML","nombre"=>"Mantecal","codigo"=>"ARAMCAL"],
-            ["char"=>"AG","nombre"=>"Achaguas","codigo"=>"ARAAGS"],
-            ["char"=>"SM","nombre"=>"El Samán","codigo"=>"ARASMAN"],
-            ["char"=>"BZ","nombre"=>"Bruzual","codigo"=>"ARABZAL"],
-            ["char"=>"SF","nombre"=>"San Fernando","codigo"=>"ARASFDO"],
-            ["char"=>"AC","nombre"=>"CENTRAL","codigo"=>"ARACENTRAL"],
+            ["nombre"=>"Elorza","codigo"=>"elorza"],
+            ["nombre"=>"Mantecal","codigo"=>"mantecal"],
+            ["nombre"=>"Achaguas","codigo"=>"achaguas"],
+            ["nombre"=>"El Samán","codigo"=>"elsaman"],
+            ["nombre"=>"Bruzual","codigo"=>"bruzual"],
+            ["nombre"=>"Libertad","codigo"=>"libertad"],
+            ["nombre"=>"San Fernando","codigo"=>"sanfernando1"],
+            ["nombre"=>"Calabozo","codigo"=>"calabozo"],
+            ["nombre"=>"Valle de la Pascua","codigo"=>"valledelapascua"],
+            ["nombre"=>"Central","codigo"=>"sanfernando2"],
+            ["nombre"=>"San Juan de los Morros","codigo"=>"sanjuandelosmorros"],
+            
         ]);
     }
 

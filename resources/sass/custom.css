@@ -1,3 +1,83 @@
+:root{
+  /* --sinapsis-color : #e511ec;
+   --sinapsis-color-light : #ffaefa;
+   --sinapsis-color-select : #f9bcfb;*/
+ 
+   
+     /*Sinapsis Azul
+      --sinapsis-color : #118bec;
+     --sinapsis-color-light : #deedfd;
+     --sinapsis-color-select : #84bcf3;*/
+     
+     /*Naranja*/
+   --sinapsis-color : rgba(242,109,10);
+   --sinapsis-color-light : rgba(255,177,113,0.75);
+   --sinapsis-color-select : rgba(221,143,79,0.75); 
+ 
+   /*Verde
+   --sinapsis-color : #216234;
+   --sinapsis-color-light : #e4ffe5;
+   --sinapsis-color-select : #9cd6b1; */
+ 
+   
+ }
+ .btn-outline-sinapsis{
+  color: var(--sinapsis-color) !important;
+  border-color: var(--sinapsis-color) !important;
+}
+.btn-sinapsis{
+  color: white !important;
+  background-color: var(--sinapsis-color) !important;
+
+}
+.btn-sinapsis-border{
+  color: var(--sinapsis-color) !important;
+  background-color: white !important;
+  border-color: var(--sinapsis-color) !important;
+
+}
+.borderleft{
+
+  border-top:    0px solid  black;
+  border-right:  0px solid black;
+  border-bottom: 0px solid black;
+  border-left:   4px solid  black !important;
+
+}
+ .th{
+  background-color: white !important;
+  color: black !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.th-sinapsis{
+  background-color: var(--sinapsis-color) !important;
+  color: white !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.th-sinapsis-white{
+  background-color: white !important;
+  color: var(--sinapsis-color) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+
+.bg-sinapsis{
+  background-color: var(--sinapsis-color) !important;
+}
+.text-sinapsis{
+  color: var(--sinapsis-color) !important;
+}
 .icon{
   width: 40px;
 }
@@ -72,7 +152,7 @@ td,th{
   z-index: 99999999;
 }
 .logo{
-  width:  150px;
+  width:  80%;
 }
 .logo-header{
   height:  30px;

@@ -15,17 +15,8 @@
     @yield("scripts")
 </head>
 <body>
-    <section class="content">
-        
-        @yield('nav')
-        
-        <div id="app"></div>
-        
-        @yield('content')
-    </section> 
-
-   
+    <div id="app"></div>
     
-    
+    @yield('content')
 </body>
 </html>

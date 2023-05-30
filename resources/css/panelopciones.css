@@ -1,0 +1,106 @@
+:root{
+    /* --sinapsis-color : #e511ec;
+     --sinapsis-color-light : #ffaefa;
+     --sinapsis-color-select : #f9bcfb;*/
+   
+     
+       /*Sinapsis Azul
+        --sinapsis-color : #118bec;
+       --sinapsis-color-light : #deedfd;
+       --sinapsis-color-select : #84bcf3;*/
+       
+       /*Naranja*/
+     --sinapsis-color : rgba(242,109,10);
+     --sinapsis-color-light : rgba(255,177,113,0.75);
+     --sinapsis-color-select : rgba(221,143,79,0.75); 
+   
+     /*Verde
+     --sinapsis-color : #216234;
+     --sinapsis-color-light : #e4ffe5;
+     --sinapsis-color-select : #9cd6b1; */
+   
+     
+   }
+ body .circle_inner__layer {
+	 width: 600px;
+	 height: 200px;
+	 transition: all 0.4s;
+}
+ body .circle_inner__layer img {
+	 width: 100%;
+	 position: absolute;
+	 bottom: 0;
+}
+ body .circle {
+	 width: 200px;
+	 transition: all 0.5s;
+	 cursor: pointer;
+}
+ 
+ body .circle_shine {
+	 background: white;
+	 width: 600px;
+	 transition: 0.3s;
+	 height: 200px;
+	 opacity: 0.2;
+	 top: -10px;
+	 left: -90px;
+	 transform: rotate(45deg);
+	 position: absolute;
+	 z-index: 2;
+}
+ body .circle:hover h2, body .circle:hover h3 {
+	 opacity: 1;
+}
+ body .circle:hover .content_shadow {
+	 transform: scale(1.1);
+	 top: -22px;
+}
+ body .circle .circle_inner__layer:nth-of-type(1) {
+	 top: 0px;
+	 left: 0px;
+}
+ body .circle .circle_inner__layer:nth-of-type(2) {
+	 top: 0px;
+	 left: -210px;
+}
+ body .circle .circle_inner__layer:nth-of-type(3) {
+	 top: 0px;
+	 left: -440px;
+}
+ body .circle_title {
+	 text-align: center;
+}
+ body .circle_title h2, body .circle_title h3 {
+	 color: var(--sinapsis-color);
+	 position: relative;
+}
+ body .circle_title h3 {
+	 color: var(--sinapsis-color-light);
+	 font-size: 15px;
+}
+ body .circle_inner {
+	 border-radius: 200px;
+	 background: var(--sinapsis-color-light);
+	 overflow: hidden;
+	 margin: auto;
+	 width: 200px;
+	 z-index: 1;
+	 transition: all 0.3s;
+	 height: 200px;
+	 position: relative;
+}
+ body .circle_inner:hover {
+	 transform: scale(1.1);
+}
+ body .content_shadow {
+	 width: 200px;
+	 box-shadow: 0px 31px 19px -2px #e0e8f9;
+	 height: 20px;
+	 border-radius: 70%;
+	 position: relative;
+	 top: -44px;
+	 transition: all 0.3s;
+	 z-index: 0;
+}
+ 

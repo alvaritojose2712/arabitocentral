@@ -161,6 +161,9 @@ Route::post('resolveTareaCentral', [TareasController::class,"resolveTareaCentral
 
 Route::post('setCierreFromSucursalToCentral', [CierresController::class,"setCierreFromSucursalToCentral"]);
 
+Route::post('getsucursalListData', [CierresController::class,"getsucursalListData"]);
+Route::post('getsucursalDetallesData', [CierresController::class,"getsucursalDetallesData"]);
+
 
 
 

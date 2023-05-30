@@ -37,16 +37,13 @@ class GastosController extends Controller
 
     public function getGastos(Request $req)
     {   
-        $fecha = $req->fechaGastos;
-        if (!$fecha) {
-            $get = gastos::where("id_sucursal",$req->id_sucursal)->orderBy("id","desc");
-            // code...
-        }else{
-            $get = gastos::where("id_sucursal",$req->id_sucursal)->where("created_at","LIKE",$fecha."%")->orderBy("id","desc");
+        $fechasMain1 = $req->fechasMain1;
+        $fechasMain2 = $req->fechasMain2;
+        $filtros = $req->filtros;
 
-        }
-        
-        $gastos = $get->get();
+        $gastos = gastos::whereBetween("fecha",[$fechasMain1,$fechasMain2])
+        ->orderBy("created_at","desc")
+        ->get();
         
         return $gastos;
     }

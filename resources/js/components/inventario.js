@@ -7,7 +7,6 @@ import InventarioForzado from '../components/inventarioForzado';
 import EstadisticaInventario from '../components/estadisticainventario';
 
 
-import Pedidos from '../components/pedidos';
 
 
 export default function Inventario({
@@ -341,66 +340,7 @@ export default function Inventario({
       
 
       {viewProductos=="salida"?
-        <Pedidos
-          inputBuscarInventario={inputBuscarInventario}
-          qBuscarInventario={qBuscarInventario}
-          setQBuscarInventario={setQBuscarInventario}
-          Invnum={Invnum}
-          setInvnum={setInvnum}
-          InvorderColumn={InvorderColumn}
-          setInvorderColumn={setInvorderColumn}
-          InvorderBy={InvorderBy}
-          setInvorderBy={setInvorderBy}
-          productosInventario={productosInventario}
-
-          indexSelectCarrito={indexSelectCarrito}
-          setindexSelectCarrito={setindexSelectCarrito}
-
-          showCantidadCarritoFun={showCantidadCarritoFun}
-          showCantidadCarrito={showCantidadCarrito}
-          setshowCantidadCarrito={setshowCantidadCarrito}
-
-          sucursales={sucursales}
-          ctSucursales={ctSucursales}
-          setctSucursales={setctSucursales}
-
-          number={number}
-          setCarrito={setCarrito}
-
-          pedidoList={pedidoList}
-          setid_pedido={setid_pedido}
-          id_pedido={id_pedido}
-
-          qpedido={qpedido}
-          setqpedido={setqpedido}
-          qpedidoDateFrom={qpedidoDateFrom}
-          setqpedidoDateFrom={setqpedidoDateFrom}
-          qpedidoDateTo={qpedidoDateTo}
-          setqpedidoDateTo={setqpedidoDateTo}
-          qpedidoOrderBy={qpedidoOrderBy}
-          setqpedidoOrderBy={setqpedidoOrderBy}
-          qpedidoOrderByDescAsc={qpedidoOrderByDescAsc}
-          setqpedidoOrderByDescAsc={setqpedidoOrderByDescAsc}
-          pedidos={pedidos}
-          setpedidos={setpedidos}
-          pedidoData={pedidoData}
-          setpedidoData={setpedidoData}
-
-          qestadopedido={qestadopedido}
-          setqestadopedido={setqestadopedido}
-
-          getPedidos={getPedidos}
-          delPedido={delPedido}
-          selectPedido={selectPedido}
-          moneda={moneda}
-
-          setDelCarrito={setDelCarrito}
-          setCtCarrito={setCtCarrito}
-          setProdCarritoInterno={setProdCarritoInterno}
-          sendPedidoSucursal={sendPedidoSucursal}
-          showPedidoBarras={showPedidoBarras}
-
-        />
+        <></> 
       :null}
       {viewProductos=="entrada"?
       <>

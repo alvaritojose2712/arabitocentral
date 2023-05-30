@@ -26,31 +26,31 @@ export default function Pedidos({
 	sucursales,
 
 	ctSucursales,
-  setctSucursales,
-  number,
+	setctSucursales,
+	number,
 
-  setCarrito,
+	setCarrito,
 
-  pedidoList,
+	pedidoList,
 	id_pedido,
 	setid_pedido,
 
 	qpedido,
-  setqpedido,
-  qpedidoDateFrom,
-  setqpedidoDateFrom,
-  qpedidoDateTo,
-  setqpedidoDateTo,
-  qpedidoOrderBy,
-  setqpedidoOrderBy,
-  qpedidoOrderByDescAsc,
-  setqpedidoOrderByDescAsc,
-  pedidos,
-  setpedidos,
-  pedidoData,
-  setpedidoData,
+	setqpedido,
+	qpedidoDateFrom,
+	setqpedidoDateFrom,
+	qpedidoDateTo,
+	setqpedidoDateTo,
+	qpedidoOrderBy,
+	setqpedidoOrderBy,
+	qpedidoOrderByDescAsc,
+	setqpedidoOrderByDescAsc,
+	pedidos,
+	setpedidos,
+	pedidoData,
+	setpedidoData,
 
-  qestadopedido,
+	qestadopedido,
 	setqestadopedido,
 
 	getPedidos,
@@ -67,6 +67,7 @@ export default function Pedidos({
 }){
 	return (
 		<>
+		<h3>Pedidos</h3>
 		{showCantidadCarrito=="buscar"?
 			<BuscarProductosCarrito
 				inputBuscarInventario={inputBuscarInventario}
@@ -95,14 +96,14 @@ export default function Pedidos({
 
 				sucursales={sucursales}
 				ctSucursales={ctSucursales}
-        setctSucursales={setctSucursales}
-        setindexSelectCarrito={setindexSelectCarrito}
-        indexSelectCarrito={indexSelectCarrito}
-        productosInventario={productosInventario}
-        number={number}
-        setCarrito={setCarrito}
+				setctSucursales={setctSucursales}
+				setindexSelectCarrito={setindexSelectCarrito}
+				indexSelectCarrito={indexSelectCarrito}
+				productosInventario={productosInventario}
+				number={number}
+				setCarrito={setCarrito}
 
-        pedidoList={pedidoList}
+				pedidoList={pedidoList}
 				id_pedido={id_pedido}
 				setid_pedido={setid_pedido}
 
@@ -112,19 +113,19 @@ export default function Pedidos({
 		{showCantidadCarrito=="procesar"?
 			<PedidosList
 				qpedido={qpedido}
-        setqpedido={setqpedido}
-        qpedidoDateFrom={qpedidoDateFrom}
-        setqpedidoDateFrom={setqpedidoDateFrom}
-        qpedidoDateTo={qpedidoDateTo}
-        setqpedidoDateTo={setqpedidoDateTo}
-        qpedidoOrderBy={qpedidoOrderBy}
-        setqpedidoOrderBy={setqpedidoOrderBy}
-        qpedidoOrderByDescAsc={qpedidoOrderByDescAsc}
-        setqpedidoOrderByDescAsc={setqpedidoOrderByDescAsc}
-        pedidos={pedidos}
-        setpedidos={setpedidos}
+				setqpedido={setqpedido}
+				qpedidoDateFrom={qpedidoDateFrom}
+				setqpedidoDateFrom={setqpedidoDateFrom}
+				qpedidoDateTo={qpedidoDateTo}
+				setqpedidoDateTo={setqpedidoDateTo}
+				qpedidoOrderBy={qpedidoOrderBy}
+				setqpedidoOrderBy={setqpedidoOrderBy}
+				qpedidoOrderByDescAsc={qpedidoOrderByDescAsc}
+				setqpedidoOrderByDescAsc={setqpedidoOrderByDescAsc}
+				pedidos={pedidos}
+				setpedidos={setpedidos}
 
-        qestadopedido={qestadopedido}
+				qestadopedido={qestadopedido}
 				setqestadopedido={setqestadopedido}
 
 				getPedidos={getPedidos}

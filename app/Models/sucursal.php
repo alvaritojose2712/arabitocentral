@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class sucursal extends Model
 {
     use HasFactory;
+
+    public function cierres() { 
+        return $this->hasMany('App\Models\cierres',"id_sucursal","id"); 
+    }
 }

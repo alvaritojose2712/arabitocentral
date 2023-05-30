@@ -2,25 +2,42 @@ import logo from "../../images/logo.png"
 import icon from "../../images/icon.png"
 
 export default function Header({
-	view,
-	setView,
+	sucursales,
 	sucursalSelect,
 	setsucursalSelect,
-
-	viewProductos,
-	showCantidadCarrito,
-	setshowCantidadCarrito,
-	pedidoData,
+	viewmainPanel,
+	setviewmainPanel,
 }) {
 	return (
-		<header className={(sucursalSelect===null?"":"nav-bar-online")}>
-			{sucursalSelect===null?
+	<header className="container mt-2 mb-2">
+		<div className="row">
+			<div className="col d-flex justify-content-center align-items-center pointer" onClick={()=>setviewmainPanel("panel")}>
+				{viewmainPanel === "cierres" && <h2>Cierres</h2> } 
+				{viewmainPanel === "inventario" && <h2>Inventario</h2> }
+				{viewmainPanel === "gastos" && <h2>Gastos</h2> }
+			</div>
+			<div className="col d-flex justify-content-center align-items-center">
+				<div>
+					<img src={logo} alt="arabito" className="logo pointer" onClick={()=>setviewmainPanel("panel")} />
+				</div>
+			</div>
+			<div className="col d-flex justify-content-center align-items-center">
+				{
+					sucursales.filter(e=>e.id==sucursalSelect).length?
+					<button className="btn btn-secondary h2" onClick={()=>setsucursalSelect(null)}>
+						{sucursales.filter(e=>e.id==sucursalSelect)[0].nombre}
+					</button>
+					:
+					null
+				}
+			</div>
+		</div>
+		{/* {sucursalSelect===null?
 	      <div className="d-flex justify-content-center flex-wrap align-items-center">
 	        <div className="p-3">
-	          <img src={logo} alt="arabito" className="logo" />
 	        </div>
 	      </div>
-	      :null}
+	    :null}
       {sucursalSelect!==null?
       <div className=" d-flex justify-content-between bg-light">
         <span className="p-1 d-flex align-items-center">
@@ -62,7 +79,7 @@ export default function Header({
         	</div>
         </span>
       </div>
-      :null}
+      :null} */}
 
     </header>
 	)

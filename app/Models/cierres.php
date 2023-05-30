@@ -34,6 +34,24 @@ class cierres extends Model
         "efectivo_actual_cop",
         "efectivo_actual_bs",
         "puntodeventa_actual_bs",
-        "id_sucursal"
+        "id_sucursal",
+        
+        "tasacop",
+        "inventariobase",
+        "inventarioventa",
+        "numreportez",
+        "ventaexcento",
+        "ventagravadas",
+        "ivaventa",
+        "totalventa",
+        "ultimafactura",
+        "credito",
+        "creditoporcobrartotal",
+        "vueltostotales",
+        "abonosdeldia",
+        "efecadiccajafbs",
+        "efecadiccajafcop",
+        "efecadiccajafdolar",
+        "efecadiccajafeuro",
     ];
 }

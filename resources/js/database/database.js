@@ -54,6 +54,12 @@ const db = {
   getSucursal: data=>axios.post(host+"getSucursal",data),
   openVerFactura: data=>axios.post(host+"openVerFactura",data),
   
+  getsucursalListData: data=>axios.post(host+"getsucursalListData",data),
+  getsucursalDetallesData: data=>axios.post(host+"getsucursalDetallesData",data),
+
+  
+
+  
 
 }
 
