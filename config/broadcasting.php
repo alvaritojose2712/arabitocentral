@@ -37,11 +37,11 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'useTLS' => false,
-                'encrypted' => false,
+                'useTLS' => true,
+                'encrypted' => true,
                 'host' => 'titanio.lat',
                 'port' => 6001,
-                'scheme' => 'http',
+                'scheme' => 'https',
             ],
         ],
 
