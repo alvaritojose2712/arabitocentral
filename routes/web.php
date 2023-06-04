@@ -131,8 +131,8 @@ Route::get('verFactura', [FacturasController::class,"verFactura"]);
 
 Route::post('delItemFact', [ItemsFacturasController::class,"delItemFact"]);
 
-Route::post('setPagoProveedor', [PagoFacturasController::class,"setPagoProveedor"]);
-Route::post('getPagoProveedor', [PagoFacturasController::class,"getPagoProveedor"]);
+/* Route::post('setPagoProveedor', [PagoFacturasController::class,"setPagoProveedor"]);
+Route::post('getPagoProveedor', [PagoFacturasController::class,"getPagoProveedor"]); */
 
 Route::get('getCategorias', [CategoriasController::class,"getCategorias"]);
 

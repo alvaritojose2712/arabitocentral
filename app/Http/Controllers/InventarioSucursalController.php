@@ -148,10 +148,16 @@ class InventarioSucursalController extends Controller
             "id_destino" => $id_destino?$id_destino->id:"no se encontró destino ".$destino,
         ];
     }
+    public function tiggerEventocentralEvent($sucursal)
+    {
+	    event(new \App\Events\EventocentralEvent("autoResolveAllTarea",$sucursal));
+    }
     public function getInventarioSucursalFromCentral(Request $req)
     {   
         $type = $req->type;
         
+        $codigo_origen = $req->codigo_origen? $req->codigo_origen: "";
+        $codigo_destino = $req->codigo_destino? $req->codigo_destino: "";
         
         //Acciones
         //
@@ -159,8 +165,6 @@ class InventarioSucursalController extends Controller
             switch ($type) {
                 case 'inventarioSucursalFromCentral':
                     //Consultar nueva informacion en Sucursal desde central
-                    $codigo_origen = $req->codigo_origen;
-                    $codigo_destino = $req->codigo_destino;
                     $qinventario = $req->qinventario ? $req->qinventario : "";
                     $numinventario = $req->numinventario ? $req->numinventario : "";
                     $novinculados = $req->novinculados ? $req->novinculados : "";
@@ -198,6 +202,7 @@ class InventarioSucursalController extends Controller
                         "estado" => 0,
                     ]);
                     if ($tarea) {
+                        $this->tiggerEventocentralEvent($codigo_destino);
                         return "Desde central: Nueva tarea guardada ".$accion;
                     }
                     break;
@@ -218,7 +223,10 @@ class InventarioSucursalController extends Controller
                             "insercion" => "modificacion|eliminacion" 
                         ]);
                         if ($find_tarea->save()) {
-                            return "Se ha resuelto la tarea 'inventarioSucursalFromCentralmodify' con éxito";
+
+                            $codigo_destino = sucursal::find($find_tarea->destino)->codigo;
+                            $this->tiggerEventocentralEvent($codigo_destino);
+                            return "Se ha resuelto la tarea 'inventarioSucursalFromCentralmodify' con éxito. Destino: ".$codigo_destino;
                         }
                     }
                     

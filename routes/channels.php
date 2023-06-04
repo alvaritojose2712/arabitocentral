@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Broadcast;
 
 
 
-Broadcast::channel('centra', function ($user, $sucursalId) {
+/* Broadcast::channel('centra', function ($user, $sucursalId) {
     return true;
     //return $user->id === Order::findOrNew($sucursalId)->user_id;
-});
+});*/
+
+Broadcast::channel("private.eventocentral.{id}", function($user, $id){
+    return true;
+}); 
