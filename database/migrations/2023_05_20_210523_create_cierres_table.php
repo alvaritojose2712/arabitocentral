@@ -43,8 +43,7 @@ class CreateCierresTable extends Migration
             
             $table->date("fecha");
             
-            $table->integer("id_usuario")->unsigned();
-            $table->foreign('id_usuario')->references('id')->on('usuarios');
+            $table->integer("id_usuario");
 
             
             

@@ -29,6 +29,59 @@ class CreateUsuariosTable extends Migration
             "clave" => Hash::make("1234"),
             "tipo_usuario" => "1",
             ],
+            [
+            "nombre" => "admin2",
+            "usuario" => "admin2",
+            "clave" => Hash::make("1234"),
+            "tipo_usuario" => "1",
+            ],
+            [
+            "nombre" => "admin3",
+            "usuario" => "admin3",
+            "clave" => Hash::make("1234"),
+            "tipo_usuario" => "1",
+            ],
+            [
+            "nombre" => "admin4",
+            "usuario" => "admin4",
+            "clave" => Hash::make("1234"),
+            "tipo_usuario" => "1",
+            ],
+
+            [
+            "nombre" => "admin5",
+            "usuario" => "admin5",
+            "clave" => Hash::make("1234"),
+            "tipo_usuario" => "1",
+            ],
+
+            [
+            "nombre" => "admin6",
+            "usuario" => "admin6",
+            "clave" => Hash::make("1234"),
+            "tipo_usuario" => "1",
+            ],
+
+            [
+            "nombre" => "admin7",
+            "usuario" => "admin7",
+            "clave" => Hash::make("1234"),
+            "tipo_usuario" => "1",
+            ],
+
+            [
+            "nombre" => "admin8",
+            "usuario" => "admin8",
+            "clave" => Hash::make("1234"),
+            "tipo_usuario" => "1",
+            ],
+
+            [
+            "nombre" => "admin9",
+            "usuario" => "admin9",
+            "clave" => Hash::make("1234"),
+            "tipo_usuario" => "1",
+            ],
             // [
             // "nombre" => "Bonai",
             // "usuario" => "caja",
