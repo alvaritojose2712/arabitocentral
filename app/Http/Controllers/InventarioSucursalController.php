@@ -168,6 +168,7 @@ class InventarioSucursalController extends Controller
                     $qinventario = $req->qinventario ? $req->qinventario : "";
                     $numinventario = $req->numinventario ? $req->numinventario : "";
                     $novinculados = $req->novinculados ? $req->novinculados : "";
+                    $ids = $req->ids ? $req->ids : "";
                     
                     $id_ruta = $this->retOrigenDestino($codigo_origen,$codigo_destino);
                     $id_origen = $id_ruta["id_origen"];
@@ -196,7 +197,7 @@ class InventarioSucursalController extends Controller
                             "qinventario" => $qinventario,
                             "numinventario" => $numinventario,
                             "novinculados" => $novinculados,
-                            
+                            "ids" => $ids,
                         ]),
                         //"respuesta" => "",
                         "estado" => 0,
