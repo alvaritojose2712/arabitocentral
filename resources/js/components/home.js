@@ -1187,7 +1187,7 @@ function Home() {
 
 
 
-/* 
+
 
   useEffect(() => {
     getVentas()
@@ -1245,7 +1245,7 @@ function Home() {
     } else if (view == "ventas") {
       getVentas()
     }
-  }, [view]) */
+  }, [view])
 
 
   const moneda = (value, decimals = 2, separators = ['.', ".", ',']) => {

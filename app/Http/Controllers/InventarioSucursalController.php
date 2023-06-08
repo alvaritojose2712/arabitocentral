@@ -210,6 +210,30 @@ class InventarioSucursalController extends Controller
                 case 'inventarioSucursalFromCentralmodify':
                     $id_tarea = $req->id_tarea;
                     $find_tarea = tareas::find($id_tarea);
+                    
+                    
+                    if (!$find_tarea) {
+                        $id_ruta = $this->retOrigenDestino($codigo_origen,$codigo_destino);
+                        $id_origen = $id_ruta["id_origen"];
+                        $id_destino = $id_ruta["id_destino"];
+
+                        $find_tarea = new tareas;
+                        $find_tarea->origen = $id_origen;
+                        $find_tarea->destino = $id_destino;
+                        $find_tarea->accion = "inventarioSucursalFromCentral";
+
+                        $find_tarea->respuesta = collect($req->productos)->map(function($q){
+                            $q["estatus"] = 2;//Pasan a estatus 2 (Cargado)
+                            return $q;
+                        }); //Productos modificados o insertados //Estatus (1)
+                        $find_tarea->estado = 2;
+                        $find_tarea->solicitud = json_encode([
+                            "insercion" => "modificacion|eliminacion" 
+                        ]);
+                        if ($find_tarea->save()) {
+                            return "Se ha resuelto la tarea 'inventarioSucursalFromCentralmodify' con éxito. Destino: ".$codigo_destino;
+                        }
+                    }
                     if ($find_tarea->estado==2) {
                         
                         return "Error: No se puede Editar/Guardar debido a que hay una tarea de modificación aún no resuelta por la sucursal 'inventarioSucursalFromCentralmodify'";

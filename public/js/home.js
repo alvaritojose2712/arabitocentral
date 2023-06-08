@@ -41774,66 +41774,37 @@ function Home() {
     }
   }; /////CLOSE VENTAS IMPORT
 
-  /* 
-  
-    useEffect(() => {
-      getVentas()
-    }, [selectfechaventa])
-  
-    useEffect(() => {
-      getPedidos()
-    }, [
-      qpedido,
-      qpedidoDateFrom,
-      qpedidoDateTo,
-      qpedidoOrderBy,
-      qpedidoOrderByDescAsc,
-      qestadopedido
-    ])
-  
-  
-  
-    useEffect(() => {
-      getGastos()
-    }, [fechaGastos])
-  
-    useEffect(() => {
-      getFacturas()
-    }, [
-      factqBuscar,
-      factqBuscarDate,
-      factOrderBy,
-      factOrderDescAsc
-    ])
-  
-    useEffect(() => {
-      buscarInventario()
-    }, [
-      Invnum,
-      InvorderColumn,
-      InvorderBy,
-      qBuscarInventario,
-    ])
-  
-    useEffect(() => {
-      setInputsInventario()
-    }, [indexSelectInventario])
-  
-    useEffect(() => {
-      setInputsProveedores()
-    }, [indexSelectProveedores])
-  
-    useEffect(() => {
-      if (view == "fallas") {
-        getFallas()
-  
-      } else if (view == "gastos") {
-        getGastos()
-      } else if (view == "ventas") {
-        getVentas()
-      }
-    }, [view]) */
 
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    getVentas();
+  }, [selectfechaventa]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    getPedidos();
+  }, [qpedido, qpedidoDateFrom, qpedidoDateTo, qpedidoOrderBy, qpedidoOrderByDescAsc, qestadopedido]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    getGastos();
+  }, [fechaGastos]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    getFacturas();
+  }, [factqBuscar, factqBuscarDate, factOrderBy, factOrderDescAsc]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    buscarInventario();
+  }, [Invnum, InvorderColumn, InvorderBy, qBuscarInventario]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    setInputsInventario();
+  }, [indexSelectInventario]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    setInputsProveedores();
+  }, [indexSelectProveedores]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (view == "fallas") {
+      getFallas();
+    } else if (view == "gastos") {
+      getGastos();
+    } else if (view == "ventas") {
+      getVentas();
+    }
+  }, [view]);
 
   var moneda = function moneda(value) {
     var decimals = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
