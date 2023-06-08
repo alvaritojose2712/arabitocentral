@@ -150,7 +150,7 @@ class InventarioSucursalController extends Controller
     }
     public function tiggerEventocentralEvent($sucursal)
     {
-	    event(new \App\Events\EventocentralEvent("autoResolveAllTarea",$sucursal));
+	    //event(new \App\Events\EventocentralEvent("autoResolveAllTarea",$sucursal));
     }
     public function getInventarioSucursalFromCentral(Request $req)
     {   
