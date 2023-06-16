@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInventarioSucursalsTable extends Migration
+class CreateGarantiasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateInventarioSucursalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventario_sucursals', function (Blueprint $table) {
+        Schema::create('garantias', function (Blueprint $table) {
             $table->increments('id');
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
@@ -22,11 +22,15 @@ class CreateInventarioSucursalsTable extends Migration
             $table->foreign('id_producto')->references('id')->on('inventarios');
 
             $table->float("cantidad",10,2);
+            $table->text("motivo");
+
+            $table->integer("id_cliente")->unsigned();
+            $table->foreign('id_cliente')->references('id')->on('clientes');
 
             $table->timestamps();
             
             $table->unique(["id_producto","id_sucursal"]);
-        }); 
+        });
     }
 
     /**
@@ -36,6 +40,6 @@ class CreateInventarioSucursalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventario_sucursals');
+        Schema::dropIfExists('garantias');
     }
 }

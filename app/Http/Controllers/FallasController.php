@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\fallas;
 use App\Models\sucursal;
+use App\Models\inventario;
+
 use App\Http\Requests\StorefallasRequest;
 use App\Http\Requests\UpdatefallasRequest;
 use Illuminate\Http\Request;
@@ -17,45 +19,38 @@ class FallasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function setFallas(Request $req)
+    public function sendFallas(Request $req)
     {
 
-        $sucursal = sucursal::where("codigo",$req->sucursal_code)->first();
-
-        if (!$sucursal) {
-            return Response::json([
-                "msj"=>"No se encontró sucursal",
-                "estado"=>false
-            ]);
-        }
-
         $fallas = $req->fallas;
-        // return Response::json(["msj"=>$fallas,"estado"=>true]);
+
+        $codigo_origen =  $req->codigo_origen;
+
+        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
+        $id_origen = $id_ruta["id_origen"];
 
         $arr_ok = [];
-        foreach ($fallas as $val) {
-            // code...
-            $uoc = fallas::UpdateOrCreate([
-                "id_local"=>$val["id"],
-                "id_sucursal"=>$sucursal->id,
-            ],[
-
-                "id_local"=>$val["id"],
-                "id_producto"=>$val["id_producto"],
-                "id_sucursal"=>$sucursal->id,
-                "cantidad"=>$val["cantidad"],
-            ]);
-            if ($uoc) {
-                $arr_ok[] = $val["id"];
-            }else{
-                return Response::json([
-                    "msj"=>"No se encontró producto",
-                    "estado"=>false
-                ]);       
+        $num = 0;
+        foreach ($fallas as $e) {
+            $id_vinculacion = $e["producto"]["id_vinculacion"];
+            if (inventario::find($id_vinculacion)) {
+                $uoc = fallas::updateOrCreate([
+                    "id_local" => $e["id"],
+                    "id_sucursal" => $id_origen,
+                ],[
+                    "id_producto" => $id_vinculacion,
+                    "stockmin" => $e["producto"]["stockmin"],
+                    "cantidad" => $e["producto"]["cantidad"],
+                ]);
+                if ($uoc) {
+                    $arr_ok[] = $e["id"];
+                    $num++;
+                }
             }
+
         }
-        fallas::where("id_sucursal",$sucursal->id)->whereNotIn("id_local",$arr_ok)->delete();
-        return Response::json(["msj"=>"Éxito al registrar fallas","estado"=>true]);
+        fallas::where("id_sucursal",$id_origen)->whereNotIn("id_local",$arr_ok)->delete();
+        return $num." fallas cargadas de ".count($fallas);
     }
 
     public function getFallas(Request $req)

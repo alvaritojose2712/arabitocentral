@@ -89,6 +89,8 @@
 	 transition: all 0.3s;
 	 height: 200px;
 	 position: relative;
+	 font-size: 123px !important;
+	text-align: center;
 }
  body .circle_inner:hover {
 	 transform: scale(1.1);

@@ -14,21 +14,20 @@ class CreateFallasTable extends Migration
     public function up()
     {
         Schema::create('fallas', function (Blueprint $table) {
-            $table->increments("id");
-
+            $table->increments('id');
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
 
             $table->integer("id_producto")->unsigned();
             $table->foreign('id_producto')->references('id')->on('inventarios');
 
-            $table->float("cantidad",10,2)->nullable();
-
-            $table->integer("id_local");
-            $table->unique(["id_sucursal","id_local"]);
+            $table->float("cantidad",10,2);
+            $table->integer("stockmin")->nullable();
             
             $table->timestamps();
-
+            
+            $table->integer("id_local");
+            $table->unique(["id_sucursal","id_local"]);
         });
 
         /* DB::table("fallas")->insert([

@@ -6,11 +6,9 @@ use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\SucursalController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\ProveedoresController;
-use App\Http\Controllers\FallasController;
 use App\Http\Controllers\DepositoController;
 use App\Http\Controllers\CtSucursalController;
 
-use App\Http\Controllers\GastosController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\home;
 
@@ -22,9 +20,19 @@ use App\Http\Controllers\MonedaController;
 use App\Http\Controllers\LocalsVersionController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\sockets;
-use App\Http\Controllers\InventarioSucursalController;
 use App\Http\Controllers\TareasController;
+
+use App\Http\Controllers\GastosController;
+use App\Http\Controllers\GarantiasController;
+use App\Http\Controllers\FallasController;
+
+use App\Http\Controllers\InventarioSucursalController;
 use App\Http\Controllers\CierresController;
+
+use App\Http\Controllers\NominacargosController;
+use App\Http\Controllers\NominaController;
+use App\Http\Controllers\NominapagosController;
+
 
 
 
@@ -72,14 +80,19 @@ Route::get('getSucursales', [SucursalController::class,"getSucursales"]);
 
 
 
-Route::post('setFalla', [FallasController::class,"setFallas"]);
 Route::get('getFallas', [FallasController::class,"getFallas"]);
 
-Route::post('setGastos', [GastosController::class,"setGastos"]);
 Route::get('getGastos', [GastosController::class,"getGastos"]);
 
 Route::post('setVentas', [VentasController::class,"setVentas"]);
 Route::get('getVentas', [VentasController::class,"getVentas"]);
+
+
+Route::post('sendInventarioCt', [InventarioSucursalController::class,"sendInventarioCt"]);
+Route::post('sendGastos', [GastosController::class,"sendGastos"]);
+Route::post('sendGarantias', [GarantiasController::class,"sendGarantias"]);
+Route::post('sendFallas', [FallasController::class,"sendFallas"]);
+
 
 
 Route::post('getinventario', [InventarioController::class,"index"]);
@@ -163,6 +176,15 @@ Route::post('setCierreFromSucursalToCentral', [CierresController::class,"setCier
 
 Route::post('getsucursalListData', [CierresController::class,"getsucursalListData"]);
 Route::post('getsucursalDetallesData', [CierresController::class,"getsucursalDetallesData"]);
+
+
+Route::post('delPersonalNomina', [NominaController::class,"delPersonalNomina"]);
+Route::post('getPersonalNomina', [NominaController::class,"getPersonalNomina"]);
+Route::post('setPersonalNomina', [NominaController::class,"setPersonalNomina"]);
+
+Route::post('delPersonalCargos', [NominacargosController::class,"delPersonalCargos"]);
+Route::post('getPersonalCargos', [NominacargosController::class,"getPersonalCargos"]);
+Route::post('setPersonalCargos', [NominacargosController::class,"setPersonalCargos"]);
 
 
 

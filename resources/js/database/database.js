@@ -56,9 +56,15 @@ const db = {
   
   getsucursalListData: data=>axios.post(host+"getsucursalListData",data),
   getsucursalDetallesData: data=>axios.post(host+"getsucursalDetallesData",data),
-
   
-
+  delPersonalNomina: data=>axios.post(host+"delPersonalNomina",data),
+  getPersonalNomina: data=>axios.post(host+"getPersonalNomina",data),
+  setPersonalNomina: data=>axios.post(host+"setPersonalNomina",data),
+  
+  delPersonalCargos: data=>axios.post(host+"delPersonalCargos",data),
+  getPersonalCargos: data=>axios.post(host+"getPersonalCargos",data),
+  setPersonalCargos: data=>axios.post(host+"setPersonalCargos",data),
+  
   
 
 }

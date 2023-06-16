@@ -18,12 +18,10 @@ class CierresController extends Controller
             
             $cierre = $req->cierre;
             
-            
             $cierresobj = cierres::updateOrCreate([
                 "fecha" => $cierre["fecha"],
-            ],[
                 "id_sucursal" => $id_origen,
-                
+            ],[
                 "debito" => $cierre["debito"],
                 "efectivo" => $cierre["efectivo"],
                 "transferencia" => $cierre["transferencia"],
@@ -36,7 +34,8 @@ class CierresController extends Controller
                 "efectivo_guardado_bs" => $cierre["efectivo_guardado_bs"],
                 "tasa" => $cierre["tasa"],
                 "nota" => $cierre["nota"],
-                "id_usuario" => $cierre["id_usuario"],
+
+                
                 "numventas" => $cierre["numventas"],
                 "precio" => $cierre["precio"],
                 "precio_base" => $cierre["precio_base"],
@@ -67,7 +66,7 @@ class CierresController extends Controller
             ]);
             
             if ($cierresobj->save()) {
-                return "Éxito al registrar cierre en Central";
+                return "Exito al registrar Cierre en Central";
             }        
         } catch (\Exception $e) {
             return "Error: ".$e->getMessage();

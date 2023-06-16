@@ -39,6 +39,16 @@ import Garantias from './panel/garantias'
 import Pedidos from '../components/pedidos';
 import FallasComponent from './fallas';
 
+import NominaHome from './nomina/index';
+
+import Nomina from './nomina/nomina';
+
+import NominaCargos from './nomina/nominacargos';
+import NominaPersonal from './nomina/nominapersonal';
+
+import NominaPagos from './nomina/nominapagos';
+
+
 
 
 
@@ -1279,24 +1289,30 @@ function Home() {
     }
   }
 
-  const notificar = (msj, fixed = true) => {
+  const notificar = (msj, fixed = true, simple=false) => {
     if (fixed) {
-      setTimeout(() => {
-        setMsj("")
-      }, 3000)
+        setTimeout(() => {
+            setMsj("")
+        }, 3000)
+    }else{
+        setTimeout(() => {
+            setMsj("")
+        }, 30000)
     }
     if (msj == "") {
-      setMsj("")
+        setMsj("")
     } else {
-      if (msj.data) {
-        if (msj.data.msj) {
-          setMsj(msj.data.msj)
+        if (msj.data) {
+            if (msj.data.msj) {
+                setMsj(msj.data.msj)
 
-        } else {
+            } else {
 
-          setMsj(JSON.stringify(msj.data))
+                setMsj(JSON.stringify(msj.data))
+            }
+        }else if(typeof msj === 'string' || msj instanceof String){
+            setMsj(msj)
         }
-      }
 
     }
   }
@@ -1521,7 +1537,7 @@ function Home() {
   const [viewmainPanel, setviewmainPanel] = useState("panel")
 
   const [subViewInventario, setsubViewInventario] = useState("gestion")
-  
+ 
   const [msj, setMsj] = useState("")
   const [loading, setLoading] = useState(false)
   const [loginActive, setLoginActive] = useState(false)
@@ -1548,6 +1564,8 @@ function Home() {
   useEffect(() => {
     getsucursalDetallesData()
   }, [sucursalSelect,viewmainPanel,fechasMain1,fechasMain2])
+
+  
   const getToday = () => {
     db.today({}).then(res => {
       let today = res.data
@@ -1595,6 +1613,136 @@ function Home() {
       setLoading(false)
     })
   }
+
+  /// Nomina ///
+  const [subViewNomina, setsubViewNomina] = useState("gestion")
+  const [subViewNominaGestion, setsubViewNominaGestion] = useState("gestion")
+  
+  const [nominaNombre,setnominaNombre] = useState("")
+  const [nominaCedula,setnominaCedula] = useState("")
+  const [nominaTelefono,setnominaTelefono] = useState("")
+  const [nominaDireccion,setnominaDireccion] = useState("")
+  const [nominaFechadeNacimiento,setnominaFechadeNacimiento] = useState("")
+  const [nominaFechadeIngreso,setnominaFechadeIngreso] = useState("")
+  const [nominaGradoInstruccion,setnominaGradoInstruccion] = useState("")
+  const [nominaCargo,setnominaCargo] = useState("")
+  const [nominaSucursal,setnominaSucursal] = useState("")
+
+  const [indexSelectNomina,setIndexSelectNomina] = useState(null)
+  const [qNomina,setqNomina] = useState("")
+  const [qSucursalNomina,setqSucursalNomina] = useState("")
+  const [qCargoNomina,setqCargoNomina] = useState("")
+  
+  const [nominaData,setnominaData] = useState([])
+  
+  const [nominapagodetalles,setnominapagodetalles] = useState({})
+
+  
+  const selectNominaDetalles = id => {
+    setnominapagodetalles({})
+    let personal = nominaData.personal 
+    if (personal) {
+      let nomina = personal.filter(e=>e.id===id)
+      if (nomina) {
+        setnominapagodetalles(nomina[0])
+      }  
+    } 
+  }
+
+  const delPersonalNomina = event =>{
+    event.preventDefault()
+    db.delPersonalNomina({
+      id:indexSelectNomina
+    }).then(({data})=>{
+      if (data.estado) {
+        getPersonalNomina()
+      }
+      notificar(data.msj)
+    })
+  }
+  const addPersonalNomina = event =>{
+    event.preventDefault()
+
+    db.setPersonalNomina({
+      nominaNombre,
+      nominaCedula,
+      nominaTelefono,
+      nominaDireccion,
+      nominaFechadeNacimiento,
+      nominaFechadeIngreso,
+      nominaGradoInstruccion,
+      nominaCargo,
+      nominaSucursal,
+
+      id:indexSelectNomina
+    }).then(({data})=>{
+      if (data.estado) {
+        getPersonalNomina()
+      }
+      notificar(data.msj)
+    })
+  }
+  const getPersonalNomina = event =>{
+    if (event) {
+      event.preventDefault()
+    }
+    db.getPersonalNomina({
+      fechasMain1,
+      fechasMain2,
+      qNomina,
+      qSucursalNomina,
+      qCargoNomina,
+      type:subViewNomina
+    }).then(({data})=>{
+      setnominaData(data)
+    })
+  }
+  
+  ////Cargos
+
+  const [cargosDescripcion,setcargosDescripcion] = useState("")
+  const [cargosSueldo,setcargosSueldo] = useState("")
+  const [qCargos,setqCargos] = useState("")
+  const [indexSelectCargo,setindexSelectCargo] = useState(null)
+
+  const [cargosData,setcargosData] = useState([])
+
+  const delPersonalCargos = () =>{
+    db.delPersonalCargos({
+      id:indexSelectCargo
+    }).then(({data})=>{
+      if (data.estado) {
+        getPersonalCargos()
+      }
+      notificar(data.msj)
+    })
+  }
+  const addPersonalCargos = event =>{
+    event.preventDefault()
+    db.setPersonalCargos({
+      cargosDescripcion,
+      cargosSueldo,
+      id:indexSelectCargo,
+    }).then(({data})=>{
+      if (data.estado) {
+        getPersonalCargos(null)
+      }
+      notificar(data.msj)
+
+    })
+  }
+  const getPersonalCargos = event =>{
+    if (event) {
+      event.preventDefault()
+    }
+
+    db.getPersonalCargos({
+      qCargos
+    }).then(({data})=>{
+      setcargosData(data)
+    })
+  }
+
 
   return (
     <>
@@ -2087,6 +2235,105 @@ function Home() {
               }
             </Gastos>
           }
+           {viewmainPanel === "nomina" && 
+            <NominaHome
+              subViewNomina={subViewNomina}
+              setsubViewNomina={setsubViewNomina}
+            >
+
+              {subViewNomina === "gestion" && 
+              <Nomina
+                subViewNominaGestion={subViewNominaGestion}
+                setsubViewNominaGestion={setsubViewNominaGestion}
+              >
+                {subViewNominaGestion === "personal" &&
+                  <NominaPersonal
+                    nominaNombre={nominaNombre}
+                    setnominaNombre={setnominaNombre}
+                    nominaCedula={nominaCedula}
+                    setnominaCedula={setnominaCedula}
+                    nominaTelefono={nominaTelefono}
+                    setnominaTelefono={setnominaTelefono}
+                    nominaDireccion={nominaDireccion}
+                    setnominaDireccion={setnominaDireccion}
+                    nominaFechadeNacimiento={nominaFechadeNacimiento}
+                    setnominaFechadeNacimiento={setnominaFechadeNacimiento}
+                    nominaFechadeIngreso={nominaFechadeIngreso}
+                    setnominaFechadeIngreso={setnominaFechadeIngreso}
+                    nominaGradoInstruccion={nominaGradoInstruccion}
+                    setnominaGradoInstruccion={setnominaGradoInstruccion}
+                    nominaCargo={nominaCargo}
+                    setnominaCargo={setnominaCargo}
+                    nominaSucursal={nominaSucursal}
+                    setnominaSucursal={setnominaSucursal}
+                    indexSelectNomina={indexSelectNomina}
+                    setIndexSelectNomina={setIndexSelectNomina}
+                    qNomina={qNomina}
+                    setqNomina={setqNomina}
+                    qSucursalNomina={qSucursalNomina}
+                    setqSucursalNomina={setqSucursalNomina}
+                    qCargoNomina={qCargoNomina}
+                    setqCargoNomina={setqCargoNomina}
+                    nominaData={nominaData}
+                    setnominaData={setnominaData}
+                    delPersonalNomina={delPersonalNomina}
+                    addPersonalNomina={addPersonalNomina}
+                    getPersonalNomina={getPersonalNomina}
+
+                    cargosData={cargosData}
+                    getPersonalCargos={getPersonalCargos}
+                    sucursales={sucursales}
+                    subViewNominaGestion={subViewNominaGestion}
+                  >
+                  </NominaPersonal>
+                }
+                {subViewNominaGestion === "cargos" &&
+                  <NominaCargos
+                    cargosDescripcion={cargosDescripcion}
+                    setcargosDescripcion={setcargosDescripcion}
+                    cargosSueldo={cargosSueldo}
+                    setcargosSueldo={setcargosSueldo}
+                    qCargos={qCargos}
+                    setqCargos={setqCargos}
+                    indexSelectCargo={indexSelectCargo}
+                    setindexSelectCargo={setindexSelectCargo}
+                    cargosData={cargosData}
+                    setcargosData={setcargosData}
+                    delPersonalCargos={delPersonalCargos}
+                    addPersonalCargos={addPersonalCargos}
+                    getPersonalCargos={getPersonalCargos}
+                    subViewNominaGestion={subViewNominaGestion}
+
+                  >
+                  </NominaCargos>
+                }
+              </Nomina> }
+              {subViewNomina === "pagos" && 
+                <NominaPagos
+                  qSucursalNomina={qSucursalNomina}
+                  setqSucursalNomina={setqSucursalNomina}
+                  sucursales={sucursales}
+                  qCargoNomina={qCargoNomina}
+                  setqCargoNomina={setqCargoNomina}
+                  cargosData={cargosData}
+                  qNomina={qNomina}
+                  setqNomina={setqNomina}
+                  getPersonalNomina={getPersonalNomina}
+                  getPersonalCargos={getPersonalCargos}
+                  nominaData={nominaData}
+                  subViewNomina={subViewNomina}
+                  
+                  selectNominaDetalles={selectNominaDetalles}
+
+                  nominapagodetalles={nominapagodetalles}
+                  setnominapagodetalles={setnominapagodetalles}
+
+                >
+                </NominaPagos>
+              }
+            </NominaHome>
+          }
+          
         </Panel>
       </>}
     </>

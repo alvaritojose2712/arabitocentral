@@ -43,10 +43,6 @@ class CreateCierresTable extends Migration
             
             $table->date("fecha");
             
-            $table->integer("id_usuario");
-
-            
-            
             $table->integer("numventas")->default(0); 
 
             $table->decimal("precio",10,2)->default(0);
@@ -55,11 +51,9 @@ class CreateCierresTable extends Migration
             $table->decimal("porcentaje",10,2)->default(0);
             $table->decimal("desc_total",10,2)->default(0);
             
-            $table->boolean("tipo_cierre")->default(0);
             //0 cajero
             //1 admin
             
-            $table->unique(["fecha","id_usuario","tipo_cierre"]);
 
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
@@ -85,6 +79,9 @@ class CreateCierresTable extends Migration
             $table->decimal("efecadiccajafcop",10,2)->default(0);
             $table->decimal("efecadiccajafdolar",10,2)->default(0);
             $table->decimal("efecadiccajafeuro",10,2)->default(0);
+            
+            $table->unique(["fecha","id_sucursal"]);
+
             
             $table->timestamps();
         });

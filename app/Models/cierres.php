@@ -22,7 +22,6 @@ class cierres extends Model
         "efectivo_guardado_bs",
         "tasa",
         "nota",
-        "id_usuario",
         "fecha",
         "numventas",
         "precio",

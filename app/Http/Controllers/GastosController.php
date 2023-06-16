@@ -9,7 +9,7 @@ use Response;
 
 class GastosController extends Controller
 {
-    public function setGastos(Request $req)
+    public function sendGastos(Request $req)
     {
         try {
             $codigo_origen = $req->codigo_origen;

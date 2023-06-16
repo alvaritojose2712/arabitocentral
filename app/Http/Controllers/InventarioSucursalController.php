@@ -9,6 +9,8 @@ use App\Models\categorias;
 use App\Models\proveedores;
 use App\Models\moneda;
 use App\Models\tareas;
+use App\Models\inventario;
+
 
 use App\Http\Requests\Storeinventario_sucursalRequest;
 use App\Http\Requests\Updateinventario_sucursalRequest;
@@ -325,6 +327,48 @@ class InventarioSucursalController extends Controller
             
         }
         
+    }
+
+    function setInventarioSucursalFun($arr) {
+        return inventario_sucursal::updateOrCreate([
+            "id_sucursal" => $arr["id_sucursal"],
+            "id_producto" => $arr["id_producto"],
+        ],[
+            "cantidad" => $arr["cantidad"],
+        ]);
+    }
+
+
+    public function sendInventarioCt(Request $req) {
+        try {
+            $inventariodeldia =  $req->inventario;
+            $codigo_origen =  $req->codigo_origen;
+
+            $id_ruta = $this->retOrigenDestino($codigo_origen,$codigo_origen);
+            $id_origen = $id_ruta["id_origen"];
+
+            $num = 0;
+
+            foreach ($inventariodeldia as $i => $producto) {
+                $id_vinculacion = $producto["id_vinculacion"];
+                if (inventario::find($id_vinculacion)) {
+
+                    $insert = $this->setInventarioSucursalFun([
+                        "id_sucursal" => $id_origen,
+                        "id_producto" =>  $id_vinculacion,
+                        "cantidad" => $producto["cantidad"],
+                    ]);
+
+                    if ($insert) {
+                        $num++;
+                    }
+                }
+            }
+
+            return $num." productos actualizados de ".count($inventariodeldia);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     
