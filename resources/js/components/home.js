@@ -1,5 +1,6 @@
 import { useHotkeys } from 'react-hotkeys-hook';
 
+import { cloneDeep } from "lodash";
 
 import { useState, useEffect, useRef, StrictMode } from 'react';
 import ReactDOM, { render } from 'react-dom';
@@ -9,7 +10,6 @@ import SelectSucursal from './selectSucursal';
 
 import VentasComponent from './ventas';
 import GastosComponent from './gastos';
-import InventarioComponent from './inventario';
 
 import Notificacion from '../components/notificacion';
 
@@ -33,13 +33,19 @@ import Gastos from './panel/gastos'
 import SucursalDetallesGastos from './panel/sucursaldetallesgastos'
 import SucursalListGastos from './panel/sucursallistgastos'
 
-import Inventario from './panel/inventario'
 import GestionInventario from './panel/gestioninventario'
-import Garantias from './panel/garantias'
-import Pedidos from '../components/pedidos';
-import FallasComponent from './fallas';
+import DepartamentosInventario from './panel/departamentosInventario'
+import CatGeneral from './panel/catGeneral'
+import Marcas from './panel/marcas'
 
-import NominaHome from './nomina/index';
+import NavInventario from './panel/navInventario'
+
+import Usuarios from './usuarios';
+import Compras from './compras';
+
+import PanelSucursales from './panelSucursales';
+
+import NominaHome from './nomina/nominahome';
 
 import Nomina from './nomina/nomina';
 
@@ -57,6 +63,7 @@ import NominaPagos from './nomina/nominapagos';
 function Home() {
   // ///In Last//////
   const [view, setView] = useState("")
+  
 
 
   const [fallas, setfallas] = useState([])
@@ -70,10 +77,18 @@ function Home() {
 
   const [selectfechaventa, setselectfechaventa] = useState("")
 
-
+  const [user, setuser] = useState({
+    id_usuario:"",
+    nombre:"",
+    usuario: ""
+  })
 
   ///////////Inventario
+  const [permisoExecuteEnter, setpermisoExecuteEnter] = useState(true);
+  const [showMisPedido, setshowMisPedido] = useState(true);
+
   const inputBuscarInventario = useRef(null)
+
 
   // const [productosInventario,setProductosInventario] = useState([])
   // const [qBuscarInventario,setQBuscarInventario] = useState("")
@@ -105,9 +120,7 @@ function Home() {
 
   // const [indexSelectProveedores,setIndexSelectProveedores] = useState(null)
 
-  // const [qBuscarProveedor,setQBuscarProveedor] = useState("")
 
-  // const [proveedoresList,setProveedoresList] = useState([])
 
   // const [depositosList,setdepositosList] = useState([])
 
@@ -270,13 +283,21 @@ function Home() {
   const [ascdescFallas, setascdescFallas] = useState("")
 
   const [productos, setProductos] = useState([])
-  const [categorias, setcategorias] = useState([])
 
   const [productosInventario, setProductosInventario] = useState([])
 
   const [qBuscarInventario, setQBuscarInventario] = useState("")
   const [indexSelectInventario, setIndexSelectInventario] = useState(null)
 
+  const [invsuc_itemCero, setinvsuc_itemCero] = useState("")
+  const [invsuc_q, setinvsuc_q] = useState("")
+  const [invsuc_exacto, setinvsuc_exacto] = useState("")
+  const [invsuc_num, setinvsuc_num] = useState("25")
+  const [invsuc_orderColumn, setinvsuc_orderColumn] = useState("descripcion")
+  const [invsuc_orderBy, setinvsuc_orderBy] = useState("desc")
+  const [controlefecSelectGeneral, setcontrolefecSelectGeneral] = useState(1)
+  
+  
 
   const [inpInvbarras, setinpInvbarras] = useState("")
   const [inpInvcantidad, setinpInvcantidad] = useState("")
@@ -309,10 +330,6 @@ function Home() {
 
   const [indexSelectProveedores, setIndexSelectProveedores] = useState(null)
 
-  const [qBuscarProveedor, setQBuscarProveedor] = useState("")
-
-  const [proveedoresList, setProveedoresList] = useState([])
-
   const [showModalFacturas, setshowModalFacturas] = useState(false)
 
   const [facturas, setfacturas] = useState([])
@@ -332,6 +349,28 @@ function Home() {
   const [factInpestatus, setfactInpestatus] = useState(0)
 
   const [modFact, setmodFact] = useState("factura")
+
+
+  ///////Compras Props
+  const [subViewCompras, setsubViewCompras] = useState("resumen")
+  const [openSelectProvNewPedComprasCheck, setopenSelectProvNewPedComprasCheck] = useState(false)
+  const [NewPedComprasSelectProd, setNewPedComprasSelectProd] = useState(null)
+  
+  const [selectPrecioxProveedorProducto, setselectPrecioxProveedorProducto] = useState(null)
+  const [selectPrecioxProveedorProveedor, setselectPrecioxProveedorProveedor] = useState(null)
+  const [selectPrecioxProveedorPrecio, setselectPrecioxProveedorPrecio] = useState("")
+  const [precioxproveedor, setprecioxproveedor] = useState([])
+  
+
+
+  ///Proveedores Props
+
+  const [qBuscarProveedor,setQBuscarProveedor] = useState("")
+  const [proveedoresList,setProveedoresList] = useState([])
+  
+  
+  
+  
 
 
 
@@ -597,48 +636,6 @@ function Home() {
 
   }
 
-  const setInputsInventario = () => {
-    if (productosInventario[indexSelectInventario]) {
-      let obj = productosInventario[indexSelectInventario]
-      setinpInvbarras(obj.codigo_barras ? obj.codigo_barras : "")
-      setinpInvcantidad(obj.cantidad ? obj.cantidad : "")
-      setinpInvalterno(obj.codigo_proveedor ? obj.codigo_proveedor : "")
-      setinpInvunidad(obj.unidad ? obj.unidad : "")
-      setinpInvdescripcion(obj.descripcion ? obj.descripcion : "")
-      setinpInvbase(obj.precio_base ? obj.precio_base : "")
-      setinpInvventa(obj.precio ? obj.precio : "")
-      setinpInviva(obj.iva ? obj.iva : "")
-
-      setinpInvcategoria(obj.id_categoria ? obj.id_categoria : "")
-      setinpInvid_proveedor(obj.id_proveedor ? obj.id_proveedor : "")
-      setinpInvid_marca(obj.id_marca ? obj.id_marca : "")
-      setinpInvid_deposito(obj.id_deposito ? obj.id_deposito : "")
-
-      setinpInvLotes(obj.lotes ? obj.lotes : [])
-
-    }
-  }
-  const setNewProducto = () => {
-    setIndexSelectInventario(null)
-    setinpInvbarras("")
-    setinpInvcantidad("")
-    setinpInvalterno("")
-    setinpInvunidad("UND")
-    setinpInvdescripcion("")
-    setinpInvbase("")
-    setinpInvventa("")
-    setinpInviva("0")
-
-    setinpInvLotes([])
-
-    if (facturas[factSelectIndex]) {
-      setinpInvid_proveedor(facturas[factSelectIndex].proveedor.id)
-    }
-
-
-    setinpInvid_marca("GENÉRICO")
-    setinpInvid_deposito(1)
-  }
   const setInputsProveedores = () => {
     if (proveedoresList[indexSelectProveedores]) {
       let obj = proveedoresList[indexSelectProveedores]
@@ -782,8 +779,9 @@ function Home() {
       e.codigo_barras == "" ||
       e.descripcion == "" ||
       e.id_categoria == "" ||
+      e.id_catgeneral == "" ||
+      e.id_marca == "" ||
       e.unidad == "" ||
-      e.id_proveedor == "" ||
       e.cantidad == "" ||
       e.precio_base == "" ||
       e.precio == "")
@@ -837,10 +835,10 @@ function Home() {
           codigo_proveedor: "",
           codigo_barras: "",
           descripcion: "",
-          id_categoria: "40",
+          id_categoria: "",
           id_marca: "",
+          id_catgeneral: "",
           unidad: "UND",
-          id_proveedor: pro,
           cantidad: "",
           precio_base: "",
           precio: "",
@@ -951,7 +949,6 @@ function Home() {
       e.descripcion == "" ||
       e.id_categoria == "" ||
       e.unidad == "" ||
-      e.id_proveedor == "" ||
       e.cantidad == "" ||
       e.precio_base == "" ||
       e.precio == "")
@@ -990,41 +987,7 @@ function Home() {
 
 
   }
-  const getProveedores = e => {
-    if (time != 0) {
-      clearTimeout(typingTimeout)
-    }
-
-    let time = window.setTimeout(() => {
-      setLoading(true)
-      db.getProveedores({
-        q: qBuscarProveedor
-      }).then(res => {
-        setProveedoresList(res.data)
-        setLoading(false)
-        if (res.data.length === 1) {
-          setIndexSelectProveedores(0)
-        }
-      })
-    }, 150)
-    setTypingTimeout(time)
-
-    if (!categorias.length) {
-      db.getCategorias({
-      }).then(res => {
-        setcategorias(res.data)
-      })
-    }
-    if (!depositosList.length) {
-      db.getDepositos({
-        q: qBuscarProveedor
-      }).then(res => {
-        setdepositosList(res.data)
-      })
-    }
-
-
-  }
+  
   const getFallas = () => {
     setLoading(true)
     db.getFallas({ qFallas, orderCatFallas, orderSubCatFallas, ascdescFallas }).then(res => {
@@ -1229,18 +1192,9 @@ function Home() {
     factOrderDescAsc
   ])
 
-  useEffect(() => {
-    buscarInventario()
-  }, [
-    Invnum,
-    InvorderColumn,
-    InvorderBy,
-    qBuscarInventario,
-  ])
 
-  useEffect(() => {
-    setInputsInventario()
-  }, [indexSelectInventario])
+
+
 
   useEffect(() => {
     setInputsProveedores()
@@ -1534,37 +1488,74 @@ function Home() {
   ///////////////////////////////Panel//////////////////////////////////////////77  
   ///////////////////////////////Panel//////////////////////////////////////////77  
   ///////////////////////////////Panel//////////////////////////////////////////77  
-  const [viewmainPanel, setviewmainPanel] = useState("panel")
-
+  
+  const [viewmainPanel, setviewmainPanel] = useState("panelgeneral")
+  
   const [subViewInventario, setsubViewInventario] = useState("gestion")
- 
+  
   const [msj, setMsj] = useState("")
   const [loading, setLoading] = useState(false)
   const [loginActive, setLoginActive] = useState(false)
   const [sucursalSelect, setsucursalSelect] = useState(null)
-
+  
   const [sucursales, setsucursales] = useState([])
+  const [subviewpanelsucursales, setsubviewpanelsucursales] = useState("cierres")
+  
+
+  
   const [sucursalListData, setsucursalListData] = useState([])
   const [sucursalDetallesData, setsucursalDetallesData] = useState({})
-
+  
   const [fechasMain1, setfechasMain1] = useState("")
   const [fechasMain2, setfechasMain2] = useState("")
   const [filtros, setfiltros] = useState({})
   
-
+  const [subViewNomina, setsubViewNomina] = useState("gestion")
+  const [subViewNominaGestion, setsubViewNominaGestion] = useState("personal")
+  
+  const [nominaNombre,setnominaNombre] = useState("")
+  const [nominaCedula,setnominaCedula] = useState("")
+  const [nominaTelefono,setnominaTelefono] = useState("")
+  const [nominaDireccion,setnominaDireccion] = useState("")
+  const [nominaFechadeNacimiento,setnominaFechadeNacimiento] = useState("")
+  const [nominaFechadeIngreso,setnominaFechadeIngreso] = useState("")
+  const [nominaGradoInstruccion,setnominaGradoInstruccion] = useState("")
+  const [nominaCargo,setnominaCargo] = useState("")
+  const [nominaSucursal,setnominaSucursal] = useState("")
+  
+  const [indexSelectNomina,setIndexSelectNomina] = useState(null)
+  const [qNomina,setqNomina] = useState("")
+  const [qSucursalNomina,setqSucursalNomina] = useState("")
+  const [qCargoNomina,setqCargoNomina] = useState("")
+  
+  const [nominaData,setnominaData] = useState([])
+  
+  const [nominapagodetalles,setnominapagodetalles] = useState({})
+  const [cargosDescripcion,setcargosDescripcion] = useState("")
+  const [cargosSueldo,setcargosSueldo] = useState("")
+  const [qCargos,setqCargos] = useState("")
+  const [indexSelectCargo,setindexSelectCargo] = useState(null)
+  
+  const [cargosData,setcargosData] = useState([])
+  
+  const [usuariosData, setusuariosData] = useState([]);
+  const [usuarioNombre, setusuarioNombre] = useState("");
+  const [usuarioUsuario, setusuarioUsuario] = useState("");
+  const [usuarioRole, setusuarioRole] = useState("");
+  const [usuarioClave, setusuarioClave] = useState("");
+  const [usuarioArea, setusuarioArea] = useState("");
+  
+  const [qBuscarUsuario, setQBuscarUsuario] = useState("");
+  const [indexSelectUsuarios, setIndexSelectUsuarios] = useState(null);
+  
   useEffect(() => {
-    getSucursales()
     getToday()
-    
   }, [])
-  useEffect(() => {
-    getsucursalListData()
-  }, [viewmainPanel,fechasMain1,fechasMain2])
+
 
   useEffect(() => {
-    getsucursalDetallesData()
-  }, [sucursalSelect,viewmainPanel,fechasMain1,fechasMain2])
-
+    setInputsUsuarios();
+}, [indexSelectUsuarios]);
   
   const getToday = () => {
     db.today({}).then(res => {
@@ -1572,7 +1563,7 @@ function Home() {
       /* setfechaGastos(today)
       setselectfechaventa(today)
       setfactqBuscarDate(today)
-
+      
       setqpedidoDateTo(today)
       setqpedidoDateFrom(today) */
       setfechasMain1(today)
@@ -1593,20 +1584,32 @@ function Home() {
       fechasMain2,
       filtros,
 
-      viewmainPanel,
+      subviewpanelsucursales,
     }).then(res => {
       setsucursalListData(res.data)
       setLoading(false)
     })
   }
-  const getsucursalDetallesData = () => {
+  const getsucursalDetallesData = (event=null) => {
+
+    if (event) {
+      event.preventDefault()
+    }
     setLoading(true)
     db.getsucursalDetallesData({
       fechasMain1,
       fechasMain2,
-      filtros,
+      filtros:{
+        itemCero: invsuc_itemCero,
+        q: invsuc_q,
+        exacto: invsuc_exacto,
+        num: invsuc_num,
+        orderColumn: invsuc_orderColumn,
+        orderBy: invsuc_orderBy,
+        controlefecSelectGeneral,
+      },
 
-      viewmainPanel,
+      subviewpanelsucursales,
       sucursalSelect,
     }).then(res => {
       setsucursalDetallesData(res.data)
@@ -1615,27 +1618,6 @@ function Home() {
   }
 
   /// Nomina ///
-  const [subViewNomina, setsubViewNomina] = useState("gestion")
-  const [subViewNominaGestion, setsubViewNominaGestion] = useState("gestion")
-  
-  const [nominaNombre,setnominaNombre] = useState("")
-  const [nominaCedula,setnominaCedula] = useState("")
-  const [nominaTelefono,setnominaTelefono] = useState("")
-  const [nominaDireccion,setnominaDireccion] = useState("")
-  const [nominaFechadeNacimiento,setnominaFechadeNacimiento] = useState("")
-  const [nominaFechadeIngreso,setnominaFechadeIngreso] = useState("")
-  const [nominaGradoInstruccion,setnominaGradoInstruccion] = useState("")
-  const [nominaCargo,setnominaCargo] = useState("")
-  const [nominaSucursal,setnominaSucursal] = useState("")
-
-  const [indexSelectNomina,setIndexSelectNomina] = useState(null)
-  const [qNomina,setqNomina] = useState("")
-  const [qSucursalNomina,setqSucursalNomina] = useState("")
-  const [qCargoNomina,setqCargoNomina] = useState("")
-  
-  const [nominaData,setnominaData] = useState([])
-  
-  const [nominapagodetalles,setnominapagodetalles] = useState({})
 
   
   const selectNominaDetalles = id => {
@@ -1699,14 +1681,7 @@ function Home() {
   }
   
   ////Cargos
-
-  const [cargosDescripcion,setcargosDescripcion] = useState("")
-  const [cargosSueldo,setcargosSueldo] = useState("")
-  const [qCargos,setqCargos] = useState("")
-  const [indexSelectCargo,setindexSelectCargo] = useState(null)
-
-  const [cargosData,setcargosData] = useState([])
-
+  
   const delPersonalCargos = () =>{
     db.delPersonalCargos({
       id:indexSelectCargo
@@ -1743,7 +1718,401 @@ function Home() {
     })
   }
 
+  const setInputsUsuarios = () => {
+    if (indexSelectUsuarios) {
+        let obj = usuariosData[indexSelectUsuarios];
+        if (obj) {
+            setusuarioNombre(obj.nombre);
+            setusuarioUsuario(obj.usuario);
+            setusuarioRole(obj.tipo_usuario);
+            setusuarioArea(obj.area);
+            setusuarioClave(obj.clave);
+        }
+    }
+};
+  const getUsuarios = () => {
+    setLoading(true);
+    db.getUsuarios({ q: qBuscarUsuario }).then((res) => {
+        setLoading(false);
+        setusuariosData(res.data);
+    });
+  };
+  const delUsuario = () => {
+      setLoading(true);
+      let id = null;
+      if (indexSelectUsuarios) {
+          id = usuariosData[indexSelectUsuarios].id;
+      }
+      db.delUsuario({ id }).then((res) => {
+          setLoading(false);
+          getUsuarios();
+          notificar(res);
+      });
+  };
+  const addNewUsuario = (e) => {
+    e.preventDefault();
+    let id = null;
+    if (indexSelectUsuarios) {
+        id = usuariosData[indexSelectUsuarios].id;
+    }
+    if (usuarioRole && usuarioNombre && usuarioUsuario) {
+        setLoading(true);
+        db.setUsuario({
+            id,
+            role: usuarioRole,
+            nombres: usuarioNombre,
+            usuario: usuarioUsuario,
+            clave: usuarioClave,
+            area: usuarioArea,
+        }).then((res) => {
+            notificar(res);
+            setLoading(false);
+            getUsuarios();
+        });
+    } else {
+      console.log(
+          "Err: addNewUsuario" +
+              usuarioRole +
+              " " +
+              usuarioNombre +
+              " " +
+              usuarioUsuario
+      );
+    }
+  };
+  const getProductos = (valmain = null, itemCeroForce = null) => {
+    setpermisoExecuteEnter(false);
+    setLoading(true);
 
+    if (time != 0) {
+      clearTimeout(typingTimeout);
+    }
+
+    if (view == "seleccionar") {
+      if (inputbusquedaProductosref.current) {
+        valmain = inputbusquedaProductosref.current.value;
+      }
+    }
+
+    let time = window.setTimeout(() => {
+      db.getinventario({
+        vendedor: showMisPedido ? [user.id_usuario] : [],
+        num,
+        itemCero: itemCeroForce ? itemCeroForce : itemCero,
+        qProductosMain: valmain ? valmain : qProductosMain,
+        orderColumn,
+        orderBy,
+      }).then((res) => {
+        if (res.data) {
+          if (res.data.estado === false) {
+            notificar(res.data.msj, false)
+          }
+          let len = res.data.length;
+          if (len) {
+            setProductos(res.data);
+          }
+          if (!len) {
+            setProductos([]);
+          }
+
+        }
+        setLoading(false);
+      });
+      setpermisoExecuteEnter(true);
+    }, 150);
+    setTypingTimeout(time);
+  };
+  
+  ///Compras Functions
+  const openSelectProvNewPedCompras = (id) => {
+    setopenSelectProvNewPedComprasCheck(true)
+    setNewPedComprasSelectProd(id)          
+  }
+  const selectPrecioxProveedorSave = () => {
+    db.selectPrecioxProveedorSave({
+      id_producto:selectPrecioxProveedorProducto,
+      id_proveedor:selectPrecioxProveedorProveedor,
+      precio:selectPrecioxProveedorPrecio
+    }).then(res=>{
+      getPrecioxProveedor()
+    })
+  }
+
+  const getPrecioxProveedor = (id_producto_force=null) => {
+    db.getPrecioxProveedor({
+      id_producto: id_producto_force?id_producto_force:selectPrecioxProveedorProducto,
+    }).then(res=>{
+      setprecioxproveedor(res.data)
+    })
+  }
+
+
+  ////End Compras Functions
+
+  //Proveedores Func
+  const getProveedores = e => {
+    if (time != 0) {
+      clearTimeout(typingTimeout)
+    }
+
+    let time = window.setTimeout(() => {
+      setLoading(true)
+      db.getProveedores({
+        q: qBuscarProveedor
+      }).then(res => {
+        setProveedoresList(res.data)
+        setLoading(false)
+        if (res.data.length === 1) {
+          setIndexSelectProveedores(0)
+        }
+      })
+    }, 150)
+    setTypingTimeout(time)
+
+    if (!categorias.length) {
+      db.getCategorias({
+      }).then(res => {
+        setcategorias(res.data)
+      })
+    }
+    if (!depositosList.length) {
+      db.getDepositos({
+        q: qBuscarProveedor
+      }).then(res => {
+        setdepositosList(res.data)
+      })
+    }
+
+
+  }
+  //End Proveedores Func
+
+  /////Marcas 
+
+  const [qBuscarMarcas, setQBuscarMarcas] = useState("");
+  const [marcas, setmarcas] = useState([]);
+
+  const [marcasDescripcion, setmarcasDescripcion] = useState("");
+  const [indexSelectMarcas, setIndexSelectMarcas] = useState(null);
+
+  const delMarcas = () => {
+      setLoading(true);
+      let id = null;
+      if (indexSelectMarcas) {
+          if (marcas[indexSelectMarcas]) {
+              id = marcas[indexSelectMarcas].id;
+          }
+      }
+
+      db.delMarca({ id }).then((res) => {
+          setLoading(false);
+          getMarcas();
+          notificar(res);
+          setIndexSelectMarcas(null);
+      });
+  };
+
+  const addNewMarcas = (e) => {
+      e.preventDefault();
+
+      let id = null;
+      if (indexSelectMarcas) {
+          if (marcas[indexSelectMarcas]) {
+              id = marcas[indexSelectMarcas].id;
+          }
+      }
+
+      if (marcasDescripcion) {
+          setLoading(true);
+          db.setMarcas({ id, marcasDescripcion }).then((res) => {
+              notificar(res);
+              setLoading(false);
+              getMarcas();
+          });
+      }
+  };
+  const getMarcas = () => {
+      db.getMarcas({
+          q: qBuscarMarcas,
+      }).then((res) => {
+          if (res.data) {
+              if (res.data.length) {
+                  setmarcas(res.data);
+              } else {
+                  setmarcas([]);
+              }
+          }
+      });
+  };
+
+///END Marcas
+
+  /////Categorias 
+
+    const [qBuscarCategorias, setQBuscarCategorias] = useState("");
+    const [categorias, setcategorias] = useState([]);
+
+    const [categoriasDescripcion, setcategoriasDescripcion] = useState("");
+    const [indexSelectCategorias, setIndexSelectCategorias] = useState(null);
+
+    const delCategorias = () => {
+        setLoading(true);
+        let id = null;
+        if (indexSelectCategorias) {
+            if (categorias[indexSelectCategorias]) {
+                id = categorias[indexSelectCategorias].id;
+            }
+        }
+
+        db.delCategoria({ id }).then((res) => {
+            setLoading(false);
+            getCategorias();
+            notificar(res);
+            setIndexSelectCategorias(null);
+        });
+    };
+
+    const addNewCategorias = (e) => {
+        e.preventDefault();
+
+        let id = null;
+        if (indexSelectCategorias) {
+            if (categorias[indexSelectCategorias]) {
+                id = categorias[indexSelectCategorias].id;
+            }
+        }
+
+        if (categoriasDescripcion) {
+            setLoading(true);
+            db.setCategorias({ id, categoriasDescripcion }).then((res) => {
+                notificar(res);
+                setLoading(false);
+                getCategorias();
+            });
+        }
+    };
+    const getCategorias = () => {
+        db.getCategorias({
+            q: qBuscarCategorias,
+        }).then((res) => {
+            if (res.data) {
+                if (res.data.length) {
+                    setcategorias(res.data);
+                } else {
+                    setcategorias([]);
+                }
+            }
+        });
+    };
+    const setInputsCats = () => {
+        if (indexSelectCategorias) {
+            let obj = categorias[indexSelectCategorias];
+            if (obj) {
+                setcategoriasDescripcion(obj.descripcion);
+            }
+        }
+    };
+
+  ///END Categorias
+
+  /////CatGenerals 
+
+  const [qBuscarCatGenerals, setQBuscarCatGenerals] = useState("");
+  const [catGenerals, setcatGenerals] = useState([]);
+
+  const [catGeneralsDescripcion, setcatGeneralsDescripcion] = useState("");
+  const [indexSelectCatGenerals, setIndexSelectCatGenerals] = useState(null);
+
+  const delCatGenerals = () => {
+      setLoading(true);
+      let id = null;
+      if (indexSelectCatGenerals) {
+          if (catGenerals[indexSelectCatGenerals]) {
+              id = catGenerals[indexSelectCatGenerals].id;
+          }
+      }
+
+      db.delCatGeneral({ id }).then((res) => {
+          setLoading(false);
+          getCatGenerals();
+          notificar(res);
+          setIndexSelectCatGenerals(null);
+      });
+  };
+
+  const addNewCatGenerals = (e) => {
+      e.preventDefault();
+
+      let id = null;
+      if (indexSelectCatGenerals) {
+          if (catGenerals[indexSelectCatGenerals]) {
+              id = catGenerals[indexSelectCatGenerals].id;
+          }
+      }
+
+      if (catGeneralsDescripcion) {
+          setLoading(true);
+          db.setCatGenerals({ id, catGeneralsDescripcion }).then((res) => {
+              notificar(res);
+              setLoading(false);
+              getCatGenerals();
+          });
+      }
+  };
+  const getCatGenerals = () => {
+      db.getCatGenerals({
+          q: qBuscarCatGenerals,
+      }).then((res) => {
+          if (res.data) {
+              if (res.data.length) {
+                  setcatGenerals(res.data);
+              } else {
+                  setcatGenerals([]);
+              }
+          }
+      });
+  };
+
+///END CatGenerals
+  const type = type => {
+    return !type || type === "delete" ? true : false
+  }
+
+  /* inventario
+  cierres
+  gastos
+  nomina
+  usuarios
+  compras */
+
+  let opcionesadmin = [
+    {route: "cierres",
+    name: "cierres"},
+
+    {route: "gastos",
+    name: "Gastos"},
+
+    {route: "nomina",
+    name: "Nómina"},
+
+    {route: "usuarios",
+    name: "Usuarios"},
+
+    {route: "compras",
+    name: "Compras"},
+  ]
+
+  let opcionesgeneral = [
+    {route: "sucursales",
+    name: "Sucursales"},
+
+    {route: "administracion",
+    name: "Administración"},
+
+  
+  ]
+
+  
   return (
     <>
       {!loginActive ? <Login loginRes={loginRes} /> : <>
@@ -1751,343 +2120,6 @@ function Home() {
 
         {loading ? <Cargando active={loading} /> : null}
 
-        {/* 
-        <Toplabel
-          sucursales={sucursales}
-          sucursalSelect={sucursalSelect}
-        />
-        <div className="container marginb-6 margint-6 p-0">
-          {sucursalSelect === null ?
-            <SelectSucursal
-              setsucursalSelect={setsucursalSelect}
-              sucursalSelect={sucursalSelect}
-              sucursales={sucursales}
-              viewProductos={viewProductos}
-              setviewProductos={setviewProductos}
-            />
-            : null}
-
-          {selectView("fallas") ? <FallasComponent
-            fallas={fallas}
-          /> : null}
-          {selectView("gastos") ? <GastosComponent
-            gastos={gastos}
-            selectgastos={selectgastos}
-            setselectgastos={setselectgastos}
-            setfechaGastos={setfechaGastos}
-            fechaGastos={fechaGastos}
-            tipogasto={tipogasto}
-            settipogasto={settipogasto}
-            moneda={moneda}
-          /> : null}
-          {selectView("ventas") ? <VentasComponent
-            ventas={ventas}
-            selectfechaventa={selectfechaventa}
-            setselectfechaventa={setselectfechaventa}
-            moneda={moneda}
-          /> : null}
-
-
-          {sucursalSelect === "inventario" ? <InventarioComponent
-            showPedidoBarras={showPedidoBarras}
-            productosInventario={productosInventario}
-            qBuscarInventario={qBuscarInventario}
-            setQBuscarInventario={setQBuscarInventario}
-            setIndexSelectInventario={setIndexSelectInventario}
-            indexSelectInventario={indexSelectInventario}
-            inputBuscarInventario={inputBuscarInventario}
-
-            inpInvbarras={inpInvbarras}
-            setinpInvbarras={setinpInvbarras}
-            inpInvcantidad={inpInvcantidad}
-            setinpInvcantidad={setinpInvcantidad}
-            inpInvalterno={inpInvalterno}
-            setinpInvalterno={setinpInvalterno}
-            inpInvunidad={inpInvunidad}
-            setinpInvunidad={setinpInvunidad}
-            inpInvcategoria={inpInvcategoria}
-            setinpInvcategoria={setinpInvcategoria}
-            inpInvdescripcion={inpInvdescripcion}
-            setinpInvdescripcion={setinpInvdescripcion}
-            inpInvbase={inpInvbase}
-            setinpInvbase={setinpInvbase}
-            inpInvventa={inpInvventa}
-            setinpInvventa={setinpInvventa}
-            inpInviva={inpInviva}
-            setinpInviva={setinpInviva}
-
-            guardarNuevoProducto={guardarNuevoProducto}
-
-            setProveedor={setProveedor}
-            proveedordescripcion={proveedordescripcion}
-            setproveedordescripcion={setproveedordescripcion}
-            proveedorrif={proveedorrif}
-            setproveedorrif={setproveedorrif}
-            proveedordireccion={proveedordireccion}
-            setproveedordireccion={setproveedordireccion}
-            proveedortelefono={proveedortelefono}
-            setproveedortelefono={setproveedortelefono}
-
-            subViewInventario={subViewInventario}
-            setsubViewInventario={setsubViewInventario}
-
-            setIndexSelectProveedores={setIndexSelectProveedores}
-            indexSelectProveedores={indexSelectProveedores}
-            qBuscarProveedor={qBuscarProveedor}
-            setQBuscarProveedor={setQBuscarProveedor}
-            proveedoresList={proveedoresList}
-
-            delProveedor={delProveedor}
-            delProducto={delProducto}
-
-            inpInvid_proveedor={inpInvid_proveedor}
-            setinpInvid_proveedor={setinpInvid_proveedor}
-            inpInvid_marca={inpInvid_marca}
-            setinpInvid_marca={setinpInvid_marca}
-            inpInvid_deposito={inpInvid_deposito}
-            setinpInvid_deposito={setinpInvid_deposito}
-
-            depositosList={depositosList}
-
-            facturas={facturas}
-
-            factqBuscar={factqBuscar}
-            setfactqBuscar={setfactqBuscar}
-            factqBuscarDate={factqBuscarDate}
-            setfactqBuscarDate={setfactqBuscarDate}
-            factsubView={factsubView}
-            setfactsubView={setfactsubView}
-            factSelectIndex={factSelectIndex}
-            setfactSelectIndex={setfactSelectIndex}
-            factOrderBy={factOrderBy}
-            setfactOrderBy={setfactOrderBy}
-            factOrderDescAsc={factOrderDescAsc}
-            setfactOrderDescAsc={setfactOrderDescAsc}
-            factInpid_proveedor={factInpid_proveedor}
-            setfactInpid_proveedor={setfactInpid_proveedor}
-            factInpnumfact={factInpnumfact}
-            setfactInpnumfact={setfactInpnumfact}
-            factInpdescripcion={factInpdescripcion}
-            setfactInpdescripcion={setfactInpdescripcion}
-            factInpmonto={factInpmonto}
-            setfactInpmonto={setfactInpmonto}
-            factInpfechavencimiento={factInpfechavencimiento}
-            setfactInpfechavencimiento={setfactInpfechavencimiento}
-
-            factInpestatus={factInpestatus}
-            setfactInpestatus={setfactInpestatus}
-
-            setFactura={setFactura}
-            delFactura={delFactura}
-
-            Invnum={Invnum}
-            setInvnum={setInvnum}
-            InvorderColumn={InvorderColumn}
-            setInvorderColumn={setInvorderColumn}
-            InvorderBy={InvorderBy}
-            setInvorderBy={setInvorderBy}
-            delItemFact={delItemFact}
-
-            subviewProveedores={subviewProveedores}
-            setsubviewProveedores={setsubviewProveedores}
-
-            subviewCargarProductos={subviewCargarProductos}
-            setsubviewCargarProductos={setsubviewCargarProductos}
-            viewProductos={viewProductos}
-            setviewProductos={setviewProductos}
-
-            indexSelectCarrito={indexSelectCarrito}
-            setindexSelectCarrito={setindexSelectCarrito}
-
-            showCantidadCarritoFun={showCantidadCarritoFun}
-            showCantidadCarrito={showCantidadCarrito}
-            setshowCantidadCarrito={setshowCantidadCarrito}
-
-            sucursales={sucursales}
-            ctSucursales={ctSucursales}
-            setctSucursales={setctSucursales}
-
-            setCarrito={setCarrito}
-
-            pedidoList={pedidoList}
-            id_pedido={id_pedido}
-            setid_pedido={setid_pedido}
-
-            qpedido={qpedido}
-            setqpedido={setqpedido}
-            qpedidoDateFrom={qpedidoDateFrom}
-            setqpedidoDateFrom={setqpedidoDateFrom}
-            qpedidoDateTo={qpedidoDateTo}
-            setqpedidoDateTo={setqpedidoDateTo}
-            qpedidoOrderBy={qpedidoOrderBy}
-            setqpedidoOrderBy={setqpedidoOrderBy}
-            qpedidoOrderByDescAsc={qpedidoOrderByDescAsc}
-            setqpedidoOrderByDescAsc={setqpedidoOrderByDescAsc}
-            pedidos={pedidos}
-            setpedidos={setpedidos}
-            pedidoData={pedidoData}
-            setpedidoData={setpedidoData}
-            qestadopedido={qestadopedido}
-            setqestadopedido={setqestadopedido}
-
-            getPedidos={getPedidos}
-            delPedido={delPedido}
-            selectPedido={selectPedido}
-
-            setDelCarrito={setDelCarrito}
-            setCtCarrito={setCtCarrito}
-            setProdCarritoInterno={setProdCarritoInterno}
-            sendPedidoSucursal={sendPedidoSucursal}
-
-            openReporteFalla={openReporteFalla}
-            getPagoProveedor={getPagoProveedor}
-            setPagoProveedor={setPagoProveedor}
-            pagosproveedor={pagosproveedor}
-            tipopagoproveedor={tipopagoproveedor}
-            settipopagoproveedor={settipopagoproveedor}
-            montopagoproveedor={montopagoproveedor}
-            setmontopagoproveedor={setmontopagoproveedor}
-            setmodFact={setmodFact}
-            modFact={modFact}
-            saveFactura={saveFactura}
-            categorias={categorias}
-            setporcenganancia={setporcenganancia}
-            refsInpInvList={refsInpInvList}
-            guardarNuevoProductoLote={guardarNuevoProductoLote}
-            changeInventario={changeInventario}
-            reporteInventario={reporteInventario}
-            addNewLote={addNewLote}
-            changeModLote={changeModLote}
-            modViewInventario={modViewInventario}
-            setmodViewInventario={setmodViewInventario}
-            setNewProducto={setNewProducto}
-            verDetallesFactura={verDetallesFactura}
-            showaddpedidocentral={showaddpedidocentral}
-            setshowaddpedidocentral={setshowaddpedidocentral}
-            valheaderpedidocentral={valheaderpedidocentral}
-            setvalheaderpedidocentral={setvalheaderpedidocentral}
-            valbodypedidocentral={valbodypedidocentral}
-            setvalbodypedidocentral={setvalbodypedidocentral}
-            procesarImportPedidoCentral={procesarImportPedidoCentral}
-            moneda={moneda}
-            productosInventario={productosInventario}
-            qBuscarInventario={qBuscarInventario}
-            setQBuscarInventario={setQBuscarInventario}
-            setIndexSelectInventario={setIndexSelectInventario}
-            indexSelectInventario={indexSelectInventario}
-            inputBuscarInventario={inputBuscarInventario}
-            inpInvbarras={inpInvbarras}
-            setinpInvbarras={setinpInvbarras}
-            inpInvcantidad={inpInvcantidad}
-            setinpInvcantidad={setinpInvcantidad}
-            inpInvalterno={inpInvalterno}
-            setinpInvalterno={setinpInvalterno}
-            inpInvunidad={inpInvunidad}
-            setinpInvunidad={setinpInvunidad}
-            inpInvcategoria={inpInvcategoria}
-            setinpInvcategoria={setinpInvcategoria}
-            inpInvdescripcion={inpInvdescripcion}
-            setinpInvdescripcion={setinpInvdescripcion}
-            inpInvbase={inpInvbase}
-            setinpInvbase={setinpInvbase}
-            inpInvventa={inpInvventa}
-            setinpInvventa={setinpInvventa}
-            inpInviva={inpInviva}
-            setinpInviva={setinpInviva}
-            inpInvLotes={inpInvLotes}
-            number={number}
-            guardarNuevoProducto={guardarNuevoProducto}
-            setProveedor={setProveedor}
-            proveedordescripcion={proveedordescripcion}
-            setproveedordescripcion={setproveedordescripcion}
-            proveedorrif={proveedorrif}
-            setproveedorrif={setproveedorrif}
-            proveedordireccion={proveedordireccion}
-            setproveedordireccion={setproveedordireccion}
-            proveedortelefono={proveedortelefono}
-            setproveedortelefono={setproveedortelefono}
-            subViewInventario={subViewInventario}
-            setsubViewInventario={setsubViewInventario}
-            setIndexSelectProveedores={setIndexSelectProveedores}
-            indexSelectProveedores={indexSelectProveedores}
-            qBuscarProveedor={qBuscarProveedor}
-            setQBuscarProveedor={setQBuscarProveedor}
-            proveedoresList={proveedoresList}
-            delProveedor={delProveedor}
-            delProducto={delProducto}
-            inpInvid_proveedor={inpInvid_proveedor}
-            setinpInvid_proveedor={setinpInvid_proveedor}
-            inpInvid_marca={inpInvid_marca}
-            setinpInvid_marca={setinpInvid_marca}
-            inpInvid_deposito={inpInvid_deposito}
-            setinpInvid_deposito={setinpInvid_deposito}
-            depositosList={depositosList}
-            marcasList={marcasList}
-            setshowModalFacturas={setshowModalFacturas}
-            showModalFacturas={showModalFacturas}
-            facturas={facturas}
-            factqBuscar={factqBuscar}
-            setfactqBuscar={setfactqBuscar}
-            factqBuscarDate={factqBuscarDate}
-            setfactqBuscarDate={setfactqBuscarDate}
-            factsubView={factsubView}
-            setfactsubView={setfactsubView}
-            factSelectIndex={factSelectIndex}
-            setfactSelectIndex={setfactSelectIndex}
-            factOrderBy={factOrderBy}
-            setfactOrderBy={setfactOrderBy}
-            factOrderDescAsc={factOrderDescAsc}
-            setfactOrderDescAsc={setfactOrderDescAsc}
-            factInpid_proveedor={factInpid_proveedor}
-            setfactInpid_proveedor={setfactInpid_proveedor}
-            factInpnumfact={factInpnumfact}
-            setfactInpnumfact={setfactInpnumfact}
-            factInpdescripcion={factInpdescripcion}
-            setfactInpdescripcion={setfactInpdescripcion}
-            factInpmonto={factInpmonto}
-            setfactInpmonto={setfactInpmonto}
-            factInpfechavencimiento={factInpfechavencimiento}
-            setfactInpfechavencimiento={setfactInpfechavencimiento}
-            factInpestatus={factInpestatus}
-            setfactInpestatus={setfactInpestatus}
-            setFactura={setFactura}
-            delFactura={delFactura}
-            Invnum={Invnum}
-            setInvnum={setInvnum}
-            InvorderColumn={InvorderColumn}
-            setInvorderColumn={setInvorderColumn}
-            InvorderBy={InvorderBy}
-            setInvorderBy={setInvorderBy}
-            delItemFact={delItemFact}
-            qFallas={qFallas}
-            setqFallas={setqFallas}
-            orderCatFallas={orderCatFallas}
-            setorderCatFallas={setorderCatFallas}
-            orderSubCatFallas={orderSubCatFallas}
-            setorderSubCatFallas={setorderSubCatFallas}
-            ascdescFallas={ascdescFallas}
-            setascdescFallas={setascdescFallas}
-            fallas={fallas}
-            delFalla={delFalla}
-            getPedidosCentral={getPedidosCentral}
-            selectPedidosCentral={selectPedidosCentral}
-            checkPedidosCentral={checkPedidosCentral}
-            pedidosCentral={pedidosCentral}
-            setIndexPedidoCentral={setIndexPedidoCentral}
-            indexPedidoCentral={indexPedidoCentral}
-            fechaQEstaInve={fechaQEstaInve}
-            setfechaQEstaInve={setfechaQEstaInve}
-            fechaFromEstaInve={fechaFromEstaInve}
-            setfechaFromEstaInve={setfechaFromEstaInve}
-            fechaToEstaInve={fechaToEstaInve}
-            setfechaToEstaInve={setfechaToEstaInve}
-            orderByEstaInv={orderByEstaInv}
-            setorderByEstaInv={setorderByEstaInv}
-            orderByColumEstaInv={orderByColumEstaInv}
-            setorderByColumEstaInv={setorderByColumEstaInv}
-            dataEstaInven={dataEstaInven}
-          /> : null}
-        </div> */}
         <Panel>
           <Header
             viewmainPanel={viewmainPanel}
@@ -2097,128 +2129,62 @@ function Home() {
             sucursales={sucursales}
 
           />
-          <FechasMain 
-            fechasMain1={fechasMain1}
-            fechasMain2={fechasMain2}
-            setfechasMain1={setfechasMain1}
-            setfechasMain2={setfechasMain2}
-          />
-          {viewmainPanel === "panel" && 
+
+          {viewmainPanel === "panelgeneral" && 
             <PanelOpciones
               viewmainPanel={viewmainPanel}
               setviewmainPanel={setviewmainPanel}
+              opciones={opcionesgeneral}
+
             />
           }
-
+          
+          {viewmainPanel === "administracion" && 
+            <PanelOpciones
+              viewmainPanel={viewmainPanel}
+              setviewmainPanel={setviewmainPanel}
+              opciones={opcionesadmin}
+            />
+          }
 
           {viewmainPanel === "cierres" && 
-          <Cierres>
-            <BalanceCierres
-            
-            />
-
-            {sucursalSelect?
-              <SucursalDetallesCierres
-                sucursalDetallesData={sucursalDetallesData}
-
-              /> 
-            :
-              <SucursalListCierres
-                sucursalListData={sucursalListData}
-
-                sucursalSelect={sucursalSelect}
-                setsucursalSelect={setsucursalSelect}
-              />  
-            }
-          </Cierres>
-          }
-          {viewmainPanel === "inventario" && 
-          <Inventario
-            subViewInventario={subViewInventario}
-            setsubViewInventario={setsubViewInventario}
-            >
-            {subViewInventario==="gestion"?
-              <GestionInventario>
-
-              </GestionInventario>
-            :null}
-
-            {subViewInventario==="garantia"?
-              <Garantias>
-
-              </Garantias>
-            :null}
-
-            {subViewInventario==="pedidos"?
-              <Pedidos
-                inputBuscarInventario={inputBuscarInventario}
-                qBuscarInventario={qBuscarInventario}
-                setQBuscarInventario={setQBuscarInventario}
-                Invnum={Invnum}
-                setInvnum={setInvnum}
-                InvorderColumn={InvorderColumn}
-                setInvorderColumn={setInvorderColumn}
-                InvorderBy={InvorderBy}
-                setInvorderBy={setInvorderBy}
-                productosInventario={productosInventario}
-      
-                indexSelectCarrito={indexSelectCarrito}
-                setindexSelectCarrito={setindexSelectCarrito}
-      
-                showCantidadCarritoFun={showCantidadCarritoFun}
-                showCantidadCarrito={showCantidadCarrito}
-                setshowCantidadCarrito={setshowCantidadCarrito}
-      
-                sucursales={sucursales}
-                ctSucursales={ctSucursales}
-                setctSucursales={setctSucursales}
-      
-                number={number}
-                setCarrito={setCarrito}
-      
-                pedidoList={pedidoList}
-                setid_pedido={setid_pedido}
-                id_pedido={id_pedido}
-      
-                qpedido={qpedido}
-                setqpedido={setqpedido}
-                qpedidoDateFrom={qpedidoDateFrom}
-                setqpedidoDateFrom={setqpedidoDateFrom}
-                qpedidoDateTo={qpedidoDateTo}
-                setqpedidoDateTo={setqpedidoDateTo}
-                qpedidoOrderBy={qpedidoOrderBy}
-                setqpedidoOrderBy={setqpedidoOrderBy}
-                qpedidoOrderByDescAsc={qpedidoOrderByDescAsc}
-                setqpedidoOrderByDescAsc={setqpedidoOrderByDescAsc}
-                pedidos={pedidos}
-                setpedidos={setpedidos}
-                pedidoData={pedidoData}
-                setpedidoData={setpedidoData}
-      
-                qestadopedido={qestadopedido}
-                setqestadopedido={setqestadopedido}
-      
-                getPedidos={getPedidos}
-                delPedido={delPedido}
-                selectPedido={selectPedido}
-                moneda={moneda}
-      
-                setDelCarrito={setDelCarrito}
-                setCtCarrito={setCtCarrito}
-                setProdCarritoInterno={setProdCarritoInterno}
-                sendPedidoSucursal={sendPedidoSucursal}
-                showPedidoBarras={showPedidoBarras}
+            <>
+              <FechasMain 
+                fechasMain1={fechasMain1}
+                fechasMain2={fechasMain2}
+                setfechasMain1={setfechasMain1}
+                setfechasMain2={setfechasMain2}
               />
-            :null}
+              <Cierres>
+                <BalanceCierres
+                
+                />
 
-            {subViewInventario==="fallas"?
-              <FallasComponent>
+                {sucursalSelect?
+                  <SucursalDetallesCierres
+                    sucursalDetallesData={sucursalDetallesData}
 
-              </FallasComponent>
-            :null}
-          </Inventario>
+                  /> 
+                :
+                  <SucursalListCierres
+                    sucursalListData={sucursalListData}
+
+                    sucursalSelect={sucursalSelect}
+                    setsucursalSelect={setsucursalSelect}
+                  />  
+                }
+              </Cierres>
+            </>
           }
+          
           {viewmainPanel === "gastos" && 
+          <>
+            <FechasMain 
+                fechasMain1={fechasMain1}
+                fechasMain2={fechasMain2}
+                setfechasMain1={setfechasMain1}
+                setfechasMain2={setfechasMain2}
+              />
             <Gastos>
               {sucursalSelect?
                 <SucursalDetallesGastos
@@ -2234,80 +2200,84 @@ function Home() {
                 />  
               }
             </Gastos>
+          </>
+
           }
-           {viewmainPanel === "nomina" && 
+          {viewmainPanel === "nomina" && 
             <NominaHome
               subViewNomina={subViewNomina}
               setsubViewNomina={setsubViewNomina}
             >
 
               {subViewNomina === "gestion" && 
-              <Nomina
-                subViewNominaGestion={subViewNominaGestion}
-                setsubViewNominaGestion={setsubViewNominaGestion}
-              >
-                {subViewNominaGestion === "personal" &&
-                  <NominaPersonal
-                    nominaNombre={nominaNombre}
-                    setnominaNombre={setnominaNombre}
-                    nominaCedula={nominaCedula}
-                    setnominaCedula={setnominaCedula}
-                    nominaTelefono={nominaTelefono}
-                    setnominaTelefono={setnominaTelefono}
-                    nominaDireccion={nominaDireccion}
-                    setnominaDireccion={setnominaDireccion}
-                    nominaFechadeNacimiento={nominaFechadeNacimiento}
-                    setnominaFechadeNacimiento={setnominaFechadeNacimiento}
-                    nominaFechadeIngreso={nominaFechadeIngreso}
-                    setnominaFechadeIngreso={setnominaFechadeIngreso}
-                    nominaGradoInstruccion={nominaGradoInstruccion}
-                    setnominaGradoInstruccion={setnominaGradoInstruccion}
-                    nominaCargo={nominaCargo}
-                    setnominaCargo={setnominaCargo}
-                    nominaSucursal={nominaSucursal}
-                    setnominaSucursal={setnominaSucursal}
-                    indexSelectNomina={indexSelectNomina}
-                    setIndexSelectNomina={setIndexSelectNomina}
-                    qNomina={qNomina}
-                    setqNomina={setqNomina}
-                    qSucursalNomina={qSucursalNomina}
-                    setqSucursalNomina={setqSucursalNomina}
-                    qCargoNomina={qCargoNomina}
-                    setqCargoNomina={setqCargoNomina}
-                    nominaData={nominaData}
-                    setnominaData={setnominaData}
-                    delPersonalNomina={delPersonalNomina}
-                    addPersonalNomina={addPersonalNomina}
-                    getPersonalNomina={getPersonalNomina}
+                <Nomina
+                  subViewNominaGestion={subViewNominaGestion}
+                  setsubViewNominaGestion={setsubViewNominaGestion}
+                >
+                  {subViewNominaGestion === "personal" &&
+                    <NominaPersonal
+                      nominaNombre={nominaNombre}
+                      setnominaNombre={setnominaNombre}
+                      nominaCedula={nominaCedula}
+                      setnominaCedula={setnominaCedula}
+                      nominaTelefono={nominaTelefono}
+                      setnominaTelefono={setnominaTelefono}
+                      nominaDireccion={nominaDireccion}
+                      setnominaDireccion={setnominaDireccion}
+                      nominaFechadeNacimiento={nominaFechadeNacimiento}
+                      setnominaFechadeNacimiento={setnominaFechadeNacimiento}
+                      nominaFechadeIngreso={nominaFechadeIngreso}
+                      setnominaFechadeIngreso={setnominaFechadeIngreso}
+                      nominaGradoInstruccion={nominaGradoInstruccion}
+                      setnominaGradoInstruccion={setnominaGradoInstruccion}
+                      nominaCargo={nominaCargo}
+                      setnominaCargo={setnominaCargo}
+                      nominaSucursal={nominaSucursal}
+                      setnominaSucursal={setnominaSucursal}
+                      indexSelectNomina={indexSelectNomina}
+                      setIndexSelectNomina={setIndexSelectNomina}
+                      qNomina={qNomina}
+                      setqNomina={setqNomina}
+                      qSucursalNomina={qSucursalNomina}
+                      setqSucursalNomina={setqSucursalNomina}
+                      qCargoNomina={qCargoNomina}
+                      setqCargoNomina={setqCargoNomina}
+                      nominaData={nominaData}
+                      setnominaData={setnominaData}
+                      delPersonalNomina={delPersonalNomina}
+                      addPersonalNomina={addPersonalNomina}
+                      getPersonalNomina={getPersonalNomina}
 
-                    cargosData={cargosData}
-                    getPersonalCargos={getPersonalCargos}
-                    sucursales={sucursales}
-                    subViewNominaGestion={subViewNominaGestion}
-                  >
-                  </NominaPersonal>
-                }
-                {subViewNominaGestion === "cargos" &&
-                  <NominaCargos
-                    cargosDescripcion={cargosDescripcion}
-                    setcargosDescripcion={setcargosDescripcion}
-                    cargosSueldo={cargosSueldo}
-                    setcargosSueldo={setcargosSueldo}
-                    qCargos={qCargos}
-                    setqCargos={setqCargos}
-                    indexSelectCargo={indexSelectCargo}
-                    setindexSelectCargo={setindexSelectCargo}
-                    cargosData={cargosData}
-                    setcargosData={setcargosData}
-                    delPersonalCargos={delPersonalCargos}
-                    addPersonalCargos={addPersonalCargos}
-                    getPersonalCargos={getPersonalCargos}
-                    subViewNominaGestion={subViewNominaGestion}
+                      cargosData={cargosData}
+                      getPersonalCargos={getPersonalCargos}
+                      sucursales={sucursales}
+                      subViewNominaGestion={subViewNominaGestion}
+                      nominapagodetalles={nominapagodetalles}
+                    >
+                    </NominaPersonal>
+                  }
+                  {subViewNominaGestion === "cargos" &&
+                    <NominaCargos
+                      cargosDescripcion={cargosDescripcion}
+                      setcargosDescripcion={setcargosDescripcion}
+                      cargosSueldo={cargosSueldo}
+                      setcargosSueldo={setcargosSueldo}
+                      qCargos={qCargos}
+                      setqCargos={setqCargos}
+                      indexSelectCargo={indexSelectCargo}
+                      setindexSelectCargo={setindexSelectCargo}
+                      cargosData={cargosData}
+                      setcargosData={setcargosData}
+                      delPersonalCargos={delPersonalCargos}
+                      addPersonalCargos={addPersonalCargos}
+                      getPersonalCargos={getPersonalCargos}
+                      subViewNominaGestion={subViewNominaGestion}
 
-                  >
-                  </NominaCargos>
-                }
-              </Nomina> }
+                    >
+                    </NominaCargos>
+                  }
+                </Nomina> 
+              }
               {subViewNomina === "pagos" && 
                 <NominaPagos
                   qSucursalNomina={qSucursalNomina}
@@ -2333,6 +2303,197 @@ function Home() {
               }
             </NominaHome>
           }
+          {viewmainPanel === "usuarios" && 
+            <Usuarios
+              usuarioNombre={usuarioNombre}
+              setusuarioNombre={setusuarioNombre}
+              usuarioUsuario={usuarioUsuario}
+              setusuarioUsuario={setusuarioUsuario}
+              usuarioRole={usuarioRole}
+              setusuarioRole={setusuarioRole}
+              usuarioClave={usuarioClave}
+              setusuarioClave={setusuarioClave}
+              usuarioArea={usuarioArea}
+              setusuarioArea={setusuarioArea}
+              indexSelectUsuarios={indexSelectUsuarios}
+              setIndexSelectUsuarios={setIndexSelectUsuarios}
+              qBuscarUsuario={qBuscarUsuario}
+              setQBuscarUsuario={setQBuscarUsuario}
+              delUsuario={delUsuario}
+              usuariosData={usuariosData}
+              addNewUsuario={addNewUsuario}
+              getUsuarios={getUsuarios}
+
+              sucursales={sucursales}
+            />
+          }
+
+          {viewmainPanel === "compras" &&
+            <Compras
+
+              subViewCompras={subViewCompras}
+              setsubViewCompras={setsubViewCompras}
+              
+              qProductosMain={qProductosMain}
+              setQProductosMain={setQProductosMain}
+              productos={productos}
+              getProductos={getProductos}
+              moneda={moneda}
+              sucursales={sucursales}
+              openSelectProvNewPedCompras={openSelectProvNewPedCompras}
+            
+              setopenSelectProvNewPedComprasCheck={setopenSelectProvNewPedComprasCheck}
+              openSelectProvNewPedComprasCheck={openSelectProvNewPedComprasCheck}
+
+              NewPedComprasSelectProd={NewPedComprasSelectProd}
+              setNewPedComprasSelectProd={setNewPedComprasSelectProd}
+              
+              getPrecioxProveedor={getPrecioxProveedor}
+              getProveedores={getProveedores}
+              qBuscarProveedor={qBuscarProveedor}
+              setQBuscarProveedor={setQBuscarProveedor}
+              proveedoresList={proveedoresList}
+              setProveedoresList={setProveedoresList}
+              precioxproveedor={precioxproveedor}
+              selectPrecioxProveedorProducto={selectPrecioxProveedorProducto}
+              selectPrecioxProveedorProveedor={selectPrecioxProveedorProveedor}
+              setselectPrecioxProveedorProducto={setselectPrecioxProveedorProducto}
+              setselectPrecioxProveedorProveedor={setselectPrecioxProveedorProveedor}
+              selectPrecioxProveedorSave={selectPrecioxProveedorSave}
+              selectPrecioxProveedorPrecio={selectPrecioxProveedorPrecio}
+              setselectPrecioxProveedorPrecio={setselectPrecioxProveedorPrecio}
+            />
+          }
+
+
+
+          {viewmainPanel === "inventario" && 
+            <>
+              <NavInventario
+                subViewInventario={subViewInventario}
+                setsubViewInventario={setsubViewInventario}
+              />
+              {subViewInventario=="gestion"?
+                <GestionInventario
+                  setporcenganancia={setporcenganancia}
+                  productosInventario={productosInventario}
+                  qBuscarInventario={qBuscarInventario}
+                  buscarInventario={buscarInventario}
+                  setQBuscarInventario={setQBuscarInventario}
+                  type={type}
+                  changeInventario={changeInventario}
+                  Invnum={Invnum}
+                  setInvnum={setInvnum}
+                  InvorderColumn={InvorderColumn}
+                  setInvorderColumn={setInvorderColumn}
+                  InvorderBy={InvorderBy}
+                  setInvorderBy={setInvorderBy}
+                  inputBuscarInventario={inputBuscarInventario}
+                  guardarNuevoProductoLote={guardarNuevoProductoLote}
+                  proveedoresList={proveedoresList}
+                  number={number}
+                  refsInpInvList={refsInpInvList}
+                  categorias={categorias}
+                  marcas={marcas}
+                  catGenerals={catGenerals}
+
+                  getMarcas={getMarcas}
+                  getCatGenerals={getCatGenerals}
+                  getCategorias={getCategorias}
+                />
+              :null}
+
+              {subViewInventario=="departamentos"?
+                <DepartamentosInventario
+                  getCategorias={getCategorias}
+                  addNewCategorias={addNewCategorias}
+                  categoriasDescripcion={categoriasDescripcion}
+                  setcategoriasDescripcion={setcategoriasDescripcion}
+                  indexSelectCategorias={indexSelectCategorias}
+                  setIndexSelectCategorias={setIndexSelectCategorias}
+                  qBuscarCategorias={qBuscarCategorias}
+                  setQBuscarCategorias={setQBuscarCategorias}
+                  delCategorias={delCategorias}
+                  categorias={categorias}
+                />
+              :null}
+
+              {subViewInventario=="catgeneral"?
+                <CatGeneral
+                getCatGenerals={getCatGenerals}
+                addNewCatGenerals={addNewCatGenerals}
+                catGeneralsDescripcion={catGeneralsDescripcion}
+                setcatGeneralsDescripcion={setcatGeneralsDescripcion}
+                indexSelectCatGenerals={indexSelectCatGenerals}
+                setIndexSelectCatGenerals={setIndexSelectCatGenerals}
+                qBuscarCatGenerals={qBuscarCatGenerals}
+                setQBuscarCatGenerals={setQBuscarCatGenerals}
+                delCatGenerals={delCatGenerals}
+                catGenerals={catGenerals}
+                />
+              :null}
+
+              {subViewInventario=="marcas"?
+                <Marcas
+                getMarcas={getMarcas}
+                addNewMarcas={addNewMarcas}
+                marcasDescripcion={marcasDescripcion}
+                setmarcasDescripcion={setmarcasDescripcion}
+                indexSelectMarcas={indexSelectMarcas}
+                setIndexSelectMarcas={setIndexSelectMarcas}
+                qBuscarMarcas={qBuscarMarcas}
+                setQBuscarMarcas={setQBuscarMarcas}
+                delMarcas={delMarcas}
+                marcas={marcas}
+                />
+              :null}
+            </>
+          }
+
+
+          {viewmainPanel === "sucursales" && 
+            <PanelSucursales
+              sucursales={sucursales}
+              sucursalSelect={sucursalSelect}
+              setsucursalSelect={setsucursalSelect}
+              subviewpanelsucursales={subviewpanelsucursales}
+              setsubviewpanelsucursales={setsubviewpanelsucursales}
+              fechasMain1={fechasMain1}
+              fechasMain2={fechasMain2}
+
+              getSucursales={getSucursales}
+              getsucursalListData={getsucursalListData}
+              getsucursalDetallesData={getsucursalDetallesData}
+
+              sucursalDetallesData={sucursalDetallesData}
+
+              invsuc_itemCero={invsuc_itemCero}              
+              setinvsuc_itemCero={setinvsuc_itemCero}
+              invsuc_q={invsuc_q}              
+              setinvsuc_q={setinvsuc_q}
+              invsuc_exacto={invsuc_exacto}              
+              setinvsuc_exacto={setinvsuc_exacto}
+              invsuc_num={invsuc_num}              
+              setinvsuc_num={setinvsuc_num}
+              invsuc_orderColumn={invsuc_orderColumn}              
+              setinvsuc_orderColumn={setinvsuc_orderColumn}
+              invsuc_orderBy={invsuc_orderBy}              
+              setinvsuc_orderBy={setinvsuc_orderBy}
+
+              controlefecSelectGeneral={controlefecSelectGeneral}
+              setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
+              moneda={moneda}
+            >
+              <FechasMain 
+                fechasMain1={fechasMain1}
+                fechasMain2={fechasMain2}
+                setfechasMain1={setfechasMain1}
+                setfechasMain2={setfechasMain2}
+              />
+
+            </PanelSucursales>
+          }
+          
           
         </Panel>
       </>}

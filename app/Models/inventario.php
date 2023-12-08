@@ -14,21 +14,16 @@ class inventario extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    public function proveedor() { 
-        return $this->hasOne(\App\Models\proveedores::class,"id","id_proveedor"); 
-    }
     public function categoria() { 
         return $this->hasOne(\App\Models\categorias::class,"id","id_categoria"); 
     }
     public function marca() { 
         return $this->hasOne(\App\Models\marcas::class,"id","id_marca"); 
     }
-    public function deposito() { 
-        return $this->hasOne(\App\Models\deposito::class,"id","id_deposito"); 
+    public function catgeneral() { 
+        return $this->hasOne(\App\Models\CatGenerals::class,"id","id_catgeneral"); 
     }
-    public function lotes() { 
-        return $this->hasMany('App\Models\lotes',"id_producto","id"); 
-    }
+  
 
     protected $fillable = [
         "id",
@@ -37,6 +32,7 @@ class inventario extends Model
         "id_proveedor",
         "id_categoria",
         "id_marca",
+        "id_catgeneral",
         "unidad",
         "id_deposito",
         "descripcion",

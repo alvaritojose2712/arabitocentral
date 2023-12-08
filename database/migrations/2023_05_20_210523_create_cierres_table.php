@@ -79,6 +79,16 @@ class CreateCierresTable extends Migration
             $table->decimal("efecadiccajafcop",10,2)->default(0);
             $table->decimal("efecadiccajafdolar",10,2)->default(0);
             $table->decimal("efecadiccajafeuro",10,2)->default(0);
+
+            $table->string("puntolote1")->nullable(true)->default(null);
+            $table->decimal("puntolote1montobs",10,2)->default(0);
+
+            $table->string("puntolote2")->nullable(true)->default(null);
+            $table->decimal("puntolote2montobs",10,2)->default(0);
+
+            $table->string("biopagoserial")->nullable(true)->default(null);
+            $table->decimal("biopagoserialmontobs",10,2)->default(0);
+            
             
             $table->unique(["fecha","id_sucursal"]);
 

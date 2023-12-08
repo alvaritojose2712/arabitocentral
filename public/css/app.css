@@ -75,6 +75,10 @@
 .bg-sinapsis{
   background-color: var(--sinapsis-color) !important;
 }
+
+.bg-sinapsis-light{
+  background-color: var(--sinapsis-color-light) !important;
+}
 .text-sinapsis{
   color: var(--sinapsis-color) !important;
 }

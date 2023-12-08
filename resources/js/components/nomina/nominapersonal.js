@@ -85,78 +85,6 @@ export default function NominaPersonal({
 				<div className="row">
 					<div className="col">
 						<h1>Personal <button className="btn btn-sm btn-success" onClick={setNuevoPersonal}>Nuevo</button></h1>
-
-						<form onSubmit={getPersonalNomina}>
-							<div className="input-group ">
-
-                            
-                                <select
-									value={qSucursalNomina}
-									onChange={e => setqSucursalNomina(e.target.value)}
-									className="form-control">
-									<option value="">--Por Sucursal--</option>
-                                    {sucursales.map(e=>
-									    <option key={e.id} value={e.id}>{e.nombre}</option>
-                                    )}
-								</select>
-
-                                <select
-									value={qCargoNomina}
-									onChange={e => setqCargoNomina(e.target.value)}
-									className="form-control">
-									<option value="">--Por Cargo--</option>
-                                    {cargosData.map(e=>
-									    <option key={e.id} value={e.id}>{e.cargosdescripcion}</option>
-                                    )}
-								</select>
-                                
-
-								<input type="text"
-									className="form-control"
-									placeholder="Buscar..."
-									value={qNomina}
-									onChange={e => setqNomina(e.target.value)} />
-								<div className="input-group-prepend">
-									<button className="btn btn-outline-secondary" type="button" onClick={getPersonalNomina}><i className="fa fa-search"></i></button>
-								</div>
-							</div>
-						</form>
-						{
-							nominaData.personal?
-                                nominaData.personal.length?
-                                    nominaData.personal.map((e, i) =>
-                                        <div
-                                            onClick={()=>setIndexSelectPersonalFun(e.id)}
-                                            
-                                            key={e.id}
-                                            className={(indexSelectNomina == e.id ? "bg-sinapsis" : "bg-light text-secondary") + " card mt-2 pointer"}>
-                                            <div className="card-header flex-row row justify-content-between">
-                                                <div>
-                                                    <small>ID.{e.id}</small>
-                                                </div>
-                                                <div className="d-flex justify-content-between">
-                                                    <div><span>{e.nominanombre}</span></div>
-                                                    <div>{e.cargo.cargosdescripcion}-{e.sucursal.nombre}</div>
-                                                </div>
-                                            </div>
-                                            <div className="card-body">
-                                                <div className="">
-                                                    <h5
-                                                        className="card-title"
-                                                    ><b>{e.nominacedula}</b></h5>
-                                                </div>
-                                                <p className="card-text">
-                                                </p>
-                                            </div>
-                                        </div>
-                                    )
-                                : <div className='h3 text-center text-dark mt-2'><i>¡Sin resultados!</i></div>
-                            : null
-						}
-
-					</div>
-					<div className="col">
-
 						<form onSubmit={addPersonalNomina}>
 							<div className="form-group">
 								<label htmlFor="">
@@ -275,6 +203,75 @@ export default function NominaPersonal({
 								}
 							</div>
 						</form>
+						<hr />
+						<form onSubmit={getPersonalNomina}>
+							<div className="input-group ">
+								<input type="text"
+									className="form-control"
+									placeholder="Buscar..."
+									value={qNomina}
+									onChange={e => setqNomina(e.target.value)} />
+
+                            
+                                <select
+									value={qSucursalNomina}
+									onChange={e => setqSucursalNomina(e.target.value)}
+									className="form-control">
+									<option value="">--Por Sucursal--</option>
+                                    {sucursales.map(e=>
+									    <option key={e.id} value={e.id}>{e.nombre}</option>
+                                    )}
+								</select>
+
+                                <select
+									value={qCargoNomina}
+									onChange={e => setqCargoNomina(e.target.value)}
+									className="form-control">
+									<option value="">--Por Cargo--</option>
+                                    {cargosData.map(e=>
+									    <option key={e.id} value={e.id}>{e.cargosdescripcion}</option>
+                                    )}
+								</select>
+                                
+
+								<div className="input-group-prepend">
+									<button className="btn btn-outline-secondary" type="button" onClick={getPersonalNomina}><i className="fa fa-search"></i></button>
+								</div>
+							</div>
+						</form>
+						{
+							nominaData.personal?
+                                nominaData.personal.length?
+                                    nominaData.personal.map((e, i) =>
+                                        <div
+                                            onClick={()=>setIndexSelectPersonalFun(e.id)}
+                                            
+                                            key={e.id}
+                                            className={(indexSelectNomina == e.id ? "bg-sinapsis" : "bg-light text-secondary") + " card mt-2 pointer"}>
+                                            <div className="card-header flex-row row justify-content-between">
+                                                <div>
+                                                    <small>ID.{e.id}</small>
+                                                </div>
+                                                <div className="d-flex justify-content-between">
+                                                    <div><span>{e.nominanombre}</span></div>
+                                                    <div>{e.cargo.cargosdescripcion}-{e.sucursal.nombre}</div>
+                                                </div>
+                                            </div>
+                                            <div className="card-body">
+                                                <div className="">
+                                                    <h5
+                                                        className="card-title"
+                                                    ><b>{e.nominacedula}</b></h5>
+                                                </div>
+                                                <p className="card-text">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )
+                                : <div className='h3 text-center text-dark mt-2'><i>¡Sin resultados!</i></div>
+                            : null
+						}
+
 					</div>
 				</div>
 			</div>

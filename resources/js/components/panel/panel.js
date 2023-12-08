@@ -3,7 +3,7 @@ export default function Panel({
 }){
 
     return(
-        <div className="container">
+        <div className="container-fluid">
             {children}
         </div>
     )

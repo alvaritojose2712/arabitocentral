@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\CajasController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\ProductoxproveedorController;
+
 use App\Http\Controllers\SucursalController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\ProveedoresController;
@@ -18,7 +21,9 @@ use App\Http\Controllers\ItemsPedidosController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\MonedaController;
 use App\Http\Controllers\LocalsVersionController;
+use App\Http\Controllers\MarcasController;
 use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\CatGeneralsController;
 use App\Http\Controllers\sockets;
 use App\Http\Controllers\TareasController;
 
@@ -32,6 +37,7 @@ use App\Http\Controllers\CierresController;
 use App\Http\Controllers\NominacargosController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\NominapagosController;
+
 
 
 
@@ -60,16 +66,10 @@ Route::post('login', [home::class,"login"]);
 Route::get('logout', [home::class,"logout"]);
 
 Route::post('verificarLogin', [home::class,"verificarLogin"]);
-
-
-
 Route::get('/hora', function () {
     return date("Y-m-d H:i:s");
 });
 
-Route::get('welcome', function () {
-    return view('welcome');
-});
 Route::get('getMoneda', [MonedaController::class,"getMoneda"]);
 Route::get('getVersionRemote', [LocalsVersionController::class,"getVersion"]);
 
@@ -94,6 +94,9 @@ Route::post('sendGarantias', [GarantiasController::class,"sendGarantias"]);
 Route::post('sendFallas', [FallasController::class,"sendFallas"]);
 
 
+
+Route::post('selectPrecioxProveedorSave', [ProductoxproveedorController::class,"selectPrecioxProveedorSave"]);
+Route::post('getPrecioxProveedor', [ProductoxproveedorController::class,"getPrecioxProveedor"]);
 
 Route::post('getinventario', [InventarioController::class,"index"]);
 
@@ -148,6 +151,18 @@ Route::post('delItemFact', [ItemsFacturasController::class,"delItemFact"]);
 Route::post('getPagoProveedor', [PagoFacturasController::class,"getPagoProveedor"]); */
 
 Route::get('getCategorias', [CategoriasController::class,"getCategorias"]);
+Route::post('delCategoria', [CategoriasController::class,"delCategoria"]);
+Route::post('setCategorias', [CategoriasController::class,"setCategorias"]);
+
+Route::get('getCatGenerals', [CatGeneralsController::class,"getCatGenerals"]);
+Route::post('delCatGeneral', [CatGeneralsController::class,"delCatGeneral"]);
+Route::post('setCatGenerals', [CatGeneralsController::class,"setCatGenerals"]);
+
+Route::get('getMarcas', [MarcasController::class,"getMarcas"]);
+Route::post('delMarca', [MarcasController::class,"delMarca"]);
+Route::post('setMarcas', [MarcasController::class,"setMarcas"]);
+
+
 
 
 Route::post('setPedidoInCentralFromMasters', [PedidosController::class,"setPedidoInCentralFromMasters"]);
@@ -160,6 +175,7 @@ Route::post('setNuevaTareaCentral', [sockets::class,"setNuevaTareaCentral"]);
 Route::post('setInventarioFromSucursal', [InventarioSucursalController::class,"setInventarioFromSucursal"]);
 Route::post('getInventarioSucursalFromCentral', [InventarioSucursalController::class,"getInventarioSucursalFromCentral"]);
 Route::post('setInventarioSucursalFromCentral', [InventarioSucursalController::class,"setInventarioSucursalFromCentral"]);
+Route::post('setEfecFromSucursalToCentral', [CajasController::class,"setEfecFromSucursalToCentral"]);
 
 Route::post('setCambiosInventarioSucursal', [InventarioSucursalController::class,"setCambiosInventarioSucursal"]);
 
@@ -185,6 +201,11 @@ Route::post('setPersonalNomina', [NominaController::class,"setPersonalNomina"]);
 Route::post('delPersonalCargos', [NominacargosController::class,"delPersonalCargos"]);
 Route::post('getPersonalCargos', [NominacargosController::class,"getPersonalCargos"]);
 Route::post('setPersonalCargos', [NominacargosController::class,"setPersonalCargos"]);
+
+Route::post('getUsuarios', [UsuariosController::class,"getUsuarios"]);
+Route::post('setUsuario', [UsuariosController::class,"setUsuario"]);
+Route::post('delUsuario', [UsuariosController::class,"delUsuario"]);
+
 
 
 

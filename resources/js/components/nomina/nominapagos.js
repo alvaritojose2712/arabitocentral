@@ -25,41 +25,43 @@ export default function Nominapagos({
     }, [subViewNomina])
     return (
         <div>
-            <form onSubmit={getPersonalNomina}>
-                <div className="input-group ">
+			{!nominapagodetalles.nominanombre?
+                <form onSubmit={getPersonalNomina}>
+                    <div className="input-group ">
 
-                
-                    <select
-                        value={qSucursalNomina}
-                        onChange={e => setqSucursalNomina(e.target.value)}
-                        className="form-control">
-                        <option value="">--Por Sucursal--</option>
-                        {sucursales.map(e=>
-                            <option key={e.id} value={e.id}>{e.nombre}</option>
-                        )}
-                    </select>
-
-                    <select
-                        value={qCargoNomina}
-                        onChange={e => setqCargoNomina(e.target.value)}
-                        className="form-control">
-                        <option value="">--Por Cargo--</option>
-                        {cargosData.map(e=>
-                            <option key={e.id} value={e.id}>{e.cargosdescripcion}</option>
-                        )}
-                    </select>
+                        <input type="text"
+                            className="form-control"
+                            placeholder="Buscar..."
+                            value={qNomina}
+                            onChange={e => setqNomina(e.target.value)} />
                     
+                        <select
+                            value={qSucursalNomina}
+                            onChange={e => setqSucursalNomina(e.target.value)}
+                            className="form-control">
+                            <option value="">--Por Sucursal--</option>
+                            {sucursales.map(e=>
+                                <option key={e.id} value={e.id}>{e.nombre}</option>
+                            )}
+                        </select>
 
-                    <input type="text"
-                        className="form-control"
-                        placeholder="Buscar..."
-                        value={qNomina}
-                        onChange={e => setqNomina(e.target.value)} />
-                    <div className="input-group-prepend">
-                        <button className="btn btn-outline-secondary" type="button" onClick={getPersonalNomina}><i className="fa fa-search"></i></button>
+                        <select
+                            value={qCargoNomina}
+                            onChange={e => setqCargoNomina(e.target.value)}
+                            className="form-control">
+                            <option value="">--Por Cargo--</option>
+                            {cargosData.map(e=>
+                                <option key={e.id} value={e.id}>{e.cargosdescripcion}</option>
+                            )}
+                        </select>
+                        
+
+                        <div className="input-group-prepend">
+                            <button className="btn btn-outline-secondary" type="button" onClick={getPersonalNomina}><i className="fa fa-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            :null}
 
             {!nominapagodetalles.nominanombre?
                 <table className="table">
@@ -95,18 +97,22 @@ export default function Nominapagos({
 					<h1>Detalles <button className="btn btn-sm btn-outline-danger" onClick={()=>setnominapagodetalles({})}><i className="fa fa-times"></i></button></h1>
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col">
-                                <table className="table">
+                            <div className="col p-0">
+                                <table className="table table-sm table-striped">
                                     <thead>
                                         <tr>
                                             <th>
                                                 <h3>
-                                                    {nominapagodetalles.sucursal?nominapagodetalles.sucursal.nombre:null}
+                                                    <button className="btn btn-secondary">
+                                                        {nominapagodetalles.sucursal?nominapagodetalles.sucursal.nombre:null}
+                                                    </button>
                                                 </h3>
                                             </th>
                                             <th>
                                                 <h3 className='text-right'>
-                                                    {nominapagodetalles.cargo?nominapagodetalles.cargo.cargosdescripcion:null} (S. {nominapagodetalles.cargo?nominapagodetalles.cargo.cargossueldo:null})
+                                                    <button className="btn btn-secondary">
+                                                        {nominapagodetalles.cargo?nominapagodetalles.cargo.cargosdescripcion:null} (S. {nominapagodetalles.cargo?nominapagodetalles.cargo.cargossueldo:null})
+                                                    </button>
                                                 </h3>
                                             </th>
                                         </tr>
@@ -115,40 +121,37 @@ export default function Nominapagos({
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
-                                <table className="table">
+                            <div className="col p-0">
+                                <table className="table table-sm table-striped">
                                     <thead>
                                        
                                         <tr>
-                                            <th>Nombres</th>
-                                            <th>Cédula</th>
-                                        </tr>
-                                        <tr>
-                                            <td>{nominapagodetalles.nominanombre?nominapagodetalles.nominanombre:null} ({nominapagodetalles.nominafechadenacimiento?nominapagodetalles.nominafechadenacimiento:null}) ({nominapagodetalles.edad?nominapagodetalles.edad:null} años)</td>
+                                            <th className=''>Nombres</th>
+                                            <td>{nominapagodetalles.nominanombre?nominapagodetalles.nominanombre:null}</td>
+                                            <th className=''>Cédula</th>
                                             <td>{nominapagodetalles.nominacedula?nominapagodetalles.nominacedula:null}</td>
                                         </tr>
-
                                         <tr>
-                                            <th>Teléfono</th>
-                                            <th>Dirección</th>
-                                        </tr>
-                                        <tr>
+                                            <th className=''>Edad</th>
+                                            <td>{nominapagodetalles.nominafechadenacimiento?nominapagodetalles.nominafechadenacimiento:null} ({nominapagodetalles.edad?nominapagodetalles.edad:null} años)</td>
+                                            <th className=''>Teléfono</th>
                                             <td>{nominapagodetalles.nominatelefono?nominapagodetalles.nominatelefono:null}</td>
-                                            <td>{nominapagodetalles.nominadireccion?nominapagodetalles.nominadireccion:null}</td>
                                         </tr>
                                     </thead>
                                 </table>
                             </div>
-                            <div className="col">
-                                <table className="table">
+                            <div className="col p-0">
+                                <table className="table table-sm table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Ingreso</th>
-                                            <th>Instrucción</th>
+                                            <th className=''>Ingreso</th>
+                                            <td>{nominapagodetalles.nominafechadeingreso?nominapagodetalles.nominafechadeingreso:null} ({nominapagodetalles.tiempolaborado?nominapagodetalles.tiempolaborado:null} años)</td>
+                                            <th className=''>Instrucción</th>
+                                            <td>{nominapagodetalles.nominagradoinstruccion?nominapagodetalles.nominagradoinstruccion:null}</td>
                                         </tr>
                                         <tr>
-                                            <td>{nominapagodetalles.nominafechadeingreso?nominapagodetalles.nominafechadeingreso:null} ({nominapagodetalles.tiempolaborado?nominapagodetalles.tiempolaborado:null} años)</td>
-                                            <td>{nominapagodetalles.nominagradoinstruccion?nominapagodetalles.nominagradoinstruccion:null}</td>
+                                            <th className=''>Dirección</th>
+                                            <td>{nominapagodetalles.nominadireccion?nominapagodetalles.nominadireccion:null}</td>
                                         </tr>
                                     </thead>
                                 </table>

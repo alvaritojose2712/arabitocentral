@@ -23,8 +23,30 @@ class inventario_sucursal extends Model
     }
     
     protected $fillable = [
-    	"id_sucursal",
-		"id_producto",
-		"cantidad",
+    	"idinsucursal",
+        "id_sucursal",
+        "codigo_barras",
+        "codigo_proveedor",
+        "id_proveedor",
+        "id_categoria",
+        "id_marca",
+        "unidad",
+        "id_deposito",
+        "descripcion",
+        "iva",
+        "porcentaje_ganancia",
+        "precio_base",
+        "precio",
+        "precio1",
+        "precio2",
+        "precio3",
+        "bulto",
+        "stockmin",
+        "stockmax",
+        "cantidad",
+        "push",
+        "id_vinculacion",
+
+
     ];
 }

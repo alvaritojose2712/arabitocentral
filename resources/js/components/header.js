@@ -11,14 +11,12 @@ export default function Header({
 	return (
 	<header className="container mt-2 mb-2">
 		<div className="row">
-			<div className="col d-flex justify-content-center align-items-center pointer" onClick={()=>setviewmainPanel("panel")}>
-				{viewmainPanel === "cierres" && <h2>Cierres</h2> } 
-				{viewmainPanel === "inventario" && <h2>Inventario</h2> }
-				{viewmainPanel === "gastos" && <h2>Gastos</h2> }
+			<div className="col d-flex justify-content-center align-items-center pointer" onClick={()=>setviewmainPanel("panelgeneral")}>
+				
 			</div>
 			<div className="col d-flex justify-content-center align-items-center">
 				<div>
-					<img src={logo} alt="arabito" className="logo pointer" onClick={()=>setviewmainPanel("panel")} />
+					<img src={logo} alt="arabito" className="logo pointer" onClick={()=>setviewmainPanel("panelgeneral")} />
 				</div>
 			</div>
 			<div className="col d-flex justify-content-center align-items-center">

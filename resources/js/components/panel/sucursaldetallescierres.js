@@ -30,7 +30,7 @@ export default function SucursalDetallesCierres({
                                 <th className="bg-sinapsis text-light borderleft">CT. VENTAS</th>
                                 <th className="bg-sinapsis text-light">DEBITO</th>
                                 <th className="bg-sinapsis text-light">EFECTIVO</th>
-                                <th className="bg-sinapsis text-light">TRANSFERENCIA</th>
+                                <th className="bg-s inapsis text-light">TRANSFERENCIA</th>
                                 <th className="bg-light text-sinapsis">VENTA TOTAL</th>
                                 <th className="bg-light text-sinapsis">GANANCIAS APROXIMADAS</th>
 

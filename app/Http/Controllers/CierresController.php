@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\cierres;
+use App\Models\cajas;
+use App\Models\inventario_sucursal;
+use App\Models\puntosybiopagos;
 use App\Models\sucursal;
 use Illuminate\Http\Request;
 
@@ -13,6 +16,11 @@ class CierresController extends Controller
    {
         try {
             $codigo_origen = $req->codigo_origen;
+
+            $lotes = $req->lotes;
+            $biopagos = $req->biopagos;
+
+
             $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
             $id_origen = $id_ruta["id_origen"];
             
@@ -63,7 +71,61 @@ class CierresController extends Controller
                 "efecadiccajafcop" => $cierre["efecadiccajafcop"],
                 "efecadiccajafdolar" => $cierre["efecadiccajafdolar"],
                 "efecadiccajafeuro" => $cierre["efecadiccajafeuro"],
+
+                "puntolote1" => $cierre["puntolote1"],
+                "puntolote1montobs" => $cierre["puntolote1montobs"],
+                "puntolote2" => $cierre["puntolote2"],
+                "puntolote2montobs" => $cierre["puntolote2montobs"],
+                "biopagoserial" => $cierre["biopagoserial"],
+                "biopagoserialmontobs" => $cierre["biopagoserialmontobs"],
+
+
             ]);
+
+            foreach ($lotes as $key => $e) {
+
+                puntosybiopagos::updateOrCreate([
+                    "fecha" => $e["fecha"],
+                    "id_usuario" => $e["id_usuario"],
+                    "id_sucursal" => $id_origen,
+                    "tipo" => $e["tipo"],
+                ],[
+                    "monto" => $e["monto"],
+                    "loteserial" => $e["lote"],
+                    "banco" => $e["banco"],
+                    
+                    "fecha" => $e["fecha"],
+                    "id_sucursal" => $id_origen,
+                    "id_usuario" => $e["id_usuario"],
+                    "tipo" => $e["tipo"],
+                    
+                    
+                ]);
+            }
+            
+            
+            
+            foreach ($biopagos as $key => $value) {
+                puntosybiopagos::updateOrCreate([
+                    "fecha" => $e["fecha"],
+                    "id_usuario" => $e["id_usuario"],
+                    "id_sucursal" => $id_origen,
+                    "tipo" => $e["tipo"],
+                ],[
+                    "monto" => $e["monto"],
+                    "loteserial" => $e["serial"],
+                    "banco" => "BDV",
+                    "fecha" => $e["fecha"],
+                    "id_sucursal" => $id_origen,
+                    "id_usuario" => $e["id_usuario"],
+                    "tipo" => $e["tipo"],
+                ]);
+            }
+            
+
+            
+
+
             
             if ($cierresobj->save()) {
                 return "Exito al registrar Cierre en Central";
@@ -226,9 +288,9 @@ class CierresController extends Controller
         $filtros = $req->filtros;
 
 
-        $viewmainPanel = $req->viewmainPanel;
+        $subviewpanelsucursales = $req->subviewpanelsucursales;
 
-        switch ($viewmainPanel) {
+        switch ($subviewpanelsucursales) {
             case 'panel':
             
                 break;
@@ -236,11 +298,66 @@ class CierresController extends Controller
                 return $this->getCierreSucursal($fechasMain1,$fechasMain2,$id_sucursal,$filtros);
                 break;
             case 'inventario':
-            
+                return $this->getInvSucursal($id_sucursal,$filtros);
+                
+            break;
+                case 'puntosyseriales':
+                    return $this->getPuntosyseriales($fechasMain1,$fechasMain2,$id_sucursal,$filtros);
+                    
                 break;
-            case 'gastos':
-            
-                break;
+            case 'controldeefectivo':
+                return $this->getControldeefectivo($fechasMain1,$fechasMain2,$id_sucursal,$filtros);
+                
+            break;
         }
+    }
+
+    function getInvSucursal($id_sucursal,$filtros){
+
+        $itemCero = $filtros["itemCero"];
+        $q = $filtros["q"];
+        $exacto = $filtros["exacto"];
+        $num = $filtros["num"];
+        $orderColumn = $filtros["orderColumn"];
+        $orderBy = $filtros["orderBy"];
+
+        return inventario_sucursal::where(function($e) use($itemCero,$q,$exacto){
+            $e->orWhere("descripcion","LIKE","%$q%")
+            ->orWhere("codigo_proveedor","LIKE","%$q%")
+            ->orWhere("codigo_barras","LIKE","%$q%");
+        })
+        ->where("id_sucursal",$id_sucursal)
+        ->limit($num)
+        ->orderBy($orderColumn,$orderBy)
+        ->get();
+    }
+
+    function getControldeefectivo($fechasMain1,$fechasMain2,$id_sucursal,$filtros) {
+        $controlefecQ = "";
+        $controlefecQDesde = "";
+        $controlefecQHasta = "";
+        $controlefecQCategoria = "";
+
+        $controlefecSelectGeneral = $filtros["controlefecSelectGeneral"];
+
+        return cajas::where("tipo",$controlefecSelectGeneral)
+        ->when($controlefecQ,function($q) use ($controlefecQ){
+            $q->orWhere("concepto",$controlefecQ);
+            $q->orWhere("monto",$controlefecQ);
+        })
+        ->when($controlefecQCategoria,function($q) use ($controlefecQCategoria) {
+            $q->where("categoria",$controlefecQCategoria);
+        })
+        ->whereBetween("fecha",[$fechasMain1,$fechasMain2])
+        ->orderBy("id","desc")
+        ->get();
+
+       
+    }
+
+
+    function getPuntosyseriales($fechasMain1,$fechasMain2,$id_sucursal,$filtros){
+        
+        return puntosybiopagos::whereBetween("fecha",[$fechasMain1,$fechasMain2])->where("id_sucursal",$id_sucursal)->get();
     }
 }

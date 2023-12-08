@@ -29,12 +29,13 @@ class CreateSucursalsTable extends Migration
             ["nombre"=>"Achaguas","codigo"=>"achaguas"],
             ["nombre"=>"El Samán","codigo"=>"elsaman"],
             ["nombre"=>"Bruzual","codigo"=>"bruzual"],
-            ["nombre"=>"Libertad","codigo"=>"libertad"],
             ["nombre"=>"San Fernando","codigo"=>"sanfernando1"],
+            ["nombre"=>"San Fernando 2","codigo"=>"sanfernando2"],
             ["nombre"=>"Calabozo","codigo"=>"calabozo"],
             ["nombre"=>"Valle de la Pascua","codigo"=>"valledelapascua"],
-            ["nombre"=>"Central","codigo"=>"sanfernando2"],
+            ["nombre"=>"Valle de la Pascua 2","codigo"=>"valledelapascua2"],
             ["nombre"=>"San Juan de los Morros","codigo"=>"sanjuandelosmorros"],
+            ["nombre"=>"Maracay","codigo"=>"maracay"],
             
         ]);
     }

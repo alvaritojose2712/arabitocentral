@@ -329,39 +329,56 @@ class InventarioSucursalController extends Controller
         
     }
 
-    function setInventarioSucursalFun($arr) {
+    function setInventarioSucursalFun($arr,$id_sucursal) {
+        
         return inventario_sucursal::updateOrCreate([
-            "id_sucursal" => $arr["id_sucursal"],
-            "id_producto" => $arr["id_producto"],
+            "id_sucursal" => $id_sucursal,
+            "idinsucursal" => $arr["id"],
         ],[
+
+            "idinsucursal" => $arr["id"],
+            "id_sucursal" => $id_sucursal,
+            "codigo_barras" => $arr["codigo_barras"],
+            "codigo_proveedor" => $arr["codigo_proveedor"],
+            "id_proveedor" => $arr["id_proveedor"],
+            "id_categoria" => $arr["id_categoria"],
+            "id_marca" => $arr["id_marca"],
+            "unidad" => $arr["unidad"],
+            "id_deposito" => $arr["id_deposito"],
+            "descripcion" => $arr["descripcion"],
+            "iva" => $arr["iva"],
+            "porcentaje_ganancia" => $arr["porcentaje_ganancia"],
+            "precio_base" => $arr["precio_base"],
+            "precio" => $arr["precio"],
+            "precio1" => $arr["precio1"],
+            "precio2" => $arr["precio2"],
+            "precio3" => $arr["precio3"],
+            "bulto" => $arr["bulto"],
+            "stockmin" => $arr["stockmin"],
+            "stockmax" => $arr["stockmax"],
             "cantidad" => $arr["cantidad"],
+            "push" => $arr["push"],
+            "id_vinculacion" => $arr["id_vinculacion"],
         ]);
     }
 
+    
+
 
     public function sendInventarioCt(Request $req) {
+        $inventariodeldia =  $req->inventario;
+
         try {
-            $inventariodeldia =  $req->inventario;
             $codigo_origen =  $req->codigo_origen;
 
             $id_ruta = $this->retOrigenDestino($codigo_origen,$codigo_origen);
             $id_origen = $id_ruta["id_origen"];
 
             $num = 0;
-
             foreach ($inventariodeldia as $i => $producto) {
-                $id_vinculacion = $producto["id_vinculacion"];
-                if (inventario::find($id_vinculacion)) {
-
-                    $insert = $this->setInventarioSucursalFun([
-                        "id_sucursal" => $id_origen,
-                        "id_producto" =>  $id_vinculacion,
-                        "cantidad" => $producto["cantidad"],
-                    ]);
-
-                    if ($insert) {
-                        $num++;
-                    }
+                $insert = $this->setInventarioSucursalFun($producto, $id_origen);
+                if ($insert) {
+                    $num++;
                 }
             }
 

@@ -47,7 +47,20 @@ const db = {
   getEstaInventario: data=>axios.post(host+"getEstaInventario",data),
   getinventario: data=>axios.post(host+"getinventario",data),
   getProveedores: data=>axios.post(host+"getProveedores",data),
+
   getCategorias: data=>axios.get(host+"getCategorias",{params:data}),
+  delCategoria: data=>axios.post(host+"delCategoria",data),
+  setCategorias: data=>axios.post(host+"setCategorias",data),
+
+  getMarcas: data=>axios.get(host+"getMarcas",{params:data}),
+  delMarca: data=>axios.post(host+"delMarca",data),
+  setMarcas: data=>axios.post(host+"setMarcas",data),
+
+
+  getCatGenerals: data=>axios.get(host+"getCatGenerals",{params:data}),
+  delCatGeneral: data=>axios.post(host+"delCatGeneral",data),
+  setCatGenerals: data=>axios.post(host+"setCatGenerals",data),
+
   getDepositos: data=>axios.post(host+"getDepositos",data),
   getFallas: data=>axios.post(host+"getFallas",data),
   setFalla: data=>axios.post(host+"setFalla",data),
@@ -64,6 +77,14 @@ const db = {
   delPersonalCargos: data=>axios.post(host+"delPersonalCargos",data),
   getPersonalCargos: data=>axios.post(host+"getPersonalCargos",data),
   setPersonalCargos: data=>axios.post(host+"setPersonalCargos",data),
+  getUsuarios: data=>axios.post(host+"getUsuarios",data),
+  setUsuario: data=>axios.post(host+"setUsuario",data),
+  delUsuario: data=>axios.post(host+"delUsuario",data),
+  
+  selectPrecioxProveedorSave: data=>axios.post(host+"selectPrecioxProveedorSave",data),
+  getPrecioxProveedor: data=>axios.post(host+"getPrecioxProveedor",data),
+  
+  
   
   
 

@@ -14,29 +14,26 @@ class CreateInventariosTable extends Migration
     public function up()
     {
         Schema::create('inventarios', function (Blueprint $table) {
-            $table->integer('id')->unsigned();
+            $table->increments('id');
 
             $table->string("codigo_barras");//->unique();
             $table->string("codigo_proveedor")->nullable()->default(null);
 
-            $table->integer("id_proveedor");
-            
+            $table->integer("id_categoria")->unsigned();
+            $table->foreign('id_categoria')->references('id')->on('categorias');
 
-            $table->integer("id_categoria");
+            $table->integer("id_catgeneral")->unsigned();
+            $table->foreign('id_catgeneral')->references('id')->on('cat_generals');
 
-            $table->string("id_marca")->nullable()->default("GENÉRICO");
+            $table->integer("id_marca")->unsigned();
+            $table->foreign('id_marca')->references('id')->on('marcas');
 
             $table->string("unidad")->nullable()->default("UND");
 
-            $table->string("id_deposito")->nullable()->default(1);
-
-            
-            
             $table->string("descripcion");
 
             $table->decimal("iva",5,2)->nullable()->default(0);
 
-            $table->decimal("porcentaje_ganancia",3,2)->nullable()->default(0);
             $table->decimal("precio_base",8,2)->default(0);
             $table->decimal("precio",8,2)->default(0);
 
@@ -50,7 +47,6 @@ class CreateInventariosTable extends Migration
 
             $table->decimal("cantidad",9,2)->default(0);
 
-            $table->unique(["id"]);
             $table->timestamps();
             
 

@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class marcas extends Model
 {
+    protected $fillable = ["descripcion"];
+
     use HasFactory;
 }

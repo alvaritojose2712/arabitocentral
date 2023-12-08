@@ -5,82 +5,45 @@ namespace App\Http\Controllers;
 use App\Models\marcas;
 use App\Http\Requests\StoremarcasRequest;
 use App\Http\Requests\UpdatemarcasRequest;
-
+use Illuminate\Http\Request;
+use Response;
 class MarcasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function getMarcas(Request $req)
     {
-        //
+        try {
+            $q = $req->q;
+            return marcas::where("descripcion","LIKE",$q."%")->orderBy("descripcion","asc")->get(["id","descripcion"]);
+            
+        } catch (\Exception $e) {
+            return [];
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function delMarca(Request $req)
     {
-        //
+        try {
+            $id = $req->id;
+            if ($id) {
+                marcas::find($id)->delete();
+            }
+            return Response::json(["msj"=>"Éxito al eliminar","estado"=>true]);
+            
+        } catch (\Exception $e) {
+            return Response::json(["msj"=>"Error: ".$e->getMessage(),"estado"=>false]);
+            
+        }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoremarcasRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoremarcasRequest $request)
+    public function setMarcas(Request $req)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\marcas  $marcas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(marcas $marcas)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\marcas  $marcas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(marcas $marcas)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatemarcasRequest  $request
-     * @param  \App\Models\marcas  $marcas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatemarcasRequest $request, marcas $marcas)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\marcas  $marcas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(marcas $marcas)
-    {
-        //
+        try {
+            marcas::updateOrCreate(
+                ["id"=>$req->id],[
+                    "descripcion"=>$req->marcasDescripcion,
+                ]);
+            return Response::json(["msj"=>"¡Éxito!","estado"=>true]);
+        } catch (\Exception $e) {
+            return Response::json(["msj"=>"Error: ".$e->getMessage(),"estado"=>false]);
+        }
     }
 }

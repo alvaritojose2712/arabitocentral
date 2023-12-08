@@ -51,40 +51,21 @@ public function index(Request $req)
 
     if ($q=="") {
         $data = inventario::with([
-            "proveedor",
             "categoria",
             "marca",
-            /* "deposito", */
-            "lotes"=>function($q){
-                $q->orderBy("vence","asc");
-            },
-        ])->where(function($e) use($itemCero){
-            if (!$itemCero) {
-                $e->where("cantidad",">",0);
-                // code...
-            }
-
-        })
+            "catgeneral",
+        ])
         ->limit($num)
         ->orderBy($orderColumn,$orderBy)
         ->get();
     }else{
         $data = inventario::with([
-            "proveedor",
             "categoria",
             "marca",
-            "deposito",
-            "lotes"=>function($q){
-                $q->orderBy("vence","asc");
-            },
+            "catgeneral",
+            
         ])
-        ->where(function($e) use($itemCero){
-            if (!$itemCero) {
-                $e->where("cantidad",">",0);
-                // code...
-            }
-
-        })
+        
         ->where(function($e) use($itemCero,$q,$exacto){
 
             if ($exacto=="si") {
@@ -105,13 +86,7 @@ public function index(Request $req)
         ->orderBy($orderColumn,$orderBy)
         ->get();
     }
-    $data->map(function($q) use ($bs,$cop)
-    {
-        $q->bs = number_format($q->precio*$bs["valor"],2,".",",");
-        $q->cop = number_format($q->precio*$cop["valor"],2,".",",");
-        $q->lotes_ct = $q->lotes->sum("cantidad");
-        return $q;
-    });
+   
     return $data;
     
 }
@@ -196,7 +171,7 @@ public function delProductoFun($id)
 
         $i = inventario::find($id);
         
-        $this->setMovimientoNotCliente(null,$i->descripcion,$i->cantidad,$i->precio,"Eliminación de Producto");
+        //$this->setMovimientoNotCliente(null,$i->descripcion,$i->cantidad,$i->precio,"Eliminación de Producto");
 
         
         $i->delete();
@@ -236,11 +211,9 @@ public function guardarNuevoProductoLote(Request $req)
                     $ee["precio_base"],
                     $ee["precio"],
                     $ee["iva"],
-                    $ee["id_proveedor"],
                     $ee["id_marca"],
-                    /*$req->inpInvid_deposito*/"",
-                    0,
-                    /*$req->inpInvLotes*/[]);
+                    $ee["id_catgeneral"],
+                );
             }else if ($ee["type"]==="delete") {
                 $this->delProductoFun($ee["id"]);
             }
@@ -266,11 +239,9 @@ public function guardarNuevoProducto(Request $req)
             $req->inpInvbase,
             $req->inpInvventa,
             $req->inpInviva,
-            $req->inpInvid_proveedor,
             $req->inpInvid_marca,
-            $req->inpInvid_deposito,
-            $req->inpInvporcentaje_ganancia,
-            $req->inpInvLotes);
+            $req->id_catgeneral
+            );
             return Response::json(["msj"=>"Éxito","estado"=>true]);   
     } catch (\Exception $e) {
         return Response::json(["msj"=>"Error: ".$e->getMessage(),"estado"=>false]);
@@ -293,11 +264,8 @@ public function guardarProducto(
     $req_inpInvbase,
     $req_inpInvventa,
     $req_inpInviva,
-    $req_inpInvid_proveedor,
     $req_inpInvid_marca,
-    $req_inpInvid_deposito,
-    $req_inpInvporcentaje_ganancia,
-    $req_inpInvLotes
+    $id_catgeneral
 ){
     $id_factura = $req_id_factura;
 
@@ -333,43 +301,13 @@ public function guardarProducto(
             "precio_base" => $req_inpInvbase,
             "precio" => $req_inpInvventa,
             "iva" => $req_inpInviva,
-            "id_proveedor" => $req_inpInvid_proveedor,
             "id_marca" => $req_inpInvid_marca,
-            "id_deposito" => $req_inpInvid_deposito,
-            "porcentaje_ganancia" => $req_inpInvporcentaje_ganancia
+            "id_catgeneral" => $id_catgeneral,
         ]);
 
-        foreach ($req_inpInvLotes as $ee) {
-            if (isset($ee["type"])&&($ee["type"]==="update"||$ee["type"]==="new")) {
-                
-                if (isset($ee["id"])) {
-                    lotes::updateOrCreate([
-                        "id" => $ee["id"],
-                    ],[
-                        "cantidad" => $ee["cantidad"],
-                        "lote" => $ee["lote"],
-                        "creacion" => $ee["creacion"],
-                        "vence" => $ee["vence"]
-                    ]);
-                }else{
-                    lotes::create([
-                        "id_producto" => $req_id,
-                        "cantidad" => $ee["cantidad"],
-                        "lote" => $ee["lote"],
-                        "creacion" => $ee["creacion"],
-                        "vence" => $ee["vence"]
-                    ]);
-                }
-            }else if (isset($ee["type"])&&$ee["type"]==="delete") {
-                lotes::find($ee["id"])->delete();
-
-            }
-        
-        }
-
-        $this->checkFalla($req_id,$ctInsert);
+        /* $this->checkFalla($req_id,$ctInsert);
         $this->setMovimientoNotCliente($insertOrUpdateInv->id,"",$ctNew,"",$tipo);
-        $this->insertItemFact($id_factura,$insertOrUpdateInv,$ctInsert,$beforecantidad,$ctNew,$tipo);
+        $this->insertItemFact($id_factura,$insertOrUpdateInv,$ctInsert,$beforecantidad,$ctNew,$tipo); */
         
 
         return true;   
