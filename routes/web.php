@@ -37,6 +37,8 @@ use App\Http\Controllers\CierresController;
 use App\Http\Controllers\NominacargosController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\NominapagosController;
+use App\Http\Controllers\ComovamosController;
+
 
 
 
@@ -76,8 +78,10 @@ Route::get('getVersionRemote', [LocalsVersionController::class,"getVersion"]);
 Route::get('', [home::class,"index"]);
 Route::get('today', [home::class,"today"]);
 Route::get('getSucursales', [SucursalController::class,"getSucursales"]);
+Route::post('setEstadisticas', [InventarioSucursalController::class,"setEstadisticas"]);
 
 
+Route::post('getNomina', [NominaController::class,"getNomina"]);
 
 
 Route::get('getFallas', [FallasController::class,"getFallas"]);
@@ -168,6 +172,7 @@ Route::post('setMarcas', [MarcasController::class,"setMarcas"]);
 Route::post('setPedidoInCentralFromMasters', [PedidosController::class,"setPedidoInCentralFromMasters"]);
 Route::post('respedidos', [PedidosController::class,"respedidos"]);
 Route::post('changeExtraidoEstadoPed', [PedidosController::class,"changeExtraidoEstadoPed"]);
+Route::post('setComovamos', [ComovamosController::class,"setComovamos"]);
 
 
 ///eventscentral

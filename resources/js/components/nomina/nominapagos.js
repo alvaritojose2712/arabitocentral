@@ -160,6 +160,29 @@ export default function Nominapagos({
                         <div className="row">
                             <div className="col">
                                 <h3>Pagos</h3>
+
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th>FECHA</th>
+                                            <th>DESCRIPCIÓN</th>
+                                            <th>SUCURSAL</th>
+                                            <th>MONTO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {nominapagodetalles?
+                                            nominapagodetalles.pagos.map(e=>
+                                                <tr key={e.id}>
+                                                    <td>{e.created_at}</td>
+                                                    <td>{e.descripcion}</td>
+                                                    <td>{e.sucursal.nombre}</td>
+                                                    <td>{e.monto}</td>
+                                                </tr>
+                                            )
+                                        :null}
+                                    </tbody>
+                                </table>
                             </div>
 
                             <div className="col">

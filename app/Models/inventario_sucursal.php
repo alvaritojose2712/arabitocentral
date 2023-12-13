@@ -15,9 +15,13 @@ class inventario_sucursal extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    public function producto() { 
-        return $this->hasOne(\App\Models\inventario::class,"id","id_producto"); 
+    public function proveedor() { 
+        return $this->hasOne(\App\Models\proveedores::class,"id","id_proveedor"); 
     }
+    public function categoria() { 
+        return $this->hasOne(\App\Models\categorias::class,"id","id_categoria"); 
+    }
+    
 	public function sucursal() { 
         return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\categorias;
+use App\Models\inventario_sucursal;
 use App\Models\proveedores;
 use App\Models\pedidos;
 use App\Models\inventario;
@@ -19,8 +20,11 @@ class PedidosController extends Controller
     public function setPedidoInCentralFromMasters(Request $req)
     {
         $codigo_origen = $req->codigo_origen;
+        
         $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
+        
         $id_origen = $id_ruta["id_origen"];
+        $id_destino = $req->id_sucursal;
 
         $pedidos = $req->pedidos;
         $type = $req->type;
@@ -29,18 +33,9 @@ class PedidosController extends Controller
             foreach ($pedidos as $key => $e) {
                 if ($type=="add") {
 
-                    $id_destino_query = sucursal::where("codigo",$e["cliente"]["identificacion"])->first();
-
-                    $id_destino = 0;
-                    if($id_destino_query){
-                        $id_destino = $id_destino_query->id;
-                    }else{
-                        return "Error: No existe sucursal ".$e["cliente"]["identificacion"];
-                        
-                    }
                     $ped = new pedidos;
 
-                    $ped->id = $e["id"];
+                    $ped->idinsucursal = $e["id"];
                     $ped->estado = 1;
                     $ped->id_origen = $id_origen;
                     $ped->id_destino = $id_destino;//id Destino
@@ -48,32 +43,47 @@ class PedidosController extends Controller
                         $count = 0;
                         foreach ($e["items"] as $k => $ee) {
 
-                            // $categorias = categorias::updateOrCreate([
-                            //     "id"=>$ee["producto"]["categoria"]["id"],
-                            // ],[
-                            //     "id"=>$ee["producto"]["categoria"]["id"],
-                            //     "descripcion"=>$ee["producto"]["categoria"]["descripcion"],
-                            // ]);
-                            // $proveedores = proveedores::updateOrCreate([
-                            //     "id" => $ee["producto"]["proveedor"]["id"],
-                            // ],[
-                            //     "id" => $ee["producto"]["proveedor"]["id"],
-                            //     "rif" => $ee["producto"]["proveedor"]["rif"],
-                            //     "descripcion" => $ee["producto"]["proveedor"]["descripcion"],
-                            //     "direccion" => $ee["producto"]["proveedor"]["direccion"],
-                            //     "telefono" => $ee["producto"]["proveedor"]["telefono"],
-                            // ]);
+                            $id_categoria = null;
+                            $ifcat =  categorias::where("descripcion",$ee["producto"]["categoria"]["descripcion"])->first();
+                            if ($ifcat) {
+                                $id_categoria = $ifcat->id;
+                            }else{
+                                $newcat = new categorias; 
+                                $newcat->descripcion = $ee["producto"]["categoria"]["descripcion"];
+                                $newcat->save();
 
-                            // if ($categorias&&$proveedores) {
-                            //     # code...
-                                $inv = inventario::updateOrCreate([
-                                    "id" => $ee["id_producto"],
+                                $id_categoria = $newcat->id;
+
+                               
+                            }
+
+                            $id_proveedor = null;
+                            $ifpro =  proveedores::where("rif",$ee["producto"]["proveedor"]["rif"])->first();
+                            if ($ifpro) {
+                                $id_proveedor = $ifpro->id;
+                            }else{
+                                $newpro = new proveedores;
+                                $newpro->descripcion = $ee["producto"]["proveedor"]["descripcion"];
+                                $newpro->rif = $ee["producto"]["proveedor"]["rif"];
+                                $newpro->direccion = $ee["producto"]["proveedor"]["direccion"];
+                                $newpro->telefono = $ee["producto"]["proveedor"]["telefono"];
+                                $newpro->save();
+
+                                $id_proveedor = $newpro->id;
+
+                            }
+
+                                $inv = inventario_sucursal::updateOrCreate([
+                                    "id_sucursal" => $id_origen,
+                                    "idinsucursal" => $ee["producto"]["id"],
                                 ],[
-                                    "id" => $ee["id_producto"],
-                                    "codigo_proveedor" => $ee["producto"]["codigo_proveedor"],
+                                    "id_sucursal" => $id_origen,
+                                    "idinsucursal" => $ee["producto"]["id"],
+                                    
                                     "codigo_barras" => $ee["producto"]["codigo_barras"],
-                                    "id_proveedor" => $ee["producto"]["id_proveedor"],
-                                    "id_categoria" => $ee["producto"]["id_categoria"],
+                                    "codigo_proveedor" => $ee["producto"]["codigo_proveedor"],
+                                    "id_proveedor" => $id_proveedor,
+                                    "id_categoria" => $id_categoria,
                                     "id_marca" => $ee["producto"]["id_marca"],
                                     "unidad" => $ee["producto"]["unidad"],
                                     "id_deposito" => $ee["producto"]["id_deposito"],
@@ -82,20 +92,22 @@ class PedidosController extends Controller
                                     "porcentaje_ganancia" => $ee["producto"]["porcentaje_ganancia"],
                                     "precio_base" => $ee["producto"]["precio_base"],
                                     "precio" => $ee["producto"]["precio"],
-                                    "cantidad" => $ee["producto"]["cantidad"],
-                                    "bulto" => $ee["producto"]["bulto"],
                                     "precio1" => $ee["producto"]["precio1"],
                                     "precio2" => $ee["producto"]["precio2"],
                                     "precio3" => $ee["producto"]["precio3"],
+                                    "bulto" => $ee["producto"]["bulto"],
                                     "stockmin" => $ee["producto"]["stockmin"],
                                     "stockmax" => $ee["producto"]["stockmax"],
+                                    "cantidad" => $ee["producto"]["cantidad"],
+                                    "push" => $ee["producto"]["push"],
+                                    "id_vinculacion" => $ee["producto"]["id_vinculacion"],
                                 ]);
                                 if ($inv) {
                                     
                                     $items_pedidos = new items_pedidos;
                                     
-                                    $items_pedidos->id_producto = $ee["id_producto"];
-                                    $items_pedidos->id_pedido = $ee["id_pedido"];
+                                    $items_pedidos->id_producto = $inv->id;
+                                    $items_pedidos->id_pedido = $ped->id;
                                     $items_pedidos->cantidad = $ee["cantidad"];
                                     $items_pedidos->descuento = $ee["descuento"];
                                     $items_pedidos->monto = $ee["monto"];
@@ -104,29 +116,23 @@ class PedidosController extends Controller
                                         $count++;  
                                     }
                                 } 
-                            //}
                         }
                         return ["estado"=>true, "msj"=>"Desde Central: $count items exportados"];
                     }
                 }else{
-                    $f = pedidos::find($e["id"]); 
+                    $f = pedidos::where("idinsucursal",$e["id"])->where("id_origen", $id_origen); 
                     if($f){
                         if ($f->delete()) {
                             return ["estado"=>true, "msj"=>"Desde Central: Pedido ".$e["id"]." eliminado de central"];
                         }else{
-                            return "No se encontró pedido ".$e["id"];
+                            return ["estado"=>false, "msj"=>"No se encontró pedido ".$e["id"]];
                         }
 
                     };
                 }
             }
         } catch (\Exception $e) {
-            if ($e->errorInfo[1]=="1062") {
-                throw new \Exception("Pedido Duplicado. ".$e->errorInfo[2], 1);
-            }else{
-                throw new \Exception("Error: ".$e->getMessage(), 1);
-
-            }
+            return ["estado"=>false, "msj"=>"Error: ".$e->getMessage()." ".$e->getLine()];
         }
     }
     public function changeExtraidoEstadoPed(Request $req)
@@ -146,7 +152,7 @@ class PedidosController extends Controller
 
         $ped = pedidos::with(["destino","origen","items"=>function($q){
             $q->with(["producto"=>function($q){
-                $q->with(["proveedor","categoria"]);
+                $q->with(["categoria","proveedor"]);
             }]);
         }])
         ->where("estado",1)

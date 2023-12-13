@@ -340,7 +340,7 @@ class CierresController extends Controller
 
         $controlefecSelectGeneral = $filtros["controlefecSelectGeneral"];
 
-        return cajas::where("tipo",$controlefecSelectGeneral)
+        return cajas::with("cat")->where("tipo",$controlefecSelectGeneral)
         ->when($controlefecQ,function($q) use ($controlefecQ){
             $q->orWhere("concepto",$controlefecQ);
             $q->orWhere("monto",$controlefecQ);

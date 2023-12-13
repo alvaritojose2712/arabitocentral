@@ -12,10 +12,15 @@ class nominapagos extends Model
     {
         return $date->format('Y-m-d H:i:s');
     }
+    public function sucursal() { 
+        return $this->hasOne('App\Models\sucursal',"id","id_sucursal"); 
+    }
 
     protected $fillable = [
         "monto",
         "descripcion",
         "id_nomina",
+        "id_sucursal",
+        "idinsucursal",
     ];
 }

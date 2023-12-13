@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\cajas;
 use App\Http\Requests\StorecajasRequest;
 use App\Http\Requests\UpdatecajasRequest;
+use App\Models\catcajas;
 use Illuminate\Http\Request;
 use Response;
 class CajasController extends Controller
@@ -26,9 +27,38 @@ class CajasController extends Controller
 
             $counter =0;
             foreach ($req->movs as $key => $e) {
+                $catnombre = $e["cat"]["nombre"];
+                $cattipo = $e["cat"]["tipo"];
+                $catindice = $e["cat"]["indice"];
+                
+                $checkcatcajas = catcajas::where("nombre",$catnombre)->where("tipo",$cattipo)->first();
+                
+                if ($checkcatcajas) {
+                    $setcategoria = $checkcatcajas->id;
+                }else{
+                    $newcat = catcajas::updateOrCreate([
+                        "nombre" => $catnombre,
+                        "tipo" => $cattipo,
+                    ],[
+                        "indice" => $catindice,
+                        "nombre" => $catnombre,
+                        "tipo" => $cattipo,
+                    ]);
+                    $setcategoria = $newcat->id; 
+                }
+
+                if (strpos($catnombre,"NOMINA")) {
+                    $split = explode("=",$e["concepto"]);
+                    if (isset($split[1])) {
+                        $ci = $split[1];
+                        $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:$e["montopeso"]);
+                        (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $e["id"]);
+                    }
+
+                }
                 $arr_insert = [
                     "concepto" => $e["concepto"],
-                    "categoria" => $e["categoria"],
+                    "categoria" => $setcategoria,
                     "montodolar" => $e["montodolar"],
                     "montopeso" => $e["montopeso"],
                     "montobs" => $e["montobs"],

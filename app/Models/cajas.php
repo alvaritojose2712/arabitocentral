@@ -7,10 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use DateTimeInterface;
 class cajas extends Model
 {
+
+    public function cat() { 
+        return $this->hasOne('App\Models\catcajas',"id","categoria"); 
+    }
      protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+
+
     protected $fillable = [
         "id",
         "concepto",

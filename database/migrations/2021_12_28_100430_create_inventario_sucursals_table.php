@@ -22,7 +22,7 @@ class CreateInventarioSucursalsTable extends Migration
             $table->integer("idinsucursal");
 
 
-            $table->string("codigo_barras")->unique();
+            $table->string("codigo_barras");
             $table->string("codigo_proveedor")->nullable()->default(null);
 
             $table->integer("id_proveedor");

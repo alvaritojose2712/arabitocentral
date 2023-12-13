@@ -55,6 +55,9 @@ const db = {
   getMarcas: data=>axios.get(host+"getMarcas",{params:data}),
   delMarca: data=>axios.post(host+"delMarca",data),
   setMarcas: data=>axios.post(host+"setMarcas",data),
+  
+  setComovamos: data=>axios.post(host+"setComovamos",data),
+  
 
 
   getCatGenerals: data=>axios.get(host+"getCatGenerals",{params:data}),

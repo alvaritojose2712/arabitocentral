@@ -32,6 +32,15 @@ class NominaController extends Controller
             ]);
         }
     }
+    function getNomina(Request $req) {
+        $codigo_origen =  $req->codigo_origen;
+
+        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
+        $id_origen = $id_ruta["id_origen"];
+
+
+        return nomina::where("nominasucursal",$id_origen)->get();
+    }
     function getPersonalNomina(Request $req) {
         $qNomina = $req->qNomina;
         $qSucursalNomina = $req->qSucursalNomina;
@@ -57,7 +66,9 @@ class NominaController extends Controller
             $q->where("nominasucursal",$qSucursalNomina);
         })
         ->when($type=="pagos",function ($q) use ($fechasMain1,$fechasMain2) {
-            $q->with("pagos");
+            $q->with(["pagos"=>function ($q) {
+                $q->with("sucursal");
+            }]);
         })
         ->get();
 

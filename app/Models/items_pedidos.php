@@ -16,7 +16,7 @@ class items_pedidos extends Model
     }
 
     public function producto() { 
-        return $this->hasOne('App\Models\inventario',"id","id_producto"); 
+        return $this->hasOne('App\Models\inventario_sucursal',"id","id_producto"); 
     }
 
     protected $fillable = [

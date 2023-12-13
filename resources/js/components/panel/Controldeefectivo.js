@@ -34,7 +34,7 @@ export default function Controldeefectivo({
                             </td>
                             <td className=""><small className="text-muted">{e.created_at}</small></td>
                             <td className="">{e.concepto}</td>
-                            <td className="">{(e.categoria)}</td>
+                            <td className="">{(e.cat.nombre)}</td>
                             
                             <td className={(e.montodolar<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montodolar)}</td>
                             <td className={("")}>{moneda(e.dolarbalance)}</td>

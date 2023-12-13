@@ -22,6 +22,13 @@ class CreateNominapagosTable extends Migration
             $table->integer("id_nomina")->unsigned();
             $table->foreign('id_nomina')->references('id')->on('nominas');
 
+            $table->integer("id_sucursal")->unsigned();
+            $table->foreign('id_sucursal')->references('id')->on('sucursals');
+
+            $table->integer("idinsucursal");
+
+            $table->unique(["idinsucursal","id_sucursal"]);
+
             $table->timestamps();
         });
     }
