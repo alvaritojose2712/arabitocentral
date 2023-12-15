@@ -3,6 +3,8 @@ import SucursalDetallesCierres from './panel/sucursaldetallescierres'
 import SucursalDetallesinvetario from './panel/sucursaldetallesinvetario'
 import Puntosyseriales from './panel/Puntosyseriales'
 import Controldeefectivo from './panel/Controldeefectivo'
+import NominasSucursal from './panel/nominasucursal'
+
 
 
 
@@ -37,6 +39,13 @@ export default function PanelSucursales({
     controlefecSelectGeneral,
     setcontrolefecSelectGeneral,
     moneda,
+
+    filtronominaq,
+    setfiltronominaq,
+    filtronominacargo,
+    setfiltronominacargo,
+    getPersonalCargos,
+    cargosData,
 
 }){
     useEffect(() => {
@@ -127,6 +136,23 @@ export default function PanelSucursales({
                             controlefecSelectGeneral={controlefecSelectGeneral}
                             setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
                             moneda={moneda}                  
+                        /> 
+                    :null}
+
+                    {subviewpanelsucursales=="nomina"?
+                        <NominasSucursal
+                            getsucursalDetallesData={getsucursalDetallesData}
+                            sucursalDetallesData={sucursalDetallesData}   
+                            controlefecSelectGeneral={controlefecSelectGeneral}
+                            setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
+                            filtronominaq={filtronominaq}
+                            setfiltronominaq={setfiltronominaq}
+                            filtronominacargo={filtronominacargo}
+                            setfiltronominacargo={setfiltronominacargo}
+                            moneda={moneda} 
+
+                            getPersonalCargos={getPersonalCargos}
+                            cargosData={cargosData}
                         /> 
                     :null}
 

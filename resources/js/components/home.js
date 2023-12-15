@@ -1547,6 +1547,9 @@ function Home() {
   
   const [qBuscarUsuario, setQBuscarUsuario] = useState("");
   const [indexSelectUsuarios, setIndexSelectUsuarios] = useState(null);
+
+  const [filtronominaq, setfiltronominaq] = useState("")
+  const [filtronominacargo, setfiltronominacargo] = useState("")
   
   useEffect(() => {
     getToday()
@@ -1607,6 +1610,8 @@ function Home() {
         orderColumn: invsuc_orderColumn,
         orderBy: invsuc_orderBy,
         controlefecSelectGeneral,
+        filtronominaq,
+        filtronominacargo,
       },
 
       subviewpanelsucursales,
@@ -2453,6 +2458,8 @@ function Home() {
 
           {viewmainPanel === "sucursales" && 
             <PanelSucursales
+              getPersonalCargos={getPersonalCargos}
+              cargosData={cargosData}
               sucursales={sucursales}
               sucursalSelect={sucursalSelect}
               setsucursalSelect={setsucursalSelect}
@@ -2464,6 +2471,11 @@ function Home() {
               getSucursales={getSucursales}
               getsucursalListData={getsucursalListData}
               getsucursalDetallesData={getsucursalDetallesData}
+
+              filtronominaq={filtronominaq}
+              setfiltronominaq={setfiltronominaq}
+              filtronominacargo={filtronominacargo}
+              setfiltronominacargo={setfiltronominacargo}
 
               sucursalDetallesData={sucursalDetallesData}
 

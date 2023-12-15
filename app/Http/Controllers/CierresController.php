@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\cierres;
 use App\Models\cajas;
 use App\Models\inventario_sucursal;
+use App\Models\nomina;
 use App\Models\puntosybiopagos;
 use App\Models\sucursal;
 use Illuminate\Http\Request;
@@ -313,6 +314,11 @@ class CierresController extends Controller
                 return $this->getControldeefectivo($fechasMain1,$fechasMain2,$id_sucursal,$filtros);
                 
             break;
+
+            case 'nomina':
+                return $this->getNominasSucursal($fechasMain1,$fechasMain2,$id_sucursal,$filtros);
+                
+            break;
         }
     }
 
@@ -370,6 +376,27 @@ class CierresController extends Controller
         ->whereBetween("fecha",[$fechasMain1,$fechasMain2])
         ->when($id_sucursal,function($q) use ($id_sucursal){
             $q->where("id_sucursal", $id_sucursal);
+        })
+        ->get();
+    }
+
+    function getNominasSucursal($fechasMain1,$fechasMain2,$id_sucursal,$filtros) {
+
+        $filtronominaq = $filtros["filtronominaq"];
+        $filtronominacargo = $filtros["filtronominacargo"];
+
+        return nomina::with("sucursal")
+        ->when($id_sucursal,function($q) use ($id_sucursal){
+            $q->where("nominasucursal", $id_sucursal);
+        })
+        ->when($filtronominacargo,function($q) use ($filtronominacargo){
+            $q->where("nominacargo", $filtronominacargo);
+        })
+        ->when($filtronominaq,function($q) use ($filtronominaq){
+            $q
+            ->orwhere("nominanombre", $filtronominaq)
+            ->orwhere("nominacedula", $filtronominaq)
+            ->orwhere("nominatelefono", $filtronominaq);
         })
         ->get();
     }

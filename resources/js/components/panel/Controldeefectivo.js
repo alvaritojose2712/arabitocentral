@@ -13,6 +13,8 @@ export default function Controldeefectivo({
                     <tr>
                         <th>TIPO</th>
                         <th>FECHA</th>
+                        <th>RESPONSABLE</th>
+                        <th>ASIGNAR</th>
                         <th>Descripción</th>
                         <th>Categoría</th>
                         <th className="text-right">Monto DOLAR</th>
@@ -21,6 +23,9 @@ export default function Controldeefectivo({
                         <th className="">Balance BS</th>
                         <th className="text-right">Monto PESO</th>
                         <th className="">Balance PESO</th>
+
+                        <th className="text-right">Monto EURO</th>
+                        <th className="">Balance EURO</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,6 +38,8 @@ export default function Controldeefectivo({
                                 </small>
                             </td>
                             <td className=""><small className="text-muted">{e.created_at}</small></td>
+                            <td className="">{(e.responsable.nombre)}</td>
+                            <td className="">{(e.asignar.nombre)}</td>
                             <td className="">{e.concepto}</td>
                             <td className="">{(e.cat.nombre)}</td>
                             
@@ -44,6 +51,9 @@ export default function Controldeefectivo({
                             
                             <td className={(e.montopeso<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montopeso)}</td>
                             <td className={("")}>{moneda(e.pesobalance)}</td>
+
+                            <td className={(e.montoeuro<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montoeuro)}</td>
+                            <td className={("")}>{moneda(e.eurobalance)}</td>
                             
                         </tr>)
                     :null:null}

@@ -30,7 +30,7 @@ class CajasController extends Controller
                 $catnombre = $e["cat"]["nombre"];
                 $cattipo = $e["cat"]["tipo"];
                 $catindice = $e["cat"]["indice"];
-                
+
                 $checkcatcajas = catcajas::where("nombre",$catnombre)->where("tipo",$cattipo)->first();
                 
                 if ($checkcatcajas) {
@@ -43,6 +43,7 @@ class CajasController extends Controller
                         "indice" => $catindice,
                         "nombre" => $catnombre,
                         "tipo" => $cattipo,
+
                     ]);
                     $setcategoria = $newcat->id; 
                 }
@@ -57,6 +58,11 @@ class CajasController extends Controller
 
                 }
                 $arr_insert = [
+                    "montoeuro" => $e["montoeuro"],
+                    "eurobalance" => $e["eurobalance"],
+
+                    "responsable" => $e["responsable"],
+                    "asignar" => $e["asignar"],
                     "concepto" => $e["concepto"],
                     "categoria" => $setcategoria,
                     "montodolar" => $e["montodolar"],
