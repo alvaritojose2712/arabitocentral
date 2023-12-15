@@ -9,6 +9,9 @@ class puntosybiopagos extends Model
 {
     use HasFactory;
 
+    public function sucursal() { 
+        return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
+    }
     protected $fillable = [
         "loteserial",
         "monto",

@@ -62,7 +62,7 @@ export default function PanelSucursales({
             <div className="row">
                 <div className="col-1">
                     <ul className="list-group">
-                        <li className={("list-group-item pointer ")+("resumen"==sucursalSelect?"bg-sinapsis":"")} onClick={()=>setsucursalSelect("resumen")}>RESUMEN</li>
+                        <li className={("list-group-item pointer ")+(null===sucursalSelect?"bg-sinapsis":"")} onClick={()=>setsucursalSelect(null)}>RESUMEN</li>
 
                         {sucursales.map(e=>
                             <li key={e.id} className={("list-group-item pointer ")+(e.id==sucursalSelect?"bg-sinapsis":"")} onClick={()=>setsucursalSelect(e.id)}>{e.nombre}</li>

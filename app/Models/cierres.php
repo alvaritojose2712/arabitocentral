@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class cierres extends Model
 {
     use HasFactory;
-
+    public function sucursal() { 
+        return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
+    }
     protected $fillable = [
         "debito",
         "efectivo",

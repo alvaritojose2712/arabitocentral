@@ -3927,9 +3927,9 @@ function PanelSucursales(_ref) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("ul", {
           className: "list-group",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
-            className: "list-group-item pointer " + ("resumen" == sucursalSelect ? "bg-sinapsis" : ""),
+            className: "list-group-item pointer " + (null === sucursalSelect ? "bg-sinapsis" : ""),
             onClick: function onClick() {
-              return setsucursalSelect("resumen");
+              return setsucursalSelect(null);
             },
             children: "RESUMEN"
           }), sucursales.map(function (e) {
@@ -4165,7 +4165,7 @@ function Puntosyseriales(_ref) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "FECHA"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            children: "ID_SUCURSAL"
+            children: "SUCURSAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "ID_USUARIO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
@@ -4184,7 +4184,7 @@ function Puntosyseriales(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: e.fecha
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: e.id_sucursal
+              children: e.sucursal.codigo
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: e.id_usuario
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
@@ -5555,6 +5555,9 @@ function SucursalDetallesCierres(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                 className: "bg-sinapsis text-light",
+                children: "SUCURSAL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                className: "bg-sinapsis text-light",
                 children: "Fecha"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                 className: "bg-sinapsis text-light borderleft",
@@ -5662,6 +5665,8 @@ function SucursalDetallesCierres(_ref) {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                    children: e.sucursal ? e.sucursal.codigo : null
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                     children: e.fecha ? e.fecha : null
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                     className: "borderleft",
@@ -5926,10 +5931,15 @@ function SucursalDetallesinvetario(_ref) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             className: "cell05 pointer",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              children: "SUCURSAL"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            className: "cell05 pointer",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
               onClick: function onClick() {
                 return setinvsuc_orderColumn("id");
               },
-              children: "ID VINCULACION / ID"
+              children: "ID in SUCURSAL"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             className: "cell1 pointer",
@@ -6014,13 +6024,17 @@ function SucursalDetallesinvetario(_ref) {
               children: "IVA"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            className: "cell1"
+            className: "cell1",
+            children: "ACTUALIZACI\xD3N"
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
         children: sucursalDetallesData.length ? sucursalDetallesData[0].codigo_barras ? sucursalDetallesData.map(function (e) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "cell1",
+              children: e.sucursal.codigo
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
               className: "cell1",
               children: e.idinsucursal
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
@@ -6066,6 +6080,9 @@ function SucursalDetallesinvetario(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
               className: "cell05",
               children: e.iva
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "cell05",
+              children: e.updated_at
             })]
           }, e.id);
         }) : null : null

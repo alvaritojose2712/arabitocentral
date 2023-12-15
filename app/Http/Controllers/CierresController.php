@@ -185,7 +185,11 @@ class CierresController extends Controller
     }
     public function getCierreSucursal($fechasMain1,$fechasMain2,$id_sucursal,$filtros)
     {
-        $array = cierres::where("id_sucursal", $id_sucursal)
+        //debug_to_console($id_sucursal);
+        $array = cierres::with("sucursal")
+        ->when($id_sucursal,function($q) use ($id_sucursal){
+            $q->where("id_sucursal", $id_sucursal);
+        })
         ->whereBetween("fecha",[$fechasMain1,$fechasMain2])
         ->get();
 
@@ -321,12 +325,15 @@ class CierresController extends Controller
         $orderColumn = $filtros["orderColumn"];
         $orderBy = $filtros["orderBy"];
 
-        return inventario_sucursal::where(function($e) use($itemCero,$q,$exacto){
+        return inventario_sucursal::with("sucursal")
+        ->where(function($e) use($itemCero,$q,$exacto){
             $e->orWhere("descripcion","LIKE","%$q%")
             ->orWhere("codigo_proveedor","LIKE","%$q%")
             ->orWhere("codigo_barras","LIKE","%$q%");
         })
-        ->where("id_sucursal",$id_sucursal)
+        ->when($id_sucursal,function($q) use ($id_sucursal){
+            $q->where("id_sucursal", $id_sucursal);
+        })
         ->limit($num)
         ->orderBy($orderColumn,$orderBy)
         ->get();
@@ -334,19 +341,20 @@ class CierresController extends Controller
 
     function getControldeefectivo($fechasMain1,$fechasMain2,$id_sucursal,$filtros) {
         $controlefecQ = "";
-        $controlefecQDesde = "";
-        $controlefecQHasta = "";
         $controlefecQCategoria = "";
 
         $controlefecSelectGeneral = $filtros["controlefecSelectGeneral"];
 
-        return cajas::with("cat")->where("tipo",$controlefecSelectGeneral)
+        return cajas::with(["cat","sucursal"])->where("tipo",$controlefecSelectGeneral)
         ->when($controlefecQ,function($q) use ($controlefecQ){
             $q->orWhere("concepto",$controlefecQ);
             $q->orWhere("monto",$controlefecQ);
         })
         ->when($controlefecQCategoria,function($q) use ($controlefecQCategoria) {
             $q->where("categoria",$controlefecQCategoria);
+        })
+        ->when($id_sucursal,function($q) use ($id_sucursal){
+           $q->where("id_sucursal",$id_sucursal); 
         })
         ->whereBetween("fecha",[$fechasMain1,$fechasMain2])
         ->orderBy("id","desc")
@@ -358,6 +366,11 @@ class CierresController extends Controller
 
     function getPuntosyseriales($fechasMain1,$fechasMain2,$id_sucursal,$filtros){
         
-        return puntosybiopagos::whereBetween("fecha",[$fechasMain1,$fechasMain2])->where("id_sucursal",$id_sucursal)->get();
+        return puntosybiopagos::with("sucursal")
+        ->whereBetween("fecha",[$fechasMain1,$fechasMain2])
+        ->when($id_sucursal,function($q) use ($id_sucursal){
+            $q->where("id_sucursal", $id_sucursal);
+        })
+        ->get();
     }
 }

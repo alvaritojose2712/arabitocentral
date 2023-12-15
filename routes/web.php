@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CajasController;
+use App\Http\Controllers\CatcajasController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\InventarioController;
@@ -82,6 +83,7 @@ Route::post('setEstadisticas', [InventarioSucursalController::class,"setEstadist
 
 
 Route::post('getNomina', [NominaController::class,"getNomina"]);
+Route::get('getCatCajas', [CatcajasController::class,"getCatCajas"]);
 
 
 Route::get('getFallas', [FallasController::class,"getFallas"]);

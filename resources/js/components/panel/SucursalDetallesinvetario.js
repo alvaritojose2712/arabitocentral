@@ -70,7 +70,8 @@ export default function SucursalDetallesinvetario({
             <table className="table">
                 <thead>
                     <tr>
-                        <th className="cell05 pointer"><span onClick={() => setinvsuc_orderColumn("id")}>ID VINCULACION / ID</span></th>
+                        <th className="cell05 pointer"><span>SUCURSAL</span></th>
+                        <th className="cell05 pointer"><span onClick={() => setinvsuc_orderColumn("id")}>ID in SUCURSAL</span></th>
                         <th className="cell1 pointer"><span onClick={() => setinvsuc_orderColumn("codigo_proveedor")}>C. Alterno</span></th>
                         <th className="cell1 pointer"><span onClick={() => setinvsuc_orderColumn("codigo_barras")}>C. Barras</span></th>
                         <th className="cell05 pointer"><span onClick={() => setinvsuc_orderColumn("unidad")}>Unidad</span></th>
@@ -92,7 +93,7 @@ export default function SucursalDetallesinvetario({
                             
                         </th>
                         <th className="cell05 pointer"><span onClick={() => setinvsuc_orderColumn("iva")}>IVA</span></th>
-                        <th className="cell1"></th>
+                        <th className="cell1">ACTUALIZACIÓN</th>
 
                     </tr>
                 </thead>
@@ -101,6 +102,7 @@ export default function SucursalDetallesinvetario({
                     {sucursalDetallesData.length?sucursalDetallesData[0].codigo_barras?sucursalDetallesData.map(e=>
                         
                         <tr key={e.id}>
+                            <td className="cell1">{e.sucursal.codigo}</td>
                             <td className="cell1">{e.idinsucursal}</td>
                             <td className="cell1">{e.codigo_proveedor}</td>
                             <td className="cell1">{e.codigo_barras}</td>
@@ -131,6 +133,7 @@ export default function SucursalDetallesinvetario({
                             </td>
                                 <td className="cell15"> <br /> </td>
                             <td className="cell05">{e.iva}</td>
+                            <td className="cell05">{e.updated_at}</td>
                         </tr>
                         
                     ):null:null}

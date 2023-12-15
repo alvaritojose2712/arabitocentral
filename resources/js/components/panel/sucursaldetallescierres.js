@@ -22,6 +22,7 @@ export default function SucursalDetallesCierres({
 
                             </tr>
                             <tr>
+                                <th className="bg-sinapsis text-light">SUCURSAL</th>
                                 <th className="bg-sinapsis text-light">Fecha</th>
 
                                 <th className="bg-sinapsis text-light borderleft">DOLAR</th>
@@ -74,6 +75,7 @@ export default function SucursalDetallesCierres({
                                     {sucursalDetallesData.data.map(e=>
                                         <tbody key={e.id}>
                                             <tr>
+                                                <th>{e.sucursal?e.sucursal.codigo:null}</th>
                                                 <th>{e.fecha?e.fecha:null}</th>
                                                 
                                                 <td className="borderleft">{e.tasa?e.tasa:null}</td>

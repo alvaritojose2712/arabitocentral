@@ -9,7 +9,7 @@ export default function Puntosyseriales({
                     <tr>
 
                     <th>FECHA</th>
-                    <th>ID_SUCURSAL</th>
+                    <th>SUCURSAL</th>
                     <th>ID_USUARIO</th>
                     <th>TIPO</th>
                     <th>LOTESERIAL</th>
@@ -21,7 +21,7 @@ export default function Puntosyseriales({
                     {sucursalDetallesData.length?sucursalDetallesData[0].fecha?sucursalDetallesData.map(e=>
                         <tr key={e.id}>
                             <td>{e.fecha}</td>
-                            <td>{e.id_sucursal}</td>
+                            <td>{e.sucursal.codigo}</td>
                             <td>{e.id_usuario}</td>
                             <td>{e.tipo}</td>
                             <td>{e.loteserial}</td>

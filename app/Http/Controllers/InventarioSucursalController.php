@@ -389,7 +389,7 @@ class InventarioSucursalController extends Controller
     }
 
     function setEstadisticas(Request $req) {
-        
+        return $req->estadisticas;
     }
 
     
