@@ -19,6 +19,10 @@ class cajas extends Model
     public function asignar() { 
         return $this->hasOne('App\Models\catcajas',"id","asignar"); 
     }
+
+    public function sucursal() { 
+        return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
+    }
     
 
      protected function serializeDate(DateTimeInterface $date)
