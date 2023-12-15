@@ -4138,10 +4138,10 @@ function Controldeefectivo(_ref) {
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               className: "",
-              children: e.responsable.nombre
+              children: e.responsable ? e.responsable.nombre : ""
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               className: "",
-              children: e.asignar.nombre
+              children: e.asignar ? e.asignar.nombre : ""
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               className: "",
               children: e.concepto

@@ -38,8 +38,8 @@ export default function Controldeefectivo({
                                 </small>
                             </td>
                             <td className=""><small className="text-muted">{e.created_at}</small></td>
-                            <td className="">{(e.responsable.nombre)}</td>
-                            <td className="">{(e.asignar.nombre)}</td>
+                            <td className="">{e.responsable?(e.responsable.nombre):""}</td>
+                            <td className="">{e.asignar?(e.asignar.nombre):""}</td>
                             <td className="">{e.concepto}</td>
                             <td className="">{(e.cat.nombre)}</td>
                             
