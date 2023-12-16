@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\nominavariassucursales;
 use Illuminate\Http\Request;
 
 use App\Models\nomina;
 use App\Http\Requests\StorenominaRequest;
 use App\Http\Requests\UpdatenominaRequest;
 use Response;
+
 class NominaController extends Controller
 {
 
-    function today() {
+    function today()
+    {
         return date("Y-m-d");
     }
-    function delPersonalNomina(Request $req) {
-        try{
+    function delPersonalNomina(Request $req)
+    {
+        try {
             $id = $req->id;
-            
+
             $setCargo = nomina::find($id)->delete();
             if ($setCargo) {
                 return Response::json([
@@ -25,23 +29,31 @@ class NominaController extends Controller
                     "estado" => true,
                 ]);
             }
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return Response::json([
-                "msj" => "Error: ".$e->getMessage(),
+                "msj" => "Error: " . $e->getMessage(),
                 "estado" => false,
             ]);
         }
     }
-    function getNomina(Request $req) {
-        $codigo_origen =  $req->codigo_origen;
+    function getNomina(Request $req)
+    {
+        $codigo_origen = $req->codigo_origen;
 
-        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
+        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
         $id_origen = $id_ruta["id_origen"];
 
 
-        return nomina::where("nominasucursal",$id_origen)->get();
+        return nomina::orwhere("nominasucursal", $id_origen)
+            ->orwhereIn("id", nominavariassucursales::where("id_sucursal", $id_origen)->select("id_nomina"))
+            ->orderBy("nominanombre", "asc")
+            ->get()->map(function ($q) {
+                $q->nominacedula = $q->nominacedula . "=" . $q->nominanombre;
+                return $q;
+            });
     }
-    function getPersonalNomina(Request $req) {
+    function getPersonalNomina(Request $req)
+    {
         $qNomina = $req->qNomina;
         $qSucursalNomina = $req->qSucursalNomina;
         $qCargoNomina = $req->qCargoNomina;
@@ -51,36 +63,35 @@ class NominaController extends Controller
 
         $type = $req->type;
 
-        $today = "2020-05-05";
-
-        $personal = nomina::with(["sucursal","cargo"])->where(function($q) use ($qNomina){
+        $personal = nomina::with(["sucursal", "cargo"])->where(function ($q) use ($qNomina) {
             $q
-            ->orWhere("nominanombre", "LIKE", "$qNomina%")
-            ->orWhere("nominacedula", "LIKE", "$qNomina%");
+                ->orWhere("nominanombre", "LIKE", "$qNomina%")
+                ->orWhere("nominacedula", "LIKE", "$qNomina%");
         })
-        ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
-        ->when($qCargoNomina,function($q) use ($qCargoNomina) {
-            $q->where("nominacargo",$qCargoNomina);
-        })
-        ->when($qSucursalNomina,function($q) use ($qSucursalNomina) {
-            $q->where("nominasucursal",$qSucursalNomina);
-        })
-        ->when($type=="pagos",function ($q) use ($fechasMain1,$fechasMain2) {
-            $q->with(["pagos"=>function ($q) {
-                $q->with("sucursal");
-            }]);
-        })
-        ->get();
+            ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
+            ->when($qCargoNomina, function ($q) use ($qCargoNomina) {
+                $q->where("nominacargo", $qCargoNomina);
+            })
+            ->when($qSucursalNomina, function ($q) use ($qSucursalNomina) {
+                $q->where("nominasucursal", $qSucursalNomina);
+            })
+            ->when($type == "pagos", function ($q) use ($fechasMain1, $fechasMain2) {
+                $q->with(["pagos" => function ($q) {
+                    $q->with("sucursal");
+                }]);
+            })
+            ->get();
 
         $estadisticas = [];
 
         return [
-          "personal"=>$personal,  
-          "estadisticas"=>$estadisticas,  
+            "personal" => $personal,
+            "estadisticas" => $estadisticas,
         ];
     }
-    function setPersonalNomina(Request $req) {
-        try{
+    function setPersonalNomina(Request $req)
+    {
+        try {
 
             $nominaNombre = $req->nominaNombre;
             $nominaCedula = $req->nominaCedula;
@@ -91,9 +102,9 @@ class NominaController extends Controller
             $nominaGradoInstruccion = $req->nominaGradoInstruccion;
             $nominaCargo = $req->nominaCargo;
             $nominaSucursal = $req->nominaSucursal;
-            
+
             $id = $req->id;
-            
+
             $setPersonal = $this->setPersonal([
                 "nominanombre" => $nominaNombre,
                 "nominacedula" => $nominaCedula,
@@ -106,27 +117,28 @@ class NominaController extends Controller
                 "nominasucursal" => $nominaSucursal,
                 "id" => $id,
             ]);
-            
+
             if ($setPersonal) {
                 return Response::json([
                     "msj" => "Éxito",
                     "estado" => true,
                 ]);
             }
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return Response::json([
-                "msj" => "Error: ".$e->getMessage(),
+                "msj" => "Error: " . $e->getMessage(),
                 "estado" => false,
             ]);
         }
-        
+
     }
 
 
-    function setPersonal($arr) {
+    function setPersonal($arr)
+    {
         return nomina::updateOrCreate([
             "id" => $arr["id"]
-        ],[
+        ], [
             "nominanombre" => $arr["nominanombre"],
             "nominacedula" => $arr["nominacedula"],
             "nominatelefono" => $arr["nominatelefono"],
