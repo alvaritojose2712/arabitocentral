@@ -330,7 +330,9 @@ class CierresController extends Controller
     }
     function comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
     {
-        return comovamos::with("sucursal")->orderBy("total", "desc")->get();
+        return comovamos::with("sucursal")
+            ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
+            ->orderBy("total", "desc")->get();
     }
     function getInvSucursal($id_sucursal, $filtros)
     {
