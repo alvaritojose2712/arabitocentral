@@ -6,14 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use DateTimeInterface;
+
 class comovamos extends Model
 {
-     protected function serializeDate(DateTimeInterface $date)
+    protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
     }
 
-    protected $fillable =[
+    public function sucursal()
+    {
+        return $this->hasOne(\App\Models\sucursal::class, "id", "id_sucursal");
+    }
+
+    protected $fillable = [
         "transferencia",
         "biopago",
         "debito",
@@ -32,6 +38,6 @@ class comovamos extends Model
         "porcentaje",
         "fecha",
         "id_sucursal",
-    ] ;
+    ];
     use HasFactory;
 }

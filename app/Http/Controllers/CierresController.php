@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\cierres;
 use App\Models\cajas;
+use App\Models\comovamos;
 use App\Models\inventario_sucursal;
 use App\Models\nomina;
 use App\Models\puntosybiopagos;
@@ -13,8 +14,8 @@ use Illuminate\Http\Request;
 
 class CierresController extends Controller
 {
-   public function setCierreFromSucursalToCentral(Request $req)
-   {
+    public function setCierreFromSucursalToCentral(Request $req)
+    {
         try {
             $codigo_origen = $req->codigo_origen;
 
@@ -22,15 +23,15 @@ class CierresController extends Controller
             $biopagos = $req->biopagos;
 
 
-            $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
+            $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
             $id_origen = $id_ruta["id_origen"];
-            
+
             $cierre = $req->cierre;
-            
+
             $cierresobj = cierres::updateOrCreate([
                 "fecha" => $cierre["fecha"],
                 "id_sucursal" => $id_origen,
-            ],[
+            ], [
                 "debito" => $cierre["debito"],
                 "efectivo" => $cierre["efectivo"],
                 "transferencia" => $cierre["transferencia"],
@@ -44,7 +45,7 @@ class CierresController extends Controller
                 "tasa" => $cierre["tasa"],
                 "nota" => $cierre["nota"],
 
-                
+
                 "numventas" => $cierre["numventas"],
                 "precio" => $cierre["precio"],
                 "precio_base" => $cierre["precio_base"],
@@ -90,29 +91,29 @@ class CierresController extends Controller
                     "id_usuario" => $e["id_usuario"],
                     "id_sucursal" => $id_origen,
                     "tipo" => $e["tipo"],
-                ],[
+                ], [
                     "monto" => $e["monto"],
                     "loteserial" => $e["lote"],
                     "banco" => $e["banco"],
-                    
+
                     "fecha" => $e["fecha"],
                     "id_sucursal" => $id_origen,
                     "id_usuario" => $e["id_usuario"],
                     "tipo" => $e["tipo"],
-                    
-                    
+
+
                 ]);
             }
-            
-            
-            
+
+
+
             foreach ($biopagos as $key => $value) {
                 puntosybiopagos::updateOrCreate([
                     "fecha" => $e["fecha"],
                     "id_usuario" => $e["id_usuario"],
                     "id_sucursal" => $id_origen,
                     "tipo" => $e["tipo"],
-                ],[
+                ], [
                     "monto" => $e["monto"],
                     "loteserial" => $e["serial"],
                     "banco" => "BDV",
@@ -122,26 +123,26 @@ class CierresController extends Controller
                     "tipo" => $e["tipo"],
                 ]);
             }
-            
-
-            
 
 
-            
+
+
+
+
             if ($cierresobj->save()) {
                 return "Exito al registrar Cierre en Central";
-            }        
+            }
         } catch (\Exception $e) {
-            return "Error: ".$e->getMessage();
+            return "Error: " . $e->getMessage();
         }
-   }
-    public function getCierres($fechasMain1,$fechasMain2,$filtros)
+    }
+    public function getCierres($fechasMain1, $fechasMain2, $filtros)
     {
-        return sucursal::all()->map(function($q) use ($fechasMain1,$fechasMain2){
-            $cierre = cierres::where("id_sucursal",$q->id)
-            ->whereBetween("fecha",[$fechasMain1,$fechasMain2])
-            ->orderBy("fecha","desc")
-            ->get();
+        return sucursal::all()->map(function ($q) use ($fechasMain1, $fechasMain2) {
+            $cierre = cierres::where("id_sucursal", $q->id)
+                ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
+                ->orderBy("fecha", "desc")
+                ->get();
 
             $d = $cierre->sum("debito");
             $e = $cierre->sum("efectivo");
@@ -154,7 +155,7 @@ class CierresController extends Controller
             $q->total = moneda($d + $e + $t);
             $q->gananciatotal = moneda($cierre->sum("ganancia"));
             $q->porcentajetotal = $cierre->avg("porcentaje");
-            
+
             return $q;
         });
 
@@ -170,29 +171,29 @@ class CierresController extends Controller
 
         switch ($viewmainPanel) {
             case 'panel':
-            
+
                 break;
             case 'cierres':
-                return $this->getCierres($fechasMain1,$fechasMain2,$filtros);
+                return $this->getCierres($fechasMain1, $fechasMain2, $filtros);
                 break;
-                case 'inventario':
-                    
-                    break;
-                case 'gastos':
-                    return (new GastosController)->getGastos($fechasMain1,$fechasMain2,$filtros);
-            
+            case 'inventario':
+
+                break;
+            case 'gastos':
+                return (new GastosController)->getGastos($fechasMain1, $fechasMain2, $filtros);
+
                 break;
         }
     }
-    public function getCierreSucursal($fechasMain1,$fechasMain2,$id_sucursal,$filtros)
+    public function getCierreSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
     {
         //debug_to_console($id_sucursal);
         $array = cierres::with("sucursal")
-        ->when($id_sucursal,function($q) use ($id_sucursal){
-            $q->where("id_sucursal", $id_sucursal);
-        })
-        ->whereBetween("fecha",[$fechasMain1,$fechasMain2])
-        ->get();
+            ->when($id_sucursal, function ($q) use ($id_sucursal) {
+                $q->where("id_sucursal", $id_sucursal);
+            })
+            ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
+            ->get();
 
         $sumdebito = $array->sum("debito");
         $sumefectivo = $array->sum("efectivo");
@@ -231,9 +232,9 @@ class CierresController extends Controller
             "efecadiccajafdolar" => moneda($array->sum("efecadiccajafdolar")),
             "efecadiccajafeuro" => moneda($array->sum("efecadiccajafeuro")),
         ];
-        
-        
-        $array = $array->map(function($q){
+
+
+        $array = $array->map(function ($q) {
             $q->total = moneda($q->debito + $q->efectivo + $q->transferencia);
 
             $q->debito = moneda($q->debito);
@@ -277,7 +278,7 @@ class CierresController extends Controller
         })
         ;
 
-       
+
 
         return [
             "data" => $array,
@@ -287,7 +288,7 @@ class CierresController extends Controller
     }
     public function getsucursalDetallesData(Request $req)
     {
-        $id_sucursal = $req->sucursalSelect; 
+        $id_sucursal = $req->sucursalSelect;
         $fechasMain1 = $req->fechasMain1;
         $fechasMain2 = $req->fechasMain2;
         $filtros = $req->filtros;
@@ -297,32 +298,42 @@ class CierresController extends Controller
 
         switch ($subviewpanelsucursales) {
             case 'panel':
-            
+
                 break;
             case 'cierres':
-                return $this->getCierreSucursal($fechasMain1,$fechasMain2,$id_sucursal,$filtros);
+                return $this->getCierreSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 break;
             case 'inventario':
-                return $this->getInvSucursal($id_sucursal,$filtros);
-                
-            break;
-                case 'puntosyseriales':
-                    return $this->getPuntosyseriales($fechasMain1,$fechasMain2,$id_sucursal,$filtros);
-                    
+                return $this->getInvSucursal($id_sucursal, $filtros);
+
+                break;
+            case 'puntosyseriales':
+                return $this->getPuntosyseriales($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+
                 break;
             case 'controldeefectivo':
-                return $this->getControldeefectivo($fechasMain1,$fechasMain2,$id_sucursal,$filtros);
-                
-            break;
+                return $this->getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+
+                break;
 
             case 'nomina':
-                return $this->getNominasSucursal($fechasMain1,$fechasMain2,$id_sucursal,$filtros);
-                
-            break;
+                return $this->getNominasSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+
+                break;
+            case 'comovamos':
+                return $this->comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+
+                break;
+
+
         }
     }
-
-    function getInvSucursal($id_sucursal,$filtros){
+    function comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
+    {
+        return comovamos::with("sucursal")->orderBy("total", "desc")->get();
+    }
+    function getInvSucursal($id_sucursal, $filtros)
+    {
 
         $itemCero = $filtros["itemCero"];
         $q = $filtros["q"];
@@ -332,72 +343,75 @@ class CierresController extends Controller
         $orderBy = $filtros["orderBy"];
 
         return inventario_sucursal::with("sucursal")
-        ->where(function($e) use($itemCero,$q,$exacto){
-            $e->orWhere("descripcion","LIKE","%$q%")
-            ->orWhere("codigo_proveedor","LIKE","%$q%")
-            ->orWhere("codigo_barras","LIKE","%$q%");
-        })
-        ->when($id_sucursal,function($q) use ($id_sucursal){
-            $q->where("id_sucursal", $id_sucursal);
-        })
-        ->limit($num)
-        ->orderBy($orderColumn,$orderBy)
-        ->get();
+            ->where(function ($e) use ($itemCero, $q, $exacto) {
+                $e->orWhere("descripcion", "LIKE", "%$q%")
+                    ->orWhere("codigo_proveedor", "LIKE", "%$q%")
+                    ->orWhere("codigo_barras", "LIKE", "%$q%");
+            })
+            ->when($id_sucursal, function ($q) use ($id_sucursal) {
+                $q->where("id_sucursal", $id_sucursal);
+            })
+            ->limit($num)
+            ->orderBy($orderColumn, $orderBy)
+            ->get();
     }
 
-    function getControldeefectivo($fechasMain1,$fechasMain2,$id_sucursal,$filtros) {
+    function getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
+    {
         $controlefecQ = "";
         $controlefecQCategoria = "";
 
         $controlefecSelectGeneral = $filtros["controlefecSelectGeneral"];
 
-        return cajas::with(["cat","sucursal","responsable","asignar"])->where("tipo",$controlefecSelectGeneral)
-        ->when($controlefecQ,function($q) use ($controlefecQ){
-            $q->orWhere("concepto",$controlefecQ);
-            $q->orWhere("monto",$controlefecQ);
-        })
-        ->when($controlefecQCategoria,function($q) use ($controlefecQCategoria) {
-            $q->where("categoria",$controlefecQCategoria);
-        })
-        ->when($id_sucursal,function($q) use ($id_sucursal){
-           $q->where("id_sucursal",$id_sucursal); 
-        })
-        ->whereBetween("fecha",[$fechasMain1,$fechasMain2])
-        ->orderBy("id","desc")
-        ->get();
+        return cajas::with(["cat", "sucursal", "responsable", "asignar"])->where("tipo", $controlefecSelectGeneral)
+            ->when($controlefecQ, function ($q) use ($controlefecQ) {
+                $q->orWhere("concepto", $controlefecQ);
+                $q->orWhere("monto", $controlefecQ);
+            })
+            ->when($controlefecQCategoria, function ($q) use ($controlefecQCategoria) {
+                $q->where("categoria", $controlefecQCategoria);
+            })
+            ->when($id_sucursal, function ($q) use ($id_sucursal) {
+                $q->where("id_sucursal", $id_sucursal);
+            })
+            ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
+            ->orderBy("id", "desc")
+            ->get();
 
-       
+
     }
 
 
-    function getPuntosyseriales($fechasMain1,$fechasMain2,$id_sucursal,$filtros){
-        
+    function getPuntosyseriales($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
+    {
+
         return puntosybiopagos::with("sucursal")
-        ->whereBetween("fecha",[$fechasMain1,$fechasMain2])
-        ->when($id_sucursal,function($q) use ($id_sucursal){
-            $q->where("id_sucursal", $id_sucursal);
-        })
-        ->get();
+            ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
+            ->when($id_sucursal, function ($q) use ($id_sucursal) {
+                $q->where("id_sucursal", $id_sucursal);
+            })
+            ->get();
     }
 
-    function getNominasSucursal($fechasMain1,$fechasMain2,$id_sucursal,$filtros) {
+    function getNominasSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
+    {
 
         $filtronominaq = $filtros["filtronominaq"];
         $filtronominacargo = $filtros["filtronominacargo"];
 
         return nomina::with("sucursal")
-        ->when($id_sucursal,function($q) use ($id_sucursal){
-            $q->where("nominasucursal", $id_sucursal);
-        })
-        ->when($filtronominacargo,function($q) use ($filtronominacargo){
-            $q->where("nominacargo", $filtronominacargo);
-        })
-        ->when($filtronominaq,function($q) use ($filtronominaq){
-            $q
-            ->orwhere("nominanombre", $filtronominaq)
-            ->orwhere("nominacedula", $filtronominaq)
-            ->orwhere("nominatelefono", $filtronominaq);
-        })
-        ->get();
+            ->when($id_sucursal, function ($q) use ($id_sucursal) {
+                $q->where("nominasucursal", $id_sucursal);
+            })
+            ->when($filtronominacargo, function ($q) use ($filtronominacargo) {
+                $q->where("nominacargo", $filtronominacargo);
+            })
+            ->when($filtronominaq, function ($q) use ($filtronominaq) {
+                $q
+                    ->orwhere("nominanombre", $filtronominaq)
+                    ->orwhere("nominacedula", $filtronominaq)
+                    ->orwhere("nominatelefono", $filtronominaq);
+            })
+            ->get();
     }
 }

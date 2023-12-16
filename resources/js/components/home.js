@@ -44,6 +44,8 @@ import Usuarios from './usuarios';
 import Compras from './compras';
 
 import PanelSucursales from './panelSucursales';
+import ComoVamos from './comovamos';
+
 
 import NominaHome from './nomina/nominahome';
 
@@ -63,7 +65,7 @@ import NominaPagos from './nomina/nominapagos';
 function Home() {
   // ///In Last//////
   const [view, setView] = useState("")
-  
+
 
 
   const [fallas, setfallas] = useState([])
@@ -78,8 +80,8 @@ function Home() {
   const [selectfechaventa, setselectfechaventa] = useState("")
 
   const [user, setuser] = useState({
-    id_usuario:"",
-    nombre:"",
+    id_usuario: "",
+    nombre: "",
     usuario: ""
   })
 
@@ -181,73 +183,73 @@ function Home() {
 
   const [typingTimeout, setTypingTimeout] = useState(0)
 
-/*   useEffect(() => {
-    getFallas()
-  }, [
-    qFallas,
-    orderCatFallas,
-    orderSubCatFallas,
-    ascdescFallas
-  ])
-
-  useEffect(() => {
-    getFacturas(false)
-  }, [
-    factqBuscar,
-    factqBuscarDate,
-    factOrderBy,
-    factOrderDescAsc
-  ])
-  useEffect(() => {
-    buscarInventario()
-  }, [
-    Invnum,
-    InvorderColumn,
-    InvorderBy,
-    qBuscarInventario,
-  ]);
-
-
-  useEffect(() => {
-    getProveedores()
-  }, [qBuscarProveedor])
-  useEffect(() => {
-    if (view == "inventario") {
-      if (subViewInventario == "fallas") {
-        getFallas()
-      } else if (subViewInventario == "inventario") {
-        getProductos()
-      } else if (subViewInventario == "proveedores") {
-        getProveedores()
-      } else if (subViewInventario == "pedidosCentral") {
-        getPedidosCentral()
+  /*   useEffect(() => {
+      getFallas()
+    }, [
+      qFallas,
+      orderCatFallas,
+      orderSubCatFallas,
+      ascdescFallas
+    ])
+  
+    useEffect(() => {
+      getFacturas(false)
+    }, [
+      factqBuscar,
+      factqBuscarDate,
+      factOrderBy,
+      factOrderDescAsc
+    ])
+    useEffect(() => {
+      buscarInventario()
+    }, [
+      Invnum,
+      InvorderColumn,
+      InvorderBy,
+      qBuscarInventario,
+    ]);
+  
+  
+    useEffect(() => {
+      getProveedores()
+    }, [qBuscarProveedor])
+    useEffect(() => {
+      if (view == "inventario") {
+        if (subViewInventario == "fallas") {
+          getFallas()
+        } else if (subViewInventario == "inventario") {
+          getProductos()
+        } else if (subViewInventario == "proveedores") {
+          getProveedores()
+        } else if (subViewInventario == "pedidosCentral") {
+          getPedidosCentral()
+        }
+  
       }
-
-    }
-  }, [view, subViewInventario])
-
-  useEffect(() => {
-    setInputsInventario()
-  }, [indexSelectInventario])
-
-  useEffect(() => {
-    if (subViewInventario == "proveedores") {
-      setInputsProveedores()
-
-    } else if (subViewInventario == "facturas") {
-      getPagoProveedor()
-    }
-
-  }, [subViewInventario, indexSelectProveedores])
-
-  useEffect(() => {
-    getEstaInventario()
-  }, [
-    fechaQEstaInve,
-    fechaFromEstaInve,
-    fechaToEstaInve,
-    orderByEstaInv,
-    orderByColumEstaInv]) */
+    }, [view, subViewInventario])
+  
+    useEffect(() => {
+      setInputsInventario()
+    }, [indexSelectInventario])
+  
+    useEffect(() => {
+      if (subViewInventario == "proveedores") {
+        setInputsProveedores()
+  
+      } else if (subViewInventario == "facturas") {
+        getPagoProveedor()
+      }
+  
+    }, [subViewInventario, indexSelectProveedores])
+  
+    useEffect(() => {
+      getEstaInventario()
+    }, [
+      fechaQEstaInve,
+      fechaFromEstaInve,
+      fechaToEstaInve,
+      orderByEstaInv,
+      orderByColumEstaInv]) */
 
 
 
@@ -296,8 +298,8 @@ function Home() {
   const [invsuc_orderColumn, setinvsuc_orderColumn] = useState("descripcion")
   const [invsuc_orderBy, setinvsuc_orderBy] = useState("desc")
   const [controlefecSelectGeneral, setcontrolefecSelectGeneral] = useState(1)
-  
-  
+
+
 
   const [inpInvbarras, setinpInvbarras] = useState("")
   const [inpInvcantidad, setinpInvcantidad] = useState("")
@@ -355,22 +357,22 @@ function Home() {
   const [subViewCompras, setsubViewCompras] = useState("resumen")
   const [openSelectProvNewPedComprasCheck, setopenSelectProvNewPedComprasCheck] = useState(false)
   const [NewPedComprasSelectProd, setNewPedComprasSelectProd] = useState(null)
-  
+
   const [selectPrecioxProveedorProducto, setselectPrecioxProveedorProducto] = useState(null)
   const [selectPrecioxProveedorProveedor, setselectPrecioxProveedorProveedor] = useState(null)
   const [selectPrecioxProveedorPrecio, setselectPrecioxProveedorPrecio] = useState("")
   const [precioxproveedor, setprecioxproveedor] = useState([])
-  
+
 
 
   ///Proveedores Props
 
-  const [qBuscarProveedor,setQBuscarProveedor] = useState("")
-  const [proveedoresList,setProveedoresList] = useState([])
-  
-  
-  
-  
+  const [qBuscarProveedor, setQBuscarProveedor] = useState("")
+  const [proveedoresList, setProveedoresList] = useState([])
+
+
+
+
 
 
 
@@ -987,7 +989,7 @@ function Home() {
 
 
   }
-  
+
   const getFallas = () => {
     setLoading(true)
     db.getFallas({ qFallas, orderCatFallas, orderSubCatFallas, ascdescFallas }).then(res => {
@@ -1243,30 +1245,30 @@ function Home() {
     }
   }
 
-  const notificar = (msj, fixed = true, simple=false) => {
+  const notificar = (msj, fixed = true, simple = false) => {
     if (fixed) {
-        setTimeout(() => {
-            setMsj("")
-        }, 3000)
-    }else{
-        setTimeout(() => {
-            setMsj("")
-        }, 30000)
+      setTimeout(() => {
+        setMsj("")
+      }, 3000)
+    } else {
+      setTimeout(() => {
+        setMsj("")
+      }, 30000)
     }
     if (msj == "") {
-        setMsj("")
+      setMsj("")
     } else {
-        if (msj.data) {
-            if (msj.data.msj) {
-                setMsj(msj.data.msj)
+      if (msj.data) {
+        if (msj.data.msj) {
+          setMsj(msj.data.msj)
 
-            } else {
+        } else {
 
-                setMsj(JSON.stringify(msj.data))
-            }
-        }else if(typeof msj === 'string' || msj instanceof String){
-            setMsj(msj)
+          setMsj(JSON.stringify(msj.data))
         }
+      } else if (typeof msj === 'string' || msj instanceof String) {
+        setMsj(msj)
+      }
 
     }
   }
@@ -1488,69 +1490,69 @@ function Home() {
   ///////////////////////////////Panel//////////////////////////////////////////77  
   ///////////////////////////////Panel//////////////////////////////////////////77  
   ///////////////////////////////Panel//////////////////////////////////////////77  
-  
+
   const [viewmainPanel, setviewmainPanel] = useState("panelgeneral")
-  
+
   const [subViewInventario, setsubViewInventario] = useState("gestion")
-  
+
   const [msj, setMsj] = useState("")
   const [loading, setLoading] = useState(false)
   const [loginActive, setLoginActive] = useState(false)
   const [sucursalSelect, setsucursalSelect] = useState(null)
-  
+
   const [sucursales, setsucursales] = useState([])
   const [subviewpanelsucursales, setsubviewpanelsucursales] = useState("cierres")
-  
 
-  
+
+
   const [sucursalListData, setsucursalListData] = useState([])
   const [sucursalDetallesData, setsucursalDetallesData] = useState({})
-  
+
   const [fechasMain1, setfechasMain1] = useState("")
   const [fechasMain2, setfechasMain2] = useState("")
   const [filtros, setfiltros] = useState({})
-  
+
   const [subViewNomina, setsubViewNomina] = useState("gestion")
   const [subViewNominaGestion, setsubViewNominaGestion] = useState("personal")
-  
-  const [nominaNombre,setnominaNombre] = useState("")
-  const [nominaCedula,setnominaCedula] = useState("")
-  const [nominaTelefono,setnominaTelefono] = useState("")
-  const [nominaDireccion,setnominaDireccion] = useState("")
-  const [nominaFechadeNacimiento,setnominaFechadeNacimiento] = useState("")
-  const [nominaFechadeIngreso,setnominaFechadeIngreso] = useState("")
-  const [nominaGradoInstruccion,setnominaGradoInstruccion] = useState("")
-  const [nominaCargo,setnominaCargo] = useState("")
-  const [nominaSucursal,setnominaSucursal] = useState("")
-  
-  const [indexSelectNomina,setIndexSelectNomina] = useState(null)
-  const [qNomina,setqNomina] = useState("")
-  const [qSucursalNomina,setqSucursalNomina] = useState("")
-  const [qCargoNomina,setqCargoNomina] = useState("")
-  
-  const [nominaData,setnominaData] = useState([])
-  
-  const [nominapagodetalles,setnominapagodetalles] = useState({})
-  const [cargosDescripcion,setcargosDescripcion] = useState("")
-  const [cargosSueldo,setcargosSueldo] = useState("")
-  const [qCargos,setqCargos] = useState("")
-  const [indexSelectCargo,setindexSelectCargo] = useState(null)
-  
-  const [cargosData,setcargosData] = useState([])
-  
+
+  const [nominaNombre, setnominaNombre] = useState("")
+  const [nominaCedula, setnominaCedula] = useState("")
+  const [nominaTelefono, setnominaTelefono] = useState("")
+  const [nominaDireccion, setnominaDireccion] = useState("")
+  const [nominaFechadeNacimiento, setnominaFechadeNacimiento] = useState("")
+  const [nominaFechadeIngreso, setnominaFechadeIngreso] = useState("")
+  const [nominaGradoInstruccion, setnominaGradoInstruccion] = useState("")
+  const [nominaCargo, setnominaCargo] = useState("")
+  const [nominaSucursal, setnominaSucursal] = useState("")
+
+  const [indexSelectNomina, setIndexSelectNomina] = useState(null)
+  const [qNomina, setqNomina] = useState("")
+  const [qSucursalNomina, setqSucursalNomina] = useState("")
+  const [qCargoNomina, setqCargoNomina] = useState("")
+
+  const [nominaData, setnominaData] = useState([])
+
+  const [nominapagodetalles, setnominapagodetalles] = useState({})
+  const [cargosDescripcion, setcargosDescripcion] = useState("")
+  const [cargosSueldo, setcargosSueldo] = useState("")
+  const [qCargos, setqCargos] = useState("")
+  const [indexSelectCargo, setindexSelectCargo] = useState(null)
+
+  const [cargosData, setcargosData] = useState([])
+
   const [usuariosData, setusuariosData] = useState([]);
   const [usuarioNombre, setusuarioNombre] = useState("");
   const [usuarioUsuario, setusuarioUsuario] = useState("");
   const [usuarioRole, setusuarioRole] = useState("");
   const [usuarioClave, setusuarioClave] = useState("");
   const [usuarioArea, setusuarioArea] = useState("");
-  
+
   const [qBuscarUsuario, setQBuscarUsuario] = useState("");
   const [indexSelectUsuarios, setIndexSelectUsuarios] = useState(null);
 
   const [filtronominaq, setfiltronominaq] = useState("")
   const [filtronominacargo, setfiltronominacargo] = useState("")
-  
+
   useEffect(() => {
     getToday()
   }, [])
@@ -1558,8 +1560,8 @@ function Home() {
 
   useEffect(() => {
     setInputsUsuarios();
-}, [indexSelectUsuarios]);
-  
+  }, [indexSelectUsuarios]);
+
   const getToday = () => {
     db.today({}).then(res => {
       let today = res.data
@@ -1593,7 +1595,7 @@ function Home() {
       setLoading(false)
     })
   }
-  const getsucursalDetallesData = (event=null) => {
+  const getsucursalDetallesData = (event = null, subviewpanelsucursalesforce = null) => {
 
     if (event) {
       event.preventDefault()
@@ -1602,7 +1604,7 @@ function Home() {
     db.getsucursalDetallesData({
       fechasMain1,
       fechasMain2,
-      filtros:{
+      filtros: {
         itemCero: invsuc_itemCero,
         q: invsuc_q,
         exacto: invsuc_exacto,
@@ -1614,7 +1616,7 @@ function Home() {
         filtronominacargo,
       },
 
-      subviewpanelsucursales,
+      subviewpanelsucursales: subviewpanelsucursalesforce ? subviewpanelsucursalesforce : subviewpanelsucursales,
       sucursalSelect,
     }).then(res => {
       setsucursalDetallesData(res.data)
@@ -1624,30 +1626,30 @@ function Home() {
 
   /// Nomina ///
 
-  
+
   const selectNominaDetalles = id => {
     setnominapagodetalles({})
-    let personal = nominaData.personal 
+    let personal = nominaData.personal
     if (personal) {
-      let nomina = personal.filter(e=>e.id===id)
+      let nomina = personal.filter(e => e.id === id)
       if (nomina) {
         setnominapagodetalles(nomina[0])
-      }  
-    } 
+      }
+    }
   }
 
-  const delPersonalNomina = event =>{
+  const delPersonalNomina = event => {
     event.preventDefault()
     db.delPersonalNomina({
-      id:indexSelectNomina
-    }).then(({data})=>{
+      id: indexSelectNomina
+    }).then(({ data }) => {
       if (data.estado) {
         getPersonalNomina()
       }
       notificar(data.msj)
     })
   }
-  const addPersonalNomina = event =>{
+  const addPersonalNomina = event => {
     event.preventDefault()
 
     db.setPersonalNomina({
@@ -1661,15 +1663,15 @@ function Home() {
       nominaCargo,
       nominaSucursal,
 
-      id:indexSelectNomina
-    }).then(({data})=>{
+      id: indexSelectNomina
+    }).then(({ data }) => {
       if (data.estado) {
         getPersonalNomina()
       }
       notificar(data.msj)
     })
   }
-  const getPersonalNomina = event =>{
+  const getPersonalNomina = event => {
     if (event) {
       event.preventDefault()
     }
@@ -1679,31 +1681,31 @@ function Home() {
       qNomina,
       qSucursalNomina,
       qCargoNomina,
-      type:subViewNomina
-    }).then(({data})=>{
+      type: subViewNomina
+    }).then(({ data }) => {
       setnominaData(data)
     })
   }
-  
+
   ////Cargos
-  
-  const delPersonalCargos = () =>{
+
+  const delPersonalCargos = () => {
     db.delPersonalCargos({
-      id:indexSelectCargo
-    }).then(({data})=>{
+      id: indexSelectCargo
+    }).then(({ data }) => {
       if (data.estado) {
         getPersonalCargos()
       }
       notificar(data.msj)
     })
   }
-  const addPersonalCargos = event =>{
+  const addPersonalCargos = event => {
     event.preventDefault()
     db.setPersonalCargos({
       cargosDescripcion,
       cargosSueldo,
-      id:indexSelectCargo,
-    }).then(({data})=>{
+      id: indexSelectCargo,
+    }).then(({ data }) => {
       if (data.estado) {
         getPersonalCargos(null)
       }
@@ -1711,77 +1713,77 @@ function Home() {
 
     })
   }
-  const getPersonalCargos = event =>{
+  const getPersonalCargos = event => {
     if (event) {
       event.preventDefault()
     }
 
     db.getPersonalCargos({
       qCargos
-    }).then(({data})=>{
+    }).then(({ data }) => {
       setcargosData(data)
     })
   }
 
   const setInputsUsuarios = () => {
     if (indexSelectUsuarios) {
-        let obj = usuariosData[indexSelectUsuarios];
-        if (obj) {
-            setusuarioNombre(obj.nombre);
-            setusuarioUsuario(obj.usuario);
-            setusuarioRole(obj.tipo_usuario);
-            setusuarioArea(obj.area);
-            setusuarioClave(obj.clave);
-        }
+      let obj = usuariosData[indexSelectUsuarios];
+      if (obj) {
+        setusuarioNombre(obj.nombre);
+        setusuarioUsuario(obj.usuario);
+        setusuarioRole(obj.tipo_usuario);
+        setusuarioArea(obj.area);
+        setusuarioClave(obj.clave);
+      }
     }
-};
+  };
   const getUsuarios = () => {
     setLoading(true);
     db.getUsuarios({ q: qBuscarUsuario }).then((res) => {
-        setLoading(false);
-        setusuariosData(res.data);
+      setLoading(false);
+      setusuariosData(res.data);
     });
   };
   const delUsuario = () => {
-      setLoading(true);
-      let id = null;
-      if (indexSelectUsuarios) {
-          id = usuariosData[indexSelectUsuarios].id;
-      }
-      db.delUsuario({ id }).then((res) => {
-          setLoading(false);
-          getUsuarios();
-          notificar(res);
-      });
+    setLoading(true);
+    let id = null;
+    if (indexSelectUsuarios) {
+      id = usuariosData[indexSelectUsuarios].id;
+    }
+    db.delUsuario({ id }).then((res) => {
+      setLoading(false);
+      getUsuarios();
+      notificar(res);
+    });
   };
   const addNewUsuario = (e) => {
     e.preventDefault();
     let id = null;
     if (indexSelectUsuarios) {
-        id = usuariosData[indexSelectUsuarios].id;
+      id = usuariosData[indexSelectUsuarios].id;
     }
     if (usuarioRole && usuarioNombre && usuarioUsuario) {
-        setLoading(true);
-        db.setUsuario({
-            id,
-            role: usuarioRole,
-            nombres: usuarioNombre,
-            usuario: usuarioUsuario,
-            clave: usuarioClave,
-            area: usuarioArea,
-        }).then((res) => {
-            notificar(res);
-            setLoading(false);
-            getUsuarios();
-        });
+      setLoading(true);
+      db.setUsuario({
+        id,
+        role: usuarioRole,
+        nombres: usuarioNombre,
+        usuario: usuarioUsuario,
+        clave: usuarioClave,
+        area: usuarioArea,
+      }).then((res) => {
+        notificar(res);
+        setLoading(false);
+        getUsuarios();
+      });
     } else {
       console.log(
-          "Err: addNewUsuario" +
-              usuarioRole +
-              " " +
-              usuarioNombre +
-              " " +
-              usuarioUsuario
+        "Err: addNewUsuario" +
+        usuarioRole +
+        " " +
+        usuarioNombre +
+        " " +
+        usuarioUsuario
       );
     }
   };
@@ -1827,26 +1829,26 @@ function Home() {
     }, 150);
     setTypingTimeout(time);
   };
-  
+
   ///Compras Functions
   const openSelectProvNewPedCompras = (id) => {
     setopenSelectProvNewPedComprasCheck(true)
-    setNewPedComprasSelectProd(id)          
+    setNewPedComprasSelectProd(id)
   }
   const selectPrecioxProveedorSave = () => {
     db.selectPrecioxProveedorSave({
-      id_producto:selectPrecioxProveedorProducto,
-      id_proveedor:selectPrecioxProveedorProveedor,
-      precio:selectPrecioxProveedorPrecio
-    }).then(res=>{
+      id_producto: selectPrecioxProveedorProducto,
+      id_proveedor: selectPrecioxProveedorProveedor,
+      precio: selectPrecioxProveedorPrecio
+    }).then(res => {
       getPrecioxProveedor()
     })
   }
 
-  const getPrecioxProveedor = (id_producto_force=null) => {
+  const getPrecioxProveedor = (id_producto_force = null) => {
     db.getPrecioxProveedor({
-      id_producto: id_producto_force?id_producto_force:selectPrecioxProveedorProducto,
-    }).then(res=>{
+      id_producto: id_producto_force ? id_producto_force : selectPrecioxProveedorProducto,
+    }).then(res => {
       setprecioxproveedor(res.data)
     })
   }
@@ -1901,122 +1903,122 @@ function Home() {
   const [indexSelectMarcas, setIndexSelectMarcas] = useState(null);
 
   const delMarcas = () => {
-      setLoading(true);
-      let id = null;
-      if (indexSelectMarcas) {
-          if (marcas[indexSelectMarcas]) {
-              id = marcas[indexSelectMarcas].id;
-          }
+    setLoading(true);
+    let id = null;
+    if (indexSelectMarcas) {
+      if (marcas[indexSelectMarcas]) {
+        id = marcas[indexSelectMarcas].id;
       }
+    }
 
-      db.delMarca({ id }).then((res) => {
-          setLoading(false);
-          getMarcas();
-          notificar(res);
-          setIndexSelectMarcas(null);
-      });
+    db.delMarca({ id }).then((res) => {
+      setLoading(false);
+      getMarcas();
+      notificar(res);
+      setIndexSelectMarcas(null);
+    });
   };
 
   const addNewMarcas = (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      let id = null;
-      if (indexSelectMarcas) {
-          if (marcas[indexSelectMarcas]) {
-              id = marcas[indexSelectMarcas].id;
-          }
+    let id = null;
+    if (indexSelectMarcas) {
+      if (marcas[indexSelectMarcas]) {
+        id = marcas[indexSelectMarcas].id;
       }
+    }
 
-      if (marcasDescripcion) {
-          setLoading(true);
-          db.setMarcas({ id, marcasDescripcion }).then((res) => {
-              notificar(res);
-              setLoading(false);
-              getMarcas();
-          });
-      }
+    if (marcasDescripcion) {
+      setLoading(true);
+      db.setMarcas({ id, marcasDescripcion }).then((res) => {
+        notificar(res);
+        setLoading(false);
+        getMarcas();
+      });
+    }
   };
   const getMarcas = () => {
-      db.getMarcas({
-          q: qBuscarMarcas,
-      }).then((res) => {
-          if (res.data) {
-              if (res.data.length) {
-                  setmarcas(res.data);
-              } else {
-                  setmarcas([]);
-              }
-          }
-      });
+    db.getMarcas({
+      q: qBuscarMarcas,
+    }).then((res) => {
+      if (res.data) {
+        if (res.data.length) {
+          setmarcas(res.data);
+        } else {
+          setmarcas([]);
+        }
+      }
+    });
   };
 
-///END Marcas
+  ///END Marcas
 
   /////Categorias 
 
-    const [qBuscarCategorias, setQBuscarCategorias] = useState("");
-    const [categorias, setcategorias] = useState([]);
+  const [qBuscarCategorias, setQBuscarCategorias] = useState("");
+  const [categorias, setcategorias] = useState([]);
 
-    const [categoriasDescripcion, setcategoriasDescripcion] = useState("");
-    const [indexSelectCategorias, setIndexSelectCategorias] = useState(null);
+  const [categoriasDescripcion, setcategoriasDescripcion] = useState("");
+  const [indexSelectCategorias, setIndexSelectCategorias] = useState(null);
 
-    const delCategorias = () => {
-        setLoading(true);
-        let id = null;
-        if (indexSelectCategorias) {
-            if (categorias[indexSelectCategorias]) {
-                id = categorias[indexSelectCategorias].id;
-            }
+  const delCategorias = () => {
+    setLoading(true);
+    let id = null;
+    if (indexSelectCategorias) {
+      if (categorias[indexSelectCategorias]) {
+        id = categorias[indexSelectCategorias].id;
+      }
+    }
+
+    db.delCategoria({ id }).then((res) => {
+      setLoading(false);
+      getCategorias();
+      notificar(res);
+      setIndexSelectCategorias(null);
+    });
+  };
+
+  const addNewCategorias = (e) => {
+    e.preventDefault();
+
+    let id = null;
+    if (indexSelectCategorias) {
+      if (categorias[indexSelectCategorias]) {
+        id = categorias[indexSelectCategorias].id;
+      }
+    }
+
+    if (categoriasDescripcion) {
+      setLoading(true);
+      db.setCategorias({ id, categoriasDescripcion }).then((res) => {
+        notificar(res);
+        setLoading(false);
+        getCategorias();
+      });
+    }
+  };
+  const getCategorias = () => {
+    db.getCategorias({
+      q: qBuscarCategorias,
+    }).then((res) => {
+      if (res.data) {
+        if (res.data.length) {
+          setcategorias(res.data);
+        } else {
+          setcategorias([]);
         }
-
-        db.delCategoria({ id }).then((res) => {
-            setLoading(false);
-            getCategorias();
-            notificar(res);
-            setIndexSelectCategorias(null);
-        });
-    };
-
-    const addNewCategorias = (e) => {
-        e.preventDefault();
-
-        let id = null;
-        if (indexSelectCategorias) {
-            if (categorias[indexSelectCategorias]) {
-                id = categorias[indexSelectCategorias].id;
-            }
-        }
-
-        if (categoriasDescripcion) {
-            setLoading(true);
-            db.setCategorias({ id, categoriasDescripcion }).then((res) => {
-                notificar(res);
-                setLoading(false);
-                getCategorias();
-            });
-        }
-    };
-    const getCategorias = () => {
-        db.getCategorias({
-            q: qBuscarCategorias,
-        }).then((res) => {
-            if (res.data) {
-                if (res.data.length) {
-                    setcategorias(res.data);
-                } else {
-                    setcategorias([]);
-                }
-            }
-        });
-    };
-    const setInputsCats = () => {
-        if (indexSelectCategorias) {
-            let obj = categorias[indexSelectCategorias];
-            if (obj) {
-                setcategoriasDescripcion(obj.descripcion);
-            }
-        }
-    };
+      }
+    });
+  };
+  const setInputsCats = () => {
+    if (indexSelectCategorias) {
+      let obj = categorias[indexSelectCategorias];
+      if (obj) {
+        setcategoriasDescripcion(obj.descripcion);
+      }
+    }
+  };
 
   ///END Categorias
 
@@ -2029,56 +2031,56 @@ function Home() {
   const [indexSelectCatGenerals, setIndexSelectCatGenerals] = useState(null);
 
   const delCatGenerals = () => {
-      setLoading(true);
-      let id = null;
-      if (indexSelectCatGenerals) {
-          if (catGenerals[indexSelectCatGenerals]) {
-              id = catGenerals[indexSelectCatGenerals].id;
-          }
+    setLoading(true);
+    let id = null;
+    if (indexSelectCatGenerals) {
+      if (catGenerals[indexSelectCatGenerals]) {
+        id = catGenerals[indexSelectCatGenerals].id;
       }
+    }
 
-      db.delCatGeneral({ id }).then((res) => {
-          setLoading(false);
-          getCatGenerals();
-          notificar(res);
-          setIndexSelectCatGenerals(null);
-      });
+    db.delCatGeneral({ id }).then((res) => {
+      setLoading(false);
+      getCatGenerals();
+      notificar(res);
+      setIndexSelectCatGenerals(null);
+    });
   };
 
   const addNewCatGenerals = (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      let id = null;
-      if (indexSelectCatGenerals) {
-          if (catGenerals[indexSelectCatGenerals]) {
-              id = catGenerals[indexSelectCatGenerals].id;
-          }
+    let id = null;
+    if (indexSelectCatGenerals) {
+      if (catGenerals[indexSelectCatGenerals]) {
+        id = catGenerals[indexSelectCatGenerals].id;
       }
+    }
 
-      if (catGeneralsDescripcion) {
-          setLoading(true);
-          db.setCatGenerals({ id, catGeneralsDescripcion }).then((res) => {
-              notificar(res);
-              setLoading(false);
-              getCatGenerals();
-          });
-      }
+    if (catGeneralsDescripcion) {
+      setLoading(true);
+      db.setCatGenerals({ id, catGeneralsDescripcion }).then((res) => {
+        notificar(res);
+        setLoading(false);
+        getCatGenerals();
+      });
+    }
   };
   const getCatGenerals = () => {
-      db.getCatGenerals({
-          q: qBuscarCatGenerals,
-      }).then((res) => {
-          if (res.data) {
-              if (res.data.length) {
-                  setcatGenerals(res.data);
-              } else {
-                  setcatGenerals([]);
-              }
-          }
-      });
+    db.getCatGenerals({
+      q: qBuscarCatGenerals,
+    }).then((res) => {
+      if (res.data) {
+        if (res.data.length) {
+          setcatGenerals(res.data);
+        } else {
+          setcatGenerals([]);
+        }
+      }
+    });
   };
 
-///END CatGenerals
+  ///END CatGenerals
   const type = type => {
     return !type || type === "delete" ? true : false
   }
@@ -2091,33 +2093,50 @@ function Home() {
   compras */
 
   let opcionesadmin = [
-    {route: "cierres",
-    name: "cierres"},
+    {
+      route: "cierres",
+      name: "cierres"
+    },
 
-    {route: "gastos",
-    name: "Gastos"},
+    {
+      route: "gastos",
+      name: "Gastos"
+    },
 
-    {route: "nomina",
-    name: "Nómina"},
+    {
+      route: "nomina",
+      name: "Nómina"
+    },
 
-    {route: "usuarios",
-    name: "Usuarios"},
+    {
+      route: "usuarios",
+      name: "Usuarios"
+    },
 
-    {route: "compras",
-    name: "Compras"},
+    {
+      route: "compras",
+      name: "Compras"
+    },
   ]
 
   let opcionesgeneral = [
-    {route: "sucursales",
-    name: "Sucursales"},
+    {
+      route: "sucursales",
+      name: "Sucursales"
+    },
+    {
+      route: "comovamos",
+      name: "CÓMO VAMOS"
+    },
 
-    {route: "administracion",
-    name: "Administración"},
+    {
+      route: "administracion",
+      name: "Administración"
+    },
 
-  
   ]
 
-  
+
   return (
     <>
       {!loginActive ? <Login loginRes={loginRes} /> : <>
@@ -2135,7 +2154,7 @@ function Home() {
 
           />
 
-          {viewmainPanel === "panelgeneral" && 
+          {viewmainPanel === "panelgeneral" &&
             <PanelOpciones
               viewmainPanel={viewmainPanel}
               setviewmainPanel={setviewmainPanel}
@@ -2143,8 +2162,8 @@ function Home() {
 
             />
           }
-          
-          {viewmainPanel === "administracion" && 
+
+          {viewmainPanel === "administracion" &&
             <PanelOpciones
               viewmainPanel={viewmainPanel}
               setviewmainPanel={setviewmainPanel}
@@ -2152,9 +2171,9 @@ function Home() {
             />
           }
 
-          {viewmainPanel === "cierres" && 
+          {viewmainPanel === "cierres" &&
             <>
-              <FechasMain 
+              <FechasMain
                 fechasMain1={fechasMain1}
                 fechasMain2={fechasMain2}
                 setfechasMain1={setfechasMain1}
@@ -2162,59 +2181,59 @@ function Home() {
               />
               <Cierres>
                 <BalanceCierres
-                
+
                 />
 
-                {sucursalSelect?
+                {sucursalSelect ?
                   <SucursalDetallesCierres
                     sucursalDetallesData={sucursalDetallesData}
 
-                  /> 
-                :
+                  />
+                  :
                   <SucursalListCierres
                     sucursalListData={sucursalListData}
 
                     sucursalSelect={sucursalSelect}
                     setsucursalSelect={setsucursalSelect}
-                  />  
+                  />
                 }
               </Cierres>
             </>
           }
-          
-          {viewmainPanel === "gastos" && 
-          <>
-            <FechasMain 
+
+          {viewmainPanel === "gastos" &&
+            <>
+              <FechasMain
                 fechasMain1={fechasMain1}
                 fechasMain2={fechasMain2}
                 setfechasMain1={setfechasMain1}
                 setfechasMain2={setfechasMain2}
               />
-            <Gastos>
-              {sucursalSelect?
-                <SucursalDetallesGastos
-                  sucursalDetallesData={sucursalDetallesData}
+              <Gastos>
+                {sucursalSelect ?
+                  <SucursalDetallesGastos
+                    sucursalDetallesData={sucursalDetallesData}
 
-                /> 
-              :
-                <SucursalListGastos
-                  sucursalListData={sucursalListData}
+                  />
+                  :
+                  <SucursalListGastos
+                    sucursalListData={sucursalListData}
 
-                  sucursalSelect={sucursalSelect}
-                  setsucursalSelect={setsucursalSelect}
-                />  
-              }
-            </Gastos>
-          </>
+                    sucursalSelect={sucursalSelect}
+                    setsucursalSelect={setsucursalSelect}
+                  />
+                }
+              </Gastos>
+            </>
 
           }
-          {viewmainPanel === "nomina" && 
+          {viewmainPanel === "nomina" &&
             <NominaHome
               subViewNomina={subViewNomina}
               setsubViewNomina={setsubViewNomina}
             >
 
-              {subViewNomina === "gestion" && 
+              {subViewNomina === "gestion" &&
                 <Nomina
                   subViewNominaGestion={subViewNominaGestion}
                   setsubViewNominaGestion={setsubViewNominaGestion}
@@ -2281,9 +2300,9 @@ function Home() {
                     >
                     </NominaCargos>
                   }
-                </Nomina> 
+                </Nomina>
               }
-              {subViewNomina === "pagos" && 
+              {subViewNomina === "pagos" &&
                 <NominaPagos
                   qSucursalNomina={qSucursalNomina}
                   setqSucursalNomina={setqSucursalNomina}
@@ -2297,7 +2316,7 @@ function Home() {
                   getPersonalCargos={getPersonalCargos}
                   nominaData={nominaData}
                   subViewNomina={subViewNomina}
-                  
+
                   selectNominaDetalles={selectNominaDetalles}
 
                   nominapagodetalles={nominapagodetalles}
@@ -2308,7 +2327,7 @@ function Home() {
               }
             </NominaHome>
           }
-          {viewmainPanel === "usuarios" && 
+          {viewmainPanel === "usuarios" &&
             <Usuarios
               usuarioNombre={usuarioNombre}
               setusuarioNombre={setusuarioNombre}
@@ -2338,7 +2357,7 @@ function Home() {
 
               subViewCompras={subViewCompras}
               setsubViewCompras={setsubViewCompras}
-              
+
               qProductosMain={qProductosMain}
               setQProductosMain={setQProductosMain}
               productos={productos}
@@ -2346,13 +2365,13 @@ function Home() {
               moneda={moneda}
               sucursales={sucursales}
               openSelectProvNewPedCompras={openSelectProvNewPedCompras}
-            
+
               setopenSelectProvNewPedComprasCheck={setopenSelectProvNewPedComprasCheck}
               openSelectProvNewPedComprasCheck={openSelectProvNewPedComprasCheck}
 
               NewPedComprasSelectProd={NewPedComprasSelectProd}
               setNewPedComprasSelectProd={setNewPedComprasSelectProd}
-              
+
               getPrecioxProveedor={getPrecioxProveedor}
               getProveedores={getProveedores}
               qBuscarProveedor={qBuscarProveedor}
@@ -2372,13 +2391,13 @@ function Home() {
 
 
 
-          {viewmainPanel === "inventario" && 
+          {viewmainPanel === "inventario" &&
             <>
               <NavInventario
                 subViewInventario={subViewInventario}
                 setsubViewInventario={setsubViewInventario}
               />
-              {subViewInventario=="gestion"?
+              {subViewInventario == "gestion" ?
                 <GestionInventario
                   setporcenganancia={setporcenganancia}
                   productosInventario={productosInventario}
@@ -2406,9 +2425,9 @@ function Home() {
                   getCatGenerals={getCatGenerals}
                   getCategorias={getCategorias}
                 />
-              :null}
+                : null}
 
-              {subViewInventario=="departamentos"?
+              {subViewInventario == "departamentos" ?
                 <DepartamentosInventario
                   getCategorias={getCategorias}
                   addNewCategorias={addNewCategorias}
@@ -2421,42 +2440,42 @@ function Home() {
                   delCategorias={delCategorias}
                   categorias={categorias}
                 />
-              :null}
+                : null}
 
-              {subViewInventario=="catgeneral"?
+              {subViewInventario == "catgeneral" ?
                 <CatGeneral
-                getCatGenerals={getCatGenerals}
-                addNewCatGenerals={addNewCatGenerals}
-                catGeneralsDescripcion={catGeneralsDescripcion}
-                setcatGeneralsDescripcion={setcatGeneralsDescripcion}
-                indexSelectCatGenerals={indexSelectCatGenerals}
-                setIndexSelectCatGenerals={setIndexSelectCatGenerals}
-                qBuscarCatGenerals={qBuscarCatGenerals}
-                setQBuscarCatGenerals={setQBuscarCatGenerals}
-                delCatGenerals={delCatGenerals}
-                catGenerals={catGenerals}
+                  getCatGenerals={getCatGenerals}
+                  addNewCatGenerals={addNewCatGenerals}
+                  catGeneralsDescripcion={catGeneralsDescripcion}
+                  setcatGeneralsDescripcion={setcatGeneralsDescripcion}
+                  indexSelectCatGenerals={indexSelectCatGenerals}
+                  setIndexSelectCatGenerals={setIndexSelectCatGenerals}
+                  qBuscarCatGenerals={qBuscarCatGenerals}
+                  setQBuscarCatGenerals={setQBuscarCatGenerals}
+                  delCatGenerals={delCatGenerals}
+                  catGenerals={catGenerals}
                 />
-              :null}
+                : null}
 
-              {subViewInventario=="marcas"?
+              {subViewInventario == "marcas" ?
                 <Marcas
-                getMarcas={getMarcas}
-                addNewMarcas={addNewMarcas}
-                marcasDescripcion={marcasDescripcion}
-                setmarcasDescripcion={setmarcasDescripcion}
-                indexSelectMarcas={indexSelectMarcas}
-                setIndexSelectMarcas={setIndexSelectMarcas}
-                qBuscarMarcas={qBuscarMarcas}
-                setQBuscarMarcas={setQBuscarMarcas}
-                delMarcas={delMarcas}
-                marcas={marcas}
+                  getMarcas={getMarcas}
+                  addNewMarcas={addNewMarcas}
+                  marcasDescripcion={marcasDescripcion}
+                  setmarcasDescripcion={setmarcasDescripcion}
+                  indexSelectMarcas={indexSelectMarcas}
+                  setIndexSelectMarcas={setIndexSelectMarcas}
+                  qBuscarMarcas={qBuscarMarcas}
+                  setQBuscarMarcas={setQBuscarMarcas}
+                  delMarcas={delMarcas}
+                  marcas={marcas}
                 />
-              :null}
+                : null}
             </>
           }
 
 
-          {viewmainPanel === "sucursales" && 
+          {viewmainPanel === "sucursales" &&
             <PanelSucursales
               getPersonalCargos={getPersonalCargos}
               cargosData={cargosData}
@@ -2479,24 +2498,24 @@ function Home() {
 
               sucursalDetallesData={sucursalDetallesData}
 
-              invsuc_itemCero={invsuc_itemCero}              
+              invsuc_itemCero={invsuc_itemCero}
               setinvsuc_itemCero={setinvsuc_itemCero}
-              invsuc_q={invsuc_q}              
+              invsuc_q={invsuc_q}
               setinvsuc_q={setinvsuc_q}
-              invsuc_exacto={invsuc_exacto}              
+              invsuc_exacto={invsuc_exacto}
               setinvsuc_exacto={setinvsuc_exacto}
-              invsuc_num={invsuc_num}              
+              invsuc_num={invsuc_num}
               setinvsuc_num={setinvsuc_num}
-              invsuc_orderColumn={invsuc_orderColumn}              
+              invsuc_orderColumn={invsuc_orderColumn}
               setinvsuc_orderColumn={setinvsuc_orderColumn}
-              invsuc_orderBy={invsuc_orderBy}              
+              invsuc_orderBy={invsuc_orderBy}
               setinvsuc_orderBy={setinvsuc_orderBy}
 
               controlefecSelectGeneral={controlefecSelectGeneral}
               setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
               moneda={moneda}
             >
-              <FechasMain 
+              <FechasMain
                 fechasMain1={fechasMain1}
                 fechasMain2={fechasMain2}
                 setfechasMain1={setfechasMain1}
@@ -2505,8 +2524,19 @@ function Home() {
 
             </PanelSucursales>
           }
-          
-          
+
+          {viewmainPanel === "comovamos" &&
+            <ComoVamos
+              getsucursalDetallesData={getsucursalDetallesData}
+              sucursalDetallesData={sucursalDetallesData}
+              subviewpanelsucursales={subviewpanelsucursales}
+              setsubviewpanelsucursales={setsubviewpanelsucursales}
+              moneda={moneda}
+
+            />
+          }
+
+
         </Panel>
       </>}
     </>
