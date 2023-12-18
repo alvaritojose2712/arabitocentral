@@ -239,7 +239,7 @@ class NominaController extends Controller
     ];
 
     foreach ($update as $key => $e) {
-        $wh = nomina::where("nominacedula",$e[0]);
+        $wh = nomina::where("nominacedula",$e[0])->first();
 
         if ($wh) {
             $wh->nominacargo = $e[1];
