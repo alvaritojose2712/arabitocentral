@@ -330,9 +330,21 @@ class CierresController extends Controller
     }
     function comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
     {
-        return comovamos::with("sucursal")
+        $c = comovamos::with("sucursal")
             ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
             ->orderBy("total", "desc")->get();
+
+        return [
+            "comovamos" => $c,
+            "sum" =>[
+                "transferencia" => $c->sum("transferencia"),
+                "biopago" => $c->sum("biopago"),
+                "debito" => $c->sum("debito"),
+                "efectivo" => $c->sum("efectivo"),
+                "numventas" => $c->sum("numventas"),
+                "total" => $c->sum("total"),
+            ]
+            ];
     }
     function getInvSucursal($id_sucursal, $filtros)
     {
@@ -366,22 +378,103 @@ class CierresController extends Controller
 
         $controlefecSelectGeneral = $filtros["controlefecSelectGeneral"];
 
-        return cajas::with(["cat", "sucursal", "responsable", "asignar"])->where("tipo", $controlefecSelectGeneral)
-            ->when($controlefecQ, function ($q) use ($controlefecQ) {
-                $q->orWhere("concepto", $controlefecQ);
-                $q->orWhere("monto", $controlefecQ);
-            })
-            ->when($controlefecQCategoria, function ($q) use ($controlefecQCategoria) {
-                $q->where("categoria", $controlefecQCategoria);
-            })
-            ->when($id_sucursal, function ($q) use ($id_sucursal) {
-                $q->where("id_sucursal", $id_sucursal);
-            })
-            ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
-            ->orderBy("id", "desc")
-            ->get();
+        $cajas = cajas::with(["cat", "sucursal", "responsable", "asignar"])->where("tipo", $controlefecSelectGeneral)
+        ->when($controlefecQ, function ($q) use ($controlefecQ) {
+            $q->orWhere("concepto", $controlefecQ);
+            $q->orWhere("monto", $controlefecQ);
+        })
+        ->when($controlefecQCategoria, function ($q) use ($controlefecQCategoria) {
+            $q->where("categoria", $controlefecQCategoria);
+        })
+        ->when($id_sucursal, function ($q) use ($id_sucursal) {
+            $q->where("id_sucursal", $id_sucursal);
+        })
+        ->whereBetween("fecha", [$fechasMain1, $fechasMain2])->orderBy("idinsucursal", "desc")->get();
 
 
+        $categorias = [];
+        $responsable = [];
+        $asignar = [];
+
+        $cajas->map(function($q) use (&$categorias,&$responsable,&$asignar){
+
+            if ($q["cat"]) {
+                
+                if (isset($categorias[$q["cat"]["indice"]])) {
+                    $categorias[$q["cat"]["indice"]] = [
+                        "nombre" => $q["cat"]["nombre"],
+                        "montodolar" => $categorias[$q["cat"]["indice"]]["montodolar"] + ($q["montodolar"]),
+                        "montobs" => $categorias[$q["cat"]["indice"]]["montobs"] + ($q["montobs"]),
+                        "montopeso" => $categorias[$q["cat"]["indice"]]["montopeso"] + ($q["montopeso"]),
+                        "montoeuro" => $categorias[$q["cat"]["indice"]]["montoeuro"] + ($q["montoeuro"]),
+                    ];
+                }else{
+                    $categorias[$q["cat"]["indice"]] = [
+                        "nombre" => $q["cat"]["nombre"],
+                        "montodolar" => $q["montodolar"],
+                        "montobs" => $q["montobs"],
+                        "montopeso" => $q["montopeso"],
+                        "montoeuro" => $q["montoeuro"],
+                    ];
+                }
+            }
+
+            if ($q["responsable"]) {
+                if (isset($responsable[$q["responsable"]["indice"]])) {
+                    $responsable[$q["responsable"]["indice"]] = [
+                        "nombre" => $q["responsable"]["nombre"],
+
+                        "montodolar" => $responsable[$q["responsable"]["indice"]]["montodolar"] + $q["montodolar"],
+                        "montobs" => $responsable[$q["responsable"]["indice"]]["montobs"] + $q["montobs"],
+                        "montopeso" => $responsable[$q["responsable"]["indice"]]["montopeso"] + $q["montopeso"],
+                        "montoeuro" => $responsable[$q["responsable"]["indice"]]["montoeuro"] + $q["montoeuro"],
+                    ];
+                }else{
+                    $responsable[$q["responsable"]["indice"]] = [
+                        "nombre" => $q["responsable"]["nombre"],
+
+                        "montodolar" => $q["montodolar"],
+                        "montobs" => $q["montobs"],
+                        "montopeso" => $q["montopeso"],
+                        "montoeuro" => $q["montoeuro"],
+                    ];
+                }
+            }
+
+            if ($q["asignar"]) {
+                if (isset($asignar[$q["asignar"]["indice"]])) {
+                    $asignar[$q["asignar"]["indice"]] = [
+                        "nombre" => $q["asignar"]["nombre"],
+
+                        "montodolar" => $asignar[$q["asignar"]["indice"]]["montodolar"] + $q["montodolar"],
+                        "montobs" => $asignar[$q["asignar"]["indice"]]["montobs"] + $q["montobs"],
+                        "montopeso" => $asignar[$q["asignar"]["indice"]]["montopeso"] + $q["montopeso"],
+                        "montoeuro" => $asignar[$q["asignar"]["indice"]]["montoeuro"] + $q["montoeuro"],
+                    ];
+                }else{
+                    $asignar[$q["asignar"]["indice"]] = [
+                        "nombre" => $q["asignar"]["nombre"],
+
+                        "montodolar" => $q["montodolar"],
+                        "montobs" => $q["montobs"],
+                        "montopeso" => $q["montopeso"],
+                        "montoeuro" => $q["montoeuro"],
+                    ];
+                }
+            }
+
+
+
+        });
+
+        return [
+            "cajas" => $cajas,
+            "sum" => [
+                "categorias" => $categorias,
+                "responsable" => $responsable,
+                "asignar" => $asignar,
+            ]
+        ];
     }
 
 

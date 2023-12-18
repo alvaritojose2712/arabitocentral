@@ -18,8 +18,8 @@ export default function ComoVamos({
             <table className="table table-borderless">
 
 
-                {sucursalDetallesData ? sucursalDetallesData.length ?
-                    sucursalDetallesData.map(e =>
+                {sucursalDetallesData ? sucursalDetallesData.comovamos ?
+                    sucursalDetallesData.comovamos.map(e =>
                         <tbody key={e.id}>
                             <tr>
                                 <td colSpan={3} className="text-center">
@@ -45,9 +45,9 @@ export default function ComoVamos({
                                 </td>
                                 <td className="w-10 align-middle">
                                     <div className="w-100 h-100 d-flex justify-content-end">
-                                        <span className="text-success pull-right fs-2">
-                                            <i className="fa fa-user m-2"></i>
-                                            <button className="btn btn-xl btn-outline-success btn-circle fs-5">
+                                        <span className="text-success pull-right fs-2 text-center">
+                                            <i className="fa fa-user m-2"></i><br />
+                                            <button className="btn btn-xl btn-outline-success fs-5">
                                                 {e.numventas}
                                             </button>
                                         </span>
@@ -58,6 +58,41 @@ export default function ComoVamos({
                         </tbody>
                     )
                     : null : null}
+
+                <tbody>
+                    <tr>
+                        <td colSpan={3} className="text-center">
+                            <small className="text-muted fw-italic"></small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="w-30 align-middle">
+                            
+                        </td>
+                        <td className="w-60 align-middle">
+
+                            <div className="btn-group w-100 h-100">
+                                <button className="btn btn-success fs-3">Tot. {moneda(sucursalDetallesData.sum?sucursalDetallesData.sum.total:"")}</button>
+                                <button className="btn btn-sinapsis fs-5">Efec. {moneda(sucursalDetallesData.sum?sucursalDetallesData.sum.efectivo:"")}</button>
+                                <button className="btn btn-sinapsis fs-5">Deb. {moneda(sucursalDetallesData.sum?sucursalDetallesData.sum.debito:"")}</button>
+                                <button className="btn btn-sinapsis fs-5">Trans. {moneda(sucursalDetallesData.sum?sucursalDetallesData.sum.transferencia:"")}</button>
+                                <button className="btn btn-sinapsis fs-5">BioPago. {moneda(sucursalDetallesData.sum?sucursalDetallesData.sum.biopago:"")}</button>
+                            </div>
+
+                        </td>
+                        <td className="w-10 align-middle">
+                            <div className="w-100 h-100 d-flex justify-content-end">
+                                <span className="text-success pull-right fs-2 text-center">
+                                    <i className="fa fa-user m-2"></i><br />
+                                    <button className="btn btn-xl btn-success fs-5">
+                                        {sucursalDetallesData.sum?sucursalDetallesData.sum.numventas:""}
+                                    </button>
+                                </span>
+
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
 
             </table>
             {/* <table>
