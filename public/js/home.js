@@ -4219,7 +4219,7 @@ function Controldeefectivo(_ref) {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
         children: sucursalDetallesData ? sucursalDetallesData.length ? sucursalDetallesData.map(function (e) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+          return e.cat ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               className: "",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("small", {
@@ -4269,7 +4269,7 @@ function Controldeefectivo(_ref) {
               className: "",
               children: moneda(e.eurobalance)
             })]
-          }, e.id);
+          }, e.id) : null;
         }) : null : null
       })]
     })]
@@ -5794,10 +5794,6 @@ function SucursalDetallesCierres(_ref) {
                 className: "borderleft text-center fw-bold",
                 children: "EFECTIVO GUARDADO"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-                colSpan: 4,
-                className: "borderleft text-center fw-bold",
-                children: "EFECTIVO ADICIONAL INGRESADO EN CAJA FUERTE"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                 colSpan: 1,
                 className: "borderleft text-center fw-bold",
                 children: "NOTA"
@@ -5869,18 +5865,6 @@ function SucursalDetallesCierres(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                 className: "bg-sinapsis text-light",
                 children: "ABONOS DEL DIA"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-                className: "bg-sinapsis text-light borderleft",
-                children: "BOLIVARES"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-                className: "bg-sinapsis text-light",
-                children: "PESOS"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-                className: "bg-sinapsis text-light",
-                children: "DOLARES"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-                className: "bg-sinapsis text-light",
-                children: "EUROS"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                 className: "bg-sinapsis text-light borderleft",
                 children: "BOLIVARES"
@@ -5980,15 +5964,6 @@ function SucursalDetallesCierres(_ref) {
                     children: e.efectivo_guardado ? e.efectivo_guardado : null
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                     className: "borderleft",
-                    children: e.efecadiccajafbs ? e.efecadiccajafbs : null
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                    children: e.efecadiccajafcop ? e.efecadiccajafcop : null
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                    children: e.efecadiccajafdolar ? e.efecadiccajafdolar : null
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                    children: e.efecadiccajafeuro ? e.efecadiccajafeuro : null
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                    className: "borderleft",
                     children: e.nota ? e.nota : null
                   })]
                 })
@@ -5997,7 +5972,7 @@ function SucursalDetallesCierres(_ref) {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   children: sucursalDetallesData.sum.numero
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   children: sucursalDetallesData.sum.tasa
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   children: sucursalDetallesData.sum.tasacop
@@ -6031,15 +6006,7 @@ function SucursalDetallesCierres(_ref) {
                   children: sucursalDetallesData.sum.efectivo_guardado_cop
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   children: sucursalDetallesData.sum.efectivo_guardado
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.efecadiccajafbs
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.efecadiccajafcop
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.efecadiccajafdolar
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.efecadiccajafeuro
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {})]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {})]
               })
             })]
           }) : null : null]

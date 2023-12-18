@@ -16,7 +16,6 @@ export default function SucursalDetallesCierres({
                                 <th colSpan={4} className="borderleft text-center fw-bold">CUENTAS</th>
                                 <th colSpan={4} className="borderleft text-center fw-bold">EFECTIVO EN CAJA</th>
                                 <th colSpan={4} className="borderleft text-center fw-bold">EFECTIVO GUARDADO</th>
-                                <th colSpan={4} className="borderleft text-center fw-bold">EFECTIVO ADICIONAL INGRESADO EN CAJA FUERTE</th>
                                 <th colSpan={1} className="borderleft text-center fw-bold">NOTA</th>
                                 
 
@@ -60,10 +59,6 @@ export default function SucursalDetallesCierres({
                                 <th className="bg-sinapsis text-light">DOLARES</th>
                                 <th className="bg-sinapsis text-light">EUROS</th>
 
-                                <th className="bg-sinapsis text-light borderleft">BOLIVARES</th>
-                                <th className="bg-sinapsis text-light">PESOS</th>
-                                <th className="bg-sinapsis text-light">DOLARES</th>
-                                <th className="bg-sinapsis text-light">EUROS</th>
 
                                 <th className="bg-sinapsis text-light borderleft">OBSERVACIONES</th>
 
@@ -114,10 +109,7 @@ export default function SucursalDetallesCierres({
                                                 <td>{e.efectivo_guardado?e.efectivo_guardado:null}</td>
                                                 <td></td>
 
-                                                <td className="borderleft">{e.efecadiccajafbs?e.efecadiccajafbs:null}</td>
-                                                <td>{e.efecadiccajafcop?e.efecadiccajafcop:null}</td>
-                                                <td>{e.efecadiccajafdolar?e.efecadiccajafdolar:null}</td>
-                                                <td>{e.efecadiccajafeuro?e.efecadiccajafeuro:null}</td>
+                                                
                                                 
                                                 {/* <td>{e.caja_biopago?e.caja_biopago:null}</td>
                                                 <td>{e.puntodeventa_actual_bs?e.puntodeventa_actual_bs:null}</td>
@@ -133,6 +125,7 @@ export default function SucursalDetallesCierres({
                                     <tbody>
                                         <tr>
                                             <td>{sucursalDetallesData.sum.numero}</td>
+                                                <td></td>
                                             <td>{sucursalDetallesData.sum.tasa}</td>
                                             <td>{sucursalDetallesData.sum.tasacop}</td>
                                             <td>{sucursalDetallesData.sum.numventas}</td>
@@ -162,10 +155,6 @@ export default function SucursalDetallesCierres({
                                             <td>{sucursalDetallesData.sum.efectivo_guardado}</td>
                                             <td></td>
 
-                                            <td>{sucursalDetallesData.sum.efecadiccajafbs}</td>
-                                            <td>{sucursalDetallesData.sum.efecadiccajafcop}</td>
-                                            <td>{sucursalDetallesData.sum.efecadiccajafdolar}</td>
-                                            <td>{sucursalDetallesData.sum.efecadiccajafeuro}</td>
                                             <td></td>
                                             <td></td>
                                         </tr>

@@ -14,18 +14,15 @@ class fallas extends Model
         return $date->format('Y-m-d H:i:s');
     }
     
-    
-    public function producto() { 
-        return $this->hasOne(\App\Models\inventario::class,"id","id_producto"); 
-    }
 	public function sucursal() { 
         return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
     }
     protected $fillable = [
         "id_sucursal",
+        "idinsucursal",
         "id_producto",
         "cantidad",
         "stockmin",
-        "id_local",
+        "stockmax",
     ];
 }

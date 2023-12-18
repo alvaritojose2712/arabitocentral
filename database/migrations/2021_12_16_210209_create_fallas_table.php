@@ -17,17 +17,18 @@ class CreateFallasTable extends Migration
             $table->increments('id');
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
-
-            $table->integer("id_producto")->unsigned();
-            $table->foreign('id_producto')->references('id')->on('inventarios');
+            $table->integer("idinsucursal");
+            $table->integer("id_producto");
 
             $table->float("cantidad",10,2);
             $table->integer("stockmin")->nullable();
+            $table->integer("stockmax")->nullable();
+            
+
+            $table->unique(["id_sucursal","idinsucursal"]);
+            
             
             $table->timestamps();
-            
-            $table->integer("id_local");
-            $table->unique(["id_sucursal","id_local"]);
         });
 
         /* DB::table("fallas")->insert([

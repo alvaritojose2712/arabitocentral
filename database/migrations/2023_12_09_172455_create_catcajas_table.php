@@ -68,7 +68,12 @@ class CreateCatcajasTable extends Migration
             ["indice"=>"42",    "nombre"=>"maracay",  "tipo"=>"3"],
             ["indice"=>"43",    "nombre"=>"SUCURSAL ACTUAL",  "tipo"=>"3"],
             ["indice"=>"44",    "nombre"=>"TODAS SUCURSALES", "tipo"=>"3"],
-            ["indice"=>"45",    "nombre"=>"TRASPASO A CAJA MATRIZ", "tipo"=>"1"],
+            ["indice"=>"45",    "nombre"=>"TRASPASO A CAJA MATRIZ (RAID RETIRA PERSONALMENTE)", "tipo"=>"1"],
+            ["indice"=>"46",    "nombre"=>"CAJA FUERTE: FACTUREROS, ALCALDIAS, TRIBUTOS,  ETC",   "tipo"=>"1"],
+            ["indice"=>"47",    "nombre"=>"CAJA CHICA: BENEFICIOS PERSONAL, CENAS, PASEOS, REGALOS, ETC",   "tipo"=>"0"],
+            ["indice"=>"48",    "nombre"=>"CAJA FUERTE: TRASPASO A CAJA CHICA",   "tipo"=>"1"],
+            ["indice"=>"49",    "nombre"=>"CAJA CHICA: TRASPASO A CAJA FUERTE",   "tipo"=>"0"],
+
         ]);
     }
 

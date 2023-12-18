@@ -354,7 +354,8 @@ class CierresController extends Controller
                 $q->where("id_sucursal", $id_sucursal);
             })
             ->limit($num)
-            ->orderBy($orderColumn, $orderBy)
+            ->orderBy("id_sucursal", "desc")
+            ->orderBy("cantidad", "desc")
             ->get();
     }
 

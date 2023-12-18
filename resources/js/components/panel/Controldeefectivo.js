@@ -30,32 +30,35 @@ export default function Controldeefectivo({
                 </thead>
                 <tbody>
                     {sucursalDetallesData ? sucursalDetallesData.length?
-                        sucursalDetallesData.map(e=><tr key={e.id}>
-                            <td className="">
-                                <small className="text-muted">
-                                    {e.tipo==0?"Caja Chica":null}
-                                    {e.tipo==1?"Caja Fuerte":null}
-                                </small>
-                            </td>
-                            <td className=""><small className="text-muted">{e.created_at}</small></td>
-                            <td className="">{e.responsable?(e.responsable.nombre):""}</td>
-                            <td className="">{e.asignar?(e.asignar.nombre):""}</td>
-                            <td className="">{e.concepto}</td>
-                            <td className="">{(e.cat.nombre)}</td>
-                            
-                            <td className={(e.montodolar<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montodolar)}</td>
-                            <td className={("")}>{moneda(e.dolarbalance)}</td>
-                            
-                            <td className={(e.montobs<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montobs)}</td>
-                            <td className={("")}>{moneda(e.bsbalance)}</td>
-                            
-                            <td className={(e.montopeso<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montopeso)}</td>
-                            <td className={("")}>{moneda(e.pesobalance)}</td>
+                        sucursalDetallesData.map(e=>
+                        e.cat?
+                            <tr key={e.id}>
+                                <td className="">
+                                    <small className="text-muted">
+                                        {e.tipo==0?"Caja Chica":null}
+                                        {e.tipo==1?"Caja Fuerte":null}
+                                    </small>
+                                </td>
+                                <td className=""><small className="text-muted">{e.created_at}</small></td>
+                                <td className="">{e.responsable?(e.responsable.nombre):""}</td>
+                                <td className="">{e.asignar?(e.asignar.nombre):""}</td>
+                                <td className="">{e.concepto}</td>
+                                <td className="">{(e.cat.nombre)}</td>
+                                
+                                <td className={(e.montodolar<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montodolar)}</td>
+                                <td className={("")}>{moneda(e.dolarbalance)}</td>
+                                
+                                <td className={(e.montobs<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montobs)}</td>
+                                <td className={("")}>{moneda(e.bsbalance)}</td>
+                                
+                                <td className={(e.montopeso<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montopeso)}</td>
+                                <td className={("")}>{moneda(e.pesobalance)}</td>
 
-                            <td className={(e.montoeuro<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montoeuro)}</td>
-                            <td className={("")}>{moneda(e.eurobalance)}</td>
-                            
-                        </tr>)
+                                <td className={(e.montoeuro<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montoeuro)}</td>
+                                <td className={("")}>{moneda(e.eurobalance)}</td>
+                                
+                            </tr>
+                        :null)
                     :null:null}
                 </tbody>
             </table>
