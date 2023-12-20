@@ -334,35 +334,55 @@ class CierresController extends Controller
         $fechasMain2 = $req->fechasMain2;
         $filtros = $req->filtros;
 
+        $tipo_usuario = session("tipo_usuario");
+
 
         $subviewpanelsucursales = $req->subviewpanelsucursales;
 
         switch ($subviewpanelsucursales) {
-            case 'panel':
-                break;
-            case 'cierres':
-                return $this->getCierreSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
-                break;
             case 'inventario':
                 return $this->getInvSucursal($id_sucursal, $filtros);
                 break;
             case 'puntosyseriales':
                 return $this->getPuntosyseriales($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 break;
+            case 'panel':
+                break;
+            case 'cierres':
+                if ($tipo_usuario==1) {
+                    
+                    return $this->getCierreSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                }
+                 break;
             case 'controldeefectivo':
-                return $this->getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
-                break;
+                if ($tipo_usuario==1) {
+                    
+                    return $this->getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                }
+                 break;
             case 'nomina':
-                return $this->getNominasSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
-                break;
+                if ($tipo_usuario==1) {
+                    
+                    return $this->getNominasSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                }
+                 break;
             case 'comovamos':
-                return $this->comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
-            case 'fallas':
-                return $this->getFallas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
-                break;
+                if ($tipo_usuario==1) {
+                    
+                    return $this->comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+            }case
+             'fallas':
+                if ($tipo_usuario==1) {
+                    
+                    return $this->getFallas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                }
+                 break;
             case 'creditos':
-                return $this->getCreditos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
-                break;
+                if ($tipo_usuario==1) {
+                    
+                    return $this->getCreditos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                }
+                 break;
 
 
         }

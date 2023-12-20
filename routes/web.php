@@ -74,6 +74,21 @@ Route::get('/hora', function () {
     return date("Y-m-d H:i:s");
 });
 
+
+Route::get('/usuarioconsulta', function () {
+    DB::table("usuarios")->insert([
+        [
+        "nombre" => "CONSULTA",
+        "usuario" => "consulta",
+        "clave" => Hash::make("2685AAZZ$$%%"),
+        "tipo_usuario" => "2",
+        "area" => "TI",
+        ]
+    ]);
+});
+
+
+
 Route::get('getMoneda', [MonedaController::class,"getMoneda"]);
 Route::get('getVersionRemote', [LocalsVersionController::class,"getVersion"]);
 

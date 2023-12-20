@@ -32,6 +32,16 @@ class CreateUsuariosTable extends Migration
             "area" => "TI",
             ]
         ]);
+
+        DB::table("usuarios")->insert([
+            [
+            "nombre" => "CONSULTA",
+            "usuario" => "consulta",
+            "clave" => Hash::make("2685AAZZ$$%%"),
+            "tipo_usuario" => "2",
+            "area" => "TI",
+            ]
+        ]);
     }
 
     /**
