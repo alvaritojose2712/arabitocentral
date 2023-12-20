@@ -2,12 +2,13 @@ export default function SucursalDetallesCierres({
     sucursalDetallesData
 }){
     return(
-        <div className="container-fluid">
+        <div className="container-fluid m-0 p-0">
             <div className="row">
                 <div className="col table-responsive">
                     <table className="table table-bordered">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th></th>
                                 <th colSpan={2} className="borderleft text-center fw-bold">TASA DÍA</th>
                                 <th colSpan={6} className="borderleft text-center fw-bold">VENTAS</th>
@@ -124,35 +125,35 @@ export default function SucursalDetallesCierres({
                                     )}
                                     <tbody>
                                         <tr>
-                                            <td>{sucursalDetallesData.sum.numero}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.numero:""}</td>
                                                 <td></td>
-                                            <td>{sucursalDetallesData.sum.tasa}</td>
-                                            <td>{sucursalDetallesData.sum.tasacop}</td>
-                                            <td>{sucursalDetallesData.sum.numventas}</td>
-                                            <td>{sucursalDetallesData.sum.debito}</td>
-                                            <td>{sucursalDetallesData.sum.efectivo}</td>
-                                            <td>{sucursalDetallesData.sum.transferencia}</td>
-                                            <td>{sucursalDetallesData.sum.total}</td>
-                                            <td>{sucursalDetallesData.sum.ganancia}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.tasa:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.tasacop:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.numventas:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.debito:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.efectivo:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.transferencia:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.total:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.ganancia:""}</td>
                                             <td></td>
-                                            <td>{sucursalDetallesData.sum.ventaexcento}</td>
-                                            <td>{sucursalDetallesData.sum.ventagravadas}</td>
-                                            <td>{sucursalDetallesData.sum.ivaventa}</td>
-                                            <td>{sucursalDetallesData.sum.totalventa}</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>{sucursalDetallesData.sum.credito}</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>{sucursalDetallesData.sum.abonosdeldia}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.ventaexcento:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.ventagravadas:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.ivaventa:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.totalventa:""}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.credito:""}</td>
                                             <td></td>
-                                            <td>{sucursalDetallesData.sum.efectivo_guardado_bs}</td>
-                                            <td>{sucursalDetallesData.sum.efectivo_guardado_cop}</td>
-                                            <td>{sucursalDetallesData.sum.efectivo_guardado}</td>
+                                            <td></td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.abonosdeldia:""}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.efectivo_guardado_bs:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.efectivo_guardado_cop:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.efectivo_guardado:""}</td>
                                             <td></td>
 
                                             <td></td>

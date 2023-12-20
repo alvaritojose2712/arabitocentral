@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\cierres;
 use App\Models\cajas;
 use App\Models\comovamos;
+use App\Models\creditos;
 use App\Models\inventario_sucursal;
 use App\Models\nomina;
 use App\Models\puntosybiopagos;
@@ -25,30 +26,29 @@ class CierresController extends Controller
         $codigo_origen = $req->codigo_origen;
         $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
         $id_sucursal = $id_ruta["id_origen"];
+        $today = (new NominaController)->today();
+        
+        garantias::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
+        fallas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
+        cajas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
+        puntosybiopagos::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
+        cierres::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
 
         $sendInventarioCt = (new InventarioSucursalController)->sendInventarioCt($req->sendInventarioCt, $id_sucursal);
         $sendGarantias = (new GarantiasController)->sendGarantias($req->sendGarantias, $id_sucursal);
         $sendFallas = (new FallasController)->sendFallas($req->sendFallas, $id_sucursal);
         $setCierreFromSucursalToCentral = (new CierresController)->setCierreFromSucursalToCentral($req->setCierreFromSucursalToCentral, $id_sucursal);
         $setEfecFromSucursalToCentral = (new CajasController)->setEfecFromSucursalToCentral($req->setEfecFromSucursalToCentral, $id_sucursal);
+        
+        $sendCreditos = (new CreditosController)->sendCreditos($req->sendCreditos, $id_sucursal);
 
-        if (!isset($setCierreFromSucursalToCentral["last"])) {return $setCierreFromSucursalToCentral;}
-        if (!isset($setEfecFromSucursalToCentral["last"])) {return $setEfecFromSucursalToCentral;}
-        if (!isset($sendGarantias["last"])) {return $sendGarantias;}
-        if (!isset($sendFallas["last"])) {return $sendFallas;}
+        
 
-
-        $last_setCierreFromSucursalToCentral = $setCierreFromSucursalToCentral["last"];
-        $last_setEfecFromSucursalToCentral = $setEfecFromSucursalToCentral["last"];
-        $last_sendGarantias = $sendGarantias["last"];
-        $last_sendFallas = $sendFallas["last"];
-
-        $today = (new NominaController)->today();
-
-        garantias::where("created_at","LIKE",$today."%")->delete();
-        fallas::where("created_at","LIKE",$today."%")->delete();
-        cajas::where("created_at","LIKE",$today."%")->delete();
-        puntosybiopagos::where("created_at","LIKE",$today."%")->delete();
+        if (!isset($setCierreFromSucursalToCentral["last"])) {return "setCierreFromSucursalToCentral: ".$setCierreFromSucursalToCentral;}
+        if (!isset($setEfecFromSucursalToCentral["last"])) {return "setEfecFromSucursalToCentral: ".$setEfecFromSucursalToCentral;}
+        if (!isset($sendGarantias["last"])) {return "sendGarantias: ".$sendGarantias;}
+        if (!isset($sendFallas["last"])) {return "sendFallas: ".$sendFallas;}
+        if (!isset($sendCreditos["last"])) {return "sendCreditos: ".$sendCreditos;}
 
         ultimainformacioncargada::updateOrCreate([
             "id_sucursal" =>$id_sucursal,
@@ -57,10 +57,10 @@ class CierresController extends Controller
             "id_sucursal" => $id_sucursal,
             "fecha" => $today,
 
-            "date_last_cierres" => $last_setCierreFromSucursalToCentral,
-            "id_last_efec" => $last_setEfecFromSucursalToCentral,
-            "id_last_garantias" => $last_sendGarantias,
-            "id_last_fallas" => $last_sendFallas,
+            "date_last_cierres" => $setCierreFromSucursalToCentral["last"],
+            "id_last_efec" => $setEfecFromSucursalToCentral["last"],
+            "id_last_garantias" => $sendGarantias["last"],
+            "id_last_fallas" => $sendFallas["last"],
         ]);
         return [
             $sendInventarioCt,
@@ -68,8 +68,7 @@ class CierresController extends Controller
             $sendFallas["msj"],
             $setCierreFromSucursalToCentral["msj"],
             $setEfecFromSucursalToCentral["msj"],
-            $req->setCierreFromSucursalToCentral
-
+            $sendCreditos["msj"],
         ];
        
     }
@@ -81,7 +80,7 @@ class CierresController extends Controller
             $numlote = 0;
             $totlote = 0;
             
-            foreach ($cierres as $key => $data) {
+            foreach ($cierres as $data) {
                 $cierre = $data["cierre"];
                 $lotes = $data["lotes"];
 
@@ -340,35 +339,62 @@ class CierresController extends Controller
 
         switch ($subviewpanelsucursales) {
             case 'panel':
-
                 break;
             case 'cierres':
-                //return $this->getCierreSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                return $this->getCierreSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 break;
             case 'inventario':
                 return $this->getInvSucursal($id_sucursal, $filtros);
-
                 break;
             case 'puntosyseriales':
-                //return $this->getPuntosyseriales($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
-
+                return $this->getPuntosyseriales($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 break;
             case 'controldeefectivo':
-                //return $this->getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
-
+                return $this->getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 break;
-
             case 'nomina':
-               // return $this->getNominasSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
-
+                return $this->getNominasSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 break;
             case 'comovamos':
-                //return $this->comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
-
+                return $this->comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+            case 'fallas':
+                return $this->getFallas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                break;
+            case 'creditos':
+                return $this->getCreditos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 break;
 
 
         }
+    }
+
+    function getCreditos($fechasMain1, $fechasMain2, $id_sucursal, $filtros) {
+        $data = creditos::with(["sucursal","cliente"]) 
+        ->when($id_sucursal, function ($q) use ($id_sucursal) {
+            $q->where("id_sucursal", $id_sucursal);
+        })->get();
+
+        return [
+            "data" => $data,
+            "num" => 0
+        ];
+    }
+    function getFallas($fechasMain1, $fechasMain2, $id_sucursal, $filtros) {
+        $data = fallas::with("sucursal") 
+        ->where("id_sucursal", $id_sucursal)
+        ->orderBy("cantidad","asc")
+        ->get()
+        ->map(function($q) use ($id_sucursal) {
+            $q->producto = inventario_sucursal::where("idinsucursal",$q->id_producto)->where("id_sucursal", $id_sucursal)->first();
+            return $q;
+        });
+
+        $sum = [];
+
+        return [
+            "data" => $data,
+            "sum" => $sum, 
+        ];
     }
     function comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
     {
@@ -528,6 +554,7 @@ class CierresController extends Controller
             ->when($id_sucursal, function ($q) use ($id_sucursal) {
                 $q->where("id_sucursal", $id_sucursal);
             })
+            ->orderBy("tipo","desc")
             ->get();
     }
 
@@ -546,10 +573,11 @@ class CierresController extends Controller
             })
             ->when($filtronominaq, function ($q) use ($filtronominaq) {
                 $q
-                    ->orwhere("nominanombre", $filtronominaq)
-                    ->orwhere("nominacedula", $filtronominaq)
-                    ->orwhere("nominatelefono", $filtronominaq);
+                    ->orwhere("nominanombre", "LIKE", $filtronominaq."%")
+                    ->orwhere("nominacedula", "LIKE", $filtronominaq."%")
+                    ->orwhere("nominatelefono", "LIKE", $filtronominaq."%");
             })
+            ->orderBy("nominacargo","desc")
             ->get();
     }
 }

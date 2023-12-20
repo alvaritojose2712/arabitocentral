@@ -10,16 +10,14 @@ use Illuminate\Http\Request;
 use Response;
 class CajasController extends Controller
 {
-    
-
-   
-    public function setEfecFromSucursalToCentral($movs, $id_sucursal) {
+    function setEfecFromSucursalToCentral($movs, $id_sucursal) {
 
         try {
             $count_movs = count($movs);
             $counter =0;
             $last = 0;
-            foreach ($movs as $key => $e) {
+
+            foreach ($movs as $e) {
                 if ($last<$e["id"]) {
                     $last=$e["id"];
                 }
@@ -40,7 +38,9 @@ class CajasController extends Controller
                         "tipo" => $cattipo,
 
                     ]);
+                    
                     $setcategoria = $newcat->id; 
+
                 }
 
                 if (strpos($catnombre,"NOMINA")) {
@@ -86,7 +86,7 @@ class CajasController extends Controller
                 "last" => $last
             ];
         } catch (\Exception $e) {
-            return $e->getMessage()." ".$e->getLine();
+            return "ERROR EN setEfecFromSucursalToCentral ".$e->getMessage()." ".$e->getLine();
         }
     }
 }

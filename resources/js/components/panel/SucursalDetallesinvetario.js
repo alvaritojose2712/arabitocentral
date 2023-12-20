@@ -65,6 +65,7 @@ export default function SucursalDetallesinvetario({
                         <option value="asc">Orden Asc</option>
                         <option value="desc">Orden Desc</option>
                     </select>
+                    <button className="btn btn-success"><i className="fa fa-search"></i></button>
                 </form>
             </div>
             <table className="table">

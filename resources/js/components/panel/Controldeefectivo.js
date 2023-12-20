@@ -14,38 +14,37 @@ export default function Controldeefectivo({
 
             <div className="row">
                 <div className="col-md-auto">
-                    <div className="mt-1 mb-1">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>DOLAR</th>
-                                    <th>BS</th>
-                                    <th>PESO</th>
-                                    <th>EURO</th>
+                    <table className="table mb-2">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th className="text-right">DOLAR</th>
+                                <th className="text-right">BS</th>
+                                <th className="text-right">PESO</th>
+                                <th className="text-right">EURO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {sucursalDetallesData.sum ? sucursalDetallesData.sum.categorias? Object.entries(sucursalDetallesData.sum.categorias).length?
+                            Object.entries(sucursalDetallesData.sum.categorias).map((e,i)=>
+                                <tr key={i}>
+                                    <th>{e[1].nombre}</th>
+                                    <td className="text-right">{moneda(e[1].montodolar)}</td>
+                                    <td className="text-right">{moneda(e[1].montobs)}</td>
+                                    <td className="text-right">{moneda(e[1].montopeso)}</td>
+                                    <td className="text-right">{moneda(e[1].montoeuro)}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                            {sucursalDetallesData.sum ? sucursalDetallesData.sum.categorias? Object.entries(sucursalDetallesData.sum.categorias).length?
-                                Object.entries(sucursalDetallesData.sum.categorias).map((e,i)=>
-                                    <tr key={i}>
-                                        <th>{e[1].nombre}</th>
-                                        <td>{moneda(e[1].montodolar)}</td>
-                                        <td>{moneda(e[1].montobs)}</td>
-                                        <td>{moneda(e[1].montopeso)}</td>
-                                        <td>{moneda(e[1].montoeuro)}</td>
-                                    </tr>
-                                )
-                            :null:null:null}
-                            </tbody>    
-                        </table>
-                    </div>
+                            )
+                        :null:null:null}
+                        </tbody>    
+                    </table>
                 </div>
 
                 <div className="col">
                     <table className="table">
                         <thead>
                             <tr>
+                                <th>SUCURSAL</th>
                                 <th>TIPO</th>
                                 <th>FECHA</th>
                                 <th>RESPONSABLE</th>
@@ -68,6 +67,7 @@ export default function Controldeefectivo({
                                 sucursalDetallesData.cajas.map(e=>
                                 e.cat?
                                     <tr key={e.id}>
+                                        <td>{e.sucursal.codigo}</td>
                                         <td className="">
                                             <small className="text-muted">
                                                 {e.tipo==0?"Caja Chica":null}

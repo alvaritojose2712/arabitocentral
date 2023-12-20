@@ -4018,7 +4018,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _panel_Puntosyseriales__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./panel/Puntosyseriales */ "./resources/js/components/panel/Puntosyseriales.js");
 /* harmony import */ var _panel_Controldeefectivo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./panel/Controldeefectivo */ "./resources/js/components/panel/Controldeefectivo.js");
 /* harmony import */ var _panel_nominasucursal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./panel/nominasucursal */ "./resources/js/components/panel/nominasucursal.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _panel_fallas__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./panel/fallas */ "./resources/js/components/panel/fallas.js");
+/* harmony import */ var _panel_creditos__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./panel/creditos */ "./resources/js/components/panel/creditos.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 
@@ -4065,129 +4069,159 @@ function PanelSucursales(_ref) {
     getSucursales();
   }, []);
   /*  useEffect(() => {
-       getsucursalListData()
-   }, [subviewpanelsucursales,fechasMain1,fechasMain2]) */
+          getsucursalListData()
+      }, [subviewpanelsucursales,fechasMain1,fechasMain2]) */
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getsucursalDetallesData();
   }, [sucursalSelect, subviewpanelsucursales, fechasMain1, fechasMain2, controlefecSelectGeneral]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-    className: "container-fluid",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "row",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "col-1",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("ul", {
-          className: "list-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-            className: "list-group-item pointer " + (null === sucursalSelect ? "bg-sinapsis" : ""),
-            onClick: function onClick() {
-              return setsucursalSelect(null);
-            },
-            children: "RESUMEN"
-          }), sucursales.map(function (e) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-              className: "list-group-item pointer " + (e.id == sucursalSelect ? "bg-sinapsis" : ""),
+
+  try {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      className: "container-fluid",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: "row",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "col table-responsive mb-2 pb-2 pt-2 d-flex justify-content-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+            className: "btn-group w-100",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+              className: "btn btn-" + (null === sucursalSelect ? "success" : "outline-success"),
               onClick: function onClick() {
-                return setsucursalSelect(e.id);
+                return setsucursalSelect(null);
               },
-              children: e.nombre
-            }, e.id);
-          })]
+              children: "RESUMEN"
+            }), sucursales.map(function (e) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+                className: "btn btn-" + (e.id == sucursalSelect ? "success" : "outline-success"),
+                onClick: function onClick() {
+                  return setsucursalSelect(e.id);
+                },
+                children: e.codigo
+              }, e.id);
+            })]
+          })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "col-10",
-        children: [children, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "btn-group mt-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-            className: "btn btn" + (subviewpanelsucursales == "cierres" ? "" : "-outline") + "-success",
-            onClick: function onClick() {
-              return setsubviewpanelsucursales("cierres");
-            },
-            children: " Cierres "
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-            className: "btn btn" + (subviewpanelsucursales == "puntosyseriales" ? "" : "-outline") + "-success",
-            onClick: function onClick() {
-              return setsubviewpanelsucursales("puntosyseriales");
-            },
-            children: " Puntos de Venta "
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-            className: "btn btn" + (subviewpanelsucursales == "inventario" ? "" : "-outline") + "-success",
-            onClick: function onClick() {
-              return setsubviewpanelsucursales("inventario");
-            },
-            children: " Inventario "
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-            className: "btn btn" + (subviewpanelsucursales == "estadisticas" ? "" : "-outline") + "-success",
-            onClick: function onClick() {
-              return setsubviewpanelsucursales("estadisticas");
-            },
-            children: " Estad\xEDsticas "
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-            className: "btn btn-light"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-            className: "btn btn" + (subviewpanelsucursales == "controldeefectivo" ? "" : "-outline") + "-success",
-            onClick: function onClick() {
-              return setsubviewpanelsucursales("controldeefectivo");
-            },
-            children: " Control de Efectivo "
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-            className: "btn btn" + (subviewpanelsucursales == "creditos" ? "" : "-outline") + "-success",
-            onClick: function onClick() {
-              return setsubviewpanelsucursales("creditos");
-            },
-            children: " Cr\xE9ditos "
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-            className: "btn btn-light"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-            className: "btn btn" + (subviewpanelsucursales == "nomina" ? "" : "-outline") + "-success",
-            onClick: function onClick() {
-              return setsubviewpanelsucursales("nomina");
-            },
-            children: " N\xF3mina "
-          })]
-        }), subviewpanelsucursales == "cierres" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_panel_sucursaldetallescierres__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          sucursalDetallesData: sucursalDetallesData
-        }) : null, subviewpanelsucursales == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_panel_sucursaldetallesinvetario__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          getsucursalDetallesData: getsucursalDetallesData,
-          sucursalDetallesData: sucursalDetallesData,
-          invsuc_itemCero: invsuc_itemCero,
-          setinvsuc_itemCero: setinvsuc_itemCero,
-          invsuc_q: invsuc_q,
-          setinvsuc_q: setinvsuc_q,
-          invsuc_exacto: invsuc_exacto,
-          setinvsuc_exacto: setinvsuc_exacto,
-          invsuc_num: invsuc_num,
-          setinvsuc_num: setinvsuc_num,
-          invsuc_orderColumn: invsuc_orderColumn,
-          setinvsuc_orderColumn: setinvsuc_orderColumn,
-          invsuc_orderBy: invsuc_orderBy,
-          setinvsuc_orderBy: setinvsuc_orderBy
-        }) : null, subviewpanelsucursales == "puntosyseriales" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_panel_Puntosyseriales__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          getsucursalDetallesData: getsucursalDetallesData,
-          sucursalDetallesData: sucursalDetallesData
-        }) : null, subviewpanelsucursales == "controldeefectivo" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_panel_Controldeefectivo__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          getsucursalDetallesData: getsucursalDetallesData,
-          sucursalDetallesData: sucursalDetallesData,
-          controlefecSelectGeneral: controlefecSelectGeneral,
-          setcontrolefecSelectGeneral: setcontrolefecSelectGeneral,
-          moneda: moneda
-        }) : null, subviewpanelsucursales == "nomina" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_panel_nominasucursal__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          getsucursalDetallesData: getsucursalDetallesData,
-          sucursalDetallesData: sucursalDetallesData,
-          controlefecSelectGeneral: controlefecSelectGeneral,
-          setcontrolefecSelectGeneral: setcontrolefecSelectGeneral,
-          filtronominaq: filtronominaq,
-          setfiltronominaq: setfiltronominaq,
-          filtronominacargo: filtronominacargo,
-          setfiltronominacargo: setfiltronominacargo,
-          moneda: moneda,
-          getPersonalCargos: getPersonalCargos,
-          cargosData: cargosData
-        }) : null]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: "row",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "col table-responsive mb-2",
+          children: children
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: "row",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "col table-responsive mb-2 pb-2 pt-2 d-flex justify-content-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+            className: "btn-group w-100",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+              className: "btn btn" + (subviewpanelsucursales == "cierres" ? "" : "-outline") + "-success",
+              onClick: function onClick() {
+                return setsubviewpanelsucursales("cierres");
+              },
+              children: "Cierres"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+              className: "btn btn" + (subviewpanelsucursales == "controldeefectivo" ? "" : "-outline") + "-success",
+              onClick: function onClick() {
+                return setsubviewpanelsucursales("controldeefectivo");
+              },
+              children: "Efectivo"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+              className: "btn btn" + (subviewpanelsucursales == "puntosyseriales" ? "" : "-outline") + "-success",
+              onClick: function onClick() {
+                return setsubviewpanelsucursales("puntosyseriales");
+              },
+              children: "PagoElectr\xF3nicos"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+              className: "btn btn" + (subviewpanelsucursales == "creditos" ? "" : "-outline") + "-success",
+              onClick: function onClick() {
+                return setsubviewpanelsucursales("creditos");
+              },
+              children: "Cr\xE9ditos"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+              className: "btn btn" + (subviewpanelsucursales == "inventario" ? "" : "-outline") + "-sinapsis",
+              onClick: function onClick() {
+                return setsubviewpanelsucursales("inventario");
+              },
+              children: "Inventario"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+              className: "btn btn" + (subviewpanelsucursales == "estadisticas" ? "" : "-outline") + "-sinapsis",
+              onClick: function onClick() {
+                return setsubviewpanelsucursales("estadisticas");
+              },
+              children: "Estad\xEDsticas"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+              className: "btn btn" + (subviewpanelsucursales == "fallas" ? "" : "-outline") + "-danger",
+              onClick: function onClick() {
+                return setsubviewpanelsucursales("fallas");
+              },
+              children: "Fallas"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+              className: "btn btn" + (subviewpanelsucursales == "nomina" ? "" : "-outline") + "-info",
+              onClick: function onClick() {
+                return setsubviewpanelsucursales("nomina");
+              },
+              children: " N\xF3mina "
+            })]
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: "row",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          className: "col table-responsive mb-2",
+          children: [subviewpanelsucursales == "cierres" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_panel_sucursaldetallescierres__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            sucursalDetallesData: sucursalDetallesData
+          }) : null, subviewpanelsucursales == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_panel_sucursaldetallesinvetario__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            getsucursalDetallesData: getsucursalDetallesData,
+            sucursalDetallesData: sucursalDetallesData,
+            invsuc_itemCero: invsuc_itemCero,
+            setinvsuc_itemCero: setinvsuc_itemCero,
+            invsuc_q: invsuc_q,
+            setinvsuc_q: setinvsuc_q,
+            invsuc_exacto: invsuc_exacto,
+            setinvsuc_exacto: setinvsuc_exacto,
+            invsuc_num: invsuc_num,
+            setinvsuc_num: setinvsuc_num,
+            invsuc_orderColumn: invsuc_orderColumn,
+            setinvsuc_orderColumn: setinvsuc_orderColumn,
+            invsuc_orderBy: invsuc_orderBy,
+            setinvsuc_orderBy: setinvsuc_orderBy
+          }) : null, subviewpanelsucursales == "puntosyseriales" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_panel_Puntosyseriales__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            getsucursalDetallesData: getsucursalDetallesData,
+            sucursalDetallesData: sucursalDetallesData
+          }) : null, subviewpanelsucursales == "controldeefectivo" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_panel_Controldeefectivo__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            getsucursalDetallesData: getsucursalDetallesData,
+            sucursalDetallesData: sucursalDetallesData,
+            controlefecSelectGeneral: controlefecSelectGeneral,
+            setcontrolefecSelectGeneral: setcontrolefecSelectGeneral,
+            moneda: moneda
+          }) : null, subviewpanelsucursales == "nomina" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_panel_nominasucursal__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            getsucursalDetallesData: getsucursalDetallesData,
+            sucursalDetallesData: sucursalDetallesData,
+            controlefecSelectGeneral: controlefecSelectGeneral,
+            setcontrolefecSelectGeneral: setcontrolefecSelectGeneral,
+            filtronominaq: filtronominaq,
+            setfiltronominaq: setfiltronominaq,
+            filtronominacargo: filtronominacargo,
+            setfiltronominacargo: setfiltronominacargo,
+            moneda: moneda,
+            getPersonalCargos: getPersonalCargos,
+            cargosData: cargosData
+          }) : null, subviewpanelsucursales == "fallas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_panel_fallas__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            getsucursalDetallesData: getsucursalDetallesData,
+            sucursalDetallesData: sucursalDetallesData,
+            moneda: moneda
+          }) : null, subviewpanelsucursales == "creditos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_panel_creditos__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            getsucursalDetallesData: getsucursalDetallesData,
+            sucursalDetallesData: sucursalDetallesData,
+            moneda: moneda
+          }) : null]
+        })
       })]
-    })
-  });
+    });
+  } catch (error) {
+    return "CARGANDO";
+  }
 }
 
 /***/ }),
@@ -4231,40 +4265,45 @@ function Controldeefectivo(_ref) {
       className: "row",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         className: "col-md-auto",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-          className: "mt-1 mb-1",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", {
-            className: "table",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-                  children: "DOLAR"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-                  children: "BS"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-                  children: "PESO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-                  children: "EURO"
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", {
+          className: "table mb-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                className: "text-right",
+                children: "DOLAR"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                className: "text-right",
+                children: "BS"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                className: "text-right",
+                children: "PESO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                className: "text-right",
+                children: "EURO"
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
+            children: sucursalDetallesData.sum ? sucursalDetallesData.sum.categorias ? Object.entries(sucursalDetallesData.sum.categorias).length ? Object.entries(sucursalDetallesData.sum.categorias).map(function (e, i) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                  children: e[1].nombre
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                  className: "text-right",
+                  children: moneda(e[1].montodolar)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                  className: "text-right",
+                  children: moneda(e[1].montobs)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                  className: "text-right",
+                  children: moneda(e[1].montopeso)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                  className: "text-right",
+                  children: moneda(e[1].montoeuro)
                 })]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
-              children: sucursalDetallesData.sum ? sucursalDetallesData.sum.categorias ? Object.entries(sucursalDetallesData.sum.categorias).length ? Object.entries(sucursalDetallesData.sum.categorias).map(function (e, i) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-                    children: e[1].nombre
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                    children: moneda(e[1].montodolar)
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                    children: moneda(e[1].montobs)
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                    children: moneda(e[1].montopeso)
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                    children: moneda(e[1].montoeuro)
-                  })]
-                }, i);
-              }) : null : null : null
-            })]
-          })
+              }, i);
+            }) : null : null : null
+          })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         className: "col",
@@ -4273,6 +4312,8 @@ function Controldeefectivo(_ref) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                children: "SUCURSAL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                 children: "TIPO"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                 children: "FECHA"
@@ -4314,6 +4355,8 @@ function Controldeefectivo(_ref) {
             children: sucursalDetallesData ? sucursalDetallesData.cajas ? sucursalDetallesData.cajas.length ? sucursalDetallesData.cajas.map(function (e) {
               return e.cat ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                  children: e.sucursal.codigo
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   className: "",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("small", {
                     className: "text-muted",
@@ -4396,28 +4439,28 @@ function Puntosyseriales(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            children: "FECHA"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "SUCURSAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            children: "ID_USUARIO"
+            children: "FECHA"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            children: "ID_USUARIO / ID_PEDIDO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "TIPO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            children: "LOTESERIAL"
+            children: "BANCO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "MONTO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            children: "BANCO"
+            children: "REF / LOTE / SERIAL"
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
         children: sucursalDetallesData.length ? sucursalDetallesData[0].fecha ? sucursalDetallesData.map(function (e) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: e.fecha
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: e.sucursal.codigo
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.fecha
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: e.id_usuario
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
@@ -4656,6 +4699,68 @@ function Cierres(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/components/panel/creditos.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/panel/creditos.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Creditos)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function Creditos(_ref) {
+  var getsucursalDetallesData = _ref.getsucursalDetallesData,
+      sucursalDetallesData = _ref.sucursalDetallesData,
+      moneda = _ref.moneda;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    className: "",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", {
+      className: "table m-3 w-100 h-100",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "cell1",
+            children: "SUCURSAL"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "cell4",
+            colSpan: 2,
+            children: "CLIENTE"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "cell2",
+            children: "SALDO"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "cell2",
+            children: "Fecha"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
+        children: sucursalDetallesData.data ? sucursalDetallesData.data.length ? sucursalDetallesData.data[0].id_cliente ? sucursalDetallesData.data.map(function (e) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.sucursal.codigo
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.cliente ? e.cliente.nombre : "NO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.cliente ? e.cliente.cedula : "NO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: moneda(e.saldo)
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.created_at
+            })]
+          }, e.id);
+        }) : null : null : null
+      })]
+    })
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/panel/departamentosInventario.js":
 /*!******************************************************************!*\
   !*** ./resources/js/components/panel/departamentosInventario.js ***!
@@ -4823,6 +4928,82 @@ function Categorias(_ref) {
         })]
       })
     })
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/panel/fallas.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/panel/fallas.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Fallas)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function Fallas(_ref) {
+  var getsucursalDetallesData = _ref.getsucursalDetallesData,
+      sucursalDetallesData = _ref.sucursalDetallesData,
+      moneda = _ref.moneda;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+    className: "",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "d-flex justify-content-between align-items-center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "btn-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          className: "btn bt-success",
+          children: "Por Proveedor"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          className: "btn bt-success",
+          children: "Por Categor\xEDa"
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", {
+      className: "table m-3 w-100 h-100",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "cell1",
+            children: "SUCURSAL"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "cell4",
+            children: "Descripci\xF3n"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "cell2",
+            children: "Proveedor"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "cell1",
+            children: "Ct."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "cell2",
+            children: "Fecha"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
+        children: sucursalDetallesData.data ? sucursalDetallesData.data.length ? sucursalDetallesData.data[0].id_producto ? sucursalDetallesData.data.map(function (e) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.sucursal.codigo
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.producto ? e.producto.descripcion : e.id_producto + " NO VINCULADO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.producto ? e.producto.id_proveedor : e.id_producto + " NO VINCULADO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.cantidad
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.created_at
+            })]
+          }, e.id);
+        }) : null : null : null
+      })]
+    })]
   });
 }
 
@@ -5666,86 +5847,97 @@ function NominasSucursal(_ref) {
       moneda = _ref.moneda,
       cargosData = _ref.cargosData,
       getPersonalCargos = _ref.getPersonalCargos;
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    getPersonalCargos();
-  }, []);
 
-  var cargosDataFun = function cargosDataFun(val) {
-    var m = cargosData.filter(function (e) {
-      return e.id == val;
-    });
+  try {
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+      getPersonalCargos();
+    }, []);
 
-    if (m.length) {
-      return m[0].cargosdescripcion;
-    }
+    var cargosDataFun = function cargosDataFun(val) {
+      var m = cargosData.filter(function (e) {
+        return e.id == val;
+      });
 
-    return "ERROR";
-  };
+      if (m.length) {
+        return m[0].cargosdescripcion;
+      }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "container-fluid",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "input-group",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-        type: "text",
-        placeholder: "Buscar...",
-        value: filtronominaq,
-        onChange: function onChange(e) {
-          return setfiltronominaq(e.target.value);
-        },
-        className: "form-control"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
-      className: "table",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            children: "NOMBRE"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            children: "CEDULA"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            children: "FECHA DE NACIMIENTO"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            children: "FECHA DE INGRESO"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            children: "TELEFONO"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            children: "DIRECCION"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            children: "GRADO INSTRUCCION"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            children: "CARGO"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            children: "SUCURSAL"
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-        children: sucursalDetallesData ? sucursalDetallesData.length ? sucursalDetallesData.map(function (e) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: e.nominanombre
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: e.nominacedula
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: e.nominafechadenacimiento
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: e.nominafechadeingreso
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: e.nominatelefono
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: e.nominadireccion
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: e.nominagradoinstruccion
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: cargosDataFun(e.nominacargo)
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: e.nominasucursal
+      return "ERROR";
+    };
+
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "container-fluid",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+        onSubmit: getsucursalDetallesData,
+        className: "input-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+          type: "text",
+          placeholder: "Buscar...",
+          value: filtronominaq,
+          onChange: function onChange(e) {
+            return setfiltronominaq(e.target.value);
+          },
+          className: "form-control"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          className: "btn btn-success",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+            className: "fa fa-search"
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
+        className: "table",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "SUCURSAL"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "CARGO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "NOMBRE"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "CEDULA"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "FECHA DE NACIMIENTO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "FECHA DE INGRESO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "TELEFONO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "DIRECCION"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "GRADO INSTRUCCION"
             })]
-          }, e.id);
-        }) : null : null
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+          children: sucursalDetallesData ? sucursalDetallesData.length ? sucursalDetallesData.map(function (e) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: e.sucursal.codigo
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: cargosDataFun(e.nominacargo)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: e.nominanombre
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: e.nominacedula
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: e.nominafechadenacimiento
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: e.nominafechadeingreso
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: e.nominatelefono
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: e.nominadireccion
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: e.nominagradoinstruccion
+              })]
+            }, e.id);
+          }) : null : null
+        })]
       })]
-    })]
-  });
+    });
+  } catch (error) {
+    return "CARGANDO";
+  }
 }
 
 /***/ }),
@@ -5851,7 +6043,7 @@ __webpack_require__.r(__webpack_exports__);
 function SucursalDetallesCierres(_ref) {
   var sucursalDetallesData = _ref.sucursalDetallesData;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-    className: "container-fluid",
+    className: "container-fluid m-0 p-0",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "row",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -5860,7 +6052,7 @@ function SucursalDetallesCierres(_ref) {
           className: "table table-bordered",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("thead", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                 colSpan: 2,
                 className: "borderleft text-center fw-bold",
                 children: "TASA D\xCDA"
@@ -6066,41 +6258,41 @@ function SucursalDetallesCierres(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.numero
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.numero : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.tasa
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.tasa : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.tasacop
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.tasacop : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.numventas
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.numventas : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.debito
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.debito : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.efectivo
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.efectivo : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.transferencia
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.transferencia : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.total
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.total : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.ganancia
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.ganancia : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.ventaexcento
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.ventaexcento : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.ventagravadas
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.ventagravadas : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.ivaventa
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.ivaventa : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.totalventa
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.totalventa : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.credito
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.credito : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.abonosdeldia
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.abonosdeldia : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.efectivo_guardado_bs
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.efectivo_guardado_bs : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.efectivo_guardado_cop
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.efectivo_guardado_cop : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: sucursalDetallesData.sum.efectivo_guardado
+                  children: sucursalDetallesData.sum ? sucursalDetallesData.sum.efectivo_guardado : ""
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {})]
               })
             })]
@@ -6234,6 +6426,11 @@ function SucursalDetallesinvetario(_ref) {
             value: "desc",
             children: "Orden Desc"
           })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          className: "btn btn-success",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+            className: "fa fa-search"
+          })
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
