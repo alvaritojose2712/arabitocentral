@@ -13,12 +13,12 @@ class puntosybiopagos extends Model
         return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
     }
     protected $fillable = [
-        "loteserial",
         "monto",
+        "loteserial",
         "banco",
         "fecha",
         "id_sucursal",
         "id_usuario",
-        "tipo",
+        "tipo"
     ];
 }

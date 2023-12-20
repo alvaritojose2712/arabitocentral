@@ -9,131 +9,173 @@ use App\Models\inventario_sucursal;
 use App\Models\nomina;
 use App\Models\puntosybiopagos;
 use App\Models\sucursal;
+use App\Models\ultimainformacioncargada;
+use App\Models\garantias;
+use App\Models\fallas;
+
+
+use DateTime;
 use Illuminate\Http\Request;
 
 
 class CierresController extends Controller
 {
-    public function setCierreFromSucursalToCentral(Request $req)
+
+    function setAll(Request $req) {
+        $codigo_origen = $req->codigo_origen;
+        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
+        $id_sucursal = $id_ruta["id_origen"];
+
+        $sendInventarioCt = (new InventarioSucursalController)->sendInventarioCt($req->sendInventarioCt, $id_sucursal);
+        $sendGarantias = (new GarantiasController)->sendGarantias($req->sendGarantias, $id_sucursal);
+        $sendFallas = (new FallasController)->sendFallas($req->sendFallas, $id_sucursal);
+        $setCierreFromSucursalToCentral = (new CierresController)->setCierreFromSucursalToCentral($req->setCierreFromSucursalToCentral, $id_sucursal);
+        $setEfecFromSucursalToCentral = (new CajasController)->setEfecFromSucursalToCentral($req->setEfecFromSucursalToCentral, $id_sucursal);
+
+        if (!isset($setCierreFromSucursalToCentral["last"])) {return $setCierreFromSucursalToCentral;}
+        if (!isset($setEfecFromSucursalToCentral["last"])) {return $setEfecFromSucursalToCentral;}
+        if (!isset($sendGarantias["last"])) {return $sendGarantias;}
+        if (!isset($sendFallas["last"])) {return $sendFallas;}
+
+
+        $last_setCierreFromSucursalToCentral = $setCierreFromSucursalToCentral["last"];
+        $last_setEfecFromSucursalToCentral = $setEfecFromSucursalToCentral["last"];
+        $last_sendGarantias = $sendGarantias["last"];
+        $last_sendFallas = $sendFallas["last"];
+
+        $today = (new NominaController)->today();
+
+        garantias::where("created_at","LIKE",$today."%")->delete();
+        fallas::where("created_at","LIKE",$today."%")->delete();
+        cajas::where("created_at","LIKE",$today."%")->delete();
+        puntosybiopagos::where("created_at","LIKE",$today."%")->delete();
+
+        ultimainformacioncargada::updateOrCreate([
+            "id_sucursal" =>$id_sucursal,
+            "fecha" => $today
+        ],[
+            "id_sucursal" => $id_sucursal,
+            "fecha" => $today,
+
+            "date_last_cierres" => $last_setCierreFromSucursalToCentral,
+            "id_last_efec" => $last_setEfecFromSucursalToCentral,
+            "id_last_garantias" => $last_sendGarantias,
+            "id_last_fallas" => $last_sendFallas,
+        ]);
+        return [
+            $sendInventarioCt,
+            $sendGarantias["msj"],
+            $sendFallas["msj"],
+            $setCierreFromSucursalToCentral["msj"],
+            $setEfecFromSucursalToCentral["msj"],
+            $req->setCierreFromSucursalToCentral
+
+        ];
+       
+    }
+    public function setCierreFromSucursalToCentral($cierres,$id_origen)
     {
         try {
-            $codigo_origen = $req->codigo_origen;
+            $num = 0;
+            $last = new DateTime("2000-01-01");
+            $numlote = 0;
+            $totlote = 0;
+            
+            foreach ($cierres as $key => $data) {
+                $cierre = $data["cierre"];
+                $lotes = $data["lotes"];
 
-            $lotes = $req->lotes;
-            $biopagos = $req->biopagos;
+                
+                $fecha = new DateTime($cierre["fecha"]);
+                if ($last < $fecha) {
+                    $last = $fecha;
+                }
+                $totlote += count($lotes);
+                foreach ($lotes as $lote) {
+                    $loteSql = puntosybiopagos::updateOrCreate([
+                        "fecha" => $lote["fecha"],
+                        "id_usuario" => $lote["id_usuario"],
+                        "id_sucursal" => $id_origen,
+                        "tipo" => $lote["tipo"],
+                    ], [
+                        "loteserial" => $lote["lote"],
+                        "monto" => $lote["monto"],
+                        "banco" => $lote["banco"],
+                    ]);
 
-
-            $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
-            $id_origen = $id_ruta["id_origen"];
-
-            $cierre = $req->cierre;
-
-            $cierresobj = cierres::updateOrCreate([
-                "fecha" => $cierre["fecha"],
-                "id_sucursal" => $id_origen,
-            ], [
-                "debito" => $cierre["debito"],
-                "efectivo" => $cierre["efectivo"],
-                "transferencia" => $cierre["transferencia"],
-                "caja_biopago" => $cierre["caja_biopago"],
-                "dejar_dolar" => $cierre["dejar_dolar"],
-                "dejar_peso" => $cierre["dejar_peso"],
-                "dejar_bss" => $cierre["dejar_bss"],
-                "efectivo_guardado" => $cierre["efectivo_guardado"],
-                "efectivo_guardado_cop" => $cierre["efectivo_guardado_cop"],
-                "efectivo_guardado_bs" => $cierre["efectivo_guardado_bs"],
-                "tasa" => $cierre["tasa"],
-                "nota" => $cierre["nota"],
-
-
-                "numventas" => $cierre["numventas"],
-                "precio" => $cierre["precio"],
-                "precio_base" => $cierre["precio_base"],
-                "ganancia" => $cierre["ganancia"],
-                "porcentaje" => $cierre["porcentaje"],
-                "desc_total" => $cierre["desc_total"],
-                "efectivo_actual" => $cierre["efectivo_actual"],
-                "efectivo_actual_cop" => $cierre["efectivo_actual_cop"],
-                "efectivo_actual_bs" => $cierre["efectivo_actual_bs"],
-                "puntodeventa_actual_bs" => $cierre["puntodeventa_actual_bs"],
-                "tasacop" => $cierre["tasacop"],
-                "inventariobase" => $cierre["inventariobase"],
-                "inventarioventa" => $cierre["inventarioventa"],
-                "numreportez" => $cierre["numreportez"],
-                "ventaexcento" => $cierre["ventaexcento"],
-                "ventagravadas" => $cierre["ventagravadas"],
-                "ivaventa" => $cierre["ivaventa"],
-                "totalventa" => $cierre["totalventa"],
-                "ultimafactura" => $cierre["ultimafactura"],
-                "credito" => $cierre["credito"],
-                "creditoporcobrartotal" => $cierre["creditoporcobrartotal"],
-                "vueltostotales" => $cierre["vueltostotales"],
-                "abonosdeldia" => $cierre["abonosdeldia"],
-                "efecadiccajafbs" => $cierre["efecadiccajafbs"],
-                "efecadiccajafcop" => $cierre["efecadiccajafcop"],
-                "efecadiccajafdolar" => $cierre["efecadiccajafdolar"],
-                "efecadiccajafeuro" => $cierre["efecadiccajafeuro"],
-
-                "puntolote1" => $cierre["puntolote1"],
-                "puntolote1montobs" => $cierre["puntolote1montobs"],
-                "puntolote2" => $cierre["puntolote2"],
-                "puntolote2montobs" => $cierre["puntolote2montobs"],
-                "biopagoserial" => $cierre["biopagoserial"],
-                "biopagoserialmontobs" => $cierre["biopagoserialmontobs"],
-
-
-            ]);
-
-            foreach ($lotes as $key => $e) {
-
-                puntosybiopagos::updateOrCreate([
-                    "fecha" => $e["fecha"],
-                    "id_usuario" => $e["id_usuario"],
+                    if ($loteSql) {
+                        $numlote++;
+                    }
+                }
+                $cierresobj = cierres::updateOrCreate([
+                    "fecha" => $cierre["fecha"],
                     "id_sucursal" => $id_origen,
-                    "tipo" => $e["tipo"],
                 ], [
-                    "monto" => $e["monto"],
-                    "loteserial" => $e["lote"],
-                    "banco" => $e["banco"],
-
-                    "fecha" => $e["fecha"],
-                    "id_sucursal" => $id_origen,
-                    "id_usuario" => $e["id_usuario"],
-                    "tipo" => $e["tipo"],
-
-
+                    "debito" => $cierre["debito"],
+                    "efectivo" => $cierre["efectivo"],
+                    "transferencia" => $cierre["transferencia"],
+                    "caja_biopago" => $cierre["caja_biopago"],
+                    "dejar_dolar" => $cierre["dejar_dolar"],
+                    "dejar_peso" => $cierre["dejar_peso"],
+                    "dejar_bss" => $cierre["dejar_bss"],
+                    "efectivo_guardado" => $cierre["efectivo_guardado"],
+                    "efectivo_guardado_cop" => $cierre["efectivo_guardado_cop"],
+                    "efectivo_guardado_bs" => $cierre["efectivo_guardado_bs"],
+                    "tasa" => $cierre["tasa"],
+                    "nota" => $cierre["nota"],
+    
+    
+                    "numventas" => $cierre["numventas"],
+                    "precio" => $cierre["precio"],
+                    "precio_base" => $cierre["precio_base"],
+                    "ganancia" => $cierre["ganancia"],
+                    "porcentaje" => $cierre["porcentaje"],
+                    "desc_total" => $cierre["desc_total"],
+                    "efectivo_actual" => $cierre["efectivo_actual"],
+                    "efectivo_actual_cop" => $cierre["efectivo_actual_cop"],
+                    "efectivo_actual_bs" => $cierre["efectivo_actual_bs"],
+                    "puntodeventa_actual_bs" => $cierre["puntodeventa_actual_bs"],
+                    "tasacop" => $cierre["tasacop"],
+                    "inventariobase" => $cierre["inventariobase"],
+                    "inventarioventa" => $cierre["inventarioventa"],
+                    "numreportez" => $cierre["numreportez"],
+                    "ventaexcento" => $cierre["ventaexcento"],
+                    "ventagravadas" => $cierre["ventagravadas"],
+                    "ivaventa" => $cierre["ivaventa"],
+                    "totalventa" => $cierre["totalventa"],
+                    "ultimafactura" => $cierre["ultimafactura"],
+                    "credito" => $cierre["credito"],
+                    "creditoporcobrartotal" => $cierre["creditoporcobrartotal"],
+                    "vueltostotales" => $cierre["vueltostotales"],
+                    "abonosdeldia" => $cierre["abonosdeldia"],
+                    "efecadiccajafbs" => $cierre["efecadiccajafbs"],
+                    "efecadiccajafcop" => $cierre["efecadiccajafcop"],
+                    "efecadiccajafdolar" => $cierre["efecadiccajafdolar"],
+                    "efecadiccajafeuro" => $cierre["efecadiccajafeuro"],
+    
+                    "puntolote1" => $cierre["puntolote1"],
+                    "puntolote1montobs" => $cierre["puntolote1montobs"],
+                    "puntolote2" => $cierre["puntolote2"],
+                    "puntolote2montobs" => $cierre["puntolote2montobs"],
+                    "biopagoserial" => $cierre["biopagoserial"],
+                    "biopagoserialmontobs" => $cierre["biopagoserialmontobs"],
+    
+    
                 ]);
+                
+                   
+               
+
+                if ($cierresobj->save()) {
+                    $num++;
+                }
             }
-
-
-
-            foreach ($biopagos as $key => $value) {
-                puntosybiopagos::updateOrCreate([
-                    "fecha" => $e["fecha"],
-                    "id_usuario" => $e["id_usuario"],
-                    "id_sucursal" => $id_origen,
-                    "tipo" => $e["tipo"],
-                ], [
-                    "monto" => $e["monto"],
-                    "loteserial" => $e["serial"],
-                    "banco" => "BDV",
-                    "fecha" => $e["fecha"],
-                    "id_sucursal" => $id_origen,
-                    "id_usuario" => $e["id_usuario"],
-                    "tipo" => $e["tipo"],
-                ]);
-            }
-
-
-
-
-
-
-            if ($cierresobj->save()) {
-                return "Exito al registrar Cierre en Central";
-            }
+            return [
+                "msj" => "OK CIERRES ".$num." / ".count($cierres)." - LOTES y SERIALES $numlote / $totlote",
+                "last" => $last->format('Y-m-d')
+            ];
         } catch (\Exception $e) {
-            return "Error: " . $e->getMessage();
+            return "Error TRY CENTRAL: " . $e->getMessage()." ".$e->getLine();
         }
     }
     public function getCierres($fechasMain1, $fechasMain2, $filtros)
@@ -301,27 +343,27 @@ class CierresController extends Controller
 
                 break;
             case 'cierres':
-                return $this->getCierreSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                //return $this->getCierreSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 break;
             case 'inventario':
                 return $this->getInvSucursal($id_sucursal, $filtros);
 
                 break;
             case 'puntosyseriales':
-                return $this->getPuntosyseriales($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                //return $this->getPuntosyseriales($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
 
                 break;
             case 'controldeefectivo':
-                return $this->getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                //return $this->getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
 
                 break;
 
             case 'nomina':
-                return $this->getNominasSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+               // return $this->getNominasSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
 
                 break;
             case 'comovamos':
-                return $this->comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                //return $this->comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
 
                 break;
 

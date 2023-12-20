@@ -12,36 +12,39 @@ use Response;
 
 class GarantiasController extends Controller
 {
-   function sendGarantias(Request $req) {
-      /* $garantias = $req->garantias;
-      $codigo_origen =  $req->codigo_origen;
-
-      $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
-      $id_origen = $id_ruta["id_origen"];
-
+   function sendGarantias($garantias,$id_origen) {
       $arr_ok = [];
       $num = 0;
-
+      $last = 0;
       foreach ($garantias as $e) {
-          $id_vinculacion = $e["producto"]["id_vinculacion"];
-          if (inventario::find($id_vinculacion)) {
+            $id_producto = $e["producto"]["id"];
+            $idinsucursal = $e["id"];
+            $cantidad = $e["cantidad"];
 
-               $uoc = garantias::updateOrCreate([
-                     "id_sucursal" => $id_origen,
-                     "id_producto" => $id_vinculacion,
-                     "id_cliente" => 1
-               ],[
-                     "cantidad" => $e["cantidad"],
-                     "motivo" => "DF",
-               ]);
-               if ($uoc) {
-                     $arr_ok[] = $e["id"];
-                     $num++;
-               }
-          }
+            if ($last<$idinsucursal) {
+                  $last=$idinsucursal;
+            }
 
+            $uoc = garantias::updateOrCreate([
+                  "id_sucursal" => $id_origen,
+                  "idinsucursal" => $idinsucursal,
+            ],[
+                  "id_sucursal" => $id_origen,
+                  "idinsucursal" => $idinsucursal,
+                  "id_producto" => $id_producto,
+                  "cantidad" =>  $cantidad,
+                  "motivo" =>  "DF",
+                  "id_cliente" => 1
+            ]);
+            if ($uoc) {
+                  $arr_ok[] = $e["id"];
+                  $num++;
+            }
       }
-      garantias::where("id_sucursal",$id_origen)->whereNotIn("id_local",$arr_ok)->delete();
-      return $num." garantias cargadas de ".count($garantias); */
+
+      return [
+            "msj" =>"OK GARANTIAS ".$num." / ".count($garantias),
+            "last" => $last
+      ];
    }
 }

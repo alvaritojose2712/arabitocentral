@@ -15,20 +15,15 @@ use Response;
 class FallasController extends Controller
 {
 
-    public function sendFallas(Request $req)
+    public function sendFallas($fallas,$id_origen)
     {
-
-        $fallas = $req->fallas;
-
-        $codigo_origen =  $req->codigo_origen;
-
-        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
-        $id_origen = $id_ruta["id_origen"];
-
         $arr_ok = [];
         $num = 0;
+        $last = 0;
         foreach ($fallas as $e) {
-
+            if ($last<$e["id"]) {
+                $last=$e["id"];
+            }
             $uoc = fallas::updateOrCreate([
                 "idinsucursal" => $e["id"],
                 "id_sucursal" => $id_origen,
@@ -45,10 +40,11 @@ class FallasController extends Controller
                 $arr_ok[] = $e["id"];
                 $num++;
             }
-            
-
         }
-        return $num." fallas cargadas de ".count($fallas);
+        return [
+            "msj" => "OK FALLAS ".$num." / ".count($fallas),
+            "last" => $last
+        ];
     }
 
     public function getFallas(Request $req)

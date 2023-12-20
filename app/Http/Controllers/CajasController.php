@@ -13,26 +13,21 @@ class CajasController extends Controller
     
 
    
-    public function setEfecFromSucursalToCentral(Request $req) {
+    public function setEfecFromSucursalToCentral($movs, $id_sucursal) {
 
         try {
-            
-            $codigo_origen =  $req->codigo_origen;
-            
-
-            $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
-            $id_sucursal = $id_ruta["id_origen"];
-
-            $count_movs = count($req->movs);
-
+            $count_movs = count($movs);
             $counter =0;
-            foreach ($req->movs as $key => $e) {
+            $last = 0;
+            foreach ($movs as $key => $e) {
+                if ($last<$e["id"]) {
+                    $last=$e["id"];
+                }
+
                 $catnombre = $e["cat"]["nombre"];
                 $cattipo = $e["cat"]["tipo"];
                 $catindice = $e["cat"]["indice"];
-
                 $checkcatcajas = catcajas::where("nombre",$catnombre)->where("tipo",$cattipo)->first();
-                
                 if ($checkcatcajas) {
                     $setcategoria = $checkcatcajas->id;
                 }else{
@@ -86,12 +81,12 @@ class CajasController extends Controller
                         $counter++;
                     }
             }
-    
-            
-            $msj = $counter . " de ".$count_movs;
-            return $msj;
+            return [
+                "msj" => "OK CAJAS ".$counter . " / ".$count_movs,
+                "last" => $last
+            ];
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return $e->getMessage()." ".$e->getLine();
         }
     }
 }

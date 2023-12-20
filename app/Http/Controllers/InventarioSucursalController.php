@@ -365,15 +365,8 @@ class InventarioSucursalController extends Controller
     
 
 
-    public function sendInventarioCt(Request $req) {
-        $inventariodeldia =  $req->inventario;
-
+    public function sendInventarioCt($inventariodeldia,$id_origen) {
         try {
-            $codigo_origen =  $req->codigo_origen;
-
-            $id_ruta = $this->retOrigenDestino($codigo_origen,$codigo_origen);
-            $id_origen = $id_ruta["id_origen"];
-
             $num = 0;
             foreach ($inventariodeldia as $i => $producto) {
                 $insert = $this->setInventarioSucursalFun($producto, $id_origen);
@@ -381,8 +374,7 @@ class InventarioSucursalController extends Controller
                     $num++;
                 }
             }
-
-            return $num." productos actualizados de ".count($inventariodeldia);
+            return "OK INVENTARIO ".$num." / ".count($inventariodeldia);
         } catch (\Exception $e) {
             return $e->getMessage();
         }

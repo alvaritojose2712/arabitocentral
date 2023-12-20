@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CajasController;
 use App\Http\Controllers\CatcajasController;
+use App\Http\Controllers\UltimainformacioncargadaController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\InventarioController;
@@ -94,10 +95,17 @@ Route::post('setVentas', [VentasController::class,"setVentas"]);
 Route::get('getVentas', [VentasController::class,"getVentas"]);
 
 
-Route::post('sendInventarioCt', [InventarioSucursalController::class,"sendInventarioCt"]);
 Route::post('sendGastos', [GastosController::class,"sendGastos"]);
+
+Route::get('getLast', [UltimainformacioncargadaController::class,"getLast"]);
+
+/* Route::post('sendInventarioCt', [InventarioSucursalController::class,"sendInventarioCt"]);
 Route::post('sendGarantias', [GarantiasController::class,"sendGarantias"]);
 Route::post('sendFallas', [FallasController::class,"sendFallas"]);
+Route::post('setCierreFromSucursalToCentral', [CierresController::class,"setCierreFromSucursalToCentral"]);
+Route::post('setEfecFromSucursalToCentral', [CajasController::class,"setEfecFromSucursalToCentral"]); */
+
+Route::post('setAll', [CierresController::class,"setAll"]);
 
 
 
@@ -182,7 +190,6 @@ Route::post('setNuevaTareaCentral', [sockets::class,"setNuevaTareaCentral"]);
 Route::post('setInventarioFromSucursal', [InventarioSucursalController::class,"setInventarioFromSucursal"]);
 Route::post('getInventarioSucursalFromCentral', [InventarioSucursalController::class,"getInventarioSucursalFromCentral"]);
 Route::post('setInventarioSucursalFromCentral', [InventarioSucursalController::class,"setInventarioSucursalFromCentral"]);
-Route::post('setEfecFromSucursalToCentral', [CajasController::class,"setEfecFromSucursalToCentral"]);
 
 Route::post('setCambiosInventarioSucursal', [InventarioSucursalController::class,"setCambiosInventarioSucursal"]);
 
@@ -195,7 +202,6 @@ Route::get('getTareasCentral', [TareasController::class,"getTareasCentral"]);
 
 Route::post('resolveTareaCentral', [TareasController::class,"resolveTareaCentral"]);
 
-Route::post('setCierreFromSucursalToCentral', [CierresController::class,"setCierreFromSucursalToCentral"]);
 
 Route::post('getsucursalListData', [CierresController::class,"getsucursalListData"]);
 Route::post('getsucursalDetallesData', [CierresController::class,"getsucursalDetallesData"]);
@@ -222,13 +228,13 @@ Route::post('delUsuario', [UsuariosController::class,"delUsuario"]);
 
 
 // Route::get('/cache', function () {
-//     $clearcache = Artisan::call('cache:clear');
-//     echo "Cache cleared<br>";
-
-//     $clearview = Artisan::call('view:clear');
-//     echo "View cleared<br>";
-
-//     $clearconfig = Artisan::call('config:cache');
+    //     $clearcache = Artisan::call('cache:clear');
+    //     echo "Cache cleared<br>";
+    
+    //     $clearview = Artisan::call('view:clear');
+    //     echo "View cleared<br>";
+    
+    //     $clearconfig = Artisan::call('config:cache');
 //     echo "Config cleared<br>";
 
    

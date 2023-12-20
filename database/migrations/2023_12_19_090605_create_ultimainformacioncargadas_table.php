@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePuntosybiopagosTable extends Migration
+class CreateUltimainformacioncargadasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,19 @@ class CreatePuntosybiopagosTable extends Migration
      */
     public function up()
     {
-        Schema::create('puntosybiopagos', function (Blueprint $table) {
+        Schema::create('ultimainformacioncargadas', function (Blueprint $table) {
             $table->increments("id");
-            $table->string("loteserial");
-            $table->decimal("monto",10,2);
-            $table->string("banco");
-            $table->string("tipo");
 
-            $table->date("fecha");
-            
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
+            $table->date("fecha");
             
-            $table->integer("id_usuario");
+            $table->date("date_last_cierres");
+            $table->integer("id_last_garantias");
+            $table->integer("id_last_fallas");
+            $table->integer("id_last_efec");
             
-            $table->unique(["fecha","id_sucursal","id_usuario","tipo"]);
+            $table->unique(["id_sucursal","fecha"]);
             $table->timestamps();
         });
     }
@@ -39,6 +37,6 @@ class CreatePuntosybiopagosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('puntosybiopagos');
+        Schema::dropIfExists('ultimainformacioncargadas');
     }
 }

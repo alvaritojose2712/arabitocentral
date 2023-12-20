@@ -18,18 +18,17 @@ class CreateGarantiasTable extends Migration
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
 
-            $table->integer("id_producto")->unsigned();
-            $table->foreign('id_producto')->references('id')->on('inventarios');
+            $table->integer("id_producto");
+            $table->integer("idinsucursal");
 
-            $table->float("cantidad",10,2);
-            $table->text("motivo");
+            $table->float("cantidad",10,2)->nullable(true);
+            $table->text("motivo")->nullable(true);
 
-            $table->integer("id_cliente")->unsigned();
-            $table->foreign('id_cliente')->references('id')->on('clientes');
+            $table->integer("id_cliente");
 
             $table->timestamps();
             
-            $table->unique(["id_producto","id_sucursal"]);
+            $table->unique(["idinsucursal","id_sucursal"]);
         });
     }
 
