@@ -234,6 +234,7 @@ class CierresController extends Controller
                 $q->where("id_sucursal", $id_sucursal);
             })
             ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
+            ->orderBy("fecha","desc")
             ->get();
 
         $sumdebito = $array->sum("debito");
