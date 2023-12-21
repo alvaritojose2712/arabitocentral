@@ -2614,6 +2614,9 @@ function ComoVamos(_ref) {
                   })]
                 })
               })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "fs-2 text-success",
+              children: e.ticked
             })]
           })]
         }, e.id);
@@ -2664,6 +2667,9 @@ function ComoVamos(_ref) {
                 })]
               })
             })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+            className: "fs-2 text-success",
+            children: sucursalDetallesData.sum ? sucursalDetallesData.sum.ticked : ""
           })]
         })]
       })]

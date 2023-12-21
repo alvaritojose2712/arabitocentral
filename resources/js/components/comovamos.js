@@ -54,6 +54,9 @@ export default function ComoVamos({
 
                                     </div>
                                 </td>
+                                <td className="fs-2 text-success">
+                                    {e.ticked}
+                                </td>
                             </tr>
                         </tbody>
                     )
@@ -88,8 +91,10 @@ export default function ComoVamos({
                                         {sucursalDetallesData.sum?sucursalDetallesData.sum.numventas:""}
                                     </button>
                                 </span>
-
                             </div>
+                        </td>
+                        <td className="fs-2 text-success">
+                            {sucursalDetallesData.sum?sucursalDetallesData.sum.ticked:""}
                         </td>
                     </tr>
                 </tbody>

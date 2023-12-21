@@ -429,7 +429,12 @@ class CierresController extends Controller
     {
         $c = comovamos::with("sucursal")
             ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
-            ->orderBy("total", "desc")->get();
+            ->orderBy("total", "desc")
+            ->get()
+            ->map(function($q){
+                $q->ticked = number_format($q->total/$q->numventas,2);
+                return $q;
+            });
 
         return [
             "comovamos" => $c,
@@ -440,6 +445,7 @@ class CierresController extends Controller
                 "efectivo" => $c->sum("efectivo"),
                 "numventas" => $c->sum("numventas"),
                 "total" => $c->sum("total"),
+                "ticked" => number_format($c->avg("ticked"),2),
             ]
             ];
     }
