@@ -4,7 +4,7 @@ export default function Nomina({
     children,
 }){
     return(
-    <div>
+    <>
         <div className="d-flex justify-content-center">
             <div className="btn-group m-2">
                 <button className={("btn ")+(subViewNominaGestion=="personal"?"btn-sinapsis":"")} onClick={()=>setsubViewNominaGestion("personal")}>Personal</button>
@@ -12,6 +12,6 @@ export default function Nomina({
             </div>
         </div>
         {children}
-    </div>
+    </>
     )
 }

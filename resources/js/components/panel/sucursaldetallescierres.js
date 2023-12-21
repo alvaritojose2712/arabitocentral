@@ -31,7 +31,8 @@ export default function SucursalDetallesCierres({
                                 <th className="bg-sinapsis text-light borderleft">CT. VENTAS</th>
                                 <th className="bg-sinapsis text-light">DEBITO</th>
                                 <th className="bg-sinapsis text-light">EFECTIVO</th>
-                                <th className="bg-s inapsis text-light">TRANSFERENCIA</th>
+                                <th className="bg-sinapsis text-light">TRANSFERENCIA</th>
+                                <th className="bg-sinapsis text-light">BIOPAGO</th>
                                 <th className="bg-light text-sinapsis">VENTA TOTAL</th>
                                 <th className="bg-light text-sinapsis">GANANCIAS APROXIMADAS</th>
 
@@ -82,6 +83,7 @@ export default function SucursalDetallesCierres({
                                                 <td>{e.debito?e.debito:null}</td>
                                                 <td>{e.efectivo?e.efectivo:null}</td>
                                                 <td>{e.transferencia?e.transferencia:null}</td>
+                                                <td>{e.caja_biopago?e.caja_biopago:null}</td>
                                                 <td>{e.total?e.total:null}</td>
                                                 <td>{e.ganancia?e.ganancia:null}</td>
                                                 
@@ -127,12 +129,13 @@ export default function SucursalDetallesCierres({
                                         <tr>
                                             <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.numero:""}</td>
                                                 <td></td>
-                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.tasa:""}</td>
-                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.tasacop:""}</td>
+                                            <td></td>
+                                            <td></td>
                                             <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.numventas:""}</td>
                                             <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.debito:""}</td>
                                             <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.efectivo:""}</td>
                                             <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.transferencia:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.biopago:""}</td>
                                             <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.total:""}</td>
                                             <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.ganancia:""}</td>
                                             <td></td>
@@ -141,8 +144,8 @@ export default function SucursalDetallesCierres({
                                             <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.ivaventa:""}</td>
                                             <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.totalventa:""}</td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.inventariobase:""}</td>
+                                            <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.inventarioventa:""}</td>
                                             <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.credito:""}</td>
                                             <td></td>
                                             <td></td>

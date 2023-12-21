@@ -240,14 +240,16 @@ class CierresController extends Controller
         $sumdebito = $array->sum("debito");
         $sumefectivo = $array->sum("efectivo");
         $sumtransferencia = $array->sum("transferencia");
+        $sumbiopago = $array->sum("caja_biopago");
 
         $sum = [
             "numventas" => $array->sum("numventas"),
             "numero" => $array->count(),
-            "total" => moneda($sumdebito + $sumefectivo + $sumtransferencia),
+            "total" => moneda($sumdebito + $sumefectivo + $sumtransferencia + $sumbiopago),
             "debito" => moneda($sumdebito),
             "efectivo" => moneda($sumefectivo),
             "transferencia" => moneda($sumtransferencia),
+            "biopago" => moneda($sumbiopago),
             "efectivo_guardado" => moneda($array->sum("efectivo_guardado")),
             "efectivo_guardado_cop" => moneda($array->sum("efectivo_guardado_cop")),
             "efectivo_guardado_bs" => moneda($array->sum("efectivo_guardado_bs")),
@@ -273,11 +275,17 @@ class CierresController extends Controller
             "efecadiccajafcop" => moneda($array->sum("efecadiccajafcop")),
             "efecadiccajafdolar" => moneda($array->sum("efecadiccajafdolar")),
             "efecadiccajafeuro" => moneda($array->sum("efecadiccajafeuro")),
+            
+            "inventariobase" => moneda($array->sum("inventariobase")),
+            "inventarioventa" => moneda($array->sum("inventarioventa")),
+
+            
+
         ];
 
 
         $array = $array->map(function ($q) {
-            $q->total = moneda($q->debito + $q->efectivo + $q->transferencia);
+            $q->total = moneda($q->debito + $q->efectivo + $q->transferencia + $q->caja_biopago);
 
             $q->debito = moneda($q->debito);
             $q->efectivo = moneda($q->efectivo);

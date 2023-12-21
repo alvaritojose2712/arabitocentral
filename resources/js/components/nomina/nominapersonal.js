@@ -81,7 +81,7 @@ export default function NominaPersonal({
 	}
 	return (
 		<>
-			<div className="container">
+			<div className="container-fluid">
 				<div className="row">
 					<div className="col">
 						<h1>Personal <button className="btn btn-sm btn-success" onClick={setNuevoPersonal}>Nuevo</button></h1>
@@ -203,7 +203,9 @@ export default function NominaPersonal({
 								}
 							</div>
 						</form>
-						<hr />
+					</div>
+
+					<div className="col">
 						<form onSubmit={getPersonalNomina}>
 							<div className="input-group ">
 								<input type="text"
@@ -271,7 +273,6 @@ export default function NominaPersonal({
                                 : <div className='h3 text-center text-dark mt-2'><i>¡Sin resultados!</i></div>
                             : null
 						}
-
 					</div>
 				</div>
 			</div>

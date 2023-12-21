@@ -15,10 +15,10 @@ class CreatePuntosybiopagosTable extends Migration
     {
         Schema::create('puntosybiopagos', function (Blueprint $table) {
             $table->increments("id");
-            $table->string("loteserial");
-            $table->decimal("monto",10,2);
-            $table->string("banco");
-            $table->string("tipo");
+            $table->string("loteserial")->nullable(true);
+            $table->decimal("monto",10,2)->nullable(true);
+            $table->string("banco")->nullable(true);
+            $table->string("tipo")->nullable(true);
 
             $table->date("fecha");
             

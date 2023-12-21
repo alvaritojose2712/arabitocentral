@@ -55,6 +55,9 @@ import NominaCargos from './nomina/nominacargos';
 import NominaPersonal from './nomina/nominapersonal';
 
 import NominaPagos from './nomina/nominapagos';
+import Pedidos from './pedidos';
+import Pedir from './pedir';
+
 
 
 
@@ -2094,35 +2097,24 @@ function Home() {
 
   let opcionesadmin = [
     {
-      route: "cierres",
-      name: "cierres"
+      route: "compras",
+      name: "COMPRAS"
     },
-
-    {
-      route: "gastos",
-      name: "Gastos"
-    },
-
     {
       route: "nomina",
-      name: "Nómina"
+      name: "NÓMINA"
     },
 
     {
       route: "usuarios",
-      name: "Usuarios"
-    },
-
-    {
-      route: "compras",
-      name: "Compras"
+      name: "USUARIOS"
     },
   ]
 
   let opcionesgeneral = [
     {
       route: "sucursales",
-      name: "Sucursales"
+      name: "SUCURSALES"
     },
     {
       route: "comovamos",
@@ -2131,7 +2123,7 @@ function Home() {
 
     {
       route: "administracion",
-      name: "Administración"
+      name: "ADMINISTRACIÓN"
     },
 
   ]
@@ -2171,62 +2163,6 @@ function Home() {
             />
           }
 
-          {viewmainPanel === "cierres" &&
-            <>
-              <FechasMain
-                fechasMain1={fechasMain1}
-                fechasMain2={fechasMain2}
-                setfechasMain1={setfechasMain1}
-                setfechasMain2={setfechasMain2}
-              />
-              <Cierres>
-                <BalanceCierres
-
-                />
-
-                {sucursalSelect ?
-                  <SucursalDetallesCierres
-                    sucursalDetallesData={sucursalDetallesData}
-
-                  />
-                  :
-                  <SucursalListCierres
-                    sucursalListData={sucursalListData}
-
-                    sucursalSelect={sucursalSelect}
-                    setsucursalSelect={setsucursalSelect}
-                  />
-                }
-              </Cierres>
-            </>
-          }
-
-          {viewmainPanel === "gastos" &&
-            <>
-              <FechasMain
-                fechasMain1={fechasMain1}
-                fechasMain2={fechasMain2}
-                setfechasMain1={setfechasMain1}
-                setfechasMain2={setfechasMain2}
-              />
-              <Gastos>
-                {sucursalSelect ?
-                  <SucursalDetallesGastos
-                    sucursalDetallesData={sucursalDetallesData}
-
-                  />
-                  :
-                  <SucursalListGastos
-                    sucursalListData={sucursalListData}
-
-                    sucursalSelect={sucursalSelect}
-                    setsucursalSelect={setsucursalSelect}
-                  />
-                }
-              </Gastos>
-            </>
-
-          }
           {viewmainPanel === "nomina" &&
             <NominaHome
               subViewNomina={subViewNomina}
@@ -2354,41 +2290,48 @@ function Home() {
 
           {viewmainPanel === "compras" &&
             <Compras
+              setviewmainPanel={setviewmainPanel}
+              viewmainPanel={viewmainPanel}
+            />
+          }
 
-              subViewCompras={subViewCompras}
-              setsubViewCompras={setsubViewCompras}
-
-              qProductosMain={qProductosMain}
-              setQProductosMain={setQProductosMain}
+          {viewmainPanel === "pedir" &&
+            <Pedir
               productos={productos}
               getProductos={getProductos}
               moneda={moneda}
-              sucursales={sucursales}
+              qProductosMain={qProductosMain}
+              setQProductosMain={setQProductosMain}
               openSelectProvNewPedCompras={openSelectProvNewPedCompras}
-
               setopenSelectProvNewPedComprasCheck={setopenSelectProvNewPedComprasCheck}
               openSelectProvNewPedComprasCheck={openSelectProvNewPedComprasCheck}
-
               NewPedComprasSelectProd={NewPedComprasSelectProd}
               setNewPedComprasSelectProd={setNewPedComprasSelectProd}
-
-              getPrecioxProveedor={getPrecioxProveedor}
-              getProveedores={getProveedores}
-              qBuscarProveedor={qBuscarProveedor}
-              setQBuscarProveedor={setQBuscarProveedor}
-              proveedoresList={proveedoresList}
-              setProveedoresList={setProveedoresList}
+              subViewCompras={subViewCompras}
+              setsubViewCompras={setsubViewCompras}
               precioxproveedor={precioxproveedor}
               selectPrecioxProveedorProducto={selectPrecioxProveedorProducto}
               selectPrecioxProveedorProveedor={selectPrecioxProveedorProveedor}
               setselectPrecioxProveedorProducto={setselectPrecioxProveedorProducto}
               setselectPrecioxProveedorProveedor={setselectPrecioxProveedorProveedor}
               selectPrecioxProveedorSave={selectPrecioxProveedorSave}
+              qBuscarProveedor={qBuscarProveedor}
+              setQBuscarProveedor={setQBuscarProveedor}
+              proveedoresList={proveedoresList}
+              getProveedores={getProveedores}
               selectPrecioxProveedorPrecio={selectPrecioxProveedorPrecio}
               setselectPrecioxProveedorPrecio={setselectPrecioxProveedorPrecio}
-            />
+              getPrecioxProveedor={getPrecioxProveedor}
+            >
+
+            </Pedir>
           }
 
+          {viewmainPanel === "enviar" &&
+            <Pedidos >
+              
+            </Pedidos>
+          }
 
 
           {viewmainPanel === "inventario" &&
