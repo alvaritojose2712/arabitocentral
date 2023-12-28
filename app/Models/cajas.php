@@ -9,7 +9,7 @@ class cajas extends Model
 {
 
     public function cat() { 
-        return $this->hasOne('App\Models\catcajas',"id","categoria"); 
+        return $this->hasOne('App\Models\catcajas',"indice","categoria"); 
     }
 
     public function sucursal() { 

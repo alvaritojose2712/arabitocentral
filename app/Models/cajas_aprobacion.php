@@ -13,7 +13,7 @@ class cajas_aprobacion extends Model
     }
 
     public function cat() { 
-        return $this->hasOne('App\Models\catcajas',"id","categoria"); 
+        return $this->hasOne('App\Models\catcajas',"indice","categoria"); 
     }
     protected function serializeDate(DateTimeInterface $date)
     {
