@@ -10,6 +10,8 @@ const host = ""
 // const host = "http://localhost/arabitoapp"
 
 const db = {
+  
+  aprobarMovCajaFuerte: data=>axios.post(host+"aprobarMovCajaFuerte",data),
   getSucursales: data=>axios.get(host+"getSucursales",{params:data}),
   getFallas: data=>axios.get(host+"getFallas",{params:data}),
 

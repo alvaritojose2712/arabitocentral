@@ -42,9 +42,44 @@ export default function Nomina({
 	}
 	return (
 		<>
-			<div className="container">
+			<div className="container-fluid">
 				<div className="row">
-					<div className="col-2">
+				<div className="col">
+						<h1>Cargos <button className="btn btn-sm btn-success" onClick={setNuevoCargo}>Nuevo</button></h1>
+						<form onSubmit={addPersonalCargos}>
+							<div className="form-group">
+								<label htmlFor="">
+									Descripción
+								</label>
+								<input type="text"
+									value={cargosDescripcion}
+									onChange={e => setcargosDescripcion(e.target.value)}
+									className="form-control" />
+							</div>
+							<div className="form-group">
+								<label htmlFor="">
+									Sueldo
+								</label>
+								<input type="text"
+									value={cargosSueldo}
+									onChange={e => setcargosSueldo(e.target.value)}
+									className="form-control" />
+							</div>
+							
+							<div className="form-group mt-1">
+								{indexSelectCargo == null ?
+									<button className="btn btn-outline-success btn-block" type="submit">Guardar</button>
+									:
+									<div className="btn-group">
+										<button className="btn btn-sinapsis btn-block" type="submit">Editar</button>
+										<button className="btn btn-outline-danger btn-block" onClick={delPersonalCargos} type="button"><i className="fa fa-times"></i></button>
+
+									</div>
+								}
+							</div>
+						</form>
+					</div>
+					<div className="col">
 						<form onSubmit={getPersonalCargos}>
 							<div className="input-group ">
 								<input type="text"
@@ -84,41 +119,7 @@ export default function Nomina({
 								: <div className='h3 text-center text-dark mt-2'><i>¡Sin resultados!</i></div>
 						}
 					</div>
-					<div className="col">
-						<h1>Cargos <button className="btn btn-sm btn-success" onClick={setNuevoCargo}>Nuevo</button></h1>
-						<form onSubmit={addPersonalCargos}>
-							<div className="form-group">
-								<label htmlFor="">
-									Descripción
-								</label>
-								<input type="text"
-									value={cargosDescripcion}
-									onChange={e => setcargosDescripcion(e.target.value)}
-									className="form-control" />
-							</div>
-							<div className="form-group">
-								<label htmlFor="">
-									Sueldo
-								</label>
-								<input type="text"
-									value={cargosSueldo}
-									onChange={e => setcargosSueldo(e.target.value)}
-									className="form-control" />
-							</div>
-							
-							<div className="form-group mt-1">
-								{indexSelectCargo == null ?
-									<button className="btn btn-outline-success btn-block" type="submit">Guardar</button>
-									:
-									<div className="btn-group">
-										<button className="btn btn-sinapsis btn-block" type="submit">Editar</button>
-										<button className="btn btn-outline-danger btn-block" onClick={delPersonalCargos} type="button"><i className="fa fa-times"></i></button>
-
-									</div>
-								}
-							</div>
-						</form>
-					</div>
+					
 					
 				</div>
 			</div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CajasAprobacionController;
 use App\Http\Controllers\CajasController;
 use App\Http\Controllers\CatcajasController;
 use App\Http\Controllers\UltimainformacioncargadaController;
@@ -121,6 +122,11 @@ Route::post('setCierreFromSucursalToCentral', [CierresController::class,"setCier
 Route::post('setEfecFromSucursalToCentral', [CajasController::class,"setEfecFromSucursalToCentral"]); */
 
 Route::post('setAll', [CierresController::class,"setAll"]);
+Route::post('setPermisoCajas', [CajasAprobacionController::class,"setPermisoCajas"]);
+Route::post('aprobarMovCajaFuerte', [CajasAprobacionController::class,"aprobarMovCajaFuerte"]);
+Route::post('verificarMovPenControlEfec', [CajasAprobacionController::class,"verificarMovPenControlEfec"]);
+
+
 
 
 

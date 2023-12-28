@@ -5,42 +5,35 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DateTimeInterface;
-class cajas extends Model
+class cajas_aprobacion extends Model
 {
+    use HasFactory;
+    public function sucursal() { 
+        return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
+    }
 
     public function cat() { 
         return $this->hasOne('App\Models\catcajas',"id","categoria"); 
     }
-
-    public function sucursal() { 
-        return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
-    }
-    
-
-     protected function serializeDate(DateTimeInterface $date)
+    protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
     }
-
-
-
     protected $fillable = [
-        "id",
         "concepto",
         "categoria",
         "montodolar",
-        "montopeso",
-        "montobs",
         "dolarbalance",
-        "pesobalance",
+        "montobs",
         "bsbalance",
-
+        "montopeso",
+        "pesobalance",
         "montoeuro",
         "eurobalance",
+        "estatus",
         "fecha",
         "tipo",
         "id_sucursal",
         "idinsucursal",
     ];
-    use HasFactory;
 }

@@ -393,6 +393,13 @@ class CierresController extends Controller
                 }
                  break;
 
+            case 'aprobacioncajafuerte':
+            if ($tipo_usuario==1) {
+                
+                return (new CajasAprobacionController)->getAprobacionCajas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+            }
+                break;
+
 
         }
     }

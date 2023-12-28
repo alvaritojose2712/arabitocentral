@@ -57,6 +57,13 @@ import NominaPersonal from './nomina/nominapersonal';
 import NominaPagos from './nomina/nominapagos';
 import Pedidos from './pedidos';
 import Pedir from './pedir';
+import Efectivo from './efectivo';
+import AprobacionCajaFuerte from './aprobacioncajafuerte';
+import Cuentasporpagar from './cuentasporpagar';
+
+
+
+
 
 
 
@@ -68,8 +75,6 @@ import Pedir from './pedir';
 function Home() {
   // ///In Last//////
   const [view, setView] = useState("")
-
-
 
   const [fallas, setfallas] = useState([])
   const [gastos, setgastos] = useState([])
@@ -1514,6 +1519,9 @@ function Home() {
   const [fechasMain1, setfechasMain1] = useState("")
   const [fechasMain2, setfechasMain2] = useState("")
   const [filtros, setfiltros] = useState({})
+  const [qestatusaprobaciocaja, setqestatusaprobaciocaja] = useState(0)
+  
+
 
   const [subViewNomina, setsubViewNomina] = useState("gestion")
   const [subViewNominaGestion, setsubViewNominaGestion] = useState("personal")
@@ -1598,6 +1606,14 @@ function Home() {
       setLoading(false)
     })
   }
+  const aprobarMovCajaFuerte = (id,tipo) => {
+    if (confirm("Confirma ("+tipo+")")) {
+      db.aprobarMovCajaFuerte({tipo,id}).then(res=>{
+        notificar(res.data)
+        getsucursalDetallesData(null,"aprobacioncajafuerte") 
+      })
+    }
+  }
   const getsucursalDetallesData = (event = null, subviewpanelsucursalesforce = null) => {
 
     if (event) {
@@ -1617,6 +1633,7 @@ function Home() {
         controlefecSelectGeneral,
         filtronominaq,
         filtronominacargo,
+        qestatusaprobaciocaja,
       },
 
       subviewpanelsucursales: subviewpanelsucursalesforce ? subviewpanelsucursalesforce : subviewpanelsucursales,
@@ -1626,6 +1643,8 @@ function Home() {
       setLoading(false)
     })
   }
+
+  
 
   /// Nomina ///
 
@@ -2097,6 +2116,10 @@ function Home() {
 
   let opcionesadmin = [
     {
+      route: "efectivo",
+      name: "POR PAGAR & EFECTIVO"
+    },
+    {
       route: "compras",
       name: "COMPRAS"
     },
@@ -2294,6 +2317,56 @@ function Home() {
               viewmainPanel={viewmainPanel}
             />
           }
+
+          {viewmainPanel === "efectivo" &&
+            <Efectivo
+              subviewpanelsucursales={subviewpanelsucursales}
+              setsubviewpanelsucursales={setsubviewpanelsucursales}
+              getsucursalDetallesData={getsucursalDetallesData}
+              fechasMain1={fechasMain1}
+              fechasMain2={fechasMain2}
+              sucursalSelect={sucursalSelect}
+              qestatusaprobaciocaja={qestatusaprobaciocaja}
+              
+
+              
+            >
+              <FechasMain
+                fechasMain1={fechasMain1}
+                fechasMain2={fechasMain2}
+                setfechasMain1={setfechasMain1}
+                setfechasMain2={setfechasMain2}
+              />
+
+              {subviewpanelsucursales === "aprobacioncajafuerte" &&
+                <AprobacionCajaFuerte
+                  moneda={moneda}
+                  getsucursalDetallesData={getsucursalDetallesData}
+                  sucursalSelect={sucursalSelect}
+                  setsucursalSelect={setsucursalSelect}
+                  setsucursalDetallesData={setsucursalDetallesData}
+                  sucursalDetallesData={sucursalDetallesData}
+
+                  getSucursales={getSucursales}
+                  sucursales={sucursales}
+                  qestatusaprobaciocaja={qestatusaprobaciocaja}
+                  setqestatusaprobaciocaja={setqestatusaprobaciocaja}
+                  aprobarMovCajaFuerte={aprobarMovCajaFuerte}
+                >
+                </AprobacionCajaFuerte>
+              }
+
+              {subviewpanelsucursales === "cuentasporpagar" &&
+                <Cuentasporpagar
+                >
+                </Cuentasporpagar>
+              }
+              
+
+            </Efectivo>
+          }
+
+
 
           {viewmainPanel === "pedir" &&
             <Pedir
