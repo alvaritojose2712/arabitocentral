@@ -12,6 +12,7 @@ class catcajas extends Model
         "indice",
         "nombre",
         "tipo",
+        "catgeneral",
     ];
     use HasFactory;
 }
