@@ -49,7 +49,7 @@ class NominaController extends Controller
             ->orderBy("nominanombre", "asc")
             ->get()
             ->map(function($q) {
-                $q->nominacedula = $q->nominacedula+"="+$q->nominanombre;
+                $q->nominacedula = $q->nominacedula."=".$q->nominanombre;
                 return $q;
             })
             ;
