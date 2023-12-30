@@ -47,7 +47,12 @@ class NominaController extends Controller
         return nomina::with("cargo")->orwhere("nominasucursal", $id_origen)
             ->orwhereIn("id", nominavariassucursales::where("id_sucursal", $id_origen)->select("id_nomina"))
             ->orderBy("nominanombre", "asc")
-            ->get();
+            ->get()
+            ->map(function($q) {
+                $q->nominacedula = $q->nominacedula."=".$q->nominanombre;
+                return $q;
+            })
+            ;
     }
     function getPersonalNomina(Request $req)
     {
