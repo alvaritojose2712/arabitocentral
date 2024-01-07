@@ -3,6 +3,7 @@
 use App\Http\Controllers\CajasAprobacionController;
 use App\Http\Controllers\CajasController;
 use App\Http\Controllers\CatcajasController;
+use App\Http\Controllers\CuentasporpagarController;
 use App\Http\Controllers\UltimainformacioncargadaController;
 use Illuminate\Support\Facades\Route;
 
@@ -126,9 +127,9 @@ Route::post('setPermisoCajas', [CajasAprobacionController::class,"setPermisoCaja
 Route::post('aprobarMovCajaFuerte', [CajasAprobacionController::class,"aprobarMovCajaFuerte"]);
 Route::post('verificarMovPenControlEfec', [CajasAprobacionController::class,"verificarMovPenControlEfec"]);
 
-
-
-
+Route::post('sendFacturaCentral', [CuentasporpagarController::class,"sendFacturaCentral"]);
+Route::post('getAllProveedores', [ProveedoresController::class,"getAllProveedores"]);
+Route::post('selectCuentaPorPagarProveedorDetalles', [CuentasporpagarController::class,"selectCuentaPorPagarProveedorDetalles"]);
 
 Route::post('selectPrecioxProveedorSave', [ProductoxproveedorController::class,"selectPrecioxProveedorSave"]);
 Route::post('getPrecioxProveedor', [ProductoxproveedorController::class,"getPrecioxProveedor"]);

@@ -44,6 +44,12 @@ class ProveedoresController extends Controller
         
     }
 
+    public function getAllProveedores()
+    {
+        return proveedores::orderBy("descripcion","asc")->get();
+        
+    }
+
     public function delProveedor(Request $req)
     {
         try {

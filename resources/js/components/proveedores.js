@@ -21,9 +21,6 @@ function Proveedores({
 
   delProveedor,
 
-
-
-
 }) {
 
  

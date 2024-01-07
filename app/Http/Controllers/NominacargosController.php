@@ -33,6 +33,7 @@ class NominacargosController extends Controller
             ->orWhere("cargosdescripcion", "LIKE", "$qCargos%")
             ->orWhere("cargossueldo", "LIKE", "$qCargos%");
         })
+        ->orderBy("cargosdescripcion","asc")
         ->get();
     }
 

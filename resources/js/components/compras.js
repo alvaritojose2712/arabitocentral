@@ -47,6 +47,19 @@ export default function Compras({
                         <div className="content_shadow"></div>
                     </div>
                 </div> 
+
+                <div className="col d-flex justify-content-center">
+                    <div className="circle" onClick={()=>setviewmainPanel("proveedores")}>
+                        <div className="circle_title">
+                            <h2>PROVEEDORES</h2>
+                            <h3>Módulo</h3>
+                        </div>
+                        <div className="circle_inner">
+                            P
+                        </div>
+                        <div className="content_shadow"></div>
+                    </div>
+                </div> 
             </div>    
         </>
 

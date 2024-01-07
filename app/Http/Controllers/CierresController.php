@@ -400,6 +400,22 @@ class CierresController extends Controller
             }
                 break;
 
+            case 'cuentasporpagar':
+                if ($tipo_usuario==1) {
+                    
+                    return (new CuentasporpagarController)->getCuentas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                }
+            break;
+
+            case 'cuentasporpagardetalles':
+                if ($tipo_usuario==1) {
+                    
+                    return (new CuentasporpagarController)->selectCuentaPorPagarProveedorDetalles($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                }
+            break;
+
+                    
+
 
         }
     }

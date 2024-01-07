@@ -42,6 +42,7 @@ import NavInventario from './panel/navInventario'
 
 import Usuarios from './usuarios';
 import Compras from './compras';
+import Proveedores from './proveedores';
 
 import PanelSucursales from './panelSucursales';
 import ComoVamos from './comovamos';
@@ -60,6 +61,8 @@ import Pedir from './pedir';
 import Efectivo from './efectivo';
 import AprobacionCajaFuerte from './aprobacioncajafuerte';
 import Cuentasporpagar from './cuentasporpagar';
+import CuentasporpagarDetalles from './cuentasporpagarDetalles';
+
 
 
 
@@ -1520,6 +1523,8 @@ function Home() {
   const [fechasMain2, setfechasMain2] = useState("")
   const [filtros, setfiltros] = useState({})
   const [qestatusaprobaciocaja, setqestatusaprobaciocaja] = useState(0)
+  const [qcuentasPorPagar, setqcuentasPorPagar] = useState("")
+
   
 
 
@@ -1614,6 +1619,24 @@ function Home() {
       })
     }
   }
+
+  const [selectCuentaPorPagarId, setSelectCuentaPorPagarId] = useState(null)
+  const [qcuentasPorPagarDetalles, setqcuentasPorPagarDetalles] = useState("")
+  
+  const selectCuentaPorPagarProveedorDetalles = (id) => {
+    selectCuentaPorPagarProveedorDetallesFun(id)
+  }
+
+  const selectCuentaPorPagarProveedorDetallesFun = id => {
+    db.selectCuentaPorPagarProveedorDetalles({id,qcuentasPorPagarDetalles}).then(res=>{
+      if (res.data.length) {
+        setSelectCuentaPorPagarId(res.data)
+      }else{
+        setSelectCuentaPorPagarId(null)
+        notificar("Sin detalles")
+      }
+    })
+  }
   const getsucursalDetallesData = (event = null, subviewpanelsucursalesforce = null) => {
 
     if (event) {
@@ -1634,6 +1657,7 @@ function Home() {
         filtronominaq,
         filtronominacargo,
         qestatusaprobaciocaja,
+        qcuentasPorPagar,
       },
 
       subviewpanelsucursales: subviewpanelsucursalesforce ? subviewpanelsucursalesforce : subviewpanelsucursales,
@@ -2125,7 +2149,7 @@ function Home() {
     },
     {
       route: "nomina",
-      name: "NÓMINA"
+      name: "RRHH"
     },
 
     {
@@ -2355,11 +2379,30 @@ function Home() {
                 >
                 </AprobacionCajaFuerte>
               }
-
-              {subviewpanelsucursales === "cuentasporpagar" &&
-                <Cuentasporpagar
-                >
-                </Cuentasporpagar>
+              {subviewpanelsucursales === "cuentasporpagar" ?
+                selectCuentaPorPagarId!==null?
+                  <CuentasporpagarDetalles
+                    selectCuentaPorPagarId={selectCuentaPorPagarId}
+                    setSelectCuentaPorPagarId={setSelectCuentaPorPagarId}
+                    setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
+                    qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
+                    selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+                  />
+                :<Cuentasporpagar
+                  moneda={moneda}
+                  getsucursalDetallesData={getsucursalDetallesData}
+                  setsucursalDetallesData={setsucursalDetallesData}
+                  sucursalDetallesData={sucursalDetallesData}
+                  getSucursales={getSucursales}
+                  sucursales={sucursales}
+                  number={number}
+                  qcuentasPorPagar={qcuentasPorPagar}
+                  setqcuentasPorPagar={setqcuentasPorPagar}
+                  selectCuentaPorPagarProveedorDetalles={selectCuentaPorPagarProveedorDetalles}
+                  selectCuentaPorPagarId={selectCuentaPorPagarId}
+                  setSelectCuentaPorPagarId={setSelectCuentaPorPagarId}
+                />
+                :null
               }
               
 
@@ -2398,6 +2441,27 @@ function Home() {
             >
 
             </Pedir>
+          }
+
+          {viewmainPanel === "proveedores" && 
+            <Proveedores
+              number={number}
+              setProveedor={setProveedor}
+              proveedordescripcion={proveedordescripcion}
+              setproveedordescripcion={setproveedordescripcion}
+              proveedorrif={proveedorrif}
+              setproveedorrif={setproveedorrif}
+              proveedordireccion={proveedordireccion}
+              setproveedordireccion={setproveedordireccion}
+              proveedortelefono={proveedortelefono}
+              setproveedortelefono={setproveedortelefono}
+              setIndexSelectProveedores={setIndexSelectProveedores}
+              indexSelectProveedores={indexSelectProveedores}
+              qBuscarProveedor={qBuscarProveedor}
+              setQBuscarProveedor={setQBuscarProveedor}
+              proveedoresList={proveedoresList}
+              delProveedor={delProveedor}
+            />
           }
 
           {viewmainPanel === "enviar" &&
