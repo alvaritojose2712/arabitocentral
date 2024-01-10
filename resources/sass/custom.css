@@ -492,3 +492,11 @@ body{
 .margint-6{
   margin-top: 4rem !important;
 }
+
+.arabito_desc {
+  background: linear-gradient(180deg,#f26d0a,#ffa969 12%,rgba(255,255,255,0) 85%)
+}
+
+.arabito_asc {
+  background: linear-gradient(180deg,rgba(255,255,255,0) 50%,#ffa969 103%, #f26d0a 140%)
+}

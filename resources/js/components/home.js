@@ -1622,18 +1622,40 @@ function Home() {
 
   const [selectCuentaPorPagarId, setSelectCuentaPorPagarId] = useState(null)
   const [qcuentasPorPagarDetalles, setqcuentasPorPagarDetalles] = useState("")
+
+  const [qCampocuentasPorPagarDetalles, setqCampocuentasPorPagarDetalles] = useState("")
+  const [qFechaCampocuentasPorPagarDetalles, setqFechaCampocuentasPorPagarDetalles] = useState("fechavencimiento")
+  const [fechacuentasPorPagarDetalles, setfechacuentasPorPagarDetalles] = useState("")
+  const [categoriacuentasPorPagarDetalles, setcategoriacuentasPorPagarDetalles] = useState("")
+  const [tipocuentasPorPagarDetalles, settipocuentasPorPagarDetalles] = useState("")
+  const [OrdercuentasPorPagarDetalles, setOrdercuentasPorPagarDetalles] = useState("asc")
+  const [OrderFechacuentasPorPagarDetalles,setOrderFechacuentasPorPagarDetalles] = useState("asc")
+  const [SelectCuentaPorPagarDetalle,setSelectCuentaPorPagarDetalle] = useState(null)
   
   const selectCuentaPorPagarProveedorDetalles = (id) => {
     selectCuentaPorPagarProveedorDetallesFun(id)
   }
 
   const selectCuentaPorPagarProveedorDetallesFun = id => {
-    db.selectCuentaPorPagarProveedorDetalles({id,qcuentasPorPagarDetalles}).then(res=>{
-      if (res.data.length) {
-        setSelectCuentaPorPagarId(res.data)
-      }else{
-        setSelectCuentaPorPagarId(null)
-        notificar("Sin detalles")
+    db.selectCuentaPorPagarProveedorDetalles({
+      id,
+      qcuentasPorPagarDetalles,
+      qCampocuentasPorPagarDetalles,
+      qFechaCampocuentasPorPagarDetalles,
+      fechacuentasPorPagarDetalles,
+      categoriacuentasPorPagarDetalles,
+      tipocuentasPorPagarDetalles,
+      
+      OrdercuentasPorPagarDetalles,
+      OrderFechacuentasPorPagarDetalles,
+    }).then(res=>{
+      if (res.data) {
+        if (res.data.detalles.length) {
+          setSelectCuentaPorPagarId(res.data)
+        }else{
+          setSelectCuentaPorPagarId(null)
+          notificar("Sin detalles")
+        }
       }
     })
   }
@@ -1667,6 +1689,8 @@ function Home() {
       setLoading(false)
     })
   }
+
+
 
   
 
@@ -2355,29 +2379,32 @@ function Home() {
 
               
             >
-              <FechasMain
-                fechasMain1={fechasMain1}
-                fechasMain2={fechasMain2}
-                setfechasMain1={setfechasMain1}
-                setfechasMain2={setfechasMain2}
-              />
+              
 
               {subviewpanelsucursales === "aprobacioncajafuerte" &&
-                <AprobacionCajaFuerte
-                  moneda={moneda}
-                  getsucursalDetallesData={getsucursalDetallesData}
-                  sucursalSelect={sucursalSelect}
-                  setsucursalSelect={setsucursalSelect}
-                  setsucursalDetallesData={setsucursalDetallesData}
-                  sucursalDetallesData={sucursalDetallesData}
+                <>
+                  <FechasMain
+                    fechasMain1={fechasMain1}
+                    fechasMain2={fechasMain2}
+                    setfechasMain1={setfechasMain1}
+                    setfechasMain2={setfechasMain2}
+                  />
+                  <AprobacionCajaFuerte
+                    moneda={moneda}
+                    getsucursalDetallesData={getsucursalDetallesData}
+                    sucursalSelect={sucursalSelect}
+                    setsucursalSelect={setsucursalSelect}
+                    setsucursalDetallesData={setsucursalDetallesData}
+                    sucursalDetallesData={sucursalDetallesData}
 
-                  getSucursales={getSucursales}
-                  sucursales={sucursales}
-                  qestatusaprobaciocaja={qestatusaprobaciocaja}
-                  setqestatusaprobaciocaja={setqestatusaprobaciocaja}
-                  aprobarMovCajaFuerte={aprobarMovCajaFuerte}
-                >
-                </AprobacionCajaFuerte>
+                    getSucursales={getSucursales}
+                    sucursales={sucursales}
+                    qestatusaprobaciocaja={qestatusaprobaciocaja}
+                    setqestatusaprobaciocaja={setqestatusaprobaciocaja}
+                    aprobarMovCajaFuerte={aprobarMovCajaFuerte}
+                  >
+                  </AprobacionCajaFuerte>
+                </>
               }
               {subviewpanelsucursales === "cuentasporpagar" ?
                 selectCuentaPorPagarId!==null?
@@ -2387,6 +2414,26 @@ function Home() {
                     setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
                     qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
                     selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+                    factSelectIndex={factSelectIndex}
+                    moneda={moneda}
+
+                    qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
+                    setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+                    qFechaCampocuentasPorPagarDetalles={qFechaCampocuentasPorPagarDetalles}
+                    setqFechaCampocuentasPorPagarDetalles={setqFechaCampocuentasPorPagarDetalles}
+                    setfechacuentasPorPagarDetalles={setfechacuentasPorPagarDetalles}
+                    fechacuentasPorPagarDetalles={fechacuentasPorPagarDetalles}
+                    categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
+                    setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                    tipocuentasPorPagarDetalles={tipocuentasPorPagarDetalles}
+                    settipocuentasPorPagarDetalles={settipocuentasPorPagarDetalles}
+                    OrdercuentasPorPagarDetalles={OrdercuentasPorPagarDetalles}
+                    setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
+
+                    OrderFechacuentasPorPagarDetalles={OrderFechacuentasPorPagarDetalles}
+                    setOrderFechacuentasPorPagarDetalles={setOrderFechacuentasPorPagarDetalles}
+                    setSelectCuentaPorPagarDetalle={setSelectCuentaPorPagarDetalle}
+                    SelectCuentaPorPagarDetalle={SelectCuentaPorPagarDetalle}
                   />
                 :<Cuentasporpagar
                   moneda={moneda}

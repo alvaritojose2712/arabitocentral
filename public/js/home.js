@@ -2095,7 +2095,7 @@ function AprobacionCajaFuerte(_ref) {
         onChange: function onChange(e) {
           return setsucursalSelect(e.target.value);
         },
-        value: sucursalSelect,
+        value: sucursalSelect === null ? "" : sucursalSelect,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
           value: "",
           children: "-TODAS SUCURSALES-"
@@ -3001,9 +3001,15 @@ function Cuentasporpagar(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
       onSubmit: getsucursalDetallesData,
       className: "input-group mb-2",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+        className: "btn btn-sinapsis",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+          className: "fa fa-plus"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
         type: "text",
-        className: "form-control ",
+        className: "form-control",
+        placeholder: "Buscar proveedor",
         onChange: function onChange(e) {
           return setqcuentasPorPagar(e.target.value);
         },
@@ -3064,94 +3070,366 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
+
 function CuentasporpagarDetalles(_ref) {
   var selectCuentaPorPagarId = _ref.selectCuentaPorPagarId,
     setSelectCuentaPorPagarId = _ref.setSelectCuentaPorPagarId,
     setqcuentasPorPagarDetalles = _ref.setqcuentasPorPagarDetalles,
     qcuentasPorPagarDetalles = _ref.qcuentasPorPagarDetalles,
-    selectCuentaPorPagarProveedorDetallesFun = _ref.selectCuentaPorPagarProveedorDetallesFun;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
-      onSubmit: selectCuentaPorPagarProveedorDetallesFun,
-      className: "input-group mb-2",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-        type: "text",
-        className: "form-control ",
-        onChange: function onChange(e) {
-          return setqcuentasPorPagarDetalles(e.target.value);
-        },
-        value: qcuentasPorPagarDetalles
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-        className: "btn btn-success",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-          className: "fa fa-search"
+    selectCuentaPorPagarProveedorDetallesFun = _ref.selectCuentaPorPagarProveedorDetallesFun,
+    factSelectIndex = _ref.factSelectIndex,
+    moneda = _ref.moneda,
+    qCampocuentasPorPagarDetalles = _ref.qCampocuentasPorPagarDetalles,
+    setqCampocuentasPorPagarDetalles = _ref.setqCampocuentasPorPagarDetalles,
+    qFechaCampocuentasPorPagarDetalles = _ref.qFechaCampocuentasPorPagarDetalles,
+    setqFechaCampocuentasPorPagarDetalles = _ref.setqFechaCampocuentasPorPagarDetalles,
+    setfechacuentasPorPagarDetalles = _ref.setfechacuentasPorPagarDetalles,
+    fechacuentasPorPagarDetalles = _ref.fechacuentasPorPagarDetalles,
+    categoriacuentasPorPagarDetalles = _ref.categoriacuentasPorPagarDetalles,
+    setcategoriacuentasPorPagarDetalles = _ref.setcategoriacuentasPorPagarDetalles,
+    tipocuentasPorPagarDetalles = _ref.tipocuentasPorPagarDetalles,
+    settipocuentasPorPagarDetalles = _ref.settipocuentasPorPagarDetalles,
+    OrdercuentasPorPagarDetalles = _ref.OrdercuentasPorPagarDetalles,
+    setOrdercuentasPorPagarDetalles = _ref.setOrdercuentasPorPagarDetalles,
+    OrderFechacuentasPorPagarDetalles = _ref.OrderFechacuentasPorPagarDetalles,
+    setOrderFechacuentasPorPagarDetalles = _ref.setOrderFechacuentasPorPagarDetalles,
+    setSelectCuentaPorPagarDetalle = _ref.setSelectCuentaPorPagarDetalle,
+    SelectCuentaPorPagarDetalle = _ref.SelectCuentaPorPagarDetalle;
+  var proveedorMain = "";
+  if (selectCuentaPorPagarId) {
+    if (selectCuentaPorPagarId.detalles) {
+      if (selectCuentaPorPagarId.detalles[0]) {
+        if (selectCuentaPorPagarId.detalles[0].proveedor) {
+          proveedorMain = selectCuentaPorPagarId.detalles[0].proveedor.descripcion;
+        }
+      }
+    }
+  }
+  var dataCuenta = {};
+  if (SelectCuentaPorPagarDetalle) {
+    if (selectCuentaPorPagarId) {
+      if (selectCuentaPorPagarId.detalles) {
+        var f = selectCuentaPorPagarId.detalles.filter(function (e) {
+          return e.id == SelectCuentaPorPagarDetalle;
+        });
+        if (f.length) {
+          dataCuenta = f[0];
+        }
+      }
+    }
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    children: SelectCuentaPorPagarDetalle ? dataCuenta ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "mb-2",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          className: "btn btn-danger",
+          onClick: function onClick() {
+            return setSelectCuentaPorPagarDetalle(null);
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+            className: "fa fa-times"
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("table", {
+        className: "table",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tbody", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "PROVEEDOR"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
+              children: [dataCuenta.proveedor.descripcion, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("small", {
+                className: "text-muted",
+                children: ["RIF. ", dataCuenta.proveedor.rif]
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "# FACTURA"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.numfact
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "# CONTROL"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.numnota
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "DESCRIPCI\xD3N"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.descripcion
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "SUBTOTAL"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.subtotal
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "DESCUENTO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.descuento
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "MONTO EXENTO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.monto_exento
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "MONTO GRAVABLE"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.monto_gravable
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "IVA"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.iva
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "TOTAL"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.monto
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "BALANCE"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.balance
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "EMISI\xD3N"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.fechaemision
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "VENCIMIENTO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.fechavencimiento
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "RECEPCI\xD3N"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.fecharecepcion
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "NOTA"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.nota
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "TIPO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.tipo == 1 ? "COMPRA" : "SERVICIO"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: "FRECUENCIA"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: dataCuenta.frecuencia
+            })]
+          })]
         })
       })]
-    }), selectCuentaPorPagarId ? selectCuentaPorPagarId.detalles ? selectCuentaPorPagarId.detalles.map(function (e, i) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-        className: "text-secondary mb-3 pointer shadow p-2 card",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-          className: "d-flex justify-content-between mb-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("small", {
-            className: "text-muted",
-            children: e.created_at
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
-            className: (e.estatus == 0 ? "btn-danger" : e.estatus == 1 ? "btn-warning" : e.estatus == 2 ? "btn-success" : "") + " btn-sm btn pointer",
-            children: [e.estatus == 0 ? "CREADA" : "", e.estatus == 1 ? "ENVIADA" : "", e.estatus == 2 ? "PROCESADA" : ""]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-            onClick: function onClick() {
-              return setfactSelectIndexFunInv(i);
-            },
-            className: "",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-              className: (i == factSelectIndex ? "btn-success" : "btn-sinapsis") + " w-100 btn fs-3 pointer",
-              children: e.numfact
-            })
+    }) : null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "mb-2 d-flex justify-content-between",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          className: "btn btn-danger",
+          onClick: function onClick() {
+            return setSelectCuentaPorPagarId(null);
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+            className: "fa fa-times"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
-          children: e.proveedor.descripcion
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("small", {
+          className: "text-muted",
+          children: proveedorMain
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
+        onSubmit: selectCuentaPorPagarProveedorDetallesFun,
+        className: "mb-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "input-group",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+            className: "form-control",
+            value: qCampocuentasPorPagarDetalles,
+            onChange: function onChange(e) {
+              return setqCampocuentasPorPagarDetalles(e.target.value);
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "",
+              children: "-Buscar en-"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "numfact",
+              children: "# Fact"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "numnota",
+              children: "# Nota"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "descripcion",
+              children: "Descripci\xF3n"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "subtotal",
+              children: "Subtotal"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "descuento",
+              children: "Descuento"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "monto_exento",
+              children: "Monto exento"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "monto_gravable",
+              children: "Monto gravable"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "iva",
+              children: "IVA"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "monto",
+              children: "TOTAL"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            className: "btn arabito_" + OrdercuentasPorPagarDetalles,
+            onClick: function onClick() {
+              return setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles === "desc" ? "asc" : "desc");
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+              className: OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+            type: "text",
+            className: "form-control",
+            placeholder: "Buscar en " + proveedorMain + " por " + qCampocuentasPorPagarDetalles,
+            onChange: function onChange(e) {
+              return setqcuentasPorPagarDetalles(e.target.value);
+            },
+            value: qcuentasPorPagarDetalles
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-          className: "d-flex justify-content-between",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-            className: "btn-group",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-              className: "btn btn fs-3 btn-sinapsis",
-              onClick: function onClick() {
-                return setfactSelectIndexFun(i, "agregar");
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-                className: "fa fa-pencil"
-              })
-            }), e.estatus == 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-              className: "btn btn fs-3 btn-success",
-              onClick: function onClick() {
-                return sendFacturaCentral(e.id);
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-                className: "fa fa-send"
-              })
-            }) : "", e.estatus == 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-              className: "btn btn fs-3 btn-success",
-              onClick: function onClick() {
-                setfactSelectIndexFunInv(i);
-                setView("inventario");
-                setsubViewInventario("inventario");
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-                className: "fa fa-hand-pointer-o"
-              })
-            }) : ""]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-              className: "text-success fs-3",
-              children: moneda(e.monto)
+          className: "input-group",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+            className: "form-control",
+            value: qFechaCampocuentasPorPagarDetalles,
+            onChange: function onChange(e) {
+              return setqFechaCampocuentasPorPagarDetalles(e.target.value);
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "fechavencimiento",
+              children: "Vencimiento"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "fechaemision",
+              children: "Emisi\xF3n"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "fecharecepcion",
+              children: "Recepci\xF3n"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            className: "btn arabito_" + OrderFechacuentasPorPagarDetalles,
+            onClick: function onClick() {
+              return setOrderFechacuentasPorPagarDetalles(OrderFechacuentasPorPagarDetalles === "desc" ? "asc" : "desc");
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+              className: OrderFechacuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+            type: "date",
+            className: "form-control",
+            value: fechacuentasPorPagarDetalles,
+            onChange: function onChange(e) {
+              return setfechacuentasPorPagarDetalles(e.target.value);
+            }
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "input-group",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+            className: "form-control",
+            value: categoriacuentasPorPagarDetalles,
+            onChange: function onChange(e) {
+              return setcategoriacuentasPorPagarDetalles(e.target.value);
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "",
+              children: "-CATEGOR\xCDA-"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "1",
+              children: "COMPRAS"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "2",
+              children: "SERVICIOS"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+            className: "form-control",
+            value: tipocuentasPorPagarDetalles,
+            onChange: function onChange(e) {
+              return settipocuentasPorPagarDetalles(e.target.value);
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "",
+              children: "-TIPO-"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "DEUDA",
+              children: "DEUDA"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+              value: "ABONOS",
+              children: "ABONOS"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+            type: "button",
+            className: "btn btn-success",
+            onClick: selectCuentaPorPagarProveedorDetallesFun,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+              className: "fa fa-search"
             })
           })]
         })]
-      }, e.id);
-    }) : null : null]
+      }), selectCuentaPorPagarId ? selectCuentaPorPagarId.detalles ? selectCuentaPorPagarId.detalles.map(function (e, i) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "text-secondary mb-3 pointer shadow p-2 card",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "d-flex justify-content-between mb-1",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("small", {
+              className: "text-muted",
+              children: e.created_at
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
+              className: (e.estatus == 0 ? "btn-danger" : e.estatus == 1 ? "btn-warning" : e.estatus == 2 ? "btn-success" : "") + " btn-sm btn pointer",
+              children: [e.estatus == 0 ? "CREADA" : "", e.estatus == 1 ? "ENVIADA" : "", e.estatus == 2 ? "PROCESADA" : ""]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              onClick: function onClick() {
+                return setSelectCuentaPorPagarDetalle(e.id);
+              },
+              className: "",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                className: (i == factSelectIndex ? "btn-success" : "btn-sinapsis") + " w-100 btn fs-3 pointer",
+                children: e.numfact
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+            children: e.proveedor.descripcion
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            className: "d-flex justify-content-between",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                className: "text-success fs-3",
+                children: moneda(e.monto)
+              })
+            })
+          })]
+        }, e.id);
+      }) : null : null]
+    })
   });
 }
 
@@ -60901,19 +61179,60 @@ function Home() {
     _useState328 = _slicedToArray(_useState327, 2),
     qcuentasPorPagarDetalles = _useState328[0],
     setqcuentasPorPagarDetalles = _useState328[1];
+  var _useState329 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState330 = _slicedToArray(_useState329, 2),
+    qCampocuentasPorPagarDetalles = _useState330[0],
+    setqCampocuentasPorPagarDetalles = _useState330[1];
+  var _useState331 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("fechavencimiento"),
+    _useState332 = _slicedToArray(_useState331, 2),
+    qFechaCampocuentasPorPagarDetalles = _useState332[0],
+    setqFechaCampocuentasPorPagarDetalles = _useState332[1];
+  var _useState333 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState334 = _slicedToArray(_useState333, 2),
+    fechacuentasPorPagarDetalles = _useState334[0],
+    setfechacuentasPorPagarDetalles = _useState334[1];
+  var _useState335 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState336 = _slicedToArray(_useState335, 2),
+    categoriacuentasPorPagarDetalles = _useState336[0],
+    setcategoriacuentasPorPagarDetalles = _useState336[1];
+  var _useState337 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState338 = _slicedToArray(_useState337, 2),
+    tipocuentasPorPagarDetalles = _useState338[0],
+    settipocuentasPorPagarDetalles = _useState338[1];
+  var _useState339 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("asc"),
+    _useState340 = _slicedToArray(_useState339, 2),
+    OrdercuentasPorPagarDetalles = _useState340[0],
+    setOrdercuentasPorPagarDetalles = _useState340[1];
+  var _useState341 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("asc"),
+    _useState342 = _slicedToArray(_useState341, 2),
+    OrderFechacuentasPorPagarDetalles = _useState342[0],
+    setOrderFechacuentasPorPagarDetalles = _useState342[1];
+  var _useState343 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    _useState344 = _slicedToArray(_useState343, 2),
+    SelectCuentaPorPagarDetalle = _useState344[0],
+    setSelectCuentaPorPagarDetalle = _useState344[1];
   var selectCuentaPorPagarProveedorDetalles = function selectCuentaPorPagarProveedorDetalles(id) {
     selectCuentaPorPagarProveedorDetallesFun(id);
   };
   var selectCuentaPorPagarProveedorDetallesFun = function selectCuentaPorPagarProveedorDetallesFun(id) {
     _database_database__WEBPACK_IMPORTED_MODULE_4__["default"].selectCuentaPorPagarProveedorDetalles({
       id: id,
-      qcuentasPorPagarDetalles: qcuentasPorPagarDetalles
+      qcuentasPorPagarDetalles: qcuentasPorPagarDetalles,
+      qCampocuentasPorPagarDetalles: qCampocuentasPorPagarDetalles,
+      qFechaCampocuentasPorPagarDetalles: qFechaCampocuentasPorPagarDetalles,
+      fechacuentasPorPagarDetalles: fechacuentasPorPagarDetalles,
+      categoriacuentasPorPagarDetalles: categoriacuentasPorPagarDetalles,
+      tipocuentasPorPagarDetalles: tipocuentasPorPagarDetalles,
+      OrdercuentasPorPagarDetalles: OrdercuentasPorPagarDetalles,
+      OrderFechacuentasPorPagarDetalles: OrderFechacuentasPorPagarDetalles
     }).then(function (res) {
-      if (res.data.length) {
-        setSelectCuentaPorPagarId(res.data);
-      } else {
-        setSelectCuentaPorPagarId(null);
-        notificar("Sin detalles");
+      if (res.data) {
+        if (res.data.detalles.length) {
+          setSelectCuentaPorPagarId(res.data);
+        } else {
+          setSelectCuentaPorPagarId(null);
+          notificar("Sin detalles");
+        }
       }
     });
   };
@@ -61210,22 +61529,22 @@ function Home() {
 
   /////Marcas 
 
-  var _useState329 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState330 = _slicedToArray(_useState329, 2),
-    qBuscarMarcas = _useState330[0],
-    setQBuscarMarcas = _useState330[1];
-  var _useState331 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-    _useState332 = _slicedToArray(_useState331, 2),
-    marcas = _useState332[0],
-    setmarcas = _useState332[1];
-  var _useState333 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState334 = _slicedToArray(_useState333, 2),
-    marcasDescripcion = _useState334[0],
-    setmarcasDescripcion = _useState334[1];
-  var _useState335 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
-    _useState336 = _slicedToArray(_useState335, 2),
-    indexSelectMarcas = _useState336[0],
-    setIndexSelectMarcas = _useState336[1];
+  var _useState345 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState346 = _slicedToArray(_useState345, 2),
+    qBuscarMarcas = _useState346[0],
+    setQBuscarMarcas = _useState346[1];
+  var _useState347 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    _useState348 = _slicedToArray(_useState347, 2),
+    marcas = _useState348[0],
+    setmarcas = _useState348[1];
+  var _useState349 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState350 = _slicedToArray(_useState349, 2),
+    marcasDescripcion = _useState350[0],
+    setmarcasDescripcion = _useState350[1];
+  var _useState351 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    _useState352 = _slicedToArray(_useState351, 2),
+    indexSelectMarcas = _useState352[0],
+    setIndexSelectMarcas = _useState352[1];
   var delMarcas = function delMarcas() {
     setLoading(true);
     var id = null;
@@ -61281,22 +61600,22 @@ function Home() {
 
   /////Categorias 
 
-  var _useState337 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState338 = _slicedToArray(_useState337, 2),
-    qBuscarCategorias = _useState338[0],
-    setQBuscarCategorias = _useState338[1];
-  var _useState339 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-    _useState340 = _slicedToArray(_useState339, 2),
-    categorias = _useState340[0],
-    setcategorias = _useState340[1];
-  var _useState341 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState342 = _slicedToArray(_useState341, 2),
-    categoriasDescripcion = _useState342[0],
-    setcategoriasDescripcion = _useState342[1];
-  var _useState343 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
-    _useState344 = _slicedToArray(_useState343, 2),
-    indexSelectCategorias = _useState344[0],
-    setIndexSelectCategorias = _useState344[1];
+  var _useState353 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState354 = _slicedToArray(_useState353, 2),
+    qBuscarCategorias = _useState354[0],
+    setQBuscarCategorias = _useState354[1];
+  var _useState355 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    _useState356 = _slicedToArray(_useState355, 2),
+    categorias = _useState356[0],
+    setcategorias = _useState356[1];
+  var _useState357 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState358 = _slicedToArray(_useState357, 2),
+    categoriasDescripcion = _useState358[0],
+    setcategoriasDescripcion = _useState358[1];
+  var _useState359 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    _useState360 = _slicedToArray(_useState359, 2),
+    indexSelectCategorias = _useState360[0],
+    setIndexSelectCategorias = _useState360[1];
   var delCategorias = function delCategorias() {
     setLoading(true);
     var id = null;
@@ -61360,22 +61679,22 @@ function Home() {
 
   /////CatGenerals 
 
-  var _useState345 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState346 = _slicedToArray(_useState345, 2),
-    qBuscarCatGenerals = _useState346[0],
-    setQBuscarCatGenerals = _useState346[1];
-  var _useState347 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-    _useState348 = _slicedToArray(_useState347, 2),
-    catGenerals = _useState348[0],
-    setcatGenerals = _useState348[1];
-  var _useState349 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState350 = _slicedToArray(_useState349, 2),
-    catGeneralsDescripcion = _useState350[0],
-    setcatGeneralsDescripcion = _useState350[1];
-  var _useState351 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
-    _useState352 = _slicedToArray(_useState351, 2),
-    indexSelectCatGenerals = _useState352[0],
-    setIndexSelectCatGenerals = _useState352[1];
+  var _useState361 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState362 = _slicedToArray(_useState361, 2),
+    qBuscarCatGenerals = _useState362[0],
+    setQBuscarCatGenerals = _useState362[1];
+  var _useState363 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    _useState364 = _slicedToArray(_useState363, 2),
+    catGenerals = _useState364[0],
+    setcatGenerals = _useState364[1];
+  var _useState365 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState366 = _slicedToArray(_useState365, 2),
+    catGeneralsDescripcion = _useState366[0],
+    setcatGeneralsDescripcion = _useState366[1];
+  var _useState367 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    _useState368 = _slicedToArray(_useState367, 2),
+    indexSelectCatGenerals = _useState368[0],
+    setIndexSelectCatGenerals = _useState368[1];
   var delCatGenerals = function delCatGenerals() {
     setLoading(true);
     var id = null;
@@ -61593,29 +61912,49 @@ function Home() {
           fechasMain2: fechasMain2,
           sucursalSelect: sucursalSelect,
           qestatusaprobaciocaja: qestatusaprobaciocaja,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_44__.jsx)(_panel_fechasmain__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            fechasMain1: fechasMain1,
-            fechasMain2: fechasMain2,
-            setfechasMain1: setfechasMain1,
-            setfechasMain2: setfechasMain2
-          }), subviewpanelsucursales === "aprobacioncajafuerte" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_44__.jsx)(_aprobacioncajafuerte__WEBPACK_IMPORTED_MODULE_41__["default"], {
-            moneda: moneda,
-            getsucursalDetallesData: getsucursalDetallesData,
-            sucursalSelect: sucursalSelect,
-            setsucursalSelect: setsucursalSelect,
-            setsucursalDetallesData: setsucursalDetallesData,
-            sucursalDetallesData: sucursalDetallesData,
-            getSucursales: getSucursales,
-            sucursales: sucursales,
-            qestatusaprobaciocaja: qestatusaprobaciocaja,
-            setqestatusaprobaciocaja: setqestatusaprobaciocaja,
-            aprobarMovCajaFuerte: aprobarMovCajaFuerte
+          children: [subviewpanelsucursales === "aprobacioncajafuerte" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_44__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_44__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_44__.jsx)(_panel_fechasmain__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              fechasMain1: fechasMain1,
+              fechasMain2: fechasMain2,
+              setfechasMain1: setfechasMain1,
+              setfechasMain2: setfechasMain2
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_44__.jsx)(_aprobacioncajafuerte__WEBPACK_IMPORTED_MODULE_41__["default"], {
+              moneda: moneda,
+              getsucursalDetallesData: getsucursalDetallesData,
+              sucursalSelect: sucursalSelect,
+              setsucursalSelect: setsucursalSelect,
+              setsucursalDetallesData: setsucursalDetallesData,
+              sucursalDetallesData: sucursalDetallesData,
+              getSucursales: getSucursales,
+              sucursales: sucursales,
+              qestatusaprobaciocaja: qestatusaprobaciocaja,
+              setqestatusaprobaciocaja: setqestatusaprobaciocaja,
+              aprobarMovCajaFuerte: aprobarMovCajaFuerte
+            })]
           }), subviewpanelsucursales === "cuentasporpagar" ? selectCuentaPorPagarId !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_44__.jsx)(_cuentasporpagarDetalles__WEBPACK_IMPORTED_MODULE_43__["default"], {
             selectCuentaPorPagarId: selectCuentaPorPagarId,
             setSelectCuentaPorPagarId: setSelectCuentaPorPagarId,
             setqcuentasPorPagarDetalles: setqcuentasPorPagarDetalles,
             qcuentasPorPagarDetalles: qcuentasPorPagarDetalles,
-            selectCuentaPorPagarProveedorDetallesFun: selectCuentaPorPagarProveedorDetallesFun
+            selectCuentaPorPagarProveedorDetallesFun: selectCuentaPorPagarProveedorDetallesFun,
+            factSelectIndex: factSelectIndex,
+            moneda: moneda,
+            qCampocuentasPorPagarDetalles: qCampocuentasPorPagarDetalles,
+            setqCampocuentasPorPagarDetalles: setqCampocuentasPorPagarDetalles,
+            qFechaCampocuentasPorPagarDetalles: qFechaCampocuentasPorPagarDetalles,
+            setqFechaCampocuentasPorPagarDetalles: setqFechaCampocuentasPorPagarDetalles,
+            setfechacuentasPorPagarDetalles: setfechacuentasPorPagarDetalles,
+            fechacuentasPorPagarDetalles: fechacuentasPorPagarDetalles,
+            categoriacuentasPorPagarDetalles: categoriacuentasPorPagarDetalles,
+            setcategoriacuentasPorPagarDetalles: setcategoriacuentasPorPagarDetalles,
+            tipocuentasPorPagarDetalles: tipocuentasPorPagarDetalles,
+            settipocuentasPorPagarDetalles: settipocuentasPorPagarDetalles,
+            OrdercuentasPorPagarDetalles: OrdercuentasPorPagarDetalles,
+            setOrdercuentasPorPagarDetalles: setOrdercuentasPorPagarDetalles,
+            OrderFechacuentasPorPagarDetalles: OrderFechacuentasPorPagarDetalles,
+            setOrderFechacuentasPorPagarDetalles: setOrderFechacuentasPorPagarDetalles,
+            setSelectCuentaPorPagarDetalle: setSelectCuentaPorPagarDetalle,
+            SelectCuentaPorPagarDetalle: SelectCuentaPorPagarDetalle
           }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_44__.jsx)(_cuentasporpagar__WEBPACK_IMPORTED_MODULE_42__["default"], {
             moneda: moneda,
             getsucursalDetallesData: getsucursalDetallesData,

@@ -23,9 +23,8 @@ export default function AprobacionCajaFuerte({
     return (
         <div className="">
             <div className="input-group mb-2">
-                <select className="form-control" onChange={e=>setsucursalSelect(e.target.value)} value={sucursalSelect}>
+                <select className="form-control" onChange={e=>setsucursalSelect(e.target.value)} value={sucursalSelect===null?"":sucursalSelect}>
                     <option value="">-TODAS SUCURSALES-</option>    
-
                     {
                         sucursales.map(e=>
                             <option key={e.id} value={e.id}>{e.codigo}</option>    

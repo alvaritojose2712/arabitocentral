@@ -16,7 +16,8 @@ export default function Cuentasporpagar({
     return (
         <div>
             <form onSubmit={getsucursalDetallesData} className="input-group mb-2">
-                <input type="text" className="form-control " onChange={e=>setqcuentasPorPagar(e.target.value)} value={qcuentasPorPagar} />
+                <button className="btn btn-sinapsis" ><i className="fa fa-plus"></i></button>
+                <input type="text" className="form-control" placeholder="Buscar proveedor" onChange={e=>setqcuentasPorPagar(e.target.value)} value={qcuentasPorPagar} />
                 <button className="btn btn-success"><i className="fa fa-search"></i></button>
             </form>
             {

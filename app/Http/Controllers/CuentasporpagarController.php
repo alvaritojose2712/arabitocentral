@@ -86,7 +86,12 @@ class CuentasporpagarController extends Controller
     }
 
     function getCuentas($fechasMain1, $fechasMain2, $id_sucursal, $filtros){
-        $cuentasporpagar = proveedores::all()
+        $qcuentasPorPagar = $filtros["qcuentasPorPagar"];
+        $cuentasporpagar = proveedores::when($qcuentasPorPagar!="",function($q) use ($qcuentasPorPagar){
+            $q->orWhere("descripcion","LIKE","%$qcuentasPorPagar%")
+            ->orWhere("rif","LIKE","%$qcuentasPorPagar%");
+        })
+        ->get()
         ->map(function($q){
             $balance_query = cuentasporpagar::where("id_proveedor",$q->id_proveedor)->orderBy("id","desc")->first();
             $balance = 0;
@@ -107,14 +112,43 @@ class CuentasporpagarController extends Controller
 
     function selectCuentaPorPagarProveedorDetalles(Request $req) {
         $id = $req->id;
+        $qCampocuentasPorPagarDetalles = $req->qCampocuentasPorPagarDetalles;
         $qcuentasPorPagarDetalles = $req->qcuentasPorPagarDetalles;
+
+
+        $qFechaCampocuentasPorPagarDetalles = $req->qFechaCampocuentasPorPagarDetalles;
+        $fechacuentasPorPagarDetalles = $req->fechacuentasPorPagarDetalles;
+        $categoriacuentasPorPagarDetalles = $req->categoriacuentasPorPagarDetalles;
+        $tipocuentasPorPagarDetalles = $req->tipocuentasPorPagarDetalles;
+
+        $OrdercuentasPorPagarDetalles = $req->OrdercuentasPorPagarDetalles;
+        $OrderFechacuentasPorPagarDetalles = $req->OrderFechacuentasPorPagarDetalles;
         
         $detalles = cuentasporpagar::with(["sucursal","proveedor"])
         ->where("id_proveedor",$id)
-        ->when($qcuentasPorPagarDetalles,function($q) use ($qcuentasPorPagarDetalles){
-            $q->orwhere("descripcion","LIKE","%$qcuentasPorPagarDetalles%")
-            ->orwhere("numfact","LIKE","%$qcuentasPorPagarDetalles%")
-            ->orwhere("numnota","LIKE","%$qcuentasPorPagarDetalles%");
+        ->when($categoriacuentasPorPagarDetalles!="",function($q) use ($categoriacuentasPorPagarDetalles) {
+            $q->where("tipo","$categoriacuentasPorPagarDetalles");
+        })
+        ->when($tipocuentasPorPagarDetalles!="",function($q) use ($tipocuentasPorPagarDetalles) {
+
+            if ($tipocuentasPorPagarDetalles=="DEUDA") {
+                $q->where("monto","<",0);
+            }else{
+                $q->where("monto",">",0);
+            }
+            
+        })
+        ->when($qcuentasPorPagarDetalles!="",function($q) use ($qcuentasPorPagarDetalles,$qCampocuentasPorPagarDetalles){
+            $q->where($qCampocuentasPorPagarDetalles,"LIKE","%$qcuentasPorPagarDetalles%");
+        })
+        ->when($fechacuentasPorPagarDetalles!="",function($q) use ($qFechaCampocuentasPorPagarDetalles,$fechacuentasPorPagarDetalles) {
+            $q->where($qFechaCampocuentasPorPagarDetalles,"LIKE","%$fechacuentasPorPagarDetalles%");
+        })
+        ->when($qcuentasPorPagarDetalles!="",function($q) use ($qCampocuentasPorPagarDetalles, $OrdercuentasPorPagarDetalles){
+            $q->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
+        })
+        ->when($fechacuentasPorPagarDetalles!="",function($q) use ($qFechaCampocuentasPorPagarDetalles,$OrderFechacuentasPorPagarDetalles) {
+            $q->orderBy($qFechaCampocuentasPorPagarDetalles,$OrderFechacuentasPorPagarDetalles);
         })
         ->get();
 

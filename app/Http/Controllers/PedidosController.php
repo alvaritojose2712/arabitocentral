@@ -120,12 +120,17 @@ class PedidosController extends Controller
                         return ["estado"=>true, "msj"=>"Desde Central: $count items exportados"];
                     }
                 }else{
-                    $f = pedidos::where("idinsucursal",$e["id"])->where("id_origen", $id_origen); 
+                    $f = pedidos::where("idinsucursal",$e["id"])->where("id_origen", $id_origen)->first(); 
                     if($f){
-                        if ($f->delete()) {
-                            return ["estado"=>true, "msj"=>"Desde Central: Pedido ".$e["id"]." eliminado de central"];
+
+                        if ($f->estado==2) {
+                            return ["estado"=>false, "msj"=>"Desde Central: Pedido ".$e["id"]." ya ha sido extraído"];
                         }else{
-                            return ["estado"=>false, "msj"=>"No se encontró pedido ".$e["id"]];
+                            if ($f->delete()) {
+                                return ["estado"=>true, "msj"=>"Desde Central: Pedido ".$e["id"]." eliminado de central"];
+                            }else{
+                                return ["estado"=>false, "msj"=>"No se encontró pedido ".$e["id"]];
+                            }
                         }
 
                     };
