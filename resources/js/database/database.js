@@ -13,7 +13,11 @@ const db = {
   
   aprobarMovCajaFuerte: data=>axios.post(host+"aprobarMovCajaFuerte",data),
   selectCuentaPorPagarProveedorDetalles: data=>axios.post(host+"selectCuentaPorPagarProveedorDetalles",data),
-        
+  changeLiquidacionPagoElec: data=>axios.post(host+"changeLiquidacionPagoElec",data),
+  sendPagoCuentaPorPagar: data=>axios.post(host+"sendPagoCuentaPorPagar",data),
+  saveNewFact: data=>axios.post(host+"saveNewFact",data),
+  getCatCajas: data=>axios.get(host+"getCatCajas",{params:data}),
+  
           
 
   getSucursales: data=>axios.get(host+"getSucursales",{params:data}),

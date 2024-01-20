@@ -20,10 +20,11 @@ class CreateSucursalsTable extends Migration
             
             $table->string('direccion')->nullable();
             $table->string('gerente')->nullable();
+            $table->date('fecha_creacion')->nullable();
             $table->timestamps();
         });
 
-        DB::table("sucursals")->insert([
+        /* DB::table("sucursals")->insert([
             ["nombre"=>"Elorza","codigo"=>"elorza"],
             ["nombre"=>"Mantecal","codigo"=>"mantecal"],
             ["nombre"=>"Achaguas","codigo"=>"achaguas"],
@@ -36,8 +37,9 @@ class CreateSucursalsTable extends Migration
             ["nombre"=>"Valle de la Pascua 2","codigo"=>"valledelapascua2"],
             ["nombre"=>"San Juan de los Morros","codigo"=>"sanjuandelosmorros"],
             ["nombre"=>"Maracay","codigo"=>"maracay"],
+            ["nombre"=>"ADMINISTRACION","codigo"=>"administracion"],
             
-        ]);
+        ]); */
     }
 
     /**

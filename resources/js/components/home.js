@@ -62,6 +62,7 @@ import Efectivo from './efectivo';
 import AprobacionCajaFuerte from './aprobacioncajafuerte';
 import Cuentasporpagar from './cuentasporpagar';
 import CuentasporpagarDetalles from './cuentasporpagarDetalles';
+import CuentasporpagarPago from './cuentasporpagarPagos';
 
 
 
@@ -1247,7 +1248,7 @@ function Home() {
   }
   const number = (val) => {
     if (val == "") return ""
-    return val.replace(/[^\d|\.]+/g, '')
+    return val.replace(/[^\d|\.|-]+/g, '')
   }
   const loginRes = res => {
     notificar(res)
@@ -1513,7 +1514,9 @@ function Home() {
 
   const [sucursales, setsucursales] = useState([])
   const [subviewpanelsucursales, setsubviewpanelsucursales] = useState("cierres")
-
+  const [cuentasporpagarDetallesView, setcuentasporpagarDetallesView] = useState("cuentas")
+  
+  
 
 
   const [sucursalListData, setsucursalListData] = useState([])
@@ -1525,8 +1528,11 @@ function Home() {
   const [qestatusaprobaciocaja, setqestatusaprobaciocaja] = useState(0)
   const [qcuentasPorPagar, setqcuentasPorPagar] = useState("")
 
+  const [cuentasPagosDescripcion, setcuentasPagosDescripcion] = useState("")
+  const [cuentasPagosMonto, setcuentasPagosMonto] = useState("")
+  const [cuentasPagosMetodo, setcuentasPagosMetodo] = useState("")
+  const [cuentasPagosFecha, setcuentasPagosFecha] = useState("")
   
-
 
   const [subViewNomina, setsubViewNomina] = useState("gestion")
   const [subViewNominaGestion, setsubViewNominaGestion] = useState("personal")
@@ -1589,6 +1595,7 @@ function Home() {
       setqpedidoDateFrom(today) */
       setfechasMain1(today)
       setfechasMain2(today)
+      setcuentasPagosFecha(today)
     })
   }
   const getSucursales = () => {
@@ -1623,17 +1630,139 @@ function Home() {
   const [selectCuentaPorPagarId, setSelectCuentaPorPagarId] = useState(null)
   const [qcuentasPorPagarDetalles, setqcuentasPorPagarDetalles] = useState("")
 
-  const [qCampocuentasPorPagarDetalles, setqCampocuentasPorPagarDetalles] = useState("")
-  const [qFechaCampocuentasPorPagarDetalles, setqFechaCampocuentasPorPagarDetalles] = useState("fechavencimiento")
+  const [qCampocuentasPorPagarDetalles, setqCampocuentasPorPagarDetalles] = useState("numfact")
+  const [qFechaCampocuentasPorPagarDetalles, setqFechaCampocuentasPorPagarDetalles] = useState("created_at")
   const [fechacuentasPorPagarDetalles, setfechacuentasPorPagarDetalles] = useState("")
   const [categoriacuentasPorPagarDetalles, setcategoriacuentasPorPagarDetalles] = useState("")
   const [tipocuentasPorPagarDetalles, settipocuentasPorPagarDetalles] = useState("")
-  const [OrdercuentasPorPagarDetalles, setOrdercuentasPorPagarDetalles] = useState("asc")
-  const [OrderFechacuentasPorPagarDetalles,setOrderFechacuentasPorPagarDetalles] = useState("asc")
+  const [OrdercuentasPorPagarDetalles, setOrdercuentasPorPagarDetalles] = useState("desc")
+  const [OrderFechacuentasPorPagarDetalles,setOrderFechacuentasPorPagarDetalles] = useState("desc")
   const [SelectCuentaPorPagarDetalle,setSelectCuentaPorPagarDetalle] = useState(null)
+  const [selectFactPagoArr,setselectFactPagoArr] = useState([])
+  const [subviewAgregarFactPago,setsubviewAgregarFactPago] = useState("pago")
+
+
+  const [newfactid_proveedor, setnewfactid_proveedor] = useState("")
+  const [newfactnumfact, setnewfactnumfact] = useState("")
+  const [newfactnumnota, setnewfactnumnota] = useState("")
+  const [newfactdescripcion, setnewfactdescripcion] = useState("")
+  const [newfactsubtotal, setnewfactsubtotal] = useState("")
+  const [newfactdescuento, setnewfactdescuento] = useState("")
+  const [newfactmonto_exento, setnewfactmonto_exento] = useState("")
+  const [newfactmonto_gravable, setnewfactmonto_gravable] = useState("")
+  const [newfactiva, setnewfactiva] = useState("")
+  const [newfactmonto, setnewfactmonto] = useState("")
+  const [newfactfechaemision, setnewfactfechaemision] = useState("")
+  const [newfactfechavencimiento, setnewfactfechavencimiento] = useState("")
+  const [newfactfecharecepcion, setnewfactfecharecepcion] = useState("")
+  const [newfactnota, setnewfactnota] = useState("")
+  const [newfacttipo, setnewfacttipo] = useState("")
+  const [newfactfrecuencia, setnewfactfrecuencia] = useState("")
+  const [selectFactEdit, setselectFactEdit] = useState(null)
   
+  const modeEditarFact = id => {
+    setselectFactEdit(id)
+    setcuentasporpagarDetallesView("pagos")
+    setsubviewAgregarFactPago("factura")
+
+    if (SelectCuentaPorPagarDetalle) {
+      console.log(SelectCuentaPorPagarDetalle)
+      console.log(selectCuentaPorPagarId.detalles)
+        if (selectCuentaPorPagarId) {
+            if (selectCuentaPorPagarId.detalles) {
+                let f = selectCuentaPorPagarId.detalles.filter(e=>e.id==SelectCuentaPorPagarDetalle)
+                if (f.length) {
+                    let data = f[0]
+                    setnewfactid_proveedor(data.id_proveedor)
+                    setnewfactnumfact(data.numfact)
+                    setnewfactnumnota(data.numnota)
+                    setnewfactdescripcion(data.descripcion)
+                    setnewfactsubtotal(data.subtotal)
+                    setnewfactdescuento(data.descuento)
+                    setnewfactmonto_exento(data.monto_exento)
+                    setnewfactmonto_gravable(data.monto_gravable)
+                    setnewfactiva(data.iva)
+                    setnewfactmonto(data.monto)
+                    setnewfactfechaemision(data.fechaemision)
+                    setnewfactfechavencimiento(data.fechavencimiento)
+                    setnewfactfecharecepcion(data.fecharecepcion)
+                    setnewfactnota(data.nota)
+                    setnewfacttipo(data.tipo)
+                    setnewfactfrecuencia(data.frecuencia)
+                }
+            }
+        }
+    }
+    
+  }
+  const saveNewFact = event => {
+    event.preventDefault()
+    if (confirm("Confirme")) {
+      let id_proveedor = null
+      if (selectCuentaPorPagarId) {
+        if (selectCuentaPorPagarId.detalles) {
+            if (selectCuentaPorPagarId.detalles[0]) {
+                if (selectCuentaPorPagarId.detalles[0].proveedor) {
+                    id_proveedor = selectCuentaPorPagarId.detalles[0].proveedor.id
+                    db.saveNewFact({
+                      newfactid_proveedor:id_proveedor,
+                      newfactnumfact,
+                      newfactnumnota,
+                      newfactdescripcion,
+                      newfactsubtotal,
+                      newfactdescuento,
+                      newfactmonto_exento,
+                      newfactmonto_gravable,
+                      newfactiva,
+                      newfactmonto,
+                      newfactfechaemision,
+                      newfactfechavencimiento,
+                      newfactfecharecepcion,
+                      newfactnota,
+                      newfacttipo,
+                      newfactfrecuencia,
+                      id:selectFactEdit
+                    }).then(res=>{
+                      notificar(res)
+                      if (res.data.estado) {
+                        selectCuentaPorPagarProveedorDetallesFun(id_proveedor)
+                        setcuentasporpagarDetallesView("cuentas")
+
+                        setnewfactid_proveedor("")
+                        setnewfactnumfact("")
+                        setnewfactnumnota("")
+                        setnewfactdescripcion("")
+                        setnewfactsubtotal("")
+                        setnewfactdescuento("")
+                        setnewfactmonto_exento("")
+                        setnewfactmonto_gravable("")
+                        setnewfactiva("")
+                        setnewfactmonto("")
+                        setnewfactfechaemision("")
+                        setnewfactfechavencimiento("")
+                        setnewfactfecharecepcion("")
+                        setnewfactnota("")
+                        setnewfacttipo("")
+                        setnewfactfrecuencia("")
+                      }
+                    })
+                }
+            }
+        }
+      }
+                   
+               
+    }
+    
+  }
   const selectCuentaPorPagarProveedorDetalles = (id) => {
     selectCuentaPorPagarProveedorDetallesFun(id)
+  }
+
+  const selectFacturaSetPago = (id,numfact) => {
+    setselectFactPagoArr({
+      id,numfact
+    })
   }
 
   const selectCuentaPorPagarProveedorDetallesFun = id => {
@@ -1755,6 +1884,22 @@ function Home() {
     }).then(({ data }) => {
       setnominaData(data)
     })
+  }
+
+  ///PUNTOS Y SERIALES
+  const [fechaSelectAuditoria,setfechaSelectAuditoria] = useState("")
+  const [BancoSelectAuditoria,setBancoSelectAuditoria] = useState("")
+  const [SaldoInicialSelectAuditoria,setSaldoInicialSelectAuditoria] = useState("")
+  const [SaldoActualSelectAuditoria,setSaldoActualSelectAuditoria] = useState("")
+
+  const changeLiquidacionPagoElec = (id) => {
+    if (confirm("CONFIRMAR LIQUIDACIÓN")) {
+      db.changeLiquidacionPagoElec({id}).then(res=>{
+        if (res.data) {
+          getsucursalDetallesData()
+        }
+      })
+    }
   }
 
   ////Cargos
@@ -1921,6 +2066,65 @@ function Home() {
     }).then(res => {
       setprecioxproveedor(res.data)
     })
+  }
+  const [selectAbonoFact, setselectAbonoFact] = useState([])
+  const setInputAbonoFact = (id,val) => {
+    if (selectCuentaPorPagarId.detalles) {
+      if (selectCuentaPorPagarId.detalles.length) {
+          let fil = selectCuentaPorPagarId.detalles.filter(e=>e.id==id)
+          if (fil.length) {
+            let exclude = selectAbonoFact.filter(e=>e.id!=id)
+            if (val) {
+              let setAb = {
+                id,
+                val:number(val),
+                numfact:fil[0].numfact
+              }
+              exclude = exclude.concat(setAb)
+            }
+
+            setselectAbonoFact(exclude)
+          }
+        }
+      }
+  }
+  const sendPagoCuentaPorPagar = (e) => {
+
+    if (e) {
+      e.preventDefault()
+    }
+    if (confirm("Confirme pago")) {
+
+      if (selectCuentaPorPagarId) {
+        if (selectCuentaPorPagarId.detalles) {
+            if (selectCuentaPorPagarId.detalles[0]) {
+                if (selectCuentaPorPagarId.detalles[0].proveedor) {
+                    let id_pro = selectCuentaPorPagarId.detalles[0].proveedor.id
+                    let chetotal = selectAbonoFact.map(e=>number(e.val)).reduce((partial_sum, a) => parseFloat(partial_sum) + parseFloat(a), 0)
+
+                    if (chetotal==parseFloat(cuentasPagosMonto)) {
+                      db.sendPagoCuentaPorPagar({
+                        cuentasPagosDescripcion,
+                        cuentasPagosMonto,
+                        cuentasPagosMetodo,
+                        cuentasPagosFecha,
+                        id_pro,
+                        selectAbonoFact,
+                      }).then(res=>{
+                        if (res.data.estado) {
+                          setcuentasporpagarDetallesView("cuentas")
+                          selectCuentaPorPagarProveedorDetallesFun(res.data.id_proveedor)
+                        }
+                        notificar(res.data)
+                      })
+                    }else{
+                      alert("Montos no coinciden")
+                    }
+                }
+            }
+        }
+    }
+    }
   }
 
 
@@ -2149,6 +2353,33 @@ function Home() {
       }
     });
   };
+  const [categoriasCajas, setcategoriasCajas] = useState([])
+  const getCatCajas = () => {
+    db.getCatCajas({}).then(res=>{
+      if (res.data.length) {
+        setcategoriasCajas(res.data)
+      }
+    })
+  }
+  const getCatGeneralFun = (id_cat) => {
+
+    let catgeneralList = [
+        {color:"#cc3300", nombre:"EGRESOS",},
+        {color:"#3E7B00", nombre:"INGRESO",},
+        {color:"#ff9900", nombre:"GASTO",},
+        {color:"#A07800", nombre:"GASTO GENERAL",},
+        {color:"#808080", nombre:"MOVIMIENTO EXTERNO",},
+        {color:"#595959", nombre:"MOVIMIENTO NULO INTERNO",},
+        {color:"#A8A805", nombre:"CAJA GENERAL IDEPENDIENTE",},
+    ]
+    let catfilter = categoriasCajas.filter(e=>e.indice==id_cat)
+    if (catfilter.length) {
+        return catgeneralList[catfilter[0].catgeneral]
+    }
+
+    return {color:"", nombre:""}
+
+}
 
   ///END CatGenerals
   const type = type => {
@@ -2199,7 +2430,39 @@ function Home() {
 
   ]
 
-
+  const opcionesMetodosPago = [
+    {codigo:"EFECTIVO", descripcion: "EFECTIVO"},
+    {codigo:"0102", descripcion: "0102 Banco de Venezuela, S.A. Banco Universal"},
+    {codigo:"0108", descripcion: "0108 Banco Provincial, S.A. Banco Universal"},
+    {codigo:"0105", descripcion: "0105 Banco Mercantil C.A., Banco Universal"},
+    {codigo:"0134", descripcion: "0134 Banesco Banco Universal, C.A."},
+    {codigo:"0175", descripcion: "0175 Banco Bicentenario del Pueblo, Banco Universal C.A."},
+    {codigo:"0191", descripcion: "0191 Banco Nacional de Crédito C.A., Banco Universal"},
+    {codigo:"0104", descripcion: "0104 Banco Venezolano de Crédito, S.A. Banco Universal"},
+    {codigo:"0114", descripcion: "0114 Banco del Caribe C.A., Banco Universal"},
+    {codigo:"0115", descripcion: "0115 Banco Exterior C.A., Banco Universal"},
+    {codigo:"0128", descripcion: "0128 Banco Caroní C.A., Banco Universal"},
+    {codigo:"0137", descripcion: "0137 Banco Sofitasa Banco Universal, C.A."},
+    {codigo:"0138", descripcion: "0138 Banco Plaza, Banco universal"},
+    {codigo:"0146", descripcion: "0146 Banco de la Gente Emprendedora C.A."},
+    {codigo:"0151", descripcion: "0151 Banco Fondo Común, C.A Banco Universal"},
+    {codigo:"0156", descripcion: "0156 100% Banco, Banco Comercial, C.A"},
+    {codigo:"0157", descripcion: "0157 DelSur, Banco Universal C.A."},
+    {codigo:"0163", descripcion: "0163 Banco del Tesoro C.A., Banco Universal"},
+    {codigo:"0166", descripcion: "0166 Banco Agrícola de Venezuela C.A., Banco Universal"},
+    {codigo:"0168", descripcion: "0168 Bancrecer S.A., Banco Microfinanciero"},
+    {codigo:"0169", descripcion: "0169 Mi Banco, Banco Microfinanciero, C.A."},
+    {codigo:"0171", descripcion: "0171 Banco Activo C.A., Banco Universal"},
+    {codigo:"0172", descripcion: "0172 Bancamiga Banco Universal, C.A."},
+    {codigo:"0173", descripcion: "0173 Banco Internacional de Desarrollo C.A., Banco Universal"},
+    {codigo:"0174", descripcion: "0174 Banplus Banco Universal, C.A."},
+    {codigo:"0177", descripcion: "0177 Banco de la Fuerza Armada Nacional Bolivariana, B.U."},
+    {codigo:"ZELLE", descripcion: "ZELLE"},
+    {codigo:"BINANCE", descripcion: "Binance"},
+    {codigo:"AirTM", descripcion: "AirTM"},
+  ]
+  
+  
   return (
     <>
       {!loginActive ? <Login loginRes={loginRes} /> : <>
@@ -2284,6 +2547,7 @@ function Home() {
                       sucursales={sucursales}
                       subViewNominaGestion={subViewNominaGestion}
                       nominapagodetalles={nominapagodetalles}
+                      getSucursales={getSucursales}
                     >
                     </NominaPersonal>
                   }
@@ -2375,9 +2639,6 @@ function Home() {
               fechasMain2={fechasMain2}
               sucursalSelect={sucursalSelect}
               qestatusaprobaciocaja={qestatusaprobaciocaja}
-              
-
-              
             >
               
 
@@ -2408,34 +2669,133 @@ function Home() {
               }
               {subviewpanelsucursales === "cuentasporpagar" ?
                 selectCuentaPorPagarId!==null?
-                  <CuentasporpagarDetalles
-                    selectCuentaPorPagarId={selectCuentaPorPagarId}
-                    setSelectCuentaPorPagarId={setSelectCuentaPorPagarId}
-                    setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
-                    qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
-                    selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
-                    factSelectIndex={factSelectIndex}
-                    moneda={moneda}
+                  <>
+                    {cuentasporpagarDetallesView=="cuentas"?
+                      <CuentasporpagarDetalles
+                        cuentasporpagarDetallesView={cuentasporpagarDetallesView}
+                        setcuentasporpagarDetallesView={setcuentasporpagarDetallesView}
+                        setviewmainPanel={setviewmainPanel}
+                        selectCuentaPorPagarId={selectCuentaPorPagarId}
+                        setSelectCuentaPorPagarId={setSelectCuentaPorPagarId}
+                        setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
+                        qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
+                        selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+                        factSelectIndex={factSelectIndex}
+                        moneda={moneda}
 
-                    qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
-                    setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
-                    qFechaCampocuentasPorPagarDetalles={qFechaCampocuentasPorPagarDetalles}
-                    setqFechaCampocuentasPorPagarDetalles={setqFechaCampocuentasPorPagarDetalles}
-                    setfechacuentasPorPagarDetalles={setfechacuentasPorPagarDetalles}
-                    fechacuentasPorPagarDetalles={fechacuentasPorPagarDetalles}
-                    categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
-                    setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
-                    tipocuentasPorPagarDetalles={tipocuentasPorPagarDetalles}
-                    settipocuentasPorPagarDetalles={settipocuentasPorPagarDetalles}
-                    OrdercuentasPorPagarDetalles={OrdercuentasPorPagarDetalles}
-                    setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
+                        qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
+                        setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+                        qFechaCampocuentasPorPagarDetalles={qFechaCampocuentasPorPagarDetalles}
+                        setqFechaCampocuentasPorPagarDetalles={setqFechaCampocuentasPorPagarDetalles}
+                        setfechacuentasPorPagarDetalles={setfechacuentasPorPagarDetalles}
+                        fechacuentasPorPagarDetalles={fechacuentasPorPagarDetalles}
+                        categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
+                        setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                        tipocuentasPorPagarDetalles={tipocuentasPorPagarDetalles}
+                        settipocuentasPorPagarDetalles={settipocuentasPorPagarDetalles}
+                        OrdercuentasPorPagarDetalles={OrdercuentasPorPagarDetalles}
+                        setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
 
-                    OrderFechacuentasPorPagarDetalles={OrderFechacuentasPorPagarDetalles}
-                    setOrderFechacuentasPorPagarDetalles={setOrderFechacuentasPorPagarDetalles}
-                    setSelectCuentaPorPagarDetalle={setSelectCuentaPorPagarDetalle}
-                    SelectCuentaPorPagarDetalle={SelectCuentaPorPagarDetalle}
-                  />
+                        OrderFechacuentasPorPagarDetalles={OrderFechacuentasPorPagarDetalles}
+                        setOrderFechacuentasPorPagarDetalles={setOrderFechacuentasPorPagarDetalles}
+                        setSelectCuentaPorPagarDetalle={setSelectCuentaPorPagarDetalle}
+                        SelectCuentaPorPagarDetalle={SelectCuentaPorPagarDetalle}
+                        modeEditarFact={modeEditarFact}
+                      />
+                    :null}
+
+
+                    {cuentasporpagarDetallesView=="pagos"?
+                      <CuentasporpagarPago
+                        getProveedores={getProveedores}
+                        proveedoresList={proveedoresList}
+                        selectAbonoFact={selectAbonoFact}
+                        setselectAbonoFact={setselectAbonoFact}
+                        setInputAbonoFact={setInputAbonoFact}
+                        sendPagoCuentaPorPagar={sendPagoCuentaPorPagar}
+                        cuentasporpagarDetallesView={cuentasporpagarDetallesView}
+                        setcuentasporpagarDetallesView={setcuentasporpagarDetallesView}
+                        cuentasPagosDescripcion={cuentasPagosDescripcion}
+                        setcuentasPagosDescripcion={setcuentasPagosDescripcion}
+                        cuentasPagosMonto={cuentasPagosMonto}
+                        setcuentasPagosMonto={setcuentasPagosMonto}
+                        cuentasPagosMetodo={cuentasPagosMetodo}
+                        setcuentasPagosMetodo={setcuentasPagosMetodo}
+                        cuentasPagosFecha={cuentasPagosFecha}
+                        setcuentasPagosFecha={setcuentasPagosFecha}
+                        opcionesMetodosPago={opcionesMetodosPago}
+                        number={number}
+
+                        selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+                        setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+                        OrdercuentasPorPagarDetalles={OrdercuentasPorPagarDetalles}
+                        setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
+                        qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
+                        qFechaCampocuentasPorPagarDetalles={qFechaCampocuentasPorPagarDetalles}
+                        setqFechaCampocuentasPorPagarDetalles={setqFechaCampocuentasPorPagarDetalles}
+                        OrderFechacuentasPorPagarDetalles={OrderFechacuentasPorPagarDetalles}
+                        setOrderFechacuentasPorPagarDetalles={setOrderFechacuentasPorPagarDetalles}
+                        fechacuentasPorPagarDetalles={fechacuentasPorPagarDetalles}
+                        setfechacuentasPorPagarDetalles={setfechacuentasPorPagarDetalles}
+                        categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
+                        setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                        tipocuentasPorPagarDetalles={tipocuentasPorPagarDetalles}
+                        settipocuentasPorPagarDetalles={settipocuentasPorPagarDetalles}
+                        selectCuentaPorPagarId={selectCuentaPorPagarId}
+                        setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
+                        qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
+                        selectFacturaSetPago={selectFacturaSetPago}
+                        selectFactPagoArr={selectFactPagoArr}
+                        setselectFactPagoArr={setselectFactPagoArr}
+
+                        setsubviewAgregarFactPago={setsubviewAgregarFactPago}
+                        subviewAgregarFactPago={subviewAgregarFactPago}
+                        
+
+                        moneda={moneda}
+
+                        setnewfactid_proveedor={setnewfactid_proveedor}
+                        newfactid_proveedor={newfactid_proveedor}
+                        setnewfactnumfact={setnewfactnumfact}
+                        newfactnumfact={newfactnumfact}
+                        setnewfactnumnota={setnewfactnumnota}
+                        newfactnumnota={newfactnumnota}
+                        setnewfactdescripcion={setnewfactdescripcion}
+                        newfactdescripcion={newfactdescripcion}
+                        setnewfactsubtotal={setnewfactsubtotal}
+                        newfactsubtotal={newfactsubtotal}
+                        setnewfactdescuento={setnewfactdescuento}
+                        newfactdescuento={newfactdescuento}
+                        setnewfactmonto_exento={setnewfactmonto_exento}
+                        newfactmonto_exento={newfactmonto_exento}
+                        setnewfactmonto_gravable={setnewfactmonto_gravable}
+                        newfactmonto_gravable={newfactmonto_gravable}
+                        setnewfactiva={setnewfactiva}
+                        newfactiva={newfactiva}
+                        setnewfactmonto={setnewfactmonto}
+                        newfactmonto={newfactmonto}
+                        setnewfactfechaemision={setnewfactfechaemision}
+                        newfactfechaemision={newfactfechaemision}
+                        setnewfactfechavencimiento={setnewfactfechavencimiento}
+                        newfactfechavencimiento={newfactfechavencimiento}
+                        setnewfactfecharecepcion={setnewfactfecharecepcion}
+                        newfactfecharecepcion={newfactfecharecepcion}
+                        setnewfactnota={setnewfactnota}
+                        newfactnota={newfactnota}
+                        setnewfacttipo={setnewfacttipo}
+                        newfacttipo={newfacttipo}
+                        setnewfactfrecuencia={setnewfactfrecuencia}
+                        newfactfrecuencia={newfactfrecuencia}
+
+                        setselectFactEdit={setselectFactEdit}
+                        selectFactEdit={selectFactEdit}
+                        saveNewFact={saveNewFact}
+
+                      />
+                    :null}
+                  </>
                 :<Cuentasporpagar
+                  setviewmainPanel={setviewmainPanel}
                   moneda={moneda}
                   getsucursalDetallesData={getsucursalDetallesData}
                   setsucursalDetallesData={setsucursalDetallesData}
@@ -2451,7 +2811,6 @@ function Home() {
                 />
                 :null
               }
-              
 
             </Efectivo>
           }
@@ -2492,6 +2851,7 @@ function Home() {
 
           {viewmainPanel === "proveedores" && 
             <Proveedores
+              setviewmainPanel={setviewmainPanel}
               number={number}
               setProveedor={setProveedor}
               proveedordescripcion={proveedordescripcion}
@@ -2604,6 +2964,7 @@ function Home() {
 
           {viewmainPanel === "sucursales" &&
             <PanelSucursales
+              changeLiquidacionPagoElec={changeLiquidacionPagoElec}
               getPersonalCargos={getPersonalCargos}
               cargosData={cargosData}
               sucursales={sucursales}
@@ -2641,6 +3002,18 @@ function Home() {
               controlefecSelectGeneral={controlefecSelectGeneral}
               setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
               moneda={moneda}
+
+              fechaSelectAuditoria={fechaSelectAuditoria}
+              setfechaSelectAuditoria={setfechaSelectAuditoria}
+              BancoSelectAuditoria={BancoSelectAuditoria}
+              setBancoSelectAuditoria={setBancoSelectAuditoria}
+              SaldoInicialSelectAuditoria={SaldoInicialSelectAuditoria}
+              setSaldoInicialSelectAuditoria={setSaldoInicialSelectAuditoria}
+              SaldoActualSelectAuditoria={SaldoActualSelectAuditoria}
+              setSaldoActualSelectAuditoria={setSaldoActualSelectAuditoria}
+              getCatGeneralFun={getCatGeneralFun}
+              getCatCajas={getCatCajas}
+
             >
               <FechasMain
                 fechasMain1={fechasMain1}

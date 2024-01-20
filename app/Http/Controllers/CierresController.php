@@ -504,7 +504,7 @@ class CierresController extends Controller
 
         $controlefecSelectGeneral = $filtros["controlefecSelectGeneral"];
 
-        $cajas = cajas::with(["cat", "sucursal", "responsable", "asignar"])->where("tipo", $controlefecSelectGeneral)
+        $cajas = cajas::with(["cat", "sucursal"])->where("tipo", $controlefecSelectGeneral)
         ->when($controlefecQ, function ($q) use ($controlefecQ) {
             $q->orWhere("concepto", $controlefecQ);
             $q->orWhere("monto", $controlefecQ);
@@ -515,19 +515,24 @@ class CierresController extends Controller
         ->when($id_sucursal, function ($q) use ($id_sucursal) {
             $q->where("id_sucursal", $id_sucursal);
         })
-        ->whereBetween("fecha", [$fechasMain1, $fechasMain2])->orderBy("idinsucursal", "desc")->get();
+        ->whereBetween("fecha", [$fechasMain1, $fechasMain2])->orderBy("idinsucursal", "desc")
+        ->get();
 
+
+
+        
 
         $categorias = [];
-        $responsable = [];
-        $asignar = [];
+        $catGeneral = [];
+      
 
-        $cajas->map(function($q) use (&$categorias,&$responsable,&$asignar){
+        $cajas->map(function($q) use (&$categorias,&$catGeneral){
 
             if ($q["cat"]) {
                 
                 if (isset($categorias[$q["cat"]["indice"]])) {
                     $categorias[$q["cat"]["indice"]] = [
+                        "categoria" => $q["categoria"],
                         "nombre" => $q["cat"]["nombre"],
                         "montodolar" => $categorias[$q["cat"]["indice"]]["montodolar"] + ($q["montodolar"]),
                         "montobs" => $categorias[$q["cat"]["indice"]]["montobs"] + ($q["montobs"]),
@@ -536,6 +541,7 @@ class CierresController extends Controller
                     ];
                 }else{
                     $categorias[$q["cat"]["indice"]] = [
+                        "categoria" => $q["categoria"],
                         "nombre" => $q["cat"]["nombre"],
                         "montodolar" => $q["montodolar"],
                         "montobs" => $q["montobs"],
@@ -543,22 +549,20 @@ class CierresController extends Controller
                         "montoeuro" => $q["montoeuro"],
                     ];
                 }
-            }
 
-            if ($q["responsable"]) {
-                if (isset($responsable[$q["responsable"]["indice"]])) {
-                    $responsable[$q["responsable"]["indice"]] = [
-                        "nombre" => $q["responsable"]["nombre"],
-
-                        "montodolar" => $responsable[$q["responsable"]["indice"]]["montodolar"] + $q["montodolar"],
-                        "montobs" => $responsable[$q["responsable"]["indice"]]["montobs"] + $q["montobs"],
-                        "montopeso" => $responsable[$q["responsable"]["indice"]]["montopeso"] + $q["montopeso"],
-                        "montoeuro" => $responsable[$q["responsable"]["indice"]]["montoeuro"] + $q["montoeuro"],
+                if (isset($catGeneral[$q["cat"]["catgeneral"]])) {
+                    $catGeneral[$q["cat"]["catgeneral"]] = [
+                        "categoria" => $q["categoria"],
+                        "nombre" => $q["cat"]["catgeneral"],
+                        "montodolar" => $catGeneral[$q["cat"]["catgeneral"]]["montodolar"] + ($q["montodolar"]),
+                        "montobs" => $catGeneral[$q["cat"]["catgeneral"]]["montobs"] + ($q["montobs"]),
+                        "montopeso" => $catGeneral[$q["cat"]["catgeneral"]]["montopeso"] + ($q["montopeso"]),
+                        "montoeuro" => $catGeneral[$q["cat"]["catgeneral"]]["montoeuro"] + ($q["montoeuro"]),
                     ];
                 }else{
-                    $responsable[$q["responsable"]["indice"]] = [
-                        "nombre" => $q["responsable"]["nombre"],
-
+                    $catGeneral[$q["cat"]["catgeneral"]] = [
+                        "categoria" => $q["categoria"],
+                        "nombre" => $q["cat"]["catgeneral"],
                         "montodolar" => $q["montodolar"],
                         "montobs" => $q["montobs"],
                         "montopeso" => $q["montopeso"],
@@ -566,30 +570,6 @@ class CierresController extends Controller
                     ];
                 }
             }
-
-            if ($q["asignar"]) {
-                if (isset($asignar[$q["asignar"]["indice"]])) {
-                    $asignar[$q["asignar"]["indice"]] = [
-                        "nombre" => $q["asignar"]["nombre"],
-
-                        "montodolar" => $asignar[$q["asignar"]["indice"]]["montodolar"] + $q["montodolar"],
-                        "montobs" => $asignar[$q["asignar"]["indice"]]["montobs"] + $q["montobs"],
-                        "montopeso" => $asignar[$q["asignar"]["indice"]]["montopeso"] + $q["montopeso"],
-                        "montoeuro" => $asignar[$q["asignar"]["indice"]]["montoeuro"] + $q["montoeuro"],
-                    ];
-                }else{
-                    $asignar[$q["asignar"]["indice"]] = [
-                        "nombre" => $q["asignar"]["nombre"],
-
-                        "montodolar" => $q["montodolar"],
-                        "montobs" => $q["montobs"],
-                        "montopeso" => $q["montopeso"],
-                        "montoeuro" => $q["montoeuro"],
-                    ];
-                }
-            }
-
-
 
         });
 
@@ -597,23 +577,41 @@ class CierresController extends Controller
             "cajas" => $cajas,
             "sum" => [
                 "categorias" => $categorias,
-                "responsable" => $responsable,
-                "asignar" => $asignar,
+                "catgeneral" => $catGeneral,
             ]
         ];
     }
 
-
+    function getTipoPagoElect($tipo,$fechasMain1,$fechasMain2,$id_sucursal) {
+        return puntosybiopagos::with("sucursal")
+        ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
+        ->where("tipo",$tipo)
+        ->when($id_sucursal, function ($q) use ($id_sucursal) {$q->where("id_sucursal", $id_sucursal);})
+        ->sum("monto");
+ 
+    }
     function getPuntosyseriales($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
     {
+        
+        
+        $data = puntosybiopagos::with("sucursal")
+        ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
+        ->when($id_sucursal, function ($q) use ($id_sucursal) {$q->where("id_sucursal", $id_sucursal);});
 
-        return puntosybiopagos::with("sucursal")
-            ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
-            ->when($id_sucursal, function ($q) use ($id_sucursal) {
-                $q->where("id_sucursal", $id_sucursal);
-            })
-            ->orderBy("tipo","desc")
-            ->get();
+        $p1 = $this->getTipoPagoElect("p1",$fechasMain1,$fechasMain2,$id_sucursal);
+        $p2 = $this->getTipoPagoElect("p2",$fechasMain1,$fechasMain2,$id_sucursal);
+        $transferencia = $this->getTipoPagoElect("Transferencia",$fechasMain1,$fechasMain2,$id_sucursal);
+        $biopago = $this->getTipoPagoElect("BioPago",$fechasMain1,$fechasMain2,$id_sucursal);
+        
+        return [
+            "data" => $data->orderBy("tipo","desc")->get(),
+            "suma" => [
+                "p1" => $p1,  
+                "p2" => $p2, 
+                "Transferencia" => $transferencia, 
+                "BioPago" => $biopago, 
+            ]
+            ];
     }
 
     function getNominasSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros)

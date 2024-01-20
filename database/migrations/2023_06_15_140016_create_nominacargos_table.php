@@ -20,7 +20,7 @@ class CreateNominacargosTable extends Migration
             $table->timestamps();
         });
 
-        DB::table("nominacargos")->insert([
+       /*  DB::table("nominacargos")->insert([
             ["cargosdescripcion"=>"PORTERO","cargossueldo"=>0],
             ["cargosdescripcion"=>"LIMPIEZA","cargossueldo"=>0],
             ["cargosdescripcion"=>"VENDEDOR/A","cargossueldo"=>0],
@@ -30,7 +30,7 @@ class CreateNominacargosTable extends Migration
             ["cargosdescripcion"=>"GERENTE","cargossueldo"=>0],
             ["cargosdescripcion"=>"SUBGERENTE","cargossueldo"=>0],
             ["cargosdescripcion"=>"ADMINISTRACION","cargossueldo"=>0],
-        ]);
+        ]); */
 
     }
 

@@ -249,6 +249,19 @@ i{
 .zoom-11{
   transform: scale(1.1);
 }
+
+.boton-fijo-inferiorizq{
+  width: 50px;
+  height: 50px;
+  padding: 7px 10px;
+  border-radius: 25px;
+  font-size: 10px;
+  text-align: center;
+  position: fixed;
+
+  bottom: 10px;
+  right: 10px;
+}
 .btn-circle.btn-sm {
     width: 30px;
     height: 30px;
@@ -256,6 +269,9 @@ i{
     border-radius: 15px;
     font-size: 8px;
     text-align: center;
+}
+.fs-7{
+  font-size: 0.7rem !important;
 }
 .btn-circle.btn-md {
     width: 50px;
@@ -480,7 +496,18 @@ body{
   height: 10vmin;
   pointer-events: none;
 }
-
+.bg-sinapsis-light{
+  background-color: var(--sinapsis-color-light) !important;
+  text-shadow: 0 0 black;
+}
+.bg-success-light{
+  background-color: #e0fdde !important;
+  text-shadow: 0 0 black;
+}
+.bg-danger-light {
+  background-color: #ffd3d3 !important;
+  text-shadow: 0 0 black;
+}
 
 .app-body{
   padding-top: 1em;

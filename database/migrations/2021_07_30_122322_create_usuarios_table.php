@@ -23,7 +23,7 @@ class CreateUsuariosTable extends Migration
             $table->string('area');
             $table->timestamps();
         });
-        DB::table("usuarios")->insert([
+        /* DB::table("usuarios")->insert([
             [
             "nombre" => "Alvaro Ospino",
             "usuario" => "admin",
@@ -41,7 +41,7 @@ class CreateUsuariosTable extends Migration
             "tipo_usuario" => "2",
             "area" => "TI",
             ]
-        ]);
+        ]); */
     }
 
     /**

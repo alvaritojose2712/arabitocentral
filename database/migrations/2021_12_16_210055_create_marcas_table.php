@@ -18,7 +18,7 @@ class CreateMarcasTable extends Migration
             $table->string('descripcion');
             $table->timestamps();
         });
-        DB::table("marcas")->insert([
+        /* DB::table("marcas")->insert([
             ["descripcion"=>"COVO"],
             ["descripcion"=>"EXXEL"],
             ["descripcion"=>"INGCO"],
@@ -113,7 +113,7 @@ class CreateMarcasTable extends Migration
             ["descripcion"=>"LIAM"],
             ["descripcion"=>"ORIGINAL"],
             ["descripcion"=>"BAOFENG"],
-        ]);
+        ]); */
     }
 
     /**

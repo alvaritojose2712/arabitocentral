@@ -12,4 +12,9 @@ class sucursal extends Model
     public function cierres() { 
         return $this->hasMany('App\Models\cierres',"id_sucursal","id"); 
     }
+
+    protected $fillable = [
+        "nombre",
+        "codigo",
+    ];
 }

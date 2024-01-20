@@ -21,6 +21,7 @@ class CreatePuntosybiopagosTable extends Migration
             $table->string("tipo")->nullable(true);
 
             $table->date("fecha");
+            $table->date("fecha_liquidacion")->nullable(true)->default(null);
             
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');

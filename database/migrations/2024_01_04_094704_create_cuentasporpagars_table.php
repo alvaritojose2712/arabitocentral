@@ -35,6 +35,11 @@ class CreateCuentasporpagarsTable extends Migration
             $table->decimal("iva",10,2)->nullable()->default(0);
             $table->decimal("monto",10,2)->nullable()->default(0);
             $table->decimal("balance",10,2)->nullable()->default(0);
+
+            $table->integer('metodo')->nullable()->default(null); 
+            $table->integer('id_cuentaporpagar')->nullable()->default(null); 
+            $table->float('monto_abonado')->nullable()->default(null); 
+               
             
             $table->date("fechaemision");
             $table->date("fechavencimiento");
@@ -44,9 +49,9 @@ class CreateCuentasporpagarsTable extends Migration
             $table->integer("tipo");
             // 1 COMPRAS
             // 2 SERVICIOS
-            $table->string("frecuencia");
+            $table->string("frecuencia")->nullable(true)->default(0);
             
-            $table->string("idinsucursal");
+            $table->string("idinsucursal")->nullable(true)->default(null);
             $table->unique(["idinsucursal","id_sucursal"]);
             $table->timestamps();
         });

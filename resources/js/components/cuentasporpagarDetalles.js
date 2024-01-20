@@ -1,4 +1,5 @@
 export default function CuentasporpagarDetalles({
+    modeEditarFact,
     selectCuentaPorPagarId,
     setSelectCuentaPorPagarId,
     setqcuentasPorPagarDetalles,
@@ -27,14 +28,18 @@ export default function CuentasporpagarDetalles({
 
     setSelectCuentaPorPagarDetalle,
     SelectCuentaPorPagarDetalle,
+    cuentasporpagarDetallesView,
+    setcuentasporpagarDetallesView,
 }){
     let proveedorMain = ""
+    let id_proveedor = null
 
     if (selectCuentaPorPagarId) {
         if (selectCuentaPorPagarId.detalles) {
             if (selectCuentaPorPagarId.detalles[0]) {
                 if (selectCuentaPorPagarId.detalles[0].proveedor) {
                     proveedorMain = selectCuentaPorPagarId.detalles[0].proveedor.descripcion
+                    id_proveedor = selectCuentaPorPagarId.detalles[0].proveedor.id
                 }
             }
         }
@@ -52,7 +57,7 @@ export default function CuentasporpagarDetalles({
         }
     }
     return (
-        <div>
+        <div className="container mb-4">
             {
             SelectCuentaPorPagarDetalle?
                 dataCuenta?
@@ -64,6 +69,16 @@ export default function CuentasporpagarDetalles({
                     </div>
                     <table className="table">
                         <tbody>
+                            {dataCuenta.monto_abonado && dataCuenta.cuenta?
+                                <tr className="d-flex justify-content-center align-items-center">
+                                    <td>
+                                        ABONADO A FACT <span className="text-success">{moneda(dataCuenta.monto_abonado)}</span>                                        
+                                    </td>
+                                    <td>
+                                        {dataCuenta.cuenta.descripcion} <span className="btn btn-success">{moneda(dataCuenta.cuenta.monto)}</span>
+                                    </td>
+                                </tr>
+                            :null}
                             <tr>
                                 <th>PROVEEDOR</th>
                                 <td>{dataCuenta.proveedor.descripcion} <small className="text-muted">RIF. {dataCuenta.proveedor.rif}</small></td>
@@ -110,15 +125,15 @@ export default function CuentasporpagarDetalles({
                             </tr>
                             <tr>
                                 <th>EMISIÓN</th>
-                                <td>{dataCuenta.fechaemision}</td>
-                            </tr>
-                            <tr>
-                                <th>VENCIMIENTO</th>
-                                <td>{dataCuenta.fechavencimiento}</td>
+                                <td className="text-success">{dataCuenta.fechaemision}</td>
                             </tr>
                             <tr>
                                 <th>RECEPCIÓN</th>
-                                <td>{dataCuenta.fecharecepcion}</td>
+                                <td className="text-sinapsis">{dataCuenta.fecharecepcion}</td>
+                            </tr>
+                            <tr>
+                                <th>VENCIMIENTO</th>
+                                <td className="text-danger">{dataCuenta.fechavencimiento}</td>
                             </tr>
                             <tr>
                                 <th>NOTA</th>
@@ -131,6 +146,13 @@ export default function CuentasporpagarDetalles({
                             <tr>
                                 <th>FRECUENCIA</th>
                                 <td>{dataCuenta.frecuencia}</td>
+                            </tr>
+                            <tr>
+                                <td colSpan={2}>
+                                    <span className="btn btn-sinapsis" onClick={()=>modeEditarFact(dataCuenta.id)}>
+                                        <i className="fa fa-pencil"></i>
+                                    </span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -146,8 +168,12 @@ export default function CuentasporpagarDetalles({
                         {proveedorMain}
                     </small>
                 </div>
-                <form onSubmit={selectCuentaPorPagarProveedorDetallesFun} className="mb-2">
+                <form onSubmit={e=>{e.preventDefault();selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}} className="mb-2">
                     <div className="input-group">
+                        <input type="text" className="form-control" placeholder={"Buscar en "+proveedorMain+" por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
+                        <span className={("btn arabito_")+(OrdercuentasPorPagarDetalles)} onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
+                        {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
+                        </span>
                         <select className="form-control" value={qCampocuentasPorPagarDetalles} onChange={e=>setqCampocuentasPorPagarDetalles(e.target.value)}>
                             <option value="">-Buscar en-</option>
                             <option value="numfact"># Fact</option>
@@ -160,22 +186,20 @@ export default function CuentasporpagarDetalles({
                             <option value="iva">IVA</option>
                             <option value="monto">TOTAL</option>
                         </select>
-                        <span className={("btn arabito_")+(OrdercuentasPorPagarDetalles)} onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
-                        {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
-                        </span>
-                        <input type="text" className="form-control" placeholder={"Buscar en "+proveedorMain+" por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
                     </div>
 
                     <div className="input-group">
+                        <input type="date" className="form-control" value={fechacuentasPorPagarDetalles} onChange={e=>setfechacuentasPorPagarDetalles(e.target.value)} />
+                        <span className={("btn arabito_")+(OrderFechacuentasPorPagarDetalles)} onClick={()=>setOrderFechacuentasPorPagarDetalles(OrderFechacuentasPorPagarDetalles==="desc"?"asc":"desc")}>
+                        {(<i className={OrderFechacuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
+                        </span>
                         <select className="form-control" value={qFechaCampocuentasPorPagarDetalles} onChange={e=>setqFechaCampocuentasPorPagarDetalles(e.target.value)}>
                             <option value="fechavencimiento">Vencimiento</option>
                             <option value="fechaemision">Emisión</option>
                             <option value="fecharecepcion">Recepción</option>
+                            <option value="created_at">Creación</option>
+
                         </select>
-                        <span className={("btn arabito_")+(OrderFechacuentasPorPagarDetalles)} onClick={()=>setOrderFechacuentasPorPagarDetalles(OrderFechacuentasPorPagarDetalles==="desc"?"asc":"desc")}>
-                        {(<i className={OrderFechacuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
-                        </span>
-                        <input type="date" className="form-control" value={fechacuentasPorPagarDetalles} onChange={e=>setfechacuentasPorPagarDetalles(e.target.value)} />
                     </div>
 
 
@@ -188,43 +212,58 @@ export default function CuentasporpagarDetalles({
 
                         <select className="form-control" value={tipocuentasPorPagarDetalles} onChange={e=>settipocuentasPorPagarDetalles(e.target.value)}>
                             <option value="">-TIPO-</option>
-                            <option value="DEUDA">DEUDA</option>
-                            <option value="ABONOS">ABONOS</option>
+                            <option value="DEUDA">CRÉDITOS</option>
+                            <option value="ABONOS">DÉBITOS</option>
                         </select>
-                        <button type="button" className="btn btn-success" onClick={selectCuentaPorPagarProveedorDetallesFun}><i className="fa fa-search"></i></button>
+                        <button type="button" className="btn btn-success" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}><i className="fa fa-search"></i></button>
                     </div>                
 
 
                 </form>
+
+                { 
+                    selectCuentaPorPagarId?
+                        selectCuentaPorPagarId.balance? 
+                        <div className="text-right">
+                            <span className={(selectCuentaPorPagarId.balance<0? "text-danger": "text-success")+(" fs-2 mb-1 mt-1")}>{moneda(selectCuentaPorPagarId.balance)}</span>
+                        </div>
+                        :null
+                    :null
+                }
                 {
                     selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                     ? selectCuentaPorPagarId.detalles.map( (e,i) =>
                         <div className="text-secondary mb-3 pointer shadow p-2 card" key={e.id}>
-                            <div className="d-flex justify-content-between mb-1">
+                            <div className="d-flex justify-content-between">
+                                <span className="fw-bold">{e.proveedor.descripcion}</span>
                                 <small className="text-muted">{e.created_at}</small>
-                                <span className={((e.estatus==0?"btn-danger":e.estatus==1?"btn-warning":e.estatus==2?"btn-success":""))+(" btn-sm btn pointer")}>
-                                    {e.estatus==0?"CREADA":""}
-                                    {e.estatus==1?"ENVIADA":""}
-                                    {e.estatus==2?"PROCESADA":""}
-                                </span>
+                                <span>{e.sucursal.codigo}</span>
                             </div>
                             <div>
                                 <div onClick={()=>setSelectCuentaPorPagarDetalle(e.id)} className="">
-                                    <span className={(i==factSelectIndex?"btn-success":"btn-sinapsis")+(" w-100 btn fs-3 pointer")}>{e.numfact}</span>
+                                    <span className={(e.monto>0?"btn-success":"btn-sinapsis")+(" w-100 btn fs-3 pointer")}>{e.numfact}</span>
                                 </div>
                             </div>
-                            <p>
-                                {e.proveedor.descripcion}
-                            </p>
-                            <div className="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between align-items-center">
+                                {e.monto_abonado?
+                                     <span className={("text-muted fs-6 fw-italic")}>ABONO {moneda(e.monto_abonado)}</span>
+                                : <span></span> }
+                                <span className={(e.monto<0? "text-danger": "text-success")+(" fs-2 fw-bold")}>{moneda(e.monto)}</span>
+                            </div>
+                            <div className="d-flex justify-content-between fst-italic fs-7">
                                 
-                                <div><span className="text-success fs-3">{moneda(e.monto)}</span></div>
+                                <span className="text-success">{e.fechaemision}</span>
+                                <span className="text-sinapsis ms-1">{e.fecharecepcion}</span>
+                                <span className="text-danger ms-1">{e.fechavencimiento}</span>
                             </div>
                         </div>
                     )
                     : null : null
                     
                 } 
+                <button className="btn boton-fijo-inferiorizq btn-sinapsis" type="button" onClick={()=>setcuentasporpagarDetallesView("pagos")}>
+                    <i className="fa fa-plus"></i>
+                </button>
             </>}          
         </div>
     )

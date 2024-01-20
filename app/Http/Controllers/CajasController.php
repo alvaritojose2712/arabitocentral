@@ -6,6 +6,9 @@ use App\Models\cajas;
 use App\Http\Requests\StorecajasRequest;
 use App\Http\Requests\UpdatecajasRequest;
 use App\Models\catcajas;
+use App\Models\cuentasporpagar;
+use App\Models\proveedores;
+use App\Models\sucursal;
 use Illuminate\Http\Request;
 use Response;
 class CajasController extends Controller
@@ -36,11 +39,8 @@ class CajasController extends Controller
                         "indice" => $catindice,
                         "nombre" => $catnombre,
                         "tipo" => $cattipo,
-
                     ]);
-                    
                     $setcategoria = $newcat->id; 
-
                 }
 
                 if (strpos($catnombre,"NOMINA")) {
@@ -52,34 +52,93 @@ class CajasController extends Controller
                     }
 
                 }
-                $arr_insert = [
-                    "montoeuro" => $e["montoeuro"],
-                    "eurobalance" => $e["eurobalance"],
 
-                    "responsable" => $e["responsable"],
-                    "asignar" => $e["asignar"],
-                    "concepto" => $e["concepto"],
-                    "categoria" => $setcategoria,
-                    "montodolar" => $e["montodolar"],
-                    "montopeso" => $e["montopeso"],
-                    "montobs" => $e["montobs"],
-                    "dolarbalance" => $e["dolarbalance"],
-                    "pesobalance" => $e["pesobalance"],
-                    "bsbalance" => $e["bsbalance"],
-                    "fecha" => $e["fecha"],
-                    "tipo" => $e["tipo"],
-                    "id_sucursal" => $id_sucursal,
-                    "idinsucursal" => $e["id"],
+                if (strpos($catnombre,"PAGO PROVEEDOR")) {
+                    $split = explode("=",$e["concepto"]);
+                    if (isset($split[2])) {
+                        $id_proveedor_caja = $split[2];
+
+                        $pro = proveedores::find($id_proveedor_caja);
+                        if ($pro) {
+                            $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:($e["montopeso"]?$e["montoeuro"]:0));
+                            $monto = $monto*-1;
+                            $idinsucursal_pago = "PAGO_".$id_proveedor_caja."_".$e["id"];
+                            $fecha_creada = date("Y-m-d", strtotime($e["created_at"]));
+                            $numfact_desc = "PAGO ".$pro->descripcion." ".$fecha_creada;
+
+                            (new CuentasporpagarController)->setPago([
+                                "id_sucursal" => $id_sucursal,
+                                "idinsucursal_pago" => $idinsucursal_pago,
+                                "id_proveedor_caja" => $id_proveedor_caja,
+                                "numfact_desc" => $numfact_desc,
+                                "monto" => $monto,
+                                "fecha_creada" => $fecha_creada,
+                            ]);
+                        }
+                    }
+                }
+                
+                
+                if (strpos($catnombre,"TODAS SUCURSALES")) {
+                    $todas_sucursales = sucursal::where("codigo","<>","administracion")->get();
+                    $divisor = $todas_sucursales->count(); 
+                    
+                    foreach ($todas_sucursales as $sucursal) {
+                        $arr_insert = [
+                            
+                            "montodolar" => $e["montodolar"]/$divisor,
+                            "montobs" => $e["montobs"]/$divisor,
+                            "montopeso" => $e["montopeso"]/$divisor,
+                            "montoeuro" => $e["montoeuro"]/$divisor,
+                            
+                            "dolarbalance" => $sucursal["id"]==$id_sucursal? $e["dolarbalance"]:0,
+                            "bsbalance" => $sucursal["id"]==$id_sucursal? $e["bsbalance"]:0,
+                            "pesobalance" => $sucursal["id"]==$id_sucursal? $e["pesobalance"]:0,
+                            "eurobalance" => $sucursal["id"]==$id_sucursal? $e["eurobalance"]:0,
+                            
+                            "concepto" => $e["concepto"]." - FRACCION 1/".$divisor,
+                            "categoria" => $setcategoria,
+                            
+                            "fecha" => $e["fecha"],
+                            "tipo" => $e["tipo"],
+                            "id_sucursal" => $sucursal["id"],
+                            "idinsucursal" => $e["id"].$sucursal["id"],
+                        ] ; 
+                        $cc =  cajas::updateOrCreate([
+                            "id_sucursal" => $sucursal["id"],
+                            "idinsucursal" => $e["id"].$sucursal["id"],
+                        ],$arr_insert);
+                    }
+                }else{
+                    $arr_insert = [
+                        "montoeuro" => $e["montoeuro"],
+                        "eurobalance" => $e["eurobalance"],
+    
+                        "concepto" => $e["concepto"],
+                        "categoria" => $setcategoria,
+                        "montodolar" => $e["montodolar"],
+                        "montopeso" => $e["montopeso"],
+                        "montobs" => $e["montobs"],
+                        "dolarbalance" => $e["dolarbalance"],
+                        "pesobalance" => $e["pesobalance"],
+                        "bsbalance" => $e["bsbalance"],
+                        "fecha" => $e["fecha"],
+                        "tipo" => $e["tipo"],
+                        "id_sucursal" => $id_sucursal,
+                        "idinsucursal" => $e["id"],
                     ] ; 
                     $cc =  cajas::updateOrCreate([
                         "id_sucursal" => $id_sucursal,
                         "idinsucursal" => $e["id"],
                         
                     ],$arr_insert);
+                }
 
-                    if ($cc) {
-                        $counter++;
-                    }
+
+
+                if ($cc) {
+                    $counter++;
+                }
             }
             return [
                 "msj" => "OK CAJAS ".$counter . " / ".$count_movs,

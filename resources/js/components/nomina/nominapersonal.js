@@ -38,12 +38,14 @@ export default function NominaPersonal({
     sucursales,
 
     subViewNominaGestion,
-    getPersonalCargos
+    getPersonalCargos,
+	getSucursales,
 }) {
 
     useEffect(() => {
         getPersonalNomina()
         getPersonalCargos()
+        getSucursales()
     }, [subViewNominaGestion])
       
 
@@ -203,10 +205,9 @@ export default function NominaPersonal({
 								}
 							</div>
 						</form>
-					</div>
+						<hr />
 
-					<div className="col">
-						<form onSubmit={getPersonalNomina}>
+						<form onSubmit={getPersonalNomina} className='mt-3'>
 							<div className="input-group ">
 								<input type="text"
 									className="form-control"
@@ -214,6 +215,8 @@ export default function NominaPersonal({
 									value={qNomina}
 									onChange={e => setqNomina(e.target.value)} />
 
+							</div>
+							<div className="input-group ">
                             
                                 <select
 									value={qSucursalNomina}
@@ -234,12 +237,14 @@ export default function NominaPersonal({
 									    <option key={e.id} value={e.id}>{e.cargosdescripcion}</option>
                                     )}
 								</select>
+
                                 
 
 								<div className="input-group-prepend">
 									<button className="btn btn-outline-secondary" type="button" onClick={getPersonalNomina}><i className="fa fa-search"></i></button>
 								</div>
 							</div>
+							
 						</form>
 						{
 							nominaData.personal?
@@ -275,6 +280,7 @@ export default function NominaPersonal({
 						}
 					</div>
 				</div>
+
 			</div>
 		</>
 	)

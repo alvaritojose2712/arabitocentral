@@ -21,6 +21,10 @@ class cuentasporpagar extends Model
         return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
     }
 
+    public function cuenta() { 
+        return $this->hasOne(\App\Models\cuentasporpagar::class,"id","id_cuentaporpagar"); 
+    }
+
     protected $fillable = [
         "id_proveedor",
         "id_sucursal",
@@ -41,5 +45,8 @@ class cuentasporpagar extends Model
         "frecuencia",
         "idinsucursal",
         "balance",
+
+        "monto_abonado",
+        "id_cuentaporpagar",
     ];
 }

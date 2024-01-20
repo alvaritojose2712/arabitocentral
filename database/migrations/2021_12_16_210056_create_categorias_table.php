@@ -19,7 +19,7 @@ class CreateCategoriasTable extends Migration
 
             $table->timestamps();
         });
-         DB::table("categorias")->insert([
+         /* DB::table("categorias")->insert([
             ["descripcion"=>"HERRERÍA"],
             ["descripcion"=>"PLOMERÍA"],
             ["descripcion"=>"ILUMINACIÓN"],
@@ -37,7 +37,7 @@ class CreateCategoriasTable extends Migration
             ["descripcion"=>"CHINOS"],
        
 
-        ]);
+        ]); */
     }
 
     /**

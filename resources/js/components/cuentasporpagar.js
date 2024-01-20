@@ -12,11 +12,12 @@ export default function Cuentasporpagar({
     selectCuentaPorPagarProveedorDetalles,
     selectCuentaPorPagarId,
     setSelectCuentaPorPagarId,
+
+    setviewmainPanel,
 }){
     return (
         <div>
             <form onSubmit={getsucursalDetallesData} className="input-group mb-2">
-                <button className="btn btn-sinapsis" ><i className="fa fa-plus"></i></button>
                 <input type="text" className="form-control" placeholder="Buscar proveedor" onChange={e=>setqcuentasPorPagar(e.target.value)} value={qcuentasPorPagar} />
                 <button className="btn btn-success"><i className="fa fa-search"></i></button>
             </form>
@@ -49,7 +50,11 @@ export default function Cuentasporpagar({
                 )
                 : null : null
                 
-            }           
+            } 
+
+            <button className="btn boton-fijo-inferiorizq btn-sinapsis" onClick={()=>setviewmainPanel("proveedores")} type="button">
+                <i className="fa fa-plus"></i>
+            </button>          
         </div>
     )
 }

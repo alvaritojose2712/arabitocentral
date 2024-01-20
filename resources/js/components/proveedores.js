@@ -20,7 +20,7 @@ function Proveedores({
   proveedoresList,
 
   delProveedor,
-
+  setviewmainPanel,
 }) {
 
  
@@ -39,54 +39,6 @@ function Proveedores({
       <div className="container">
         <div className="row">
           <div className="col">
-              <h1>Proveedores</h1>
-
-              <div className="">
-                <div className="input-group ">
-                  <input type="text" 
-                  className="form-control" 
-                  placeholder="Buscar..." 
-                  value={qBuscarProveedor} 
-                  onChange={e=>setQBuscarProveedor(e.target.value)}/>
-                  <div className="input-group-prepend">
-                    <button className="btn btn-outline-secondary" type="button"><i className="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
-              { 
-                proveedoresList.length
-                ? proveedoresList.map( (e,i) =>
-                  <div 
-                  onClick={setIndexSelectProveedoresFun} 
-                  data-index={i}
-                  key={e.id}
-                  className={(indexSelectProveedores==i?"bg-sinapsis":"bg-light text-secondary")+" card mt-2 pointer"}>
-                    <div className="card-header flex-row row justify-content-between">
-                      <div>
-                        <small>ID.{e.id}</small>
-                      </div>
-                      <div className="d-flex justify-content-between">
-                        <div><span>{e.rif}</span></div>
-                        <div><span className="">{e.telefono}</span></div>
-                      </div>
-                    </div>
-                    <div className="card-body">
-                      <div className="/personal/vermas">
-                        <h5 
-                        className="card-title"
-                        ><b>{e.descripcion}</b></h5>
-                      </div> 
-                      <p className="card-text">
-                      </p>
-                    </div>
-                  </div>
-                 )
-                : <div className='h3 text-center text-dark mt-2'><i>¡Sin resultados!</i></div>
-              }
-            
-          </div>
-          <div className="col">
-            
               <form onSubmit={setProveedor}>
                 <div className="form-group">
                   <label htmlFor="">
@@ -138,6 +90,54 @@ function Proveedores({
               </form>            
           </div>
         </div>
+        <div className="row">
+          <div className="col">
+              <h4 className="text-center">Proveedores</h4>
+              <div className="input-group ">
+                <input type="text" 
+                className="form-control" 
+                placeholder="Buscar..." 
+                value={qBuscarProveedor} 
+                onChange={e=>setQBuscarProveedor(e.target.value)}/>
+                <div className="input-group-prepend">
+                  <button className="btn btn-outline-secondary" type="button"><i className="fa fa-search"></i></button>
+                </div>
+              </div>
+              { 
+                proveedoresList.length
+                ? proveedoresList.map( (e,i) =>
+                  <div 
+                  onClick={setIndexSelectProveedoresFun} 
+                  data-index={i}
+                  key={e.id}
+                  className={(indexSelectProveedores==i?"bg-sinapsis":"bg-light text-secondary")+" card mt-2 pointer"}>
+                    <div className="card-header flex-row row justify-content-between">
+                      <div>
+                        <small>ID.{e.id}</small>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div><span>{e.rif}</span></div>
+                        <div><span className="">{e.telefono}</span></div>
+                      </div>
+                    </div>
+                    <div className="card-body">
+                      <div className="/personal/vermas">
+                        <h5 
+                        className="card-title"
+                        ><b>{e.descripcion}</b></h5>
+                      </div> 
+                      <p className="card-text">
+                      </p>
+                    </div>
+                  </div>
+                 )
+                : <div className='h3 text-center text-dark mt-2'><i>¡Sin resultados!</i></div>
+              }
+          </div>
+        </div>
+        <button className="btn boton-fijo-inferiorizq btn-sinapsis" onClick={()=>setviewmainPanel("efectivo")} type="button">
+          <i className="fa fa-list"></i>
+        </button> 
       </div>
     </>
   )

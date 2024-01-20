@@ -20,7 +20,7 @@ class CreateCatGeneralsTable extends Migration
             $table->timestamps();
         });
 
-        DB::table("cat_generals")->insert([
+        /* DB::table("cat_generals")->insert([
             ["descripcion"=>"TUBOS"],
             ["descripcion"=>"CONEXIONES"],
             ["descripcion"=>"ABRASIVOS"],
@@ -64,7 +64,7 @@ class CreateCatGeneralsTable extends Migration
             ["descripcion"=>"PLANCHA DE ROPA"],
             ["descripcion"=>"CHINOS"],
 
-        ]);
+        ]); */
     }
 
     /**

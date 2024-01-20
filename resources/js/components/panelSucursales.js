@@ -23,6 +23,7 @@ export default function PanelSucursales({
     getSucursales,
     getsucursalListData,
     getsucursalDetallesData,
+    changeLiquidacionPagoElec,
 
     sucursalDetallesData,
 
@@ -49,6 +50,18 @@ export default function PanelSucursales({
     setfiltronominacargo,
     getPersonalCargos,
     cargosData,
+
+    fechaSelectAuditoria,
+    setfechaSelectAuditoria,
+    BancoSelectAuditoria,
+    setBancoSelectAuditoria,
+    SaldoInicialSelectAuditoria,
+    setSaldoInicialSelectAuditoria,
+    SaldoActualSelectAuditoria,
+    setSaldoActualSelectAuditoria,
+    getCatGeneralFun,
+    getCatCajas,
+
 
 }) {
     useEffect(() => {
@@ -142,6 +155,16 @@ export default function PanelSucursales({
                             <Puntosyseriales
                                 getsucursalDetallesData={getsucursalDetallesData}
                                 sucursalDetallesData={sucursalDetallesData}
+                                changeLiquidacionPagoElec={changeLiquidacionPagoElec}
+
+                                fechaSelectAuditoria={fechaSelectAuditoria}
+                                setfechaSelectAuditoria={setfechaSelectAuditoria}
+                                BancoSelectAuditoria={BancoSelectAuditoria}
+                                setBancoSelectAuditoria={setBancoSelectAuditoria}
+                                SaldoInicialSelectAuditoria={SaldoInicialSelectAuditoria}
+                                setSaldoInicialSelectAuditoria={setSaldoInicialSelectAuditoria}
+                                SaldoActualSelectAuditoria={SaldoActualSelectAuditoria}
+                                setSaldoActualSelectAuditoria={setSaldoActualSelectAuditoria}
                             />
                             : null}
 
@@ -153,6 +176,9 @@ export default function PanelSucursales({
                                 controlefecSelectGeneral={controlefecSelectGeneral}
                                 setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
                                 moneda={moneda}
+                                getCatGeneralFun={getCatGeneralFun}
+                                getCatCajas={getCatCajas}
+
                             />
                             : null}
 

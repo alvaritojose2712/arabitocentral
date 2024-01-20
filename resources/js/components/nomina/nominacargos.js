@@ -46,7 +46,7 @@ export default function Nomina({
 				<div className="row">
 				<div className="col">
 						<h1>Cargos <button className="btn btn-sm btn-success" onClick={setNuevoCargo}>Nuevo</button></h1>
-						<form onSubmit={addPersonalCargos}>
+						<form onSubmit={addPersonalCargos} className='mb-3'>
 							<div className="form-group">
 								<label htmlFor="">
 									Descripción
@@ -78,8 +78,7 @@ export default function Nomina({
 								}
 							</div>
 						</form>
-					</div>
-					<div className="col">
+						<hr />
 						<form onSubmit={getPersonalCargos}>
 							<div className="input-group ">
 								<input type="text"
@@ -119,8 +118,6 @@ export default function Nomina({
 								: <div className='h3 text-center text-dark mt-2'><i>¡Sin resultados!</i></div>
 						}
 					</div>
-					
-					
 				</div>
 			</div>
 		</>

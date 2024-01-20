@@ -4,6 +4,7 @@ use App\Http\Controllers\CajasAprobacionController;
 use App\Http\Controllers\CajasController;
 use App\Http\Controllers\CatcajasController;
 use App\Http\Controllers\CuentasporpagarController;
+use App\Http\Controllers\PuntosybiopagosController;
 use App\Http\Controllers\UltimainformacioncargadaController;
 use Illuminate\Support\Facades\Route;
 
@@ -130,6 +131,7 @@ Route::post('verificarMovPenControlEfec', [CajasAprobacionController::class,"ver
 Route::post('sendFacturaCentral', [CuentasporpagarController::class,"sendFacturaCentral"]);
 Route::post('getAllProveedores', [ProveedoresController::class,"getAllProveedores"]);
 Route::post('selectCuentaPorPagarProveedorDetalles', [CuentasporpagarController::class,"selectCuentaPorPagarProveedorDetalles"]);
+Route::post('saveNewFact', [CuentasporpagarController::class,"saveNewFact"]);
 
 Route::post('selectPrecioxProveedorSave', [ProductoxproveedorController::class,"selectPrecioxProveedorSave"]);
 Route::post('getPrecioxProveedor', [ProductoxproveedorController::class,"getPrecioxProveedor"]);
@@ -197,6 +199,8 @@ Route::post('setCatGenerals', [CatGeneralsController::class,"setCatGenerals"]);
 Route::get('getMarcas', [MarcasController::class,"getMarcas"]);
 Route::post('delMarca', [MarcasController::class,"delMarca"]);
 Route::post('setMarcas', [MarcasController::class,"setMarcas"]);
+Route::post('changeLiquidacionPagoElec', [PuntosybiopagosController::class,"changeLiquidacionPagoElec"]);
+Route::post('sendPagoCuentaPorPagar', [CuentasporpagarController::class,"sendPagoCuentaPorPagar"]);
 
 
 
