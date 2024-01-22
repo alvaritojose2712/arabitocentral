@@ -20,130 +20,136 @@ class CajasController extends Controller
             $counter =0;
             $last = 0;
 
-            foreach ($movs as $e) {
-                if ($last<$e["id"]) {
-                    $last=$e["id"];
-                }
-
-                $catnombre = $e["cat"]["nombre"];
-                $cattipo = $e["cat"]["tipo"];
-                $catindice = $e["cat"]["indice"];
-                $checkcatcajas = catcajas::where("nombre",$catnombre)->where("tipo",$cattipo)->first();
-                if ($checkcatcajas) {
-                    $setcategoria = $checkcatcajas->id;
-                }else{
-                    $newcat = catcajas::updateOrCreate([
-                        "nombre" => $catnombre,
-                        "tipo" => $cattipo,
-                    ],[
-                        "indice" => $catindice,
-                        "nombre" => $catnombre,
-                        "tipo" => $cattipo,
-                    ]);
-                    $setcategoria = $newcat->id; 
-                }
-
-                if (strpos($catnombre,"NOMINA")) {
-                    $split = explode("=",$e["concepto"]);
-                    if (isset($split[1])) {
-                        $ci = $split[1];
-                        $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:$e["montopeso"]);
-                        (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $e["id"]);
+            if ($count_movs) {
+                foreach ($movs as $e) {
+                    if ($last<$e["id"]) {
+                        $last=$e["id"];
                     }
-
-                }
-
-                if (strpos($catnombre,"PAGO PROVEEDOR")) {
-                    $split = explode("=",$e["concepto"]);
-                    if (isset($split[2])) {
-                        $id_proveedor_caja = $split[2];
-
-                        $pro = proveedores::find($id_proveedor_caja);
-                        if ($pro) {
-                            $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:($e["montopeso"]?$e["montoeuro"]:0));
-                            $monto = $monto*-1;
-                            $idinsucursal_pago = "PAGO_".$id_proveedor_caja."_".$e["id"];
-                            $fecha_creada = date("Y-m-d", strtotime($e["created_at"]));
-                            $numfact_desc = "PAGO ".$pro->descripcion." ".$fecha_creada;
-
-                            (new CuentasporpagarController)->setPago([
-                                "id_sucursal" => $id_sucursal,
-                                "idinsucursal_pago" => $idinsucursal_pago,
-                                "id_proveedor_caja" => $id_proveedor_caja,
-                                "numfact_desc" => $numfact_desc,
-                                "monto" => $monto,
-                                "fecha_creada" => $fecha_creada,
-                            ]);
+    
+                    $catnombre = $e["cat"]["nombre"];
+                    $cattipo = $e["cat"]["tipo"];
+                    $catindice = $e["cat"]["indice"];
+                    $checkcatcajas = catcajas::where("nombre",$catnombre)->where("tipo",$cattipo)->first();
+                    if ($checkcatcajas) {
+                        $setcategoria = $checkcatcajas->id;
+                    }else{
+                        $newcat = catcajas::updateOrCreate([
+                            "nombre" => $catnombre,
+                            "tipo" => $cattipo,
+                        ],[
+                            "indice" => $catindice,
+                            "nombre" => $catnombre,
+                            "tipo" => $cattipo,
+                        ]);
+                        $setcategoria = $newcat->id; 
+                    }
+    
+                    if (strpos($catnombre,"NOMINA")) {
+                        $split = explode("=",$e["concepto"]);
+                        if (isset($split[1])) {
+                            $ci = $split[1];
+                            $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:$e["montopeso"]);
+                            (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $e["id"]);
+                        }
+    
+                    }
+    
+                    if (strpos($catnombre,"PAGO PROVEEDOR")) {
+                        $split = explode("=",$e["concepto"]);
+                        if (isset($split[2])) {
+                            $id_proveedor_caja = $split[2];
+    
+                            $pro = proveedores::find($id_proveedor_caja);
+                            if ($pro) {
+                                $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:($e["montopeso"]?$e["montoeuro"]:0));
+                                $monto = $monto*-1;
+                                $idinsucursal_pago = "PAGO_".$id_proveedor_caja."_".$e["id"];
+                                $fecha_creada = date("Y-m-d", strtotime($e["created_at"]));
+                                $numfact_desc = "PAGO ".$pro->descripcion." ".$fecha_creada;
+    
+                                (new CuentasporpagarController)->setPago([
+                                    "id_sucursal" => $id_sucursal,
+                                    "idinsucursal_pago" => $idinsucursal_pago,
+                                    "id_proveedor_caja" => $id_proveedor_caja,
+                                    "numfact_desc" => $numfact_desc,
+                                    "monto" => $monto,
+                                    "fecha_creada" => $fecha_creada,
+                                ]);
+                            }
                         }
                     }
-                }
-                
-                
-                if (strpos($catnombre,"TODAS SUCURSALES")) {
-                    $todas_sucursales = sucursal::where("codigo","<>","administracion")->get();
-                    $divisor = $todas_sucursales->count(); 
                     
-                    foreach ($todas_sucursales as $sucursal) {
+                    
+                    if (strpos($catnombre,"TODAS SUCURSALES")) {
+                        $todas_sucursales = sucursal::where("codigo","<>","administracion")->get();
+                        $divisor = $todas_sucursales->count(); 
+                        foreach ($todas_sucursales as $key => $sucursal) {
+                            $arr_insert = [
+                                
+                                "montodolar" => $e["montodolar"]/$divisor,
+                                "montobs" => $e["montobs"]/$divisor,
+                                "montopeso" => $e["montopeso"]/$divisor,
+                                "montoeuro" => $e["montoeuro"]/$divisor,
+                                
+                                "dolarbalance" => $sucursal["id"]==$id_sucursal? $e["dolarbalance"]:0,
+                                "bsbalance" => $sucursal["id"]==$id_sucursal? $e["bsbalance"]:0,
+                                "pesobalance" => $sucursal["id"]==$id_sucursal? $e["pesobalance"]:0,
+                                "eurobalance" => $sucursal["id"]==$id_sucursal? $e["eurobalance"]:0,
+                                
+                                "concepto" => $e["concepto"]." - FRACCION 1/".$divisor,
+                                "categoria" => $setcategoria,
+                                
+                                "fecha" => $e["fecha"],
+                                "tipo" => $e["tipo"],
+                                "id_sucursal" => $sucursal["id"],
+                                "idinsucursal" => $e["id"].$sucursal["id"],
+                            ] ; 
+                            $cc =  cajas::updateOrCreate([
+                                "id_sucursal" => $sucursal["id"],
+                                "idinsucursal" => $e["id"].$sucursal["id"],
+                            ],$arr_insert);
+                        }
+                    }else{
                         $arr_insert = [
-                            
-                            "montodolar" => $e["montodolar"]/$divisor,
-                            "montobs" => $e["montobs"]/$divisor,
-                            "montopeso" => $e["montopeso"]/$divisor,
-                            "montoeuro" => $e["montoeuro"]/$divisor,
-                            
-                            "dolarbalance" => $sucursal["id"]==$id_sucursal? $e["dolarbalance"]:0,
-                            "bsbalance" => $sucursal["id"]==$id_sucursal? $e["bsbalance"]:0,
-                            "pesobalance" => $sucursal["id"]==$id_sucursal? $e["pesobalance"]:0,
-                            "eurobalance" => $sucursal["id"]==$id_sucursal? $e["eurobalance"]:0,
-                            
-                            "concepto" => $e["concepto"]." - FRACCION 1/".$divisor,
+                            "montoeuro" => $e["montoeuro"],
+                            "eurobalance" => $e["eurobalance"],
+        
+                            "concepto" => $e["concepto"],
                             "categoria" => $setcategoria,
-                            
+                            "montodolar" => $e["montodolar"],
+                            "montopeso" => $e["montopeso"],
+                            "montobs" => $e["montobs"],
+                            "dolarbalance" => $e["dolarbalance"],
+                            "pesobalance" => $e["pesobalance"],
+                            "bsbalance" => $e["bsbalance"],
                             "fecha" => $e["fecha"],
                             "tipo" => $e["tipo"],
-                            "id_sucursal" => $sucursal["id"],
-                            "idinsucursal" => $e["id"].$sucursal["id"],
+                            "id_sucursal" => $id_sucursal,
+                            "idinsucursal" => $e["id"],
                         ] ; 
                         $cc =  cajas::updateOrCreate([
-                            "id_sucursal" => $sucursal["id"],
-                            "idinsucursal" => $e["id"].$sucursal["id"],
+                            "id_sucursal" => $id_sucursal,
+                            "idinsucursal" => $e["id"],
+                            
                         ],$arr_insert);
                     }
-                }else{
-                    $arr_insert = [
-                        "montoeuro" => $e["montoeuro"],
-                        "eurobalance" => $e["eurobalance"],
     
-                        "concepto" => $e["concepto"],
-                        "categoria" => $setcategoria,
-                        "montodolar" => $e["montodolar"],
-                        "montopeso" => $e["montopeso"],
-                        "montobs" => $e["montobs"],
-                        "dolarbalance" => $e["dolarbalance"],
-                        "pesobalance" => $e["pesobalance"],
-                        "bsbalance" => $e["bsbalance"],
-                        "fecha" => $e["fecha"],
-                        "tipo" => $e["tipo"],
-                        "id_sucursal" => $id_sucursal,
-                        "idinsucursal" => $e["id"],
-                    ] ; 
-                    $cc =  cajas::updateOrCreate([
-                        "id_sucursal" => $id_sucursal,
-                        "idinsucursal" => $e["id"],
-                        
-                    ],$arr_insert);
+    
+    
+                    if ($cc) {
+                        $counter++;
+                    }
                 }
-
-
-
-                if ($cc) {
-                    $counter++;
-                }
+                return [
+                    "msj" => "OK CAJAS ".$counter . " / ".$count_movs,
+                    "last" => $last
+                ];
+            }else{
+                return [
+                    "msj" => "OK CAJAS ".$counter . " / ".$count_movs,
+                    "last" => 0
+                ];
             }
-            return [
-                "msj" => "OK CAJAS ".$counter . " / ".$count_movs,
-                "last" => $last
-            ];
         } catch (\Exception $e) {
             return "ERROR EN setEfecFromSucursalToCentral ".$e->getMessage()." ".$e->getLine();
         }

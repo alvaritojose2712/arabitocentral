@@ -1664,6 +1664,7 @@ function Home() {
     setselectFactEdit(id)
     setcuentasporpagarDetallesView("pagos")
     setsubviewAgregarFactPago("factura")
+    setselectFactEdit(null)
 
     if (SelectCuentaPorPagarDetalle) {
       console.log(SelectCuentaPorPagarDetalle)
@@ -2374,7 +2375,11 @@ function Home() {
     ]
     let catfilter = categoriasCajas.filter(e=>e.indice==id_cat)
     if (catfilter.length) {
+      if (catfilter[0].catgeneral) {
         return catgeneralList[catfilter[0].catgeneral]
+      }else{
+        return {color:"", nombre:""}
+      }
     }
 
     return {color:"", nombre:""}

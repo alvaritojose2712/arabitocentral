@@ -62594,6 +62594,7 @@ function Home() {
     setselectFactEdit(id);
     setcuentasporpagarDetallesView("pagos");
     setsubviewAgregarFactPago("factura");
+    setselectFactEdit(null);
     if (SelectCuentaPorPagarDetalle) {
       console.log(SelectCuentaPorPagarDetalle);
       console.log(selectCuentaPorPagarId.detalles);
@@ -63354,7 +63355,14 @@ function Home() {
       return e.indice == id_cat;
     });
     if (catfilter.length) {
-      return catgeneralList[catfilter[0].catgeneral];
+      if (catfilter[0].catgeneral) {
+        return catgeneralList[catfilter[0].catgeneral];
+      } else {
+        return {
+          color: "",
+          nombre: ""
+        };
+      }
     }
     return {
       color: "",

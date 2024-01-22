@@ -42,10 +42,8 @@ class CierresController extends Controller
         
         $sendCreditos = (new CreditosController)->sendCreditos($req->sendCreditos, $id_sucursal);
 
-        
-
-        if (!isset($setCierreFromSucursalToCentral["last"])) {return "setCierreFromSucursalToCentral: ".$setCierreFromSucursalToCentral;}
         if (!isset($setEfecFromSucursalToCentral["last"])) {return "setEfecFromSucursalToCentral: ".$setEfecFromSucursalToCentral;}
+        if (!isset($setCierreFromSucursalToCentral["last"])) {return "setCierreFromSucursalToCentral: ".$setCierreFromSucursalToCentral;}
         if (!isset($sendGarantias["last"])) {return "sendGarantias: ".$sendGarantias;}
         if (!isset($sendFallas["last"])) {return "sendFallas: ".$sendFallas;}
         if (!isset($sendCreditos["last"])) {return "sendCreditos: ".$sendCreditos;}
