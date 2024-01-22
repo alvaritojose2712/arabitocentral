@@ -30,7 +30,7 @@ class CajasController extends Controller
                     $catindice = $e["cat"]["indice"];
                     $checkcatcajas = catcajas::where("nombre",$catnombre)->where("tipo",$cattipo)->first();
                     if ($checkcatcajas) {
-                        $setcategoria = $checkcatcajas->id;
+                        $setcategoria = $checkcatcajas->indice;
                     }else{
                         $newcat = catcajas::updateOrCreate([
                             "nombre" => $catnombre,
@@ -40,7 +40,7 @@ class CajasController extends Controller
                             "nombre" => $catnombre,
                             "tipo" => $cattipo,
                         ]);
-                        $setcategoria = $newcat->id; 
+                        $setcategoria = $catindice; 
                     }
     
                     if (strpos($catnombre,"NOMINA")) {
