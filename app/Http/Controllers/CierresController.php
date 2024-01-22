@@ -39,7 +39,7 @@ class CierresController extends Controller
         $sendFallas = (new FallasController)->sendFallas($req->sendFallas, $id_sucursal);
         $setCierreFromSucursalToCentral = (new CierresController)->setCierreFromSucursalToCentral($req->setCierreFromSucursalToCentral, $id_sucursal);
         $setEfecFromSucursalToCentral = (new CajasController)->setEfecFromSucursalToCentral($req->setEfecFromSucursalToCentral, $id_sucursal);
-        
+
         $sendCreditos = (new CreditosController)->sendCreditos($req->sendCreditos, $id_sucursal);
 
         if (!isset($setEfecFromSucursalToCentral["last"])) {return "setEfecFromSucursalToCentral: ".$setEfecFromSucursalToCentral;}

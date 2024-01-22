@@ -102,17 +102,18 @@ class CuentasporpagarController extends Controller
         $cuenta = $this->setCuentaPorPagar($arrinsert,$search);        
         
         if ($cuenta) {
-            foreach ($selectAbonoFact as $e) {
-                $update_cuenta = cuentasporpagar::find($e["id"]);
-                $update_cuenta->monto_abonado = $e["val"];
-                $update_cuenta->id_cuentaporpagar = $cuenta->id;
-                if ($update_cuenta->save()) {
-                    return $cuenta;
+            if ($selectAbonoFact) {
+                if (count($selectAbonoFact)) {
+                    foreach ($selectAbonoFact as $e) {
+                        $update_cuenta = cuentasporpagar::find($e["id"]);
+                        $update_cuenta->monto_abonado = $e["val"];
+                        $update_cuenta->id_cuentaporpagar = $cuenta->id;
+                        if ($update_cuenta->save()) {
+                            return $cuenta;
+                        }
+                    }
                 }
             }
-            
-
-            
         }
     }
     function sendFacturaCentral(Request $req){

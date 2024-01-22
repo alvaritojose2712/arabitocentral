@@ -3128,6 +3128,9 @@ function CuentasporpagarDetalles(_ref) {
       }
     }
   }
+  var setInputsNewFact = function setInputsNewFact() {
+    setselectFactEdit(null);
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     className: "container mb-4",
     children: SelectCuentaPorPagarDetalle ? dataCuenta ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
@@ -3189,43 +3192,43 @@ function CuentasporpagarDetalles(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               children: "SUBTOTAL"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: dataCuenta.subtotal
+              className: dataCuenta.subtotal < 0 ? "text-danger" : "text-success",
+              children: moneda(dataCuenta.subtotal)
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               children: "DESCUENTO"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: dataCuenta.descuento
+              className: dataCuenta.descuento < 0 ? "text-danger" : "text-success",
+              children: moneda(dataCuenta.descuento)
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               children: "MONTO EXENTO"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: dataCuenta.monto_exento
+              className: dataCuenta.monto_exento < 0 ? "text-danger" : "text-success",
+              children: moneda(dataCuenta.monto_exento)
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               children: "MONTO GRAVABLE"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: dataCuenta.monto_gravable
+              className: dataCuenta.monto_gravable < 0 ? "text-danger" : "text-success",
+              children: moneda(dataCuenta.monto_gravable)
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               children: "IVA"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: dataCuenta.iva
+              className: dataCuenta.iva < 0 ? "text-danger" : "text-success",
+              children: moneda(dataCuenta.iva)
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               children: "TOTAL"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: dataCuenta.monto
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              children: "BALANCE"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: dataCuenta.balance
+              className: dataCuenta.monto < 0 ? "text-danger" : "text-success",
+              children: moneda(dataCuenta.monto)
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
@@ -3499,7 +3502,8 @@ function CuentasporpagarDetalles(_ref) {
         className: "btn boton-fijo-inferiorizq btn-sinapsis",
         type: "button",
         onClick: function onClick() {
-          return setcuentasporpagarDetallesView("pagos");
+          setcuentasporpagarDetallesView("pagos");
+          setInputsNewFact();
         },
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
           className: "fa fa-plus"
@@ -62594,10 +62598,7 @@ function Home() {
     setselectFactEdit(id);
     setcuentasporpagarDetallesView("pagos");
     setsubviewAgregarFactPago("factura");
-    setselectFactEdit(null);
     if (SelectCuentaPorPagarDetalle) {
-      console.log(SelectCuentaPorPagarDetalle);
-      console.log(selectCuentaPorPagarId.detalles);
       if (selectCuentaPorPagarId) {
         if (selectCuentaPorPagarId.detalles) {
           var f = selectCuentaPorPagarId.detalles.filter(function (e) {
@@ -62656,6 +62657,7 @@ function Home() {
               }).then(function (res) {
                 notificar(res);
                 if (res.data.estado) {
+                  setselectFactEdit(null);
                   selectCuentaPorPagarProveedorDetallesFun(id_proveedor);
                   setcuentasporpagarDetallesView("cuentas");
                   setnewfactid_proveedor("");

@@ -56,6 +56,9 @@ export default function CuentasporpagarDetalles({
             }
         }
     }
+    const setInputsNewFact = () => {
+        setselectFactEdit(null)
+    }
     return (
         <div className="container mb-4">
             {
@@ -97,32 +100,29 @@ export default function CuentasporpagarDetalles({
                             </tr>
                             <tr>
                                 <th>SUBTOTAL</th>
-                                <td>{dataCuenta.subtotal}</td>
+                                <td className={dataCuenta.subtotal<0?"text-danger":("text-success")}>{moneda(dataCuenta.subtotal)}</td>
                             </tr>
                             <tr>
                                 <th>DESCUENTO</th>
-                                <td>{dataCuenta.descuento}</td>
+                                <td className={dataCuenta.descuento<0?"text-danger":("text-success")}>{moneda(dataCuenta.descuento)}</td>
                             </tr>
                             <tr>
                                 <th>MONTO EXENTO</th>
-                                <td>{dataCuenta.monto_exento}</td>
+                                <td className={dataCuenta.monto_exento<0?"text-danger":("text-success")}>{moneda(dataCuenta.monto_exento)}</td>
                             </tr>
                             <tr>
                                 <th>MONTO GRAVABLE</th>
-                                <td>{dataCuenta.monto_gravable}</td>
+                                <td className={dataCuenta.monto_gravable<0?"text-danger":("text-success")}>{moneda(dataCuenta.monto_gravable)}</td>
                             </tr>
                             <tr>
                                 <th>IVA</th>
-                                <td>{dataCuenta.iva}</td>
+                                <td className={dataCuenta.iva<0?"text-danger":("text-success")}>{moneda(dataCuenta.iva)}</td>
                             </tr>
                             <tr>
                                 <th>TOTAL</th>
-                                <td>{dataCuenta.monto}</td>
+                                <td className={dataCuenta.monto<0?"text-danger":("text-success")}>{moneda(dataCuenta.monto)}</td>
                             </tr>
-                            <tr>
-                                <th>BALANCE</th>
-                                <td>{dataCuenta.balance}</td>
-                            </tr>
+                            
                             <tr>
                                 <th>EMISIÓN</th>
                                 <td className="text-success">{dataCuenta.fechaemision}</td>
@@ -261,7 +261,13 @@ export default function CuentasporpagarDetalles({
                     : null : null
                     
                 } 
-                <button className="btn boton-fijo-inferiorizq btn-sinapsis" type="button" onClick={()=>setcuentasporpagarDetallesView("pagos")}>
+                <button className="btn boton-fijo-inferiorizq btn-sinapsis" type="button" 
+                    onClick={()=>{
+                            setcuentasporpagarDetallesView("pagos");
+                            setInputsNewFact()
+                        }
+                    }
+                >
                     <i className="fa fa-plus"></i>
                 </button>
             </>}          

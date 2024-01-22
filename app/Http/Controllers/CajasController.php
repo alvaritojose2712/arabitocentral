@@ -15,11 +15,10 @@ class CajasController extends Controller
 {
     function setEfecFromSucursalToCentral($movs, $id_sucursal) {
 
-        try {
+        
             $count_movs = count($movs);
             $counter =0;
             $last = 0;
-
             if ($count_movs) {
                 foreach ($movs as $e) {
                     if ($last<$e["id"]) {
@@ -53,7 +52,6 @@ class CajasController extends Controller
                         }
     
                     }
-    
                     if (strpos($catnombre,"PAGO PROVEEDOR")) {
                         $split = explode("=",$e["concepto"]);
                         if (isset($split[2])) {
@@ -78,8 +76,6 @@ class CajasController extends Controller
                             }
                         }
                     }
-                    
-                    
                     if (strpos($catnombre,"TODAS SUCURSALES")) {
                         $todas_sucursales = sucursal::where("codigo","<>","administracion")->get();
                         $divisor = $todas_sucursales->count(); 
@@ -134,8 +130,6 @@ class CajasController extends Controller
                         ],$arr_insert);
                     }
     
-    
-    
                     if ($cc) {
                         $counter++;
                     }
@@ -150,8 +144,6 @@ class CajasController extends Controller
                     "last" => 0
                 ];
             }
-        } catch (\Exception $e) {
-            return "ERROR EN setEfecFromSucursalToCentral ".$e->getMessage()." ".$e->getLine();
-        }
+        
     }
 }

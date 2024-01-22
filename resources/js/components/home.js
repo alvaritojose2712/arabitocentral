@@ -1664,11 +1664,7 @@ function Home() {
     setselectFactEdit(id)
     setcuentasporpagarDetallesView("pagos")
     setsubviewAgregarFactPago("factura")
-    setselectFactEdit(null)
-
     if (SelectCuentaPorPagarDetalle) {
-      console.log(SelectCuentaPorPagarDetalle)
-      console.log(selectCuentaPorPagarId.detalles)
         if (selectCuentaPorPagarId) {
             if (selectCuentaPorPagarId.detalles) {
                 let f = selectCuentaPorPagarId.detalles.filter(e=>e.id==SelectCuentaPorPagarDetalle)
@@ -1726,6 +1722,7 @@ function Home() {
                     }).then(res=>{
                       notificar(res)
                       if (res.data.estado) {
+                        setselectFactEdit(null)
                         selectCuentaPorPagarProveedorDetallesFun(id_proveedor)
                         setcuentasporpagarDetallesView("cuentas")
 
