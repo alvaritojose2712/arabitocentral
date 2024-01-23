@@ -262,6 +262,19 @@ i{
   bottom: 10px;
   right: 10px;
 }
+
+.boton-fijo-inferiorder{
+  width: 30px;
+  height: 30px;
+  padding: 7px 10px;
+  border-radius: 25px;
+  font-size: 10px;
+  text-align: center;
+  position: fixed;
+
+  bottom: 10px;
+  left: 10px;
+}
 .btn-circle.btn-sm {
     width: 30px;
     height: 30px;
@@ -521,11 +534,13 @@ body{
 }
 
 .arabito_desc {
-  background: linear-gradient(180deg,#f26d0a,#ffa969 12%,rgba(255,255,255,0) 85%)
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(242,109,10,0.6206815489867823) 71%, rgba(242,109,10,1) 100%); 
 }
 
 .arabito_asc {
-  background: linear-gradient(180deg,rgba(255,255,255,0) 50%,#ffa969 103%, #f26d0a 140%)
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,109,10,0.6206815489867823) 71%, rgba(242,109,10,1) 100%); 
 }
 
 @charset "UTF-8";

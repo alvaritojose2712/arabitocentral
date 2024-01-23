@@ -1629,9 +1629,11 @@ function Home() {
 
   const [selectCuentaPorPagarId, setSelectCuentaPorPagarId] = useState(null)
   const [qcuentasPorPagarDetalles, setqcuentasPorPagarDetalles] = useState("")
-
-  const [qCampocuentasPorPagarDetalles, setqCampocuentasPorPagarDetalles] = useState("numfact")
-  const [qFechaCampocuentasPorPagarDetalles, setqFechaCampocuentasPorPagarDetalles] = useState("created_at")
+  
+  
+  const [qcuentasPorPagarTipoFact, setqcuentasPorPagarTipoFact] = useState("")
+  const [qCampocuentasPorPagarDetalles, setqCampocuentasPorPagarDetalles] = useState("created_at")
+  const [qFechaCampocuentasPorPagarDetalles, setqFechaCampocuentasPorPagarDetalles] = useState("")
   const [fechacuentasPorPagarDetalles, setfechacuentasPorPagarDetalles] = useState("")
   const [categoriacuentasPorPagarDetalles, setcategoriacuentasPorPagarDetalles] = useState("")
   const [tipocuentasPorPagarDetalles, settipocuentasPorPagarDetalles] = useState("")
@@ -1659,6 +1661,7 @@ function Home() {
   const [newfacttipo, setnewfacttipo] = useState("")
   const [newfactfrecuencia, setnewfactfrecuencia] = useState("")
   const [selectFactEdit, setselectFactEdit] = useState(null)
+  const [selectProveedorCxp, setselectProveedorCxp] = useState(null)
   
   const modeEditarFact = id => {
     setselectFactEdit(id)
@@ -1755,6 +1758,7 @@ function Home() {
   }
   const selectCuentaPorPagarProveedorDetalles = (id) => {
     selectCuentaPorPagarProveedorDetallesFun(id)
+    setselectProveedorCxp(id)
   }
 
   const selectFacturaSetPago = (id,numfact) => {
@@ -1766,22 +1770,20 @@ function Home() {
   const selectCuentaPorPagarProveedorDetallesFun = id => {
     db.selectCuentaPorPagarProveedorDetalles({
       id,
-      qcuentasPorPagarDetalles,
-      qCampocuentasPorPagarDetalles,
-      qFechaCampocuentasPorPagarDetalles,
-      fechacuentasPorPagarDetalles,
+      
       categoriacuentasPorPagarDetalles,
       tipocuentasPorPagarDetalles,
+      qcuentasPorPagarTipoFact,
       
+      qCampocuentasPorPagarDetalles,
+      qcuentasPorPagarDetalles,
       OrdercuentasPorPagarDetalles,
-      OrderFechacuentasPorPagarDetalles,
     }).then(res=>{
       if (res.data) {
         if (res.data.detalles.length) {
           setSelectCuentaPorPagarId(res.data)
         }else{
-          setSelectCuentaPorPagarId(null)
-          notificar("Sin detalles")
+          setSelectCuentaPorPagarId([])
         }
       }
     })
@@ -2374,6 +2376,8 @@ function Home() {
     if (catfilter.length) {
       if (catfilter[0].catgeneral) {
         return catgeneralList[catfilter[0].catgeneral]
+      }else if(catfilter[0].catgeneral==0){
+        return catgeneralList[catfilter[0].catgeneral]
       }else{
         return {color:"", nombre:""}
       }
@@ -2685,6 +2689,8 @@ function Home() {
                         factSelectIndex={factSelectIndex}
                         moneda={moneda}
 
+                        setqcuentasPorPagarTipoFact={setqcuentasPorPagarTipoFact}
+                        qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
                         qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
                         setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
                         qFechaCampocuentasPorPagarDetalles={qFechaCampocuentasPorPagarDetalles}
@@ -2703,6 +2709,11 @@ function Home() {
                         setSelectCuentaPorPagarDetalle={setSelectCuentaPorPagarDetalle}
                         SelectCuentaPorPagarDetalle={SelectCuentaPorPagarDetalle}
                         modeEditarFact={modeEditarFact}
+                        setselectFactEdit={setselectFactEdit}
+                        selectProveedorCxp={selectProveedorCxp}
+                        setselectProveedorCxp={setselectProveedorCxp}
+                        setcuentasPagosDescripcion={setcuentasPagosDescripcion}
+                        setcuentasPagosMonto={setcuentasPagosMonto}
                       />
                     :null}
 
@@ -2853,6 +2864,7 @@ function Home() {
 
           {viewmainPanel === "proveedores" && 
             <Proveedores
+              getProveedores={getProveedores}
               setviewmainPanel={setviewmainPanel}
               number={number}
               setProveedor={setProveedor}

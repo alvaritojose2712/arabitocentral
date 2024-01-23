@@ -118,7 +118,10 @@ export default function Controldeefectivo({
                                             <td>{e.sucursal.codigo}</td>
                                             <td className=""><small className="text-muted">{e.created_at}</small></td>
                                             <td className="">
-                                                <button className="btn w-100 btn-sm" style={{color:"white",fontWeight:"bold",backgroundColor:getCatGeneralFun(e.categoria).color}}>{getCatGeneralFun(e.categoria).nombre}</button>
+                                                <button className="btn w-100 btn-sm" 
+                                                    style={{color:"white",fontWeight:"bold",backgroundColor:getCatGeneralFun(e.categoria).color}}>
+                                                        {getCatGeneralFun(e.categoria).nombre}
+                                                </button>
                                             </td>
                                             <td className="w-20">{e.cat.nombre}</td>
                                             <td className="">{e.concepto}</td>

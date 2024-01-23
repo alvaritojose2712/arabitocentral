@@ -106,7 +106,11 @@ class CuentasporpagarController extends Controller
                 if (count($selectAbonoFact)) {
                     foreach ($selectAbonoFact as $e) {
                         $update_cuenta = cuentasporpagar::find($e["id"]);
-                        $update_cuenta->monto_abonado = $e["val"];
+                        if ($update_cuenta->monto_abonado) {
+                            $update_cuenta->monto_abonado = $update_cuenta->monto_abonado+ $e["val"];
+                        }else{
+                            $update_cuenta->monto_abonado = $e["val"];
+                        }
                         $update_cuenta->id_cuentaporpagar = $cuenta->id;
                         if ($update_cuenta->save()) {
                             return $cuenta;
@@ -270,19 +274,18 @@ class CuentasporpagarController extends Controller
     }
 
     function selectCuentaPorPagarProveedorDetalles(Request $req) {
+        
         $id = $req->id;
-        $qCampocuentasPorPagarDetalles = $req->qCampocuentasPorPagarDetalles;
-        $qcuentasPorPagarDetalles = $req->qcuentasPorPagarDetalles;
-
-
-        $qFechaCampocuentasPorPagarDetalles = $req->qFechaCampocuentasPorPagarDetalles;
-        $fechacuentasPorPagarDetalles = $req->fechacuentasPorPagarDetalles;
+        
         $categoriacuentasPorPagarDetalles = $req->categoriacuentasPorPagarDetalles;
         $tipocuentasPorPagarDetalles = $req->tipocuentasPorPagarDetalles;
-
-        $OrdercuentasPorPagarDetalles = $req->OrdercuentasPorPagarDetalles;
-        $OrderFechacuentasPorPagarDetalles = $req->OrderFechacuentasPorPagarDetalles;
+        $qcuentasPorPagarTipoFact = $req->qcuentasPorPagarTipoFact;
         
+        $qCampocuentasPorPagarDetalles = $req->qCampocuentasPorPagarDetalles;
+        $qcuentasPorPagarDetalles = $req->qcuentasPorPagarDetalles;
+        $OrdercuentasPorPagarDetalles = $req->OrdercuentasPorPagarDetalles;
+        
+        $today = new \DateTime((new NominaController)->today());
         $detalles = cuentasporpagar::with(["sucursal","proveedor","cuenta"])
         ->where("id_proveedor",$id)
         ->when($categoriacuentasPorPagarDetalles!="",function($q) use ($categoriacuentasPorPagarDetalles) {
@@ -297,25 +300,57 @@ class CuentasporpagarController extends Controller
             }
             
         })
-        ->when($qcuentasPorPagarDetalles!="",function($q) use ($qcuentasPorPagarDetalles,$qCampocuentasPorPagarDetalles){
-            $q->where($qCampocuentasPorPagarDetalles,"LIKE","%$qcuentasPorPagarDetalles%");
+        ->when($qcuentasPorPagarTipoFact!="",function($q) use ($qcuentasPorPagarDetalles,$qCampocuentasPorPagarDetalles,$qcuentasPorPagarTipoFact,$today){
+            switch ($qcuentasPorPagarTipoFact) {
+                case "pagadas":
+                    $q->whereRaw("monto_abonado = monto*-1")
+                    ->where("monto","<",0);
+                break;
+                case "semipagadas":
+                    $q
+                    ->whereRaw("COALESCE(monto_abonado, 0) > 0")
+                    ->whereRaw("COALESCE(monto_abonado, 0) <> monto*-1")
+                    ->where("monto","<",0);
+                break;
+                case "porvencer":
+                    $q->where("fechavencimiento",">",$today)
+                    ->whereRaw("COALESCE(monto_abonado, 0) <> monto*-1")
+                    ->whereRaw("COALESCE(monto_abonado, 0) = 0")
+                    ->where("monto","<",0);
+                break;
+                case "vencidas":
+                    $q
+                    ->where("fechavencimiento","<=",$today)
+                    ->whereRaw("COALESCE(monto_abonado, 0) <> monto*-1")
+                    ->where("monto","<",0);
+                break;
+            }
         })
-        ->when($fechacuentasPorPagarDetalles!="",function($q) use ($qFechaCampocuentasPorPagarDetalles,$fechacuentasPorPagarDetalles) {
-            $q->where($qFechaCampocuentasPorPagarDetalles,"LIKE","%$fechacuentasPorPagarDetalles%");
-        })
-        ->when($qcuentasPorPagarDetalles!="",function($q) use ($qCampocuentasPorPagarDetalles, $OrdercuentasPorPagarDetalles){
-            $q->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
-        })
-        ->when($qFechaCampocuentasPorPagarDetalles=="created_at" && $fechacuentasPorPagarDetalles=="",function($q) use ($qCampocuentasPorPagarDetalles, $OrdercuentasPorPagarDetalles){
-            $q->orderBy("created_at","desc");
-        });
-        
+
+        ->where($qCampocuentasPorPagarDetalles,"LIKE","%$qcuentasPorPagarDetalles%")
+        ->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
 
         $balance = $this->getBalance($id);
 
         return [
-            "detalles" => $detalles->get(), 
+            "detalles" => $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact) {
+                $fechavencimiento = new \DateTime($q->fechavencimiento);
+                $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
+                $monto = $q->monto;
+
+                if ($fechavencimiento<=$today && $monto_abonado!=$monto*-1 && $monto<0){
+                    $q->condicion = "vencidas";
+                }else if($fechavencimiento>$today && $monto_abonado!=$monto*-1 && $monto_abonado==0 && $monto<0){
+                    $q->condicion = "porvencer";
+                }else if($monto_abonado==$monto*-1 && $monto<0){
+                    $q->condicion = "pagadas";
+                }else if($monto_abonado>0 && $monto_abonado!=$monto*-1 && $monto<0){
+                    $q->condicion = "semipagadas";
+                }
+                return $q;
+            }), 
             "balance" => $balance, 
+            "sum" => $detalles->get()->count(), 
         ];
     }
 }

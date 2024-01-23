@@ -21,6 +21,7 @@ function Proveedores({
 
   delProveedor,
   setviewmainPanel,
+  getProveedores,
 }) {
 
  
@@ -100,7 +101,7 @@ function Proveedores({
                 value={qBuscarProveedor} 
                 onChange={e=>setQBuscarProveedor(e.target.value)}/>
                 <div className="input-group-prepend">
-                  <button className="btn btn-outline-secondary" type="button"><i className="fa fa-search"></i></button>
+                  <button className="btn btn-outline-secondary" type="button" onClick={()=>getProveedores()}><i className="fa fa-search"></i></button>
                 </div>
               </div>
               { 

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 export default function CuentasporpagarDetalles({
     modeEditarFact,
     selectCuentaPorPagarId,
@@ -30,16 +31,26 @@ export default function CuentasporpagarDetalles({
     SelectCuentaPorPagarDetalle,
     cuentasporpagarDetallesView,
     setcuentasporpagarDetallesView,
+    setselectFactEdit,
+
+    qcuentasPorPagarTipoFact,
+    setqcuentasPorPagarTipoFact,
+
+    selectProveedorCxp,
+    setselectProveedorCxp,
+
+    setcuentasPagosDescripcion,
+    setcuentasPagosMonto,
 }){
+    
     let proveedorMain = ""
-    let id_proveedor = null
+    let id_proveedor = selectProveedorCxp
 
     if (selectCuentaPorPagarId) {
         if (selectCuentaPorPagarId.detalles) {
             if (selectCuentaPorPagarId.detalles[0]) {
                 if (selectCuentaPorPagarId.detalles[0].proveedor) {
                     proveedorMain = selectCuentaPorPagarId.detalles[0].proveedor.descripcion
-                    id_proveedor = selectCuentaPorPagarId.detalles[0].proveedor.id
                 }
             }
         }
@@ -58,17 +69,31 @@ export default function CuentasporpagarDetalles({
     }
     const setInputsNewFact = () => {
         setselectFactEdit(null)
+        setcuentasPagosDescripcion("")
+        setcuentasPagosMonto("")
     }
+
+    useEffect(()=>{
+        selectCuentaPorPagarProveedorDetallesFun(id_proveedor)
+    },[
+        categoriacuentasPorPagarDetalles,
+        tipocuentasPorPagarDetalles,
+        qcuentasPorPagarTipoFact,
+        
+        qCampocuentasPorPagarDetalles,
+        qcuentasPorPagarDetalles,
+        OrdercuentasPorPagarDetalles,
+    ])
     return (
-        <div className="container mb-4">
+        <div className="container p-0 mb-4">
             {
             SelectCuentaPorPagarDetalle?
                 dataCuenta?
                 <>
                     <div className="mb-2">
-                        <button className="btn btn-danger" onClick={()=>setSelectCuentaPorPagarDetalle(null)}>
-                            <i className="fa fa-times"></i>
-                        </button>
+                        <span className="btn btn-danger boton-fijo-inferiorder btn-sm" onClick={()=>setSelectCuentaPorPagarDetalle(null)}>
+                            <i className="fa fa-arrow-left"></i>
+                        </span>
                     </div>
                     <table className="table">
                         <tbody>
@@ -149,9 +174,9 @@ export default function CuentasporpagarDetalles({
                             </tr>
                             <tr>
                                 <td colSpan={2}>
-                                    <span className="btn btn-sinapsis" onClick={()=>modeEditarFact(dataCuenta.id)}>
+                                    <button type="button" className="btn btn-sinapsis boton-fijo-inferiorizq" onClick={()=>modeEditarFact(dataCuenta.id)}>
                                         <i className="fa fa-pencil"></i>
-                                    </span>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -159,23 +184,37 @@ export default function CuentasporpagarDetalles({
                 </>
                 :null
             :<>
-                <div className="mb-2 d-flex justify-content-between">
-                    <button className="btn btn-danger" onClick={()=>setSelectCuentaPorPagarId(null)}>
-                        <i className="fa fa-times"></i>
-                    </button>
-
-                    <small className="text-muted">
-                        {proveedorMain}
-                    </small>
-                </div>
+                
                 <form onSubmit={e=>{e.preventDefault();selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}} className="mb-2">
+                    <div className="btn-group w-100 mb-2">
+                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="pagadas"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="pagadas"?"":"pagadas")}>PAGADAS</span>
+                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="semipagadas"?"btn-primary":"btn-outline-primary")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="semipagadas"?"":"semipagadas")}>ABONADAS</span>
+                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="porvencer"?"btn-sinapsis":"btn-outline-sinapsis")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="porvencer"?"":"porvencer")}>POR VENCER</span>
+                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="vencidas"?"btn-danger":"btn-outline-danger")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="vencidas"?"":"vencidas")}>VENCIDAS</span>
+                    </div>
                     <div className="input-group">
-                        <input type="text" className="form-control" placeholder={"Buscar en "+proveedorMain+" por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
-                        <span className={("btn arabito_")+(OrdercuentasPorPagarDetalles)} onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
-                        {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
+                        
+                        <input type={
+                            qCampocuentasPorPagarDetalles=="created_at" || 
+                            qCampocuentasPorPagarDetalles=="fechaemision" || 
+                            qCampocuentasPorPagarDetalles=="fecharecepcion" || 
+                            qCampocuentasPorPagarDetalles=="fechavencimiento" ? "date": "text" 
+                        } className="form-control form-control-sm" placeholder={"Buscar en "+proveedorMain+" por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
+                        
+                        <span className={("btn btn-sm arabito_")+(OrdercuentasPorPagarDetalles)} 
+                        onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
+                            {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
                         </span>
-                        <select className="form-control" value={qCampocuentasPorPagarDetalles} onChange={e=>setqCampocuentasPorPagarDetalles(e.target.value)}>
+                        
+                        <select className="form-control form-control-sm" value={qCampocuentasPorPagarDetalles} onChange={e=>setqCampocuentasPorPagarDetalles(e.target.value)}>
                             <option value="">-Buscar en-</option>
+                            
+                            <option value="created_at">Creación</option>
+                            <option value="fechaemision">Emisión</option>
+                            <option value="fecharecepcion">Recepción</option>
+                            <option value="fechavencimiento">Vencimiento</option>
+
+
                             <option value="numfact"># Fact</option>
                             <option value="numnota"># Nota</option>
                             <option value="descripcion">Descripción</option>
@@ -188,29 +227,15 @@ export default function CuentasporpagarDetalles({
                         </select>
                     </div>
 
-                    <div className="input-group">
-                        <input type="date" className="form-control" value={fechacuentasPorPagarDetalles} onChange={e=>setfechacuentasPorPagarDetalles(e.target.value)} />
-                        <span className={("btn arabito_")+(OrderFechacuentasPorPagarDetalles)} onClick={()=>setOrderFechacuentasPorPagarDetalles(OrderFechacuentasPorPagarDetalles==="desc"?"asc":"desc")}>
-                        {(<i className={OrderFechacuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
-                        </span>
-                        <select className="form-control" value={qFechaCampocuentasPorPagarDetalles} onChange={e=>setqFechaCampocuentasPorPagarDetalles(e.target.value)}>
-                            <option value="fechavencimiento">Vencimiento</option>
-                            <option value="fechaemision">Emisión</option>
-                            <option value="fecharecepcion">Recepción</option>
-                            <option value="created_at">Creación</option>
-
-                        </select>
-                    </div>
-
 
                     <div className="input-group">
-                        <select className="form-control" value={categoriacuentasPorPagarDetalles} onChange={e=>setcategoriacuentasPorPagarDetalles(e.target.value)}>
+                        <select className="form-control form-control-sm" value={categoriacuentasPorPagarDetalles} onChange={e=>setcategoriacuentasPorPagarDetalles(e.target.value)}>
                             <option value="">-CATEGORÍA-</option>
                             <option value="1">COMPRAS</option>
                             <option value="2">SERVICIOS</option>
                         </select>
 
-                        <select className="form-control" value={tipocuentasPorPagarDetalles} onChange={e=>settipocuentasPorPagarDetalles(e.target.value)}>
+                        <select className="form-control form-control-sm" value={tipocuentasPorPagarDetalles} onChange={e=>settipocuentasPorPagarDetalles(e.target.value)}>
                             <option value="">-TIPO-</option>
                             <option value="DEUDA">CRÉDITOS</option>
                             <option value="ABONOS">DÉBITOS</option>
@@ -224,7 +249,10 @@ export default function CuentasporpagarDetalles({
                 { 
                     selectCuentaPorPagarId?
                         selectCuentaPorPagarId.balance? 
-                        <div className="text-right">
+                        <div className="d-flex justify-content-between align-items-center">
+                            <small className="text-muted">
+                                {proveedorMain} <b>({selectCuentaPorPagarId.sum})</b>
+                            </small>
                             <span className={(selectCuentaPorPagarId.balance<0? "text-danger": "text-success")+(" fs-2 mb-1 mt-1")}>{moneda(selectCuentaPorPagarId.balance)}</span>
                         </div>
                         :null
@@ -234,14 +262,16 @@ export default function CuentasporpagarDetalles({
                     selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                     ? selectCuentaPorPagarId.detalles.map( (e,i) =>
                         <div className="text-secondary mb-3 pointer shadow p-2 card" key={e.id}>
-                            <div className="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between fs-7">
                                 <span className="fw-bold">{e.proveedor.descripcion}</span>
                                 <small className="text-muted">{e.created_at}</small>
                                 <span>{e.sucursal.codigo}</span>
                             </div>
                             <div>
                                 <div onClick={()=>setSelectCuentaPorPagarDetalle(e.id)} className="">
-                                    <span className={(e.monto>0?"btn-success":"btn-sinapsis")+(" w-100 btn fs-3 pointer")}>{e.numfact}</span>
+                                    <span className={
+                                        (e.condicion=="pagadas"?"btn-success":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":null))))+(" w-100 btn fs-3 pointer")
+                                    }>{e.numfact}</span>
                                 </div>
                             </div>
                             <div className="d-flex justify-content-between align-items-center">
@@ -261,6 +291,16 @@ export default function CuentasporpagarDetalles({
                     : null : null
                     
                 } 
+                {
+                    selectCuentaPorPagarId.detalles?!selectCuentaPorPagarId.detalles.length
+                    ? <div className="text-center">
+                        <span className="text-muted fsw-italic">¡Nada para mostrar!</span>
+                    </div>
+                    : null : null
+                }
+                <button className="btn boton-fijo-inferiorder btn-danger btn-sm" onClick={()=>setSelectCuentaPorPagarId(null)}>
+                    <i className="fa fa-arrow-left"></i>
+                </button>
                 <button className="btn boton-fijo-inferiorizq btn-sinapsis" type="button" 
                     onClick={()=>{
                             setcuentasporpagarDetallesView("pagos");

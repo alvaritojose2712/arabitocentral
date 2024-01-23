@@ -164,14 +164,30 @@ export default function CuentasporpagarPagos({
                     <table className="table mt-2">
                         <thead>
                             <tr>
-                                <th colSpan={3}><h4>FACTURAS</h4></th>
+                                <th colSpan={3}><h6>ESPECIFICAR ABONO</h6></th>
                             </tr>
                             <tr>
                                 <th colSpan={3}>
                                     <form onSubmit={selectCuentaPorPagarProveedorDetallesFun} className="mb-2">
                                         <div className="input-group">
+                                        <input type={
+                                            qCampocuentasPorPagarDetalles=="created_at" || 
+                                            qCampocuentasPorPagarDetalles=="fechaemision" || 
+                                            qCampocuentasPorPagarDetalles=="fecharecepcion" || 
+                                            qCampocuentasPorPagarDetalles=="fechavencimiento" ? "date": "text" 
+                                        } className="form-control form-control-sm" placeholder={"Buscar por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
+                        
+                                            
+                                            <span className={("btn arabito_")+(OrdercuentasPorPagarDetalles)} onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
+                                                {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
+                                            </span>
                                             <select className="form-control" value={qCampocuentasPorPagarDetalles} onChange={e=>setqCampocuentasPorPagarDetalles(e.target.value)}>
                                                 <option value="">-Buscar en-</option>
+                                                <option value="created_at">Creación</option>
+                                                <option value="fechaemision">Emisión</option>
+                                                <option value="fecharecepcion">Recepción</option>
+                                                <option value="fechavencimiento">Vencimiento</option>
+
                                                 <option value="numfact"># Fact</option>
                                                 <option value="numnota"># Nota</option>
                                                 <option value="descripcion">Descripción</option>
@@ -182,25 +198,7 @@ export default function CuentasporpagarPagos({
                                                 <option value="iva">IVA</option>
                                                 <option value="monto">TOTAL</option>
                                             </select>
-                                            <span className={("btn arabito_")+(OrdercuentasPorPagarDetalles)} onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
-                                            {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
-                                            </span>
-                                            <input type="text" className="form-control" placeholder={"Buscar por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
                                         </div>
-
-                                        <div className="input-group">
-                                            <select className="form-control" value={qFechaCampocuentasPorPagarDetalles} onChange={e=>setqFechaCampocuentasPorPagarDetalles(e.target.value)}>
-                                                <option value="fechavencimiento">Vencimiento</option>
-                                                <option value="fechaemision">Emisión</option>
-                                                <option value="fecharecepcion">Recepción</option>
-                                                <option value="created_at">Creación</option>
-                                            </select>
-                                            <span className={("btn arabito_")+(OrderFechacuentasPorPagarDetalles)} onClick={()=>setOrderFechacuentasPorPagarDetalles(OrderFechacuentasPorPagarDetalles==="desc"?"asc":"desc")}>
-                                            {(<i className={OrderFechacuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
-                                            </span>
-                                            <input type="date" className="form-control" value={fechacuentasPorPagarDetalles} onChange={e=>setfechacuentasPorPagarDetalles(e.target.value)} />
-                                        </div>
-
 
                                         <div className="input-group">
                                             <select className="form-control" value={categoriacuentasPorPagarDetalles} onChange={e=>setcategoriacuentasPorPagarDetalles(e.target.value)}>
@@ -228,7 +226,9 @@ export default function CuentasporpagarPagos({
                             
                                 <tr key={e.id}>
                                     <td className="align-middle">
-                                        <span className={"btn-sinapsis w-100 btn pointer"} onClick={()=>selectFacturaSetPago(e.id,e.numfact)}>{e.numfact}</span>
+                                        <span className={
+                                            (e.condicion=="pagadas"?"btn-success":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":null))))+(" w-100 btn pointer")
+                                        } onClick={()=>selectFacturaSetPago(e.id,e.numfact)}>{e.numfact}</span>
                                     </td>
                                     <td className="align-middle">
                                         <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-3")}>{moneda(e.monto)}</span></div>
