@@ -250,12 +250,7 @@ export default function CuentasporpagarPagos({
             {subviewAgregarFactPago=="factura"?
                 <>
                     <form onSubmit={saveNewFact}>
-                        <div className="form-group">
-                                {selectFactEdit!==null?
-                                    <span className="btn btn-outline-danger w-100" onClick={()=>setselectFactEdit(null)}>CANCELAR EDICIÓN</span>
-                                :null
-                                }
-                        </div>
+                        
                         {/* <div className="form-group">
                             <span>PROVEEDOR</span>
                             
@@ -334,12 +329,20 @@ export default function CuentasporpagarPagos({
                             <input type="text" placeholder="frecuencia" value={newfactfrecuencia} onChange={e=>setnewfactfrecuencia(e.target.value)} className="form-control" />
                         </div>
 
-                        <div className="form-group mt-2">
-                            {selectFactEdit!==null?
-                            <button className="btn btn-sinapsis" type="submit">Editar</button>
-                            :
-                            <button className="btn btn-success" type="submit">Guardar</button>
-                            }
+                        <div className="div-fijo-inferiorder">
+                                <div className="btn-group">
+        
+                                    {selectFactEdit!==null?
+                                        <span className="btn btn-danger" onClick={()=>setselectFactEdit(null)}> <i className="fa fa-times"></i>     </span>
+                                        :null
+                                    }
+                                
+                                    {selectFactEdit!==null?
+                                    <button className="btn btn-sinapsis" type="submit">Editar</button>
+                                    :
+                                    <button className="btn btn-success" type="submit">Guardar</button>
+                                }
+                                </div>
                         </div>
                     </form>
                 </>                        

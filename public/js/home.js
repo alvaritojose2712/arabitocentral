@@ -3311,7 +3311,13 @@ function CuentasporpagarDetalles(_ref) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "btn-group w-100 mb-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-            className: "btn btn-sm " + (qcuentasPorPagarTipoFact == "pagadas" ? "btn-success" : "btn-outline-success"),
+            className: "btn btn-sm " + (qcuentasPorPagarTipoFact == "abonos" ? "btn-success" : "btn-outline-success"),
+            onClick: function onClick() {
+              return setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact == "abonos" ? "" : "abonos");
+            },
+            children: "D\xC9BITOS"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            className: "btn btn-sm " + (qcuentasPorPagarTipoFact == "pagadas" ? "btn-medsuccess" : "btn-outline-medsuccess"),
             onClick: function onClick() {
               return setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact == "pagadas" ? "" : "pagadas");
             },
@@ -3480,7 +3486,7 @@ function CuentasporpagarDetalles(_ref) {
               },
               className: "",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                className: (e.condicion == "pagadas" ? "btn-success" : e.condicion == "vencidas" ? "btn-danger" : e.condicion == "porvencer" ? "btn-sinapsis" : e.condicion == "semipagadas" ? "btn-primary" : null) + " w-100 btn fs-3 pointer",
+                className: (e.condicion == "pagadas" ? "btn-medsuccess" : e.condicion == "vencidas" ? "btn-danger" : e.condicion == "porvencer" ? "btn-sinapsis" : e.condicion == "semipagadas" ? "btn-primary" : e.condicion == "abonos" ? "btn-success" : null) + " w-100 btn fs-3 pointer",
                 children: e.numfact
               })
             })
@@ -3922,16 +3928,7 @@ function CuentasporpagarPagos(_ref) {
     }) : null, subviewAgregarFactPago == "factura" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
         onSubmit: saveNewFact,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "form-group",
-          children: selectFactEdit !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-            className: "btn btn-outline-danger w-100",
-            onClick: function onClick() {
-              return setselectFactEdit(null);
-            },
-            children: "CANCELAR EDICI\xD3N"
-          }) : null
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "form-group",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
             children: "# FACTURA"
@@ -4135,15 +4132,26 @@ function CuentasporpagarPagos(_ref) {
             className: "form-control"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "form-group mt-2",
-          children: selectFactEdit !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            className: "btn btn-sinapsis",
-            type: "submit",
-            children: "Editar"
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            className: "btn btn-success",
-            type: "submit",
-            children: "Guardar"
+          className: "div-fijo-inferiorder",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "btn-group",
+            children: [selectFactEdit !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+              className: "btn btn-danger",
+              onClick: function onClick() {
+                return setselectFactEdit(null);
+              },
+              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+                className: "fa fa-times"
+              }), "     "]
+            }) : null, selectFactEdit !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+              className: "btn btn-sinapsis",
+              type: "submit",
+              children: "Editar"
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+              className: "btn btn-success",
+              type: "submit",
+              children: "Guardar"
+            })]
           })
         })]
       })
@@ -61959,7 +61967,7 @@ function Home() {
   };
   var number = function number(val) {
     if (val == "") return "";
-    return val.replace(/[^\d|\.|-]+/g, '');
+    return val.replace(/[^\d|\.]+/g, '');
   };
   var loginRes = function loginRes(res) {
     notificar(res);
@@ -62620,12 +62628,12 @@ function Home() {
             setnewfactnumfact(data.numfact);
             setnewfactnumnota(data.numnota);
             setnewfactdescripcion(data.descripcion);
-            setnewfactsubtotal(data.subtotal);
-            setnewfactdescuento(data.descuento);
-            setnewfactmonto_exento(data.monto_exento);
-            setnewfactmonto_gravable(data.monto_gravable);
-            setnewfactiva(data.iva);
-            setnewfactmonto(data.monto);
+            setnewfactsubtotal(number(data.subtotal));
+            setnewfactdescuento(number(data.descuento));
+            setnewfactmonto_exento(number(data.monto_exento));
+            setnewfactmonto_gravable(number(data.monto_gravable));
+            setnewfactiva(number(data.iva));
+            setnewfactmonto(number(data.monto));
             setnewfactfechaemision(data.fechaemision);
             setnewfactfechavencimiento(data.fechavencimiento);
             setnewfactfecharecepcion(data.fecharecepcion);
@@ -63062,7 +63070,7 @@ function Home() {
                     setcuentasporpagarDetallesView("cuentas");
                     selectCuentaPorPagarProveedorDetallesFun(res.data.id_proveedor);
                   }
-                  notificar(res.data);
+                  notificar(res.data.msj);
                 });
               } else {
                 alert("Montos no coinciden");

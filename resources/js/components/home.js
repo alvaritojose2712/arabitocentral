@@ -1248,7 +1248,7 @@ function Home() {
   }
   const number = (val) => {
     if (val == "") return ""
-    return val.replace(/[^\d|\.|-]+/g, '')
+    return val.replace(/[^\d|\.]+/g, '')
   }
   const loginRes = res => {
     notificar(res)
@@ -1677,12 +1677,14 @@ function Home() {
                     setnewfactnumfact(data.numfact)
                     setnewfactnumnota(data.numnota)
                     setnewfactdescripcion(data.descripcion)
-                    setnewfactsubtotal(data.subtotal)
-                    setnewfactdescuento(data.descuento)
-                    setnewfactmonto_exento(data.monto_exento)
-                    setnewfactmonto_gravable(data.monto_gravable)
-                    setnewfactiva(data.iva)
-                    setnewfactmonto(data.monto)
+                    
+                    setnewfactsubtotal(number(data.subtotal))
+                    setnewfactdescuento(number(data.descuento))
+                    setnewfactmonto_exento(number(data.monto_exento))
+                    setnewfactmonto_gravable(number(data.monto_gravable))
+                    setnewfactiva(number(data.iva))
+                    setnewfactmonto(number(data.monto))
+
                     setnewfactfechaemision(data.fechaemision)
                     setnewfactfechavencimiento(data.fechavencimiento)
                     setnewfactfecharecepcion(data.fecharecepcion)
@@ -2115,7 +2117,7 @@ function Home() {
                           setcuentasporpagarDetallesView("cuentas")
                           selectCuentaPorPagarProveedorDetallesFun(res.data.id_proveedor)
                         }
-                        notificar(res.data)
+                        notificar(res.data.msj)
                       })
                     }else{
                       alert("Montos no coinciden")

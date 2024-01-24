@@ -27,7 +27,20 @@ class CuentasporpagarController extends Controller
         $cuentasPagosMetodo = $req->cuentasPagosMetodo;
         $cuentasPagosFecha = $req->cuentasPagosFecha;
         $id_pro = $req->id_pro;
-        $selectAbonoFact = $req->selectAbonoFact	;
+        $selectAbonoFact = $req->selectAbonoFact;
+
+        if (
+            !$cuentasPagosDescripcion || 
+            !$cuentasPagosMonto || 
+            !$cuentasPagosMetodo || 
+            !$cuentasPagosFecha 
+        ) {
+            return [
+                "estado" => false,
+                "msj" => "Error: Campos vacíos",
+                "id_proveedor" => $id_pro
+            ];
+        }
         
         
 
@@ -238,18 +251,29 @@ class CuentasporpagarController extends Controller
             ]);
 
             if ($su) {
+                $factor = 1;
+                if ($id) {
+                    $checkabonocred = cuentasporpagar::find($id);
+                    if ($checkabonocred) {
+                        if ($checkabonocred->monto<0) {
+                            $factor = -1;
+                        }
+                    }
+                }
                 $arrinsert = [
                     "id_proveedor" => $newfactid_proveedor,
                     "id_sucursal" => $su->id,
                     "numfact" => $newfactnumfact,
                     "numnota" => $newfactnumnota,
                     "descripcion" => $newfactdescripcion,
-                    "subtotal" => $newfactsubtotal,
-                    "descuento" => $newfactdescuento,
-                    "monto_exento" => $newfactmonto_exento,
-                    "monto_gravable" => $newfactmonto_gravable,
-                    "iva" => $newfactiva,
-                    "monto" => $newfactmonto,
+
+                    "subtotal" => $newfactsubtotal*$factor,
+                    "descuento" => $newfactdescuento*$factor,
+                    "monto_exento" => $newfactmonto_exento*$factor,
+                    "monto_gravable" => $newfactmonto_gravable*$factor,
+                    "iva" => $newfactiva*$factor,
+                    "monto" => $newfactmonto*$factor,
+                    
                     "fechaemision" => $newfactfechaemision,
                     "fechavencimiento" => $newfactfechavencimiento,
                     "fecharecepcion" => $newfactfecharecepcion,
@@ -302,6 +326,9 @@ class CuentasporpagarController extends Controller
         })
         ->when($qcuentasPorPagarTipoFact!="",function($q) use ($qcuentasPorPagarDetalles,$qCampocuentasPorPagarDetalles,$qcuentasPorPagarTipoFact,$today){
             switch ($qcuentasPorPagarTipoFact) {
+                case "abonos":
+                    $q->where("monto",">",0);
+                break;
                 case "pagadas":
                     $q->whereRaw("monto_abonado = monto*-1")
                     ->where("monto","<",0);
@@ -338,13 +365,15 @@ class CuentasporpagarController extends Controller
                 $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
                 $monto = $q->monto;
 
-                if ($fechavencimiento<=$today && $monto_abonado!=$monto*-1 && $monto<0){
+                if (($qcuentasPorPagarTipoFact=="abonos"|| $qcuentasPorPagarTipoFact=="") && $monto>0){
+                    $q->condicion = "abonos";
+                }else if (($qcuentasPorPagarTipoFact=="vencidas"|| $qcuentasPorPagarTipoFact=="") && $fechavencimiento<=$today && $monto_abonado!=$monto*-1 && $monto<0){
                     $q->condicion = "vencidas";
-                }else if($fechavencimiento>$today && $monto_abonado!=$monto*-1 && $monto_abonado==0 && $monto<0){
+                }else if(($qcuentasPorPagarTipoFact=="porvencer"|| $qcuentasPorPagarTipoFact=="") && $fechavencimiento>$today && $monto_abonado!=$monto*-1 && $monto_abonado==0 && $monto<0){
                     $q->condicion = "porvencer";
-                }else if($monto_abonado==$monto*-1 && $monto<0){
+                }else if(($qcuentasPorPagarTipoFact=="pagadas"|| $qcuentasPorPagarTipoFact=="") && $monto_abonado==$monto*-1 && $monto<0){
                     $q->condicion = "pagadas";
-                }else if($monto_abonado>0 && $monto_abonado!=$monto*-1 && $monto<0){
+                }else if(($qcuentasPorPagarTipoFact=="semipagadas"|| $qcuentasPorPagarTipoFact=="") && $monto_abonado>0 && $monto_abonado!=$monto*-1 && $monto<0){
                     $q->condicion = "semipagadas";
                 }
                 return $q;

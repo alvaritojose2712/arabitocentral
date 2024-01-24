@@ -275,6 +275,12 @@ i{
   bottom: 10px;
   left: 10px;
 }
+
+.div-fijo-inferiorder{
+  position: fixed !important;
+  bottom: 10px;
+  left: 10px;
+}
 .btn-circle.btn-sm {
     width: 30px;
     height: 30px;
@@ -541,6 +547,16 @@ body{
 .arabito_asc {
   background: rgb(255,255,255);
   background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,109,10,0.6206815489867823) 71%, rgba(242,109,10,1) 100%); 
+}
+.btn-medsuccess{
+  color: #000;
+  background-color: #b0c138 !important;
+  border-color: #b0c138 !important;
+}
+
+.btn-outline-medsuccess {
+  color: #b0c138 !important;
+  border-color: #b0c138 !important;
 }
 
 @charset "UTF-8";
