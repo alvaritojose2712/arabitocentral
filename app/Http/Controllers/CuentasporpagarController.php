@@ -135,13 +135,16 @@ class CuentasporpagarController extends Controller
     }
     function sendFacturaCentral(Request $req){
         try {
-       
+            
             $codigo_origen = $req->codigo_origen;
             $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
             $id_sucursal = $id_ruta["id_origen"];
 
 
-            $factura = $req->factura;
+            $factura = json_decode($req->factura,2);
+            $imagen = $req->imagen;
+
+            
 
             if ($factura["proveedor"]) {
                 $id_proveedor = proveedores::where("rif",$factura["proveedor"]["rif"])->get()->first();
@@ -180,6 +183,9 @@ class CuentasporpagarController extends Controller
                     $registrarfactura = $this->setCuentaPorPagar($arrinsert,$search);
         
                     if ($registrarfactura) {
+                        $filename = $registrarfactura->id . "." . $imagen->getClientOriginalExtension();
+                        $imagen->move(public_path('facturas'), $filename);
+
                         return [
                             "msj" => "Desde Central: Éxito al registrar Factura",
                             "idinsucursal" => $factura["id"]

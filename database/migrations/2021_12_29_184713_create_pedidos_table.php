@@ -29,7 +29,7 @@ class CreatePedidosTable extends Migration
             $table->integer("id_destino")->unsigned();
             $table->foreign('id_destino')->references('id')->on('sucursals');
 
-            $table->unique("idinsucursal","id_origen");
+            $table->unique(["idinsucursal","id_origen"]);
 
             $table->timestamps();
         });
