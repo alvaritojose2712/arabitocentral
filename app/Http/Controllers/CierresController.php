@@ -342,7 +342,7 @@ class CierresController extends Controller
             $q->where("id_sucursal", $id_sucursal);
         })
         ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
-        ->orderBy("fecha","desc")
+        ->orderBy("fecha","asc")
         ->get();
 
 
@@ -364,12 +364,12 @@ class CierresController extends Controller
         ];
 
         $array = $array->map(function ($q) {
-            $q->total = moneda($q->debito + $q->efectivo + $q->transferencia + $q->caja_biopago);
-            $q->precio = moneda($q->precio);
-            $q->precio_base = moneda($q->precio_base);
-            $q->ganancia = moneda($q->ganancia);
-            $q->porcentaje = moneda($q->porcentaje);
-            $q->desc_total = moneda($q->desc_total);
+            $q->total = ($q->debito + $q->efectivo + $q->transferencia + $q->caja_biopago);
+            $q->precio = ($q->precio);
+            $q->precio_base = ($q->precio_base);
+            $q->ganancia = ($q->ganancia);
+            $q->porcentaje = ($q->porcentaje);
+            $q->desc_total = ($q->desc_total);
             
             
             $orderdate = explode('-', $q->fecha);
@@ -396,6 +396,7 @@ class CierresController extends Controller
                     "ganancia" => floatval($cierre["ganancia"]),
                     "porcentaje" => floatval($cierre["porcentaje"]),
                     "desc_total" => floatval($cierre["desc_total"]),
+                    "numventas" => floatval($cierre["numventas"]),
                 ];
             }else{
                 
@@ -407,6 +408,7 @@ class CierresController extends Controller
                     "ganancia" => floatval($cierre["ganancia"]) + $dataGroup[$id_sucursal]["ganancia"],
                     "porcentaje" => floatval($cierre["porcentaje"]) + $dataGroup[$id_sucursal]["porcentaje"],
                     "desc_total" => floatval($cierre["desc_total"]) + $dataGroup[$id_sucursal]["desc_total"],
+                    "numventas" => floatval($cierre["numventas"]) + $dataGroup[$id_sucursal]["numventas"],
                 ];
             }
         }

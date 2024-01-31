@@ -13,7 +13,7 @@ export default function SucursalResumencierres({
                                 <th className="bg-sinapsis text-light">SUCURSAL</th>
 
                                 <th className="bg-light text-sinapsis">VENTA TOTAL</th>
-                                <th className="bg-light text-sinapsis">GANANCIAS</th>
+                                <th className="bg-light text-success">GANANCIAS</th>
                                 <th className="bg-sinapsis text-light borderleft">CT. VENTAS</th>
 
                             </tr>
@@ -22,18 +22,18 @@ export default function SucursalResumencierres({
                             sucursalDetallesData.data?
                             Object.entries(sucursalDetallesData.data).length?<>
                                     {Object.entries(sucursalDetallesData.data).map(e=>
-                                        <tbody key={e.id}>
+                                        <tbody key={e[0]}>
                                             <tr>
                                                 <th>{e[0]}</th>
 
-                                                {e[1].cierres.map(ee=>
+                                                {e[1].cierres?e[1].cierres.map(ee=>
                                                     <td>
                                                         <div><b>{ee.mes}-{ee.dia}</b></div>
                                                         <div className="text-sinapsis">{moneda(ee.total)}</div>
                                                         <div className="text-success">{moneda(ee.ganancia)}</div>
                                                         <div className="fs-4 text-sinapsis">{ee.numventas}</div>
                                                     </td>   
-                                                )}
+                                                ):null}
                                                 <th className="bg-warning">
                                                     <div><b>TOTAL</b></div>
                                                     <div className="text-sinapsis">{moneda(e[1].total)}</div>
@@ -46,8 +46,8 @@ export default function SucursalResumencierres({
                                     <tbody>
                                         <tr>
                                             <td></td>
-                                            <td className="text-sinapsis">{moneda(sucursalDetallesData.sum.total)}</td>
-                                            <td className="text-success">{moneda(sucursalDetallesData.sum.ganancia)}</td>
+                                            <td className="text-sinapsis">{(sucursalDetallesData.sum.total)}</td>
+                                            <td className="text-success">{(sucursalDetallesData.sum.ganancia)}</td>
                                             <td className="fs-4 text-sinapsis">{sucursalDetallesData.sum.numventas}</td>
                                         </tr>
                                     </tbody>  

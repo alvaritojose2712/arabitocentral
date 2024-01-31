@@ -6714,7 +6714,7 @@ function SucursalResumencierres(_ref) {
                 className: "bg-light text-sinapsis",
                 children: "VENTA TOTAL"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-                className: "bg-light text-sinapsis",
+                className: "bg-light text-success",
                 children: "GANANCIAS"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                 className: "bg-sinapsis text-light borderleft",
@@ -6727,7 +6727,7 @@ function SucursalResumencierres(_ref) {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                     children: e[0]
-                  }), e[1].cierres.map(function (ee) {
+                  }), e[1].cierres ? e[1].cierres.map(function (ee) {
                     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("b", {
@@ -6744,7 +6744,7 @@ function SucursalResumencierres(_ref) {
                         children: ee.numventas
                       })]
                     });
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("th", {
+                  }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("th", {
                     className: "bg-warning",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
@@ -6762,15 +6762,15 @@ function SucursalResumencierres(_ref) {
                     })]
                   })]
                 })
-              }, e.id);
+              }, e[0]);
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   className: "text-sinapsis",
-                  children: moneda(sucursalDetallesData.sum.total)
+                  children: sucursalDetallesData.sum.total
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   className: "text-success",
-                  children: moneda(sucursalDetallesData.sum.ganancia)
+                  children: sucursalDetallesData.sum.ganancia
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   className: "fs-4 text-sinapsis",
                   children: sucursalDetallesData.sum.numventas
