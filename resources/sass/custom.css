@@ -30,6 +30,9 @@
   background-color: var(--sinapsis-color) !important;
 
 }
+.mb-6{
+  margin-bottom: 4rem !important;
+}
 .btn-sinapsis-border{
   color: var(--sinapsis-color) !important;
   background-color: white !important;

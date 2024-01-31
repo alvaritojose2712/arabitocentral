@@ -334,6 +334,90 @@ class CierresController extends Controller
         ];
 
     }
+    public function getCierreSucursalResumen($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
+    {
+        //debug_to_console($id_sucursal);
+        $array = cierres::with("sucursal")
+        ->when($id_sucursal, function ($q) use ($id_sucursal) {
+            $q->where("id_sucursal", $id_sucursal);
+        })
+        ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
+        ->orderBy("fecha","desc")
+        ->get();
+
+
+        $sumdebito = $array->sum("debito");
+        $sumefectivo = $array->sum("efectivo");
+        $sumtransferencia = $array->sum("transferencia");
+        $sumbiopago = $array->sum("caja_biopago");
+
+        $sum = [
+            "numventas" => $array->sum("numventas"),
+            "numero" => $array->count(),
+            "total" => moneda($sumdebito + $sumefectivo + $sumtransferencia + $sumbiopago),
+            "precio" => moneda($array->sum("precio")),
+            "precio_base" => moneda($array->sum("precio_base")),
+            "ganancia" => moneda($array->sum("ganancia")),
+            "porcentaje" => moneda($array->sum("porcentaje")),
+            "desc_total" => moneda($array->sum("desc_total")),
+
+        ];
+
+        $array = $array->map(function ($q) {
+            $q->total = moneda($q->debito + $q->efectivo + $q->transferencia + $q->caja_biopago);
+            $q->precio = moneda($q->precio);
+            $q->precio_base = moneda($q->precio_base);
+            $q->ganancia = moneda($q->ganancia);
+            $q->porcentaje = moneda($q->porcentaje);
+            $q->desc_total = moneda($q->desc_total);
+            
+            
+            $orderdate = explode('-', $q->fecha);
+            $year  = $orderdate[0];
+            $month = $orderdate[1];
+            $day   = $orderdate[2];
+            
+            $q->dia = $day;
+            $q->mes = $month;
+            $q->ano = $year;
+            return $q;
+        });
+
+        $dataGroup = [];
+        foreach ($array as $i => $cierre) {
+            $id_sucursal = $cierre["sucursal"]["codigo"]; 
+
+            if (!isset($dataGroup[$id_sucursal])) {
+                $dataGroup[$id_sucursal] = [
+                    "cierres" => [$cierre],
+                    "total" => floatval($cierre["total"]),
+                    "precio" => floatval($cierre["precio"]),
+                    "precio_base" => floatval($cierre["precio_base"]),
+                    "ganancia" => floatval($cierre["ganancia"]),
+                    "porcentaje" => floatval($cierre["porcentaje"]),
+                    "desc_total" => floatval($cierre["desc_total"]),
+                ];
+            }else{
+                
+                $dataGroup[$id_sucursal] = [
+                    "cierres" => array_merge($dataGroup[$id_sucursal]["cierres"],[$cierre]),
+                    "total" => floatval($cierre["total"]) + $dataGroup[$id_sucursal]["total"],
+                    "precio" => floatval($cierre["precio"]) + $dataGroup[$id_sucursal]["precio"],
+                    "precio_base" => floatval($cierre["precio_base"]) + $dataGroup[$id_sucursal]["precio_base"],
+                    "ganancia" => floatval($cierre["ganancia"]) + $dataGroup[$id_sucursal]["ganancia"],
+                    "porcentaje" => floatval($cierre["porcentaje"]) + $dataGroup[$id_sucursal]["porcentaje"],
+                    "desc_total" => floatval($cierre["desc_total"]) + $dataGroup[$id_sucursal]["desc_total"],
+                ];
+            }
+        }
+
+        return [
+            "data" => $dataGroup,
+            "sum" => $sum,
+        ];
+
+    }
+    
     public function getsucursalDetallesData(Request $req)
     {
         $id_sucursal = $req->sucursalSelect;
@@ -361,6 +445,12 @@ class CierresController extends Controller
                     return $this->getCierreSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
+            case 'resumencierres':
+                if ($tipo_usuario==1) {
+                    
+                    return $this->getCierreSucursalResumen($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                }
+                break;
             case 'controldeefectivo':
                 if ($tipo_usuario==1) {
                     

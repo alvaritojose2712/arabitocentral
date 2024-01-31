@@ -107,6 +107,33 @@ export default function CuentasporpagarDetalles({
                                         {moneda(dataCuenta.monto_abonado)}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td colSpan={2}>
+                                        <table className="table table-borderless table-sm">
+                                            <tbody>
+                                                {dataCuenta.monto_abonado && dataCuenta.pagos?
+                                                <>
+                                                    {dataCuenta.pagos.map(e=>
+                                                        <tr key={e.id} className="border-top">
+                                                            <td className=" align-middle text-muted fst-italic fs-7">
+                                                                {e.created_at}
+                                                            </td>
+                                                            <td className=" align-middle">
+                                                                <span className="btn-sinapsis btn pointer btn-sm">
+                                                                    {e.numfact}
+                                                                </span> 
+                                                            </td>
+                                                            <td className="text-right align-middle">
+                                                                <span className="text-sinapsis">{moneda(e.monto)}</span> / <span className="text-success">{moneda(e.pivot.monto)}</span>
+                                                            </td>
+                                                        </tr>
+                                                    )}
+                                                </>
+                                                :null}
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
                                 <tr className="">
                                     <th>
                                         DEUDA                                        
@@ -129,28 +156,8 @@ export default function CuentasporpagarDetalles({
                         </tbody>
                     </table>
                     <hr />
-                    <table className="table table-borderless table-sm">
-                        <tbody>
-                            {dataCuenta.monto_abonado && dataCuenta.pagos?
-                            <>
-                                {dataCuenta.pagos.map(e=>
-                                    <tr key={e.id} className="border-top">
-                                        <td className=" align-middle">
-                                            {e.created_at}
-                                        </td>
-                                        <td className=" align-middle">
-                                            <span className="btn-sinapsis btn pointer btn-sm">
-                                                {e.numfact}
-                                            </span> 
-                                        </td>
-                                        <td className="text-right align-middle">{moneda(e.monto)}</td>
-                                    </tr>
-                                )}
-                            </>
-                            :null}
-                        </tbody>
-                    </table>
-                    <hr />
+                    
+                   
                     <table className="table">
                         <tbody>
                             <tr>

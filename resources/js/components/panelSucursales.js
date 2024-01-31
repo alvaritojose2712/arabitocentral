@@ -1,14 +1,13 @@
 import { useEffect } from "react"
 import SucursalDetallesCierres from './panel/sucursaldetallescierres'
+import SucursalResumencierres from './panel/SucursalResumencierres'
+
 import SucursalDetallesinvetario from './panel/sucursaldetallesinvetario'
 import Puntosyseriales from './panel/Puntosyseriales'
 import Controldeefectivo from './panel/Controldeefectivo'
 import NominasSucursal from './panel/nominasucursal'
 import Fallas from './panel/fallas'
 import Creditos from './panel/creditos'
-
-
-
 
 
 export default function PanelSucursales({
@@ -62,7 +61,6 @@ export default function PanelSucursales({
     getCatGeneralFun,
     getCatCajas,
 
-
 }) {
     useEffect(() => {
         getSucursales()
@@ -106,6 +104,7 @@ export default function PanelSucursales({
                 <div className="row">
                     <div className="col table-responsive mb-2 pb-2 pt-2 d-flex justify-content-center">
                         <div className="btn-group w-100">
+                            <button className={("btn btn") + (subviewpanelsucursales == "resumencierres" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("resumencierres")}>RESUMEN</button>
                             <button className={("btn btn") + (subviewpanelsucursales == "cierres" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("cierres")}>Cierres</button>
                             <button className={("btn btn") + (subviewpanelsucursales == "controldeefectivo" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("controldeefectivo")}>Efectivo</button>
                             <button className={("btn btn") + (subviewpanelsucursales == "puntosyseriales" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("puntosyseriales")}>PagoElectrónicos</button>
@@ -123,13 +122,21 @@ export default function PanelSucursales({
                 <div className="row">
                     <div className="col table-responsive mb-2">
                         
+                        {subviewpanelsucursales == "resumencierres" ?
+                            <SucursalResumencierres
+                                sucursalDetallesData={sucursalDetallesData}
+                                moneda={moneda}
+                                
+
+                            />
+                        : null}
 
                         {subviewpanelsucursales == "cierres" ?
                             <SucursalDetallesCierres
                                 sucursalDetallesData={sucursalDetallesData}
 
                             />
-                            : null}
+                        : null}
 
                         {subviewpanelsucursales == "inventario" ?
                             <SucursalDetallesinvetario

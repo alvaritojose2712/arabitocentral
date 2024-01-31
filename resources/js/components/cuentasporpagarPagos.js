@@ -100,9 +100,13 @@ export default function CuentasporpagarPagos({
             }
         }
     }
+
+    let sumSelectAboFact = selectAbonoFact.map(e=>e.val==""?0:parseFloat(e.val)).reduce((partial_sum, a) => partial_sum + a, 0)
+    let restaAbono = sumSelectAboFact-parseFloat(cuentasPagosMonto)
+
     
     return (
-        <div className="container mb-4 p-0">
+        <div className="container mb-6 p-0">
             <div className="btn-group mb-1 mt-1 w-100">
                 <span className={("btn ")+(subviewAgregarFactPago=="pago"?"btn-sinapsis":"")} onClick={()=>setsubviewAgregarFactPago("pago")}>
                     Agregar Pago
@@ -148,105 +152,121 @@ export default function CuentasporpagarPagos({
                                 </tr>
                                     {selectAbonoFact.map(e=>
                                         <tr key={e.id}>
-                                            <td className="text-center align-center">
-                                                <span className="btn-sinapsis w-100 btn pointer">
+                                            <td className="text-center align-middle">
+                                                <span className="btn-sinapsis w-100 btn pointer btn-sm">
                                                     {e.numfact}
                                                 </span> 
                                             </td>
-                                            <td className="text-center text-success align-center">{moneda(e.val)}</td>
+                                            <td className="text-center text-success align-middle">{moneda(e.val)}</td>
                                         </tr>
                                     )}
+
+                                    <tr>
+                                        <th className="text-center align-middle">
+                                            SUM
+                                        </th>
+                                        <td className="text-center text-success align-middle">{moneda(sumSelectAboFact)}</td>
+                                    </tr>
+                                    <tr>
+                                        <th className="text-center align-middle">
+                                            RESTA
+                                        </th>
+                                        <td className={(restaAbono<0? "text-danger": "text-success")+(" text-center align-middle")}>{moneda(restaAbono)}</td>
+                                    </tr>
+
                             </tbody>
                         </table>
+                        <table className="table mt-2 table-sm">
+                            <thead>
+                                <tr>
+                                    <th colSpan={3}><h6>ESPECIFICAR ABONO</h6></th>
+                                </tr>
+                                <tr>
+                                    <th colSpan={3}>
+                                        <form onSubmit={selectCuentaPorPagarProveedorDetallesFun} className="mb-2">
+                                            <div className="input-group">
+                                            <input type={
+                                                qCampocuentasPorPagarDetalles=="created_at" || 
+                                                qCampocuentasPorPagarDetalles=="fechaemision" || 
+                                                qCampocuentasPorPagarDetalles=="fecharecepcion" || 
+                                                qCampocuentasPorPagarDetalles=="fechavencimiento" ? "date": "text" 
+                                            } className="form-control form-control-sm" placeholder={"Buscar por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
+                            
+                                                
+                                                <span className={("btn arabito_")+(OrdercuentasPorPagarDetalles)} onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
+                                                    {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
+                                                </span>
+                                                <select className="form-control" value={qCampocuentasPorPagarDetalles} onChange={e=>setqCampocuentasPorPagarDetalles(e.target.value)}>
+                                                    <option value="">-Buscar en-</option>
+                                                    <option value="created_at">Creación</option>
+                                                    <option value="fechaemision">Emisión</option>
+                                                    <option value="fecharecepcion">Recepción</option>
+                                                    <option value="fechavencimiento">Vencimiento</option>
+
+                                                    <option value="numfact"># Fact</option>
+                                                    <option value="numnota"># Nota</option>
+                                                    <option value="descripcion">Descripción</option>
+                                                    <option value="subtotal">Subtotal</option>
+                                                    <option value="descuento">Descuento</option>
+                                                    <option value="monto_exento">Monto exento</option>
+                                                    <option value="monto_gravable">Monto gravable</option>
+                                                    <option value="iva">IVA</option>
+                                                    <option value="monto">TOTAL</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="input-group">
+                                                <select className="form-control" value={categoriacuentasPorPagarDetalles} onChange={e=>setcategoriacuentasPorPagarDetalles(e.target.value)}>
+                                                    <option value="">-CATEGORÍA-</option>
+                                                    <option value="1">COMPRAS</option>
+                                                    <option value="2">SERVICIOS</option>
+                                                </select>
+
+                                                <select className="form-control" value={tipocuentasPorPagarDetalles} onChange={e=>settipocuentasPorPagarDetalles(e.target.value)}>
+                                                    <option value="">-TIPO-</option>
+                                                    <option value="DEUDA">CRÉDITOS</option>
+                                                    <option value="ABONOS">DÉBITOS</option>
+                                                </select>
+                                                <button type="button" className="btn btn-success" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}><i className="fa fa-search"></i></button>
+                                            </div>                
+                                        </form>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            {
+                                selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
+                                ? selectCuentaPorPagarId.detalles.filter(e=>e.monto<0).map( (e,i) =>
+                                
+                                    <tr key={e.id}>
+                                        <td className="align-middle">
+                                            <span className={
+                                                (e.condicion=="pagadas"?"btn-success":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":null))))+(" w-100 btn pointer btn-sm")
+                                            } onClick={()=>selectFacturaSetPago(e.id,e.numfact)}>{e.numfact}</span>
+                                        </td>
+                                        <td className="align-middle cell3">
+                                            <input type="text" className="form-control form-control-sm" onChange={event=>setInputAbonoFact(e.id,event.currentTarget.value)} placeholder={e.numfact} />
+                                        </td>
+                                        <td className="align-middle text-right">
+                                            <div><span className={(e.balance<0? "text-danger": "text-success")+(" ")}>B. {moneda(e.balance)}</span></div>
+                                            <div><span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>A. {moneda(e.monto_abonado)}</span></div>
+                                            <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-7")}>D. {moneda(e.monto)}</span></div>
+                                        </td>
+                                    </tr>
+                                )
+                                : null : null
+                                
+                            } 
+                            </tbody>
+
+                        </table>
+                    
                         <div className="form-group w-100">
-                        <button className="mt-2 btn btn-outline-success btn-block w-100 btn-sm" type="submit">Guardar</button>
+                            <button className="mt-2 btn btn-outline-success btn-block w-100 btn-sm" type="submit">Guardar</button>
                         </div>
                     </form>
-                    <table className="table mt-2">
-                        <thead>
-                            <tr>
-                                <th colSpan={3}><h6>ESPECIFICAR ABONO</h6></th>
-                            </tr>
-                            <tr>
-                                <th colSpan={3}>
-                                    <form onSubmit={selectCuentaPorPagarProveedorDetallesFun} className="mb-2">
-                                        <div className="input-group">
-                                        <input type={
-                                            qCampocuentasPorPagarDetalles=="created_at" || 
-                                            qCampocuentasPorPagarDetalles=="fechaemision" || 
-                                            qCampocuentasPorPagarDetalles=="fecharecepcion" || 
-                                            qCampocuentasPorPagarDetalles=="fechavencimiento" ? "date": "text" 
-                                        } className="form-control form-control-sm" placeholder={"Buscar por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
-                        
-                                            
-                                            <span className={("btn arabito_")+(OrdercuentasPorPagarDetalles)} onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
-                                                {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
-                                            </span>
-                                            <select className="form-control" value={qCampocuentasPorPagarDetalles} onChange={e=>setqCampocuentasPorPagarDetalles(e.target.value)}>
-                                                <option value="">-Buscar en-</option>
-                                                <option value="created_at">Creación</option>
-                                                <option value="fechaemision">Emisión</option>
-                                                <option value="fecharecepcion">Recepción</option>
-                                                <option value="fechavencimiento">Vencimiento</option>
-
-                                                <option value="numfact"># Fact</option>
-                                                <option value="numnota"># Nota</option>
-                                                <option value="descripcion">Descripción</option>
-                                                <option value="subtotal">Subtotal</option>
-                                                <option value="descuento">Descuento</option>
-                                                <option value="monto_exento">Monto exento</option>
-                                                <option value="monto_gravable">Monto gravable</option>
-                                                <option value="iva">IVA</option>
-                                                <option value="monto">TOTAL</option>
-                                            </select>
-                                        </div>
-
-                                        <div className="input-group">
-                                            <select className="form-control" value={categoriacuentasPorPagarDetalles} onChange={e=>setcategoriacuentasPorPagarDetalles(e.target.value)}>
-                                                <option value="">-CATEGORÍA-</option>
-                                                <option value="1">COMPRAS</option>
-                                                <option value="2">SERVICIOS</option>
-                                            </select>
-
-                                            <select className="form-control" value={tipocuentasPorPagarDetalles} onChange={e=>settipocuentasPorPagarDetalles(e.target.value)}>
-                                                <option value="">-TIPO-</option>
-                                                <option value="DEUDA">CRÉDITOS</option>
-                                                <option value="ABONOS">DÉBITOS</option>
-                                            </select>
-                                            <button type="button" className="btn btn-success" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}><i className="fa fa-search"></i></button>
-                                        </div>                
-                                    </form>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        {
-                            selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
-                            ? selectCuentaPorPagarId.detalles.filter(e=>e.monto<0).map( (e,i) =>
-                            
-                                <tr key={e.id}>
-                                    <td className="align-middle">
-                                        <span className={
-                                            (e.condicion=="pagadas"?"btn-success":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":null))))+(" w-100 btn pointer btn-sm")
-                                        } onClick={()=>selectFacturaSetPago(e.id,e.numfact)}>{e.numfact}</span>
-                                    </td>
-                                    <td className="align-middle cell3">
-                                        <input type="text" className="form-control form-control-sm" onChange={event=>setInputAbonoFact(e.id,event.currentTarget.value)} placeholder={e.numfact} />
-                                    </td>
-                                    <td className="align-middle text-right">
-                                        <div><span className={(e.balance<0? "text-danger": "text-success")+(" ")}>B. {moneda(e.balance)}</span></div>
-                                        <div><span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>A. {moneda(e.monto_abonado)}</span></div>
-                                        <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-7")}>D. {moneda(e.monto)}</span></div>
-                                    </td>
-                                </tr>
-                            )
-                            : null : null
-                            
-                        } 
-                        </tbody>
-
-                    </table>
+                    
                </>  
             :null}
 
