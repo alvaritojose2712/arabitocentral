@@ -2248,21 +2248,21 @@ __webpack_require__.r(__webpack_exports__);
 
 function BuscarProductosCarrito(_ref) {
   var inputBuscarInventario = _ref.inputBuscarInventario,
-      qBuscarInventario = _ref.qBuscarInventario,
-      setQBuscarInventario = _ref.setQBuscarInventario,
-      Invnum = _ref.Invnum,
-      setInvnum = _ref.setInvnum,
-      InvorderColumn = _ref.InvorderColumn,
-      setInvorderColumn = _ref.setInvorderColumn,
-      InvorderBy = _ref.InvorderBy,
-      setInvorderBy = _ref.setInvorderBy,
-      productosInventario = _ref.productosInventario,
-      indexSelectCarrito = _ref.indexSelectCarrito,
-      setindexSelectCarrito = _ref.setindexSelectCarrito,
-      setshowCantidadCarrito = _ref.setshowCantidadCarrito,
-      showCantidadCarrito = _ref.showCantidadCarrito,
-      pedidoData = _ref.pedidoData,
-      setProdCarritoInterno = _ref.setProdCarritoInterno;
+    qBuscarInventario = _ref.qBuscarInventario,
+    setQBuscarInventario = _ref.setQBuscarInventario,
+    Invnum = _ref.Invnum,
+    setInvnum = _ref.setInvnum,
+    InvorderColumn = _ref.InvorderColumn,
+    setInvorderColumn = _ref.setInvorderColumn,
+    InvorderBy = _ref.InvorderBy,
+    setInvorderBy = _ref.setInvorderBy,
+    productosInventario = _ref.productosInventario,
+    indexSelectCarrito = _ref.indexSelectCarrito,
+    setindexSelectCarrito = _ref.setindexSelectCarrito,
+    setshowCantidadCarrito = _ref.setshowCantidadCarrito,
+    showCantidadCarrito = _ref.showCantidadCarrito,
+    pedidoData = _ref.pedidoData,
+    setProdCarritoInterno = _ref.setProdCarritoInterno;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
       className: "mb-3",
@@ -2454,7 +2454,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 function Cargando(props) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "loaders text-center cargando btn-arabito p-2 rounded",
@@ -2476,7 +2475,6 @@ function Cargando(props) {
     })
   });
 }
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Cargando);
 
 /***/ }),
@@ -2498,30 +2496,30 @@ __webpack_require__.r(__webpack_exports__);
 
 function CatidadCarrito(_ref) {
   var setshowCantidadCarrito = _ref.setshowCantidadCarrito,
-      showCantidadCarrito = _ref.showCantidadCarrito,
-      sucursales = _ref.sucursales,
-      ctSucursales = _ref.ctSucursales,
-      setctSucursales = _ref.setctSucursales,
-      setindexSelectCarrito = _ref.setindexSelectCarrito,
-      indexSelectCarrito = _ref.indexSelectCarrito,
-      productosInventario = _ref.productosInventario,
-      number = _ref.number,
-      setCarrito = _ref.setCarrito,
-      pedidoList = _ref.pedidoList,
-      id_pedido = _ref.id_pedido,
-      setid_pedido = _ref.setid_pedido;
-
+    showCantidadCarrito = _ref.showCantidadCarrito,
+    sucursales = _ref.sucursales,
+    ctSucursales = _ref.ctSucursales,
+    setctSucursales = _ref.setctSucursales,
+    setindexSelectCarrito = _ref.setindexSelectCarrito,
+    indexSelectCarrito = _ref.indexSelectCarrito,
+    productosInventario = _ref.productosInventario,
+    number = _ref.number,
+    setCarrito = _ref.setCarrito,
+    pedidoList = _ref.pedidoList,
+    id_pedido = _ref.id_pedido,
+    setid_pedido = _ref.setid_pedido;
   // const valctsucursales = e => {
   // 	let id = e.currentTarget.attributes["data-id"].value
+
   // 	if (ctSucursales.filter(e=>e.id==id).length) {
   // 		return ctSucursales.filter(e=>e.id==id)[0].val
   // 	}
   // 	return ""
+
   // }
   var onchangectsucursales = function onchangectsucursales(event) {
     var id = event.currentTarget.attributes["data-id"].value;
     var val = number(event.currentTarget.value);
-
     if (ctSucursales.filter(function (e) {
       return e.id == id;
     }).length) {
@@ -2529,7 +2527,6 @@ function CatidadCarrito(_ref) {
         if (e.id == id) {
           e.val = val;
         }
-
         return e;
       }));
     } else {
@@ -2540,11 +2537,9 @@ function CatidadCarrito(_ref) {
       }));
     }
   };
-
   var onchangeid_pedido = function onchangeid_pedido(event) {
     var id = event.currentTarget.attributes["data-id"].value;
     var val = event.currentTarget.value;
-
     if (ctSucursales.filter(function (e) {
       return e.id == id;
     }).length) {
@@ -2552,7 +2547,6 @@ function CatidadCarrito(_ref) {
         if (e.id == id) {
           e.id_pedido = val;
         }
-
         return e;
       }));
     } else {
@@ -2563,21 +2557,17 @@ function CatidadCarrito(_ref) {
       }));
     }
   };
-
   var ctSucursalesCheck = function ctSucursalesCheck() {
     var res = ctSucursales.map(function (e) {
       return e.val == "" ? 0 : parseFloat(e.val);
     }).reduce(function (partial_sum, a) {
       return partial_sum + a;
     }, 0);
-
     if (!res || res == 0) {
       return 0;
     }
-
     return res;
   };
-
   var sumCt = ctSucursalesCheck();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "container-fluid",
@@ -2723,10 +2713,10 @@ __webpack_require__.r(__webpack_exports__);
 
 function ComoVamos(_ref) {
   var getsucursalDetallesData = _ref.getsucursalDetallesData,
-      sucursalDetallesData = _ref.sucursalDetallesData,
-      subviewpanelsucursales = _ref.subviewpanelsucursales,
-      setsubviewpanelsucursales = _ref.setsubviewpanelsucursales,
-      moneda = _ref.moneda;
+    sucursalDetallesData = _ref.sucursalDetallesData,
+    subviewpanelsucursales = _ref.subviewpanelsucursales,
+    setsubviewpanelsucursales = _ref.setsubviewpanelsucursales,
+    moneda = _ref.moneda;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getsucursalDetallesData(null, "comovamos");
   }, []);
@@ -3161,22 +3151,67 @@ function CuentasporpagarDetalles(_ref) {
           })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
-        className: "table",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tbody", {
-          children: [dataCuenta.monto_abonado && dataCuenta.cuenta ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-            className: "d-flex justify-content-center align-items-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-              children: ["ABONADO A FACT ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                className: "text-success",
+        className: "table table-borderless table-sm",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+          children: dataCuenta.monto_abonado && dataCuenta.pagos ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+              className: "",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: "ABONADO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                colSpan: 2,
+                className: "text-success text-right",
                 children: moneda(dataCuenta.monto_abonado)
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-              children: [dataCuenta.cuenta.descripcion, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                className: "btn btn-success",
-                children: moneda(dataCuenta.cuenta.monto)
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+              className: "",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: "DEUDA"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                colSpan: 2,
+                className: "text-danger text-right",
+                children: moneda(dataCuenta.monto)
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+              className: "",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: "BALANCE"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                colSpan: 2,
+                className: (dataCuenta.balance < 0 ? "text-danger" : "text-success") + " fs-4 text-right",
+                children: moneda(dataCuenta.balance)
               })]
             })]
-          }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+          }) : null
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
+        className: "table table-borderless table-sm",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+          children: dataCuenta.monto_abonado && dataCuenta.pagos ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+            children: dataCuenta.pagos.map(function (e) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                className: "border-top",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: " align-middle",
+                  children: e.created_at
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: " align-middle",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    className: "btn-sinapsis btn pointer btn-sm",
+                    children: e.numfact
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: "text-right align-middle",
+                  children: moneda(e.monto)
+                })]
+              }, e.id);
+            })
+          }) : null
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
+        className: "table",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tbody", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
               children: "PROVEEDOR"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
@@ -3315,19 +3350,19 @@ function CuentasporpagarDetalles(_ref) {
             onClick: function onClick() {
               return setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact == "abonos" ? "" : "abonos");
             },
-            children: "D\xC9BITOS"
+            children: "D\xC9B"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
             className: "btn btn-sm " + (qcuentasPorPagarTipoFact == "pagadas" ? "btn-medsuccess" : "btn-outline-medsuccess"),
             onClick: function onClick() {
               return setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact == "pagadas" ? "" : "pagadas");
             },
-            children: "PAGADAS"
+            children: "PAG"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
             className: "btn btn-sm " + (qcuentasPorPagarTipoFact == "semipagadas" ? "btn-primary" : "btn-outline-primary"),
             onClick: function onClick() {
               return setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact == "semipagadas" ? "" : "semipagadas");
             },
-            children: "ABONADAS"
+            children: "ABON"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
             className: "btn btn-sm " + (qcuentasPorPagarTipoFact == "porvencer" ? "btn-sinapsis" : "btn-outline-sinapsis"),
             onClick: function onClick() {
@@ -3339,7 +3374,7 @@ function CuentasporpagarDetalles(_ref) {
             onClick: function onClick() {
               return setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact == "vencidas" ? "" : "vencidas");
             },
-            children: "VENCIDAS"
+            children: "VENC"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "input-group",
@@ -3653,7 +3688,7 @@ function CuentasporpagarPagos(_ref) {
     }
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "container mb-4",
+    className: "container mb-4 p-0",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "btn-group mb-1 mt-1 w-100",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
@@ -3682,6 +3717,7 @@ function CuentasporpagarPagos(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
             type: "text",
             className: "form-control",
+            placeholder: "Referencia",
             value: cuentasPagosDescripcion,
             onChange: function onChange(e) {
               return setcuentasPagosDescripcion(e.target.value);
@@ -3695,6 +3731,7 @@ function CuentasporpagarPagos(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
             type: "text",
             className: "form-control",
+            placeholder: "Monto TOTAL de ABONO",
             value: cuentasPagosMonto,
             onChange: function onChange(e) {
               return setcuentasPagosMonto(number(e.target.value));
@@ -3726,12 +3763,14 @@ function CuentasporpagarPagos(_ref) {
             }
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
-          className: "table",
+          className: "table table-sm",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tbody", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                className: "text-center",
                 children: "FACT"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                className: "text-center",
                 children: "ABONADO"
               })]
             }), selectAbonoFact.map(function (e) {
@@ -3897,29 +3936,40 @@ function CuentasporpagarPagos(_ref) {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 className: "align-middle",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                  className: (e.condicion == "pagadas" ? "btn-success" : e.condicion == "vencidas" ? "btn-danger" : e.condicion == "porvencer" ? "btn-sinapsis" : e.condicion == "semipagadas" ? "btn-primary" : null) + " w-100 btn pointer",
+                  className: (e.condicion == "pagadas" ? "btn-success" : e.condicion == "vencidas" ? "btn-danger" : e.condicion == "porvencer" ? "btn-sinapsis" : e.condicion == "semipagadas" ? "btn-primary" : null) + " w-100 btn pointer btn-sm",
                   onClick: function onClick() {
                     return selectFacturaSetPago(e.id, e.numfact);
                   },
                   children: e.numfact
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                className: "align-middle",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                    className: (e.monto < 0 ? "text-danger" : "text-success") + " fs-3",
-                    children: moneda(e.monto)
-                  })
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                className: "align-middle cell3",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
                   type: "text",
-                  className: "form-control",
+                  className: "form-control form-control-sm",
                   onChange: function onChange(event) {
                     return setInputAbonoFact(e.id, event.currentTarget.value);
                   },
-                  placeholder: "Abonar a " + e.numfact
+                  placeholder: e.numfact
                 })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                className: "align-middle text-right",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                    className: (e.balance < 0 ? "text-danger" : "text-success") + " ",
+                    children: ["B. ", moneda(e.balance)]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                    className: (e.monto_abonado < 0 ? "text-danger" : "text-success") + " fs-7",
+                    children: ["A. ", moneda(e.monto_abonado)]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                    className: (e.monto < 0 ? "text-danger" : "text-success") + " fs-7",
+                    children: ["D. ", moneda(e.monto)]
+                  })
+                })]
               })]
             }, e.id);
           }) : null : null
@@ -4240,41 +4290,34 @@ __webpack_require__.r(__webpack_exports__);
 
 function Gastos(_ref) {
   var gastos = _ref.gastos,
-      setselectgastos = _ref.setselectgastos,
-      selectgastos = _ref.selectgastos,
-      setfechaGastos = _ref.setfechaGastos,
-      fechaGastos = _ref.fechaGastos,
-      tipogasto = _ref.tipogasto,
-      settipogasto = _ref.settipogasto;
-
+    setselectgastos = _ref.setselectgastos,
+    selectgastos = _ref.selectgastos,
+    setfechaGastos = _ref.setfechaGastos,
+    fechaGastos = _ref.fechaGastos,
+    tipogasto = _ref.tipogasto,
+    settipogasto = _ref.settipogasto;
   var catReturn = function catReturn(cat) {
     switch (cat) {
       case 1:
         return "Vueltos";
         break;
-
       case 2:
         return "Nómina";
         break;
-
       case 3:
         return "Funcionamiento";
         break;
-
       case 4:
         return "Pago a proveedores";
         break;
-
       case 5:
         return "Otros";
         break;
-
       case 6:
         return "Devolución";
         break;
     }
   };
-
   var gastoFilter = gastos.filter(function (e) {
     return e.tipo == tipogasto;
   }).filter(function (e) {
@@ -4388,10 +4431,10 @@ __webpack_require__.r(__webpack_exports__);
 
 function Header(_ref) {
   var sucursales = _ref.sucursales,
-      sucursalSelect = _ref.sucursalSelect,
-      setsucursalSelect = _ref.setsucursalSelect,
-      viewmainPanel = _ref.viewmainPanel,
-      setviewmainPanel = _ref.setviewmainPanel;
+    sucursalSelect = _ref.sucursalSelect,
+    setsucursalSelect = _ref.setsucursalSelect,
+    viewmainPanel = _ref.viewmainPanel,
+    setviewmainPanel = _ref.setviewmainPanel;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("header", {
     className: "container mt-2 mb-2",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -4451,48 +4494,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cargando__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./cargando */ "./resources/js/components/cargando.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } Object.defineProperty(subClass, "prototype", { value: Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }), writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
 
 
 
- // import {handleNotification,Notification} from './handleNotification';
-
-
+// import {handleNotification,Notification} from './handleNotification';
 
 
 var Login = /*#__PURE__*/function (_Component) {
   _inherits(Login, _Component);
-
   var _super = _createSuper(Login);
-
   function Login() {
     var _this;
-
     _classCallCheck(this, Login);
-
     _this = _super.call(this);
     _this.state = {
       clave: "",
@@ -4505,12 +4531,10 @@ var Login = /*#__PURE__*/function (_Component) {
     _this.submit = _this.submit.bind(_assertThisInitialized(_this));
     return _this;
   }
-
   _createClass(Login, [{
     key: "getApiData",
     value: function getApiData(e, url, prop) {
       var _this2 = this;
-
       axios.get(url, {
         params: {
           q: e ? e.target.value : ""
@@ -4525,7 +4549,6 @@ var Login = /*#__PURE__*/function (_Component) {
     key: "changeUniqueState",
     value: function changeUniqueState(newState) {
       var _this3 = this;
-
       return new Promise(function (solve) {
         return _this3.setState(newState, solve);
       });
@@ -4534,7 +4557,6 @@ var Login = /*#__PURE__*/function (_Component) {
     key: "submit",
     value: function submit(event) {
       var _this4 = this;
-
       event.preventDefault();
       this.setState({
         activeLoading: true
@@ -4546,18 +4568,17 @@ var Login = /*#__PURE__*/function (_Component) {
         _this4.setState({
           activeLoading: false
         });
-
         if (data.data) {
           _this4.props.loginRes(data);
-        } // handleNotification(data)
-
-      }); // .catch(error=>{handleNotification(error)})
+        }
+        // handleNotification(data)
+      });
+      // .catch(error=>{handleNotification(error)})
     }
   }, {
     key: "render",
     value: function render() {
       var _this5 = this;
-
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "login",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
@@ -4624,10 +4645,8 @@ var Login = /*#__PURE__*/function (_Component) {
       });
     }
   }]);
-
   return Login;
 }(react__WEBPACK_IMPORTED_MODULE_3__.Component);
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Login);
 
 /***/ }),
@@ -4649,8 +4668,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Nomina(_ref) {
   var subViewNominaGestion = _ref.subViewNominaGestion,
-      setsubViewNominaGestion = _ref.setsubViewNominaGestion,
-      children = _ref.children;
+    setsubViewNominaGestion = _ref.setsubViewNominaGestion,
+    children = _ref.children;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "d-flex justify-content-center",
@@ -4878,8 +4897,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Nominahome(_ref) {
   var children = _ref.children,
-      subViewNomina = _ref.subViewNomina,
-      setsubViewNomina = _ref.setsubViewNomina;
+    subViewNomina = _ref.subViewNomina,
+    setsubViewNomina = _ref.setsubViewNomina;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
       className: "btn-group mb-2",
@@ -4920,20 +4939,20 @@ __webpack_require__.r(__webpack_exports__);
 
 function Nominapagos(_ref) {
   var qSucursalNomina = _ref.qSucursalNomina,
-      setqSucursalNomina = _ref.setqSucursalNomina,
-      sucursales = _ref.sucursales,
-      qCargoNomina = _ref.qCargoNomina,
-      setqCargoNomina = _ref.setqCargoNomina,
-      cargosData = _ref.cargosData,
-      qNomina = _ref.qNomina,
-      setqNomina = _ref.setqNomina,
-      getPersonalNomina = _ref.getPersonalNomina,
-      getPersonalCargos = _ref.getPersonalCargos,
-      nominaData = _ref.nominaData,
-      subViewNomina = _ref.subViewNomina,
-      selectNominaDetalles = _ref.selectNominaDetalles,
-      nominapagodetalles = _ref.nominapagodetalles,
-      setnominapagodetalles = _ref.setnominapagodetalles;
+    setqSucursalNomina = _ref.setqSucursalNomina,
+    sucursales = _ref.sucursales,
+    qCargoNomina = _ref.qCargoNomina,
+    setqCargoNomina = _ref.setqCargoNomina,
+    cargosData = _ref.cargosData,
+    qNomina = _ref.qNomina,
+    setqNomina = _ref.setqNomina,
+    getPersonalNomina = _ref.getPersonalNomina,
+    getPersonalCargos = _ref.getPersonalCargos,
+    nominaData = _ref.nominaData,
+    subViewNomina = _ref.subViewNomina,
+    selectNominaDetalles = _ref.selectNominaDetalles,
+    nominapagodetalles = _ref.nominapagodetalles,
+    setnominapagodetalles = _ref.setnominapagodetalles;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getPersonalNomina();
     getPersonalCargos();
@@ -5578,10 +5597,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
-
 function Notificacion(_ref) {
   var msj = _ref.msj,
-      notificar = _ref.notificar;
+    notificar = _ref.notificar;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "notificacion",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h5", {
@@ -5594,7 +5612,6 @@ function Notificacion(_ref) {
     }), msj]
   });
 }
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Notificacion);
 
 /***/ }),
@@ -6631,12 +6648,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
-
 function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
-
 function BalanceCierres(_ref) {
   _objectDestructuringEmpty(_ref);
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {});
 }
 
@@ -6659,19 +6673,17 @@ __webpack_require__.r(__webpack_exports__);
 
 function CatGeneral(_ref) {
   var addNewCatGenerals = _ref.addNewCatGenerals,
-      catGeneralsDescripcion = _ref.catGeneralsDescripcion,
-      setcatGeneralsDescripcion = _ref.setcatGeneralsDescripcion,
-      indexSelectCatGenerals = _ref.indexSelectCatGenerals,
-      setIndexSelectCatGenerals = _ref.setIndexSelectCatGenerals,
-      qBuscarCatGenerals = _ref.qBuscarCatGenerals,
-      setQBuscarCatGenerals = _ref.setQBuscarCatGenerals,
-      delCatGenerals = _ref.delCatGenerals,
-      catGenerals = _ref.catGenerals,
-      getCatGenerals = _ref.getCatGenerals;
-
+    catGeneralsDescripcion = _ref.catGeneralsDescripcion,
+    setcatGeneralsDescripcion = _ref.setcatGeneralsDescripcion,
+    indexSelectCatGenerals = _ref.indexSelectCatGenerals,
+    setIndexSelectCatGenerals = _ref.setIndexSelectCatGenerals,
+    qBuscarCatGenerals = _ref.qBuscarCatGenerals,
+    setQBuscarCatGenerals = _ref.setQBuscarCatGenerals,
+    delCatGenerals = _ref.delCatGenerals,
+    catGenerals = _ref.catGenerals,
+    getCatGenerals = _ref.getCatGenerals;
   var setIndexSelectCatFun = function setIndexSelectCatFun(e) {
     var index = e.currentTarget.attributes["data-index"].value;
-
     if (index == indexSelectCatGenerals) {
       setIndexSelectCatGenerals(null);
       setcatGeneralsDescripcion("");
@@ -6680,12 +6692,10 @@ function CatGeneral(_ref) {
       setcatGeneralsDescripcion(catGenerals[index].descripcion);
     }
   };
-
   var setNuevoCat = function setNuevoCat() {
     setcatGeneralsDescripcion("");
     setIndexSelectCatGenerals(null);
   };
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "container-fluid",
@@ -6852,8 +6862,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Creditos(_ref) {
   var getsucursalDetallesData = _ref.getsucursalDetallesData,
-      sucursalDetallesData = _ref.sucursalDetallesData,
-      moneda = _ref.moneda;
+    sucursalDetallesData = _ref.sucursalDetallesData,
+    moneda = _ref.moneda;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     className: "",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", {
@@ -6915,19 +6925,17 @@ __webpack_require__.r(__webpack_exports__);
 
 function Categorias(_ref) {
   var addNewCategorias = _ref.addNewCategorias,
-      categoriasDescripcion = _ref.categoriasDescripcion,
-      setcategoriasDescripcion = _ref.setcategoriasDescripcion,
-      indexSelectCategorias = _ref.indexSelectCategorias,
-      setIndexSelectCategorias = _ref.setIndexSelectCategorias,
-      qBuscarCategorias = _ref.qBuscarCategorias,
-      setQBuscarCategorias = _ref.setQBuscarCategorias,
-      delCategorias = _ref.delCategorias,
-      categorias = _ref.categorias,
-      getCategorias = _ref.getCategorias;
-
+    categoriasDescripcion = _ref.categoriasDescripcion,
+    setcategoriasDescripcion = _ref.setcategoriasDescripcion,
+    indexSelectCategorias = _ref.indexSelectCategorias,
+    setIndexSelectCategorias = _ref.setIndexSelectCategorias,
+    qBuscarCategorias = _ref.qBuscarCategorias,
+    setQBuscarCategorias = _ref.setQBuscarCategorias,
+    delCategorias = _ref.delCategorias,
+    categorias = _ref.categorias,
+    getCategorias = _ref.getCategorias;
   var setIndexSelectCatFun = function setIndexSelectCatFun(e) {
     var index = e.currentTarget.attributes["data-index"].value;
-
     if (index == indexSelectCategorias) {
       setIndexSelectCategorias(null);
       setcategoriasDescripcion("");
@@ -6936,12 +6944,10 @@ function Categorias(_ref) {
       setcategoriasDescripcion(categorias[index].descripcion);
     }
   };
-
   var setNuevoCat = function setNuevoCat() {
     setcategoriasDescripcion("");
     setIndexSelectCategorias(null);
   };
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "container-fluid",
@@ -7086,8 +7092,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Fallas(_ref) {
   var getsucursalDetallesData = _ref.getsucursalDetallesData,
-      sucursalDetallesData = _ref.sucursalDetallesData,
-      moneda = _ref.moneda;
+    sucursalDetallesData = _ref.sucursalDetallesData,
+    moneda = _ref.moneda;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -7162,9 +7168,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function FechasMain(_ref) {
   var fechasMain1 = _ref.fechasMain1,
-      fechasMain2 = _ref.fechasMain2,
-      setfechasMain1 = _ref.setfechasMain1,
-      setfechasMain2 = _ref.setfechasMain2;
+    fechasMain2 = _ref.fechasMain2,
+    setfechasMain1 = _ref.setfechasMain1,
+    setfechasMain2 = _ref.setfechasMain2;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "input-group mb-3",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
@@ -7200,12 +7206,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
-
 function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
-
 function Gastos(_ref) {
   _objectDestructuringEmpty(_ref);
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {});
 }
 
@@ -7230,29 +7233,29 @@ __webpack_require__.r(__webpack_exports__);
 
 function Gestioninventario(_ref) {
   var setporcenganancia = _ref.setporcenganancia,
-      productosInventario = _ref.productosInventario,
-      qBuscarInventario = _ref.qBuscarInventario,
-      setQBuscarInventario = _ref.setQBuscarInventario,
-      type = _ref.type,
-      changeInventario = _ref.changeInventario,
-      Invnum = _ref.Invnum,
-      setInvnum = _ref.setInvnum,
-      InvorderColumn = _ref.InvorderColumn,
-      setInvorderColumn = _ref.setInvorderColumn,
-      InvorderBy = _ref.InvorderBy,
-      setInvorderBy = _ref.setInvorderBy,
-      inputBuscarInventario = _ref.inputBuscarInventario,
-      guardarNuevoProductoLote = _ref.guardarNuevoProductoLote,
-      proveedoresList = _ref.proveedoresList,
-      number = _ref.number,
-      refsInpInvList = _ref.refsInpInvList,
-      buscarInventario = _ref.buscarInventario,
-      categorias = _ref.categorias,
-      marcas = _ref.marcas,
-      catGenerals = _ref.catGenerals,
-      getMarcas = _ref.getMarcas,
-      getCatGenerals = _ref.getCatGenerals,
-      getCategorias = _ref.getCategorias;
+    productosInventario = _ref.productosInventario,
+    qBuscarInventario = _ref.qBuscarInventario,
+    setQBuscarInventario = _ref.setQBuscarInventario,
+    type = _ref.type,
+    changeInventario = _ref.changeInventario,
+    Invnum = _ref.Invnum,
+    setInvnum = _ref.setInvnum,
+    InvorderColumn = _ref.InvorderColumn,
+    setInvorderColumn = _ref.setInvorderColumn,
+    InvorderBy = _ref.InvorderBy,
+    setInvorderBy = _ref.setInvorderBy,
+    inputBuscarInventario = _ref.inputBuscarInventario,
+    guardarNuevoProductoLote = _ref.guardarNuevoProductoLote,
+    proveedoresList = _ref.proveedoresList,
+    number = _ref.number,
+    refsInpInvList = _ref.refsInpInvList,
+    buscarInventario = _ref.buscarInventario,
+    categorias = _ref.categorias,
+    marcas = _ref.marcas,
+    catGenerals = _ref.catGenerals,
+    getMarcas = _ref.getMarcas,
+    getCatGenerals = _ref.getCatGenerals,
+    getCategorias = _ref.getCategorias;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getMarcas();
     getCatGenerals();
@@ -7752,19 +7755,17 @@ __webpack_require__.r(__webpack_exports__);
 
 function Marcas(_ref) {
   var addNewMarcas = _ref.addNewMarcas,
-      marcasDescripcion = _ref.marcasDescripcion,
-      setmarcasDescripcion = _ref.setmarcasDescripcion,
-      indexSelectMarcas = _ref.indexSelectMarcas,
-      setIndexSelectMarcas = _ref.setIndexSelectMarcas,
-      qBuscarMarcas = _ref.qBuscarMarcas,
-      setQBuscarMarcas = _ref.setQBuscarMarcas,
-      delMarcas = _ref.delMarcas,
-      marcas = _ref.marcas,
-      getMarcas = _ref.getMarcas;
-
+    marcasDescripcion = _ref.marcasDescripcion,
+    setmarcasDescripcion = _ref.setmarcasDescripcion,
+    indexSelectMarcas = _ref.indexSelectMarcas,
+    setIndexSelectMarcas = _ref.setIndexSelectMarcas,
+    qBuscarMarcas = _ref.qBuscarMarcas,
+    setQBuscarMarcas = _ref.setQBuscarMarcas,
+    delMarcas = _ref.delMarcas,
+    marcas = _ref.marcas,
+    getMarcas = _ref.getMarcas;
   var setIndexSelectCatFun = function setIndexSelectCatFun(e) {
     var index = e.currentTarget.attributes["data-index"].value;
-
     if (index == indexSelectMarcas) {
       setIndexSelectMarcas(null);
       setmarcasDescripcion("");
@@ -7773,12 +7774,10 @@ function Marcas(_ref) {
       setmarcasDescripcion(marcas[index].descripcion);
     }
   };
-
   var setNuevoCat = function setNuevoCat() {
     setmarcasDescripcion("");
     setIndexSelectMarcas(null);
   };
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "container-fluid",
@@ -7923,7 +7922,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function NavInventario(_ref) {
   var subViewInventario = _ref.subViewInventario,
-      setsubViewInventario = _ref.setsubViewInventario;
+    setsubViewInventario = _ref.setsubViewInventario;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "btn-group mb-3",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
@@ -7974,34 +7973,29 @@ __webpack_require__.r(__webpack_exports__);
 
 function NominasSucursal(_ref) {
   var getsucursalDetallesData = _ref.getsucursalDetallesData,
-      sucursalDetallesData = _ref.sucursalDetallesData,
-      controlefecSelectGeneral = _ref.controlefecSelectGeneral,
-      setcontrolefecSelectGeneral = _ref.setcontrolefecSelectGeneral,
-      filtronominaq = _ref.filtronominaq,
-      setfiltronominaq = _ref.setfiltronominaq,
-      filtronominacargo = _ref.filtronominacargo,
-      setfiltronominacargo = _ref.setfiltronominacargo,
-      moneda = _ref.moneda,
-      cargosData = _ref.cargosData,
-      getPersonalCargos = _ref.getPersonalCargos;
-
+    sucursalDetallesData = _ref.sucursalDetallesData,
+    controlefecSelectGeneral = _ref.controlefecSelectGeneral,
+    setcontrolefecSelectGeneral = _ref.setcontrolefecSelectGeneral,
+    filtronominaq = _ref.filtronominaq,
+    setfiltronominaq = _ref.setfiltronominaq,
+    filtronominacargo = _ref.filtronominacargo,
+    setfiltronominacargo = _ref.setfiltronominacargo,
+    moneda = _ref.moneda,
+    cargosData = _ref.cargosData,
+    getPersonalCargos = _ref.getPersonalCargos;
   try {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
       getPersonalCargos();
     }, []);
-
     var cargosDataFun = function cargosDataFun(val) {
       var m = cargosData.filter(function (e) {
         return e.id == val;
       });
-
       if (m.length) {
         return m[0].cargosdescripcion;
       }
-
       return "ERROR";
     };
-
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "container-fluid",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
@@ -8126,8 +8120,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function PanelOpciones(_ref) {
   var viewmainPanel = _ref.viewmainPanel,
-      setviewmainPanel = _ref.setviewmainPanel,
-      opciones = _ref.opciones;
+    setviewmainPanel = _ref.setviewmainPanel,
+    opciones = _ref.opciones;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
     className: "container-fluid",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -8487,20 +8481,19 @@ __webpack_require__.r(__webpack_exports__);
 
 function SucursalDetallesinvetario(_ref) {
   var invsuc_itemCero = _ref.invsuc_itemCero,
-      setinvsuc_itemCero = _ref.setinvsuc_itemCero,
-      invsuc_q = _ref.invsuc_q,
-      setinvsuc_q = _ref.setinvsuc_q,
-      invsuc_exacto = _ref.invsuc_exacto,
-      setinvsuc_exacto = _ref.setinvsuc_exacto,
-      invsuc_num = _ref.invsuc_num,
-      setinvsuc_num = _ref.setinvsuc_num,
-      invsuc_orderColumn = _ref.invsuc_orderColumn,
-      setinvsuc_orderColumn = _ref.setinvsuc_orderColumn,
-      invsuc_orderBy = _ref.invsuc_orderBy,
-      setinvsuc_orderBy = _ref.setinvsuc_orderBy,
-      sucursalDetallesData = _ref.sucursalDetallesData,
-      getsucursalDetallesData = _ref.getsucursalDetallesData;
-
+    setinvsuc_itemCero = _ref.setinvsuc_itemCero,
+    invsuc_q = _ref.invsuc_q,
+    setinvsuc_q = _ref.setinvsuc_q,
+    invsuc_exacto = _ref.invsuc_exacto,
+    setinvsuc_exacto = _ref.setinvsuc_exacto,
+    invsuc_num = _ref.invsuc_num,
+    setinvsuc_num = _ref.setinvsuc_num,
+    invsuc_orderColumn = _ref.invsuc_orderColumn,
+    setinvsuc_orderColumn = _ref.setinvsuc_orderColumn,
+    invsuc_orderBy = _ref.invsuc_orderBy,
+    setinvsuc_orderBy = _ref.setinvsuc_orderBy,
+    sucursalDetallesData = _ref.sucursalDetallesData,
+    getsucursalDetallesData = _ref.getsucursalDetallesData;
   var getPorGanacia = function getPorGanacia(precio, base) {
     try {
       var por = 0;
@@ -8508,7 +8501,6 @@ function SucursalDetallesinvetario(_ref) {
       base = parseFloat(base);
       var dif = precio - base;
       por = (dif * 100 / base).toFixed(2);
-
       if (por) {
         return (dif < 0 ? "" : "+") + por + "%";
       } else {
@@ -8518,7 +8510,6 @@ function SucursalDetallesinvetario(_ref) {
       return "";
     }
   };
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
@@ -8762,8 +8753,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Sucursallistcierre(_ref) {
   var sucursalListData = _ref.sucursalListData,
-      sucursalSelect = _ref.sucursalSelect,
-      setsucursalSelect = _ref.setsucursalSelect;
+    sucursalSelect = _ref.sucursalSelect,
+    setsucursalSelect = _ref.setsucursalSelect;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", {
     className: "table",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
@@ -8848,8 +8839,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function SucursalListGastos(_ref) {
   var sucursalListData = _ref.sucursalListData,
-      sucursalSelect = _ref.sucursalSelect,
-      setsucursalSelect = _ref.setsucursalSelect;
+    sucursalSelect = _ref.sucursalSelect,
+    setsucursalSelect = _ref.setsucursalSelect;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     className: "",
     children: sucursalListData.length ? sucursalListData.map(function (e) {
@@ -8912,13 +8903,13 @@ __webpack_require__.r(__webpack_exports__);
 
 function PedidoSelect(_ref) {
   var pedidoData = _ref.pedidoData,
-      setshowCantidadCarrito = _ref.setshowCantidadCarrito,
-      setDelCarrito = _ref.setDelCarrito,
-      setCtCarrito = _ref.setCtCarrito,
-      delPedido = _ref.delPedido,
-      moneda = _ref.moneda,
-      sendPedidoSucursal = _ref.sendPedidoSucursal,
-      showPedidoBarras = _ref.showPedidoBarras;
+    setshowCantidadCarrito = _ref.setshowCantidadCarrito,
+    setDelCarrito = _ref.setDelCarrito,
+    setCtCarrito = _ref.setCtCarrito,
+    delPedido = _ref.delPedido,
+    moneda = _ref.moneda,
+    sendPedidoSucursal = _ref.sendPedidoSucursal,
+    showPedidoBarras = _ref.showPedidoBarras;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "container-fluid",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -9088,53 +9079,53 @@ __webpack_require__.r(__webpack_exports__);
 
 function Pedidos(_ref) {
   var inputBuscarInventario = _ref.inputBuscarInventario,
-      qBuscarInventario = _ref.qBuscarInventario,
-      setQBuscarInventario = _ref.setQBuscarInventario,
-      Invnum = _ref.Invnum,
-      setInvnum = _ref.setInvnum,
-      InvorderColumn = _ref.InvorderColumn,
-      setInvorderColumn = _ref.setInvorderColumn,
-      InvorderBy = _ref.InvorderBy,
-      setInvorderBy = _ref.setInvorderBy,
-      productosInventario = _ref.productosInventario,
-      indexSelectCarrito = _ref.indexSelectCarrito,
-      setindexSelectCarrito = _ref.setindexSelectCarrito,
-      showCantidadCarritoFun = _ref.showCantidadCarritoFun,
-      showCantidadCarrito = _ref.showCantidadCarrito,
-      setshowCantidadCarrito = _ref.setshowCantidadCarrito,
-      sucursales = _ref.sucursales,
-      ctSucursales = _ref.ctSucursales,
-      setctSucursales = _ref.setctSucursales,
-      number = _ref.number,
-      setCarrito = _ref.setCarrito,
-      pedidoList = _ref.pedidoList,
-      id_pedido = _ref.id_pedido,
-      setid_pedido = _ref.setid_pedido,
-      qpedido = _ref.qpedido,
-      setqpedido = _ref.setqpedido,
-      qpedidoDateFrom = _ref.qpedidoDateFrom,
-      setqpedidoDateFrom = _ref.setqpedidoDateFrom,
-      qpedidoDateTo = _ref.qpedidoDateTo,
-      setqpedidoDateTo = _ref.setqpedidoDateTo,
-      qpedidoOrderBy = _ref.qpedidoOrderBy,
-      setqpedidoOrderBy = _ref.setqpedidoOrderBy,
-      qpedidoOrderByDescAsc = _ref.qpedidoOrderByDescAsc,
-      setqpedidoOrderByDescAsc = _ref.setqpedidoOrderByDescAsc,
-      pedidos = _ref.pedidos,
-      setpedidos = _ref.setpedidos,
-      pedidoData = _ref.pedidoData,
-      setpedidoData = _ref.setpedidoData,
-      qestadopedido = _ref.qestadopedido,
-      setqestadopedido = _ref.setqestadopedido,
-      getPedidos = _ref.getPedidos,
-      delPedido = _ref.delPedido,
-      selectPedido = _ref.selectPedido,
-      moneda = _ref.moneda,
-      setDelCarrito = _ref.setDelCarrito,
-      setCtCarrito = _ref.setCtCarrito,
-      setProdCarritoInterno = _ref.setProdCarritoInterno,
-      sendPedidoSucursal = _ref.sendPedidoSucursal,
-      showPedidoBarras = _ref.showPedidoBarras;
+    qBuscarInventario = _ref.qBuscarInventario,
+    setQBuscarInventario = _ref.setQBuscarInventario,
+    Invnum = _ref.Invnum,
+    setInvnum = _ref.setInvnum,
+    InvorderColumn = _ref.InvorderColumn,
+    setInvorderColumn = _ref.setInvorderColumn,
+    InvorderBy = _ref.InvorderBy,
+    setInvorderBy = _ref.setInvorderBy,
+    productosInventario = _ref.productosInventario,
+    indexSelectCarrito = _ref.indexSelectCarrito,
+    setindexSelectCarrito = _ref.setindexSelectCarrito,
+    showCantidadCarritoFun = _ref.showCantidadCarritoFun,
+    showCantidadCarrito = _ref.showCantidadCarrito,
+    setshowCantidadCarrito = _ref.setshowCantidadCarrito,
+    sucursales = _ref.sucursales,
+    ctSucursales = _ref.ctSucursales,
+    setctSucursales = _ref.setctSucursales,
+    number = _ref.number,
+    setCarrito = _ref.setCarrito,
+    pedidoList = _ref.pedidoList,
+    id_pedido = _ref.id_pedido,
+    setid_pedido = _ref.setid_pedido,
+    qpedido = _ref.qpedido,
+    setqpedido = _ref.setqpedido,
+    qpedidoDateFrom = _ref.qpedidoDateFrom,
+    setqpedidoDateFrom = _ref.setqpedidoDateFrom,
+    qpedidoDateTo = _ref.qpedidoDateTo,
+    setqpedidoDateTo = _ref.setqpedidoDateTo,
+    qpedidoOrderBy = _ref.qpedidoOrderBy,
+    setqpedidoOrderBy = _ref.setqpedidoOrderBy,
+    qpedidoOrderByDescAsc = _ref.qpedidoOrderByDescAsc,
+    setqpedidoOrderByDescAsc = _ref.setqpedidoOrderByDescAsc,
+    pedidos = _ref.pedidos,
+    setpedidos = _ref.setpedidos,
+    pedidoData = _ref.pedidoData,
+    setpedidoData = _ref.setpedidoData,
+    qestadopedido = _ref.qestadopedido,
+    setqestadopedido = _ref.setqestadopedido,
+    getPedidos = _ref.getPedidos,
+    delPedido = _ref.delPedido,
+    selectPedido = _ref.selectPedido,
+    moneda = _ref.moneda,
+    setDelCarrito = _ref.setDelCarrito,
+    setCtCarrito = _ref.setCtCarrito,
+    setProdCarritoInterno = _ref.setProdCarritoInterno,
+    sendPedidoSucursal = _ref.sendPedidoSucursal,
+    showPedidoBarras = _ref.showPedidoBarras;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
       children: "Pedidos"
@@ -9221,24 +9212,24 @@ __webpack_require__.r(__webpack_exports__);
 
 function PedidosList(_ref) {
   var qpedido = _ref.qpedido,
-      setqpedido = _ref.setqpedido,
-      qpedidoDateFrom = _ref.qpedidoDateFrom,
-      setqpedidoDateFrom = _ref.setqpedidoDateFrom,
-      qpedidoDateTo = _ref.qpedidoDateTo,
-      setqpedidoDateTo = _ref.setqpedidoDateTo,
-      qpedidoOrderBy = _ref.qpedidoOrderBy,
-      setqpedidoOrderBy = _ref.setqpedidoOrderBy,
-      qpedidoOrderByDescAsc = _ref.qpedidoOrderByDescAsc,
-      setqpedidoOrderByDescAsc = _ref.setqpedidoOrderByDescAsc,
-      pedidos = _ref.pedidos,
-      setpedidos = _ref.setpedidos,
-      qestadopedido = _ref.qestadopedido,
-      setqestadopedido = _ref.setqestadopedido,
-      getPedidos = _ref.getPedidos,
-      delPedido = _ref.delPedido,
-      selectPedido = _ref.selectPedido,
-      moneda = _ref.moneda,
-      setshowCantidadCarrito = _ref.setshowCantidadCarrito;
+    setqpedido = _ref.setqpedido,
+    qpedidoDateFrom = _ref.qpedidoDateFrom,
+    setqpedidoDateFrom = _ref.setqpedidoDateFrom,
+    qpedidoDateTo = _ref.qpedidoDateTo,
+    setqpedidoDateTo = _ref.setqpedidoDateTo,
+    qpedidoOrderBy = _ref.qpedidoOrderBy,
+    setqpedidoOrderBy = _ref.setqpedidoOrderBy,
+    qpedidoOrderByDescAsc = _ref.qpedidoOrderByDescAsc,
+    setqpedidoOrderByDescAsc = _ref.setqpedidoOrderByDescAsc,
+    pedidos = _ref.pedidos,
+    setpedidos = _ref.setpedidos,
+    qestadopedido = _ref.qestadopedido,
+    setqestadopedido = _ref.setqestadopedido,
+    getPedidos = _ref.getPedidos,
+    delPedido = _ref.delPedido,
+    selectPedido = _ref.selectPedido,
+    moneda = _ref.moneda,
+    setshowCantidadCarrito = _ref.setshowCantidadCarrito;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "text-center",
@@ -9366,53 +9357,48 @@ __webpack_require__.r(__webpack_exports__);
 
 function Pedir(_ref) {
   var productos = _ref.productos,
-      getProductos = _ref.getProductos,
-      moneda = _ref.moneda,
-      qProductosMain = _ref.qProductosMain,
-      setQProductosMain = _ref.setQProductosMain,
-      openSelectProvNewPedCompras = _ref.openSelectProvNewPedCompras,
-      setopenSelectProvNewPedComprasCheck = _ref.setopenSelectProvNewPedComprasCheck,
-      openSelectProvNewPedComprasCheck = _ref.openSelectProvNewPedComprasCheck,
-      NewPedComprasSelectProd = _ref.NewPedComprasSelectProd,
-      setNewPedComprasSelectProd = _ref.setNewPedComprasSelectProd,
-      subViewCompras = _ref.subViewCompras,
-      setsubViewCompras = _ref.setsubViewCompras,
-      precioxproveedor = _ref.precioxproveedor,
-      selectPrecioxProveedorProducto = _ref.selectPrecioxProveedorProducto,
-      selectPrecioxProveedorProveedor = _ref.selectPrecioxProveedorProveedor,
-      setselectPrecioxProveedorProducto = _ref.setselectPrecioxProveedorProducto,
-      setselectPrecioxProveedorProveedor = _ref.setselectPrecioxProveedorProveedor,
-      selectPrecioxProveedorSave = _ref.selectPrecioxProveedorSave,
-      qBuscarProveedor = _ref.qBuscarProveedor,
-      setQBuscarProveedor = _ref.setQBuscarProveedor,
-      proveedoresList = _ref.proveedoresList,
-      getProveedores = _ref.getProveedores,
-      selectPrecioxProveedorPrecio = _ref.selectPrecioxProveedorPrecio,
-      setselectPrecioxProveedorPrecio = _ref.setselectPrecioxProveedorPrecio,
-      getPrecioxProveedor = _ref.getPrecioxProveedor;
+    getProductos = _ref.getProductos,
+    moneda = _ref.moneda,
+    qProductosMain = _ref.qProductosMain,
+    setQProductosMain = _ref.setQProductosMain,
+    openSelectProvNewPedCompras = _ref.openSelectProvNewPedCompras,
+    setopenSelectProvNewPedComprasCheck = _ref.setopenSelectProvNewPedComprasCheck,
+    openSelectProvNewPedComprasCheck = _ref.openSelectProvNewPedComprasCheck,
+    NewPedComprasSelectProd = _ref.NewPedComprasSelectProd,
+    setNewPedComprasSelectProd = _ref.setNewPedComprasSelectProd,
+    subViewCompras = _ref.subViewCompras,
+    setsubViewCompras = _ref.setsubViewCompras,
+    precioxproveedor = _ref.precioxproveedor,
+    selectPrecioxProveedorProducto = _ref.selectPrecioxProveedorProducto,
+    selectPrecioxProveedorProveedor = _ref.selectPrecioxProveedorProveedor,
+    setselectPrecioxProveedorProducto = _ref.setselectPrecioxProveedorProducto,
+    setselectPrecioxProveedorProveedor = _ref.setselectPrecioxProveedorProveedor,
+    selectPrecioxProveedorSave = _ref.selectPrecioxProveedorSave,
+    qBuscarProveedor = _ref.qBuscarProveedor,
+    setQBuscarProveedor = _ref.setQBuscarProveedor,
+    proveedoresList = _ref.proveedoresList,
+    getProveedores = _ref.getProveedores,
+    selectPrecioxProveedorPrecio = _ref.selectPrecioxProveedorPrecio,
+    setselectPrecioxProveedorPrecio = _ref.setselectPrecioxProveedorPrecio,
+    getPrecioxProveedor = _ref.getPrecioxProveedor;
   var nameproveedorFilter = proveedoresList.filter(function (provee) {
     return provee.id == selectPrecioxProveedorProveedor;
   });
   var nameproveedor = "--No seleccionado--";
-
   if (nameproveedorFilter.length) {
     nameproveedor = nameproveedorFilter[0].descripcion;
   }
-
   var nameproductoFilter = productos.filter(function (pro) {
     return pro.id == selectPrecioxProveedorProducto;
   });
   var nameproducto = "--No seleccionado--";
-
   if (nameproductoFilter.length) {
     nameproducto = nameproductoFilter[0].descripcion;
   }
-
   var setselectPrecioxProveedorProductoFun = function setselectPrecioxProveedorProductoFun(id) {
     setselectPrecioxProveedorProducto(id);
     getPrecioxProveedor(id);
   };
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "d flex justify-content-center",
@@ -9969,22 +9955,18 @@ __webpack_require__.r(__webpack_exports__);
 
 function SelectSucursal(_ref) {
   var setsucursalSelect = _ref.setsucursalSelect,
-      sucursalSelect = _ref.sucursalSelect,
-      sucursales = _ref.sucursales,
-      viewProductos = _ref.viewProductos,
-      setviewProductos = _ref.setviewProductos;
-
+    sucursalSelect = _ref.sucursalSelect,
+    sucursales = _ref.sucursales,
+    viewProductos = _ref.viewProductos,
+    setviewProductos = _ref.setviewProductos;
   var setsucursalSelectFun = function setsucursalSelectFun(e) {
     var codigo = e.currentTarget.attributes["data-sucursal"].value;
-
     if (codigo === "inventario") {
       var tipo = e.currentTarget.attributes["data-tipo"].value;
       setviewProductos(tipo);
     }
-
     setsucursalSelect(codigo);
   };
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
       className: "list-group mb-1",
@@ -10057,8 +10039,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Toplabel(_ref) {
   var sucursales = _ref.sucursales,
-      sucursalSelect = _ref.sucursalSelect;
-
+    sucursalSelect = _ref.sucursalSelect;
   var name = function name() {
     if (sucursales.filter(function (e) {
       return e["char"] == sucursalSelect;
@@ -10067,14 +10048,11 @@ function Toplabel(_ref) {
         return e["char"] == sucursalSelect;
       })[0].nombre;
     }
-
     if (sucursalSelect == "inventario") {
       return "Centro de Acopio";
     }
-
     return "";
   };
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "bg-light toplabel d-flex justify-content-center align-items-center p-2",
     children: name() ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
@@ -10109,35 +10087,32 @@ __webpack_require__.r(__webpack_exports__);
 
 function Usuarios(_ref) {
   var usuarioNombre = _ref.usuarioNombre,
-      setusuarioNombre = _ref.setusuarioNombre,
-      usuarioUsuario = _ref.usuarioUsuario,
-      setusuarioUsuario = _ref.setusuarioUsuario,
-      usuarioRole = _ref.usuarioRole,
-      setusuarioRole = _ref.setusuarioRole,
-      usuarioClave = _ref.usuarioClave,
-      setusuarioClave = _ref.setusuarioClave,
-      usuarioArea = _ref.usuarioArea,
-      setusuarioArea = _ref.setusuarioArea,
-      indexSelectUsuarios = _ref.indexSelectUsuarios,
-      setIndexSelectUsuarios = _ref.setIndexSelectUsuarios,
-      qBuscarUsuario = _ref.qBuscarUsuario,
-      setQBuscarUsuario = _ref.setQBuscarUsuario,
-      delUsuario = _ref.delUsuario,
-      usuariosData = _ref.usuariosData,
-      addNewUsuario = _ref.addNewUsuario,
-      sucursales = _ref.sucursales,
-      getUsuarios = _ref.getUsuarios;
-
+    setusuarioNombre = _ref.setusuarioNombre,
+    usuarioUsuario = _ref.usuarioUsuario,
+    setusuarioUsuario = _ref.setusuarioUsuario,
+    usuarioRole = _ref.usuarioRole,
+    setusuarioRole = _ref.setusuarioRole,
+    usuarioClave = _ref.usuarioClave,
+    setusuarioClave = _ref.setusuarioClave,
+    usuarioArea = _ref.usuarioArea,
+    setusuarioArea = _ref.setusuarioArea,
+    indexSelectUsuarios = _ref.indexSelectUsuarios,
+    setIndexSelectUsuarios = _ref.setIndexSelectUsuarios,
+    qBuscarUsuario = _ref.qBuscarUsuario,
+    setQBuscarUsuario = _ref.setQBuscarUsuario,
+    delUsuario = _ref.delUsuario,
+    usuariosData = _ref.usuariosData,
+    addNewUsuario = _ref.addNewUsuario,
+    sucursales = _ref.sucursales,
+    getUsuarios = _ref.getUsuarios;
   var setIndexSelectUsuariosFun = function setIndexSelectUsuariosFun(e) {
     var index = e.currentTarget.attributes["data-index"].value;
-
     if (index == indexSelectUsuarios) {
       setIndexSelectUsuarios(null);
     } else {
       setIndexSelectUsuarios(index);
     }
   };
-
   var setNuevoUsuario = function setNuevoUsuario() {
     setusuarioNombre("");
     setusuarioUsuario("");
@@ -10146,7 +10121,6 @@ function Usuarios(_ref) {
     setusuarioArea("");
     setIndexSelectUsuarios(null);
   };
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "container",
@@ -10371,9 +10345,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function Ventas(_ref) {
   var ventas = _ref.ventas,
-      selectfechaventa = _ref.selectfechaventa,
-      setselectfechaventa = _ref.setselectfechaventa,
-      moneda = _ref.moneda;
+    selectfechaventa = _ref.selectfechaventa,
+    setselectfechaventa = _ref.setselectfechaventa,
+    moneda = _ref.moneda;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", {
       children: "Reportes de venta"
@@ -63069,6 +63043,7 @@ function Home() {
                   if (res.data.estado) {
                     setcuentasporpagarDetallesView("cuentas");
                     selectCuentaPorPagarProveedorDetallesFun(res.data.id_proveedor);
+                    setselectAbonoFact([]);
                   }
                   notificar(res.data.msj);
                 });

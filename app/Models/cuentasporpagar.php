@@ -21,8 +21,8 @@ class cuentasporpagar extends Model
         return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
     }
 
-    public function cuenta() { 
-        return $this->hasOne(\App\Models\cuentasporpagar::class,"id","id_cuentaporpagar"); 
+    public function pagos() { 
+        return $this->belongsToMany(\App\Models\cuentasporpagar::class, 'cuentasporpagar_pagos', 'id_factura', 'id_pago')->withPivot('monto');
     }
 
     protected $fillable = [

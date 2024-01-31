@@ -95,18 +95,64 @@ export default function CuentasporpagarDetalles({
                             <i className="fa fa-arrow-left"></i>
                         </span>
                     </div>
-                    <table className="table">
+                    <table className="table table-borderless table-sm">
                         <tbody>
-                            {dataCuenta.monto_abonado && dataCuenta.cuenta?
-                                <tr className="d-flex justify-content-center align-items-center">
-                                    <td>
-                                        ABONADO A FACT <span className="text-success">{moneda(dataCuenta.monto_abonado)}</span>                                        
-                                    </td>
-                                    <td>
-                                        {dataCuenta.cuenta.descripcion} <span className="btn btn-success">{moneda(dataCuenta.cuenta.monto)}</span>
+                            {dataCuenta.monto_abonado && dataCuenta.pagos?
+                            <>
+                                <tr className="">
+                                    <th>
+                                        ABONADO                                        
+                                    </th>
+                                    <td colSpan={2} className="text-success text-right">
+                                        {moneda(dataCuenta.monto_abonado)}
                                     </td>
                                 </tr>
+                                <tr className="">
+                                    <th>
+                                        DEUDA                                        
+                                    </th>
+                                    <td colSpan={2} className="text-danger text-right">
+                                        {moneda(dataCuenta.monto)}
+                                    </td>
+                                </tr>
+                                <tr className="">
+                                    <th>
+                                        BALANCE                                        
+                                    </th>
+                                    <td colSpan={2} className={((dataCuenta.balance)<0? "text-danger": "text-success")+(" fs-4 text-right")}>
+                                        {moneda(dataCuenta.balance)}
+                                    </td>
+                                </tr>
+                                
+                            </>
                             :null}
+                        </tbody>
+                    </table>
+                    <hr />
+                    <table className="table table-borderless table-sm">
+                        <tbody>
+                            {dataCuenta.monto_abonado && dataCuenta.pagos?
+                            <>
+                                {dataCuenta.pagos.map(e=>
+                                    <tr key={e.id} className="border-top">
+                                        <td className=" align-middle">
+                                            {e.created_at}
+                                        </td>
+                                        <td className=" align-middle">
+                                            <span className="btn-sinapsis btn pointer btn-sm">
+                                                {e.numfact}
+                                            </span> 
+                                        </td>
+                                        <td className="text-right align-middle">{moneda(e.monto)}</td>
+                                    </tr>
+                                )}
+                            </>
+                            :null}
+                        </tbody>
+                    </table>
+                    <hr />
+                    <table className="table">
+                        <tbody>
                             <tr>
                                 <th>PROVEEDOR</th>
                                 <td>{dataCuenta.proveedor.descripcion} <small className="text-muted">RIF. {dataCuenta.proveedor.rif}</small></td>
@@ -187,13 +233,13 @@ export default function CuentasporpagarDetalles({
                 
                 <form onSubmit={e=>{e.preventDefault();selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}} className="mb-2">
                     <div className="btn-group w-100 mb-2">
-                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>DÉBITOS</span>
+                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>DÉB</span>
 
-                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="pagadas"?"btn-medsuccess":"btn-outline-medsuccess")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="pagadas"?"":"pagadas")}>PAGADAS</span>
+                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="pagadas"?"btn-medsuccess":"btn-outline-medsuccess")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="pagadas"?"":"pagadas")}>PAG</span>
 
-                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="semipagadas"?"btn-primary":"btn-outline-primary")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="semipagadas"?"":"semipagadas")}>ABONADAS</span>
+                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="semipagadas"?"btn-primary":"btn-outline-primary")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="semipagadas"?"":"semipagadas")}>ABON</span>
                         <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="porvencer"?"btn-sinapsis":"btn-outline-sinapsis")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="porvencer"?"":"porvencer")}>POR VENCER</span>
-                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="vencidas"?"btn-danger":"btn-outline-danger")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="vencidas"?"":"vencidas")}>VENCIDAS</span>
+                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="vencidas"?"btn-danger":"btn-outline-danger")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="vencidas"?"":"vencidas")}>VENC</span>
                     </div>
                     <div className="input-group">
                         

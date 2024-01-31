@@ -37,9 +37,6 @@ class CreateCuentasporpagarsTable extends Migration
             $table->decimal("balance",10,2)->nullable()->default(0);
 
             $table->integer('metodo')->nullable()->default(null); 
-            $table->integer('id_cuentaporpagar')->nullable()->default(null); 
-            $table->float('monto_abonado')->nullable()->default(null); 
-               
             
             $table->date("fechaemision");
             $table->date("fechavencimiento");

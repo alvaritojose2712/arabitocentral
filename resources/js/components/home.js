@@ -2116,6 +2116,7 @@ function Home() {
                         if (res.data.estado) {
                           setcuentasporpagarDetallesView("cuentas")
                           selectCuentaPorPagarProveedorDetallesFun(res.data.id_proveedor)
+                          setselectAbonoFact([])
                         }
                         notificar(res.data.msj)
                       })

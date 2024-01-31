@@ -102,7 +102,7 @@ export default function CuentasporpagarPagos({
     }
     
     return (
-        <div className="container mb-4">
+        <div className="container mb-4 p-0">
             <div className="btn-group mb-1 mt-1 w-100">
                 <span className={("btn ")+(subviewAgregarFactPago=="pago"?"btn-sinapsis":"")} onClick={()=>setsubviewAgregarFactPago("pago")}>
                     Agregar Pago
@@ -119,17 +119,18 @@ export default function CuentasporpagarPagos({
                         <h4 className="text-center"></h4>
                         <div className="form-group">
                             <span className="input-text">Descripción</span>
-                            <input type="text" className="form-control" value={cuentasPagosDescripcion} onChange={e=>setcuentasPagosDescripcion(e.target.value)} />
+                            <input type="text" className="form-control" placeholder="Referencia" value={cuentasPagosDescripcion} onChange={e=>setcuentasPagosDescripcion(e.target.value)} />
                         </div>
 
                         <div className="form-group">
                             <span className="input-text">Monto</span>
-                            <input type="text" className="form-control" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} />
+                            <input type="text" className="form-control" placeholder="Monto TOTAL de ABONO" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} />
                         </div>
 
                         <div className="input-group">
                             <select className="form-control" 
                             value={cuentasPagosMetodo} 
+                            
                             onChange={e=>setcuentasPagosMetodo(e.target.value)}>
                                 <option value="">-Método-</option>
                                 {opcionesMetodosPago.map(e=>
@@ -139,11 +140,11 @@ export default function CuentasporpagarPagos({
                             <input type="text" className="form-control" value={cuentasPagosFecha} onChange={e=>setcuentasPagosFecha(e.target.value)} />
                             
                         </div>
-                        <table className="table">
+                        <table className="table table-sm">
                             <tbody>
                                 <tr>
-                                    <th>FACT</th>
-                                    <th>ABONADO</th>
+                                    <th className="text-center">FACT</th>
+                                    <th className="text-center">ABONADO</th>
                                 </tr>
                                     {selectAbonoFact.map(e=>
                                         <tr key={e.id}>
@@ -227,14 +228,16 @@ export default function CuentasporpagarPagos({
                                 <tr key={e.id}>
                                     <td className="align-middle">
                                         <span className={
-                                            (e.condicion=="pagadas"?"btn-success":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":null))))+(" w-100 btn pointer")
+                                            (e.condicion=="pagadas"?"btn-success":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":null))))+(" w-100 btn pointer btn-sm")
                                         } onClick={()=>selectFacturaSetPago(e.id,e.numfact)}>{e.numfact}</span>
                                     </td>
-                                    <td className="align-middle">
-                                        <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-3")}>{moneda(e.monto)}</span></div>
+                                    <td className="align-middle cell3">
+                                        <input type="text" className="form-control form-control-sm" onChange={event=>setInputAbonoFact(e.id,event.currentTarget.value)} placeholder={e.numfact} />
                                     </td>
-                                    <td>
-                                        <input type="text" className="form-control" onChange={event=>setInputAbonoFact(e.id,event.currentTarget.value)} placeholder={("Abonar a ")+e.numfact} />
+                                    <td className="align-middle text-right">
+                                        <div><span className={(e.balance<0? "text-danger": "text-success")+(" ")}>B. {moneda(e.balance)}</span></div>
+                                        <div><span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>A. {moneda(e.monto_abonado)}</span></div>
+                                        <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-7")}>D. {moneda(e.monto)}</span></div>
                                     </td>
                                 </tr>
                             )

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\cuentasporpagar;
 use App\Http\Requests\StorecuentasporpagarRequest;
 use App\Http\Requests\UpdatecuentasporpagarRequest;
+use App\Models\cuentasporpagar_pagos;
 use App\Models\proveedores;
 use App\Models\sucursal;
 use Illuminate\Http\Request;
@@ -61,7 +62,6 @@ class CuentasporpagarController extends Controller
                 "fecha_creada" => $cuentasPagosFecha,
                 "metodo" => $cuentasPagosMetodo,
                 "selectAbonoFact" =>$selectAbonoFact,
-                
             ]);
             if ($pago) {
                 return [
@@ -117,18 +117,25 @@ class CuentasporpagarController extends Controller
         if ($cuenta) {
             if ($selectAbonoFact) {
                 if (count($selectAbonoFact)) {
+                    $msjAbono = "";
                     foreach ($selectAbonoFact as $e) {
-                        $update_cuenta = cuentasporpagar::find($e["id"]);
-                        if ($update_cuenta->monto_abonado) {
-                            $update_cuenta->monto_abonado = $update_cuenta->monto_abonado+ $e["val"];
+                        $update_cuenta = cuentasporpagar_pagos::updateOrCreate([
+                            "id_factura" => $e["id"],
+                            "id_pago" => $cuenta->id,
+                        ],[
+                            "id_factura" => $e["id"],
+                            "id_pago" => $cuenta->id,
+                            "monto" => $e["val"],
+                        ]);
+                        if ($update_cuenta) {
+                            $msjAbono .= $e["val"]." | ";
                         }else{
-                            $update_cuenta->monto_abonado = $e["val"];
+                            $msjAbono .= "ERRO: " . $e["val"]." | ";
                         }
-                        $update_cuenta->id_cuentaporpagar = $cuenta->id;
-                        if ($update_cuenta->save()) {
-                            return $cuenta;
-                        }
+                        
                     }
+                    return $msjAbono;
+                    
                 }
             }
         }
@@ -316,7 +323,9 @@ class CuentasporpagarController extends Controller
         $OrdercuentasPorPagarDetalles = $req->OrdercuentasPorPagarDetalles;
         
         $today = new \DateTime((new NominaController)->today());
-        $detalles = cuentasporpagar::with(["sucursal","proveedor","cuenta"])
+        $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos"])
+        ->selectRaw("*,@monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado")
+
         ->where("id_proveedor",$id)
         ->when($categoriacuentasPorPagarDetalles!="",function($q) use ($categoriacuentasPorPagarDetalles) {
             $q->where("tipo","$categoriacuentasPorPagarDetalles");
@@ -336,25 +345,25 @@ class CuentasporpagarController extends Controller
                     $q->where("monto",">",0);
                 break;
                 case "pagadas":
-                    $q->whereRaw("monto_abonado = monto*-1")
+                    $q->havingRaw("monto_abonado = monto*-1")
                     ->where("monto","<",0);
                 break;
                 case "semipagadas":
                     $q
-                    ->whereRaw("COALESCE(monto_abonado, 0) > 0")
-                    ->whereRaw("COALESCE(monto_abonado, 0) <> monto*-1")
+                    ->havingRaw("COALESCE(monto_abonado, 0) > 0")
+                    ->havingRaw("COALESCE(monto_abonado, 0) <> monto*-1")
                     ->where("monto","<",0);
                 break;
                 case "porvencer":
                     $q->where("fechavencimiento",">",$today)
-                    ->whereRaw("COALESCE(monto_abonado, 0) <> monto*-1")
-                    ->whereRaw("COALESCE(monto_abonado, 0) = 0")
+                    ->havingRaw("COALESCE(monto_abonado, 0) <> monto*-1")
+                    ->havingRaw("COALESCE(monto_abonado, 0) = 0")
                     ->where("monto","<",0);
                 break;
                 case "vencidas":
                     $q
                     ->where("fechavencimiento","<=",$today)
-                    ->whereRaw("COALESCE(monto_abonado, 0) <> monto*-1")
+                    ->havingRaw("COALESCE(monto_abonado, 0) <> monto*-1")
                     ->where("monto","<",0);
                 break;
             }
@@ -370,6 +379,8 @@ class CuentasporpagarController extends Controller
                 $fechavencimiento = new \DateTime($q->fechavencimiento);
                 $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
                 $monto = $q->monto;
+
+                $q->balance = floatval($q->monto_abonado)+floatval($q->monto);
 
                 if (($qcuentasPorPagarTipoFact=="abonos"|| $qcuentasPorPagarTipoFact=="") && $monto>0){
                     $q->condicion = "abonos";
