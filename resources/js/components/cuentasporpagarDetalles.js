@@ -159,6 +159,45 @@ export default function CuentasporpagarDetalles({
                                 
                             </>
                             :null}
+
+                            {dataCuenta.facturas ?
+                                dataCuenta.facturas.length?
+                                    <>
+                                        <tr className="">
+                                            <th colSpan={3}>
+                                                FACTURAS ASOCIADAS                                        
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={2}>
+                                                <table className="table table-borderless table-sm">
+                                                    <tbody>
+                                                        {dataCuenta && dataCuenta.facturas?
+                                                        <>
+                                                            {dataCuenta.facturas.map(e=>
+                                                                <tr key={e.id} className="border-top">
+                                                                    <td className=" align-middle text-muted fst-italic fs-7">
+                                                                        {e.created_at}
+                                                                    </td>
+                                                                    <td className=" align-middle">
+                                                                        <span className="btn-sinapsis btn pointer btn-sm">
+                                                                            {e.numfact}
+                                                                        </span> 
+                                                                    </td>
+                                                                    <td className="text-right align-middle">
+                                                                        <span className="text-sinapsis">{moneda(e.pivot.monto)}</span> / <span className="text-success">{moneda(e.monto)}</span>
+                                                                    </td>
+                                                                </tr>
+                                                            )}
+                                                        </>
+                                                        :null}
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </>
+                                :null
+                            :null}
                         </tbody>
                     </table>
                     <hr />
@@ -208,13 +247,13 @@ export default function CuentasporpagarDetalles({
                                 </tr>
                                 <tr>
                                     <th>TOTAL</th>
-                                    <td className={dataCuenta.monto<0?"text-danger":("text-success")}>
+                                    <td className={(dataCuenta.monto<0?"text-danger":("text-success"))+(" justify-content-between")}>
                                         {moneda(dataCuenta.monto)}
                                         <div>
                                             {dataCuenta.aprobado==0?
-                                                <button className="btn btn-success" onClick={()=>changeAprobarFact(dataCuenta.id, dataCuenta.proveedor.id)}>APROBAR <i className="fa fa-check"></i></button>
+                                                <button className="btn btn-success btn-sm" onClick={()=>changeAprobarFact(dataCuenta.id, dataCuenta.proveedor.id)}>APROBAR <i className="fa fa-check"></i></button>
                                                 :
-                                                <button className="btn btn-danger" onClick={()=>changeAprobarFact(dataCuenta.id, dataCuenta.proveedor.id)}>DESAPROBAR <i className="fa fa-times"></i></button>
+                                                <button className="btn btn-danger btn-sm" onClick={()=>changeAprobarFact(dataCuenta.id, dataCuenta.proveedor.id)}>DESAPROBAR <i className="fa fa-times"></i></button>
                                             }
                                         </div>
                                     </td>

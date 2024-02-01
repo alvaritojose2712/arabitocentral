@@ -25,6 +25,10 @@ class cuentasporpagar extends Model
         return $this->belongsToMany(\App\Models\cuentasporpagar::class, 'cuentasporpagar_pagos', 'id_factura', 'id_pago')->withPivot('monto');
     }
 
+    public function facturas() { 
+        return $this->belongsToMany(\App\Models\cuentasporpagar::class, 'cuentasporpagar_pagos', 'id_pago', 'id_factura')->withPivot('monto');
+    }
+
     protected $fillable = [
         "id_proveedor",
         "id_sucursal",
@@ -48,5 +52,6 @@ class cuentasporpagar extends Model
 
         "monto_abonado",
         "id_cuentaporpagar",
+        "aprobado",
     ];
 }

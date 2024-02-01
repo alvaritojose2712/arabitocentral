@@ -1248,7 +1248,7 @@ function Home() {
   }
   const number = (val) => {
     if (val == "") return ""
-    return val.replace(/[^\d|\.]+/g, '')
+    return val.toString().replace(/[^\d|\.]+/g, '')
   }
   const loginRes = res => {
     notificar(res)
@@ -1774,7 +1774,7 @@ function Home() {
   const changeAprobarFact = (id,id_proveedor) => {
     db.changeAprobarFact({id}).then(res=>{
       selectCuentaPorPagarProveedorDetallesFun(id_proveedor)
-      setcuentasporpagarDetallesView("cuentas")
+      setSelectCuentaPorPagarDetalle(null)
     })
   }
   const selectCuentaPorPagarProveedorDetallesFun = id => {

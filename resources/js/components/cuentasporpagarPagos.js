@@ -243,15 +243,15 @@ export default function CuentasporpagarPagos({
                                         <td className="align-middle">
                                             <span className={
                                                 (e.condicion=="pagadas"?"btn-success":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":null))))+(" w-100 btn pointer btn-sm")
-                                            } onClick={()=>selectFacturaSetPago(e.id,e.numfact)}>{e.numfact}</span>
+                                            } onDoubleClick={()=>setInputAbonoFact(e.id,(e.balance*-1))}>{e.numfact}</span>
                                         </td>
                                         <td className="align-middle cell3">
                                             <input type="text" className="form-control form-control-sm" onChange={event=>setInputAbonoFact(e.id,event.currentTarget.value)} placeholder={e.numfact} />
                                         </td>
                                         <td className="align-middle text-right">
-                                            <div><span className={(e.balance<0? "text-danger": "text-success")+(" ")}>B. {moneda(e.balance)}</span></div>
-                                            <div><span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>A. {moneda(e.monto_abonado)}</span></div>
-                                            <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-7")}>D. {moneda(e.monto)}</span></div>
+                                            <div><span className={(e.balance<0? "text-danger": "text-success")+(" ")}>BLNCE. {moneda(e.balance)}</span></div>
+                                            <div><span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>ABON. {moneda(e.monto_abonado)}</span></div>
+                                            <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-7")}>DEUD. {moneda(e.monto)}</span></div>
                                         </td>
                                     </tr>
                                 )

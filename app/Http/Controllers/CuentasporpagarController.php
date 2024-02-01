@@ -62,6 +62,7 @@ class CuentasporpagarController extends Controller
                 "fecha_creada" => $cuentasPagosFecha,
                 "metodo" => $cuentasPagosMetodo,
                 "selectAbonoFact" =>$selectAbonoFact,
+                "aprobado" =>1,
             ]);
             if ($pago) {
                 return [
@@ -85,6 +86,8 @@ class CuentasporpagarController extends Controller
         $monto = $arr["monto"];
         $fecha_creada = $arr["fecha_creada"];
         $metodo = isset($arr["metodo"])?$arr["metodo"]:null;
+        $aprobado = isset($arr["aprobado"])?$arr["aprobado"]:0;
+        
         
         $selectAbonoFact = isset($arr["selectAbonoFact"])?$arr["selectAbonoFact"]:null;
         
@@ -106,6 +109,7 @@ class CuentasporpagarController extends Controller
             "fecharecepcion" => $fecha_creada,
             "nota" => "",
             "metodo" => $metodo,
+            "aprobado" => $aprobado,
         ];
         $search = [
             "id_sucursal" => $id_sucursal,
@@ -130,7 +134,7 @@ class CuentasporpagarController extends Controller
                         if ($update_cuenta) {
                             $msjAbono .= $e["val"]." | ";
                         }else{
-                            $msjAbono .= "ERRO: " . $e["val"]." | ";
+                            $msjAbono .= "ERROR: " . $e["val"]." | ";
                         }
                         
                     }
@@ -335,7 +339,7 @@ class CuentasporpagarController extends Controller
         $OrdercuentasPorPagarDetalles = $req->OrdercuentasPorPagarDetalles;
         
         $today = new \DateTime((new NominaController)->today());
-        $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos"])
+        $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos","facturas"])
         ->selectRaw("*,@monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado")
 
         ->where("id_proveedor",$id)

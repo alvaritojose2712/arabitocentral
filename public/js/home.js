@@ -3156,8 +3156,8 @@ function CuentasporpagarDetalles(_ref) {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
         className: "table table-borderless table-sm",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-          children: dataCuenta.monto_abonado && dataCuenta.pagos ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tbody", {
+          children: [dataCuenta.monto_abonado && dataCuenta.pagos ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
               className: "",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
@@ -3221,7 +3221,50 @@ function CuentasporpagarDetalles(_ref) {
                 children: moneda(dataCuenta.balance)
               })]
             })]
-          }) : null
+          }) : null, dataCuenta.facturas ? dataCuenta.facturas.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
+              className: "",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                colSpan: 3,
+                children: "FACTURAS ASOCIADAS"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                colSpan: 2,
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
+                  className: "table table-borderless table-sm",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+                    children: dataCuenta && dataCuenta.facturas ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                      children: dataCuenta.facturas.map(function (e) {
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                          className: "border-top",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: " align-middle text-muted fst-italic fs-7",
+                            children: e.created_at
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: " align-middle",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                              className: "btn-sinapsis btn pointer btn-sm",
+                              children: e.numfact
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                            className: "text-right align-middle",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                              className: "text-sinapsis",
+                              children: moneda(e.pivot.monto)
+                            }), " / ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                              className: "text-success",
+                              children: moneda(e.monto)
+                            })]
+                          })]
+                        }, e.id);
+                      })
+                    }) : null
+                  })
+                })
+              })
+            })]
+          }) : null : null]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
         className: "table",
@@ -3307,10 +3350,10 @@ function CuentasporpagarDetalles(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
               children: "TOTAL"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-              className: dataCuenta.monto < 0 ? "text-danger" : "text-success",
+              className: (dataCuenta.monto < 0 ? "text-danger" : "text-success") + " justify-content-between",
               children: [moneda(dataCuenta.monto), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
                 children: dataCuenta.aprobado == 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
-                  className: "btn btn-success",
+                  className: "btn btn-success btn-sm",
                   onClick: function onClick() {
                     return changeAprobarFact(dataCuenta.id, dataCuenta.proveedor.id);
                   },
@@ -3318,7 +3361,7 @@ function CuentasporpagarDetalles(_ref) {
                     className: "fa fa-check"
                   })]
                 }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
-                  className: "btn btn-danger",
+                  className: "btn btn-danger btn-sm",
                   onClick: function onClick() {
                     return changeAprobarFact(dataCuenta.id, dataCuenta.proveedor.id);
                   },
@@ -4014,8 +4057,8 @@ function CuentasporpagarPagos(_ref) {
                   className: "align-middle",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                     className: (e.condicion == "pagadas" ? "btn-success" : e.condicion == "vencidas" ? "btn-danger" : e.condicion == "porvencer" ? "btn-sinapsis" : e.condicion == "semipagadas" ? "btn-primary" : null) + " w-100 btn pointer btn-sm",
-                    onClick: function onClick() {
-                      return selectFacturaSetPago(e.id, e.numfact);
+                    onDoubleClick: function onDoubleClick() {
+                      return setInputAbonoFact(e.id, e.balance * -1);
                     },
                     children: e.numfact
                   })
@@ -4034,17 +4077,17 @@ function CuentasporpagarPagos(_ref) {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
                       className: (e.balance < 0 ? "text-danger" : "text-success") + " ",
-                      children: ["B. ", moneda(e.balance)]
+                      children: ["BLNCE. ", moneda(e.balance)]
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
                       className: (e.monto_abonado < 0 ? "text-danger" : "text-success") + " fs-7",
-                      children: ["A. ", moneda(e.monto_abonado)]
+                      children: ["ABON. ", moneda(e.monto_abonado)]
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
                       className: (e.monto < 0 ? "text-danger" : "text-success") + " fs-7",
-                      children: ["D. ", moneda(e.monto)]
+                      children: ["DEUD. ", moneda(e.monto)]
                     })
                   })]
                 })]
@@ -62149,7 +62192,7 @@ function Home() {
   };
   var number = function number(val) {
     if (val == "") return "";
-    return val.replace(/[^\d|\.]+/g, '');
+    return val.toString().replace(/[^\d|\.]+/g, '');
   };
   var loginRes = function loginRes(res) {
     notificar(res);
@@ -62906,7 +62949,7 @@ function Home() {
       id: id
     }).then(function (res) {
       selectCuentaPorPagarProveedorDetallesFun(id_proveedor);
-      setcuentasporpagarDetallesView("cuentas");
+      setSelectCuentaPorPagarDetalle(null);
     });
   };
   var selectCuentaPorPagarProveedorDetallesFun = function selectCuentaPorPagarProveedorDetallesFun(id) {
