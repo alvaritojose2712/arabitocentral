@@ -42,6 +42,7 @@ class CreateCuentasporpagarsTable extends Migration
             $table->date("fechavencimiento");
             $table->date("fecharecepcion")->nullable(true)->default(null);
             $table->text("nota")->nullable(true)->default(null);
+            $table->boolean("aprobado")->default(0);
             
             $table->integer("tipo");
             // 1 COMPRAS

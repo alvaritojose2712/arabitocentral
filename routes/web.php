@@ -131,7 +131,10 @@ Route::post('verificarMovPenControlEfec', [CajasAprobacionController::class,"ver
 Route::post('sendFacturaCentral', [CuentasporpagarController::class,"sendFacturaCentral"]);
 Route::post('getAllProveedores', [ProveedoresController::class,"getAllProveedores"]);
 Route::post('selectCuentaPorPagarProveedorDetalles', [CuentasporpagarController::class,"selectCuentaPorPagarProveedorDetalles"]);
+Route::get('showImageFact', [CuentasporpagarController::class,"showImageFact"]);
+
 Route::post('saveNewFact', [CuentasporpagarController::class,"saveNewFact"]);
+Route::post('changeAprobarFact', [CuentasporpagarController::class,"changeAprobarFact"]);
 
 Route::post('selectPrecioxProveedorSave', [ProductoxproveedorController::class,"selectPrecioxProveedorSave"]);
 Route::post('getPrecioxProveedor', [ProductoxproveedorController::class,"getPrecioxProveedor"]);

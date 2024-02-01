@@ -1662,7 +1662,10 @@ function Home() {
   const [newfactfrecuencia, setnewfactfrecuencia] = useState("")
   const [selectFactEdit, setselectFactEdit] = useState(null)
   const [selectProveedorCxp, setselectProveedorCxp] = useState(null)
-  
+  const [cuentaporpagarAprobado,setcuentaporpagarAprobado] = useState(1)
+  const showImageFact = (id) => {
+    db.showImageFact(id)
+  }
   const modeEditarFact = id => {
     setselectFactEdit(id)
     setcuentasporpagarDetallesView("pagos")
@@ -1768,7 +1771,12 @@ function Home() {
       id,numfact
     })
   }
-
+  const changeAprobarFact = (id,id_proveedor) => {
+    db.changeAprobarFact({id}).then(res=>{
+      selectCuentaPorPagarProveedorDetallesFun(id_proveedor)
+      setcuentasporpagarDetallesView("cuentas")
+    })
+  }
   const selectCuentaPorPagarProveedorDetallesFun = id => {
     db.selectCuentaPorPagarProveedorDetalles({
       id,
@@ -1780,6 +1788,7 @@ function Home() {
       qCampocuentasPorPagarDetalles,
       qcuentasPorPagarDetalles,
       OrdercuentasPorPagarDetalles,
+      cuentaporpagarAprobado,
     }).then(res=>{
       if (res.data) {
         if (res.data.detalles.length) {
@@ -2681,6 +2690,10 @@ function Home() {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        changeAprobarFact={changeAprobarFact}
+                        cuentaporpagarAprobado={cuentaporpagarAprobado}
+                        setcuentaporpagarAprobado={setcuentaporpagarAprobado}
+                        showImageFact={showImageFact}
                         cuentasporpagarDetallesView={cuentasporpagarDetallesView}
                         setcuentasporpagarDetallesView={setcuentasporpagarDetallesView}
                         setviewmainPanel={setviewmainPanel}

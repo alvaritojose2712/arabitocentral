@@ -15,8 +15,8 @@ use Response;
 class CuentasporpagarController extends Controller
 {
 
-    function getBalance($id_proveedor){
-        $b = cuentasporpagar::where("id_proveedor", $id_proveedor)->sum("monto");
+    function getBalance($id_proveedor,$cuentaporpagarAprobado){
+        $b = cuentasporpagar::where("id_proveedor", $id_proveedor)->where("aprobado",$cuentaporpagarAprobado)->sum("monto");
         if ($b) {
             return $b;
         }
@@ -192,6 +192,9 @@ class CuentasporpagarController extends Controller
                     if ($registrarfactura) {
                         $filename = $registrarfactura->id . "." . $imagen->getClientOriginalExtension();
                         $imagen->move(public_path('facturas'), $filename);
+                        $updateImage = cuentasporpagar::find($registrarfactura->id);
+                        $updateImage->descripcion = $filename;
+                        $updateImage->save();
 
                         return [
                             "msj" => "Desde Central: Éxito al registrar Factura",
@@ -210,6 +213,9 @@ class CuentasporpagarController extends Controller
 
 
     }
+    function showImageFact() {
+        
+    }
 
     function getCuentas($fechasMain1, $fechasMain2, $id_sucursal, $filtros){
         $qcuentasPorPagar = $filtros["qcuentasPorPagar"];
@@ -219,17 +225,13 @@ class CuentasporpagarController extends Controller
         })
         ->get()
         ->map(function($q){
-            $balance_query = cuentasporpagar::where("id_proveedor",$q->id_proveedor)->orderBy("id","desc")->first();
-            $balance = 0;
-            if ($balance_query) {
-                $balance = $balance_query->balance;
-            }
-            $q->balance = $balance; 
+            
+            $q->balance = $this->getBalance($q->id,1); 
             return $q; 
         })->toArray();
 
         $cuentasporpagarColumn = array_column($cuentasporpagar, 'balance');
-        array_multisort($cuentasporpagarColumn, SORT_DESC, $cuentasporpagar);
+        array_multisort($cuentasporpagarColumn, SORT_ASC, $cuentasporpagar);
         
         return [
             "cuentasporpagar" => $cuentasporpagar,
@@ -309,11 +311,21 @@ class CuentasporpagarController extends Controller
         }
         
     }
-
+    function changeAprobarFact(Request $req) {
+        $c = cuentasporpagar::find($req->id);
+        if ($c->aprobado == 1) {
+            $c->aprobado = 0;
+        }else{
+            $c->aprobado = 1;
+        }
+        $c->save();
+    }
     function selectCuentaPorPagarProveedorDetalles(Request $req) {
         
         $id = $req->id;
         
+        $cuentaporpagarAprobado = $req->cuentaporpagarAprobado;
+
         $categoriacuentasPorPagarDetalles = $req->categoriacuentasPorPagarDetalles;
         $tipocuentasPorPagarDetalles = $req->tipocuentasPorPagarDetalles;
         $qcuentasPorPagarTipoFact = $req->qcuentasPorPagarTipoFact;
@@ -327,6 +339,7 @@ class CuentasporpagarController extends Controller
         ->selectRaw("*,@monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado")
 
         ->where("id_proveedor",$id)
+        ->where("aprobado",$cuentaporpagarAprobado)
         ->when($categoriacuentasPorPagarDetalles!="",function($q) use ($categoriacuentasPorPagarDetalles) {
             $q->where("tipo","$categoriacuentasPorPagarDetalles");
         })
@@ -372,7 +385,7 @@ class CuentasporpagarController extends Controller
         ->where($qCampocuentasPorPagarDetalles,"LIKE","%$qcuentasPorPagarDetalles%")
         ->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
 
-        $balance = $this->getBalance($id);
+        $balance = $this->getBalance($id,$cuentaporpagarAprobado);
 
         return [
             "detalles" => $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact) {

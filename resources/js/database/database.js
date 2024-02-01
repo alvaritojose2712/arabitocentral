@@ -69,7 +69,8 @@ const db = {
   setComovamos: data=>axios.post(host+"setComovamos",data),
   
 
-
+  
+  changeAprobarFact: data=>axios.post(host+"changeAprobarFact",data),
   getCatGenerals: data=>axios.get(host+"getCatGenerals",{params:data}),
   delCatGeneral: data=>axios.post(host+"delCatGeneral",data),
   setCatGenerals: data=>axios.post(host+"setCatGenerals",data),
@@ -97,6 +98,8 @@ const db = {
   selectPrecioxProveedorSave: data=>axios.post(host+"selectPrecioxProveedorSave",data),
   getPrecioxProveedor: data=>axios.post(host+"getPrecioxProveedor",data),
   
+  showImageFact: (id) => window.open(host + "facturas/" + id, "targed=blank"),
+
   
   
   

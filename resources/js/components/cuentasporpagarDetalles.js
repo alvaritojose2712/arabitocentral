@@ -41,6 +41,11 @@ export default function CuentasporpagarDetalles({
 
     setcuentasPagosDescripcion,
     setcuentasPagosMonto,
+    showImageFact,
+    cuentaporpagarAprobado,
+    setcuentaporpagarAprobado,
+    changeAprobarFact,
+
 }){
     
     let proveedorMain = ""
@@ -83,6 +88,7 @@ export default function CuentasporpagarDetalles({
         qCampocuentasPorPagarDetalles,
         qcuentasPorPagarDetalles,
         OrdercuentasPorPagarDetalles,
+        cuentaporpagarAprobado,
     ])
     return (
         <div className="container p-0 mb-4">
@@ -159,86 +165,106 @@ export default function CuentasporpagarDetalles({
                     
                    
                     <table className="table">
-                        <tbody>
-                            <tr>
-                                <th>PROVEEDOR</th>
-                                <td>{dataCuenta.proveedor.descripcion} <small className="text-muted">RIF. {dataCuenta.proveedor.rif}</small></td>
-                            </tr>
-                            <tr>
-                                <th># FACTURA</th>
-                                <td>{dataCuenta.numfact}</td>
-                            </tr>
-                            <tr>
-                                <th># CONTROL</th>
-                                <td>{dataCuenta.numnota}</td>
-                            </tr>
-                            <tr>
-                                <th>DESCRIPCIÓN</th>
-                                <td>{dataCuenta.descripcion}</td>
-                            </tr>
-                            <tr>
-                                <th>SUBTOTAL</th>
-                                <td className={dataCuenta.subtotal<0?"text-danger":("text-success")}>{moneda(dataCuenta.subtotal)}</td>
-                            </tr>
-                            <tr>
-                                <th>DESCUENTO</th>
-                                <td className={dataCuenta.descuento<0?"text-danger":("text-success")}>{moneda(dataCuenta.descuento)}</td>
-                            </tr>
-                            <tr>
-                                <th>MONTO EXENTO</th>
-                                <td className={dataCuenta.monto_exento<0?"text-danger":("text-success")}>{moneda(dataCuenta.monto_exento)}</td>
-                            </tr>
-                            <tr>
-                                <th>MONTO GRAVABLE</th>
-                                <td className={dataCuenta.monto_gravable<0?"text-danger":("text-success")}>{moneda(dataCuenta.monto_gravable)}</td>
-                            </tr>
-                            <tr>
-                                <th>IVA</th>
-                                <td className={dataCuenta.iva<0?"text-danger":("text-success")}>{moneda(dataCuenta.iva)}</td>
-                            </tr>
-                            <tr>
-                                <th>TOTAL</th>
-                                <td className={dataCuenta.monto<0?"text-danger":("text-success")}>{moneda(dataCuenta.monto)}</td>
-                            </tr>
-                            
-                            <tr>
-                                <th>EMISIÓN</th>
-                                <td className="text-success">{dataCuenta.fechaemision}</td>
-                            </tr>
-                            <tr>
-                                <th>RECEPCIÓN</th>
-                                <td className="text-sinapsis">{dataCuenta.fecharecepcion}</td>
-                            </tr>
-                            <tr>
-                                <th>VENCIMIENTO</th>
-                                <td className="text-danger">{dataCuenta.fechavencimiento}</td>
-                            </tr>
-                            <tr>
-                                <th>NOTA</th>
-                                <td>{dataCuenta.nota}</td>
-                            </tr>
-                            <tr>
-                                <th>TIPO</th>
-                                <td>{dataCuenta.tipo==1?"COMPRA":"SERVICIO"}</td>
-                            </tr>
-                            <tr>
-                                <th>FRECUENCIA</th>
-                                <td>{dataCuenta.frecuencia}</td>
-                            </tr>
-                            <tr>
-                                <td colSpan={2}>
-                                    <button type="button" className="btn btn-sinapsis boton-fijo-inferiorizq" onClick={()=>modeEditarFact(dataCuenta.id)}>
-                                        <i className="fa fa-pencil"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
+                        {dataCuenta.sucursal?
+                            <tbody>
+                                <tr>
+                                    <td colSpan={2} className="text-center"> <small className="text-muted">{dataCuenta.sucursal.codigo}</small></td>
+                                </tr>
+                                <tr>
+                                    <td>PROVEEDOR</td>
+                                    <td>{dataCuenta.proveedor.descripcion} <small className="text-muted">RIF. {dataCuenta.proveedor.rif}</small></td>
+                                </tr>
+                                <tr>
+                                    <td># FACTURA</td>
+                                    <td>{dataCuenta.numfact}</td>
+                                </tr>
+                                <tr>
+                                    <td># CONTROL</td>
+                                    <td>{dataCuenta.numnota}</td>
+                                </tr>
+                                <tr>
+                                    <td>IMAGEN</td>
+                                    <td><button className="btn btn-sinapsis btn-sm" onClick={()=>showImageFact(dataCuenta.descripcion)}>VER</button></td>
+                                </tr>
+                                <tr>
+                                    <th>SUBTOTAL</th>
+                                    <td className={dataCuenta.subtotal<0?"text-danger":("text-success")}>{moneda(dataCuenta.subtotal)}</td>
+                                </tr>
+                                <tr>
+                                    <th>DESCUENTO</th>
+                                    <td className={dataCuenta.descuento<0?"text-danger":("text-success")}>{moneda(dataCuenta.descuento)}</td>
+                                </tr>
+                                <tr>
+                                    <th>MONTO EXENTO</th>
+                                    <td className={dataCuenta.monto_exento<0?"text-danger":("text-success")}>{moneda(dataCuenta.monto_exento)}</td>
+                                </tr>
+                                <tr>
+                                    <th>MONTO GRAVABLE</th>
+                                    <td className={dataCuenta.monto_gravable<0?"text-danger":("text-success")}>{moneda(dataCuenta.monto_gravable)}</td>
+                                </tr>
+                                <tr>
+                                    <th>IVA</th>
+                                    <td className={dataCuenta.iva<0?"text-danger":("text-success")}>{moneda(dataCuenta.iva)}</td>
+                                </tr>
+                                <tr>
+                                    <th>TOTAL</th>
+                                    <td className={dataCuenta.monto<0?"text-danger":("text-success")}>
+                                        {moneda(dataCuenta.monto)}
+                                        <div>
+                                            {dataCuenta.aprobado==0?
+                                                <button className="btn btn-success" onClick={()=>changeAprobarFact(dataCuenta.id, dataCuenta.proveedor.id)}>APROBAR <i className="fa fa-check"></i></button>
+                                                :
+                                                <button className="btn btn-danger" onClick={()=>changeAprobarFact(dataCuenta.id, dataCuenta.proveedor.id)}>DESAPROBAR <i className="fa fa-times"></i></button>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>EMISIÓN</td>
+                                    <td className="text-success">{dataCuenta.fechaemision}</td>
+                                </tr>
+                                <tr>
+                                    <td>RECEPCIÓN</td>
+                                    <td className="text-sinapsis">{dataCuenta.fecharecepcion}</td>
+                                </tr>
+                                <tr>
+                                    <td>VENCIMIENTO</td>
+                                    <td className="text-danger">{dataCuenta.fechavencimiento}</td>
+                                </tr>
+                                <tr>
+                                    <td>NOTA</td>
+                                    <td>{dataCuenta.nota}</td>
+                                </tr>
+                                <tr>
+                                    <td>TIPO</td>
+                                    <td>{dataCuenta.tipo==1?"COMPRA":"SERVICIO"}</td>
+                                </tr>
+                                <tr>
+                                    <td>FRECUENCIA</td>
+                                    <td>{dataCuenta.frecuencia}</td>
+                                </tr>
+                                <tr>
+                                    <td colSpan={2}>
+                                        <button type="button" className="btn btn-sinapsis boton-fijo-inferiorizq" onClick={()=>modeEditarFact(dataCuenta.id)}>
+                                            <i className="fa fa-pencil"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        :null}
+
                     </table>
                 </>
                 :null
             :<>
                 
                 <form onSubmit={e=>{e.preventDefault();selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}} className="mb-2">
+                    <div className="btn-group w-100 mb-2">
+                        <span className={("btn btn-sm ")+(cuentaporpagarAprobado=="0"?"btn-danger":"btn-outline-danger")} onClick={()=>setcuentaporpagarAprobado(cuentaporpagarAprobado=="0"?"":"0")}>PENDIENTES</span>
+
+                        <span className={("btn btn-sm ")+(cuentaporpagarAprobado=="1"?"btn-success":"btn-outline-success")} onClick={()=>setcuentaporpagarAprobado(cuentaporpagarAprobado=="1"?"":"1")}>APROBADAS</span>
+                    </div>
                     <div className="btn-group w-100 mb-2">
                         <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>DÉB</span>
 
@@ -317,7 +343,7 @@ export default function CuentasporpagarDetalles({
                 {
                     selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                     ? selectCuentaPorPagarId.detalles.map( (e,i) =>
-                        <div className="text-secondary mb-3 pointer shadow p-2 card" key={e.id}>
+                        <div className={("text-secondary mb-3 pointer shadow p-2 card ")+(e.aprobado==0?"bg-danger-light":"")} key={e.id}>
                             <div className="d-flex justify-content-between fs-7">
                                 <span className="fw-bold">{e.proveedor.descripcion}</span>
                                 <small className="text-muted">{e.created_at}</small>
