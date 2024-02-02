@@ -1642,6 +1642,9 @@ function Home() {
   const [SelectCuentaPorPagarDetalle,setSelectCuentaPorPagarDetalle] = useState(null)
   const [selectFactPagoArr,setselectFactPagoArr] = useState([])
   const [subviewAgregarFactPago,setsubviewAgregarFactPago] = useState("pago")
+  const [sucursalcuentasPorPagarDetalles,setsucursalcuentasPorPagarDetalles] = useState("")
+  
+
 
 
   const [newfactid_proveedor, setnewfactid_proveedor] = useState("")
@@ -1793,8 +1796,8 @@ function Home() {
       setSelectCuentaPorPagarDetalle(null)
     })
   }
-  const selectCuentaPorPagarProveedorDetallesFun = id => {
-    db.selectCuentaPorPagarProveedorDetalles({
+  const selectCuentaPorPagarProveedorDetallesFun = (id,type="buscar") => {
+    let req = {
       id,
       
       categoriacuentasPorPagarDetalles,
@@ -1805,15 +1808,22 @@ function Home() {
       qcuentasPorPagarDetalles,
       OrdercuentasPorPagarDetalles,
       cuentaporpagarAprobado,
-    }).then(res=>{
-      if (res.data) {
-        if (res.data.detalles.length) {
-          setSelectCuentaPorPagarId(res.data)
-        }else{
-          setSelectCuentaPorPagarId([])
+      sucursalcuentasPorPagarDetalles,
+      type,
+    }
+    if (type=="buscar") {
+      db.selectCuentaPorPagarProveedorDetalles(req).then(res=>{
+        if (res.data) {
+          if (res.data.detalles.length) {
+            setSelectCuentaPorPagarId(res.data)
+          }else{
+            setSelectCuentaPorPagarId([])
+          }
         }
-      }
-    })
+      })
+    }else if("reporte") {
+      db.selectCuentaPorPagarProveedorDetallesREPORTE(req)
+    }
   }
   const getsucursalDetallesData = (event = null, subviewpanelsucursalesforce = null) => {
 
@@ -2706,6 +2716,11 @@ function Home() {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        sucursalcuentasPorPagarDetalles={sucursalcuentasPorPagarDetalles}
+                        setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
+
+                        getSucursales={getSucursales}
+                        sucursales={sucursales}
                         delCuentaPorPagar={delCuentaPorPagar}
                         changeAprobarFact={changeAprobarFact}
                         cuentaporpagarAprobado={cuentaporpagarAprobado}

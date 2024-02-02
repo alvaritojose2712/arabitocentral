@@ -18,6 +18,8 @@ export default function CuentasporpagarDetalles({
     fechacuentasPorPagarDetalles,
     categoriacuentasPorPagarDetalles,
     setcategoriacuentasPorPagarDetalles,
+    sucursalcuentasPorPagarDetalles,
+    setsucursalcuentasPorPagarDetalles,
     tipocuentasPorPagarDetalles,
     settipocuentasPorPagarDetalles,
 
@@ -46,6 +48,8 @@ export default function CuentasporpagarDetalles({
     setcuentaporpagarAprobado,
     changeAprobarFact,
     delCuentaPorPagar,
+    getSucursales,
+    sucursales,
 
 }){
     
@@ -90,9 +94,16 @@ export default function CuentasporpagarDetalles({
         qcuentasPorPagarDetalles,
         OrdercuentasPorPagarDetalles,
         cuentaporpagarAprobado,
+        sucursalcuentasPorPagarDetalles,
     ])
+
+    useEffect(()=>{
+        getSucursales()
+    },[])
+
+
     return (
-        <div className="container p-0 mb-4">
+        <div className="container p-0 mb-6">
             {
             SelectCuentaPorPagarDetalle?
                 dataCuenta?
@@ -204,7 +215,7 @@ export default function CuentasporpagarDetalles({
                     <hr />
                     
                    
-                    <table className="table">
+                    <table className="table table-sm">
                         {dataCuenta.sucursal?
                             <tbody>
                                 <tr>
@@ -235,11 +246,11 @@ export default function CuentasporpagarDetalles({
                                     <td className={dataCuenta.descuento<0?"text-danger":("text-success")}>{moneda(dataCuenta.descuento)}</td>
                                 </tr>
                                 <tr>
-                                    <th>MONTO EXENTO</th>
+                                    <th>EXENTO</th>
                                     <td className={dataCuenta.monto_exento<0?"text-danger":("text-success")}>{moneda(dataCuenta.monto_exento)}</td>
                                 </tr>
                                 <tr>
-                                    <th>MONTO GRAVABLE</th>
+                                    <th>GRAVABLE</th>
                                     <td className={dataCuenta.monto_gravable<0?"text-danger":("text-success")}>{moneda(dataCuenta.monto_gravable)}</td>
                                 </tr>
                                 <tr>
@@ -248,8 +259,8 @@ export default function CuentasporpagarDetalles({
                                 </tr>
                                 <tr>
                                     <th>TOTAL</th>
-                                    <td className={(dataCuenta.monto<0?"text-danger":("text-success"))+(" justify-content-between")}>
-                                        {moneda(dataCuenta.monto)}
+                                    <td className={(dataCuenta.monto<0?"text-danger":("text-success"))+(" justify-content-between d-flex")}>
+                                        <span className="fs-3">{moneda(dataCuenta.monto)}</span>
                                         <div>
                                             {dataCuenta.aprobado==0?
                                                 <button className="btn btn-success btn-sm" onClick={()=>changeAprobarFact(dataCuenta.id, dataCuenta.proveedor.id)}>APROBAR <i className="fa fa-check"></i></button>
@@ -293,7 +304,7 @@ export default function CuentasporpagarDetalles({
                         :null}
 
                     </table>
-                    <button type="button" className="btn btn-sinapsis boton-fijo-inferiorizq" onClick={()=>modeEditarFact(dataCuenta.id)}>
+                    <button type="button" className="btn btn-sinapsis boton-fijo-inferiorizq shadow" onClick={()=>modeEditarFact(dataCuenta.id)}>
                         <i className="fa fa-pencil"></i>
                     </button>
                 </>
@@ -340,6 +351,7 @@ export default function CuentasporpagarDetalles({
 
                             <option value="numfact"># Fact</option>
                             <option value="numnota"># Nota</option>
+                            <option value="id_sucursal">SUCURSAL</option>
                             <option value="descripcion">Descripción</option>
                             <option value="subtotal">Subtotal</option>
                             <option value="descuento">Descuento</option>
@@ -350,8 +362,17 @@ export default function CuentasporpagarDetalles({
                         </select>
                     </div>
 
+                    <div className="input-group">
+                        <select className="form-control form-control-sm" value={sucursalcuentasPorPagarDetalles} onChange={e=>setsucursalcuentasPorPagarDetalles(e.target.value)}>
+                            <option value="">-SUCURSAL-</option>
+                            {sucursales.map(e=>
+                                <option key={e.id} value={e.id}>{e.codigo}</option>
+                            )}
+                        </select>
+                    </div> 
 
                     <div className="input-group">
+                        <button type="button" className="btn btn-warning btn-sm" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor,"reporte")}><i className="fa fa-print"></i></button>
                         <select className="form-control form-control-sm" value={categoriacuentasPorPagarDetalles} onChange={e=>setcategoriacuentasPorPagarDetalles(e.target.value)}>
                             <option value="">-CATEGORÍA-</option>
                             <option value="1">COMPRAS</option>
@@ -363,7 +384,7 @@ export default function CuentasporpagarDetalles({
                             <option value="DEUDA">CRÉDITOS</option>
                             <option value="ABONOS">DÉBITOS</option>
                         </select>
-                        <button type="button" className="btn btn-success" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}><i className="fa fa-search"></i></button>
+                        <button type="button" className="btn btn-success btn-sm" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}><i className="fa fa-search"></i></button>
                     </div>                
 
 

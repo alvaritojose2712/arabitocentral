@@ -13,6 +13,9 @@ const db = {
   
   aprobarMovCajaFuerte: data=>axios.post(host+"aprobarMovCajaFuerte",data),
   selectCuentaPorPagarProveedorDetalles: data=>axios.post(host+"selectCuentaPorPagarProveedorDetalles",data),
+
+  selectCuentaPorPagarProveedorDetallesREPORTE: data => window.open(host + "selectCuentaPorPagarProveedorDetalles?"+(new URLSearchParams(data).toString()), "targed=blank"),
+
   changeLiquidacionPagoElec: data=>axios.post(host+"changeLiquidacionPagoElec",data),
   sendPagoCuentaPorPagar: data=>axios.post(host+"sendPagoCuentaPorPagar",data),
   saveNewFact: data=>axios.post(host+"saveNewFact",data),

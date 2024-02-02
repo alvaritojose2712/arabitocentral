@@ -188,7 +188,7 @@ Route::post('delCuentaPorPagar', [CuentasporpagarController::class,"delCuentaPor
 
 Route::post('sendFacturaCentral', [CuentasporpagarController::class,"sendFacturaCentral"]);
 Route::post('getAllProveedores', [ProveedoresController::class,"getAllProveedores"]);
-Route::post('selectCuentaPorPagarProveedorDetalles', [CuentasporpagarController::class,"selectCuentaPorPagarProveedorDetalles"]);
+Route::match(array('GET', 'POST'),'selectCuentaPorPagarProveedorDetalles', [CuentasporpagarController::class,"selectCuentaPorPagarProveedorDetalles"]);
 Route::get('showImageFact', [CuentasporpagarController::class,"showImageFact"]);
 
 Route::post('saveNewFact', [CuentasporpagarController::class,"saveNewFact"]);

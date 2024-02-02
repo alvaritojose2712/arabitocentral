@@ -360,6 +360,9 @@ class CuentasporpagarController extends Controller
         $qCampocuentasPorPagarDetalles = $req->qCampocuentasPorPagarDetalles;
         $qcuentasPorPagarDetalles = $req->qcuentasPorPagarDetalles;
         $OrdercuentasPorPagarDetalles = $req->OrdercuentasPorPagarDetalles;
+        $sucursalcuentasPorPagarDetalles = $req->sucursalcuentasPorPagarDetalles;
+        $type = $req->type;
+        
         
         $today = new \DateTime((new NominaController)->today());
         $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos","facturas"])
@@ -368,6 +371,10 @@ class CuentasporpagarController extends Controller
         ->when($id!="todos",function($q) use ($id){
             $q->where("id_proveedor",$id);
         })
+        ->when($sucursalcuentasPorPagarDetalles!="",function($q) use ($sucursalcuentasPorPagarDetalles){
+            $q->where("id_sucursal",$sucursalcuentasPorPagarDetalles);
+        })
+        
         ->where("aprobado",$cuentaporpagarAprobado)
         ->when($categoriacuentasPorPagarDetalles!="",function($q) use ($categoriacuentasPorPagarDetalles) {
             $q->where("tipo","$categoriacuentasPorPagarDetalles");
@@ -416,7 +423,7 @@ class CuentasporpagarController extends Controller
 
         $balance = $this->getBalance($id,$cuentaporpagarAprobado);
 
-        return [
+        $ret =  [
             "detalles" => $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact) {
                 $fechavencimiento = new \DateTime($q->fechavencimiento);
                 $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
@@ -440,5 +447,11 @@ class CuentasporpagarController extends Controller
             "balance" => $balance, 
             "sum" => $detalles->get()->count(), 
         ];
+
+        if ($type=="buscar") {
+            return $ret;
+        }else{
+            return view("reportes.conciliacionCuentasxPagar",$ret);
+        }
     }
 }
