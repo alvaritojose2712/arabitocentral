@@ -123,10 +123,68 @@ Route::post('sendFallas', [FallasController::class,"sendFallas"]);
 Route::post('setCierreFromSucursalToCentral', [CierresController::class,"setCierreFromSucursalToCentral"]);
 Route::post('setEfecFromSucursalToCentral', [CajasController::class,"setEfecFromSucursalToCentral"]); */
 
+
+ Route::get('deuda',  function() {
+    $deuda = [
+        ["42","9","2024-01-30","2024-02-29","21213","1182.59"],
+        ["48","12","2024-01-30","2024-02-29","08342","2500.00"],
+        ["48","11","2024-01-30","2024-02-29","08263","1632.00"],
+        ["12","6","2024-01-26","2024-02-25","90169938","984.09"],
+        ["12","6","2024-01-26","2024-02-25","90170025","984.09"],
+        ["48","11","2024-01-30","2024-02-29","08341","5000.00"],
+        ["22","12","2024-01-31","2024-03-16","5312","1204.00"],
+        ["12","2","2024-01-26","2024-02-25","90170026","590.45"],
+        ["48","8","2024-01-30","2024-02-29","08343","3750.00"],
+        ["39","12","2024-01-31","2024-01-31","6647219","808.79"],
+        ["76","9","2024-01-22","2024-01-22","8529","153.97"],
+        ["76","9","2024-01-22","2024-01-22","8525","1310.77"],
+        ["76","9","2024-01-22","2024-01-22","8527","614.14"],
+        ["76","9","2024-01-22","2024-01-22","8518","1210.07"],
+        ["76","9","2024-01-22","2024-01-22","8054","181.56"],
+        ["76","9","2024-01-22","2024-01-22","8517","2010.93"],
+        ["76","3","2024-01-22","2024-01-22","8513","1826.87"],
+        ["76","3","2024-01-22","2024-01-22","8051","1006.57"],
+        ["76","3","2024-01-22","2024-01-22","8514","754.57"],
+        ["76","3","2024-01-22","2024-01-22","8512","2744.50"],
+        ["39","5","2024-01-19","2024-01-19","NOSEVEE","115.75"],
+        ["39","5","2024-01-19","2024-01-19","6645134","323.51"],
+        ["76","5","2024-01-22","2024-01-22","8044","274.82"],
+    ];
+
+    foreach ($deuda as $i => $e) {
+        $arrinsert = [
+            "id_proveedor" => $e[0],
+            "tipo" => 1, //COMPRAS
+            "frecuencia" => 0,
+            "id_sucursal" => $e[1],
+
+            "idinsucursal" => time().$i,
+            "numfact" => $e[4],
+            "numnota" => "",
+            "descripcion" => $e[4],
+
+            "subtotal" => 0,
+            "monto" => $e[5]*-1,
+            "fechaemision" => $e[2],
+            "fecharecepcion" => $e[2],
+            "fechavencimiento" => $e[3],
+            "nota" => "",
+            "metodo" => null,
+            "aprobado" => 1,
+        ];
+        $search = [
+            "id" => 0
+        ];
+        App\Models\cuentasporpagar::updateOrCreate($search,$arrinsert);
+    }
+});
+
+
 Route::post('setAll', [CierresController::class,"setAll"]);
 Route::post('setPermisoCajas', [CajasAprobacionController::class,"setPermisoCajas"]);
 Route::post('aprobarMovCajaFuerte', [CajasAprobacionController::class,"aprobarMovCajaFuerte"]);
 Route::post('verificarMovPenControlEfec', [CajasAprobacionController::class,"verificarMovPenControlEfec"]);
+Route::post('delCuentaPorPagar', [CuentasporpagarController::class,"delCuentaPorPagar"]);
 
 Route::post('sendFacturaCentral', [CuentasporpagarController::class,"sendFacturaCentral"]);
 Route::post('getAllProveedores', [ProveedoresController::class,"getAllProveedores"]);

@@ -324,6 +324,29 @@ class CuentasporpagarController extends Controller
         }
         $c->save();
     }
+    function delCuentaPorPagar(Request $req) {
+        try {
+            $id = $req->id;
+     
+            $cuenta = cuentasporpagar::find($id);
+            if ($cuenta->aprobado==1) {
+                 return [
+                     "estado"=> false,
+                     "msj"=> "Factura aprobada. No se puede eliminar",
+                 ];
+            }else{
+                 if ($cuenta->delete()) {
+                     return [
+                         "estado"=> true,
+                         "msj"=> "Éxito al eliminar",
+                     ];
+                 }
+            }
+        } catch (\Exception $e) {
+            return $e->getMessage()." LINEA ".$e->getLine()." CuentasporpagarController delCuentaPorPagar";
+
+        }
+    }
     function selectCuentaPorPagarProveedorDetalles(Request $req) {
         
         $id = $req->id;
@@ -342,7 +365,9 @@ class CuentasporpagarController extends Controller
         $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos","facturas"])
         ->selectRaw("*,@monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado")
 
-        ->where("id_proveedor",$id)
+        ->when($id!="todos",function($q) use ($id){
+            $q->where("id_proveedor",$id);
+        })
         ->where("aprobado",$cuentaporpagarAprobado)
         ->when($categoriacuentasPorPagarDetalles!="",function($q) use ($categoriacuentasPorPagarDetalles) {
             $q->where("tipo","$categoriacuentasPorPagarDetalles");

@@ -1761,6 +1761,22 @@ function Home() {
     }
     
   }
+  const delCuentaPorPagar = (event, id) => {
+    let numfact = event.currentTarget.attributes["data-numfact"].value
+
+    let prompt = window.prompt("ESCRIBA EN MINÚSCULA: eliminar [numero de Factura]")
+    let res = "eliminar "+numfact
+    if (prompt==res) {
+      db.delCuentaPorPagar({id}).then(res=>{
+        if (res.data.estado) {
+          setSelectCuentaPorPagarDetalle(null)
+          setselectFactEdit(null)
+          selectCuentaPorPagarProveedorDetallesFun(selectProveedorCxp)
+        }
+        notificar(res)
+      })
+    }
+  }
   const selectCuentaPorPagarProveedorDetalles = (id) => {
     selectCuentaPorPagarProveedorDetallesFun(id)
     setselectProveedorCxp(id)
@@ -1771,9 +1787,9 @@ function Home() {
       id,numfact
     })
   }
-  const changeAprobarFact = (id,id_proveedor) => {
+  const changeAprobarFact = (id) => {
     db.changeAprobarFact({id}).then(res=>{
-      selectCuentaPorPagarProveedorDetallesFun(id_proveedor)
+      selectCuentaPorPagarProveedorDetallesFun(selectProveedorCxp)
       setSelectCuentaPorPagarDetalle(null)
     })
   }
@@ -2690,6 +2706,7 @@ function Home() {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        delCuentaPorPagar={delCuentaPorPagar}
                         changeAprobarFact={changeAprobarFact}
                         cuentaporpagarAprobado={cuentaporpagarAprobado}
                         setcuentaporpagarAprobado={setcuentaporpagarAprobado}

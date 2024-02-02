@@ -183,53 +183,51 @@ export default function CuentasporpagarPagos({
                                 </tr>
                                 <tr>
                                     <th colSpan={3}>
-                                        <form onSubmit={selectCuentaPorPagarProveedorDetallesFun} className="mb-2">
-                                            <div className="input-group">
-                                            <input type={
-                                                qCampocuentasPorPagarDetalles=="created_at" || 
-                                                qCampocuentasPorPagarDetalles=="fechaemision" || 
-                                                qCampocuentasPorPagarDetalles=="fecharecepcion" || 
-                                                qCampocuentasPorPagarDetalles=="fechavencimiento" ? "date": "text" 
-                                            } className="form-control form-control-sm" placeholder={"Buscar por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
-                            
-                                                
-                                                <span className={("btn arabito_")+(OrdercuentasPorPagarDetalles)} onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
-                                                    {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
-                                                </span>
-                                                <select className="form-control" value={qCampocuentasPorPagarDetalles} onChange={e=>setqCampocuentasPorPagarDetalles(e.target.value)}>
-                                                    <option value="">-Buscar en-</option>
-                                                    <option value="created_at">Creación</option>
-                                                    <option value="fechaemision">Emisión</option>
-                                                    <option value="fecharecepcion">Recepción</option>
-                                                    <option value="fechavencimiento">Vencimiento</option>
+                                        <div className="input-group">
+                                        <input type={
+                                            qCampocuentasPorPagarDetalles=="created_at" || 
+                                            qCampocuentasPorPagarDetalles=="fechaemision" || 
+                                            qCampocuentasPorPagarDetalles=="fecharecepcion" || 
+                                            qCampocuentasPorPagarDetalles=="fechavencimiento" ? "date": "text" 
+                                        } className="form-control form-control-sm" placeholder={"Buscar por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
+                        
+                                            
+                                            <span className={("btn arabito_")+(OrdercuentasPorPagarDetalles)} onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
+                                                {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
+                                            </span>
+                                            <select className="form-control" value={qCampocuentasPorPagarDetalles} onChange={e=>setqCampocuentasPorPagarDetalles(e.target.value)}>
+                                                <option value="">-Buscar en-</option>
+                                                <option value="created_at">Creación</option>
+                                                <option value="fechaemision">Emisión</option>
+                                                <option value="fecharecepcion">Recepción</option>
+                                                <option value="fechavencimiento">Vencimiento</option>
 
-                                                    <option value="numfact"># Fact</option>
-                                                    <option value="numnota"># Nota</option>
-                                                    <option value="descripcion">Descripción</option>
-                                                    <option value="subtotal">Subtotal</option>
-                                                    <option value="descuento">Descuento</option>
-                                                    <option value="monto_exento">Monto exento</option>
-                                                    <option value="monto_gravable">Monto gravable</option>
-                                                    <option value="iva">IVA</option>
-                                                    <option value="monto">TOTAL</option>
-                                                </select>
-                                            </div>
+                                                <option value="numfact"># Fact</option>
+                                                <option value="numnota"># Nota</option>
+                                                <option value="descripcion">Descripción</option>
+                                                <option value="subtotal">Subtotal</option>
+                                                <option value="descuento">Descuento</option>
+                                                <option value="monto_exento">Monto exento</option>
+                                                <option value="monto_gravable">Monto gravable</option>
+                                                <option value="iva">IVA</option>
+                                                <option value="monto">TOTAL</option>
+                                            </select>
+                                        </div>
 
-                                            <div className="input-group">
-                                                <select className="form-control" value={categoriacuentasPorPagarDetalles} onChange={e=>setcategoriacuentasPorPagarDetalles(e.target.value)}>
-                                                    <option value="">-CATEGORÍA-</option>
-                                                    <option value="1">COMPRAS</option>
-                                                    <option value="2">SERVICIOS</option>
-                                                </select>
+                                        <div className="input-group">
+                                            <select className="form-control" value={categoriacuentasPorPagarDetalles} onChange={e=>setcategoriacuentasPorPagarDetalles(e.target.value)}>
+                                                <option value="">-CATEGORÍA-</option>
+                                                <option value="1">COMPRAS</option>
+                                                <option value="2">SERVICIOS</option>
+                                            </select>
 
-                                                <select className="form-control" value={tipocuentasPorPagarDetalles} onChange={e=>settipocuentasPorPagarDetalles(e.target.value)}>
-                                                    <option value="">-TIPO-</option>
-                                                    <option value="DEUDA">CRÉDITOS</option>
-                                                    <option value="ABONOS">DÉBITOS</option>
-                                                </select>
-                                                <button type="button" className="btn btn-success" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}><i className="fa fa-search"></i></button>
-                                            </div>                
-                                        </form>
+                                            <select className="form-control" value={tipocuentasPorPagarDetalles} onChange={e=>settipocuentasPorPagarDetalles(e.target.value)}>
+                                                <option value="">-TIPO-</option>
+                                                <option value="DEUDA">CRÉDITOS</option>
+                                                <option value="ABONOS">DÉBITOS</option>
+                                            </select>
+                                            <button type="button" className="btn btn-success" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}><i className="fa fa-search"></i></button>
+                                        </div>                
                                     </th>
                                 </tr>
                             </thead>

@@ -45,6 +45,7 @@ export default function CuentasporpagarDetalles({
     cuentaporpagarAprobado,
     setcuentaporpagarAprobado,
     changeAprobarFact,
+    delCuentaPorPagar,
 
 }){
     
@@ -285,15 +286,16 @@ export default function CuentasporpagarDetalles({
                                 </tr>
                                 <tr>
                                     <td colSpan={2}>
-                                        <button type="button" className="btn btn-sinapsis boton-fijo-inferiorizq" onClick={()=>modeEditarFact(dataCuenta.id)}>
-                                            <i className="fa fa-pencil"></i>
-                                        </button>
+                                        <button className="btn btn-danger btn-sm" data-numfact={dataCuenta.numfact} onClick={event=>delCuentaPorPagar(event, dataCuenta.id, dataCuenta.proveedor.id)}>ELIMINAR</button>
                                     </td>
                                 </tr>
                             </tbody>
                         :null}
 
                     </table>
+                    <button type="button" className="btn btn-sinapsis boton-fijo-inferiorizq" onClick={()=>modeEditarFact(dataCuenta.id)}>
+                        <i className="fa fa-pencil"></i>
+                    </button>
                 </>
                 :null
             :<>

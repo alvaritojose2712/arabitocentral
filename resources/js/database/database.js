@@ -68,7 +68,8 @@ const db = {
   
   setComovamos: data=>axios.post(host+"setComovamos",data),
   
-
+  
+  delCuentaPorPagar: data=>axios.post(host+"delCuentaPorPagar",data),
   
   changeAprobarFact: data=>axios.post(host+"changeAprobarFact",data),
   getCatGenerals: data=>axios.get(host+"getCatGenerals",{params:data}),
