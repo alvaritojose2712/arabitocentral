@@ -223,14 +223,18 @@ class CuentasporpagarController extends Controller
 
     function getCuentas($fechasMain1, $fechasMain2, $id_sucursal, $filtros){
         $qcuentasPorPagar = $filtros["qcuentasPorPagar"];
+        $totalSum = 0;
+
         $cuentasporpagar = proveedores::when($qcuentasPorPagar!="",function($q) use ($qcuentasPorPagar){
             $q->orWhere("descripcion","LIKE","%$qcuentasPorPagar%")
             ->orWhere("rif","LIKE","%$qcuentasPorPagar%");
         })
         ->get()
-        ->map(function($q){
-            
-            $q->balance = $this->getBalance($q->id,1); 
+        ->map(function($q) use (&$totalSum){
+            $b = $this->getBalance($q->id,1);
+            $q->balance = $b; 
+
+            $totalSum += $b;
             return $q; 
         })->toArray();
 
@@ -239,6 +243,7 @@ class CuentasporpagarController extends Controller
         
         return [
             "cuentasporpagar" => $cuentasporpagar,
+            "sum" => $totalSum,
         ];
     }
 

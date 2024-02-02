@@ -33,6 +33,17 @@ export default function Cuentasporpagar({
                         <input type="text" className="form-control" placeholder="Buscar proveedor" onChange={e=>setqcuentasPorPagar(e.target.value)} value={qcuentasPorPagar} />
                         <button className="btn btn-success"><i className="fa fa-search"></i></button>
                     </form>
+                    <div className="m-2 d-flex justify-content-between">
+                        <span>TOTAL</span>
+                    {
+                        sucursalDetallesData.sum
+                        ? <span className="fs-4 ">
+                            {moneda(sucursalDetallesData.sum)}
+                        </span>
+                        : null 
+                    } 
+                    </div>
+
                     {
                         sucursalDetallesData.cuentasporpagar?sucursalDetallesData.cuentasporpagar.length
                         ? sucursalDetallesData.cuentasporpagar.map( (e,i) =>

@@ -3037,6 +3037,14 @@ function Cuentasporpagar(_ref) {
             className: "fa fa-search"
           })
         })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "m-2 d-flex justify-content-between",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          children: "TOTAL"
+        }), sucursalDetallesData.sum ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          className: "fs-4 ",
+          children: moneda(sucursalDetallesData.sum)
+        }) : null]
       }), sucursalDetallesData.cuentasporpagar ? sucursalDetallesData.cuentasporpagar.length ? sucursalDetallesData.cuentasporpagar.map(function (e, i) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           onClick: function onClick() {
