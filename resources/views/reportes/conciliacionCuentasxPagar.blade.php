@@ -15,9 +15,10 @@
 </head>
 <body>
     <section class="container-fluid">
-        <table class="table" border="1">
+        <h3 class="text-center">RELACIÓN DE DEUDA</h3>
+        <table class="table table-bordered table-striped">
             <tr>
-                <th></th>
+                <th>PROVEEDOR</th>
                 <th>EMISIÓN</th>
                 <th>VENCIMIENTO</th>
                 <th>SUCURSAL</th>
@@ -39,7 +40,7 @@
                     <td>
                         {{$cuenta->numfact}}
                     </td>
-                    <td class="fs-4">
+                    <td class="fs-4 text-right">
                         {{number_format($cuenta->monto,2)}}
                     </td>
                 </tr>
