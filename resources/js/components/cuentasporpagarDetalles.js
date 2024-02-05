@@ -55,6 +55,9 @@ export default function CuentasporpagarDetalles({
     delCuentaPorPagar,
     getSucursales,
     sucursales,
+    subViewCuentasxPagar,
+    setsubViewCuentasxPagar,
+    selectCuentaPorPagarProveedorDetalles,
 
 }){
     
@@ -104,6 +107,7 @@ export default function CuentasporpagarDetalles({
         OrdercuentasPorPagarDetalles,
         cuentaporpagarAprobado,
         sucursalcuentasPorPagarDetalles,
+        qCampocuentasPorPagarDetalles,
     ])
 
     useEffect(()=>{
@@ -112,7 +116,13 @@ export default function CuentasporpagarDetalles({
 
 
     return (
-        <div className="container p-0 mb-6">
+        <div className="container-fluid p-0 mb-6">
+            <div className="d-flex justify-content-center">
+                <div className="btn-group m-2">
+                    <button className={("btn btn-sm ")+(subViewCuentasxPagar=="proveedor"?"btn-sinapsis":"")} onClick={()=>{setsubViewCuentasxPagar("proveedor");setSelectCuentaPorPagarId(null)}}>Proveedor</button>
+                    <button className={("btn btn-sm ")+(subViewCuentasxPagar=="todos"?"btn-sinapsis":"")} onClick={()=>{setsubViewCuentasxPagar("todos");selectCuentaPorPagarProveedorDetalles("todos")}}>General</button>
+                </div>
+            </div>
             {
             SelectCuentaPorPagarDetalle?
                 dataCuenta?
@@ -239,8 +249,9 @@ export default function CuentasporpagarDetalles({
                                     <td>
                                         <button 
                                          className={
-                                            (dataCuenta.condicion=="pagadas"?"btn-medsuccess":(dataCuenta.condicion=="vencidas"?"btn-danger":(dataCuenta.condicion=="porvencer"?"btn-sinapsis":(dataCuenta.condicion=="semipagadas"?"btn-primary":(dataCuenta.condicion=="abonos"?"btn-success":null)))))+(" btn-sm")
+                                            (dataCuenta.condicion=="pagadas"?"btn-medsuccess":(dataCuenta.condicion=="vencidas"?"btn-danger":(dataCuenta.condicion=="porvencer"?"btn-sinapsis":(dataCuenta.condicion=="semipagadas"?"btn-primary":(dataCuenta.condicion=="abonos"?"btn-success":null)))))+(" btn-sm btn")
                                         }
+                                        onClick={()=>showImageFact(dataCuenta.descripcion)}
                                         type="button">{dataCuenta.numfact}</button>
                                     </td>
                                 </tr>
@@ -250,10 +261,7 @@ export default function CuentasporpagarDetalles({
                                         <td>{dataCuenta.numnota}</td>
                                     </tr>
                                 :null}
-                                <tr>
-                                    <td>IMAGEN</td>
-                                    <td><button className="btn btn-sm btn-outline-success" onClick={()=>showImageFact(dataCuenta.descripcion)}> <i className="fa fa-eye"></i> </button></td>
-                                </tr>
+                                
                                 <tr>
                                     <th>SUBTOTAL</th>
                                     <td className={dataCuenta.subtotal<0?"text-danger":("text-success")}>{moneda(dataCuenta.subtotal)}</td>
@@ -314,45 +322,44 @@ export default function CuentasporpagarDetalles({
                                 </tr>
                                 <tr>
                                     <td colSpan={2}>
-                                        <button className="btn btn-danger btn-sm" data-numfact={dataCuenta.numfact} onClick={event=>delCuentaPorPagar(event, dataCuenta.id, dataCuenta.proveedor.id)}>ELIMINAR</button>
+                                        <div className="btn-group">
+                                            <button className="btn btn-danger btn-sm" data-numfact={dataCuenta.numfact} onClick={event=>delCuentaPorPagar(event, dataCuenta.id, dataCuenta.proveedor.id)}>
+                                                <i className="fa fa-trash"></i>
+                                            </button>
+                                            <button type="button" className="btn btn-sinapsis shadow" onClick={()=>modeEditarFact(dataCuenta.id)}>
+                                                <i className="fa fa-pencil"></i>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
                         :null}
 
                     </table>
-                    <button type="button" className="btn btn-sinapsis boton-fijo-inferiorizq shadow" onClick={()=>modeEditarFact(dataCuenta.id)}>
-                        <i className="fa fa-pencil"></i>
-                    </button>
                 </div>
                 :null
             :<>
                 
                 <form onSubmit={e=>{e.preventDefault();selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}} className="mb-2">
                     <div className="btn-group w-100 mb-2">
-                        <span className={("btn btn-sm ")+(cuentaporpagarAprobado=="0"?"btn-danger":"btn-outline-danger")} onClick={()=>setcuentaporpagarAprobado(cuentaporpagarAprobado=="0"?"":"0")}>PENDIENTES</span>
+                        <span className={("btn btn-lg ")+(cuentaporpagarAprobado=="0"?"btn-danger":"btn-outline-danger")} onClick={()=>setcuentaporpagarAprobado(cuentaporpagarAprobado=="0"?"":"0")}>PENDIENTES</span>
 
-                        <span className={("btn btn-sm ")+(cuentaporpagarAprobado=="1"?"btn-success":"btn-outline-success")} onClick={()=>setcuentaporpagarAprobado(cuentaporpagarAprobado=="1"?"":"1")}>APROBADAS</span>
+                        <span className={("btn btn-lg ")+(cuentaporpagarAprobado=="1"?"btn-success":"btn-outline-success")} onClick={()=>setcuentaporpagarAprobado(cuentaporpagarAprobado=="1"?"":"1")}>APROBADAS</span>
                     </div>
                     <div className="btn-group w-100 mb-2">
-                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>DÉB</span>
+                        <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>DÉBITO</span>
 
-                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="pagadas"?"btn-medsuccess":"btn-outline-medsuccess")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="pagadas"?"":"pagadas")}>PAG</span>
+                        <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="pagadas"?"btn-medsuccess":"btn-outline-medsuccess")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="pagadas"?"":"pagadas")}>PAGADAS</span>
 
-                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="semipagadas"?"btn-primary":"btn-outline-primary")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="semipagadas"?"":"semipagadas")}>ABON</span>
-                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="porvencer"?"btn-sinapsis":"btn-outline-sinapsis")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="porvencer"?"":"porvencer")}>POR VENCER</span>
-                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="vencidas"?"btn-danger":"btn-outline-danger")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="vencidas"?"":"vencidas")}>VENC</span>
+                        <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="semipagadas"?"btn-primary":"btn-outline-primary")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="semipagadas"?"":"semipagadas")}>ABONADAS</span>
+                        <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="porvencer"?"btn-sinapsis":"btn-outline-sinapsis")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="porvencer"?"":"porvencer")}>POR VENCER</span>
+                        <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="vencidas"?"btn-danger":"btn-outline-danger")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="vencidas"?"":"vencidas")}>VENCIDAS</span>
                     </div>
                     <div className="input-group">
                         
-                        <input type={
-                            qCampocuentasPorPagarDetalles=="created_at" || 
-                            qCampocuentasPorPagarDetalles=="fechaemision" || 
-                            qCampocuentasPorPagarDetalles=="fecharecepcion" || 
-                            qCampocuentasPorPagarDetalles=="fechavencimiento" ? "date": "text" 
-                        } className="form-control form-control-sm" placeholder={"Buscar en "+proveedorMain+" por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
+                        <input type="text" className="form-control form-control-lg" placeholder={"Buscar en "+proveedorMain+" por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
                         
-                        <span className={("btn btn-sm arabito_")+(OrdercuentasPorPagarDetalles)} 
+                        {/* <span className={("btn btn-sm arabito_")+(OrdercuentasPorPagarDetalles)} 
                         onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
                             {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
                         </span>
@@ -376,7 +383,7 @@ export default function CuentasporpagarDetalles({
                             <option value="iva">IVA</option>
                             <option value="monto">TOTAL</option>
                             <option value="numnota"># Nota</option>
-                        </select>
+                        </select> */}
                     </div>
 
                     <div className="input-group">
@@ -406,6 +413,35 @@ export default function CuentasporpagarDetalles({
 
 
                 </form>
+                <div className="items-table-pc">
+                    <div className="w-100 d-flex border-bottom fw-bold">
+                        <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="created_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("created_at")}} className="pointer cell1 p-3">
+                            CREADA
+                        </div> 
+                        <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="updated_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("updated_at")}} className="pointer cell1 p-3">
+                            ACTUALIZADA
+                        </div> 
+
+                        <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_proveedor"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_proveedor")}} className="pointer cell2 p-3">
+                            PROVEEDOR
+                        </div>  
+                        <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="numfact"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("numfact")}} className="pointer cell2 p-3 text-right">
+                            NUM
+                        </div>  
+                        <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechaemision"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechaemision")}} className="pointer cell1 p-3 text-right">
+                            EMISIÓN
+                        </div>       
+                        <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechavencimiento"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechavencimiento")}} className="pointer cell1 p-3 text-right">
+                            VENCE
+                        </div>  
+                        <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_sucursal"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_sucursal")}} className="pointer cell2 p-3 text-right">
+                            ORIGEN
+                        </div>  
+                        <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer cell2 p-3 text-right">
+                            MONTO
+                        </div>
+                    </div>
+                </div> 
 
                 { 
                     selectCuentaPorPagarId?
@@ -424,35 +460,70 @@ export default function CuentasporpagarDetalles({
                     selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                     ? selectCuentaPorPagarId.detalles.map( (e,i) =>
                     <>
-                        <div className={("items-table-movil text-secondary mb-3 pointer shadow p-2 card ")+(e.aprobado==0?"bg-danger-light":"")} key={e.id}>
-                            <div className="d-flex justify-content-between fs-7">
-                                <span className="fw-bold">{e.proveedor.descripcion}</span>
-                                <small className="text-muted">{e.created_at}</small>
-                                <span>{e.sucursal.codigo}</span>
-                            </div>
-                            <div>
-                                <div onClick={()=>setSelectCuentaPorPagarDetalle(e.id)} className="">
-                                    <span className={
-                                        (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-3 pointer")
-                                    }>{e.monto<0?"FACT":"ABONO"} {e.numfact}</span>
+                        <div className="items-table-movil">
+                            <div className={(" text-secondary mb-3 pointer shadow p-2 card ")+(e.aprobado==0?"bg-danger-light":"")} key={e.id}>
+                                <div className="d-flex justify-content-between fs-7">
+                                    <span className="fw-bold">{e.proveedor.descripcion}</span>
+                                    <small className="text-muted">{e.created_at}</small>
+                                    <span>{e.sucursal.codigo}</span>
                                 </div>
-                            </div>
-                            <div className="d-flex justify-content-between align-items-center">
-                                {e.monto_abonado?
-                                     <span className={("text-muted fs-6 fw-italic")}>ABONO {moneda(e.monto_abonado)}</span>
-                                : <span></span> }
-                                <span className={(e.monto<0? "text-danger": "text-success")+(" fs-2 fw-bold")}>{moneda(e.monto)}</span>
-                            </div>
-                            <div className="d-flex justify-content-between fst-italic fs-7">
-                                
-                                <span className="text-success">{e.fechaemision}</span>
-                                <span className="text-sinapsis ms-1">{e.fecharecepcion}</span>
-                                <span className="text-danger ms-1">{e.fechavencimiento}</span>
+                                <div>
+                                    <div onClick={()=>setSelectCuentaPorPagarDetalle(e.id)} className="">
+                                        <span className={
+                                            (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-3 pointer")
+                                        }>{e.monto<0?"FACT":"ABONO"} {e.numfact}</span>
+                                    </div>
+                                </div>
+                                <div className="d-flex justify-content-between align-items-center">
+                                    {e.monto_abonado?
+                                        <span className={("text-muted fs-6 fw-italic")}>ABONO {moneda(e.monto_abonado)}</span>
+                                    : <span></span> }
+                                    <span className={(e.monto<0? "text-danger": "text-success")+(" fs-2 fw-bold")}>{moneda(e.monto)}</span>
+                                </div>
+                                <div className="d-flex justify-content-between fst-italic fs-7">
+                                    
+                                    <span className="text-success">{e.fechaemision}</span>
+                                    <span className="text-sinapsis ms-1">{e.fecharecepcion}</span>
+                                    <span className="text-danger ms-1">{e.fechavencimiento}</span>
+                                </div>
                             </div>
                         </div>
 
                         <div className="items-table-pc">
+                            <div className={("w-100 d-flex border-bottom ")+(e.aprobado==0?"bg-danger-light":"bg-success-light")} onClick={()=>setSelectCuentaPorPagarDetalle(e.id)}>
+                                <div className="cell1 p-3">
+                                    <small className="text-muted">{e.created_at}</small>
+                                </div> 
+                                <div className="cell1 p-3">
+                                    <small className="text-muted">{e.updated_at}</small>
+                                </div> 
 
+                                <div className="cell2 p-3">
+                                    <span className="fw-bold">{e.proveedor.descripcion}</span>
+                                </div>  
+                                <div className="cell2 p-3 text-right">
+                                    <span className={
+                                        (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-5 pointer")
+                                    }>{e.monto<0?"FACT":"ABONO"} {e.numfact}</span>
+                                </div>  
+                                <div className="cell1 p-3 text-right">
+                                    <span className="text-success">{e.fechaemision}</span>
+                                </div>       
+                                <div className="cell1 p-3 text-right">
+                                    <span className="text-danger ms-1">{e.fechavencimiento}</span>
+                                </div>  
+                                <div className="cell2 p-3 text-right">
+                                    <span>{e.sucursal.codigo}</span>   
+                                </div>  
+                                <div className="cell2 p-3 text-right">
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        {e.monto_abonado?
+                                            <span className={("text-muted fs-6 fw-italic")}>ABONO {moneda(e.monto_abonado)}</span>
+                                        : <span></span> }
+                                        <span className={(e.monto<0? "text-danger": "text-success")+(" fs-2 fw-bold")}>{moneda(e.monto)}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>   
                     </>
                     )

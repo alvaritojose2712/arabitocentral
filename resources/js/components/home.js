@@ -1249,6 +1249,7 @@ function Home() {
     return (parts.length == 3 ? '-' : '') + result;
   }
   const number = (val) => {
+    if (!val) return ""
     if (val == "") return ""
     return val.toString().replace(/[^\d|\.]+/g, '')
   }
@@ -1681,7 +1682,7 @@ function Home() {
   const [newfactfechavencimiento, setnewfactfechavencimiento] = useState("")
   const [newfactfecharecepcion, setnewfactfecharecepcion] = useState("")
   const [newfactnota, setnewfactnota] = useState("")
-  const [newfacttipo, setnewfacttipo] = useState("")
+  const [newfacttipo, setnewfacttipo] = useState("1")
   const [newfactfrecuencia, setnewfactfrecuencia] = useState("")
   const [selectFactEdit, setselectFactEdit] = useState(null)
   const [selectProveedorCxp, setselectProveedorCxp] = useState(null)
@@ -2610,6 +2611,7 @@ function Home() {
     {codigo:"AirTM", descripcion: "AirTM"},
   ] */
   
+  const [subViewCuentasxPagar, setsubViewCuentasxPagar] = useState("proveedor")
   
   return (
     <>
@@ -2919,6 +2921,9 @@ function Home() {
                         setcuentasPagosMetodo={setcuentasPagosMetodo}
                         setcuentasPagosFecha={setcuentasPagosFecha}
                         setselectAbonoFact={setselectAbonoFact}
+                        subViewCuentasxPagar={subViewCuentasxPagar}
+                        setsubViewCuentasxPagar={setsubViewCuentasxPagar}
+                        selectCuentaPorPagarProveedorDetalles={selectCuentaPorPagarProveedorDetalles}
                       />
                     :null}
 
@@ -3018,6 +3023,8 @@ function Home() {
                     :null}
                   </>
                 :<Cuentasporpagar
+                  subViewCuentasxPagar={subViewCuentasxPagar}
+                  setsubViewCuentasxPagar={setsubViewCuentasxPagar}
                   setviewmainPanel={setviewmainPanel}
                   moneda={moneda}
                   getsucursalDetallesData={getsucursalDetallesData}

@@ -380,6 +380,13 @@ class CuentasporpagarController extends Controller
         $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos","facturas"])
         ->selectRaw("*,@monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado")
 
+        ->when($qcuentasPorPagarDetalles, function($q) use($qcuentasPorPagarDetalles) {
+            $q->orWhere("numfact","LIKE","%$qcuentasPorPagarDetalles%")
+            ->orWhere("monto","LIKE","%$qcuentasPorPagarDetalles%")
+            ->orWhereIn("id_proveedor",proveedores::where("descripcion","LIKE","%$qcuentasPorPagarDetalles%")->select("id"))
+            ->orWhereIn("id_sucursal",sucursal::where("nombre","LIKE","%$qcuentasPorPagarDetalles%")->select("id"));
+            
+        })
         ->when($id!="todos",function($q) use ($id){
             $q->where("id_proveedor",$id);
         })
@@ -430,7 +437,6 @@ class CuentasporpagarController extends Controller
             }
         })
 
-        ->where($qCampocuentasPorPagarDetalles,"LIKE","%$qcuentasPorPagarDetalles%")
         ->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
 
         $balance = $this->getBalance($id,$cuentaporpagarAprobado);

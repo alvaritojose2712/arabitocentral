@@ -16,14 +16,15 @@ export default function Cuentasporpagar({
     setSelectCuentaPorPagarId,
 
     setviewmainPanel,
+    subViewCuentasxPagar,
+    setsubViewCuentasxPagar,
 }){
-    const [subViewCuentasxPagar, setsubViewCuentasxPagar] = useState("proveedor")
     return (
         <div>
             <div className="d-flex justify-content-center">
                 <div className="btn-group m-2">
-                    <button className={("btn btn-sm ")+(subViewCuentasxPagar=="proveedor"?"btn-sinapsis":"")} onClick={()=>setsubViewCuentasxPagar("proveedor")}>Proveedor</button>
-                    <button className={("btn btn-sm ")+(subViewCuentasxPagar=="general"?"btn-sinapsis":"")} onClick={()=>selectCuentaPorPagarProveedorDetalles("todos")}>General</button>
+                    <button className={("btn btn-sm ")+(subViewCuentasxPagar=="proveedor"?"btn-sinapsis":"")} onClick={()=>{setsubViewCuentasxPagar("proveedor");setsubViewCuentasxPagar("proveedor")}}>Proveedor</button>
+                    <button className={("btn btn-sm ")+(subViewCuentasxPagar=="todos"?"btn-sinapsis":"")} onClick={()=>{setsubViewCuentasxPagar("todos");selectCuentaPorPagarProveedorDetalles("todos")}}>General</button>
                 </div>
             </div>
 
