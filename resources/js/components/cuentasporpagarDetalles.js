@@ -419,10 +419,12 @@ export default function CuentasporpagarDetalles({
                         :null
                     :null
                 }
+
                 {
                     selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                     ? selectCuentaPorPagarId.detalles.map( (e,i) =>
-                        <div className={("text-secondary mb-3 pointer shadow p-2 card ")+(e.aprobado==0?"bg-danger-light":"")} key={e.id}>
+                    <>
+                        <div className={("items-table-movil text-secondary mb-3 pointer shadow p-2 card ")+(e.aprobado==0?"bg-danger-light":"")} key={e.id}>
                             <div className="d-flex justify-content-between fs-7">
                                 <span className="fw-bold">{e.proveedor.descripcion}</span>
                                 <small className="text-muted">{e.created_at}</small>
@@ -432,7 +434,7 @@ export default function CuentasporpagarDetalles({
                                 <div onClick={()=>setSelectCuentaPorPagarDetalle(e.id)} className="">
                                     <span className={
                                         (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-3 pointer")
-                                    }>{e.numfact}</span>
+                                    }>{e.monto<0?"FACT":"ABONO"} {e.numfact}</span>
                                 </div>
                             </div>
                             <div className="d-flex justify-content-between align-items-center">
@@ -448,10 +450,15 @@ export default function CuentasporpagarDetalles({
                                 <span className="text-danger ms-1">{e.fechavencimiento}</span>
                             </div>
                         </div>
+
+                        <div className="items-table-pc">
+
+                        </div>   
+                    </>
                     )
                     : null : null
-                    
                 } 
+                
                 {
                     selectCuentaPorPagarId.detalles?!selectCuentaPorPagarId.detalles.length
                     ? <div className="text-center">

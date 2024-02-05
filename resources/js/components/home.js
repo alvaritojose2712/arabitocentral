@@ -2925,6 +2925,7 @@ function Home() {
 
                     {cuentasporpagarDetallesView=="pagos"?
                       <CuentasporpagarPago
+                        getMetodosPago={getMetodosPago}
                         delItemSelectAbonoFact={delItemSelectAbonoFact}
                         setqcuentasPorPagarTipoFact={setqcuentasPorPagarTipoFact }
                         setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}

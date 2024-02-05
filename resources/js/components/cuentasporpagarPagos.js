@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 export default function CuentasporpagarPagos({
+    getMetodosPago,
     cuentasporpagarDetallesView,
     setcuentasporpagarDetallesView,
     cuentasPagosDescripcion,
@@ -97,6 +98,7 @@ export default function CuentasporpagarPagos({
         settipocuentasPorPagarDetalles("")
         setqcuentasPorPagarTipoFact("")
         setsucursalcuentasPorPagarDetalles("")
+        getMetodosPago()
     },[]) 
     let id_proveedor = null
 

@@ -279,7 +279,7 @@ class CuentasporpagarController extends Controller
             ]);
 
             if ($su) {
-                $factor = 1;
+                $factor = -1;
                 if ($id) {
                     $checkabonocred = cuentasporpagar::find($id);
                     if ($checkabonocred) {
