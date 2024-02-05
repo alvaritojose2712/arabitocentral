@@ -354,11 +354,6 @@ export default function CuentasporpagarPagos({
                                 <div className="btn-group">
         
                                     {selectFactEdit!==null?
-                                        <span className="btn btn-danger" onClick={()=>setselectFactEdit(null)}> <i className="fa fa-times"></i>     </span>
-                                        :null
-                                    }
-                                
-                                    {selectFactEdit!==null?
                                     <button className="btn btn-sinapsis" type="submit">Editar</button>
                                     :
                                     <button className="btn btn-success" type="submit">Guardar</button>

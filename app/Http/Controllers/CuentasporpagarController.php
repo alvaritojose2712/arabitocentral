@@ -289,12 +289,10 @@ class CuentasporpagarController extends Controller
                     }
                 }
                 $arrinsert = [
-                    "id_proveedor" => $newfactid_proveedor,
-                    "id_sucursal" => $su->id,
                     "numfact" => $newfactnumfact,
                     "numnota" => $newfactnumnota,
                     "descripcion" => $newfactdescripcion,
-
+                    
                     "subtotal" => $newfactsubtotal*$factor,
                     "descuento" => $newfactdescuento*$factor,
                     "monto_exento" => $newfactmonto_exento*$factor,
@@ -302,13 +300,18 @@ class CuentasporpagarController extends Controller
                     "iva" => $newfactiva*$factor,
                     "monto" => $newfactmonto*$factor,
                     
-                    "fechaemision" => $newfactfechaemision,
-                    "fechavencimiento" => $newfactfechavencimiento,
-                    "fecharecepcion" => $newfactfecharecepcion,
                     "nota" => $newfactnota,
                     "tipo" => $newfacttipo,
                     "frecuencia" => $newfactfrecuencia,
                 ];
+                
+                if (!$id) {
+                    $arrinsert["id_proveedor"] = $newfactid_proveedor;
+                    $arrinsert["id_sucursal"] = $su->id;
+                    $arrinsert["fechaemision"] = $newfactfechaemision;
+                    $arrinsert["fechavencimiento"] = $newfactfechavencimiento;
+                    $arrinsert["fecharecepcion"] = $newfactfecharecepcion;
+                }
                 $search = ["id" => $id];
                 $cu = $this->setCuentaPorPagar($arrinsert,$search);
             }

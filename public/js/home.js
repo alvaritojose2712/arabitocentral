@@ -4770,17 +4770,9 @@ function CuentasporpagarPagos(_ref) {
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "div-fijo-inferiorder",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
             className: "btn-group",
-            children: [selectFactEdit !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-              className: "btn btn-danger",
-              onClick: function onClick() {
-                return setselectFactEdit(null);
-              },
-              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                className: "fa fa-times"
-              }), "     "]
-            }) : null, selectFactEdit !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            children: selectFactEdit !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
               className: "btn btn-sinapsis",
               type: "submit",
               children: "Editar"
@@ -4788,7 +4780,7 @@ function CuentasporpagarPagos(_ref) {
               className: "btn btn-success",
               type: "submit",
               children: "Guardar"
-            })]
+            })
           })
         })]
       })
@@ -63437,9 +63429,8 @@ function Home() {
         if (selectCuentaPorPagarId.detalles) {
           if (selectCuentaPorPagarId.detalles[0]) {
             if (selectCuentaPorPagarId.detalles[0].proveedor) {
-              id_proveedor = selectCuentaPorPagarId.detalles[0].proveedor.id;
               _database_database__WEBPACK_IMPORTED_MODULE_4__["default"].saveNewFact({
-                newfactid_proveedor: id_proveedor,
+                newfactid_proveedor: selectProveedorCxp,
                 newfactnumfact: newfactnumfact,
                 newfactnumnota: newfactnumnota,
                 newfactdescripcion: newfactdescripcion,
@@ -63460,7 +63451,7 @@ function Home() {
                 notificar(res);
                 if (res.data.estado) {
                   setselectFactEdit(null);
-                  selectCuentaPorPagarProveedorDetallesFun(id_proveedor);
+                  selectCuentaPorPagarProveedorDetallesFun(selectProveedorCxp);
                   setcuentasporpagarDetallesView("cuentas");
                   setnewfactid_proveedor("");
                   setnewfactnumfact("");
@@ -64813,8 +64804,8 @@ function Home() {
           moneda: moneda,
           fechaSelectAuditoria: fechaSelectAuditoria,
           setfechaSelectAuditoria: setfechaSelectAuditoria,
-          BancoSelectAuditoria: BancoSelectAuditoria,
-          setBancoSelectAuditoria: setBancoSelectAuditoria,
+          bancoSelectAuditoria: bancoSelectAuditoria,
+          setbancoSelectAuditoria: setbancoSelectAuditoria,
           SaldoInicialSelectAuditoria: SaldoInicialSelectAuditoria,
           setSaldoInicialSelectAuditoria: setSaldoInicialSelectAuditoria,
           SaldoActualSelectAuditoria: SaldoActualSelectAuditoria,

@@ -1764,9 +1764,8 @@ function Home() {
         if (selectCuentaPorPagarId.detalles) {
             if (selectCuentaPorPagarId.detalles[0]) {
                 if (selectCuentaPorPagarId.detalles[0].proveedor) {
-                    id_proveedor = selectCuentaPorPagarId.detalles[0].proveedor.id
                     db.saveNewFact({
-                      newfactid_proveedor:id_proveedor,
+                      newfactid_proveedor:selectProveedorCxp,
                       newfactnumfact,
                       newfactnumnota,
                       newfactdescripcion,
@@ -1787,7 +1786,7 @@ function Home() {
                       notificar(res)
                       if (res.data.estado) {
                         setselectFactEdit(null)
-                        selectCuentaPorPagarProveedorDetallesFun(id_proveedor)
+                        selectCuentaPorPagarProveedorDetallesFun(selectProveedorCxp)
                         setcuentasporpagarDetallesView("cuentas")
 
                         setnewfactid_proveedor("")
@@ -3229,8 +3228,8 @@ function Home() {
 
               fechaSelectAuditoria={fechaSelectAuditoria}
               setfechaSelectAuditoria={setfechaSelectAuditoria}
-              BancoSelectAuditoria={BancoSelectAuditoria}
-              setBancoSelectAuditoria={setBancoSelectAuditoria}
+              bancoSelectAuditoria={bancoSelectAuditoria}
+              setbancoSelectAuditoria={setbancoSelectAuditoria}
               SaldoInicialSelectAuditoria={SaldoInicialSelectAuditoria}
               setSaldoInicialSelectAuditoria={setSaldoInicialSelectAuditoria}
               SaldoActualSelectAuditoria={SaldoActualSelectAuditoria}
