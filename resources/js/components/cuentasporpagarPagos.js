@@ -16,6 +16,7 @@ export default function CuentasporpagarPagos({
 
     selectCuentaPorPagarProveedorDetallesFun,
     setqCampocuentasPorPagarDetalles,
+    setsucursalcuentasPorPagarDetalles,
     OrdercuentasPorPagarDetalles,
     setOrdercuentasPorPagarDetalles,
     qCampocuentasPorPagarDetalles,
@@ -82,13 +83,21 @@ export default function CuentasporpagarPagos({
     saveNewFact,
     proveedoresList,
     getProveedores,
+    selectFactPagoid,
+    setqcuentasPorPagarTipoFact ,
+    delItemSelectAbonoFact
 
     
 }){
 
-    /* useEffect(()=>{
-        getProveedores()
-    },[]) */
+    useEffect(()=>{
+        setqcuentasPorPagarDetalles("")
+        setqCampocuentasPorPagarDetalles("numfact")
+        setcategoriacuentasPorPagarDetalles("")
+        settipocuentasPorPagarDetalles("")
+        setqcuentasPorPagarTipoFact("")
+        setsucursalcuentasPorPagarDetalles("")
+    },[]) 
     let id_proveedor = null
 
     if (selectCuentaPorPagarId) {
@@ -120,15 +129,25 @@ export default function CuentasporpagarPagos({
             {subviewAgregarFactPago=="pago"?
                <>
                     <form onSubmit={sendPagoCuentaPorPagar}>
-                        <h4 className="text-center"></h4>
+                        <div className="form-group w-100">
+                            {selectFactPagoid==null?
+                                <button className="mt-2 btn btn-outline-success btn-block w-100 btn-sm" type="submit">Guardar</button>
+                                :
+                                <button className="mt-2 btn btn-outline-sinapsis btn-block w-100 btn-sm" type="submit">Editar</button>
+                            }
+                        </div>
                         <div className="form-group">
-                            <span className="input-text">Descripción</span>
-                            <input type="text" className="form-control" placeholder="Referencia" value={cuentasPagosDescripcion} onChange={e=>setcuentasPagosDescripcion(e.target.value)} />
+                            <div className="input-group">
+                                <span className="input-group-text cell3">Descripción</span>
+                                <input type="text" className="form-control" placeholder="Referencia" value={cuentasPagosDescripcion} onChange={e=>setcuentasPagosDescripcion(e.target.value)} />
+                            </div>
                         </div>
 
                         <div className="form-group">
-                            <span className="input-text">Monto</span>
-                            <input type="text" className="form-control" placeholder="Monto TOTAL de ABONO" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} />
+                            <div className="input-group">
+                                <span className="input-group-text cell3">Monto</span>
+                                <input type="text" className="form-control" placeholder="Monto TOTAL de ABONO" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} />
+                            </div>
                         </div>
 
                         <div className="input-group">
@@ -141,23 +160,31 @@ export default function CuentasporpagarPagos({
                                     <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
                                 )}
                             </select>
-                            <input type="text" className="form-control" value={cuentasPagosFecha} onChange={e=>setcuentasPagosFecha(e.target.value)} />
+                            <input type="date" className="form-control" value={cuentasPagosFecha} onChange={e=>setcuentasPagosFecha(e.target.value)} />
                             
                         </div>
                         <table className="table table-sm">
                             <tbody>
                                 <tr>
-                                    <th className="text-center">FACT</th>
+                                    <th className="text-center">FACTURAS ASOCIADAS</th>
                                     <th className="text-center">ABONADO</th>
                                 </tr>
                                     {selectAbonoFact.map(e=>
                                         <tr key={e.id}>
                                             <td className="text-center align-middle">
-                                                <span className="btn-sinapsis w-100 btn pointer btn-sm">
-                                                    {e.numfact}
-                                                </span> 
+                                                <div className="btn-group w-100">
+                                                    <button className="btn-danger btn" onClick={()=>delItemSelectAbonoFact(e.id)} type="button">
+                                                        <i className="fa fa-times"></i>
+                                                    </button>
+                                                    <button className="btn-sinapsis w-100 btn pointer btn-sm" type="button">
+                                                        {e.numfact}
+                                                    </button> 
+
+                                                </div>
                                             </td>
-                                            <td className="text-center text-success align-middle">{moneda(e.val)}</td>
+                                            <td className="text-center align-middle">
+                                                <span className="text-sinapsis">{moneda(e.val)}</span> / <span className="text-success">{moneda(e.valfact)}</span> 
+                                            </td>
                                         </tr>
                                     )}
 
@@ -165,21 +192,27 @@ export default function CuentasporpagarPagos({
                                         <th className="text-center align-middle">
                                             SUM
                                         </th>
-                                        <td className="text-center text-success align-middle">{moneda(sumSelectAboFact)}</td>
+                                        <th className="text-center text-sinapsis     align-middle">{moneda(sumSelectAboFact)}</th>
                                     </tr>
                                     <tr>
                                         <th className="text-center align-middle">
                                             RESTA
                                         </th>
-                                        <td className={(restaAbono<0? "text-danger": "text-success")+(" text-center align-middle")}>{moneda(restaAbono)}</td>
+                                        <th className={(restaAbono<0? "text-danger": "text-sinapsis ")+(" text-center align-middle")}>{moneda(restaAbono)}</th>
                                     </tr>
 
                             </tbody>
                         </table>
+                    </form>
+
+                    <form onSubmit={event=>{
+                        selectCuentaPorPagarProveedorDetallesFun(id_proveedor)
+                        event.preventDefault()
+                    }}>
                         <table className="table mt-2 table-sm">
                             <thead>
                                 <tr>
-                                    <th colSpan={3}><h6>ESPECIFICAR ABONO</h6></th>
+                                    <th colSpan={3} className="fs-5">ESPECIFICAR ABONO</th>
                                 </tr>
                                 <tr>
                                     <th colSpan={3}>
@@ -190,44 +223,12 @@ export default function CuentasporpagarPagos({
                                             qCampocuentasPorPagarDetalles=="fecharecepcion" || 
                                             qCampocuentasPorPagarDetalles=="fechavencimiento" ? "date": "text" 
                                         } className="form-control form-control-sm" placeholder={"Buscar por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
-                        
                                             
-                                            <span className={("btn arabito_")+(OrdercuentasPorPagarDetalles)} onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
-                                                {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
-                                            </span>
-                                            <select className="form-control" value={qCampocuentasPorPagarDetalles} onChange={e=>setqCampocuentasPorPagarDetalles(e.target.value)}>
-                                                <option value="">-Buscar en-</option>
-                                                <option value="created_at">Creación</option>
-                                                <option value="fechaemision">Emisión</option>
-                                                <option value="fecharecepcion">Recepción</option>
-                                                <option value="fechavencimiento">Vencimiento</option>
-
-                                                <option value="numfact"># Fact</option>
-                                                <option value="numnota"># Nota</option>
-                                                <option value="descripcion">Descripción</option>
-                                                <option value="subtotal">Subtotal</option>
-                                                <option value="descuento">Descuento</option>
-                                                <option value="monto_exento">Monto exento</option>
-                                                <option value="monto_gravable">Monto gravable</option>
-                                                <option value="iva">IVA</option>
-                                                <option value="monto">TOTAL</option>
-                                            </select>
+                                            
+                                            
+                                            <button type="button" className="btn btn-success" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}><i className="fa fa-search"></i></button>
                                         </div>
 
-                                        <div className="input-group">
-                                            <select className="form-control" value={categoriacuentasPorPagarDetalles} onChange={e=>setcategoriacuentasPorPagarDetalles(e.target.value)}>
-                                                <option value="">-CATEGORÍA-</option>
-                                                <option value="1">COMPRAS</option>
-                                                <option value="2">SERVICIOS</option>
-                                            </select>
-
-                                            <select className="form-control" value={tipocuentasPorPagarDetalles} onChange={e=>settipocuentasPorPagarDetalles(e.target.value)}>
-                                                <option value="">-TIPO-</option>
-                                                <option value="DEUDA">CRÉDITOS</option>
-                                                <option value="ABONOS">DÉBITOS</option>
-                                            </select>
-                                            <button type="button" className="btn btn-success" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}><i className="fa fa-search"></i></button>
-                                        </div>                
                                     </th>
                                 </tr>
                             </thead>
@@ -235,7 +236,7 @@ export default function CuentasporpagarPagos({
 
                             {
                                 selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
-                                ? selectCuentaPorPagarId.detalles.filter(e=>e.monto<0).map( (e,i) =>
+                                ? selectCuentaPorPagarId.detalles.filter(e=>e.monto<0&&e.condicion!="pagadas").map( (e,i) =>
                                 
                                     <tr key={e.id}>
                                         <td className="align-middle">
@@ -244,12 +245,16 @@ export default function CuentasporpagarPagos({
                                             } onDoubleClick={()=>setInputAbonoFact(e.id,(e.balance*-1))}>{e.numfact}</span>
                                         </td>
                                         <td className="align-middle cell3">
-                                            <input type="text" className="form-control form-control-sm" onChange={event=>setInputAbonoFact(e.id,event.currentTarget.value)} placeholder={e.numfact} />
+                                            <input type="text" className="form-control form-control-sm" onChange={event=>{
+                                                let val = parseFloat(event.currentTarget.value)>(e.balance*-1)?"":event.currentTarget.value
+                                                setInputAbonoFact(e.id, val)
+                                                event.target.value = val
+                                            }} placeholder={e.numfact} />
                                         </td>
                                         <td className="align-middle text-right">
-                                            <div><span className={(e.balance<0? "text-danger": "text-success")+(" ")}>BLNCE. {moneda(e.balance)}</span></div>
-                                            <div><span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>ABON. {moneda(e.monto_abonado)}</span></div>
-                                            <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-7")}>DEUD. {moneda(e.monto)}</span></div>
+                                            <div><span className={(e.balance<0? "text-danger": "text-success")+(" ")}>BALANCE {moneda(e.balance)}</span></div>
+                                            <div><span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>ABONO {moneda(e.monto_abonado)}</span></div>
+                                            <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-7")}>DEUDA {moneda(e.monto)}</span></div>
                                         </td>
                                     </tr>
                                 )
@@ -259,12 +264,7 @@ export default function CuentasporpagarPagos({
                             </tbody>
 
                         </table>
-                    
-                        <div className="form-group w-100">
-                            <button className="mt-2 btn btn-outline-success btn-block w-100 btn-sm" type="submit">Guardar</button>
-                        </div>
                     </form>
-                    
                </>  
             :null}
 

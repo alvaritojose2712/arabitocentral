@@ -43,6 +43,11 @@ export default function CuentasporpagarDetalles({
 
     setcuentasPagosDescripcion,
     setcuentasPagosMonto,
+    setselectFactPagoid,
+    setselectFactPagoid_sucursal,
+    setcuentasPagosMetodo,
+    setcuentasPagosFecha,
+    setselectAbonoFact,
     showImageFact,
     cuentaporpagarAprobado,
     setcuentaporpagarAprobado,
@@ -81,6 +86,11 @@ export default function CuentasporpagarDetalles({
         setselectFactEdit(null)
         setcuentasPagosDescripcion("")
         setcuentasPagosMonto("")
+        setcuentasPagosMetodo("")
+        setcuentasPagosFecha("")
+        setselectFactPagoid(null)
+        setselectFactPagoid_sucursal(null)
+        setselectAbonoFact([])
     }
 
     useEffect(()=>{
@@ -90,7 +100,6 @@ export default function CuentasporpagarDetalles({
         tipocuentasPorPagarDetalles,
         qcuentasPorPagarTipoFact,
         
-        qCampocuentasPorPagarDetalles,
         qcuentasPorPagarDetalles,
         OrdercuentasPorPagarDetalles,
         cuentaporpagarAprobado,
@@ -107,41 +116,38 @@ export default function CuentasporpagarDetalles({
             {
             SelectCuentaPorPagarDetalle?
                 dataCuenta?
-                <>
-                    <div className="mb-2">
-                        <span className="btn btn-danger boton-fijo-inferiorder btn-sm" onClick={()=>setSelectCuentaPorPagarDetalle(null)}>
-                            <i className="fa fa-arrow-left"></i>
-                        </span>
-                    </div>
+                <div>
+                    <span className="btn btn-danger boton-fijo-inferiorder btn-sm" onClick={()=>setSelectCuentaPorPagarDetalle(null)}>
+                        <i className="fa fa-arrow-left"></i>
+                    </span>
                     <table className="table table-borderless table-sm">
                         <tbody>
                             {dataCuenta.monto_abonado && dataCuenta.pagos?
                             <>
                                 <tr className="">
-                                    <th>
+                                    <th className="align-middle">
                                         ABONADO                                        
                                     </th>
-                                    <td colSpan={2} className="text-success text-right">
+                                    <td colSpan={2} className="text-success text-right align-middle">
                                         {moneda(dataCuenta.monto_abonado)}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colSpan={2}>
+                                    <td colSpan={2} className="align-middle">
                                         <table className="table table-borderless table-sm">
                                             <tbody>
                                                 {dataCuenta.monto_abonado && dataCuenta.pagos?
                                                 <>
                                                     {dataCuenta.pagos.map(e=>
                                                         <tr key={e.id} className="border-top">
-                                                            <td className=" align-middle text-muted fst-italic fs-7">
-                                                                {e.created_at}
-                                                            </td>
                                                             <td className=" align-middle">
-                                                                <span className="btn-sinapsis btn pointer btn-sm">
+                                                                <span className="text-muted fst-italic fs-7">{e.created_at}</span>
+                                                                <br />
+                                                                <span className="btn-sinapsis btn pointer btn-sm w-100 fs-7">
                                                                     {e.numfact}
                                                                 </span> 
                                                             </td>
-                                                            <td className="text-right align-middle">
+                                                            <td className="text-right align-bottom">
                                                                 <span className="text-sinapsis">{moneda(e.monto)}</span> / <span className="text-success">{moneda(e.pivot.monto)}</span>
                                                             </td>
                                                         </tr>
@@ -153,18 +159,18 @@ export default function CuentasporpagarDetalles({
                                     </td>
                                 </tr>
                                 <tr className="">
-                                    <th>
+                                    <th className="align-middle">
                                         DEUDA                                        
                                     </th>
-                                    <td colSpan={2} className="text-danger text-right">
+                                    <td colSpan={2} className="text-danger text-right align-middle">
                                         {moneda(dataCuenta.monto)}
                                     </td>
                                 </tr>
                                 <tr className="">
-                                    <th>
+                                    <th className="align-middle">
                                         BALANCE                                        
                                     </th>
-                                    <td colSpan={2} className={((dataCuenta.balance)<0? "text-danger": "text-success")+(" fs-4 text-right")}>
+                                    <td colSpan={2} className={((dataCuenta.balance)<0? "text-danger": "text-success")+(" fs-4 text-right align-middle")}>
                                         {moneda(dataCuenta.balance)}
                                     </td>
                                 </tr>
@@ -212,30 +218,41 @@ export default function CuentasporpagarDetalles({
                             :null}
                         </tbody>
                     </table>
-                    <hr />
                     
                    
                     <table className="table table-sm">
                         {dataCuenta.sucursal?
                             <tbody>
+                                
                                 <tr>
-                                    <td colSpan={2} className="text-center"> <small className="text-muted">{dataCuenta.sucursal.codigo}</small></td>
+                                    <td>ENVIADO POR</td>
+                                    <td><small className="text-muted">{dataCuenta.sucursal.codigo}</small></td>
                                 </tr>
                                 <tr>
                                     <td>PROVEEDOR</td>
-                                    <td>{dataCuenta.proveedor.descripcion} <small className="text-muted">RIF. {dataCuenta.proveedor.rif}</small></td>
+                                    <td>{dataCuenta.proveedor.descripcion} <br /> <small className="text-muted">RIF. {dataCuenta.proveedor.rif}</small></td>
                                 </tr>
                                 <tr>
-                                    <td># FACTURA</td>
-                                    <td>{dataCuenta.numfact}</td>
+                                    <td>
+                                        {dataCuenta.monto>0?"# PAGO":"# FACTURA"}
+                                    </td>
+                                    <td>
+                                        <button 
+                                         className={
+                                            (dataCuenta.condicion=="pagadas"?"btn-medsuccess":(dataCuenta.condicion=="vencidas"?"btn-danger":(dataCuenta.condicion=="porvencer"?"btn-sinapsis":(dataCuenta.condicion=="semipagadas"?"btn-primary":(dataCuenta.condicion=="abonos"?"btn-success":null)))))+(" btn-sm")
+                                        }
+                                        type="button">{dataCuenta.numfact}</button>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td># CONTROL</td>
-                                    <td>{dataCuenta.numnota}</td>
-                                </tr>
+                                {dataCuenta.numnota?
+                                    <tr>
+                                        <td># CONTROL</td>
+                                        <td>{dataCuenta.numnota}</td>
+                                    </tr>
+                                :null}
                                 <tr>
                                     <td>IMAGEN</td>
-                                    <td><button className="btn btn-sinapsis btn-sm" onClick={()=>showImageFact(dataCuenta.descripcion)}>VER</button></td>
+                                    <td><button className="btn btn-sm btn-outline-success" onClick={()=>showImageFact(dataCuenta.descripcion)}> <i className="fa fa-eye"></i> </button></td>
                                 </tr>
                                 <tr>
                                     <th>SUBTOTAL</th>
@@ -307,7 +324,7 @@ export default function CuentasporpagarDetalles({
                     <button type="button" className="btn btn-sinapsis boton-fijo-inferiorizq shadow" onClick={()=>modeEditarFact(dataCuenta.id)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                </>
+                </div>
                 :null
             :<>
                 
@@ -350,7 +367,6 @@ export default function CuentasporpagarDetalles({
 
 
                             <option value="numfact"># Fact</option>
-                            <option value="numnota"># Nota</option>
                             <option value="id_sucursal">SUCURSAL</option>
                             <option value="descripcion">Descripción</option>
                             <option value="subtotal">Subtotal</option>
@@ -359,6 +375,7 @@ export default function CuentasporpagarDetalles({
                             <option value="monto_gravable">Monto gravable</option>
                             <option value="iva">IVA</option>
                             <option value="monto">TOTAL</option>
+                            <option value="numnota"># Nota</option>
                         </select>
                     </div>
 

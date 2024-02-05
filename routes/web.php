@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BancosController;
+use App\Http\Controllers\BancosListController;
 use App\Http\Controllers\CajasAprobacionController;
 use App\Http\Controllers\CajasController;
 use App\Http\Controllers\CatcajasController;
@@ -180,16 +182,50 @@ Route::post('setEfecFromSucursalToCentral', [CajasController::class,"setEfecFrom
 });
 
 
+Route::get('metodos',  function() {
+    $metodos = [
+        ["codigo" => "EFECTIVO", "descripcion"=> "EFECTIVO"],
+        ["codigo" => "0102", "descripcion"=> "0102 Banco de Venezuela, S.A. Banco Universal"],
+        ["codigo" => "0108", "descripcion"=> "0108 Banco Provincial, S.A. Banco Universal"],
+        ["codigo" => "0105", "descripcion"=> "0105 Banco Mercantil C.A., Banco Universal"],
+        ["codigo" => "0134", "descripcion"=> "0134 Banesco Banco Universal, C.A."],
+        ["codigo" => "0175", "descripcion"=> "0175 Banco Bicentenario del Pueblo, Banco Universal C.A."],
+        ["codigo" => "0191", "descripcion"=> "0191 Banco Nacional de Crédito C.A., Banco Universal"],
+        ["codigo" => "0151", "descripcion"=> "0151 Banco Fondo Común, C.A Banco Universal"],
+        ["codigo" => "ZELLE", "descripcion"=> "ZELLE"],
+        ["codigo" => "BINANCE", "descripcion"=> "Binance"],
+        ["codigo" => "AirTM", "descripcion"=> "AirTM"],
+    ];
+    
+    foreach ($metodos as $key => $m) {
+        DB::table("bancos_lists")->insert([
+            [
+                "codigo" => $m["codigo"],
+                "descripcion" => $m["descripcion"],
+            ]
+        ]);
+    }
+});
+
+
+
 Route::post('setAll', [CierresController::class,"setAll"]);
 Route::post('setPermisoCajas', [CajasAprobacionController::class,"setPermisoCajas"]);
 Route::post('aprobarMovCajaFuerte', [CajasAprobacionController::class,"aprobarMovCajaFuerte"]);
 Route::post('verificarMovPenControlEfec', [CajasAprobacionController::class,"verificarMovPenControlEfec"]);
 Route::post('delCuentaPorPagar', [CuentasporpagarController::class,"delCuentaPorPagar"]);
 
+Route::post('sendMovimientoBanco', [PuntosybiopagosController::class,"sendMovimientoBanco"]);
+
 Route::post('sendFacturaCentral', [CuentasporpagarController::class,"sendFacturaCentral"]);
 Route::post('getAllProveedores', [ProveedoresController::class,"getAllProveedores"]);
 Route::match(array('GET', 'POST'),'selectCuentaPorPagarProveedorDetalles', [CuentasporpagarController::class,"selectCuentaPorPagarProveedorDetalles"]);
 Route::get('showImageFact', [CuentasporpagarController::class,"showImageFact"]);
+
+Route::get('getMetodosPago', [BancosListController::class,"getMetodosPago"]);
+Route::get('getBancosData', [BancosController::class,"getBancosData"]);
+
+
 
 Route::post('saveNewFact', [CuentasporpagarController::class,"saveNewFact"]);
 Route::post('changeAprobarFact', [CuentasporpagarController::class,"changeAprobarFact"]);

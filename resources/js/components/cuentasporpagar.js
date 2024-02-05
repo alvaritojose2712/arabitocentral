@@ -33,12 +33,12 @@ export default function Cuentasporpagar({
                         <input type="text" className="form-control" placeholder="Buscar proveedor" onChange={e=>setqcuentasPorPagar(e.target.value)} value={qcuentasPorPagar} />
                         <button className="btn btn-success"><i className="fa fa-search"></i></button>
                     </form>
-                    <div className="m-2 d-flex justify-content-between">
-                        <span>TOTAL</span>
+                    <div className="m-2 d-flex justify-content-between align-items-center">
+                        <b>TOTAL</b>
                     {
                         sucursalDetallesData.sum
-                        ? <span className="fs-4 ">
-                            {moneda(sucursalDetallesData.sum)}
+                        ? <span className={"btn btn-warning fs-5 text-"+(sucursalDetallesData.sum<0?"danger":"success")}>
+                            $ {moneda(sucursalDetallesData.sum)}
                         </span>
                         : null 
                     } 

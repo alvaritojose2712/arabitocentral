@@ -53,5 +53,6 @@ class cuentasporpagar extends Model
         "monto_abonado",
         "id_cuentaporpagar",
         "aprobado",
+        "metodo",
     ];
 }

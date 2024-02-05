@@ -42,6 +42,8 @@ import NavInventario from './panel/navInventario'
 
 import Usuarios from './usuarios';
 import Compras from './compras';
+
+import Auditoria from './auditoria';
 import Proveedores from './proveedores';
 
 import PanelSucursales from './panelSucursales';
@@ -1533,6 +1535,10 @@ function Home() {
   const [cuentasPagosMetodo, setcuentasPagosMetodo] = useState("")
   const [cuentasPagosFecha, setcuentasPagosFecha] = useState("")
   
+  const [cuentasPagoTipo, setcuentasPagosTipo] = useState("egreso")
+  const [cuentasPagosCategoria, setcuentasPagosCategoria] = useState("")
+
+  
 
   const [subViewNomina, setsubViewNomina] = useState("gestion")
   const [subViewNominaGestion, setsubViewNominaGestion] = useState("personal")
@@ -1575,6 +1581,16 @@ function Home() {
   const [filtronominaq, setfiltronominaq] = useState("")
   const [filtronominacargo, setfiltronominacargo] = useState("")
 
+  const categoriaMovBanco = [
+    {id:1, descripcion: "INGRESO DE SUCURSAL"},
+    {id:2, descripcion: "PAGO PROVEEDOR"},
+    {id:3, descripcion: "INVERSION"},
+    {id:4, descripcion: "GASTOS"},
+    {id:5, descripcion: "COMPRAS CONTADO"},
+    {id:6, descripcion: "TRASPASO ENTRE CUENTA"},
+    {id:7, descripcion: "COMISIÓN"},
+  ]
+
   useEffect(() => {
     getToday()
   }, [])
@@ -1596,6 +1612,8 @@ function Home() {
       setfechasMain1(today)
       setfechasMain2(today)
       setcuentasPagosFecha(today)
+      setfechaSelectAuditoria(today)
+      setfechaHastaSelectAuditoria(today)
     })
   }
   const getSucursales = () => {
@@ -1643,6 +1661,8 @@ function Home() {
   const [selectFactPagoArr,setselectFactPagoArr] = useState([])
   const [subviewAgregarFactPago,setsubviewAgregarFactPago] = useState("pago")
   const [sucursalcuentasPorPagarDetalles,setsucursalcuentasPorPagarDetalles] = useState("")
+  const [selectFactPagoid,setselectFactPagoid] = useState(null)
+  const [selectFactPagoid_sucursal,setselectFactPagoid_sucursal] = useState(null)
   
 
 
@@ -1669,34 +1689,67 @@ function Home() {
   const showImageFact = (id) => {
     db.showImageFact(id)
   }
+
+  const delItemSelectAbonoFact = id => {
+    if (confirm("Confirme")) {
+      setselectAbonoFact(selectAbonoFact.filter(e=>e.id!=id))
+    }
+  }
   const modeEditarFact = id => {
-    setselectFactEdit(id)
-    setcuentasporpagarDetallesView("pagos")
-    setsubviewAgregarFactPago("factura")
+    
     if (SelectCuentaPorPagarDetalle) {
         if (selectCuentaPorPagarId) {
             if (selectCuentaPorPagarId.detalles) {
                 let f = selectCuentaPorPagarId.detalles.filter(e=>e.id==SelectCuentaPorPagarDetalle)
                 if (f.length) {
                     let data = f[0]
-                    setnewfactid_proveedor(data.id_proveedor)
-                    setnewfactnumfact(data.numfact)
-                    setnewfactnumnota(data.numnota)
-                    setnewfactdescripcion(data.descripcion)
-                    
-                    setnewfactsubtotal(number(data.subtotal))
-                    setnewfactdescuento(number(data.descuento))
-                    setnewfactmonto_exento(number(data.monto_exento))
-                    setnewfactmonto_gravable(number(data.monto_gravable))
-                    setnewfactiva(number(data.iva))
-                    setnewfactmonto(number(data.monto))
 
-                    setnewfactfechaemision(data.fechaemision)
-                    setnewfactfechavencimiento(data.fechavencimiento)
-                    setnewfactfecharecepcion(data.fecharecepcion)
-                    setnewfactnota(data.nota)
-                    setnewfacttipo(data.tipo)
-                    setnewfactfrecuencia(data.frecuencia)
+                    if (data.monto>0) {
+                      setsubviewAgregarFactPago("pago")
+                      setcuentasporpagarDetallesView("pagos")
+                      
+                      setselectFactPagoid(data.idinsucursal)
+                      setselectFactPagoid_sucursal(data.id_sucursal)
+                      setcuentasPagosDescripcion(data.numfact)
+                      setcuentasPagosMonto(data.monto)
+                      setcuentasPagosMetodo(data.metodo)
+                      setcuentasPagosFecha(data.fechaemision)
+
+                      let pagos = [] 
+                      data.facturas.map(e=>{
+                        pagos.push({
+                          id: e.pivot.id_factura,
+                          val: e.pivot.monto,
+                          valfact: e.monto,
+                          numfact: e.numfact
+                        })
+                      })
+                      setselectAbonoFact(pagos)
+
+                    }else{
+                      setselectFactEdit(id)
+                      setcuentasporpagarDetallesView("pagos")
+                      setsubviewAgregarFactPago("factura")
+
+                      setnewfactid_proveedor(data.id_proveedor)
+                      setnewfactnumfact(data.numfact)
+                      setnewfactnumnota(data.numnota)
+                      setnewfactdescripcion(data.descripcion)
+                      
+                      setnewfactsubtotal(number(data.subtotal))
+                      setnewfactdescuento(number(data.descuento))
+                      setnewfactmonto_exento(number(data.monto_exento))
+                      setnewfactmonto_gravable(number(data.monto_gravable))
+                      setnewfactiva(number(data.iva))
+                      setnewfactmonto(number(data.monto))
+  
+                      setnewfactfechaemision(data.fechaemision)
+                      setnewfactfechavencimiento(data.fechavencimiento)
+                      setnewfactfecharecepcion(data.fecharecepcion)
+                      setnewfactnota(data.nota)
+                      setnewfacttipo(data.tipo)
+                      setnewfactfrecuencia(data.frecuencia)
+                    }
                 }
             }
         }
@@ -1924,10 +1977,7 @@ function Home() {
   }
 
   ///PUNTOS Y SERIALES
-  const [fechaSelectAuditoria,setfechaSelectAuditoria] = useState("")
-  const [BancoSelectAuditoria,setBancoSelectAuditoria] = useState("")
-  const [SaldoInicialSelectAuditoria,setSaldoInicialSelectAuditoria] = useState("")
-  const [SaldoActualSelectAuditoria,setSaldoActualSelectAuditoria] = useState("")
+  
 
   const changeLiquidacionPagoElec = (id) => {
     if (confirm("CONFIRMAR LIQUIDACIÓN")) {
@@ -2115,7 +2165,8 @@ function Home() {
               let setAb = {
                 id,
                 val:number(val),
-                numfact:fil[0].numfact
+                valfact: fil[0].monto,
+                numfact: fil[0].numfact
               }
               exclude = exclude.concat(setAb)
             }
@@ -2141,6 +2192,8 @@ function Home() {
 
                     if (chetotal==parseFloat(cuentasPagosMonto)) {
                       db.sendPagoCuentaPorPagar({
+                        id: selectFactPagoid,
+                        id_sucursal: selectFactPagoid_sucursal,
                         cuentasPagosDescripcion,
                         cuentasPagosMonto,
                         cuentasPagosMetodo,
@@ -2452,6 +2505,11 @@ function Home() {
     },
 
     {
+      route: "auditoria",
+      name: "AUDITORIA"
+    },
+
+    {
       route: "usuarios",
       name: "USUARIOS"
     },
@@ -2474,7 +2532,72 @@ function Home() {
 
   ]
 
-  const opcionesMetodosPago = [
+  const [opcionesMetodosPago,setopcionesMetodosPago] = useState([])
+  const [bancosdata,setbancosdata] = useState([])
+  const [fechaSelectAuditoria,setfechaSelectAuditoria] = useState("")
+  const [fechaHastaSelectAuditoria,setfechaHastaSelectAuditoria] = useState("")
+  const [bancoSelectAuditoria,setbancoSelectAuditoria] = useState("")
+  const [sucursalSelectAuditoria,setsucursalSelectAuditoria] = useState("")
+  const [qdescripcionbancosdata,setqdescripcionbancosdata] = useState([])
+  const [SaldoInicialSelectAuditoria,setSaldoInicialSelectAuditoria] = useState("")
+  const [SaldoActualSelectAuditoria,setSaldoActualSelectAuditoria] = useState("")
+
+
+  const getMetodosPago = () => {
+    db.getMetodosPago({
+    }).then(res=>{
+      setopcionesMetodosPago(res.data)
+    })
+  }
+
+  const getBancosData = () => {
+    if (fechaSelectAuditoria && fechaHastaSelectAuditoria) {
+      db.getBancosData({
+        fechaSelectAuditoria,
+        fechaHastaSelectAuditoria,
+        bancoSelectAuditoria,
+        sucursalSelectAuditoria,
+        qdescripcionbancosdata,
+      }).then(res=>{
+        if (res.data.estado) {
+          setbancosdata(res.data)
+        }else{
+          notificar(res.data)
+        }
+      })
+    }
+  }
+
+  const sendMovimientoBanco = event => {
+    event.preventDefault()
+
+    if (
+      !cuentasPagosDescripcion ||
+      !cuentasPagosMonto ||
+      !cuentasPagosMetodo ||
+      !cuentasPagosCategoria
+    ) {
+      alert("Campos Vacíos!")      
+    }else{
+      db.sendMovimientoBanco({
+        cuentasPagosDescripcion,
+        cuentasPagosMonto,
+        cuentasPagosMetodo,
+        cuentasPagosFecha,
+        cuentasPagoTipo,
+        cuentasPagosCategoria,
+      }).then(res=>{
+        if (res.data.estado) {
+          getBancosData()
+        }
+        notificar(res.data.msj)
+      })
+    }
+  }
+
+
+
+  /* [
     {codigo:"EFECTIVO", descripcion: "EFECTIVO"},
     {codigo:"0102", descripcion: "0102 Banco de Venezuela, S.A. Banco Universal"},
     {codigo:"0108", descripcion: "0108 Banco Provincial, S.A. Banco Universal"},
@@ -2482,29 +2605,11 @@ function Home() {
     {codigo:"0134", descripcion: "0134 Banesco Banco Universal, C.A."},
     {codigo:"0175", descripcion: "0175 Banco Bicentenario del Pueblo, Banco Universal C.A."},
     {codigo:"0191", descripcion: "0191 Banco Nacional de Crédito C.A., Banco Universal"},
-    {codigo:"0104", descripcion: "0104 Banco Venezolano de Crédito, S.A. Banco Universal"},
-    {codigo:"0114", descripcion: "0114 Banco del Caribe C.A., Banco Universal"},
-    {codigo:"0115", descripcion: "0115 Banco Exterior C.A., Banco Universal"},
-    {codigo:"0128", descripcion: "0128 Banco Caroní C.A., Banco Universal"},
-    {codigo:"0137", descripcion: "0137 Banco Sofitasa Banco Universal, C.A."},
-    {codigo:"0138", descripcion: "0138 Banco Plaza, Banco universal"},
-    {codigo:"0146", descripcion: "0146 Banco de la Gente Emprendedora C.A."},
     {codigo:"0151", descripcion: "0151 Banco Fondo Común, C.A Banco Universal"},
-    {codigo:"0156", descripcion: "0156 100% Banco, Banco Comercial, C.A"},
-    {codigo:"0157", descripcion: "0157 DelSur, Banco Universal C.A."},
-    {codigo:"0163", descripcion: "0163 Banco del Tesoro C.A., Banco Universal"},
-    {codigo:"0166", descripcion: "0166 Banco Agrícola de Venezuela C.A., Banco Universal"},
-    {codigo:"0168", descripcion: "0168 Bancrecer S.A., Banco Microfinanciero"},
-    {codigo:"0169", descripcion: "0169 Mi Banco, Banco Microfinanciero, C.A."},
-    {codigo:"0171", descripcion: "0171 Banco Activo C.A., Banco Universal"},
-    {codigo:"0172", descripcion: "0172 Bancamiga Banco Universal, C.A."},
-    {codigo:"0173", descripcion: "0173 Banco Internacional de Desarrollo C.A., Banco Universal"},
-    {codigo:"0174", descripcion: "0174 Banplus Banco Universal, C.A."},
-    {codigo:"0177", descripcion: "0177 Banco de la Fuerza Armada Nacional Bolivariana, B.U."},
     {codigo:"ZELLE", descripcion: "ZELLE"},
     {codigo:"BINANCE", descripcion: "Binance"},
     {codigo:"AirTM", descripcion: "AirTM"},
-  ]
+  ] */
   
   
   return (
@@ -2673,6 +2778,54 @@ function Home() {
               viewmainPanel={viewmainPanel}
             />
           }
+          {viewmainPanel === "auditoria" &&
+            <Auditoria
+              setviewmainPanel={setviewmainPanel}
+              viewmainPanel={viewmainPanel}
+              opcionesMetodosPago={opcionesMetodosPago}
+              setopcionesMetodosPago={setopcionesMetodosPago}
+              bancosdata={bancosdata}
+              setbancosdata={setbancosdata}
+              fechaSelectAuditoria={fechaSelectAuditoria}
+              setfechaSelectAuditoria={setfechaSelectAuditoria}
+              fechaHastaSelectAuditoria={fechaHastaSelectAuditoria}
+              setfechaHastaSelectAuditoria={setfechaHastaSelectAuditoria}
+              bancoSelectAuditoria={bancoSelectAuditoria}
+              setbancoSelectAuditoria={setbancoSelectAuditoria}
+              sucursalSelectAuditoria={sucursalSelectAuditoria}
+              setsucursalSelectAuditoria={setsucursalSelectAuditoria}
+              qdescripcionbancosdata={qdescripcionbancosdata}
+              setqdescripcionbancosdata={setqdescripcionbancosdata}
+              SaldoInicialSelectAuditoria={SaldoInicialSelectAuditoria}
+              setSaldoInicialSelectAuditoria={setSaldoInicialSelectAuditoria}
+              SaldoActualSelectAuditoria={SaldoActualSelectAuditoria}
+              setSaldoActualSelectAuditoria={setSaldoActualSelectAuditoria}
+              getMetodosPago={getMetodosPago}
+              getBancosData={getBancosData}
+              getCatGeneralFun={getCatGeneralFun}
+              getCatCajas={getCatCajas}
+              sucursales={sucursales}
+
+              cuentasPagosDescripcion={cuentasPagosDescripcion}
+              setcuentasPagosDescripcion={setcuentasPagosDescripcion}
+              cuentasPagosMonto={cuentasPagosMonto}
+              setcuentasPagosMonto={setcuentasPagosMonto}
+              cuentasPagosMetodo={cuentasPagosMetodo}
+              setcuentasPagosMetodo={setcuentasPagosMetodo}
+              cuentasPagosFecha={cuentasPagosFecha}
+              setcuentasPagosFecha={setcuentasPagosFecha}
+              sendMovimientoBanco={sendMovimientoBanco}
+
+              cuentasPagoTipo={cuentasPagoTipo}
+              setcuentasPagosTipo={setcuentasPagosTipo}
+              cuentasPagosCategoria={cuentasPagosCategoria}
+              setcuentasPagosCategoria={setcuentasPagosCategoria}
+              categoriaMovBanco={categoriaMovBanco}
+              number={number}
+              moneda={moneda}
+
+            />
+          }
 
           {viewmainPanel === "efectivo" &&
             <Efectivo
@@ -2762,12 +2915,21 @@ function Home() {
                         setselectProveedorCxp={setselectProveedorCxp}
                         setcuentasPagosDescripcion={setcuentasPagosDescripcion}
                         setcuentasPagosMonto={setcuentasPagosMonto}
+                        setselectFactPagoid={setselectFactPagoid}
+                        setselectFactPagoid_sucursal={setselectFactPagoid_sucursal}
+                        setcuentasPagosMetodo={setcuentasPagosMetodo}
+                        setcuentasPagosFecha={setcuentasPagosFecha}
+                        setselectAbonoFact={setselectAbonoFact}
                       />
                     :null}
 
 
                     {cuentasporpagarDetallesView=="pagos"?
                       <CuentasporpagarPago
+                        delItemSelectAbonoFact={delItemSelectAbonoFact}
+                        setqcuentasPorPagarTipoFact={setqcuentasPorPagarTipoFact }
+                        setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
+                        selectFactPagoid={selectFactPagoid}
                         getProveedores={getProveedores}
                         proveedoresList={proveedoresList}
                         selectAbonoFact={selectAbonoFact}

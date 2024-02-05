@@ -470,6 +470,18 @@ body{
   text-shadow: 0 0 black;
 }
 
+.bg-primary-light{
+
+  background-color: #def0fd !important;
+  text-shadow: 0 0 black;
+}
+
+.bg-warning-light{
+
+  background-color: #f5fdde !important;
+  text-shadow: 0 0 black;
+}
+
 
 
 .text-arabito{

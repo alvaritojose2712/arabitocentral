@@ -30,6 +30,9 @@ class CuentasporpagarController extends Controller
         $id_pro = $req->id_pro;
         $selectAbonoFact = $req->selectAbonoFact;
 
+        $id = isset($req->id)? $req->id: null;
+        $id_sucursal = isset($req->id_sucursal)? $req->id_sucursal: null;
+
         if (
             !$cuentasPagosDescripcion || 
             !$cuentasPagosMonto || 
@@ -51,11 +54,11 @@ class CuentasporpagarController extends Controller
         ]);
 
         if ($su) {
-            $today = (new NominaController)->today();
 
             $pago = $this->setPago([
-                "id_sucursal" => $su->id,
-                "idinsucursal_pago" => time(),
+                "id_sucursal" => $id_sucursal? $id_sucursal: $su->id,
+                "idinsucursal_pago" => $id?$id:time(),
+
                 "id_proveedor_caja" => $id_pro,
                 "numfact_desc" => $cuentasPagosDescripcion,
                 "monto" => $cuentasPagosMonto,
@@ -122,6 +125,7 @@ class CuentasporpagarController extends Controller
             if ($selectAbonoFact) {
                 if (count($selectAbonoFact)) {
                     $msjAbono = "";
+                    cuentasporpagar_pagos::where("id_pago",$cuenta->id)->delete();
                     foreach ($selectAbonoFact as $e) {
                         $update_cuenta = cuentasporpagar_pagos::updateOrCreate([
                             "id_factura" => $e["id"],

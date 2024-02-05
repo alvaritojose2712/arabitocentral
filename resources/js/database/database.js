@@ -21,6 +21,11 @@ const db = {
   saveNewFact: data=>axios.post(host+"saveNewFact",data),
   getCatCajas: data=>axios.get(host+"getCatCajas",{params:data}),
   
+  getMetodosPago: data=>axios.get(host+"getMetodosPago",{params:data}),
+  getBancosData: data=>axios.get(host+"getBancosData",{params:data}),
+  sendMovimientoBanco: data=>axios.post(host+"sendMovimientoBanco",data),
+  
+  
           
 
   getSucursales: data=>axios.get(host+"getSucursales",{params:data}),
@@ -31,7 +36,7 @@ const db = {
   today: data=>axios.get(host+"today",{params:data}),
 
   setCarrito: data=>axios.post(host+"setCarrito",data),
-
+  
   getPedidosList: data=>axios.post(host+"getPedidosList",data),
 
   getPedidos: data=>axios.post(host+"getPedidos",data),

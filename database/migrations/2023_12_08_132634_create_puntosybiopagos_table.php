@@ -16,19 +16,21 @@ class CreatePuntosybiopagosTable extends Migration
         Schema::create('puntosybiopagos', function (Blueprint $table) {
             $table->increments("id");
             $table->string("loteserial")->nullable(true);
-            $table->decimal("monto",10,2)->nullable(true);
             $table->string("banco")->nullable(true);
             $table->string("tipo")->nullable(true);
-
+            $table->integer("categoria")->nullable(true)->default(1);
+            
             $table->date("fecha");
             $table->date("fecha_liquidacion")->nullable(true)->default(null);
+            $table->decimal("monto",10,2)->nullable(true);
+            $table->decimal("monto_liquidado",10,2)->nullable(true);
             
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
             
             $table->integer("id_usuario");
             
-            $table->unique(["fecha","id_sucursal","id_usuario","tipo"]);
+            //$table->unique(["fecha","id_sucursal","id_usuario","tipo"]);
             $table->timestamps();
         });
     }
