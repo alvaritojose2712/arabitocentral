@@ -4900,12 +4900,14 @@ function CuentasporpagarPagos(_ref) {
               className: "btn btn-sinapsis",
               type: "submit",
               children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                className: "fa fa-save"
+                className: "fa fa-pencil"
               }), " "]
             }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
               className: "btn btn-success",
               type: "submit",
-              children: "Guardar"
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+                className: "fa fa-save"
+              })
             })
           })
         })]

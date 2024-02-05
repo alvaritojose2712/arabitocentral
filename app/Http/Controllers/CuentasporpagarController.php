@@ -462,7 +462,7 @@ class CuentasporpagarController extends Controller
                 }
                 return $q;
             }), 
-            "balance" => $balance, 
+            "balance" => $detalles->sum("monto"), 
             "sum" => $detalles->get()->count(), 
         ];
 

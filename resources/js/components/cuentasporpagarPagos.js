@@ -358,9 +358,9 @@ export default function CuentasporpagarPagos({
                                 <div className="btn-group">
         
                                     {selectFactEdit!==null?
-                                    <button className="btn btn-sinapsis" type="submit"> <i className="fa fa-save"></i> </button>
+                                    <button className="btn btn-sinapsis" type="submit"> <i className="fa fa-pencil"></i> </button>
                                     :
-                                    <button className="btn btn-success" type="submit">Guardar</button>
+                                    <button className="btn btn-success" type="submit"><i className="fa fa-save"></i></button>
                                 }
                                 </div>
                         </div>
