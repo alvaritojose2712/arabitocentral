@@ -2541,8 +2541,57 @@ function Home() {
   const [qdescripcionbancosdata,setqdescripcionbancosdata] = useState([])
   const [SaldoInicialSelectAuditoria,setSaldoInicialSelectAuditoria] = useState("")
   const [SaldoActualSelectAuditoria,setSaldoActualSelectAuditoria] = useState("")
+  const [movimientoAuditoria,setmovimientoAuditoria] = useState([])
 
+  const selectxMovimientos = (type,typebanco) => {
+    let data = []
+    if (bancosdata.puntosybiopagosxbancos) {
+      let bancos = []
+      if (!typebanco) {
+        Object.entries(bancosdata.puntosybiopagosxbancos).map(e=>{
+          bancos.push(e[0])
+        })
+      }else{
+        bancos.push(typebanco)
+      }
 
+      console.log(bancos,"bancos")
+      
+      bancos.forEach(banco => {
+        console.log(banco,"banco")
+        console.log(type,"type")
+        if (bancosdata.puntosybiopagosxbancos[banco]) {
+          if (bancosdata.puntosybiopagosxbancos[banco]["ingreso"]) {
+            
+            if (bancosdata.puntosybiopagosxbancos[banco]["ingreso"]["Transferencia"]) {
+              if (type=="banco" || type=="ingreso_Transferencia") {
+                data = data.concat(bancosdata.puntosybiopagosxbancos[banco]["ingreso"]["Transferencia"]["movimientos"])
+              }
+            }
+            if (bancosdata.puntosybiopagosxbancos[banco]["ingreso"]["PUNTO"]) {
+              if (type=="banco" || type=="ingreso_PUNTO") {
+                data = data.concat(bancosdata.puntosybiopagosxbancos[banco]["ingreso"]["PUNTO"]["movimientos"])
+              }
+            }
+            if (bancosdata.puntosybiopagosxbancos[banco]["ingreso"]["BIOPAGO"]) {
+              if (type=="banco" || type=="ingreso_BIOPAGO") {
+                data = data.concat(bancosdata.puntosybiopagosxbancos[banco]["ingreso"]["BIOPAGO"]["movimientos"])
+              }
+            }
+          }
+          if (bancosdata.puntosybiopagosxbancos[banco]["egreso"]) {
+            if (bancosdata.puntosybiopagosxbancos[banco]["egreso"]["Transferencia"]) {
+              if (type=="banco" || type=="egreso_Transferencia") {
+                data = data.concat(bancosdata.puntosybiopagosxbancos[banco]["egreso"]["Transferencia"]["movimientos"])
+              }
+            }
+          }
+          setmovimientoAuditoria(data)
+        }
+      });
+    }
+     
+  }
   const getMetodosPago = () => {
     db.getMetodosPago({
     }).then(res=>{
@@ -2781,6 +2830,7 @@ function Home() {
           }
           {viewmainPanel === "auditoria" &&
             <Auditoria
+              selectxMovimientos={selectxMovimientos}
               setviewmainPanel={setviewmainPanel}
               viewmainPanel={viewmainPanel}
               opcionesMetodosPago={opcionesMetodosPago}
@@ -2824,6 +2874,8 @@ function Home() {
               categoriaMovBanco={categoriaMovBanco}
               number={number}
               moneda={moneda}
+              movimientoAuditoria={movimientoAuditoria}
+              setmovimientoAuditoria={setmovimientoAuditoria}
 
             />
           }

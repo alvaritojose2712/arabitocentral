@@ -41,7 +41,7 @@ class BancosController extends Controller
 
         
         
-        $puntosybiopagos = puntosybiopagos::when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
+        $puntosybiopagos = puntosybiopagos::with("sucursal")->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
             $q->whereIn("banco",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
         })
         ->when($qdescripcionbancosdata!="",function($q) use($qdescripcionbancosdata) {
@@ -60,7 +60,7 @@ class BancosController extends Controller
 
 
 
-        $cuenta = cuentasporpagar::where("metodo","<>","EFECTIVO")
+        $cuenta = cuentasporpagar::with("sucursal")->where("metodo","<>","EFECTIVO")
         ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
             $q->whereIn("metodo",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
         })
@@ -83,10 +83,12 @@ class BancosController extends Controller
             $q->fecha_liquidacion = $q->fechaemision;
             $q->monto_liquidado = $q->monto;
             $q->id_usuario = $q->id;
+            $q->banco = $q->metodo;
 
             return $q;
         });
-
+        
+        return $cuenta;
         $bancosSum = [];
 
         $xbanco = array_merge($puntosybiopagos->get()->toArray(), $cuenta->toArray());

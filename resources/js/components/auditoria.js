@@ -42,6 +42,9 @@ export default function Auditoria({
     categoriaMovBanco,
     number,
     moneda,
+    selectxMovimientos,
+    movimientoAuditoria,
+    setmovimientoAuditoria,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -59,6 +62,15 @@ export default function Auditoria({
         bancoSelectAuditoria,
         sucursalSelectAuditoria, 
     ])
+
+
+    const getCat = id => {
+        let fil = categoriaMovBanco.filter(e=>e.id==id)
+        if (fil.length) {
+            return fil[0].descripcion
+        }
+        return "0"
+    }
 
     const [subviewAuditoria, setsubviewAuditoria] = useState("cuadre")
 
@@ -178,14 +190,14 @@ export default function Auditoria({
 
                                         <tr>
                                             <th>BANCO</th>
-                                            <th colSpan={2} className="text-right bg-primary-light">TRANSFERENCIA</th>
-                                            <th colSpan={2} className="text-right bg-warning-light">PUNTO</th>
-                                            <th colSpan={2} className="text-right bg-danger-light">BIOPAGO</th>
+                                            <th colSpan={2} className="text-right bg-primary-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("ingreso_Transferencia", null)}>TRANSFERENCIA</button> </th>
+                                            <th colSpan={2} className="text-right bg-warning-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("ingreso_PUNTO", null)}>PUNTO</button> </th>
+                                            <th colSpan={2} className="text-right bg-danger-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("ingreso_BIOPAGO", null)}>BIOPAGO</button> </th>
                                             
                                             <th className="text-right bg-warning"></th>
                                             <th className="text-right bg-warning"></th>
 
-                                            <th colSpan={2} className="text-right bg-primary-light">TRANSFERENCIA</th>
+                                            <th colSpan={2} className="text-right bg-primary-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("egreso_Transferencia", null)}>TRANSFERENCIA</button> </th>
                                             
                                             <th className="text-center bg-warning"></th>
                                             <th className="text-center bg-warning"></th>
@@ -195,7 +207,7 @@ export default function Auditoria({
                                     <tbody>
                                         {bancosdata.puntosybiopagosxbancos? Object.entries(bancosdata.puntosybiopagosxbancos).map(bancos=>
                                             <tr key={bancos[0]}>
-                                                <th>{bancos[0]}</th>
+                                                <th className="pointer"> <button className="btn" onClick={()=>selectxMovimientos("banco", bancos[0])}>{bancos[0]}</button></th>
                                                 {bancos[1]?
                                                     <>
                                                         {
@@ -285,6 +297,47 @@ export default function Auditoria({
                                     </tbody>
                                 </table>
                             </div>
+                            {movimientoAuditoria.length?
+                                <div className="col">
+                                    <table className="table">
+                                        <thead>
+                                            <tr>
+                                                <th>BANCO</th>
+                                                <th>MÉTODO</th>
+                                                <th>FECHA REPORTADO</th>
+                                                <th>FECHA LIQUIDADO</th>
+                                                <th>TIPO</th>
+                                                <th>SUCURSAL</th>
+                                                <th>LOTE / REFERENCIA</th>
+                                                <th>CATEGORÍA</th>
+                                                <th>MONTO BRUTO</th>
+                                                <th>LIQUIDADO</th>
+                                                <th>COMISIÓN</th>
+                                                <th>%</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        {movimientoAuditoria.map(e=>
+                                            <tr key={e.id}>
+                                                <th>{e.banco}</th>
+                                                <th>{e.tipo}</th>
+                                                <th>{e.fecha}</th>
+                                                <th>{e.fecha_liquidado}</th>
+                                                <th> <button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button> </th>
+                                                <th>{e.sucursal.codigo}</th>
+                                                <th>{e.loteserial}</th>
+                                                <th>{getCat(e.categoria)}</th>
+                                                <th>{moneda(e.monto)}</th>
+                                                <th>{moneda(e.monto_liquidado)}</th>
+                                                <th>COMISIÓN</th>
+                                                <th>%</th>
+                                            </tr>
+                                        )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            :null}
                         </div>
                     </>
                 :null
