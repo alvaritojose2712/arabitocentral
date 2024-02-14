@@ -216,6 +216,7 @@ Route::post('verificarMovPenControlEfec', [CajasAprobacionController::class,"ver
 Route::post('delCuentaPorPagar', [CuentasporpagarController::class,"delCuentaPorPagar"]);
 
 Route::post('sendMovimientoBanco', [PuntosybiopagosController::class,"sendMovimientoBanco"]);
+Route::post('sendDescuentoGeneralFats', [CuentasporpagarController::class,"sendDescuentoGeneralFats"]);
 
 Route::post('sendFacturaCentral', [CuentasporpagarController::class,"sendFacturaCentral"]);
 Route::post('getAllProveedores', [ProveedoresController::class,"getAllProveedores"]);

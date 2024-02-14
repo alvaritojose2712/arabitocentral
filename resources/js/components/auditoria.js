@@ -45,6 +45,8 @@ export default function Auditoria({
     selectxMovimientos,
     movimientoAuditoria,
     setmovimientoAuditoria,
+    subviewAuditoria,
+    setsubviewAuditoria,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -72,13 +74,13 @@ export default function Auditoria({
         return "0"
     }
 
-    const [subviewAuditoria, setsubviewAuditoria] = useState("cuadre")
 
     return (
        <div className="container-fluid">
             <div className="d-flex justify-content-center">
                 <div className="btn-group m-2">
                     <button className={("btn btn-sm ")+(subviewAuditoria=="cargar"?"btn-sinapsis":"")} onClick={()=>setsubviewAuditoria("cargar")}>Cargar</button>
+                    <button className={("btn btn-sm ")+(subviewAuditoria=="liquidar"?"btn-sinapsis":"")} onClick={()=>setsubviewAuditoria("liquidar")}>Liquidar</button>
                     <button className={("btn btn-sm ")+(subviewAuditoria=="cuadre"?"btn-sinapsis":"")} onClick={()=>setsubviewAuditoria("cuadre")}>Cuadre</button>
                 </div>
             </div>
@@ -339,6 +341,30 @@ export default function Auditoria({
                                 </div>
                             :null}
                         </div>
+                    </>
+                :null
+            }
+
+            {
+                subviewAuditoria=="liquidar"? 
+                    <>
+                       <div className="form-group">
+                            <div className="input-group">
+                                <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
+                                <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
+                            </div>
+                        </div> 
+
+                        <table className="table">
+                            <thead>
+                                <tr>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {bancosdata.xliquidar}
+                            </tbody>
+                        </table>
                     </>
                 :null
             }

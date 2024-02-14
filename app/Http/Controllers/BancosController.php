@@ -20,6 +20,8 @@ class BancosController extends Controller
         $qfechabancosdata = $req->fechaSelectAuditoria;
         $fechaHastaSelectAuditoria = $req->fechaHastaSelectAuditoria;
         $sucursalSelectAuditoria = $req->sucursalSelectAuditoria;
+        $subviewAuditoria = $req->subviewAuditoria;
+        
 
         if (!$qfechabancosdata OR !$fechaHastaSelectAuditoria) {
             return "Fechas de Búsqueda en Blanco";
@@ -49,9 +51,9 @@ class BancosController extends Controller
             ->orwhere("monto",$qdescripcionbancosdata)
             ->orwhere("monto_liquidado",$qdescripcionbancosdata);
         })
-        ->when($qfechabancosdata!="",function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria) {
-            $q->orwhereBetween("fecha", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria])
-            ->orwhereBetween("fecha", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
+        ->when($qfechabancosdata!="",function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria, $subviewAuditoria) {
+            $q->orwhereBetween($subviewAuditoria=="cuadre"? "fecha": "fecha_liquidacion", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria])
+            ->orwhereBetween($subviewAuditoria=="cuadre"? "fecha": "fecha_liquidacion", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
         })
         ->when($sucursalSelectAuditoria!="",function($q) use ($sucursalSelectAuditoria) {
             $q->orwhere("id_sucursal",$sucursalSelectAuditoria);
@@ -88,7 +90,7 @@ class BancosController extends Controller
             return $q;
         });
         
-        return $cuenta;
+        
         $bancosSum = [];
 
         $xbanco = array_merge($puntosybiopagos->get()->toArray(), $cuenta->toArray());
@@ -136,6 +138,7 @@ class BancosController extends Controller
             "bancos" => $bancos->get(),
             "puntosybiopagosxbancos" => $bancosSum,
             "sum" => 0,
+            "xliquidar" => $puntosybiopagos->get(), 
             "estado" => true
         ];
     }

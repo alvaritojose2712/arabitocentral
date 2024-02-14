@@ -359,6 +359,17 @@ class CuentasporpagarController extends Controller
 
         }
     }
+
+    function sendDescuentoGeneralFats(Request $req) {
+        $dataselectFacts = $req->dataselectFacts;
+        $descuentoGeneralFats = $req->descuentoGeneralFats;
+
+        foreach ($dataselectFacts as $key => $e) {
+            $c = cuentasporpagar::find($e["id"]);
+            $c->descuento = $descuentoGeneralFats;
+            $c->save();
+        }
+    }
     function selectCuentaPorPagarProveedorDetalles(Request $req) {
         
         $id = $req->id;
@@ -439,30 +450,37 @@ class CuentasporpagarController extends Controller
 
         ->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
 
-        $balance = $this->getBalance($id,$cuentaporpagarAprobado);
+        $detalles_modified = $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact) {
+            $descuento = 1;
+            if ($q->descuento) {
+                $descuento = $q->monto*($q->descuento/100);
+            }
+            $q->monto_descuento = $descuento;
+            $q->monto_bruto = $q->monto;
 
+            $q->monto = $q->monto-$descuento;
+            $fechavencimiento = new \DateTime($q->fechavencimiento);
+            $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
+            $monto = $q->monto;
+
+            $q->balance = floatval($q->monto_abonado)+floatval($q->monto);
+
+            if (($qcuentasPorPagarTipoFact=="abonos"|| $qcuentasPorPagarTipoFact=="") && $monto>0){
+                $q->condicion = "abonos";
+            }else if (($qcuentasPorPagarTipoFact=="vencidas"|| $qcuentasPorPagarTipoFact=="") && $fechavencimiento<=$today && $monto_abonado!=$monto*-1 && $monto<0){
+                $q->condicion = "vencidas";
+            }else if(($qcuentasPorPagarTipoFact=="porvencer"|| $qcuentasPorPagarTipoFact=="") && $fechavencimiento>$today && $monto_abonado!=$monto*-1 && $monto_abonado==0 && $monto<0){
+                $q->condicion = "porvencer";
+            }else if(($qcuentasPorPagarTipoFact=="pagadas"|| $qcuentasPorPagarTipoFact=="") && $monto_abonado==$monto*-1 && $monto<0){
+                $q->condicion = "pagadas";
+            }else if(($qcuentasPorPagarTipoFact=="semipagadas"|| $qcuentasPorPagarTipoFact=="") && $monto_abonado>0 && $monto_abonado!=$monto*-1 && $monto<0){
+                $q->condicion = "semipagadas";
+            }
+            return $q;
+        }); 
         $ret =  [
-            "detalles" => $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact) {
-                $fechavencimiento = new \DateTime($q->fechavencimiento);
-                $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
-                $monto = $q->monto;
-
-                $q->balance = floatval($q->monto_abonado)+floatval($q->monto);
-
-                if (($qcuentasPorPagarTipoFact=="abonos"|| $qcuentasPorPagarTipoFact=="") && $monto>0){
-                    $q->condicion = "abonos";
-                }else if (($qcuentasPorPagarTipoFact=="vencidas"|| $qcuentasPorPagarTipoFact=="") && $fechavencimiento<=$today && $monto_abonado!=$monto*-1 && $monto<0){
-                    $q->condicion = "vencidas";
-                }else if(($qcuentasPorPagarTipoFact=="porvencer"|| $qcuentasPorPagarTipoFact=="") && $fechavencimiento>$today && $monto_abonado!=$monto*-1 && $monto_abonado==0 && $monto<0){
-                    $q->condicion = "porvencer";
-                }else if(($qcuentasPorPagarTipoFact=="pagadas"|| $qcuentasPorPagarTipoFact=="") && $monto_abonado==$monto*-1 && $monto<0){
-                    $q->condicion = "pagadas";
-                }else if(($qcuentasPorPagarTipoFact=="semipagadas"|| $qcuentasPorPagarTipoFact=="") && $monto_abonado>0 && $monto_abonado!=$monto*-1 && $monto<0){
-                    $q->condicion = "semipagadas";
-                }
-                return $q;
-            }), 
-            "balance" => $detalles->sum("monto"), 
+            "detalles" => $detalles_modified, 
+            "balance" => $detalles_modified->sum("monto"), 
             "sum" => $detalles->get()->count(), 
         ];
 

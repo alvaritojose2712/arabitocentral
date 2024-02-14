@@ -710,7 +710,7 @@ class CierresController extends Controller
         $filtronominaq = $filtros["filtronominaq"];
         $filtronominacargo = $filtros["filtronominacargo"];
 
-        return nomina::with("sucursal")
+        $data = nomina::with(["sucursal","cargo","pagos"])
             ->when($id_sucursal, function ($q) use ($id_sucursal) {
                 $q->where("nominasucursal", $id_sucursal);
             })
@@ -723,7 +723,21 @@ class CierresController extends Controller
                     ->orwhere("nominacedula", "LIKE", $filtronominaq."%")
                     ->orwhere("nominatelefono", "LIKE", $filtronominaq."%");
             })
-            ->orderBy("nominacargo","desc")
             ->get();
+        
+            return [
+                "data" => $data->map(function ($item) {
+                    $nom = nomina::where("nominasucursal", $item->nominasucursal);
+                    
+                    $item->sucursaldesc =  " (".$nom->count().") ".$item->sucursal->codigo;
+                    $item->cargodesc = " (".$nom->where("nominacargo",$item->nominacargo)->count().") ".$item->cargo->cargosdescripcion;
+                    $item->bono = $item->cargo->cargossueldo;
+                    return $item;
+                })
+                ->sortByDesc("cargo.cargossueldo")
+                ->groupBy(["sucursaldesc","cargodesc"]),
+                
+                "sum" => $data->count()
+            ];
     }
 }

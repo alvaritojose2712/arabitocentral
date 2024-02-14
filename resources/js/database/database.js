@@ -25,6 +25,7 @@ const db = {
   getBancosData: data=>axios.get(host+"getBancosData",{params:data}),
   sendMovimientoBanco: data=>axios.post(host+"sendMovimientoBanco",data),
   
+  sendDescuentoGeneralFats: data=>axios.post(host+"sendDescuentoGeneralFats",data),
   
           
 

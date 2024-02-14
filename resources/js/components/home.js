@@ -1645,6 +1645,8 @@ function Home() {
       })
     }
   }
+  const [subviewAuditoria, setsubviewAuditoria] = useState("cuadre")
+
 
   const [selectCuentaPorPagarId, setSelectCuentaPorPagarId] = useState(null)
   const [qcuentasPorPagarDetalles, setqcuentasPorPagarDetalles] = useState("")
@@ -1687,6 +1689,55 @@ function Home() {
   const [selectFactEdit, setselectFactEdit] = useState(null)
   const [selectProveedorCxp, setselectProveedorCxp] = useState(null)
   const [cuentaporpagarAprobado,setcuentaporpagarAprobado] = useState(1)
+
+  const [dataselectFacts, setdataselectFacts] = useState({
+    "sum": 0,
+    "data": []
+  })
+
+  const [descuentoGeneralFats,setdescuentoGeneralFats] = useState("")
+  const sendDescuentoGeneralFats = () => {
+    db.sendDescuentoGeneralFats({
+      dataselectFacts: dataselectFacts.data,
+      descuentoGeneralFats,
+    }).then(res=>{
+      selectCuentaPorPagarProveedorDetallesFun(selectProveedorCxp)
+      notificar(res)
+    })
+  }
+
+  const selectFacts = (id) => {
+    if (selectCuentaPorPagarId.detalles) {
+      if (selectCuentaPorPagarId.detalles.length) {
+        let d = selectCuentaPorPagarId.detalles.filter(e=>e.id==id)
+
+        if (d.length) {
+          let dataFilter = d[0]
+          let clone = cloneDeep(dataselectFacts)
+          let sum = 0
+          clone.data.map(e=>{
+            sum += parseFloat(e.monto)
+          })
+          sum += parseFloat(dataFilter.monto)
+
+          if(dataselectFacts.data.filter(selefil =>selefil.id==id).length){
+            setdataselectFacts({
+              data: clone.data.filter(e=>id!=dataFilter.id),
+              sum:sum,
+            })
+          }else{
+            setdataselectFacts({
+              data: clone.data.concat(dataFilter),
+              sum:sum,
+            })
+
+          }
+        }
+
+
+      }
+    }
+  }
   const showImageFact = (id) => {
     db.showImageFact(id)
   }
@@ -2607,6 +2658,7 @@ function Home() {
         bancoSelectAuditoria,
         sucursalSelectAuditoria,
         qdescripcionbancosdata,
+        subviewAuditoria,
       }).then(res=>{
         if (res.data.estado) {
           setbancosdata(res.data)
@@ -2830,6 +2882,8 @@ function Home() {
           }
           {viewmainPanel === "auditoria" &&
             <Auditoria
+              subviewAuditoria={subviewAuditoria}
+              setsubviewAuditoria={setsubviewAuditoria}
               selectxMovimientos={selectxMovimientos}
               setviewmainPanel={setviewmainPanel}
               viewmainPanel={viewmainPanel}
@@ -2922,6 +2976,11 @@ function Home() {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        descuentoGeneralFats={descuentoGeneralFats}
+                        setdescuentoGeneralFats={setdescuentoGeneralFats}
+                        sendDescuentoGeneralFats={sendDescuentoGeneralFats}
+                        dataselectFacts={dataselectFacts}
+                        selectFacts={selectFacts}
                         sucursalcuentasPorPagarDetalles={sucursalcuentasPorPagarDetalles}
                         setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
 
