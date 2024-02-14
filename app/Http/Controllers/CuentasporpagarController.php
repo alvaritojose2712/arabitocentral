@@ -294,7 +294,7 @@ class CuentasporpagarController extends Controller
                     "descripcion" => $newfactdescripcion,
                     
                     "subtotal" => $newfactsubtotal*$factor,
-                    "descuento" => $newfactdescuento*$factor,
+                    "descuento" => $newfactdescuento,
                     "monto_exento" => $newfactmonto_exento*$factor,
                     "monto_gravable" => $newfactmonto_gravable*$factor,
                     "iva" => $newfactiva*$factor,
@@ -451,7 +451,7 @@ class CuentasporpagarController extends Controller
         ->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
 
         $detalles_modified = $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact) {
-            $descuento = 1;
+            $descuento = 0;
             if ($q->descuento) {
                 $descuento = $q->monto*($q->descuento/100);
             }

@@ -1722,7 +1722,7 @@ function Home() {
 
           if(dataselectFacts.data.filter(selefil =>selefil.id==id).length){
             setdataselectFacts({
-              data: clone.data.filter(e=>id!=dataFilter.id),
+              data: clone.data.filter(e=>id!=e.id),
               sum:sum,
             })
           }else{

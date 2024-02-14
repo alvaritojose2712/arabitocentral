@@ -594,6 +594,13 @@ only screen and (max-width: 900px),
     display: none;
   }
 }
+.listSelectFats{
+  position: fixed;
+  top: 0;
+  width: 300px;
+  height: 50% !important;
+  overflow-y: scroll;
+}
 
 @charset "UTF-8";
 @font-face {

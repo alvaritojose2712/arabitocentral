@@ -580,35 +580,38 @@ export default function CuentasporpagarDetalles({
                     </div>
                     {dataselectFacts.data.length?
                         <div className="col-3">
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th>NUM FACT</th>
-                                        <th className="bg-">
-                                            DESCUENTO
-                                            <div className="input-group">
-                                                <input type="text" placeholder="%" className="form-control" value={descuentoGeneralFats} onChange={event=>setdescuentoGeneralFats(event.target.value)} />
-                                                <button className="btn btn-secondary" type="button" onClick={sendDescuentoGeneralFats}><i className="fa fa-send"></i></button>
-                                            </div>
-                                        </th>
-                                        <th className="bg-">PAGAR</th>
-                                        <th className="bg-warning">{moneda(dataselectFacts.sum)}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {dataselectFacts.data.map(e=>
-                                        <tr key={e.id}>
-                                            <th> <span className={
-                                                (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-6 pointer")
-                                            }>{e.numfact}</span></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th>{moneda(e.monto)}</th>
+                            <div>
+                                <table className="table listSelectFats">
+                                    <thead>
+                                        <tr>
+                                            <th>NUM FACT</th>
+                                            <th className="bg-">
+                                                DESCUENTO
+                                                <div className="input-group">
+                                                    <input type="text" placeholder="%" className="form-control" value={descuentoGeneralFats} onChange={event=>setdescuentoGeneralFats(event.target.value)} />
+                                                    <button className="btn btn-secondary" type="button" onClick={sendDescuentoGeneralFats}><i className="fa fa-send"></i></button>
+                                                </div>
+                                            </th>
+                                            <th className="bg-">PAGAR</th>
+                                            <th className="bg-warning">{moneda(dataselectFacts.sum)}</th>
                                         </tr>
-                                    )}
-                                </tbody>
+                                    </thead>
+                                    <tbody>
+                                        {dataselectFacts.data.map(e=>
+                                            <tr key={e.id}>
+                                                <th> <span className={
+                                                    (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-6 pointer")
+                                                }>{e.numfact}</span></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>{moneda(e.monto)}</th>
+                                            </tr>
+                                        )}
+                                    </tbody>
 
-                            </table>
+                                </table>
+
+                            </div>
                         </div>
                     :null}
                 </>}  
