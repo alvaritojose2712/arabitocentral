@@ -254,8 +254,6 @@ i{
 }
 
 .boton-fijo-inferiorizq{
-  width: 50px;
-  height: 50px;
   padding: 7px 10px;
   border-radius: 25px;
   font-size: 10px;
@@ -267,8 +265,6 @@ i{
 }
 
 .boton-fijo-inferiorder{
-  width: 30px;
-  height: 30px;
   padding: 7px 10px;
   border-radius: 25px;
   font-size: 10px;
@@ -582,6 +578,9 @@ body{
 .items-table-pc{
   display: initial;
 }
+.flex-even {
+  flex: 1;
+}
 
 @media 
 only screen and (max-width: 900px),
@@ -597,7 +596,4 @@ only screen and (max-width: 900px),
 .listSelectFats{
   position: fixed;
   top: 0;
-  width: 300px;
-  height: 50% !important;
-  overflow-y: scroll;
 }

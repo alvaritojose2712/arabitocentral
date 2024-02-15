@@ -64,6 +64,7 @@ export default function CuentasporpagarDetalles({
     descuentoGeneralFats,
     setdescuentoGeneralFats,
     sendDescuentoGeneralFats,
+    abonarFact,
 
 }){
     
@@ -327,22 +328,23 @@ export default function CuentasporpagarDetalles({
                                         <td>FRECUENCIA</td>
                                         <td>{dataCuenta.frecuencia}</td>
                                     </tr>
-                                    <tr>
-                                        <td colSpan={2}>
-                                            <div className="btn-group">
-                                                <button className="btn btn-danger btn-sm" data-numfact={dataCuenta.numfact} onClick={event=>delCuentaPorPagar(event, dataCuenta.id, dataCuenta.proveedor.id)}>
-                                                    <i className="fa fa-trash"></i>
-                                                </button>
-                                                <button type="button" className="btn btn-sinapsis shadow" onClick={()=>modeEditarFact(dataCuenta.id)}>
-                                                    <i className="fa fa-pencil"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             :null}
 
                         </table>
+                                                
+                        <div className="boton-fijo-inferiorizq">
+
+                            <div className="btn-group">
+                                <button className="btn btn-danger fs-3" data-numfact={dataCuenta.numfact} onClick={event=>delCuentaPorPagar(event, dataCuenta.id, dataCuenta.proveedor.id)}>
+                                    <i className="fa fa-trash"></i> ELIMINAR
+                                </button>
+                                <button type="button" className="btn btn-sinapsis shadow fs-3" onClick={()=>modeEditarFact(dataCuenta.id)}>
+                                    <i className="fa fa-pencil"></i> EDITAR
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     :null
                 :<>
@@ -421,43 +423,7 @@ export default function CuentasporpagarDetalles({
 
 
                         </form>
-                        <div className="items-table-pc">
-                            <div className="w-100 d-flex border-bottom fw-bold">
-                                <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="created_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("created_at")}} className="pointer cell1 p-3">
-                                    CREADA
-                                </div> 
-                                <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="updated_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("updated_at")}} className="pointer cell1 p-3">
-                                    ACTUALIZADA
-                                </div> 
-
-                                <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_proveedor"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_proveedor")}} className="pointer cell1 p-3">
-                                    PROVEEDOR
-                                </div>  
-                                <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="numfact"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("numfact")}} className="pointer cell2 p-3 text-right">
-                                    NUM
-                                </div>  
-                                <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechaemision"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechaemision")}} className="pointer cell1 p-3 text-right">
-                                    EMISIÓN
-                                </div>       
-                                <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechavencimiento"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechavencimiento")}} className="pointer cell1 p-3 text-right">
-                                    VENCE
-                                </div>  
-                                <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_sucursal"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_sucursal")}} className="pointer cell1 p-3 text-right">
-                                    ORIGEN
-                                </div>  
-                                <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer cell1 p-3 text-right">
-                                    MONTO BRUTO
-                                </div>
-
-                                <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer cell1 p-3 text-right">
-                                    DESCUENTO
-                                </div>
-
-                                <div onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer cell2 p-3 text-right">
-                                    MONTO NETO
-                                </div>
-                            </div>
-                        </div> 
+                       
 
                         { 
                             selectCuentaPorPagarId?
@@ -505,58 +471,118 @@ export default function CuentasporpagarDetalles({
                                     </div>
                                 </div>
 
-                                <div className="items-table-pc">
-                                    <div className={("w-100 d-flex border-bottom ")+(e.aprobado==0?"bg-danger-light":"bg-success-light")}>
-                                        <div className="cell1 p-3">
-                                            <small className="text-muted">{e.created_at}</small>
-                                        </div> 
-                                        <div className="cell1 p-3">
-                                            <small className="text-muted">{e.updated_at}</small>
-                                        </div> 
-
-                                        <div className="cell1 p-3">
-                                            <span className="fw-bold">{e.proveedor.descripcion}</span>
-                                        </div>  
-                                        <div className="cell2 p-3 text-right">
-                                            
-                                            <input type="checkbox" className="form-check-input me-1 fs-2" onChange={()=>selectFacts(e.id)} checked={dataselectFacts.data.filter(selefil =>selefil.id==e.id).length?
-                                                true
-                                            :false} />
-                                            <span onClick={()=>setSelectCuentaPorPagarDetalle(e.id)} className={
-                                                (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-75 btn fs-5 pointer")
-                                            }>{e.monto<0?"FACT":"ABONO"} {e.numfact}</span>
-                                        </div>  
-                                        <div className="cell1 p-3 text-right">
-                                            <span className="text-success">{e.fechaemision}</span>
-                                        </div>       
-                                        <div className="cell1 p-3 text-right">
-                                            <span className="text-danger ms-1">{e.fechavencimiento}</span>
-                                        </div>  
-                                        <div className="cell1 p-3 text-right">
-                                            <span>{e.sucursal.codigo}</span>   
-                                        </div>
-                                        <div className="cell1 p-3 d-flex align-items-center justify-content-end">
-                                            <span className="text-muted fs-4">{moneda(e.monto_bruto)}</span>
-                                        </div>
-                                        <div className="cell1 p-3 d-flex align-items-center justify-content-end">
-                                            <span className="text-muted fst-italic">{moneda(e.monto_descuento)} ({e.descuento}%)</span>
-                                        </div>
-
-                                        <div className="cell2 p-3 text-right">
-                                            <div className="d-flex justify-content-between align-items-center">
-                                                {e.monto_abonado?
-                                                    <span className={("text-muted fs-6 fw-italic")}>ABONO {moneda(e.monto_abonado)}</span>
-                                                : <span></span> }
-
-                                                <span className={(e.monto<0? "text-danger": "text-success")+(" fs-2 fw-bold")}>{moneda(e.monto)}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>   
                             </>
                             )
                             : null : null
                         } 
+
+                        <table className="table items-table-pc table-responsive table-hover">
+                                <thead className="">
+                                    <tr>
+
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="created_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("created_at")}} className="pointer cell1 p-3">
+                                            CREADA
+                                        </th> 
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="updated_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("updated_at")}} className="pointer cell1 p-3">
+                                            ACTUALIZADA
+                                        </th> 
+
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_proveedor"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_proveedor")}} className="pointer cell1 p-3">
+                                            PROVEEDOR
+                                        </th>  
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="numfact"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("numfact")}} className="pointer cell2 p-3 text-right">
+                                            NUM
+                                        </th>  
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechaemision"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechaemision")}} className="pointer cell1 p-3 text-right">
+                                            EMISIÓN
+                                        </th>       
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechavencimiento"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechavencimiento")}} className="pointer cell1 p-3 text-right">
+                                            VENCE
+                                        </th>  
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_sucursal"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_sucursal")}} className="pointer cell1 p-3 text-right">
+                                            ORIGEN
+                                        </th>  
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer cell1 p-3 text-right">
+                                            MONTO BRUTO
+                                        </th>
+
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer cell1 p-3 text-right">
+                                            DESCUENTO
+                                        </th>
+
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer cell2 p-3 text-right">
+                                            MONTO NETO
+                                        </th>
+                                            
+                                    </tr>
+                                </thead> 
+                            {
+                                selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
+                                ? selectCuentaPorPagarId.detalles.map( (e,i) =>
+                                <>
+                                    <tbody className="">
+                                        <tr className={(" border-bottom ")+(e.aprobado==0?"bg-danger-light":"bg-success-light")}>
+                                            <td className="">
+                                                <small className="text-muted">{e.created_at}</small>
+                                            </td> 
+                                            <td className="">
+                                                <small className="text-muted">{e.updated_at}</small>
+                                            </td> 
+
+                                            <td className="">
+                                                <span className="fw-bold">{e.proveedor.descripcion}</span>
+                                            </td>  
+                                            <td className=" text-right">
+                                                
+                                                <input type="checkbox" className="form-check-input me-1 fs-2" onMouseEnter={event=>selectFacts(event,e.id,"leave")} onChange={event=>selectFacts(event,e.id)} checked={dataselectFacts.data.filter(selefil =>selefil.id==e.id).length?
+                                                    true
+                                                :false} />
+                                                <span onClick={()=>setSelectCuentaPorPagarDetalle(e.id)} className={
+                                                    (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-75 btn fs-5 pointer")
+                                                }>{e.monto<0?"FACT":"ABONO"} {e.numfact}</span>
+                                                {e.monto<0?
+                                                    <span className="btn btn-warning" onClick={()=>abonarFact(e.id)}><i className="fa fa-plus"></i></span>
+                                                :null}
+                                            </td>  
+                                            <td className=" text-right">
+                                                <span className="text-success">{e.fechaemision}</span>
+                                            </td>       
+                                            <td className=" text-right">
+                                                <span className="text-danger ms-1">{e.fechavencimiento}</span>
+                                            </td>  
+                                            <td className=" text-right">
+                                                <span>{e.sucursal.codigo}</span>   
+                                            </td>
+                                            <td className=" text-right">
+                                                <span className="text-muted fs-4">{moneda(e.monto_bruto)}</span>
+                                            </td>
+                                            <td className=" text-right">
+                                                <span className="text-muted fst-italic">{moneda(e.monto_descuento)} ({e.descuento}%)</span>
+                                            </td>
+
+                                            <td className=" text-right">
+                                                <div className="">
+                                                    {e.monto_abonado?
+                                                        <span className={("text-muted fs-6 fw-italic")}>ABONO {moneda(e.monto_abonado)}</span>
+                                                    : <span></span> }
+
+                                                    <span className={(e.monto<0? "text-danger": "text-success")+(" fs-4 fw-bold")}>{moneda(e.monto)}</span>
+                                                    <div>
+                                                        <span className={(e.balance<0? "text-danger": "text-success")+(" fs-6")}>BALANCE</span>
+                                                        <span className={(e.balance<0? "text-danger": "text-success")+(" fs-4")}> {moneda(e.balance)}</span>
+                                                    </div>
+                                                    <hr />
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>   
+                                </>
+                                )
+                                : null : null
+                            } 
+                        </table>
+
                         
                         {
                             selectCuentaPorPagarId.detalles?!selectCuentaPorPagarId.detalles.length
@@ -565,55 +591,77 @@ export default function CuentasporpagarDetalles({
                             </div>
                             : null : null
                         }
-                        <button className="btn boton-fijo-inferiorder btn-danger btn-sm" onClick={()=>setSelectCuentaPorPagarId(null)}>
-                            <i className="fa fa-arrow-left"></i>
+                        <button className="btn boton-fijo-inferiorder btn-danger btn-sm fs-3" onClick={()=>setSelectCuentaPorPagarId(null)}>
+                            <i className="fa fa-arrow-left"></i> VOLVER
                         </button>
-                        <button className="btn boton-fijo-inferiorizq btn-sinapsis" type="button" 
-                            onClick={()=>{
-                                    setcuentasporpagarDetallesView("pagos");
-                                    setInputsNewFact()
-                                }
-                            }
-                        >
-                            <i className="fa fa-plus"></i>
-                        </button>
-                    </div>
-                    {dataselectFacts.data.length?
-                        <div className="col-3">
-                            <div>
-                                <table className="table listSelectFats">
-                                    <thead>
-                                        <tr>
-                                            <th>NUM FACT</th>
-                                            <th className="bg-">
-                                                DESCUENTO
-                                                <div className="input-group">
-                                                    <input type="text" placeholder="%" className="form-control" value={descuentoGeneralFats} onChange={event=>setdescuentoGeneralFats(event.target.value)} />
-                                                    <button className="btn btn-secondary" type="button" onClick={sendDescuentoGeneralFats}><i className="fa fa-send"></i></button>
-                                                </div>
-                                            </th>
-                                            <th className="bg-">PAGAR</th>
-                                            <th className="bg-warning">{moneda(dataselectFacts.sum)}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {dataselectFacts.data.map(e=>
-                                            <tr key={e.id}>
-                                                <th> <span className={
-                                                    (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-6 pointer")
-                                                }>{e.numfact}</span></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th>{moneda(e.monto)}</th>
-                                            </tr>
-                                        )}
-                                    </tbody>
 
-                                </table>
+                        <div className="boton-fijo-inferiorizq">
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <div className="col">
+                                        {dataselectFacts.data.map(e=>
+                                            <div key={e.id} className="btn-group-vertical me-1">
+                                                <span className={
+                                                    (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-6 pointer")
+                                                }>{e.numfact}</span>
+                                                <button className="btn bg-danger-light">{moneda(e.monto)}</button>
+                                            </div>
+                                        )}
+                                        {dataselectFacts.sum?
+                                            <button className="btn btn-warning fs-2">{moneda(dataselectFacts.sum)}</button> 
+                                        :null}
+                                        {dataselectFacts.sum?
+                                            <div className="input-group mt-1">
+                                                <div className="input-group-text">
+                                                    DESCUENTO
+                                                </div>
+                                                <input type="text" placeholder="%" className="form-control" value={descuentoGeneralFats} onChange={event=>setdescuentoGeneralFats(event.target.value)} />
+                                                <button className="btn btn-secondary" type="button" onClick={sendDescuentoGeneralFats}><i className="fa fa-send"></i></button>
+                                            </div>
+                                        :null}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button className="btn btn-sinapsis fs-3" type="button" 
+                                onClick={()=>{
+                                        setcuentasporpagarDetallesView("pagos");
+                                        setInputsNewFact()
+                                    }
+                                }
+                            >
+                                <i className="fa fa-plus"></i> AGREGAR
+                            </button>
+                        </div>
+
+                        
+                    </div>
+                    {/* {dataselectFacts.data.length?
+                        <div className="col-3">
+                            <div className="container-fluid p-0 listSelectFats">
+                                <div className="row">
+                                    <div className="col">NUM FACT</div>
+                                    <div className="col">
+                                        
+                                    </div>
+                                    <div className="col">PAGAR</div>
+                                    <div className="col bg-warning">{moneda(dataselectFacts.sum)}</div>
+                                </div>
+                                {dataselectFacts.data.map(e=>
+                                    <div key={e.id} className="row">
+                                        <div className="col"> <span className={
+                                            (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-6 pointer")
+                                        }>{e.numfact}</span></div>
+                                        <div className="col"></div>
+                                        <div className="col"></div>
+                                        <div className="col">{moneda(e.monto)}</div>
+                                    </div>
+                                )}
 
                             </div>
+
                         </div>
-                    :null}
+                    :null} */}
                 </>}  
             </div>
         </div>

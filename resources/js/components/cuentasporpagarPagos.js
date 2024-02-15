@@ -131,13 +131,16 @@ export default function CuentasporpagarPagos({
             {subviewAgregarFactPago=="pago"?
                <>
                     <form onSubmit={sendPagoCuentaPorPagar}>
-                        <div className="form-group w-100">
-                            {selectFactPagoid==null?
-                                <button className="mt-2 btn btn-outline-success btn-block w-100 btn-sm" type="submit">Guardar</button>
-                                :
-                                <button className="mt-2 btn btn-outline-sinapsis btn-block w-100 btn-sm" type="submit">Editar</button>
-                            }
+                        <div className="boton-fijo-inferiorizq">
+                            <div className="form-group">
+                                {selectFactPagoid==null?
+                                    <button className="btn btn-success fs-3" type="submit">GUARDAR <i className="fa fa-save"></i></button>
+                                    :
+                                    <button className="btn btn-sinapsis fs-3" type="submit">EDITAR <i className="fa fa-pencil"></i></button>
+                                }
+                            </div>
                         </div>
+
                         <div className="form-group">
                             <div className="input-group">
                                 <span className="input-group-text cell3">Descripción</span>
@@ -358,9 +361,11 @@ export default function CuentasporpagarPagos({
                                 <div className="btn-group">
         
                                     {selectFactEdit!==null?
-                                    <button className="btn btn-sinapsis" type="submit"> <i className="fa fa-pencil"></i> </button>
+                                    <button className="btn btn-sinapsis fs-3" type="submit">EDITAR <i className="fa fa-pencil"></i></button>
+
                                     :
-                                    <button className="btn btn-success" type="submit"><i className="fa fa-save"></i></button>
+                                    <button className="btn btn-success fs-3" type="submit">GUARDAR <i className="fa fa-save"></i></button>
+
                                 }
                                 </div>
                         </div>

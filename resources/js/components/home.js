@@ -1705,33 +1705,40 @@ function Home() {
       notificar(res)
     })
   }
+  const abonarFact = id => {
+    setcuentasporpagarDetallesView("pagos");
+    setInputsNewFact()
+  }
 
-  const selectFacts = (id) => {
+  const selectFacts = (event,id,type="normal") => {
     if (selectCuentaPorPagarId.detalles) {
       if (selectCuentaPorPagarId.detalles.length) {
         let d = selectCuentaPorPagarId.detalles.filter(e=>e.id==id)
 
         if (d.length) {
-          let dataFilter = d[0]
-          let clone = cloneDeep(dataselectFacts)
-          let sum = 0
-          clone.data.map(e=>{
-            sum += parseFloat(e.monto)
-          })
-          sum += parseFloat(dataFilter.monto)
-
-          if(dataselectFacts.data.filter(selefil =>selefil.id==id).length){
-            setdataselectFacts({
-              data: clone.data.filter(e=>id!=e.id),
-              sum:sum,
+          if (type=="normal" || (type=="leave" && dataselectFacts.data.length)) {
+            let dataFilter = d[0]
+            let clone = cloneDeep(dataselectFacts)
+            let sum = 0
+            clone.data.map(e=>{
+              sum += parseFloat(e.monto)
             })
-          }else{
-            setdataselectFacts({
-              data: clone.data.concat(dataFilter),
-              sum:sum,
-            })
-
+            
+            if(dataselectFacts.data.filter(selefil =>selefil.id==id).length){
+              sum -= parseFloat(dataFilter.monto)
+              setdataselectFacts({
+                data: clone.data.filter(e=>id!=e.id),
+                sum:clone.data.length?sum:0,
+              })
+            }else{
+              sum += parseFloat(dataFilter.monto)
+              setdataselectFacts({
+                data: clone.data.concat(dataFilter),
+                sum:clone.data.length?sum:0,
+              })
+            }
           }
+
         }
 
 
@@ -2233,39 +2240,32 @@ function Home() {
       e.preventDefault()
     }
     if (confirm("Confirme pago")) {
+      if (selectProveedorCxp) {
+        
+        let chetotal = selectAbonoFact.map(e=>number(e.val)).reduce((partial_sum, a) => parseFloat(partial_sum) + parseFloat(a), 0)
 
-      if (selectCuentaPorPagarId) {
-        if (selectCuentaPorPagarId.detalles) {
-            if (selectCuentaPorPagarId.detalles[0]) {
-                if (selectCuentaPorPagarId.detalles[0].proveedor) {
-                    let id_pro = selectCuentaPorPagarId.detalles[0].proveedor.id
-                    let chetotal = selectAbonoFact.map(e=>number(e.val)).reduce((partial_sum, a) => parseFloat(partial_sum) + parseFloat(a), 0)
-
-                    if (chetotal==parseFloat(cuentasPagosMonto)) {
-                      db.sendPagoCuentaPorPagar({
-                        id: selectFactPagoid,
-                        id_sucursal: selectFactPagoid_sucursal,
-                        cuentasPagosDescripcion,
-                        cuentasPagosMonto,
-                        cuentasPagosMetodo,
-                        cuentasPagosFecha,
-                        id_pro,
-                        selectAbonoFact,
-                      }).then(res=>{
-                        if (res.data.estado) {
-                          setcuentasporpagarDetallesView("cuentas")
-                          selectCuentaPorPagarProveedorDetallesFun(res.data.id_proveedor)
-                          setselectAbonoFact([])
-                        }
-                        notificar(res.data.msj)
-                      })
-                    }else{
-                      alert("Montos no coinciden")
-                    }
-                }
+        if (chetotal==parseFloat(cuentasPagosMonto)) {
+          db.sendPagoCuentaPorPagar({
+            id: selectFactPagoid,
+            id_sucursal: selectFactPagoid_sucursal,
+            cuentasPagosDescripcion,
+            cuentasPagosMonto,
+            cuentasPagosMetodo,
+            cuentasPagosFecha,
+            id_pro:selectProveedorCxp,
+            selectAbonoFact,
+          }).then(res=>{
+            if (res.data.estado) {
+              setcuentasporpagarDetallesView("cuentas")
+              selectCuentaPorPagarProveedorDetallesFun(res.data.id_proveedor)
+              setselectAbonoFact([])
             }
-        }
-    }
+            notificar(res.data.msj)
+          })
+        }else{
+          alert("Montos no coinciden")
+        }    
+      }
     }
   }
 
@@ -2976,6 +2976,7 @@ function Home() {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        abonarFact={abonarFact}
                         descuentoGeneralFats={descuentoGeneralFats}
                         setdescuentoGeneralFats={setdescuentoGeneralFats}
                         sendDescuentoGeneralFats={sendDescuentoGeneralFats}
