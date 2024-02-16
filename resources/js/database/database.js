@@ -27,6 +27,7 @@ const db = {
   
   sendDescuentoGeneralFats: data=>axios.post(host+"sendDescuentoGeneralFats",data),
   liquidarMov: data=>axios.post(host+"liquidarMov",data),
+  sendsaldoactualbancofecha: data=>axios.post(host+"sendsaldoactualbancofecha",data),
   
           
 

@@ -14,5 +14,14 @@ class bancos extends Model
     public function banco() { 
         return $this->hasOne(\App\Models\bancos::class,"id","id_banco"); 
     }
+    protected $fillable = [
+        "banco",
+        "id_banco",
+        "id_usuario",
+        "descripcion",
+        "fecha",
+        "saldo",
+    ];
+
     use HasFactory;
 }

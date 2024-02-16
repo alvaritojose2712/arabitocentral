@@ -2297,7 +2297,13 @@ function Auditoria(_ref) {
     orderAuditoria = _ref.orderAuditoria,
     setorderAuditoria = _ref.setorderAuditoria,
     orderColumnAuditoria = _ref.orderColumnAuditoria,
-    setorderColumnAuditoria = _ref.setorderColumnAuditoria;
+    setorderColumnAuditoria = _ref.setorderColumnAuditoria,
+    selectConciliacion = _ref.selectConciliacion,
+    saldoactualbancofecha = _ref.saldoactualbancofecha,
+    setsaldoactualbancofecha = _ref.setsaldoactualbancofecha,
+    sendsaldoactualbancofecha = _ref.sendsaldoactualbancofecha,
+    selectConciliacionData = _ref.selectConciliacionData,
+    setselectConciliacionData = _ref.setselectConciliacionData;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getMetodosPago();
     getBancosData();
@@ -3022,28 +3028,75 @@ function Auditoria(_ref) {
         })]
       })]
     }) : null, subviewAuditoria == "conciliacion" && bancosdata.view == "conciliacion" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
         className: "table",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-          children: bancosdata.bancos.map(function (e, i) {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "BANCO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "FECHA"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              className: "bg-success-light",
+              children: "CUADRE REAL"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "SALDO INCIAL"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "INGRESO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "EGRESO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              className: "bg-success-light",
+              children: "CUADRE DIGITAL"
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+          children: bancosdata.xfechaCuadre.map(function (e, i) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
               onClick: function onClick() {
-                return setselectTrLiquidar(i);
+                return selectConciliacion(e.banco, e.fecha);
               },
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: e.banco.codigo
+                children: e.banco
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 children: e.fecha
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-success-light"
+                children: selectConciliacionData == e.banco + "-" + e.fecha ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                  className: "input-group",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                    type: "text",
+                    placeholder: "Saldo ACTUAL",
+                    className: "form-control",
+                    value: saldoactualbancofecha,
+                    onChange: function onChange(event) {
+                      return setsaldoactualbancofecha(event.target.value);
+                    }
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                    className: "btn btn-warning",
+                    onClick: function onClick() {
+                      return sendsaldoactualbancofecha(e.banco, e.fecha);
+                    },
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+                      className: "fa fa-send"
+                    })
+                  })]
+                }) : e.guardado ? e.guardado.saldo : "----"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-danger-light"
+                className: "bg-warning-light",
+                children: moneda(e.inicial)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-warning-light"
-              })]
-            }, e.id);
+                className: "bg-success-light",
+                children: moneda(e.ingreso)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                className: "bg-danger-light",
+                children: moneda(e.egreso)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                className: "bg-success",
+                children: moneda(e.balance)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {})]
+            }, i);
           })
-        })
+        })]
       })
     }) : null]
   });
@@ -11835,6 +11888,9 @@ var db = (_db = {
   },
   liquidarMov: function liquidarMov(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "liquidarMov", data);
+  },
+  sendsaldoactualbancofecha: function sendsaldoactualbancofecha(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "sendsaldoactualbancofecha", data);
   },
   getSucursales: function getSucursales(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "getSucursales", {
@@ -64988,6 +65044,32 @@ function Home() {
     _useState472 = _slicedToArray(_useState471, 2),
     orderColumnAuditoria = _useState472[0],
     setorderColumnAuditoria = _useState472[1];
+  var _useState473 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState474 = _slicedToArray(_useState473, 2),
+    saldoactualbancofecha = _useState474[0],
+    setsaldoactualbancofecha = _useState474[1];
+  var _useState475 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState476 = _slicedToArray(_useState475, 2),
+    selectConciliacionData = _useState476[0],
+    setselectConciliacionData = _useState476[1];
+  var selectConciliacion = function selectConciliacion(banco, fecha) {
+    setselectConciliacionData(banco + "-" + fecha);
+    var fil = bancosdata.xfechaCuadre.filter(function (e) {
+      return e.banco == banco && e.fecha == fecha;
+    });
+    if (fil.length) {
+      var g = fil[0].guardado;
+      if (g) {
+        setsaldoactualbancofecha(g.saldo);
+      }
+    }
+  };
+  var sendsaldoactualbancofecha = function sendsaldoactualbancofecha(banco, fecha) {
+    _database_database__WEBPACK_IMPORTED_MODULE_4__["default"].sendsaldoactualbancofecha({
+      banco: banco,
+      fecha: fecha
+    });
+  };
   var liquidarMov = function liquidarMov(id) {
     _database_database__WEBPACK_IMPORTED_MODULE_4__["default"].liquidarMov({
       id: id,
@@ -65105,10 +65187,10 @@ function Home() {
     {codigo:"AirTM", descripcion: "AirTM"},
   ] */
 
-  var _useState473 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("proveedor"),
-    _useState474 = _slicedToArray(_useState473, 2),
-    subViewCuentasxPagar = _useState474[0],
-    setsubViewCuentasxPagar = _useState474[1];
+  var _useState477 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("proveedor"),
+    _useState478 = _slicedToArray(_useState477, 2),
+    subViewCuentasxPagar = _useState478[0],
+    setsubViewCuentasxPagar = _useState478[1];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
     children: !loginActive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_components_login__WEBPACK_IMPORTED_MODULE_11__["default"], {
       loginRes: loginRes
@@ -65290,7 +65372,13 @@ function Home() {
           orderAuditoria: orderAuditoria,
           setorderAuditoria: setorderAuditoria,
           orderColumnAuditoria: orderColumnAuditoria,
-          setorderColumnAuditoria: setorderColumnAuditoria
+          setorderColumnAuditoria: setorderColumnAuditoria,
+          selectConciliacion: selectConciliacion,
+          saldoactualbancofecha: saldoactualbancofecha,
+          setsaldoactualbancofecha: setsaldoactualbancofecha,
+          sendsaldoactualbancofecha: sendsaldoactualbancofecha,
+          selectConciliacionData: selectConciliacionData,
+          setselectConciliacionData: setselectConciliacionData
         }), viewmainPanel === "efectivo" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_efectivo__WEBPACK_IMPORTED_MODULE_41__["default"], {
           subviewpanelsucursales: subviewpanelsucursales,
           setsubviewpanelsucursales: setsubviewpanelsucursales,

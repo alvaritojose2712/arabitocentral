@@ -16,16 +16,13 @@ class CreateBancosTable extends Migration
         Schema::create('bancos', function (Blueprint $table) {
             $table->increments("id");
 
-            $table->integer("id_banco")->unsigned();
-            $table->foreign('id_banco')->references('id')->on('bancos_lists');
+            $table->string("banco");
 
-            $table->integer("id_usuario")->unsigned();
-            $table->foreign('id_usuario')->references('id')->on('usuarios');
+            $table->integer("id_usuario")->nullable(true);
 
-            $table->string("descripcion");
+            $table->string("descripcion")->nullable(true);
             $table->date("fecha");
 
-            $table->decimal("monto",10,2);
             $table->decimal("saldo",10,2);
             $table->timestamps();
         });

@@ -218,6 +218,7 @@ Route::post('delCuentaPorPagar', [CuentasporpagarController::class,"delCuentaPor
 Route::post('sendMovimientoBanco', [PuntosybiopagosController::class,"sendMovimientoBanco"]);
 Route::post('sendDescuentoGeneralFats', [CuentasporpagarController::class,"sendDescuentoGeneralFats"]);
 Route::post('liquidarMov', [PuntosybiopagosController::class,"liquidarMov"]);
+Route::post('sendsaldoactualbancofecha', [BancosController::class,"sendsaldoactualbancofecha"]);
 
 Route::post('sendFacturaCentral', [CuentasporpagarController::class,"sendFacturaCentral"]);
 Route::post('getAllProveedores', [ProveedoresController::class,"getAllProveedores"]);

@@ -59,6 +59,12 @@ export default function Auditoria({
     setorderAuditoria,
     orderColumnAuditoria,
     setorderColumnAuditoria,
+    selectConciliacion,
+    saldoactualbancofecha,
+    setsaldoactualbancofecha,
+    sendsaldoactualbancofecha,
+    selectConciliacionData,
+    setselectConciliacionData,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -432,14 +438,38 @@ export default function Auditoria({
                 subviewAuditoria=="conciliacion" && bancosdata.view=="conciliacion"? 
                     <>
                         <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>BANCO</th>
+                                    <th>FECHA</th>
+                                    <th className="bg-success-light">CUADRE REAL</th>
+                                    <th>SALDO INCIAL</th>
+                                    <th>INGRESO</th>
+                                    <th>EGRESO</th>
+                                    <th className="bg-success-light">CUADRE DIGITAL</th>
+                                </tr>
+                            </thead>
                             <tbody>
-                                {bancosdata.bancos.map((e,i)=>
-                                    <tr key={e.id} onClick={()=>setselectTrLiquidar(i)}>
-                                        <th>{e.banco.codigo}</th>
+                                {bancosdata.xfechaCuadre.map((e,i)=>
+                                    <tr key={i} onClick={()=>selectConciliacion(e.banco,e.fecha)}>
+                                        <th>{e.banco}</th>
                                         <th>{e.fecha}</th>
-                                        <th className="bg-success-light"></th>
-                                        <th className="bg-danger-light"></th>
-                                        <th className="bg-warning-light"></th>
+                                        <th>
+                                            {selectConciliacionData == e.banco+"-"+e.fecha?
+                                                <div className="input-group">
+                                                    
+                                                    <input type="text" placeholder="Saldo ACTUAL" className="form-control" value={saldoactualbancofecha} onChange={event=>setsaldoactualbancofecha(event.target.value)} />
+                                                    <button className="btn btn-warning" onClick={()=>sendsaldoactualbancofecha(e.banco,e.fecha)}><i className="fa fa-send"></i></button>
+                                                </div>
+                                            :e.guardado?e.guardado.saldo:"----"
+                                            }
+                                        </th>
+                                        <th className="bg-warning-light">{moneda(e.inicial)}</th>
+                                        <th className="bg-success-light">{moneda(e.ingreso)}</th>
+                                        <th className="bg-danger-light">{moneda(e.egreso)}</th>
+                                        <th className="bg-success">{moneda(e.balance)}</th>
+                                        <th></th>
+
                                     </tr>
                                 )}
                             </tbody>

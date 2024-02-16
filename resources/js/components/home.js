@@ -2603,8 +2603,24 @@ function Home() {
   
   const [orderAuditoria,setorderAuditoria] = useState("desc")
   const [orderColumnAuditoria,setorderColumnAuditoria] = useState("tipo")
+  const [saldoactualbancofecha,setsaldoactualbancofecha] = useState("")
 
-  
+  const [selectConciliacionData,setselectConciliacionData] = useState("")
+
+  const selectConciliacion = (banco,fecha) => {
+    setselectConciliacionData(banco+"-"+fecha)
+    let fil = bancosdata.xfechaCuadre.filter(e=>e.banco==banco && e.fecha==fecha)
+    if (fil.length) {
+      let g = fil[0].guardado
+      if (g) {
+        setsaldoactualbancofecha(g.saldo)
+      }
+    }
+  }
+
+  const sendsaldoactualbancofecha = (banco,fecha) => {
+    db.sendsaldoactualbancofecha({banco,fecha})
+  }
 
 
   const liquidarMov = id => {
@@ -2969,6 +2985,12 @@ function Home() {
               setorderAuditoria={setorderAuditoria}
               orderColumnAuditoria={orderColumnAuditoria}
               setorderColumnAuditoria={setorderColumnAuditoria}
+              selectConciliacion={selectConciliacion}
+              saldoactualbancofecha={saldoactualbancofecha}
+              setsaldoactualbancofecha={setsaldoactualbancofecha}
+              sendsaldoactualbancofecha={sendsaldoactualbancofecha}
+              selectConciliacionData={selectConciliacionData}
+              setselectConciliacionData={setselectConciliacionData}
 
             />
           }

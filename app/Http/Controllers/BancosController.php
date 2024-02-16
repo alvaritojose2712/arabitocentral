@@ -29,15 +29,6 @@ class BancosController extends Controller
             return "Fechas de Búsqueda en Blanco";
         }
 
-        $bancos = bancos::with("banco")->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
-            $q->where("id_banco",$qbancobancosdata);
-        })
-        ->when($qfechabancosdata!="",function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria) {
-            $q->whereBetween("fecha", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
-        });
-
-        
-        
         $puntosybiopagos = puntosybiopagos::with("sucursal")->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
             $q->whereIn("banco",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
         })
@@ -50,7 +41,7 @@ class BancosController extends Controller
             ->orwhere("monto_liquidado",$qdescripcionbancosdata);
         })
         ->when($qfechabancosdata!="",function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria, $subviewAuditoria) {
-            if ($subviewAuditoria=="cuadre") {
+            if ($subviewAuditoria=="cuadre" || $subviewAuditoria=="conciliacion") {
                 $field = "fecha_liquidacion";
             }else if ($subviewAuditoria=="liquidar") {
                 $field = "fecha";
@@ -138,20 +129,75 @@ class BancosController extends Controller
             }
         }
 
-        $xfechaCuadre = collect($puntosmascuentas)->map(function ($e) {
-            return $e->where("","",0)->sum(
-        });
-        
-        ->groupBy("fecha")
+        $xfechaCuadreArr = collect($puntosmascuentas)->groupBy(["fecha_liquidacion","banco"]);
+        $xfechaCuadre = [];
+        foreach ($xfechaCuadreArr as $KeyfechasGroup => $fechasGroup) {
+            foreach ($fechasGroup as $KeybancoGroup => $bancosGroup) {
+                $ingresoBanco = 0;
+                $egresoBanco = 0;
+                foreach ($bancosGroup as $i => $e) {
+                    if ($e["monto_liquidado"] < 0) {
+                        $egresoBanco += $e["monto_liquidado"];
+                    }else{
+                        $ingresoBanco += $e["monto_liquidado"];
+                    }
+                }
+                $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("banco")->first();
+                $inicial = $this->getSaldoInicialBanco($KeyfechasGroup,$KeybancoGroup);
+                $balance = $ingresoBanco-$egresoBanco+$inicial;
+                array_push($xfechaCuadre, [
+                    "fecha" => $KeyfechasGroup,
+                    "banco" => $KeybancoGroup,
+                    
+                    "ingreso" => $ingresoBanco,
+                    "egreso" => $egresoBanco,
+                    "inicial" => $inicial, 
+                    "balance" => $balance, 
+
+                    "guardado" => $q_banco, 
+                ]);
+
+            }
+        }
        
 
         return [
-            "bancos" => $bancos->get(),
+            "xfechaCuadre" => $xfechaCuadre,
             "puntosybiopagosxbancos" => $bancosSum,
             "sum" => 0,
             "xliquidar" => $puntosybiopagos->get(), 
             "estado" => true,
             "view" => $subviewAuditoria,
+        ];
+    }
+    function getSaldoInicialBanco($fecha, $banco) {
+        $saldo = bancos::where("banco",$banco)->where("fecha","<",$fecha)->orderBy("fecha","desc")->first("saldo");
+        if (! $saldo) {
+            return 0;
+        }
+        return $saldo;
+    }
+    function sendsaldoactualbancofecha(Request $req) {  
+        $banco = $req->banco;
+        $fecha = $req->fecha;
+        $saldo = $req->saldo;
+        
+
+        $ban = bancos::updateOrCreate(["banco"=>$banco, "fecha" => $fecha],[
+            "id_usuario" => null,
+            "descripcion" => null,
+            "saldo" => $saldo,
+        ]);
+
+        if ($ban) {
+            return [
+                "estado" => true,
+                "msj" => "Éxito",
+            ];
+        }
+        return [
+            "estado" => false,
+            "msj" => "Err",
         ];
     }
 }
