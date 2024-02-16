@@ -1615,6 +1615,8 @@ function Home() {
       setcuentasPagosFecha(today)
       setfechaSelectAuditoria(today)
       setfechaHastaSelectAuditoria(today)
+      setinpfechaLiquidar(today)
+      
     })
   }
   const getSucursales = () => {
@@ -2594,6 +2596,30 @@ function Home() {
   const [SaldoActualSelectAuditoria,setSaldoActualSelectAuditoria] = useState("")
   const [movimientoAuditoria,setmovimientoAuditoria] = useState([])
 
+  const [selectTrLiquidar,setselectTrLiquidar] = useState(null)
+
+  const [inpmontoLiquidar,setinpmontoLiquidar] = useState("")
+  const [inpfechaLiquidar,setinpfechaLiquidar] = useState("")
+  
+  const [orderAuditoria,setorderAuditoria] = useState("desc")
+  const [orderColumnAuditoria,setorderColumnAuditoria] = useState("tipo")
+
+  
+
+
+  const liquidarMov = id => {
+    db.liquidarMov({
+      id,
+      monto: inpmontoLiquidar,
+      fecha: inpfechaLiquidar,
+    }).then(res=>{
+      notificar(res)
+      getBancosData("liquidar")
+      setinpmontoLiquidar("")
+
+    })
+  }
+
   const selectxMovimientos = (type,typebanco) => {
     let data = []
     if (bancosdata.puntosybiopagosxbancos) {
@@ -2650,7 +2676,7 @@ function Home() {
     })
   }
 
-  const getBancosData = () => {
+  const getBancosData = (subviewforced=null) => {
     if (fechaSelectAuditoria && fechaHastaSelectAuditoria) {
       db.getBancosData({
         fechaSelectAuditoria,
@@ -2658,7 +2684,9 @@ function Home() {
         bancoSelectAuditoria,
         sucursalSelectAuditoria,
         qdescripcionbancosdata,
-        subviewAuditoria,
+        subviewAuditoria: subviewforced?subviewforced:subviewAuditoria,
+        orderAuditoria,
+        orderColumnAuditoria,
       }).then(res=>{
         if (res.data.estado) {
           setbancosdata(res.data)
@@ -2930,6 +2958,17 @@ function Home() {
               moneda={moneda}
               movimientoAuditoria={movimientoAuditoria}
               setmovimientoAuditoria={setmovimientoAuditoria}
+              selectTrLiquidar={selectTrLiquidar}
+              setselectTrLiquidar={setselectTrLiquidar}
+              inpmontoLiquidar={inpmontoLiquidar}
+              setinpmontoLiquidar={setinpmontoLiquidar}
+              inpfechaLiquidar={inpfechaLiquidar}
+              setinpfechaLiquidar={setinpfechaLiquidar}
+              liquidarMov={liquidarMov}
+              orderAuditoria={orderAuditoria}
+              setorderAuditoria={setorderAuditoria}
+              orderColumnAuditoria={orderColumnAuditoria}
+              setorderColumnAuditoria={setorderColumnAuditoria}
 
             />
           }

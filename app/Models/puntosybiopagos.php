@@ -25,5 +25,7 @@ class puntosybiopagos extends Model
         "id_usuario",
         "tipo",
         "categoria",
+        "fecha_liquidacion",
+        "monto_liquidado",
     ];
 }

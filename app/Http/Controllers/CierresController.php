@@ -89,6 +89,7 @@ class CierresController extends Controller
                 }
                 $totlote += count($lotes);
                 foreach ($lotes as $lote) {
+
                     $loteSql = puntosybiopagos::updateOrCreate([
                         "fecha" => $lote["fecha"],
                         "id_usuario" => $lote["id_usuario"],
@@ -98,6 +99,10 @@ class CierresController extends Controller
                         "loteserial" => $lote["lote"],
                         "monto" => $lote["monto"],
                         "banco" => $lote["banco"],
+                        "fecha_liquidacion" => $lote["tipo"]=="Transferencia"? $lote["fecha"]: null,
+                        "monto_liquidado" => $lote["tipo"]=="Transferencia"? $lote["monto"]: null,
+                        
+
                     ]);
 
                     if ($loteSql) {

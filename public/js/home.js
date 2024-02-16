@@ -2286,7 +2286,18 @@ function Auditoria(_ref) {
     movimientoAuditoria = _ref.movimientoAuditoria,
     setmovimientoAuditoria = _ref.setmovimientoAuditoria,
     subviewAuditoria = _ref.subviewAuditoria,
-    setsubviewAuditoria = _ref.setsubviewAuditoria;
+    setsubviewAuditoria = _ref.setsubviewAuditoria,
+    setselectTrLiquidar = _ref.setselectTrLiquidar,
+    selectTrLiquidar = _ref.selectTrLiquidar,
+    inpmontoLiquidar = _ref.inpmontoLiquidar,
+    setinpmontoLiquidar = _ref.setinpmontoLiquidar,
+    inpfechaLiquidar = _ref.inpfechaLiquidar,
+    setinpfechaLiquidar = _ref.setinpfechaLiquidar,
+    liquidarMov = _ref.liquidarMov,
+    orderAuditoria = _ref.orderAuditoria,
+    setorderAuditoria = _ref.setorderAuditoria,
+    orderColumnAuditoria = _ref.orderColumnAuditoria,
+    setorderColumnAuditoria = _ref.setorderColumnAuditoria;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getMetodosPago();
     getBancosData();
@@ -2295,7 +2306,7 @@ function Auditoria(_ref) {
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getBancosData();
-  }, [qdescripcionbancosdata, fechaSelectAuditoria, fechaHastaSelectAuditoria, bancoSelectAuditoria, sucursalSelectAuditoria]);
+  }, [qdescripcionbancosdata, fechaSelectAuditoria, fechaHastaSelectAuditoria, bancoSelectAuditoria, sucursalSelectAuditoria, orderColumnAuditoria, orderAuditoria]);
   var getCat = function getCat(id) {
     var fil = categoriaMovBanco.filter(function (e) {
       return e.id == id;
@@ -2320,13 +2331,22 @@ function Auditoria(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
           className: "btn btn-sm " + (subviewAuditoria == "liquidar" ? "btn-sinapsis" : ""),
           onClick: function onClick() {
-            return setsubviewAuditoria("liquidar");
+            setsubviewAuditoria("liquidar");
+            getBancosData("liquidar");
           },
           children: "Liquidar"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
           className: "btn btn-sm " + (subviewAuditoria == "cuadre" ? "btn-sinapsis" : ""),
           onClick: function onClick() {
-            return setsubviewAuditoria("cuadre");
+            setsubviewAuditoria("cuadre");
+            getBancosData("cuadre");
+          },
+          children: "Movimientos"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          className: "btn btn-sm " + (subviewAuditoria == "conciliacion" ? "btn-sinapsis" : ""),
+          onClick: function onClick() {
+            setsubviewAuditoria("conciliacion");
+            getBancosData("conciliacion");
           },
           children: "Cuadre"
         })]
@@ -2435,7 +2455,7 @@ function Auditoria(_ref) {
           children: "Guardar"
         })
       })]
-    }) : null, subviewAuditoria == "cuadre" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+    }) : null, subviewAuditoria == "cuadre" && bancosdata.view == "cuadre" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "row",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -2678,24 +2698,96 @@ function Auditoria(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                  onClick: function onClick() {
+                    if (orderColumnAuditoria == "banco") {
+                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                    }
+                    ;
+                    setorderColumnAuditoria("banco");
+                  },
+                  className: "pointer",
                   children: "BANCO"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                  onClick: function onClick() {
+                    if (orderColumnAuditoria == "tipo") {
+                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                    }
+                    ;
+                    setorderColumnAuditoria("tipo");
+                  },
+                  className: "pointer",
                   children: "M\xC9TODO"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                  onClick: function onClick() {
+                    if (orderColumnAuditoria == "fecha") {
+                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                    }
+                    ;
+                    setorderColumnAuditoria("fecha");
+                  },
+                  className: "pointer",
                   children: "FECHA REPORTADO"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                  onClick: function onClick() {
+                    if (orderColumnAuditoria == "fecha_liquidacion") {
+                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                    }
+                    ;
+                    setorderColumnAuditoria("fecha_liquidacion");
+                  },
+                  className: "pointer",
                   children: "FECHA LIQUIDADO"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                   children: "TIPO"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                  onClick: function onClick() {
+                    if (orderColumnAuditoria == "id_sucursal") {
+                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                    }
+                    ;
+                    setorderColumnAuditoria("id_sucursal");
+                  },
+                  className: "pointer",
                   children: "SUCURSAL"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                  onClick: function onClick() {
+                    if (orderColumnAuditoria == "loteserial") {
+                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                    }
+                    ;
+                    setorderColumnAuditoria("loteserial");
+                  },
+                  className: "pointer",
                   children: "LOTE / REFERENCIA"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                  onClick: function onClick() {
+                    if (orderColumnAuditoria == "categoria") {
+                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                    }
+                    ;
+                    setorderColumnAuditoria("categoria");
+                  },
+                  className: "pointer",
                   children: "CATEGOR\xCDA"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                  onClick: function onClick() {
+                    if (orderColumnAuditoria == "monto") {
+                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                    }
+                    ;
+                    setorderColumnAuditoria("monto");
+                  },
+                  className: "pointer",
                   children: "MONTO BRUTO"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                  onClick: function onClick() {
+                    if (orderColumnAuditoria == "monto_liquidado") {
+                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                    }
+                    ;
+                    setorderColumnAuditoria("monto_liquidado");
+                  },
+                  className: "pointer",
                   children: "LIQUIDADO"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                   children: "COMISI\xD3N"
@@ -2713,7 +2805,7 @@ function Auditoria(_ref) {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                     children: e.fecha
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: e.fecha_liquidado
+                    children: e.fecha_liquidacion
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
                     children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
                       className: "btn w-100 " + (e.monto < 0 ? "btn-danger" : "btn-success"),
@@ -2740,7 +2832,7 @@ function Auditoria(_ref) {
           })
         }) : null]
       })]
-    }) : null, subviewAuditoria == "liquidar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+    }) : null, subviewAuditoria == "liquidar" && bancosdata.view == "liquidar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "form-group",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -2759,16 +2851,200 @@ function Auditoria(_ref) {
             onChange: function onChange(event) {
               return setfechaHastaSelectAuditoria(event.target.value);
             }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "btn btn-success",
+            onClick: function onClick() {
+              return getBancosData();
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+              className: "fa fa-search"
+            })
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
         className: "table",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {})
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              onClick: function onClick() {
+                if (orderColumnAuditoria == "banco") {
+                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                }
+                ;
+                setorderColumnAuditoria("banco");
+              },
+              className: "pointer",
+              children: "BANCO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              onClick: function onClick() {
+                if (orderColumnAuditoria == "tipo") {
+                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                }
+                ;
+                setorderColumnAuditoria("tipo");
+              },
+              className: "pointer",
+              children: "M\xC9TODO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              onClick: function onClick() {
+                if (orderColumnAuditoria == "fecha") {
+                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                }
+                ;
+                setorderColumnAuditoria("fecha");
+              },
+              className: "pointer",
+              children: "FECHA REPORTADO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              onClick: function onClick() {
+                if (orderColumnAuditoria == "fecha_liquidacion") {
+                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                }
+                ;
+                setorderColumnAuditoria("fecha_liquidacion");
+              },
+              className: "pointer",
+              children: "FECHA LIQUIDADO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "TIPO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              onClick: function onClick() {
+                if (orderColumnAuditoria == "id_sucursal") {
+                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                }
+                ;
+                setorderColumnAuditoria("id_sucursal");
+              },
+              className: "pointer",
+              children: "SUCURSAL"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              onClick: function onClick() {
+                if (orderColumnAuditoria == "loteserial") {
+                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                }
+                ;
+                setorderColumnAuditoria("loteserial");
+              },
+              className: "pointer",
+              children: "LOTE / REFERENCIA"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              onClick: function onClick() {
+                if (orderColumnAuditoria == "categoria") {
+                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                }
+                ;
+                setorderColumnAuditoria("categoria");
+              },
+              className: "pointer",
+              children: "CATEGOR\xCDA"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              onClick: function onClick() {
+                if (orderColumnAuditoria == "monto") {
+                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                }
+                ;
+                setorderColumnAuditoria("monto");
+              },
+              className: "pointer",
+              children: "MONTO BRUTO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              onClick: function onClick() {
+                if (orderColumnAuditoria == "monto_liquidado") {
+                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                }
+                ;
+                setorderColumnAuditoria("monto_liquidado");
+              },
+              className: "pointer",
+              children: "LIQUIDADO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {})]
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-          children: bancosdata.xliquidar
+          children: bancosdata.xliquidar.map(function (e, i) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+              onClick: function onClick() {
+                return setselectTrLiquidar(i);
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: e.banco
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: e.tipo
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: e.fecha
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: e.fecha_liquidacion
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
+                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                  className: "btn w-100 " + (e.monto < 0 ? "btn-danger" : "btn-success"),
+                  children: e.monto < 0 ? "EGRESO" : "INGRESO"
+                }), " "]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: e.sucursal.codigo
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: e.loteserial
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: getCat(e.categoria)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: moneda(e.monto)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: moneda(e.monto_liquidado)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: selectTrLiquidar === i ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                  className: "input-group-vertical",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                    type: "text",
+                    className: "form-control",
+                    value: inpmontoLiquidar,
+                    placeholder: "Monto Liquidado",
+                    onChange: function onChange(event) {
+                      return setinpmontoLiquidar(event.target.value);
+                    }
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                    type: "date",
+                    className: "form-control",
+                    value: inpfechaLiquidar,
+                    onChange: function onChange(event) {
+                      return setinpfechaLiquidar(event.target.value);
+                    }
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+                    className: "btn btn-warning w-100",
+                    onClick: function onClick() {
+                      return liquidarMov(e.id);
+                    },
+                    children: ["LIQUIDAR ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+                      className: "fa fa-send"
+                    })]
+                  })]
+                }) : null
+              })]
+            }, e.id);
+          })
         })]
       })]
+    }) : null, subviewAuditoria == "conciliacion" && bancosdata.view == "conciliacion" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
+        className: "table",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+          children: bancosdata.bancos.map(function (e, i) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+              onClick: function onClick() {
+                return setselectTrLiquidar(i);
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: e.banco.codigo
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: e.fecha
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                className: "bg-success-light"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                className: "bg-danger-light"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                className: "bg-warning-light"
+              })]
+            }, e.id);
+          })
+        })
+      })
     }) : null]
   });
 }
@@ -4214,59 +4490,6 @@ function CuentasporpagarDetalles(_ref) {
               className: (selectCuentaPorPagarId.balance < 0 ? "text-danger" : "text-success") + " fs-1 mb-1 mt-1 bg-warning",
               children: moneda(selectCuentaPorPagarId.balance)
             })]
-          }) : null : null, selectCuentaPorPagarId ? selectCuentaPorPagarId.detalles ? selectCuentaPorPagarId.detalles.map(function (e, i) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-                className: "items-table-movil",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-                  className: " text-secondary mb-3 pointer shadow p-2 card " + (e.aprobado == 0 ? "bg-danger-light" : ""),
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-                    className: "d-flex justify-content-between fs-7",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                      className: "fw-bold",
-                      children: e.proveedor.descripcion
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("small", {
-                      className: "text-muted",
-                      children: e.created_at
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                      children: e.sucursal.codigo
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-                      onClick: function onClick() {
-                        return setSelectCuentaPorPagarDetalle(e.id);
-                      },
-                      className: "",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-                        className: (e.condicion == "pagadas" ? "btn-medsuccess" : e.condicion == "vencidas" ? "btn-danger" : e.condicion == "porvencer" ? "btn-sinapsis" : e.condicion == "semipagadas" ? "btn-primary" : e.condicion == "abonos" ? "btn-success" : null) + " w-100 btn fs-3 pointer",
-                        children: [e.monto < 0 ? "FACT" : "ABONO", " ", e.numfact]
-                      })
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-                    className: "d-flex justify-content-between align-items-center",
-                    children: [e.monto_abonado ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-                      className: "text-muted fs-6 fw-italic",
-                      children: ["ABONO ", moneda(e.monto_abonado)]
-                    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                      className: (e.monto < 0 ? "text-danger" : "text-success") + " fs-2 fw-bold",
-                      children: moneda(e.monto)
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-                    className: "d-flex justify-content-between fst-italic fs-7",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                      className: "text-success",
-                      children: e.fechaemision
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                      className: "text-sinapsis ms-1",
-                      children: e.fecharecepcion
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                      className: "text-danger ms-1",
-                      children: e.fechavencimiento
-                    })]
-                  })]
-                }, e.id)
-              })
-            });
           }) : null : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
             className: "table items-table-pc table-responsive table-hover",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
@@ -11609,6 +11832,9 @@ var db = (_db = {
   },
   sendDescuentoGeneralFats: function sendDescuentoGeneralFats(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "sendDescuentoGeneralFats", data);
+  },
+  liquidarMov: function liquidarMov(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "liquidarMov", data);
   },
   getSucursales: function getSucursales(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "getSucursales", {
@@ -63602,6 +63828,7 @@ function Home() {
       setcuentasPagosFecha(today);
       setfechaSelectAuditoria(today);
       setfechaHastaSelectAuditoria(today);
+      setinpfechaLiquidar(today);
     });
   };
   var getSucursales = function getSucursales() {
@@ -64741,6 +64968,37 @@ function Home() {
     _useState462 = _slicedToArray(_useState461, 2),
     movimientoAuditoria = _useState462[0],
     setmovimientoAuditoria = _useState462[1];
+  var _useState463 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    _useState464 = _slicedToArray(_useState463, 2),
+    selectTrLiquidar = _useState464[0],
+    setselectTrLiquidar = _useState464[1];
+  var _useState465 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState466 = _slicedToArray(_useState465, 2),
+    inpmontoLiquidar = _useState466[0],
+    setinpmontoLiquidar = _useState466[1];
+  var _useState467 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState468 = _slicedToArray(_useState467, 2),
+    inpfechaLiquidar = _useState468[0],
+    setinpfechaLiquidar = _useState468[1];
+  var _useState469 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("desc"),
+    _useState470 = _slicedToArray(_useState469, 2),
+    orderAuditoria = _useState470[0],
+    setorderAuditoria = _useState470[1];
+  var _useState471 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("tipo"),
+    _useState472 = _slicedToArray(_useState471, 2),
+    orderColumnAuditoria = _useState472[0],
+    setorderColumnAuditoria = _useState472[1];
+  var liquidarMov = function liquidarMov(id) {
+    _database_database__WEBPACK_IMPORTED_MODULE_4__["default"].liquidarMov({
+      id: id,
+      monto: inpmontoLiquidar,
+      fecha: inpfechaLiquidar
+    }).then(function (res) {
+      notificar(res);
+      getBancosData("liquidar");
+      setinpmontoLiquidar("");
+    });
+  };
   var selectxMovimientos = function selectxMovimientos(type, typebanco) {
     var data = [];
     if (bancosdata.puntosybiopagosxbancos) {
@@ -64792,6 +65050,7 @@ function Home() {
     });
   };
   var getBancosData = function getBancosData() {
+    var subviewforced = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     if (fechaSelectAuditoria && fechaHastaSelectAuditoria) {
       _database_database__WEBPACK_IMPORTED_MODULE_4__["default"].getBancosData({
         fechaSelectAuditoria: fechaSelectAuditoria,
@@ -64799,7 +65058,9 @@ function Home() {
         bancoSelectAuditoria: bancoSelectAuditoria,
         sucursalSelectAuditoria: sucursalSelectAuditoria,
         qdescripcionbancosdata: qdescripcionbancosdata,
-        subviewAuditoria: subviewAuditoria
+        subviewAuditoria: subviewforced ? subviewforced : subviewAuditoria,
+        orderAuditoria: orderAuditoria,
+        orderColumnAuditoria: orderColumnAuditoria
       }).then(function (res) {
         if (res.data.estado) {
           setbancosdata(res.data);
@@ -64844,10 +65105,10 @@ function Home() {
     {codigo:"AirTM", descripcion: "AirTM"},
   ] */
 
-  var _useState463 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("proveedor"),
-    _useState464 = _slicedToArray(_useState463, 2),
-    subViewCuentasxPagar = _useState464[0],
-    setsubViewCuentasxPagar = _useState464[1];
+  var _useState473 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("proveedor"),
+    _useState474 = _slicedToArray(_useState473, 2),
+    subViewCuentasxPagar = _useState474[0],
+    setsubViewCuentasxPagar = _useState474[1];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
     children: !loginActive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_components_login__WEBPACK_IMPORTED_MODULE_11__["default"], {
       loginRes: loginRes
@@ -65018,7 +65279,18 @@ function Home() {
           number: number,
           moneda: moneda,
           movimientoAuditoria: movimientoAuditoria,
-          setmovimientoAuditoria: setmovimientoAuditoria
+          setmovimientoAuditoria: setmovimientoAuditoria,
+          selectTrLiquidar: selectTrLiquidar,
+          setselectTrLiquidar: setselectTrLiquidar,
+          inpmontoLiquidar: inpmontoLiquidar,
+          setinpmontoLiquidar: setinpmontoLiquidar,
+          inpfechaLiquidar: inpfechaLiquidar,
+          setinpfechaLiquidar: setinpfechaLiquidar,
+          liquidarMov: liquidarMov,
+          orderAuditoria: orderAuditoria,
+          setorderAuditoria: setorderAuditoria,
+          orderColumnAuditoria: orderColumnAuditoria,
+          setorderColumnAuditoria: setorderColumnAuditoria
         }), viewmainPanel === "efectivo" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_efectivo__WEBPACK_IMPORTED_MODULE_41__["default"], {
           subviewpanelsucursales: subviewpanelsucursales,
           setsubviewpanelsucursales: setsubviewpanelsucursales,

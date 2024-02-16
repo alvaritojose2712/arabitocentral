@@ -438,7 +438,7 @@ export default function CuentasporpagarDetalles({
                             :null
                         }
 
-                        {
+                        {/* {
                             selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                             ? selectCuentaPorPagarId.detalles.map( (e,i) =>
                             <>
@@ -474,7 +474,7 @@ export default function CuentasporpagarDetalles({
                             </>
                             )
                             : null : null
-                        } 
+                        }  */}
 
                         <table className="table items-table-pc table-responsive table-hover">
                                 <thead className="">

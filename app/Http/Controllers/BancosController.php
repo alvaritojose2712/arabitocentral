@@ -21,24 +21,19 @@ class BancosController extends Controller
         $fechaHastaSelectAuditoria = $req->fechaHastaSelectAuditoria;
         $sucursalSelectAuditoria = $req->sucursalSelectAuditoria;
         $subviewAuditoria = $req->subviewAuditoria;
+        $columnOrder = $req->orderColumnAuditoria;
+        $order = $req->orderAuditoria;
         
 
         if (!$qfechabancosdata OR !$fechaHastaSelectAuditoria) {
             return "Fechas de Búsqueda en Blanco";
         }
 
-        $bancos = bancos::when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
+        $bancos = bancos::with("banco")->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
             $q->where("id_banco",$qbancobancosdata);
-        })
-        ->when($qdescripcionbancosdata!="",function($q) use($qdescripcionbancosdata) {
-            $q->orwhere("descripcion",$qdescripcionbancosdata)
-            ->orwhere("monto",$qdescripcionbancosdata);
         })
         ->when($qfechabancosdata!="",function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria) {
             $q->whereBetween("fecha", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
-        })
-        ->when($sucursalSelectAuditoria!="",function($q) use ($sucursalSelectAuditoria) {
-            $q->orwhere("id_sucursal",$sucursalSelectAuditoria);
         });
 
         
@@ -46,18 +41,26 @@ class BancosController extends Controller
         $puntosybiopagos = puntosybiopagos::with("sucursal")->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
             $q->whereIn("banco",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
         })
+        ->when($subviewAuditoria=="liquidar",function($q) {
+            $q->whereNull("fecha_liquidacion");
+        })
         ->when($qdescripcionbancosdata!="",function($q) use($qdescripcionbancosdata) {
             $q->orwhere("loteserial",$qdescripcionbancosdata)
             ->orwhere("monto",$qdescripcionbancosdata)
             ->orwhere("monto_liquidado",$qdescripcionbancosdata);
         })
         ->when($qfechabancosdata!="",function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria, $subviewAuditoria) {
-            $q->orwhereBetween($subviewAuditoria=="cuadre"? "fecha": "fecha_liquidacion", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria])
-            ->orwhereBetween($subviewAuditoria=="cuadre"? "fecha": "fecha_liquidacion", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
+            if ($subviewAuditoria=="cuadre") {
+                $field = "fecha_liquidacion";
+            }else if ($subviewAuditoria=="liquidar") {
+                $field = "fecha";
+            }
+            $q->whereBetween($field, [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
         })
         ->when($sucursalSelectAuditoria!="",function($q) use ($sucursalSelectAuditoria) {
             $q->orwhere("id_sucursal",$sucursalSelectAuditoria);
-        });
+        })
+        ->orderBy($columnOrder,$order);
 
 
 
@@ -93,8 +96,10 @@ class BancosController extends Controller
         
         $bancosSum = [];
 
-        $xbanco = array_merge($puntosybiopagos->get()->toArray(), $cuenta->toArray());
-        $xbanco = collect($xbanco)->map(function ($q) {
+        $puntosmascuentas = array_merge($puntosybiopagos->get()->toArray(), $cuenta->toArray());
+        array_multisort(array_column($puntosmascuentas, $columnOrder), $order=="desc"? SORT_DESC: SORT_ASC, $puntosmascuentas);
+        
+        $xbanco = collect($puntosmascuentas)->map(function ($q) {
             if ($q["tipo"]=="PUNTO 1" OR $q["tipo"]=="PUNTO 2") {
                 $q["tipo"] = "PUNTO";
             }
@@ -132,6 +137,12 @@ class BancosController extends Controller
                 ];
             }
         }
+
+        $xfechaCuadre = collect($puntosmascuentas)->map(function ($e) {
+            return $e->where("","",0)->sum(
+        });
+        
+        ->groupBy("fecha")
        
 
         return [
@@ -139,7 +150,8 @@ class BancosController extends Controller
             "puntosybiopagosxbancos" => $bancosSum,
             "sum" => 0,
             "xliquidar" => $puntosybiopagos->get(), 
-            "estado" => true
+            "estado" => true,
+            "view" => $subviewAuditoria,
         ];
     }
 }

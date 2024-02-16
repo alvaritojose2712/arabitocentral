@@ -23,6 +23,23 @@ class PuntosybiopagosController extends Controller
         }
 
     }
+
+    function liquidarMov(Request $req) {
+        $id = $req->id;
+        $fecha = $req->fecha;
+        $monto = $req->monto;
+        $p = puntosybiopagos::find($id);
+        $p->fecha_liquidacion = $fecha;
+        $p->monto_liquidado = $monto;
+        if ($p->save()) {
+            return [
+                "estado" => true,
+                "msj" => "Éxito al Liquidar",
+            ];
+        }
+
+
+    }
     
     function sendMovimientoBanco(Request $req) {
         try {

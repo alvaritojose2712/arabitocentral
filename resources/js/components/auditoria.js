@@ -47,6 +47,18 @@ export default function Auditoria({
     setmovimientoAuditoria,
     subviewAuditoria,
     setsubviewAuditoria,
+
+    setselectTrLiquidar,
+    selectTrLiquidar,
+    inpmontoLiquidar,
+    setinpmontoLiquidar,
+    inpfechaLiquidar,
+    setinpfechaLiquidar,
+    liquidarMov,
+    orderAuditoria,
+    setorderAuditoria,
+    orderColumnAuditoria,
+    setorderColumnAuditoria,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -54,6 +66,8 @@ export default function Auditoria({
         getCatGeneralFun()
         getCatCajas()
     },[])
+
+    
 
     useEffect(()=>{
         getBancosData()
@@ -63,6 +77,8 @@ export default function Auditoria({
         fechaHastaSelectAuditoria,
         bancoSelectAuditoria,
         sucursalSelectAuditoria, 
+        orderColumnAuditoria,
+        orderAuditoria,
     ])
 
 
@@ -80,8 +96,9 @@ export default function Auditoria({
             <div className="d-flex justify-content-center">
                 <div className="btn-group m-2">
                     <button className={("btn btn-sm ")+(subviewAuditoria=="cargar"?"btn-sinapsis":"")} onClick={()=>setsubviewAuditoria("cargar")}>Cargar</button>
-                    <button className={("btn btn-sm ")+(subviewAuditoria=="liquidar"?"btn-sinapsis":"")} onClick={()=>setsubviewAuditoria("liquidar")}>Liquidar</button>
-                    <button className={("btn btn-sm ")+(subviewAuditoria=="cuadre"?"btn-sinapsis":"")} onClick={()=>setsubviewAuditoria("cuadre")}>Cuadre</button>
+                    <button className={("btn btn-sm ")+(subviewAuditoria=="liquidar"?"btn-sinapsis":"")} onClick={()=>{setsubviewAuditoria("liquidar");getBancosData("liquidar")}}>Liquidar</button>
+                    <button className={("btn btn-sm ")+(subviewAuditoria=="cuadre"?"btn-sinapsis":"")} onClick={()=>{setsubviewAuditoria("cuadre");getBancosData("cuadre")}}>Movimientos</button>
+                    <button className={("btn btn-sm ")+(subviewAuditoria=="conciliacion"?"btn-sinapsis":"")} onClick={()=>{setsubviewAuditoria("conciliacion");getBancosData("conciliacion")}}>Cuadre</button>
                 </div>
             </div>
 
@@ -138,7 +155,7 @@ export default function Auditoria({
             }
 
             {
-                subviewAuditoria=="cuadre"? 
+                subviewAuditoria=="cuadre" && bancosdata.view=="cuadre"? 
                     <>
                         <div className="row">
                             <div className="col">
@@ -299,21 +316,29 @@ export default function Auditoria({
                                     </tbody>
                                 </table>
                             </div>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             {movimientoAuditoria.length?
                                 <div className="col">
                                     <table className="table">
                                         <thead>
                                             <tr>
-                                                <th>BANCO</th>
-                                                <th>MÉTODO</th>
-                                                <th>FECHA REPORTADO</th>
-                                                <th>FECHA LIQUIDADO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="banco"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("banco")}} className="pointer">BANCO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="tipo"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("tipo")}} className="pointer">MÉTODO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="fecha"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha")}} className="pointer">FECHA REPORTADO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="fecha_liquidacion"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha_liquidacion")}} className="pointer">FECHA LIQUIDADO</th>
                                                 <th>TIPO</th>
-                                                <th>SUCURSAL</th>
-                                                <th>LOTE / REFERENCIA</th>
-                                                <th>CATEGORÍA</th>
-                                                <th>MONTO BRUTO</th>
-                                                <th>LIQUIDADO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="id_sucursal"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("id_sucursal")}} className="pointer">SUCURSAL</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="loteserial"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("loteserial")}} className="pointer">LOTE / REFERENCIA</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="categoria"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("categoria")}} className="pointer">CATEGORÍA</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="monto"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto")}} className="pointer">MONTO BRUTO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="monto_liquidado"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto_liquidado")}} className="pointer">LIQUIDADO</th>
                                                 <th>COMISIÓN</th>
                                                 <th>%</th>
                                             </tr>
@@ -325,7 +350,7 @@ export default function Auditoria({
                                                 <th>{e.banco}</th>
                                                 <th>{e.tipo}</th>
                                                 <th>{e.fecha}</th>
-                                                <th>{e.fecha_liquidado}</th>
+                                                <th>{e.fecha_liquidacion}</th>
                                                 <th> <button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button> </th>
                                                 <th>{e.sucursal.codigo}</th>
                                                 <th>{e.loteserial}</th>
@@ -346,23 +371,77 @@ export default function Auditoria({
             }
 
             {
-                subviewAuditoria=="liquidar"? 
+                subviewAuditoria=="liquidar" && bancosdata.view=="liquidar"? 
                     <>
                        <div className="form-group">
                             <div className="input-group">
                                 <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
                                 <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
+                                <button className="btn btn-success" onClick={()=>getBancosData()}><i className="fa fa-search"></i></button>
+                            
                             </div>
                         </div> 
 
                         <table className="table">
                             <thead>
                                 <tr>
-
+                                    <th onClick={()=>{if(orderColumnAuditoria=="banco"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("banco")}} className="pointer">BANCO</th>
+                                    <th onClick={()=>{if(orderColumnAuditoria=="tipo"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("tipo")}} className="pointer">MÉTODO</th>
+                                    <th onClick={()=>{if(orderColumnAuditoria=="fecha"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha")}} className="pointer">FECHA REPORTADO</th>
+                                    <th onClick={()=>{if(orderColumnAuditoria=="fecha_liquidacion"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha_liquidacion")}} className="pointer">FECHA LIQUIDADO</th>
+                                    <th>TIPO</th>
+                                    <th onClick={()=>{if(orderColumnAuditoria=="id_sucursal"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("id_sucursal")}} className="pointer">SUCURSAL</th>
+                                    <th onClick={()=>{if(orderColumnAuditoria=="loteserial"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("loteserial")}} className="pointer">LOTE / REFERENCIA</th>
+                                    <th onClick={()=>{if(orderColumnAuditoria=="categoria"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("categoria")}} className="pointer">CATEGORÍA</th>
+                                    <th onClick={()=>{if(orderColumnAuditoria=="monto"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto")}} className="pointer">MONTO BRUTO</th>
+                                    <th onClick={()=>{if(orderColumnAuditoria=="monto_liquidado"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto_liquidado")}} className="pointer">LIQUIDADO</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {bancosdata.xliquidar}
+                                {bancosdata.xliquidar.map((e,i)=>
+                                    <tr key={e.id} onClick={()=>setselectTrLiquidar(i)}>
+                                        <th>{e.banco}</th>
+                                        <th>{e.tipo}</th>
+                                        <th>{e.fecha}</th>
+                                        <th>{e.fecha_liquidacion}</th>
+                                        <th> <button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button> </th>
+                                        <th>{e.sucursal.codigo}</th>
+                                        <th>{e.loteserial}</th>
+                                        <th>{getCat(e.categoria)}</th>
+                                        <th>{moneda(e.monto)}</th>
+                                        <th>{moneda(e.monto_liquidado)}</th>
+                                        <th>
+                                            {selectTrLiquidar===i?
+                                                <div className="input-group-vertical">
+                                                    <input type="text" className="form-control" value={inpmontoLiquidar} placeholder="Monto Liquidado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
+                                                    <input type="date" className="form-control" value={inpfechaLiquidar} onChange={event=>setinpfechaLiquidar(event.target.value)}/>
+                                                    <button className="btn btn-warning w-100" onClick={()=>liquidarMov(e.id)}>LIQUIDAR <i className="fa fa-send"></i></button>
+                                                </div>
+                                            :null}
+                                        </th>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </>
+                :null
+            }
+
+            {
+                subviewAuditoria=="conciliacion" && bancosdata.view=="conciliacion"? 
+                    <>
+                        <table className="table">
+                            <tbody>
+                                {bancosdata.bancos.map((e,i)=>
+                                    <tr key={e.id} onClick={()=>setselectTrLiquidar(i)}>
+                                        <th>{e.banco.codigo}</th>
+                                        <th>{e.fecha}</th>
+                                        <th className="bg-success-light"></th>
+                                        <th className="bg-danger-light"></th>
+                                        <th className="bg-warning-light"></th>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </>
