@@ -94,36 +94,56 @@ class BancosController extends Controller
             if ($q["tipo"]=="PUNTO 1" OR $q["tipo"]=="PUNTO 2") {
                 $q["tipo"] = "PUNTO";
             }
+
+            $q["monto_comision"] =  $this->comision($q["monto"],$q["monto_liquidado"])["monto"];
+            $q["porcentaje"] =  $this->comision($q["monto"],$q["monto_liquidado"])["porcentaje"];
             return $q;
         })
         ->groupBy("banco");
 
         foreach ($xbanco as $i => $e) {
 
+            $monto_ingreso = $e->where("monto",">",0)->sum("monto");
+            $monto_liquidado_ingreso = $e->where("monto_liquidado",">",0)->sum("monto_liquidado");
+
+            $monto_egreso = $e->where("monto","<",0)->sum("monto");
+            $monto_liquidado_egreso = $e->where("monto_liquidado","<",0)->sum("monto_liquidado");
+
             $bancosSum[$i] = [
-                
                 "ingreso" => [
-                    "monto" => $e->where("monto",">",0)->sum("monto"),
-                    "monto_liquidado" => $e->where("monto_liquidado",">",0)->sum("monto_liquidado"), 
+                    "monto" => $monto_ingreso,
+                    "monto_liquidado" => $monto_liquidado_ingreso, 
+                    "monto_comision" => $this->comision($monto_ingreso,$monto_liquidado_ingreso)["monto"],
+                    "porcentaje" => $this->comision($monto_ingreso,$monto_liquidado_ingreso)["porcentaje"],
                 ],
                 "egreso" => [
-                    "monto" => $e->where("monto","<",0)->sum("monto"),
-                    "monto_liquidado" => $e->where("monto_liquidado","<",0)->sum("monto_liquidado"), 
+                    "monto" => $monto_egreso,
+                    "monto_liquidado" => $monto_liquidado_egreso, 
+                    "monto_comision" => $this->comision($monto_egreso,$monto_liquidado_egreso)["monto"],
+                    "porcentaje" => $this->comision($monto_egreso,$monto_liquidado_egreso)["porcentaje"],
                 ],
             ];
 
             foreach ($e->where("monto","<",0)->groupBy("tipo") as $tipoIndex => $tipos) {
+                $monto = $tipos->sum("monto");
+                $monto_liquidado = $tipos->sum("monto_liquidado");
                 $bancosSum[$i]["egreso"][$tipoIndex] = [
-                    "monto" => $tipos->sum("monto"),
-                    "monto_liquidado" => $tipos->sum("monto_liquidado"),
+                    "monto" => $monto,
+                    "monto_liquidado" => $monto_liquidado,
+                    "monto_comision" => $this->comision($monto,$monto_liquidado)["monto"],
+                    "porcentaje" => $this->comision($monto,$monto_liquidado)["porcentaje"],
                     "movimientos" => $tipos,
                 ];
             }
 
             foreach ($e->where("monto",">",0)->groupBy("tipo") as $tipoIndex => $tipos) {
+                $monto = $tipos->sum("monto");
+                $monto_liquidado = $tipos->sum("monto_liquidado");
                 $bancosSum[$i]["ingreso"][$tipoIndex] = [
-                    "monto" => $tipos->sum("monto"),
-                    "monto_liquidado" => $tipos->sum("monto_liquidado"),
+                    "monto" => $monto,
+                    "monto_liquidado" => $monto_liquidado,
+                    "monto_comision" => $this->comision($monto,$monto_liquidado)["monto"],
+                    "porcentaje" => $this->comision($monto,$monto_liquidado)["porcentaje"],
                     "movimientos" => $tipos,
                 ];
             }
@@ -172,6 +192,21 @@ class BancosController extends Controller
             "xliquidar" => $puntosybiopagos->get(), 
             "estado" => true,
             "view" => $subviewAuditoria,
+        ];
+    }
+    function comision($monto,$liquidado) {
+        $monto = $monto?$monto:0;
+        $liquidado = $liquidado?$liquidado:0;
+        $m = $monto - $liquidado;
+        $p = 0;
+        if ($m!=0 && $monto!= 0) {
+            $p = $m/$monto*100;
+        }
+
+
+        return [
+            "monto" => $m,
+            "porcentaje" => $p,
         ];
     }
     function getSaldoInicialBanco($fecha, $banco) {

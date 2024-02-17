@@ -68,6 +68,7 @@ export default function Auditoria({
     colorFun,
     colors,
     colorSucursal,
+    reverserLiquidar,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -208,29 +209,29 @@ export default function Auditoria({
                         </div>
                         <div className="row">
                             <div className="col">
-                                <table className="table table-sm ">
+                                <table className="table table-sm table-striped ">
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th colSpan={8} className="text-center bg-success">INGRESO</th>
-                                            <th colSpan={4} className="text-center bg-danger">EGRESO</th>
+                                            <th colSpan={8} className="text-center text-success">INGRESO</th>
+                                            <th colSpan={4} className="text-center text-danger">EGRESO</th>
                                         </tr>
 
                                         <tr>
-                                            <th>BANCO</th>
+                                            <th className="text-center">BANCO</th>
                                             <th colSpan={2} className="text-right bg-primary-light pointer">  
                                                 <button className="btn" style={{backgroundColor:colors["Transferencia"]}} onClick={()=>selectxMovimientos("ingreso_Transferencia", null)}>TRANSFERENCIA</button> 
                                             </th>
                                             <th colSpan={2} className="text-right bg-warning-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("ingreso_PUNTO", null)} style={{backgroundColor:colors["PUNTO"]}}>PUNTO</button> </th>
                                             <th colSpan={2} className="text-right bg-danger-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("ingreso_BIOPAGO", null)} style={{backgroundColor:colors["BIOPAGO"]}}>BIOPAGO</button> </th>
                                             
-                                            <th className="text-right bg-warning"></th>
-                                            <th className="text-right bg-warning"></th>
+                                            <th className="text-right bg-success"></th>
+                                            <th className="text-right bg-success"></th>
 
                                             <th colSpan={2} className="text-right bg-primary-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("egreso_Transferencia", null)} style={{backgroundColor:colors["Transferencia"]}}>TRANSFERENCIA</button> </th>
                                             
-                                            <th className="text-center bg-warning"></th>
-                                            <th className="text-center bg-warning"></th>
+                                            <th className="text-center bg-danger"></th>
+                                            <th className="text-center bg-danger"></th>
 
                                         </tr>
                                     </thead>
@@ -251,8 +252,8 @@ export default function Auditoria({
                                                         {
                                                             bancos[1]["ingreso"]?
                                                             <>
-                                                                <td className="fw-bolder text-right bg-primary-light align-middle">
-                                                                    <br />
+                                                                <td className="fw-bolder text-right bg-primary-light align-middle pb-1 pt-1">
+                                                                    
 
                                                                     {bancos[1]["ingreso"]["Transferencia"]?
                                                                     <>
@@ -265,15 +266,22 @@ export default function Auditoria({
                                                                         </span>
                                                                     </>
                                                                     :null}
-                                                                    <br />
+                                                                    
                                                                 </td>
-                                                                <td className="align-middle bg-primary-light">
-                                                                    <span className="text-muted">%</span>
+                                                                <td className="align-middle pb-1 pt-1 bg-primary-light">
+                                                                    {bancos[1]["ingreso"]["Transferencia"]?
+                                                                    <>
+                                                                        <span className="text-danger">
+                                                                            {moneda(bancos[1]["ingreso"]["Transferencia"]["monto_comision"])} <hr className="m-0" /> 
+                                                                            ({moneda(bancos[1]["ingreso"]["Transferencia"]["porcentaje"])}%)
+                                                                        </span>
+                                                                    </>
+                                                                    :null}
                                                                 </td>
 
 
-                                                                <td className="fw-bolder text-right bg-warning-light align-middle">
-                                                                    <br />
+                                                                <td className="fw-bolder text-right bg-warning-light align-middle pb-1 pt-1">
+                                                                    
 
                                                                     {bancos[1]["ingreso"]["PUNTO"]?
                                                                     <>
@@ -286,15 +294,22 @@ export default function Auditoria({
                                                                         </span>
                                                                     </>
                                                                     :null}
-                                                                    <br />
+                                                                    
                                                                 </td>
-                                                                <td className="align-middle bg-warning-light">
-                                                                    <span className="text-muted">%</span>
+                                                                <td className="align-middle pb-1 pt-1 bg-warning-light">
+                                                                    {bancos[1]["ingreso"]["PUNTO"]?
+                                                                    <>
+                                                                        <span className="text-danger">
+                                                                            {moneda(bancos[1]["ingreso"]["PUNTO"]["monto_comision"])} <hr className="m-0" /> 
+                                                                            ({moneda(bancos[1]["ingreso"]["PUNTO"]["porcentaje"])}%)
+                                                                        </span>
+                                                                    </>
+                                                                    :null}
                                                                 </td>
 
 
-                                                                <td className="fw-bolder text-right bg-danger-light align-middle">
-                                                                    <br />
+                                                                <td className="fw-bolder text-right bg-danger-light align-middle pb-1 pt-1">
+                                                                    
 
                                                                     {bancos[1]["ingreso"]["BIOPAGO"]?
                                                                     <>
@@ -307,14 +322,21 @@ export default function Auditoria({
                                                                         </span>
                                                                     </>
                                                                     :null}
-                                                                    <br />
+                                                                    
                                                                 </td>
-                                                                <td className="align-middle bg-danger-light">
-                                                                    <span className="text-muted">%</span>
+                                                                <td className="align-middle pb-1 pt-1 bg-danger-light">
+                                                                    {bancos[1]["ingreso"]["BIOPAGO"]?
+                                                                    <>
+                                                                        <span className="text-danger">
+                                                                            {moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto_comision"])} <hr className="m-0" /> 
+                                                                            ({moneda(bancos[1]["ingreso"]["BIOPAGO"]["porcentaje"])}%)
+                                                                        </span>
+                                                                    </>
+                                                                    :null}
                                                                 </td>
 
-                                                                <td className="fw-bolder text-right bg-warning align-middle">
-                                                                    <br />
+                                                                <td className="fw-bolder text-right bg-success-superlight align-middle pb-1 pt-1 fs-4">
+                                                                    
 
                                                                     {bancos[1]["ingreso"]?
                                                                     <>
@@ -327,10 +349,18 @@ export default function Auditoria({
                                                                         </span>
                                                                     </>
                                                                     :null}
-                                                                    <br />
+                                                                    
                                                                 </td>
-                                                                <td className="align-middle bg-warning">
-                                                                    <span className="text-muted">%</span>
+                                                                <td className="align-middle pb-1 pt-1 bg-success-superlight">
+                                                                    
+                                                                    {bancos[1]["ingreso"]?
+                                                                    <>
+                                                                        <span className="text-danger">
+                                                                            {moneda(bancos[1]["ingreso"]["monto_comision"])} <hr className="m-0" /> 
+                                                                            ({moneda(bancos[1]["ingreso"]["porcentaje"])}%)
+                                                                        </span>
+                                                                    </>
+                                                                    :null}
                                                                 </td>
 
                                                             </>
@@ -340,8 +370,8 @@ export default function Auditoria({
                                                         {
                                                             bancos[1]["egreso"]?
                                                             <>
-                                                                <td className="fw-bolder text-right bg-primary-light align-middle">
-                                                                    <br />
+                                                                <td className="fw-bolder text-right bg-primary-light align-middle pb-1 pt-1">
+                                                                    
 
                                                                     {bancos[1]["egreso"]["Transferencia"]?
                                                                     <>
@@ -354,14 +384,21 @@ export default function Auditoria({
                                                                         </span>
                                                                     </>
                                                                     :null}
-                                                                    <br />
+                                                                    
                                                                 </td>
-                                                                <td className="align-middle bg-primary-light">
-                                                                    <span className="text-muted">%</span>
+                                                                <td className="align-middle pb-1 pt-1 bg-primary-light">
+                                                                    {bancos[1]["egreso"]["Transferencia"]?
+                                                                    <>
+                                                                        <span className="text-danger">
+                                                                            {moneda(bancos[1]["egreso"]["Transferencia"]["monto_comision"])} <hr className="m-0" /> 
+                                                                            ({moneda(bancos[1]["egreso"]["Transferencia"]["porcentaje"])}%)
+                                                                        </span>
+                                                                    </>
+                                                                    :null}
                                                                 </td>
 
-                                                                <td className="fw-bolder text-right bg-warning align-middle">
-                                                                    <br />
+                                                                <td className="fw-bolder text-right bg-danger-superlight align-middle pb-1 pt-1 fs-4">
+                                                                    
 
                                                                     {bancos[1]["egreso"]?
                                                                     <>
@@ -374,10 +411,17 @@ export default function Auditoria({
                                                                         </span>
                                                                     </>
                                                                     :null}
-                                                                    <br />
+                                                                    
                                                                 </td>
-                                                                <td className="align-middle bg-warning">
-                                                                    <span className="text-muted">%</span>
+                                                                <td className="align-middle pb-1 pt-1 bg-danger-superlight">
+                                                                    {bancos[1]["egreso"]?
+                                                                    <>
+                                                                        <span className="text-danger">
+                                                                            {moneda(bancos[1]["egreso"]["monto_comision"])} <hr className="m-0" /> 
+                                                                            ({moneda(bancos[1]["egreso"]["porcentaje"])}%)
+                                                                        </span>
+                                                                    </>
+                                                                    :null}
                                                                 </td>
                                                             </>
                                                             :null
@@ -389,14 +433,8 @@ export default function Auditoria({
                                     </tbody>
                                 </table>
                             </div>
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+                        </div>
+                        <div className="row">
                             {movimientoAuditoria.length?
                                 <div className="col">
                                     <table className="table">
@@ -414,6 +452,7 @@ export default function Auditoria({
                                                 <th onClick={()=>{if(orderColumnAuditoria=="monto_liquidado"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto_liquidado")}} className="pointer">LIQUIDADO</th>
                                                 <th>COMISIÓN</th>
                                                 <th>%</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -442,8 +481,9 @@ export default function Auditoria({
                                                 <th>{getCat(e.categoria)}</th>
                                                 <th>{moneda(e.monto)}</th>
                                                 <th>{moneda(e.monto_liquidado)}</th>
-                                                <th>COMISIÓN</th>
-                                                <th>%</th>
+                                                <th className="text-danger">{moneda(e.monto_comision)}</th>
+                                                <th className="text-muted">{moneda(e.porcentaje)}%</th>
+                                                <th><button className="btn btn-danger" onClick={()=>reverserLiquidar(e.id)}><i className="fa fa-arrow-left"></i></button></th>
                                             </tr>
                                         )}
                                         </tbody>

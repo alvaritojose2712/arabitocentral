@@ -24,6 +24,14 @@ class PuntosybiopagosController extends Controller
 
     }
 
+    function reverserLiquidar(Request $req) {
+        $id = $req->id;
+        $p = puntosybiopagos::find($id);
+        $p->fecha_liquidacion = null;
+        $p->monto_liquidado = 0;
+        $p->save() ;
+    }
+
     function liquidarMov(Request $req) {
         $id = $req->id;
         $fecha = $req->fecha;

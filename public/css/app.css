@@ -539,6 +539,18 @@ body{
   text-shadow: 0 0 black;
 }
 
+
+.bg-success-superlight{
+  background-color: #f0fdef !important;
+  text-shadow: 0 0 black;
+}
+.bg-danger-superlight {
+  background-color: #fff1f1 !important;
+  text-shadow: 0 0 black;
+}
+
+
+
 .app-body{
   padding-top: 1em;
 }

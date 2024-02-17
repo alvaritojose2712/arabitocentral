@@ -2312,7 +2312,8 @@ function Auditoria(_ref) {
     setselectConciliacionData = _ref.setselectConciliacionData,
     colorFun = _ref.colorFun,
     colors = _ref.colors,
-    colorSucursal = _ref.colorSucursal;
+    colorSucursal = _ref.colorSucursal,
+    reverserLiquidar = _ref.reverserLiquidar;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getMetodosPago();
     getBancosData();
@@ -2565,25 +2566,26 @@ function Auditoria(_ref) {
             })
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "row",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "col",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
-            className: "table table-sm ",
+            className: "table table-sm table-striped ",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("thead", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                   colSpan: 8,
-                  className: "text-center bg-success",
+                  className: "text-center text-success",
                   children: "INGRESO"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                   colSpan: 4,
-                  className: "text-center bg-danger",
+                  className: "text-center text-danger",
                   children: "EGRESO"
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                  className: "text-center",
                   children: "BANCO"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                   colSpan: 2,
@@ -2625,9 +2627,9 @@ function Auditoria(_ref) {
                     children: "BIOPAGO"
                   }), " "]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  className: "text-right bg-warning"
+                  className: "text-right bg-success"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  className: "text-right bg-warning"
+                  className: "text-right bg-success"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
                   colSpan: 2,
                   className: "text-right bg-primary-light pointer",
@@ -2642,9 +2644,9 @@ function Auditoria(_ref) {
                     children: "TRANSFERENCIA"
                   }), " "]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  className: "text-center bg-warning"
+                  className: "text-center bg-danger"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  className: "text-center bg-warning"
+                  className: "text-center bg-danger"
                 })]
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
@@ -2665,9 +2667,9 @@ function Auditoria(_ref) {
                     })
                   }), bancos[1] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
                     children: [bancos[1]["ingreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-                        className: "fw-bolder text-right bg-primary-light align-middle",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), bancos[1]["ingreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        className: "fw-bolder text-right bg-primary-light align-middle pb-1 pt-1",
+                        children: bancos[1]["ingreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                             className: "text-success",
                             children: moneda(bancos[1]["ingreso"]["Transferencia"]["monto_liquidado"])
@@ -2677,16 +2679,20 @@ function Auditoria(_ref) {
                             className: "text-sinapsis",
                             children: moneda(bancos[1]["ingreso"]["Transferencia"]["monto"])
                           })]
-                        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
+                        }) : null
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle bg-primary-light",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                          className: "text-muted",
-                          children: "%"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-                        className: "fw-bolder text-right bg-warning-light align-middle",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), bancos[1]["ingreso"]["PUNTO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                        className: "align-middle pb-1 pt-1 bg-primary-light",
+                        children: bancos[1]["ingreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                            className: "text-danger",
+                            children: [moneda(bancos[1]["ingreso"]["Transferencia"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
+                              className: "m-0"
+                            }), "(", moneda(bancos[1]["ingreso"]["Transferencia"]["porcentaje"]), "%)"]
+                          })
+                        }) : null
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        className: "fw-bolder text-right bg-warning-light align-middle pb-1 pt-1",
+                        children: bancos[1]["ingreso"]["PUNTO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                             className: "text-success",
                             children: moneda(bancos[1]["ingreso"]["PUNTO"]["monto_liquidado"])
@@ -2696,16 +2702,20 @@ function Auditoria(_ref) {
                             className: "text-sinapsis",
                             children: moneda(bancos[1]["ingreso"]["PUNTO"]["monto"])
                           })]
-                        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
+                        }) : null
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle bg-warning-light",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                          className: "text-muted",
-                          children: "%"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-                        className: "fw-bolder text-right bg-danger-light align-middle",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), bancos[1]["ingreso"]["BIOPAGO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                        className: "align-middle pb-1 pt-1 bg-warning-light",
+                        children: bancos[1]["ingreso"]["PUNTO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                            className: "text-danger",
+                            children: [moneda(bancos[1]["ingreso"]["PUNTO"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
+                              className: "m-0"
+                            }), "(", moneda(bancos[1]["ingreso"]["PUNTO"]["porcentaje"]), "%)"]
+                          })
+                        }) : null
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        className: "fw-bolder text-right bg-danger-light align-middle pb-1 pt-1",
+                        children: bancos[1]["ingreso"]["BIOPAGO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                             className: "text-success",
                             children: moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto_liquidado"])
@@ -2715,16 +2725,20 @@ function Auditoria(_ref) {
                             className: "text-sinapsis",
                             children: moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto"])
                           })]
-                        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
+                        }) : null
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle bg-danger-light",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                          className: "text-muted",
-                          children: "%"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-                        className: "fw-bolder text-right bg-warning align-middle",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), bancos[1]["ingreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                        className: "align-middle pb-1 pt-1 bg-danger-light",
+                        children: bancos[1]["ingreso"]["BIOPAGO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                            className: "text-danger",
+                            children: [moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
+                              className: "m-0"
+                            }), "(", moneda(bancos[1]["ingreso"]["BIOPAGO"]["porcentaje"]), "%)"]
+                          })
+                        }) : null
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        className: "fw-bolder text-right bg-success-superlight align-middle pb-1 pt-1 fs-4",
+                        children: bancos[1]["ingreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                             className: "text-success",
                             children: moneda(bancos[1]["ingreso"]["monto_liquidado"])
@@ -2734,18 +2748,22 @@ function Auditoria(_ref) {
                             className: "text-sinapsis",
                             children: moneda(bancos[1]["ingreso"]["monto"])
                           })]
-                        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
+                        }) : null
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle bg-warning",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                          className: "text-muted",
-                          children: "%"
-                        })
+                        className: "align-middle pb-1 pt-1 bg-success-superlight",
+                        children: bancos[1]["ingreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                            className: "text-danger",
+                            children: [moneda(bancos[1]["ingreso"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
+                              className: "m-0"
+                            }), "(", moneda(bancos[1]["ingreso"]["porcentaje"]), "%)"]
+                          })
+                        }) : null
                       })]
                     }) : null, bancos[1]["egreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-                        className: "fw-bolder text-right bg-primary-light align-middle",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), bancos[1]["egreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        className: "fw-bolder text-right bg-primary-light align-middle pb-1 pt-1",
+                        children: bancos[1]["egreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                             className: "text-success",
                             children: moneda(bancos[1]["egreso"]["Transferencia"]["monto_liquidado"])
@@ -2755,16 +2773,20 @@ function Auditoria(_ref) {
                             className: "text-sinapsis",
                             children: moneda(bancos[1]["egreso"]["Transferencia"]["monto"])
                           })]
-                        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
+                        }) : null
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle bg-primary-light",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                          className: "text-muted",
-                          children: "%"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-                        className: "fw-bolder text-right bg-warning align-middle",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), bancos[1]["egreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                        className: "align-middle pb-1 pt-1 bg-primary-light",
+                        children: bancos[1]["egreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                            className: "text-danger",
+                            children: [moneda(bancos[1]["egreso"]["Transferencia"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
+                              className: "m-0"
+                            }), "(", moneda(bancos[1]["egreso"]["Transferencia"]["porcentaje"]), "%)"]
+                          })
+                        }) : null
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        className: "fw-bolder text-right bg-danger-superlight align-middle pb-1 pt-1 fs-4",
+                        children: bancos[1]["egreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                             className: "text-success",
                             children: moneda(bancos[1]["egreso"]["monto_liquidado"])
@@ -2774,13 +2796,17 @@ function Auditoria(_ref) {
                             className: "text-sinapsis",
                             children: moneda(bancos[1]["egreso"]["monto"])
                           })]
-                        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
+                        }) : null
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle bg-warning",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                          className: "text-muted",
-                          children: "%"
-                        })
+                        className: "align-middle pb-1 pt-1 bg-danger-superlight",
+                        children: bancos[1]["egreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                            className: "text-danger",
+                            children: [moneda(bancos[1]["egreso"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
+                              className: "m-0"
+                            }), "(", moneda(bancos[1]["egreso"]["porcentaje"]), "%)"]
+                          })
+                        }) : null
                       })]
                     }) : null]
                   }) : console.log(bancos[1], "bancos[1]")]
@@ -2788,7 +2814,10 @@ function Auditoria(_ref) {
               }) : null
             })]
           })
-        }), movimientoAuditoria.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "row",
+        children: movimientoAuditoria.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "col",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
             className: "table",
@@ -2890,7 +2919,7 @@ function Auditoria(_ref) {
                   children: "COMISI\xD3N"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                   children: "%"
-                })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {})]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
               children: movimientoAuditoria.map(function (e) {
@@ -2938,15 +2967,27 @@ function Auditoria(_ref) {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                     children: moneda(e.monto_liquidado)
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: "COMISI\xD3N"
+                    className: "text-danger",
+                    children: moneda(e.monto_comision)
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
+                    className: "text-muted",
+                    children: [moneda(e.porcentaje), "%"]
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: "%"
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                      className: "btn btn-danger",
+                      onClick: function onClick() {
+                        return reverserLiquidar(e.id);
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+                        className: "fa fa-arrow-left"
+                      })
+                    })
                   })]
                 }, e.id);
               })
             })]
           })
-        }) : null]
+        }) : null
       })]
     }) : null, subviewAuditoria == "liquidar" && bancosdata.view == "liquidar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
@@ -12065,6 +12106,9 @@ var db = (_db = {
   },
   sendsaldoactualbancofecha: function sendsaldoactualbancofecha(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "sendsaldoactualbancofecha", data);
+  },
+  reverserLiquidar: function reverserLiquidar(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "reverserLiquidar", data);
   },
   getSucursales: function getSucursales(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "getSucursales", {
@@ -65310,6 +65354,15 @@ function Home() {
       setinpmontoLiquidar("");
     });
   };
+  var reverserLiquidar = function reverserLiquidar(id) {
+    if (confirm("Confirme Reverso")) {
+      _database_database__WEBPACK_IMPORTED_MODULE_4__["default"].reverserLiquidar({
+        id: id
+      }).then(function (res) {
+        getBancosData();
+      });
+    }
+  };
   var selectxMovimientos = function selectxMovimientos(type, typebanco) {
     setmovimientoAuditoria([]);
     var data = [];
@@ -65544,6 +65597,7 @@ function Home() {
           setviewmainPanel: setviewmainPanel,
           viewmainPanel: viewmainPanel
         }), viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_30__["default"], {
+          reverserLiquidar: reverserLiquidar,
           colorFun: colorFun,
           colors: colors,
           colorSucursal: colorSucursal,

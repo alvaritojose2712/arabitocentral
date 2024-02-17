@@ -2698,6 +2698,13 @@ function Home() {
 
     })
   }
+  const reverserLiquidar = id => {
+    if (confirm("Confirme Reverso")) {
+      db.reverserLiquidar({id}).then(res=>{
+        getBancosData()
+      })
+    }
+  }
 
   const selectxMovimientos = (type,typebanco) => {
     setmovimientoAuditoria([])
@@ -2988,6 +2995,7 @@ function Home() {
           }
           {viewmainPanel === "auditoria" &&
             <Auditoria
+              reverserLiquidar={reverserLiquidar}
               colorFun={colorFun}
               colors={colors}
               colorSucursal={colorSucursal}
