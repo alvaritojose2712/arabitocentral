@@ -2559,7 +2559,7 @@ function Home() {
 
     {
       route: "auditoria",
-      name: "AUDITORIA"
+      name: "AUDITORÍA"
     },
 
     {
@@ -2584,6 +2584,18 @@ function Home() {
     },
 
   ]
+
+  const colorFun = (str) => {
+    var stringHexNumber = (                       // 1
+      parseInt(                                 // 2
+          parseInt(str, 36)  // 3
+              .toExponential()                  // 4
+              .slice(2,-5)                      // 5
+      , 10) & 0xFFFFFF                          // 6
+    ).toString(16).toUpperCase(); 
+
+    return stringHexNumber
+  }
 
   const [opcionesMetodosPago,setopcionesMetodosPago] = useState([])
   const [bancosdata,setbancosdata] = useState([])
@@ -2614,12 +2626,24 @@ function Home() {
       let g = fil[0].guardado
       if (g) {
         setsaldoactualbancofecha(g.saldo)
+      }else{
+        setsaldoactualbancofecha("")
+
       }
     }
   }
 
   const sendsaldoactualbancofecha = (banco,fecha) => {
-    db.sendsaldoactualbancofecha({banco,fecha})
+
+    db.sendsaldoactualbancofecha({
+      banco,
+      fecha,
+      saldo: saldoactualbancofecha,
+    }).then(res=>{
+      getBancosData()
+      setselectConciliacionData("")
+      notificar(res.data.msj)
+    })
   }
 
 
@@ -2926,6 +2950,7 @@ function Home() {
           }
           {viewmainPanel === "auditoria" &&
             <Auditoria
+              colorFun={colorFun}
               subviewAuditoria={subviewAuditoria}
               setsubviewAuditoria={setsubviewAuditoria}
               selectxMovimientos={selectxMovimientos}

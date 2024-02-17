@@ -17,11 +17,11 @@ class CreateBancosTable extends Migration
             $table->increments("id");
 
             $table->string("banco");
+            $table->date("fecha");
 
             $table->integer("id_usuario")->nullable(true);
 
             $table->string("descripcion")->nullable(true);
-            $table->date("fecha");
 
             $table->decimal("saldo",10,2);
             $table->timestamps();

@@ -65,6 +65,7 @@ export default function Auditoria({
     sendsaldoactualbancofecha,
     selectConciliacionData,
     setselectConciliacionData,
+    colorFun,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -408,13 +409,18 @@ export default function Auditoria({
                                 {bancosdata.xliquidar.map((e,i)=>
                                     <tr key={e.id} onClick={()=>setselectTrLiquidar(i)}>
                                         <th>{e.banco}</th>
-                                        <th>{e.tipo}</th>
+                                        <th>
+                                            <button className="btn w-100 fw-bolder" 
+                                            style={{backgroundColor:"#A85"+(colorFun(e.tipo))+(e.tipo.replace(/\D/g, "")*150)}}>{e.tipo}</button> 
+                                        </th>
                                         <th>{e.fecha}</th>
                                         <th>{e.fecha_liquidacion}</th>
                                         <th> <button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button> </th>
-                                        <th>{e.sucursal.codigo}</th>
+                                        <th> <button className="btn w-100 fw-bolder" style={{backgroundColor:"#"+colorFun(1575*e.sucursal.id+(e.sucursal.codigo).slice(0,6))}}>{e.sucursal.codigo}</button></th>
                                         <th>{e.loteserial}</th>
-                                        <th>{getCat(e.categoria)}</th>
+                                        <th>
+                                            {getCat(e.categoria)}
+                                        </th>
                                         <th>{moneda(e.monto)}</th>
                                         <th>{moneda(e.monto_liquidado)}</th>
                                         <th>
@@ -437,6 +443,14 @@ export default function Auditoria({
             {
                 subviewAuditoria=="conciliacion" && bancosdata.view=="conciliacion"? 
                     <>
+                        <div className="form-group">
+                            <div className="input-group">
+                                <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
+                                <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
+                                <button className="btn btn-success" onClick={()=>getBancosData()}><i className="fa fa-search"></i></button>
+                            
+                            </div>
+                        </div> 
                         <table className="table">
                             <thead>
                                 <tr>
@@ -447,6 +461,7 @@ export default function Auditoria({
                                     <th>INGRESO</th>
                                     <th>EGRESO</th>
                                     <th className="bg-success-light">CUADRE DIGITAL</th>
+                                    <th>CONCILIACIÓN</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -454,21 +469,21 @@ export default function Auditoria({
                                     <tr key={i} onClick={()=>selectConciliacion(e.banco,e.fecha)}>
                                         <th>{e.banco}</th>
                                         <th>{e.fecha}</th>
-                                        <th>
+                                        <th className="bg-success-light">
                                             {selectConciliacionData == e.banco+"-"+e.fecha?
                                                 <div className="input-group">
                                                     
-                                                    <input type="text" placeholder="Saldo ACTUAL" className="form-control" value={saldoactualbancofecha} onChange={event=>setsaldoactualbancofecha(event.target.value)} />
+                                                    <input type="text" placeholder="Saldo ACTUAL" size={5} className="form-control" value={saldoactualbancofecha} onChange={event=>setsaldoactualbancofecha(event.target.value)} />
                                                     <button className="btn btn-warning" onClick={()=>sendsaldoactualbancofecha(e.banco,e.fecha)}><i className="fa fa-send"></i></button>
                                                 </div>
-                                            :e.guardado?e.guardado.saldo:"----"
+                                            :e.guardado?moneda(e.guardado.saldo):"----"
                                             }
                                         </th>
                                         <th className="bg-warning-light">{moneda(e.inicial)}</th>
                                         <th className="bg-success-light">{moneda(e.ingreso)}</th>
                                         <th className="bg-danger-light">{moneda(e.egreso)}</th>
-                                        <th className="bg-success">{moneda(e.balance)}</th>
-                                        <th></th>
+                                        <th className="bg-success-light">{moneda(e.balance)}</th>
+                                        <th className={(e.cuadre==0?"bg-success text-light":"bg-danger text-light")+" fs-3 text-right"}>{moneda(e.cuadre)}</th>
 
                                     </tr>
                                 )}

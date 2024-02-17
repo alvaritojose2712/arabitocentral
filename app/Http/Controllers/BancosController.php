@@ -142,9 +142,11 @@ class BancosController extends Controller
                         $ingresoBanco += $e["monto_liquidado"];
                     }
                 }
-                $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("banco")->first();
+                $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("banco",$KeybancoGroup)->first();
                 $inicial = $this->getSaldoInicialBanco($KeyfechasGroup,$KeybancoGroup);
                 $balance = $ingresoBanco-$egresoBanco+$inicial;
+
+                $cuadre = $q_banco? $q_banco->saldo - $balance: 0;
                 array_push($xfechaCuadre, [
                     "fecha" => $KeyfechasGroup,
                     "banco" => $KeybancoGroup,
@@ -155,6 +157,8 @@ class BancosController extends Controller
                     "balance" => $balance, 
 
                     "guardado" => $q_banco, 
+                    
+                    "cuadre" => $cuadre, 
                 ]);
 
             }
@@ -175,7 +179,7 @@ class BancosController extends Controller
         if (! $saldo) {
             return 0;
         }
-        return $saldo;
+        return $saldo->saldo;
     }
     function sendsaldoactualbancofecha(Request $req) {  
         $banco = $req->banco;

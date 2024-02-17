@@ -16,7 +16,6 @@ class bancos extends Model
     }
     protected $fillable = [
         "banco",
-        "id_banco",
         "id_usuario",
         "descripcion",
         "fecha",

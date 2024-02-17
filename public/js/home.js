@@ -2303,7 +2303,8 @@ function Auditoria(_ref) {
     setsaldoactualbancofecha = _ref.setsaldoactualbancofecha,
     sendsaldoactualbancofecha = _ref.sendsaldoactualbancofecha,
     selectConciliacionData = _ref.selectConciliacionData,
-    setselectConciliacionData = _ref.setselectConciliacionData;
+    setselectConciliacionData = _ref.setselectConciliacionData,
+    colorFun = _ref.colorFun;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getMetodosPago();
     getBancosData();
@@ -2974,7 +2975,13 @@ function Auditoria(_ref) {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 children: e.banco
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: e.tipo
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                  className: "btn w-100 fw-bolder",
+                  style: {
+                    backgroundColor: "#A85" + colorFun(e.tipo) + e.tipo.replace(/\D/g, "") * 150
+                  },
+                  children: e.tipo
+                })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 children: e.fecha
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
@@ -2984,8 +2991,14 @@ function Auditoria(_ref) {
                   className: "btn w-100 " + (e.monto < 0 ? "btn-danger" : "btn-success"),
                   children: e.monto < 0 ? "EGRESO" : "INGRESO"
                 }), " "]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: e.sucursal.codigo
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
+                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                  className: "btn w-100 fw-bolder",
+                  style: {
+                    backgroundColor: "#" + colorFun(1575 * e.sucursal.id + e.sucursal.codigo.slice(0, 6))
+                  },
+                  children: e.sucursal.codigo
+                })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 children: e.loteserial
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
@@ -3027,8 +3040,36 @@ function Auditoria(_ref) {
           })
         })]
       })]
-    }) : null, subviewAuditoria == "conciliacion" && bancosdata.view == "conciliacion" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
+    }) : null, subviewAuditoria == "conciliacion" && bancosdata.view == "conciliacion" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "form-group",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "input-group",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "date",
+            className: "form-control",
+            value: fechaSelectAuditoria,
+            onChange: function onChange(event) {
+              return setfechaSelectAuditoria(event.target.value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "date",
+            className: "form-control",
+            value: fechaHastaSelectAuditoria,
+            onChange: function onChange(event) {
+              return setfechaHastaSelectAuditoria(event.target.value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "btn btn-success",
+            onClick: function onClick() {
+              return getBancosData();
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+              className: "fa fa-search"
+            })
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
         className: "table",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
@@ -3048,6 +3089,8 @@ function Auditoria(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
               className: "bg-success-light",
               children: "CUADRE DIGITAL"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              children: "CONCILIACI\xD3N"
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
@@ -3061,11 +3104,13 @@ function Auditoria(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 children: e.fecha
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                className: "bg-success-light",
                 children: selectConciliacionData == e.banco + "-" + e.fecha ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
                   className: "input-group",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
                     type: "text",
                     placeholder: "Saldo ACTUAL",
+                    size: 5,
                     className: "form-control",
                     value: saldoactualbancofecha,
                     onChange: function onChange(event) {
@@ -3080,7 +3125,7 @@ function Auditoria(_ref) {
                       className: "fa fa-send"
                     })
                   })]
-                }) : e.guardado ? e.guardado.saldo : "----"
+                }) : e.guardado ? moneda(e.guardado.saldo) : "----"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 className: "bg-warning-light",
                 children: moneda(e.inicial)
@@ -3091,13 +3136,16 @@ function Auditoria(_ref) {
                 className: "bg-danger-light",
                 children: moneda(e.egreso)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-success",
+                className: "bg-success-light",
                 children: moneda(e.balance)
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {})]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                className: (e.cuadre == 0 ? "bg-success text-light" : "bg-danger text-light") + " fs-3 text-right",
+                children: moneda(e.cuadre)
+              })]
             }, i);
           })
         })]
-      })
+      })]
     }) : null]
   });
 }
@@ -64969,7 +65017,7 @@ function Home() {
     name: "RRHH"
   }, {
     route: "auditoria",
-    name: "AUDITORIA"
+    name: "AUDITORÍA"
   }, {
     route: "usuarios",
     name: "USUARIOS"
@@ -64984,6 +65032,18 @@ function Home() {
     route: "administracion",
     name: "ADMINISTRACIÓN"
   }];
+  var colorFun = function colorFun(str) {
+    var stringHexNumber = (
+    // 1
+    parseInt(
+    // 2
+    parseInt(str, 36) // 3
+    .toExponential() // 4
+    .slice(2, -5) // 5
+    , 10) & 0xFFFFFF // 6
+    ).toString(16).toUpperCase();
+    return stringHexNumber;
+  };
   var _useState443 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
     _useState444 = _slicedToArray(_useState443, 2),
     opcionesMetodosPago = _useState444[0],
@@ -65061,13 +65121,20 @@ function Home() {
       var g = fil[0].guardado;
       if (g) {
         setsaldoactualbancofecha(g.saldo);
+      } else {
+        setsaldoactualbancofecha("");
       }
     }
   };
   var sendsaldoactualbancofecha = function sendsaldoactualbancofecha(banco, fecha) {
     _database_database__WEBPACK_IMPORTED_MODULE_4__["default"].sendsaldoactualbancofecha({
       banco: banco,
-      fecha: fecha
+      fecha: fecha,
+      saldo: saldoactualbancofecha
+    }).then(function (res) {
+      getBancosData();
+      setselectConciliacionData("");
+      notificar(res.data.msj);
     });
   };
   var liquidarMov = function liquidarMov(id) {
@@ -65316,6 +65383,7 @@ function Home() {
           setviewmainPanel: setviewmainPanel,
           viewmainPanel: viewmainPanel
         }), viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_30__["default"], {
+          colorFun: colorFun,
           subviewAuditoria: subviewAuditoria,
           setsubviewAuditoria: setsubviewAuditoria,
           selectxMovimientos: selectxMovimientos,
