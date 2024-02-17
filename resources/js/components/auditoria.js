@@ -237,7 +237,7 @@ export default function Auditoria({
                                     <tbody>
                                         {bancosdata.puntosybiopagosxbancos? Object.entries(bancosdata.puntosybiopagosxbancos).map(bancos=>
                                             <tr key={bancos[0]}>
-                                                <th className="pointer"> 
+                                                <th className="pointer align-middle"> 
                                                     <button className="btn w-100 fw-bolder" 
                                                     style={{
                                                         backgroundColor:colors[bancos[0]]?colors[bancos[0]][0]:"", 
@@ -251,56 +251,88 @@ export default function Auditoria({
                                                         {
                                                             bancos[1]["ingreso"]?
                                                             <>
-                                                                <td className="text-right text-primary bg-primary-light">
+                                                                <td className="fw-bolder text-right bg-primary-light align-middle">
+                                                                    <br />
+
                                                                     {bancos[1]["ingreso"]["Transferencia"]?
                                                                     <>
-                                                                        {moneda(bancos[1]["ingreso"]["Transferencia"]["monto"])} 
+                                                                        <span className="text-success">
+                                                                            {moneda(bancos[1]["ingreso"]["Transferencia"]["monto_liquidado"])} 
+                                                                        </span>
+                                                                        <hr className="m-0" />
+                                                                        <span className="text-sinapsis">
+                                                                            {moneda(bancos[1]["ingreso"]["Transferencia"]["monto"])} 
+                                                                        </span>
                                                                     </>
                                                                     :null}
+                                                                    <br />
                                                                 </td>
-                                                                <td className="text-right text-primary bg-primary-light">
-                                                                    {bancos[1]["ingreso"]["Transferencia"]?
-                                                                    <>
-                                                                        {moneda(bancos[1]["ingreso"]["Transferencia"]["monto_liquidado"])} 
-                                                                    </>
-                                                                    :null}
+                                                                <td className="align-middle bg-primary-light">
+                                                                    <span className="text-muted">%</span>
                                                                 </td>
 
 
-                                                                <td className="text-right text-sinapsis bg-warning-light">
+                                                                <td className="fw-bolder text-right bg-warning-light align-middle">
+                                                                    <br />
+
                                                                     {bancos[1]["ingreso"]["PUNTO"]?
                                                                     <>
-                                                                        {moneda(bancos[1]["ingreso"]["PUNTO"]["monto"])}
+                                                                        <span className="text-success">
+                                                                            {moneda(bancos[1]["ingreso"]["PUNTO"]["monto_liquidado"])} 
+                                                                        </span>
+                                                                        <hr className="m-0" />
+                                                                        <span className="text-sinapsis">
+                                                                            {moneda(bancos[1]["ingreso"]["PUNTO"]["monto"])} 
+                                                                        </span>
                                                                     </>
                                                                     :null}
+                                                                    <br />
                                                                 </td>
-                                                                <td className="text-right text-sinapsis bg-warning-light">
-                                                                    {bancos[1]["ingreso"]["PUNTO"]?
-                                                                    <>
-                                                                        {moneda(bancos[1]["ingreso"]["PUNTO"]["monto_liquidado"])} 
-                                                                    </>
-                                                                    :null}
+                                                                <td className="align-middle bg-warning-light">
+                                                                    <span className="text-muted">%</span>
                                                                 </td>
 
 
-                                                                <td className="text-right text-danger bg-danger-light">
+                                                                <td className="fw-bolder text-right bg-danger-light align-middle">
+                                                                    <br />
+
                                                                     {bancos[1]["ingreso"]["BIOPAGO"]?
                                                                     <>
-                                                                        {moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto"])} 
+                                                                        <span className="text-success">
+                                                                            {moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto_liquidado"])} 
+                                                                        </span>
+                                                                        <hr className="m-0" />
+                                                                        <span className="text-sinapsis">
+                                                                            {moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto"])} 
+                                                                        </span>
                                                                     </>
                                                                     :null}
+                                                                    <br />
                                                                 </td>
-                                                                <td className="text-right text-danger bg-danger-light">
-                                                                    {bancos[1]["ingreso"]["BIOPAGO"]?
+                                                                <td className="align-middle bg-danger-light">
+                                                                    <span className="text-muted">%</span>
+                                                                </td>
+
+                                                                <td className="fw-bolder text-right bg-warning align-middle">
+                                                                    <br />
+
+                                                                    {bancos[1]["ingreso"]?
                                                                     <>
-                                                                        {moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto_liquidado"])} 
+                                                                        <span className="text-success">
+                                                                            {moneda(bancos[1]["ingreso"]["monto_liquidado"])} 
+                                                                        </span>
+                                                                        <hr className="m-0" />
+                                                                        <span className="text-sinapsis">
+                                                                            {moneda(bancos[1]["ingreso"]["monto"])} 
+                                                                        </span>
                                                                     </>
                                                                     :null}
+                                                                    <br />
+                                                                </td>
+                                                                <td className="align-middle bg-warning">
+                                                                    <span className="text-muted">%</span>
                                                                 </td>
 
-
-                                                                <td className="text-right bg-warning">{moneda(bancos[1]["ingreso"]["monto"])}</td>
-                                                                <td className="text-right bg-warning">{moneda(bancos[1]["ingreso"]["monto_liquidado"])}</td>
                                                             </>
                                                             :null
                                                         }
@@ -308,23 +340,45 @@ export default function Auditoria({
                                                         {
                                                             bancos[1]["egreso"]?
                                                             <>
-                                                                <td className="text-right text-primary bg-primary-light">
+                                                                <td className="fw-bolder text-right bg-primary-light align-middle">
+                                                                    <br />
+
                                                                     {bancos[1]["egreso"]["Transferencia"]?
-                                                                        <>
-                                                                            {moneda(bancos[1]["egreso"]["Transferencia"]["monto"])}
-                                                                        </>
-                                                                    :null}
-                                                                </td>
-                                                                <td className="text-right text-primary bg-primary-light">
-                                                                    {bancos[1]["egreso"]["Transferencia"]?
-                                                                        <>
+                                                                    <>
+                                                                        <span className="text-success">
                                                                             {moneda(bancos[1]["egreso"]["Transferencia"]["monto_liquidado"])} 
-                                                                        </>
+                                                                        </span>
+                                                                        <hr className="m-0" />
+                                                                        <span className="text-sinapsis">
+                                                                            {moneda(bancos[1]["egreso"]["Transferencia"]["monto"])} 
+                                                                        </span>
+                                                                    </>
                                                                     :null}
+                                                                    <br />
+                                                                </td>
+                                                                <td className="align-middle bg-primary-light">
+                                                                    <span className="text-muted">%</span>
                                                                 </td>
 
-                                                                <td className="text-right bg-warning">{moneda(bancos[1]["egreso"]["monto"])}</td>
-                                                                <td className="text-right bg-warning">{moneda(bancos[1]["egreso"]["monto_liquidado"])}</td>
+                                                                <td className="fw-bolder text-right bg-warning align-middle">
+                                                                    <br />
+
+                                                                    {bancos[1]["egreso"]?
+                                                                    <>
+                                                                        <span className="text-success">
+                                                                            {moneda(bancos[1]["egreso"]["monto_liquidado"])} 
+                                                                        </span>
+                                                                        <hr className="m-0" />
+                                                                        <span className="text-sinapsis">
+                                                                            {moneda(bancos[1]["egreso"]["monto"])} 
+                                                                        </span>
+                                                                    </>
+                                                                    :null}
+                                                                    <br />
+                                                                </td>
+                                                                <td className="align-middle bg-warning">
+                                                                    <span className="text-muted">%</span>
+                                                                </td>
                                                             </>
                                                             :null
                                                         }
