@@ -66,6 +66,8 @@ export default function Auditoria({
     selectConciliacionData,
     setselectConciliacionData,
     colorFun,
+    colors,
+    colorSucursal,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -97,7 +99,7 @@ export default function Auditoria({
         return "0"
     }
 
-
+    const [nummm, setnummm] = useState(0)
     return (
        <div className="container-fluid">
             <div className="d-flex justify-content-center">
@@ -206,7 +208,7 @@ export default function Auditoria({
                         </div>
                         <div className="row">
                             <div className="col">
-                                <table className="table">
+                                <table className="table table-sm ">
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -216,14 +218,16 @@ export default function Auditoria({
 
                                         <tr>
                                             <th>BANCO</th>
-                                            <th colSpan={2} className="text-right bg-primary-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("ingreso_Transferencia", null)}>TRANSFERENCIA</button> </th>
-                                            <th colSpan={2} className="text-right bg-warning-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("ingreso_PUNTO", null)}>PUNTO</button> </th>
-                                            <th colSpan={2} className="text-right bg-danger-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("ingreso_BIOPAGO", null)}>BIOPAGO</button> </th>
+                                            <th colSpan={2} className="text-right bg-primary-light pointer">  
+                                                <button className="btn" style={{backgroundColor:colors["Transferencia"]}} onClick={()=>selectxMovimientos("ingreso_Transferencia", null)}>TRANSFERENCIA</button> 
+                                            </th>
+                                            <th colSpan={2} className="text-right bg-warning-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("ingreso_PUNTO", null)} style={{backgroundColor:colors["PUNTO"]}}>PUNTO</button> </th>
+                                            <th colSpan={2} className="text-right bg-danger-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("ingreso_BIOPAGO", null)} style={{backgroundColor:colors["BIOPAGO"]}}>BIOPAGO</button> </th>
                                             
                                             <th className="text-right bg-warning"></th>
                                             <th className="text-right bg-warning"></th>
 
-                                            <th colSpan={2} className="text-right bg-primary-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("egreso_Transferencia", null)}>TRANSFERENCIA</button> </th>
+                                            <th colSpan={2} className="text-right bg-primary-light pointer"> <button className="btn" onClick={()=>selectxMovimientos("egreso_Transferencia", null)} style={{backgroundColor:colors["Transferencia"]}}>TRANSFERENCIA</button> </th>
                                             
                                             <th className="text-center bg-warning"></th>
                                             <th className="text-center bg-warning"></th>
@@ -233,7 +237,15 @@ export default function Auditoria({
                                     <tbody>
                                         {bancosdata.puntosybiopagosxbancos? Object.entries(bancosdata.puntosybiopagosxbancos).map(bancos=>
                                             <tr key={bancos[0]}>
-                                                <th className="pointer"> <button className="btn" onClick={()=>selectxMovimientos("banco", bancos[0])}>{bancos[0]}</button></th>
+                                                <th className="pointer"> 
+                                                    <button className="btn w-100 fw-bolder" 
+                                                    style={{
+                                                        backgroundColor:colors[bancos[0]]?colors[bancos[0]][0]:"", 
+                                                        color:colors[bancos[0]]?colors[bancos[0]][1]:""
+                                                    }}
+                                                    onClick={()=>selectxMovimientos("banco", bancos[0])}
+                                                    >{bancos[0]}</button>
+                                                </th>
                                                 {bancos[1]?
                                                     <>
                                                         {
@@ -354,12 +366,24 @@ export default function Auditoria({
 
                                         {movimientoAuditoria.map(e=>
                                             <tr key={e.id}>
-                                                <th>{e.banco}</th>
-                                                <th>{e.tipo}</th>
+                                                <th>
+                                                    <button className="btn w-100 fw-bolder" 
+                                                    style={{
+                                                        backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
+                                                        color:colors[e.banco]?colors[e.banco][1]:""
+                                                    }}>{e.banco}</button>
+                                                        
+                                                </th>
+                                                <th>
+                                                    <button className="btn w-100 fw-bolder" 
+                                                    style={{backgroundColor:colors[e.tipo]}}>{e.tipo}</button> 
+                                                </th>
                                                 <th>{e.fecha}</th>
                                                 <th>{e.fecha_liquidacion}</th>
                                                 <th> <button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button> </th>
-                                                <th>{e.sucursal.codigo}</th>
+                                                <th>
+                                                    <button className={"btn w-100 fw-bolder "} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.codigo}</button>
+                                                </th>
                                                 <th>{e.loteserial}</th>
                                                 <th>{getCat(e.categoria)}</th>
                                                 <th>{moneda(e.monto)}</th>
@@ -408,15 +432,24 @@ export default function Auditoria({
                             <tbody>
                                 {bancosdata.xliquidar.map((e,i)=>
                                     <tr key={e.id} onClick={()=>setselectTrLiquidar(i)}>
-                                        <th>{e.banco}</th>
                                         <th>
                                             <button className="btn w-100 fw-bolder" 
-                                            style={{backgroundColor:"#A85"+(colorFun(e.tipo))+(e.tipo.replace(/\D/g, "")*150)}}>{e.tipo}</button> 
+                                            style={{
+                                                backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
+                                                color:colors[e.banco]?colors[e.banco][1]:""
+                                            }}>{e.banco}</button>
+                                            
+                                        </th>
+                                        <th>
+                                            <button className="btn w-100 fw-bolder" 
+                                            style={{backgroundColor:colors[e.tipo]}}>{e.tipo}</button> 
                                         </th>
                                         <th>{e.fecha}</th>
                                         <th>{e.fecha_liquidacion}</th>
                                         <th> <button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button> </th>
-                                        <th> <button className="btn w-100 fw-bolder" style={{backgroundColor:"#"+colorFun(1575*e.sucursal.id+(e.sucursal.codigo).slice(0,6))}}>{e.sucursal.codigo}</button></th>
+                                        <th> 
+                                            <button className="btn w-100 fw-bolder" style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.codigo}</button>
+                                        </th>
                                         <th>{e.loteserial}</th>
                                         <th>
                                             {getCat(e.categoria)}
@@ -467,7 +500,16 @@ export default function Auditoria({
                             <tbody>
                                 {bancosdata.xfechaCuadre.map((e,i)=>
                                     <tr key={i} onClick={()=>selectConciliacion(e.banco,e.fecha)}>
-                                        <th>{e.banco}</th>
+                                        <th>
+                                            <button className="btn w-100 fw-bolder" 
+                                                style={{
+                                                    backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
+                                                    color:colors[e.banco]?colors[e.banco][1]:""
+                                                }}
+                                                onClick={()=>selectxMovimientos("banco", e.banco)}
+                                                >{e.banco}</button>
+                                        
+                                        </th>
                                         <th>{e.fecha}</th>
                                         <th className="bg-success-light">
                                             {selectConciliacionData == e.banco+"-"+e.fecha?

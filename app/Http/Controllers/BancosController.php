@@ -49,7 +49,7 @@ class BancosController extends Controller
             $q->whereBetween($field, [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
         })
         ->when($sucursalSelectAuditoria!="",function($q) use ($sucursalSelectAuditoria) {
-            $q->orwhere("id_sucursal",$sucursalSelectAuditoria);
+            $q->where("id_sucursal",$sucursalSelectAuditoria);
         })
         ->orderBy($columnOrder,$order);
 
@@ -68,7 +68,7 @@ class BancosController extends Controller
             $q->whereBetween("fechaemision", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
         })
         ->when($sucursalSelectAuditoria!="",function($q) use ($sucursalSelectAuditoria) {
-            $q->orwhere("id_sucursal",$sucursalSelectAuditoria);
+            $q->where("id_sucursal",$sucursalSelectAuditoria);
         })
         ->get()
         ->map(function ($q) {

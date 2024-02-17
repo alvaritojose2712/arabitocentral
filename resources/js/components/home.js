@@ -387,7 +387,49 @@ function Home() {
 
 
 
+  const [colorSucursalData,setcolorSucursalData] = useState({})
+  const colorFun = (str) => {
+    var stringHexNumber = (                       // 1
+      parseInt(                                 // 2
+          parseInt(str, 36)  // 3
+              .toExponential()                  // 4
+              .slice(2,-5)                      // 5
+      , 10) & 0xFFFFFF                          // 6
+    ).toString(16).toUpperCase(); 
 
+    return (stringHexNumber+"000").slice(0,6)
+  }
+
+  const colorSucursal = code => {
+    if(colorSucursalData[code]){
+      return colorSucursalData[code]
+    }
+    return ""
+  }
+
+
+
+  const colors = {
+    "BIOPAGO 1": "rgb(200, 109, 109)",
+    "BIOPAGO": "rgb(200, 109, 109)",
+    "PUNTO 1": "rgb(245, 222, 35)",
+    "PUNTO 2": "rgb(245, 222, 35)",
+    "PUNTO": "rgb(245, 222, 35)",
+    "Transferencia": "#0091ff",
+
+    "EFECTIVO": ["#06f977", "#000000"],
+    "0102": ["#d70808", "#fff"],
+    "0108": ["#0c3868", "#fff"],
+    "0105": ["#0091ff", "#000000"],
+    "0134": ["rgb(10, 132, 120)", "#fff"],
+    "0175": ["#ff90b3", "#000000"],
+    "0191": ["#ffd102", "#000000"],
+    "0151": ["#14ffe7", "#000000"],
+    "0114": ["#d8ff14", "#000000"],
+    "ZELLE": ["#6d093b", "#fff"],
+    "BINANCE": ["#836901", "#000000"],
+    "AirTM": ["#6d093b", "#000000"],
+  }
 
 
 
@@ -1594,6 +1636,8 @@ function Home() {
 
   useEffect(() => {
     getToday()
+    getSucursales()
+
   }, [])
 
 
@@ -1624,6 +1668,11 @@ function Home() {
     db.getSucursales({}).then(res => {
       setsucursales(res.data)
       setLoading(false)
+      let col = {}
+      res.data.map(e=>{
+        col[e.codigo] =  "#"+colorFun(1575*e.id+(e.codigo).slice(0,6))
+      })
+      setcolorSucursalData(col)
     })
   }
   const getsucursalListData = () => {
@@ -2585,17 +2634,7 @@ function Home() {
 
   ]
 
-  const colorFun = (str) => {
-    var stringHexNumber = (                       // 1
-      parseInt(                                 // 2
-          parseInt(str, 36)  // 3
-              .toExponential()                  // 4
-              .slice(2,-5)                      // 5
-      , 10) & 0xFFFFFF                          // 6
-    ).toString(16).toUpperCase(); 
-
-    return stringHexNumber
-  }
+ 
 
   const [opcionesMetodosPago,setopcionesMetodosPago] = useState([])
   const [bancosdata,setbancosdata] = useState([])
@@ -2661,6 +2700,7 @@ function Home() {
   }
 
   const selectxMovimientos = (type,typebanco) => {
+    setmovimientoAuditoria([])
     let data = []
     if (bancosdata.puntosybiopagosxbancos) {
       let bancos = []
@@ -2672,11 +2712,7 @@ function Home() {
         bancos.push(typebanco)
       }
 
-      console.log(bancos,"bancos")
-      
       bancos.forEach(banco => {
-        console.log(banco,"banco")
-        console.log(type,"type")
         if (bancosdata.puntosybiopagosxbancos[banco]) {
           if (bancosdata.puntosybiopagosxbancos[banco]["ingreso"]) {
             
@@ -2728,6 +2764,8 @@ function Home() {
         orderAuditoria,
         orderColumnAuditoria,
       }).then(res=>{
+        setmovimientoAuditoria([])
+
         if (res.data.estado) {
           setbancosdata(res.data)
         }else{
@@ -2951,6 +2989,8 @@ function Home() {
           {viewmainPanel === "auditoria" &&
             <Auditoria
               colorFun={colorFun}
+              colors={colors}
+              colorSucursal={colorSucursal}
               subviewAuditoria={subviewAuditoria}
               setsubviewAuditoria={setsubviewAuditoria}
               selectxMovimientos={selectxMovimientos}
