@@ -95,6 +95,10 @@ class BancosController extends Controller
                 $q["tipo"] = "PUNTO";
             }
 
+            if ($q["tipo"]=="BIOPAGO 1" OR $q["tipo"]=="BIOPAGO 2") {
+                $q["tipo"] = "BIOPAGO";
+            }
+
             $q["monto_comision"] =  $this->comision($q["monto"],$q["monto_liquidado"])["monto"];
             $q["porcentaje"] =  $this->comision($q["monto"],$q["monto_liquidado"])["porcentaje"];
             return $q;

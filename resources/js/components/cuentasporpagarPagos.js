@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Proveedores from "./proveedores";
 export default function CuentasporpagarPagos({
     getMetodosPago,
     cuentasporpagarDetallesView,
@@ -86,7 +87,9 @@ export default function CuentasporpagarPagos({
     getProveedores,
     selectFactPagoid,
     setqcuentasPorPagarTipoFact ,
-    delItemSelectAbonoFact
+    delItemSelectAbonoFact,
+    selectProveedorCxp,
+    setselectProveedorCxp,
 
     
 }){
@@ -138,6 +141,17 @@ export default function CuentasporpagarPagos({
                                     :
                                     <button className="btn btn-sinapsis fs-3" type="submit">EDITAR <i className="fa fa-pencil"></i></button>
                                 }
+                            </div>
+                        </div>
+                        
+                        <div className="form-group">
+                            <div className="input-group">
+                                <span className="input-group-text cell3">Proveedor</span>
+                                <select className="form-control" value={selectProveedorCxp} onChange={e=>setselectProveedorCxp(e.target.value)}>
+                                    {proveedoresList.map(e=>
+                                        <option key={e.id} value={e.id}>{e.rif}-{e.descripcion}</option>
+                                    )}
+                                </select>
                             </div>
                         </div>
 
@@ -277,17 +291,17 @@ export default function CuentasporpagarPagos({
                 <>
                     <form onSubmit={saveNewFact}>
                         
-                        {/* <div className="form-group">
+                        <div className="form-group">
                             <span>PROVEEDOR</span>
                             
-                            <select className="form-control" value={newfactid_proveedor} onChange={e=>setnewfactid_proveedor(e.target.value)}>
+                            <select className="form-control" value={selectProveedorCxp} onChange={e=>setselectProveedorCxp(e.target.value)}>
                                 <option value="">-</option>
                                 {proveedoresList.map(e=>
                                     <option key={e.id} value={e.id}>{e.rif}-{e.descripcion}</option>
                                 )}
                             </select>
                             
-                        </div> */}
+                        </div> 
                         <div className="input-group m-1">
                             <span className="input-group-text text-right cell4"># FACTURA</span>
                             <input type="text" placeholder="numfact" value={newfactnumfact} onChange={e=>setnewfactnumfact(e.target.value)} className="form-control" />

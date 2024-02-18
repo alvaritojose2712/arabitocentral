@@ -519,8 +519,7 @@ export default function CuentasporpagarDetalles({
                             {
                                 selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                                 ? selectCuentaPorPagarId.detalles.map( (e,i) =>
-                                <>
-                                    <tbody className="">
+                                    <tbody className="" key={e.id}>
                                         <tr className={(" border-bottom ")+(e.aprobado==0?"bg-danger-light":"bg-success-light")}>
                                             <td className="">
                                                 <small className="text-muted">{e.created_at}</small>
@@ -577,7 +576,6 @@ export default function CuentasporpagarDetalles({
                                             </td>
                                         </tr>
                                     </tbody>   
-                                </>
                                 )
                                 : null : null
                             } 

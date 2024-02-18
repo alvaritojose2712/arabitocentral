@@ -594,7 +594,12 @@ body{
   flex: 1;
 }
 
-@media 
+.listSelectFats{
+  position: fixed;
+  top: 0;
+}
+
+/* @media 
 only screen and (max-width: 900px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
   .items-table-movil{
@@ -604,8 +609,4 @@ only screen and (max-width: 900px),
   .items-table-pc{
     display: none;
   }
-}
-.listSelectFats{
-  position: fixed;
-  top: 0;
-}
+} */

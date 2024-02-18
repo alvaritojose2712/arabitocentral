@@ -1869,60 +1869,49 @@ function Home() {
   const saveNewFact = event => {
     event.preventDefault()
     if (confirm("Confirme")) {
-      let id_proveedor = null
-      if (selectCuentaPorPagarId) {
-        if (selectCuentaPorPagarId.detalles) {
-            if (selectCuentaPorPagarId.detalles[0]) {
-                if (selectCuentaPorPagarId.detalles[0].proveedor) {
-                    db.saveNewFact({
-                      newfactid_proveedor:selectProveedorCxp,
-                      newfactnumfact,
-                      newfactnumnota,
-                      newfactdescripcion,
-                      newfactsubtotal,
-                      newfactdescuento,
-                      newfactmonto_exento,
-                      newfactmonto_gravable,
-                      newfactiva,
-                      newfactmonto,
-                      newfactfechaemision,
-                      newfactfechavencimiento,
-                      newfactfecharecepcion,
-                      newfactnota,
-                      newfacttipo,
-                      newfactfrecuencia,
-                      id:selectFactEdit
-                    }).then(res=>{
-                      notificar(res)
-                      if (res.data.estado) {
-                        setselectFactEdit(null)
-                        selectCuentaPorPagarProveedorDetallesFun(selectProveedorCxp)
-                        setcuentasporpagarDetallesView("cuentas")
+      db.saveNewFact({
+        newfactid_proveedor:selectProveedorCxp,
+        newfactnumfact,
+        newfactnumnota,
+        newfactdescripcion,
+        newfactsubtotal,
+        newfactdescuento,
+        newfactmonto_exento,
+        newfactmonto_gravable,
+        newfactiva,
+        newfactmonto,
+        newfactfechaemision,
+        newfactfechavencimiento,
+        newfactfecharecepcion,
+        newfactnota,
+        newfacttipo,
+        newfactfrecuencia,
+        id:selectFactEdit
+      }).then(res=>{
+        notificar(res)
+        if (res.data.estado) {
+          setselectFactEdit(null)
+          selectCuentaPorPagarProveedorDetallesFun(selectProveedorCxp)
+          setcuentasporpagarDetallesView("cuentas")
 
-                        setnewfactid_proveedor("")
-                        setnewfactnumfact("")
-                        setnewfactnumnota("")
-                        setnewfactdescripcion("")
-                        setnewfactsubtotal("")
-                        setnewfactdescuento("")
-                        setnewfactmonto_exento("")
-                        setnewfactmonto_gravable("")
-                        setnewfactiva("")
-                        setnewfactmonto("")
-                        setnewfactfechaemision("")
-                        setnewfactfechavencimiento("")
-                        setnewfactfecharecepcion("")
-                        setnewfactnota("")
-                        setnewfacttipo("")
-                        setnewfactfrecuencia("")
-                      }
-                    })
-                }
-            }
+          setnewfactid_proveedor("")
+          setnewfactnumfact("")
+          setnewfactnumnota("")
+          setnewfactdescripcion("")
+          setnewfactsubtotal("")
+          setnewfactdescuento("")
+          setnewfactmonto_exento("")
+          setnewfactmonto_gravable("")
+          setnewfactiva("")
+          setnewfactmonto("")
+          setnewfactfechaemision("")
+          setnewfactfechavencimiento("")
+          setnewfactfecharecepcion("")
+          setnewfactnota("")
+          setnewfacttipo("")
+          setnewfactfrecuencia("")
         }
-      }
-                   
-               
+      })
     }
     
   }
@@ -2295,7 +2284,7 @@ function Home() {
         
         let chetotal = selectAbonoFact.map(e=>number(e.val)).reduce((partial_sum, a) => parseFloat(partial_sum) + parseFloat(a), 0)
 
-        if (chetotal==parseFloat(cuentasPagosMonto)) {
+        if (parseFloat(cuentasPagosMonto)<chetotal+1 && parseFloat(cuentasPagosMonto)>chetotal-1) {
           db.sendPagoCuentaPorPagar({
             id: selectFactPagoid,
             id_sucursal: selectFactPagoid_sucursal,
@@ -3176,6 +3165,8 @@ function Home() {
 
                     {cuentasporpagarDetallesView=="pagos"?
                       <CuentasporpagarPago
+                        selectProveedorCxp={selectProveedorCxp}
+                        setselectProveedorCxp={setselectProveedorCxp}
                         getMetodosPago={getMetodosPago}
                         delItemSelectAbonoFact={delItemSelectAbonoFact}
                         setqcuentasPorPagarTipoFact={setqcuentasPorPagarTipoFact }
