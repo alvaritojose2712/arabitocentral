@@ -5310,7 +5310,7 @@ function CuentasporpagarPagos(_ref) {
             return !selectAbonoFact.map(function (ee) {
               return ee.id;
             }).includes(e.id);
-          }) : _([]) : _([])).filter(function (e) {
+          }) : [] : []).filter(function (e) {
             return e.monto < 0 && e.condicion != "pagadas";
           }).sort(function (a, b) {
             return b.balance - a.balance;
