@@ -168,7 +168,7 @@ class BancosController extends Controller
                 }
                 $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("banco",$KeybancoGroup)->first();
                 $inicial = $this->getSaldoInicialBanco($KeyfechasGroup,$KeybancoGroup);
-                $balance = $ingresoBanco-($egresoBanco*-1)+$inicial;
+                $balance = $ingresoBanco+($egresoBanco)+$inicial;
 
                 $cuadre = $q_banco? $q_banco->saldo - $balance: 0;
                 array_push($xfechaCuadre, [
