@@ -225,6 +225,7 @@ Route::post('sendFacturaCentral', [CuentasporpagarController::class,"sendFactura
 Route::post('getAllProveedores', [ProveedoresController::class,"getAllProveedores"]);
 Route::match(array('GET', 'POST'),'selectCuentaPorPagarProveedorDetalles', [CuentasporpagarController::class,"selectCuentaPorPagarProveedorDetalles"]);
 Route::get('showImageFact', [CuentasporpagarController::class,"showImageFact"]);
+Route::post('getDisponibleEfectivoSucursal', [CajasController::class,"getDisponibleEfectivoSucursal"]);
 
 Route::get('getMetodosPago', [BancosListController::class,"getMetodosPago"]);
 Route::get('getBancosData', [BancosController::class,"getBancosData"]);

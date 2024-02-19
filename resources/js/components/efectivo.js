@@ -34,6 +34,10 @@ export default function Efectivo({
                             Cuentas Por Pagar
                         </button>
                         <ul className={("dropdown-menu ")+ (toggleClientesBtn?"show":null)} onMouseLeave={()=>settoggleClientesBtn(false)}>
+                        
+                            <li>
+                            <span className={(subViewCuentasxPagar=="disponible"?"btn btn-sinpasis":"btn")+(" p-3 pointer dropdown-item")} onClick={()=>{setsubViewCuentasxPagar("disponible");settoggleClientesBtn(false)}}>Efectivo Disponible</span>
+                            </li>
                             <li>
                             <span className={(subViewCuentasxPagar=="proveedor"?"btn btn-sinpasis":"btn")+(" p-3 pointer dropdown-item")} onClick={()=>{setsubViewCuentasxPagar("proveedor");settoggleClientesBtn(false)}}>Proveedor</span>
                             </li>

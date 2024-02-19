@@ -66,7 +66,8 @@ export default function CuentasporpagarDetalles({
     setdescuentoGeneralFats,
     sendDescuentoGeneralFats,
     abonarFact,
-    proveedoresList ,
+    proveedoresList,
+    
 
 }){
     
@@ -80,6 +81,18 @@ export default function CuentasporpagarDetalles({
         setselectFactPagoid(null)
         setselectFactPagoid_sucursal(null)
         setselectAbonoFact([])
+    }
+
+    let dataCuenta = {}
+    if (SelectCuentaPorPagarDetalle) {
+        if (selectCuentaPorPagarId) {
+            if (selectCuentaPorPagarId.detalles) {
+                let f = selectCuentaPorPagarId.detalles.filter(e=>e.id==SelectCuentaPorPagarDetalle)
+                if (f.length) {
+                    dataCuenta = f[0]
+                }
+            }
+        }
     }
 
     
@@ -416,7 +429,7 @@ export default function CuentasporpagarDetalles({
                                                         true
                                                     :false} /> */}
                                                     <span className="m-2">
-                                                        {e.aprobado==0?<i className="fa-2x fa fa-clock-o text-sinapsis"></i>:<i className="fa-2x fa fa-check text-success"></i>} 
+                                                        {e.aprobado==0?<i className="fa-2x fa fa-clock-o text-sinapsis"></i>:<i className="fa fa-check text-success"></i>} 
 
                                                     </span>
                                                     <span className={
@@ -473,10 +486,10 @@ export default function CuentasporpagarDetalles({
                                                 <tr className={(selectFactViewDetalles==e.id?"bg-success-superlight":null)+" border-bottom-5"}>
                                                     <th colSpan={10} className="text-center">
                                                         <div className="btn-group">
-                                                            <button className="btn btn-outline-success" onClick={()=>abonarFact(e.id_proveedor,e.id)}>
+                                                            {e.condicion!="pagadas" && e.condicion!="abonos"?<button className="btn btn-outline-success" onClick={()=>abonarFact(e.id_proveedor,e.id)}>
                                                                 <i className=" fa fa-credit-card"></i>
                                                                 PAGAR 
-                                                            </button>
+                                                            </button>:null}
                                                             <button className="btn btn-outline-info" onClick={()=>showImageFact(e.descripcion)}> <i className="fa fa-eye"></i> VER </button>
                                                             <button className="btn btn-outline-sinapsis" onClick={()=>setSelectCuentaPorPagarDetalle(e.id)}> <i className="fa fa-pencil"></i> EDITAR </button>
                                                         </div>
@@ -490,15 +503,15 @@ export default function CuentasporpagarDetalles({
                                                         <>
                                                             {e.pagos.map(pago=>
                                                                     <tr key={pago.id} className={(selectFactViewDetalles==e.id?"bg-success-superlight":null)+" border-bottom-5 align-middle"}>
-                                                                        <th colSpan={2}></th>
+                                                                        <th colSpan={1}></th>
                                                                         <td className=" text-right" colSpan={3}>
                                                                             <span className="text-muted fst-italic">{pago.created_at}</span>
                                                                         </td>
                                                                         <td className="" colSpan={2}>
                                                                             PAGO REALIZADO <i className="fa fa-check text-success"></i>
                                                                         </td>
-                                                                        <td className="   align-middle" colSpan={2    }>
-                                                                            <span className="btn-sinapsis btn pointer btn-sm w-100 fs-7">
+                                                                        <td className="align-middle" colSpan={3}>
+                                                                            <span className="btn-success btn pointer btn-sm w-100 fs-5">
                                                                                 {pago.numfact}
                                                                             </span> 
                                                                         </td>
@@ -536,10 +549,10 @@ export default function CuentasporpagarDetalles({
                                                                 BALANCE                                        
                                                             </th>
                                                             <td colSpan={2} className={((e.balance)<0? "text-danger": "text-success")+(" fs-2 text-right align-middle bg-warning-light")}>
-                                                                <button className="btn btn-outline-success m-2" onClick={()=>abonarFact(e.id_proveedor,e.id)}>
+                                                                {e.condicion!="pagadas" && e.condicion!="abonos"?<button className="btn btn-outline-success m-2" onClick={()=>abonarFact(e.id_proveedor,e.id)}>
                                                                     <i className=" fa fa-credit-card"></i>
                                                                     PAGAR 
-                                                                </button>
+                                                                </button>:null}
                                                                 {moneda(e.balance)}
                                                             </td>
                                                         </tr>

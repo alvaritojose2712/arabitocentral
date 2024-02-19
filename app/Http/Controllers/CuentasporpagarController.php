@@ -135,6 +135,10 @@ class CuentasporpagarController extends Controller
                             "id_pago" => $cuenta->id,
                             "monto" => $e["val"],
                         ]);
+                        $updateUpdated_at = cuentasporpagar::find($e["id"]);
+                        $updateUpdated_at->updated_at = date("Y-m-d H:i:s");
+                        $updateUpdated_at->save();
+                        
                         if ($update_cuenta) {
                             $msjAbono .= $e["val"]." | ";
                         }else{

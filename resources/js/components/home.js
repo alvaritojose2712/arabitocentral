@@ -65,6 +65,8 @@ import AprobacionCajaFuerte from './aprobacioncajafuerte';
 import Cuentasporpagar from './cuentasporpagar';
 import CuentasporpagarDetalles from './cuentasporpagarDetalles';
 import CuentasporpagarPago from './cuentasporpagarPagos';
+import EfectivoDisponibleSucursales from './efectivoDisponibleSucursales';
+
 
 
 
@@ -1707,7 +1709,7 @@ function Home() {
   
   
   const [qcuentasPorPagarTipoFact, setqcuentasPorPagarTipoFact] = useState("")
-  const [qCampocuentasPorPagarDetalles, setqCampocuentasPorPagarDetalles] = useState("created_at")
+  const [qCampocuentasPorPagarDetalles, setqCampocuentasPorPagarDetalles] = useState("updated_at")
   const [qFechaCampocuentasPorPagarDetalles, setqFechaCampocuentasPorPagarDetalles] = useState("")
   const [fechacuentasPorPagarDetalles, setfechacuentasPorPagarDetalles] = useState("")
   const [categoriacuentasPorPagarDetalles, setcategoriacuentasPorPagarDetalles] = useState("")
@@ -1743,11 +1745,22 @@ function Home() {
   const [selectFactEdit, setselectFactEdit] = useState(null)
   const [selectProveedorCxp, setselectProveedorCxp] = useState("")
   const [cuentaporpagarAprobado,setcuentaporpagarAprobado] = useState(1)
+  const [efectivoDisponibleSucursalesData,setefectivoDisponibleSucursalesData] = useState([])
 
   const [dataselectFacts, setdataselectFacts] = useState({
     "sum": 0,
     "data": []
   })
+
+  const getDisponibleEfectivoSucursal = () => {
+    db.getDisponibleEfectivoSucursal({}).then(res=>{
+      if (res.data.data.length) {
+        setefectivoDisponibleSucursalesData(res.data)
+      }else{
+        setefectivoDisponibleSucursalesData([])
+      }
+    })
+  }
 
   const [descuentoGeneralFats,setdescuentoGeneralFats] = useState("")
   const sendDescuentoGeneralFats = () => {
@@ -1761,6 +1774,7 @@ function Home() {
   }
   const abonarFact = (id_proveedor,id) => {
     setcuentasporpagarDetallesView("pagos");
+    setsubviewAgregarFactPago("pago")
     setselectProveedorCxp(id_proveedor)
     if (selectCuentaPorPagarId) {
       if (selectCuentaPorPagarId.detalles) {
@@ -1825,7 +1839,7 @@ function Home() {
                 let f = selectCuentaPorPagarId.detalles.filter(e=>e.id==SelectCuentaPorPagarDetalle)
                 if (f.length) {
                     let data = f[0]
-
+                    setselectProveedorCxp(data.id_proveedor)
                     if (data.monto>0) {
                       setsubviewAgregarFactPago("pago")
                       setcuentasporpagarDetallesView("pagos")
@@ -2350,6 +2364,10 @@ function Home() {
               setcuentasporpagarDetallesView("cuentas")
               selectCuentaPorPagarProveedorDetallesFun()
               setselectAbonoFact([])
+
+              setcuentasPagosMonto("")
+              setcuentasPagosDescripcion("")
+              setcuentasPagosMetodo("")
             }
             notificar(res.data.msj)
           })
@@ -2865,7 +2883,7 @@ function Home() {
     {codigo:"AirTM", descripcion: "AirTM"},
   ] */
   
-  const [subViewCuentasxPagar, setsubViewCuentasxPagar] = useState("")
+  const [subViewCuentasxPagar, setsubViewCuentasxPagar] = useState("disponible")
   
   return (
     <>
@@ -3338,6 +3356,17 @@ function Home() {
                       setselectProveedorCxp={setselectProveedorCxp}
                     />
                   :null}
+
+                  {
+                    subViewCuentasxPagar === "disponible"?
+                    <EfectivoDisponibleSucursales
+                      efectivoDisponibleSucursalesData={efectivoDisponibleSucursalesData}
+                      setefectivoDisponibleSucursalesData={setefectivoDisponibleSucursalesData}
+                      getDisponibleEfectivoSucursal={getDisponibleEfectivoSucursal}
+                      colorSucursal={colorSucursal}
+                      moneda={moneda}
+                    />:null
+                  }
                 </>
               :null
               }

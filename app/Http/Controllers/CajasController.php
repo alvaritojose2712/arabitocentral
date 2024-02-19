@@ -13,6 +13,33 @@ use Illuminate\Http\Request;
 use Response;
 class CajasController extends Controller
 {
+
+    function getDisponibleEfectivoSucursal() {
+        $arr = [];
+        $dolarbalance = 0;
+        $bsbalance = 0;
+        $pesobalance = 0;
+        $eurobalance = 0;
+
+        foreach (sucursal::all() as $sucursal) {
+            $c = cajas::with("sucursal")->where("id_sucursal",$sucursal->id)->where("concepto","LIKE","%INGRESO DESDE CIERRE%")->orderBy("id","desc")->first();
+            if ($c) {
+                array_push($arr, $c);
+                $dolarbalance += $c->dolarbalance;
+                $bsbalance += $c->bsbalance;
+                $pesobalance += $c->pesobalance;
+                $eurobalance += $c->eurobalance;
+            }
+        }
+        array_multisort(array_column($arr,"dolarbalance"), SORT_DESC, $arr);
+        return [
+            "data" => $arr,
+            "dolarbalance" => $dolarbalance,
+            "bsbalance" => $bsbalance,
+            "pesobalance" => $pesobalance,
+            "eurobalance" => $eurobalance,
+        ];
+    }
     function setEfecFromSucursalToCentral($movs, $id_sucursal) {
 
         

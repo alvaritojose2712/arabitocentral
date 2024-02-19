@@ -29,7 +29,8 @@ const db = {
   liquidarMov: data=>axios.post(host+"liquidarMov",data),
   sendsaldoactualbancofecha: data=>axios.post(host+"sendsaldoactualbancofecha",data),
   reverserLiquidar: data=>axios.post(host+"reverserLiquidar",data),
-  
+  getDisponibleEfectivoSucursal: data=>axios.post(host+"getDisponibleEfectivoSucursal",data),
+   
           
 
   getSucursales: data=>axios.get(host+"getSucursales",{params:data}),
