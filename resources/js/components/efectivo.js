@@ -27,7 +27,7 @@ export default function Efectivo({
     return (
         <>
             <div className="d-flex justify-content-center">
-                <div className="btn-group m-2">
+                <div className="btn-group m-1">
                     <button className={("btn btn-sm ")+(subviewpanelsucursales=="aprobacioncajafuerte"?"btn-sinapsis":"")} onClick={()=>setsubviewpanelsucursales("aprobacioncajafuerte")}>Aprobación</button>
                     <div className="dropdown btn">
                         <button className={(toggleClientesBtn ? "btn btn-sinapsis" : null)+(" btn btn-sm dropdown-toggle")} type="button" onClick={() => {settoggleClientesBtn(!toggleClientesBtn); setsubviewpanelsucursales("cuentasporpagar")}}>

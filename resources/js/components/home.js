@@ -1741,7 +1741,7 @@ function Home() {
   const [newfacttipo, setnewfacttipo] = useState("1")
   const [newfactfrecuencia, setnewfactfrecuencia] = useState("")
   const [selectFactEdit, setselectFactEdit] = useState(null)
-  const [selectProveedorCxp, setselectProveedorCxp] = useState(null)
+  const [selectProveedorCxp, setselectProveedorCxp] = useState("")
   const [cuentaporpagarAprobado,setcuentaporpagarAprobado] = useState(1)
 
   const [dataselectFacts, setdataselectFacts] = useState({
@@ -1759,9 +1759,18 @@ function Home() {
       notificar(res)
     })
   }
-  const abonarFact = id => {
+  const abonarFact = (id_proveedor,id) => {
     setcuentasporpagarDetallesView("pagos");
-    setselectProveedorCxp(id)
+    setselectProveedorCxp(id_proveedor)
+    if (selectCuentaPorPagarId) {
+      if (selectCuentaPorPagarId.detalles) {
+        if (selectCuentaPorPagarId.detalles.length) {
+          let clone = cloneDeep(selectCuentaPorPagarId)
+          clone["detalles"] = clone.detalles.filter(e=>e.id==id)
+          setSelectCuentaPorPagarId(clone)
+        }
+      }
+    }
   }
 
   const selectFacts = (event,id,type="normal") => {
@@ -1947,9 +1956,7 @@ function Home() {
       setSelectCuentaPorPagarDetalle(null)
     })
   }
-  useEffect(()=>{
-    selectCuentaPorPagarProveedorDetallesFun()
-  },[selectProveedorCxp])
+  
   useEffect(()=>{
     selectCuentaPorPagarProveedorDetallesFun()
   },[
@@ -1963,9 +1970,9 @@ function Home() {
       qCampocuentasPorPagarDetalles,
   ])
 
-  const selectCuentaPorPagarProveedorDetallesFun = (type="buscar") => {
+  const selectCuentaPorPagarProveedorDetallesFun = (type="buscar",id_proveedor_force=null) => {
     let req = {
-      id_proveedor:selectProveedorCxp,
+      id_proveedor: id_proveedor_force===null? selectProveedorCxp: id_proveedor_force,
       
       categoriacuentasPorPagarDetalles,
       tipocuentasPorPagarDetalles,
@@ -2272,20 +2279,46 @@ function Home() {
   }
   const [selectAbonoFact, setselectAbonoFact] = useState([])
   const setInputAbonoFact = (id,val) => {
-    if (selectCuentaPorPagarId.detalles) {
-      if (selectCuentaPorPagarId.detalles.length) {
-          let fil = selectCuentaPorPagarId.detalles.filter(e=>e.id==id)
+    let selectAbonoFactClone = cloneDeep(selectAbonoFact)
+    if (selectAbonoFactClone.concat(selectCuentaPorPagarId?selectCuentaPorPagarId.detalles? selectCuentaPorPagarId.detalles: ([]): ([]))) {
+      if (selectAbonoFactClone.concat(selectCuentaPorPagarId?selectCuentaPorPagarId.detalles? selectCuentaPorPagarId.detalles: ([]): ([])).length) {
+          let fil = selectAbonoFactClone.concat(selectCuentaPorPagarId?selectCuentaPorPagarId.detalles? selectCuentaPorPagarId.detalles: ([]): ([])).filter(e=>e.id==id)
           if (fil.length) {
-            let exclude = selectAbonoFact.filter(e=>e.id!=id)
-            if (val) {
+            let exclude = selectAbonoFactClone.map(e=>{
+              if (e.id==id) {
+                e.val=val
+              }
+              return e
+            })
+
+            if (!selectAbonoFactClone.filter(e=>e.id==id).length) {
               let setAb = {
                 id,
                 val:number(val),
                 valfact: fil[0].monto,
-                numfact: fil[0].numfact
+                numfact: fil[0].numfact,
+
+                sucursal: fil[0].sucursal,
+                proveedor: fil[0].proveedor,
+                fechaemision: fil[0].fechaemision,
+                fechavencimiento: fil[0].fechavencimiento,
+                monto_bruto: fil[0].monto_bruto,
+                monto_descuento: fil[0].monto_descuento,
+                descuento: fil[0].descuento,
+                aprobado: fil[0].aprobado,
+                condicion: fil[0].condicion,
+                monto: fil[0].monto,
+                monto_abonado: fil[0].monto_abonado,
+                balance: fil[0].balance,
+
+                guardado:true,
               }
               exclude = exclude.concat(setAb)
             }
+            if (val=="") {
+              exclude = exclude.filter(e=>e.id!=id)
+            }
+
 
             setselectAbonoFact(exclude)
           }
@@ -3286,6 +3319,7 @@ function Home() {
                   :null}
                   {subViewCuentasxPagar === "proveedor"?
                     <Cuentasporpagar
+                      selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
                       subViewCuentasxPagar={subViewCuentasxPagar}
                       setsubViewCuentasxPagar={setsubViewCuentasxPagar}
                       setviewmainPanel={setviewmainPanel}

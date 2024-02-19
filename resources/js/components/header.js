@@ -9,13 +9,13 @@ export default function Header({
 	setviewmainPanel,
 }) {
 	return (
-	<header className="container mt-2 mb-2">
+	<header className="container mt-1 mb-1">
 		<div className="row">
 			<div className="col d-flex justify-content-center align-items-center pointer" onClick={()=>setviewmainPanel("panelgeneral")}>
 				
 			</div>
 			<div className="col d-flex justify-content-center align-items-center">
-				<div>
+				<div className="text-center">
 					<img src={logo} alt="arabito" className="logo pointer" onClick={()=>setviewmainPanel("panelgeneral")} />
 				</div>
 			</div>

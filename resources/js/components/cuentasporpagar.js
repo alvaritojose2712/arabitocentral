@@ -15,13 +15,14 @@ export default function Cuentasporpagar({
 
     selectProveedorCxp,
     setselectProveedorCxp,
+    selectCuentaPorPagarProveedorDetallesFun,
 }){
     return (
-        <div>
+        <div className="container">
             {subViewCuentasxPagar=="proveedor"?
                 <>
                     <form onSubmit={getsucursalDetallesData} className="input-group mb-2">
-                        <input type="text" className="form-control" placeholder="Buscar proveedor" onChange={e=>setqcuentasPorPagar(e.target.value)} value={qcuentasPorPagar} />
+                        <input type="text" className="form-control form-control-lg fs-3" placeholder="Buscar proveedor" onChange={e=>setqcuentasPorPagar(e.target.value)} value={qcuentasPorPagar} />
                         <button className="btn btn-success"><i className="fa fa-search"></i></button>
                     </form>
                     <div className="m-2 d-flex justify-content-between align-items-center">
@@ -40,7 +41,7 @@ export default function Cuentasporpagar({
                         ? sucursalDetallesData.cuentasporpagar.map( (e,i) =>
                             <div 
                             key={e.id}
-                            onClick={()=>{setselectProveedorCxp(e.id);setsubViewCuentasxPagar("detallado")}}
+                            onClick={()=>{setselectProveedorCxp(e.id);selectCuentaPorPagarProveedorDetallesFun("buscar",e.id);setsubViewCuentasxPagar("detallado")}}
                             className={("bg-light")+" text-secondary card mb-3 pointer shadow"}>
                                 <div className="card-header flex-row justify-content-between">
                                     <div className="d-flex justify-content-between">

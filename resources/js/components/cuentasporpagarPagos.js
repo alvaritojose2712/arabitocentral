@@ -127,106 +127,59 @@ export default function CuentasporpagarPagos({
 
             {subviewAgregarFactPago=="pago"?
                <>
-                    <form onSubmit={sendPagoCuentaPorPagar}>
-                        <div className="boton-fijo-inferiorizq">
-                            <div className="form-group">
-                                {selectFactPagoid==null?
-                                    <button className="btn btn-success fs-3" type="submit">GUARDAR <i className="fa fa-save"></i></button>
-                                    :
-                                    <button className="btn btn-sinapsis fs-3" type="submit">EDITAR <i className="fa fa-pencil"></i></button>
-                                }
+                    <form onSubmit={sendPagoCuentaPorPagar} className="border p-2 card shadow mt-3 mb-3">
+                        <div className="row mb-2">
+                            <div className="col">
+                                <span className="form-label">Monto</span>
+                                <input type="text" className="form-control fs-3 text-success" placeholder="Monto TOTAL de ABONO" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} required />
                             </div>
-                        </div>
-                        
-                        <div className="form-group">
-                            <div className="input-group">
-                                <span className="input-group-text cell3">Proveedor</span>
-                                <select className="form-control" value={selectProveedorCxp} onChange={e=>setselectProveedorCxp(e.target.value)}>
+
+                            <div className="col">
+                                <span className="form-label">Descripción</span>
+                                <input type="text" className="form-control fs-3" placeholder="Referencia" value={cuentasPagosDescripcion} onChange={e=>setcuentasPagosDescripcion(e.target.value)} required/>
+                            </div>
+                            <div className="col">
+                                <span className="form-label">Proveedor</span>
+                                <select className="form-control fs-3" value={selectProveedorCxp} onChange={e=>setselectProveedorCxp(e.target.value)} required>
                                     <option value="">-PROVEEDOR-</option>
                                     {proveedoresList.map(e=>
                                         <option key={e.id} value={e.id}>{e.descripcion}-{e.rif}</option>
-                                    )}
+                                        )}
                                 </select>
                             </div>
-                        </div>
 
-                        <div className="form-group">
-                            <div className="input-group">
-                                <span className="input-group-text cell3">Descripción</span>
-                                <input type="text" className="form-control" placeholder="Referencia" value={cuentasPagosDescripcion} onChange={e=>setcuentasPagosDescripcion(e.target.value)} />
-                            </div>
                         </div>
-
-                        <div className="form-group">
-                            <div className="input-group">
-                                <span className="input-group-text cell3">Monto</span>
-                                <input type="text" className="form-control" placeholder="Monto TOTAL de ABONO" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} />
-                            </div>
-                        </div>
-
-                        <div className="input-group">
-                            <select className="form-control" 
-                            value={cuentasPagosMetodo} 
                             
-                            onChange={e=>setcuentasPagosMetodo(e.target.value)}>
+                        <div className="input-group mb-2">
+                            <select className="form-control fs-3" 
+                            value={cuentasPagosMetodo} 
+                            onChange={e=>setcuentasPagosMetodo(e.target.value)} required>
                                 <option value="">-Método-</option>
                                 {opcionesMetodosPago.map(e=>
                                     <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
                                 )}
                             </select>
-                            <input type="date" className="form-control" value={cuentasPagosFecha} onChange={e=>setcuentasPagosFecha(e.target.value)} />
+                            <input type="date" className="form-control fs-3" value={cuentasPagosFecha} onChange={e=>setcuentasPagosFecha(e.target.value)} required />
                             
                         </div>
-                        <table className="table table-sm">
-                            <tbody>
-                                <tr>
-                                    <th className="text-center">FACTURAS ASOCIADAS</th>
-                                    <th className="text-center">ABONADO</th>
-                                </tr>
-                                    {selectAbonoFact.map(e=>
-                                        <tr key={e.id}>
-                                            <td className="text-center align-middle">
-                                                <div className="btn-group w-100">
-                                                    <button className="btn-danger btn" onClick={()=>delItemSelectAbonoFact(e.id)} type="button">
-                                                        <i className="fa fa-times"></i>
-                                                    </button>
-                                                    <button className="btn-sinapsis w-100 btn pointer btn-sm" type="button">
-                                                        {e.numfact}
-                                                    </button> 
 
-                                                </div>
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                <span className="text-sinapsis">{moneda(e.val)}</span> / <span className="text-success">{moneda(e.valfact)}</span> 
-                                            </td>
-                                        </tr>
-                                    )}
-
-                                    <tr>
-                                        <th className="text-center align-middle">
-                                            SUM
-                                        </th>
-                                        <th className="text-center text-sinapsis     align-middle">{moneda(sumSelectAboFact)}</th>
-                                    </tr>
-                                    <tr>
-                                        <th className="text-center align-middle">
-                                            RESTA
-                                        </th>
-                                        <th className={(restaAbono<0? "text-danger": "text-sinapsis ")+(" text-center align-middle")}>{moneda(restaAbono)}</th>
-                                    </tr>
-
-                            </tbody>
-                        </table>
+                        <div className="form-group text-center">
+                            {selectFactPagoid==null?
+                                <button className="btn btn-success" type="submit">GUARDAR <i className="fa fa-save"></i></button>
+                                :
+                                <button className="btn btn-sinapsis" type="submit">EDITAR <i className="fa fa-pencil"></i></button>
+                            }
+                        </div>
                     </form>
 
                     
                     <table className="table mt-2 table-sm">
                         <thead>
                             <tr>
-                                <th colSpan={3} className="fs-5">ESPECIFICAR ABONO</th>
+                                <th colSpan={6} className="fs-5">ESPECIFICAR ABONO</th>
                             </tr>
                             <tr>
-                                <th colSpan={3}>
+                                <th colSpan={6}>
                                 <SearchBarFacturas
                                     selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
                                     cuentaporpagarAprobado={cuentaporpagarAprobado}
@@ -249,35 +202,132 @@ export default function CuentasporpagarPagos({
                         <tbody>
 
                         {
-                            selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
-                            ? selectCuentaPorPagarId.detalles.filter(e=>e.monto<0&&e.condicion!="pagadas").map( (e,i) =>
                             
-                                <tr key={e.id}>
-                                    <td className="align-middle">
-                                        <span className={
-                                            (e.condicion=="pagadas"?"btn-success":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":null))))+(" w-100 btn pointer btn-sm")
-                                        } onDoubleClick={()=>setInputAbonoFact(e.id,(e.balance*-1))}>{e.numfact}</span>
+                            (selectAbonoFact)
+                            .concat((selectCuentaPorPagarId?(selectCuentaPorPagarId.detalles? selectCuentaPorPagarId.detalles.filter(e=>!selectAbonoFact.map(ee=>ee.id).includes(e.id)):_ ([])) :_ ([])) )
+                            .filter(e=>e.monto<0&&e.condicion!="pagadas")
+                            .sort((a,b)=>b.balance-a.balance)
+                            .map( (e,i) =>
+                            
+                                <tr className={("shadow border-top border-top-5 border-dark")+ (e.guardado===true?" bg-success-light":"")} key={i}>
+                                    
+                                    <td className="p-3 align-bottom">
+                                        <span className="fws-italic">{e.sucursal.codigo}</span>
+                                        <br />   
+                                        <span className="fw-bold">{e.proveedor.descripcion}</span>
+                                    </td>  
+                                    <td className="p-3 align-bottom text-right">
+                                        <span className="text-success">E: {e.fechaemision}</span> <br />
+                                        <span className="text-danger ms-1">V: {e.fechavencimiento}</span>
+                                    </td>       
+                                    <td className="p-3 align-bottom text-right">
+                                        <span className="text-muted fs-4">{moneda(e.monto_bruto)}</span>
+                                        <br />
+                                        <span className="text-muted fst-italic">{moneda(e.monto_descuento)} ({e.descuento}%)</span>
                                     </td>
-                                    <td className="align-middle cell3">
-                                        <input type="text" className="form-control form-control-sm" onChange={event=>{
-                                            let val = event.currentTarget.value
-                                            setInputAbonoFact(e.id, val)
-                                            event.target.value = val
-                                        }} placeholder={e.numfact} />
+                                    <td className="p-3 align-bottom text-right">
+                                        <span className="m-2">
+                                            {e.aprobado==0?<i className="fa-2x fa fa-clock-o text-sinapsis"></i>:<i className="fa-2x fa fa-check text-success"></i>} 
+
+                                        </span>
+                                        <span 
+                                        onClick={()=>setInputAbonoFact(e.id, (cuentasPagosMonto!="" && (sumSelectAboFact+0.1)<cuentasPagosMonto ?(e.balance*-1>restaAbono*-1?restaAbono*-1:e.balance*-1):""))}
+                                        className={
+                                            (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-75 btn fs-6 pointer")
+                                        }> 
+                                        {e.monto<0?"FACT ":"ABONO "} 
+                                        {e.numfact}
+                                        </span>
+                                    </td>  
+                                    <td className="p-3 align-bottom text-right">
+                                        {e.guardado==true?
+                                            <input type="text" size={8} className="ms-5 fs-4 text-success" 
+                                            value={e.val}
+                                            onChange={event=>{
+                                                let val = number(event.currentTarget.value)
+                                                setInputAbonoFact(e.id, val)
+                                                event.target.value = (val)
+                                            }} placeholder="Abono" />
+                                        :
+                                            <input type="text" size={8} className="ms-5" 
+                                            value={""}
+                                            onChange={event=>{
+                                                let val = event.currentTarget.value
+                                                setInputAbonoFact(e.id, val)
+                                                event.target.value = val
+                                            }} placeholder="Abono" />
+                                        }
                                     </td>
-                                    <td className="align-middle text-right">
-                                        <div><span className={(e.balance<0? "text-danger": "text-success")+(" ")}>BALANCE {moneda(e.balance)}</span></div>
-                                        <div><span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>ABONO {moneda(e.monto_abonado)}</span></div>
-                                        <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-7")}>DEUDA {moneda(e.monto)}</span></div>
+                                    <td className="p-3 align-middle text-right">
+                                        
+                                        <div className="mb-1">
+                                            <span className={(e.monto<0? "text-danger": "text-success")+(" fs-7")}>DEUDA</span>
+                                            <span className={(e.monto<0? "text-danger": "text-success")+(" fs-5 fw-bold ")}>{moneda(e.monto)}</span>
+                                        </div>
+                                        
+                                        {e.monto_abonado?
+                                            <div className="">
+                                                <span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>ABONADO</span>
+                                                <span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-5")}> {moneda(e.monto_abonado)}</span>
+                                                <hr className="m-0"/>
+                                            </div>
+                                            : null }
+                                        {e.monto<0?
+                                            <div>
+                                                <span className={(e.balance<0? "text-danger": "text-success")+(" fs-6")}>BALANCE</span>
+                                                <span className={(e.balance<0? "text-danger": "text-success")+(" fs-4")}> {moneda(e.balance)}</span>
+                                            </div>
+                                        :null}
+                                        
                                     </td>
                                 </tr>
                             )
-                            : null : null
                             
                         } 
                         </tbody>
 
                     </table>
+
+                    <table className="table table-sm mt-5">
+                        <tbody>
+                            <tr>
+                                <th className="text-center">FACTURAS ASOCIADAS</th>
+                                <th className="text-center">ABONADO</th>
+                            </tr>
+                                {selectAbonoFact.map(e=>
+                                    <tr key={e.id}>
+                                        <td className="text-center align-middle">
+                                            <div className="btn-group w-100">
+                                                <button className="btn-danger btn" onClick={()=>delItemSelectAbonoFact(e.id)} type="button">
+                                                    <i className="fa fa-times"></i>
+                                                </button>
+                                                <button className="btn-sinapsis w-100 btn pointer btn-sm" type="button">
+                                                    FACT {e.numfact}
+                                                </button> 
+
+                                            </div>
+                                        </td>
+                                        <td className="text-center align-middle">
+                                            <span className="text-success">{moneda(e.val)}</span> / <span className="text-danger">{moneda(e.balance)}</span> 
+                                        </td>
+                                    </tr>
+                                )}
+
+                                <tr>
+                                    <th className="text-center align-middle">
+                                        SUM
+                                    </th>
+                                    <th className="text-center text-sinapsis     align-middle">{moneda(sumSelectAboFact)}</th>
+                                </tr>
+                                <tr>
+                                    <th className="text-center align-middle">
+                                        RESTA
+                                    </th>
+                                    <th className={(restaAbono<0? "text-danger": "text-sinapsis ")+(" text-center align-middle")}>{moneda(restaAbono)}</th>
+                                </tr>
+
+                        </tbody>
+                    </table>  
                </>  
             :null}
 
