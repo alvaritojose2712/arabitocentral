@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import  SearchBarFacturas  from "./searchBarFacturas";
+
 export default function CuentasporpagarDetalles({
     modeEditarFact,
     selectCuentaPorPagarId,
@@ -57,7 +59,6 @@ export default function CuentasporpagarDetalles({
     sucursales,
     subViewCuentasxPagar,
     setsubViewCuentasxPagar,
-    selectCuentaPorPagarProveedorDetalles,
     selectFacts,
     dataselectFacts,
 
@@ -65,33 +66,11 @@ export default function CuentasporpagarDetalles({
     setdescuentoGeneralFats,
     sendDescuentoGeneralFats,
     abonarFact,
+    proveedoresList ,
 
 }){
     
-    let proveedorMain = ""
-    let id_proveedor = selectProveedorCxp
-
-    if (selectCuentaPorPagarId) {
-        if (selectCuentaPorPagarId.detalles) {
-            if (selectCuentaPorPagarId.detalles[0]) {
-                if (selectCuentaPorPagarId.detalles[0].proveedor) {
-                    proveedorMain = selectCuentaPorPagarId.detalles[0].proveedor.descripcion
-                }
-            }
-        }
-    }
-
-    let dataCuenta = {}
-    if (SelectCuentaPorPagarDetalle) {
-        if (selectCuentaPorPagarId) {
-            if (selectCuentaPorPagarId.detalles) {
-                let f = selectCuentaPorPagarId.detalles.filter(e=>e.id==SelectCuentaPorPagarDetalle)
-                if (f.length) {
-                    dataCuenta = f[0]
-                }
-            }
-        }
-    }
+    
     const setInputsNewFact = () => {
         setselectFactEdit(null)
         setcuentasPagosDescripcion("")
@@ -103,33 +82,11 @@ export default function CuentasporpagarDetalles({
         setselectAbonoFact([])
     }
 
-    useEffect(()=>{
-        selectCuentaPorPagarProveedorDetallesFun(id_proveedor)
-    },[
-        categoriacuentasPorPagarDetalles,
-        tipocuentasPorPagarDetalles,
-        qcuentasPorPagarTipoFact,
-        
-        qcuentasPorPagarDetalles,
-        OrdercuentasPorPagarDetalles,
-        cuentaporpagarAprobado,
-        sucursalcuentasPorPagarDetalles,
-        qCampocuentasPorPagarDetalles,
-    ])
+    
 
-    useEffect(()=>{
-        getSucursales()
-    },[])
-
-
+    const [selectFactViewDetalles, setselectFactViewDetalles] = useState(null)
     return (
         <div className="container-fluid p-0 mb-6">
-            <div className="d-flex justify-content-center">
-                <div className="btn-group m-2">
-                    <button className={("btn btn-sm ")+(subViewCuentasxPagar=="proveedor"?"btn-sinapsis":"")} onClick={()=>{setsubViewCuentasxPagar("proveedor");setSelectCuentaPorPagarId(null)}}>Proveedor</button>
-                    <button className={("btn btn-sm ")+(subViewCuentasxPagar=="todos"?"btn-sinapsis":"")} onClick={()=>{setsubViewCuentasxPagar("todos");selectCuentaPorPagarProveedorDetalles("todos")}}>General</button>
-                </div>
-            </div>
             <div className="row">
                 {
                 SelectCuentaPorPagarDetalle?
@@ -350,136 +307,56 @@ export default function CuentasporpagarDetalles({
                 :<>
                     <div className="col">
 
-                        <form onSubmit={e=>{e.preventDefault();selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}} className="mb-2">
-                            <div className="btn-group w-100 mb-2">
-                                <span className={("btn btn-lg ")+(cuentaporpagarAprobado=="0"?"btn-danger":"btn-outline-danger")} onClick={()=>setcuentaporpagarAprobado(cuentaporpagarAprobado=="0"?"":"0")}>PENDIENTES</span>
-
-                                <span className={("btn btn-lg ")+(cuentaporpagarAprobado=="1"?"btn-success":"btn-outline-success")} onClick={()=>setcuentaporpagarAprobado(cuentaporpagarAprobado=="1"?"":"1")}>APROBADAS</span>
-                            </div>
-                            <div className="btn-group w-100 mb-2">
-                                <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>DÉBITO</span>
-
-                                <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="pagadas"?"btn-medsuccess":"btn-outline-medsuccess")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="pagadas"?"":"pagadas")}>PAGADAS</span>
-
-                                <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="semipagadas"?"btn-primary":"btn-outline-primary")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="semipagadas"?"":"semipagadas")}>ABONADAS</span>
-                                <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="porvencer"?"btn-sinapsis":"btn-outline-sinapsis")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="porvencer"?"":"porvencer")}>POR VENCER</span>
-                                <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="vencidas"?"btn-danger":"btn-outline-danger")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="vencidas"?"":"vencidas")}>VENCIDAS</span>
-                            </div>
-                            <div className="input-group">
-                                
-                                <input type="text" className="form-control form-control-lg" placeholder={"Buscar en "+proveedorMain+" por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
-                                
-                                {/* <span className={("btn btn-sm arabito_")+(OrdercuentasPorPagarDetalles)} 
-                                onClick={()=>setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")}>
-                                    {(<i className={OrdercuentasPorPagarDetalles == "desc" ? "fa fa-arrow-up" : "fa fa-arrow-down"}></i>)}
-                                </span>
-                                
-                                <select className="form-control form-control-sm" value={qCampocuentasPorPagarDetalles} onChange={e=>setqCampocuentasPorPagarDetalles(e.target.value)}>
-                                    <option value="">-Buscar en-</option>
-                                    
-                                    <option value="created_at">Creación</option>
-                                    <option value="fechaemision">Emisión</option>
-                                    <option value="fecharecepcion">Recepción</option>
-                                    <option value="fechavencimiento">Vencimiento</option>
-
-
-                                    <option value="numfact"># Fact</option>
-                                    <option value="id_sucursal">SUCURSAL</option>
-                                    <option value="descripcion">Descripción</option>
-                                    <option value="subtotal">Subtotal</option>
-                                    <option value="descuento">Descuento</option>
-                                    <option value="monto_exento">Monto exento</option>
-                                    <option value="monto_gravable">Monto gravable</option>
-                                    <option value="iva">IVA</option>
-                                    <option value="monto">TOTAL</option>
-                                    <option value="numnota"># Nota</option>
-                                </select> */}
-                            </div>
-
-                            <div className="input-group">
-                                <select className="form-control form-control-sm" value={sucursalcuentasPorPagarDetalles} onChange={e=>setsucursalcuentasPorPagarDetalles(e.target.value)}>
-                                    <option value="">-SUCURSAL-</option>
-                                    {sucursales.map(e=>
-                                        <option key={e.id} value={e.id}>{e.codigo}</option>
-                                    )}
-                                </select>
-                            </div> 
-
-                            <div className="input-group">
-                                <button type="button" className="btn btn-warning btn-sm" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor,"reporte")}><i className="fa fa-print"></i></button>
-                                <select className="form-control form-control-sm" value={categoriacuentasPorPagarDetalles} onChange={e=>setcategoriacuentasPorPagarDetalles(e.target.value)}>
-                                    <option value="">-CATEGORÍA-</option>
-                                    <option value="1">COMPRAS</option>
-                                    <option value="2">SERVICIOS</option>
-                                </select>
-
-                                <select className="form-control form-control-sm" value={tipocuentasPorPagarDetalles} onChange={e=>settipocuentasPorPagarDetalles(e.target.value)}>
-                                    <option value="">-TIPO-</option>
-                                    <option value="DEUDA">CRÉDITOS</option>
-                                    <option value="ABONOS">DÉBITOS</option>
-                                </select>
-                                <button type="button" className="btn btn-success btn-sm" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}><i className="fa fa-search"></i></button>
-                            </div>                
-
-
-                        </form>
+                        <SearchBarFacturas
+                            selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+                            cuentaporpagarAprobado={cuentaporpagarAprobado}
+                            setcuentaporpagarAprobado={setcuentaporpagarAprobado}
+                            setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
+                            qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
+                            setselectProveedorCxp={setselectProveedorCxp}
+                            selectProveedorCxp={selectProveedorCxp}
+                            proveedoresList={proveedoresList}
+                            sucursalcuentasPorPagarDetalles={sucursalcuentasPorPagarDetalles}
+                            setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
+                            sucursales={sucursales}
+                            categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
+                            setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                        />
                        
 
-                        { 
-                            selectCuentaPorPagarId?
-                                selectCuentaPorPagarId.balance? 
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <small className="text-muted">
-                                        {proveedorMain} <b>({selectCuentaPorPagarId.sum})</b>
-                                    </small>
-                                    <span className={(selectCuentaPorPagarId.balance<0? "text-danger": "text-success")+(" fs-1 mb-1 mt-1 bg-warning")}>{moneda(selectCuentaPorPagarId.balance)}</span>
-                                </div>
-                                :null
-                            :null
-                        }
 
-                        {/* {
-                            selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
-                            ? selectCuentaPorPagarId.detalles.map( (e,i) =>
-                            <>
-                                <div className="items-table-movil">
-                                    <div className={(" text-secondary mb-3 pointer shadow p-2 card ")+(e.aprobado==0?"bg-danger-light":"")} key={e.id}>
-                                        <div className="d-flex justify-content-between fs-7">
-                                            <span className="fw-bold">{e.proveedor.descripcion}</span>
-                                            <small className="text-muted">{e.created_at}</small>
-                                            <span>{e.sucursal.codigo}</span>
-                                        </div>
-                                        <div>
-                                            <div onClick={()=>setSelectCuentaPorPagarDetalle(e.id)} className="">
-                                                <span className={
-                                                    (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-3 pointer")
-                                                }>{e.monto<0?"FACT":"ABONO"} {e.numfact}</span>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-between align-items-center">
-                                            {e.monto_abonado?
-                                                <span className={("text-muted fs-6 fw-italic")}>ABONO {moneda(e.monto_abonado)}</span>
-                                            : <span></span> }
-                                            <span className={(e.monto<0? "text-danger": "text-success")+(" fs-2 fw-bold")}>{moneda(e.monto)}</span>
-                                        </div>
-                                        <div className="d-flex justify-content-between fst-italic fs-7">
-                                            
-                                            <span className="text-success">{e.fechaemision}</span>
-                                            <span className="text-sinapsis ms-1">{e.fecharecepcion}</span>
-                                            <span className="text-danger ms-1">{e.fechavencimiento}</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </>
-                            )
-                            : null : null
-                        }  */}
-
-                        <table className="table items-table-pc table-responsive table-hover">
+                        <table className="table table-borderless table-striped">
                                 <thead className="">
-                                    <tr>
+                                    { 
+                                    selectCuentaPorPagarId?
+                                        selectCuentaPorPagarId.balance? 
+                                            <tr className="align-middle">
+                                                <th colSpan={8}>
+                                                    <div className="btn-group">
+                                                        <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>PAGOS</span>
 
+                                                        <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="pagadas"?"btn-medsuccess":"btn-outline-medsuccess")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="pagadas"?"":"pagadas")}>PAGADAS</span>
+
+                                                        <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="semipagadas"?"btn-primary":"btn-outline-primary")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="semipagadas"?"":"semipagadas")}>ABONADAS</span>
+                                                        <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="porvencer"?"btn-sinapsis":"btn-outline-sinapsis")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="porvencer"?"":"porvencer")}>POR VENCER</span>
+                                                        <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="vencidas"?"btn-danger":"btn-outline-danger")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="vencidas"?"":"vencidas")}>VENCIDAS</span>
+                                                    </div>
+
+                                                </th>
+                                                <th>
+                                                    <span className="text-muted">
+                                                        Resultados <b>({selectCuentaPorPagarId.sum})</b>
+                                                    </span>
+                                                </th>
+                                                <th>
+                                                    <span className={(selectCuentaPorPagarId.balance<0? "text-danger": "text-success")+(" fs-1 mb-1 mt-1 bg-warning p-2")}>{moneda(selectCuentaPorPagarId.balance)}</span>
+
+                                                </th>
+                                            </tr>
+                                            :null
+                                        :null
+                                    }
+                                    <tr>
                                         <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="created_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("created_at")}} className="pointer cell1 p-3">
                                             CREADA
                                         </th> 
@@ -519,63 +396,159 @@ export default function CuentasporpagarDetalles({
                             {
                                 selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                                 ? selectCuentaPorPagarId.detalles.map( (e,i) =>
-                                    <tbody className="" key={e.id}>
-                                        <tr className={(" border-bottom ")+(e.aprobado==0?"bg-danger-light":"bg-success-light")}>
-                                            <td className="">
-                                                <small className="text-muted">{e.created_at}</small>
-                                            </td> 
-                                            <td className="">
-                                                <small className="text-muted">{e.updated_at}</small>
-                                            </td> 
-
-                                            <td className="">
-                                                <span className="fw-bold">{e.proveedor.descripcion}</span>
-                                            </td>  
-                                            <td className=" text-right">
+                                    <>
+                                        <tbody className={(selectFactViewDetalles==e.id?"bg-success-light":null)+(" pointer")} key={e.id} onClick={()=>setselectFactViewDetalles(selectFactViewDetalles==e.id?null:e.id)}>
+                                            <tr className="border-top border-top-5 border-dark">
                                                 
-                                                <input type="checkbox" className="form-check-input me-1 fs-2" onMouseEnter={event=>selectFacts(event,e.id,"leave")} onChange={event=>selectFacts(event,e.id)} checked={dataselectFacts.data.filter(selefil =>selefil.id==e.id).length?
-                                                    true
-                                                :false} />
-                                                <span onClick={()=>setSelectCuentaPorPagarDetalle(e.id)} className={
-                                                    (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-75 btn fs-5 pointer")
-                                                }>{e.monto<0?"FACT":"ABONO"} {e.numfact}</span>
-                                                {e.monto<0?
-                                                    <span className="btn btn-warning" onClick={()=>abonarFact(e.id)}><i className="fa fa-plus"></i></span>
+                                                <td className="">
+                                                    <small className="text-muted">{e.created_at}</small>
+                                                </td> 
+                                                <td className="">
+                                                    <small className="text-muted">{e.updated_at}</small>
+                                                </td> 
+
+                                                <td className="">
+                                                    <span className="fw-bold">{e.proveedor.descripcion}</span>
+                                                </td>  
+                                                <td className=" text-right">
+                                                    
+                                                    {/* <input type="checkbox" className="form-check-input me-1 fs-2" onMouseEnter={event=>selectFacts(event,e.id,"leave")} onChange={event=>selectFacts(event,e.id)} checked={dataselectFacts.data.filter(selefil =>selefil.id==e.id).length?
+                                                        true
+                                                    :false} /> */}
+                                                    <span className="m-2">
+                                                        {e.aprobado==0?<i className="fa-2x fa fa-clock-o text-sinapsis"></i>:<i className="fa-2x fa fa-check text-success"></i>} 
+
+                                                    </span>
+                                                    <span className={
+                                                        (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-75 btn fs-6 pointer")
+                                                    }> 
+                                                    {e.monto<0?"FACT ":"ABONO "} 
+                                                    {e.numfact}
+                                                    </span>
+                                                </td>  
+                                                <td className=" text-right">
+                                                    <span className="text-success">{e.fechaemision}</span>
+                                                </td>       
+                                                <td className=" text-right">
+                                                    <span className="text-danger ms-1">{e.fechavencimiento}</span>
+                                                </td>  
+                                                <td className=" text-right">
+                                                    <span>{e.sucursal.codigo}</span>   
+                                                </td>
+                                                <td className=" text-right">
+                                                    <span className="text-muted fs-4">{moneda(e.monto_bruto)}</span>
+                                                </td>
+                                                <td className=" text-right">
+                                                    <span className="text-muted fst-italic">{moneda(e.monto_descuento)} ({e.descuento}%)</span>
+                                                </td>
+
+                                                <td className=" text-right">
+                                                    {selectFactViewDetalles!=e.id || !e.pagos.length?
+                                                    <>
+                                                        <div className="mb-3">
+                                                            <span className={(e.monto<0? "text-danger": "text-success")+(" fs-3 fw-bold ")}>{moneda(e.monto)}</span>
+                                                        </div>
+                                                        
+                                                        {e.monto_abonado?
+                                                            <div className="">
+                                                                <span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>ABONO</span>
+                                                                <span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-5")}> {moneda(e.monto_abonado)}</span>
+                                                                <hr className="m-0"/>
+                                                            </div>
+                                                            : null }
+                                                        {e.monto<0?
+                                                            <div>
+                                                                <span className={(e.balance<0? "text-danger": "text-success")+(" fs-6")}>BALANCE</span>
+                                                                <span className={(e.balance<0? "text-danger": "text-success")+(" fs-4")}> {moneda(e.balance)}</span>
+                                                            </div>
+                                                        :null}
+                                                    </>:null}
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                        {selectFactViewDetalles==e.id?
+                                            <tbody className={(selectFactViewDetalles==e.id?"bg-success-superlight":null)+" border-bottom-5"}>
+                                                
+                                                <tr className="">
+                                                    <th colSpan={10} className="text-center">
+                                                        <div className="btn-group">
+                                                            <button className="btn btn-outline-success" onClick={()=>abonarFact(e.id_proveedor)}>
+                                                                <i className=" fa fa-credit-card"></i>
+                                                                PAGAR 
+                                                            </button>
+                                                            <button className="btn btn-outline-info" onClick={()=>showImageFact(e.descripcion)}> <i className="fa fa-eye"></i> VER </button>
+                                                            <button className="btn btn-outline-sinapsis" onClick={()=>setSelectCuentaPorPagarDetalle(e.id)}> <i className="fa fa-pencil"></i> EDITAR </button>
+                                                        </div>
+                                                    </th>
+
+                                                </tr>
+
+                                                {e.pagos.length?
+                                                    <>
+                                                        {e.monto_abonado && e.pagos?
+                                                        <>
+                                                            {e.pagos.map(pago=>
+                                                                    <tr key={pago.id} className="align-middle">
+                                                                        <th colSpan={2}></th>
+                                                                        <td className=" text-right" colSpan={3}>
+                                                                            <span className="text-muted fst-italic">{pago.created_at}</span>
+                                                                        </td>
+                                                                        <td className="" colSpan={2}>
+                                                                            PAGO REALIZADO <i className="fa fa-check text-success"></i>
+                                                                        </td>
+                                                                        <td className="   align-middle" colSpan={2    }>
+                                                                            <span className="btn-sinapsis btn pointer btn-sm w-100 fs-7">
+                                                                                {pago.numfact}
+                                                                            </span> 
+                                                                        </td>
+                                                                        <td className="   text-right fs-5">
+                                                                            <span className="text-sinapsis">{moneda(pago.monto)}</span> / <span className="text-success">{moneda(pago.pivot.monto)}</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                )}
+                                                        </>
+                                                        :null}
+                                                        <tr>
+                                                            <th colSpan={5}></th>
+
+                                                            <th className="align-middle" colSpan={3}>
+                                                                ABONADO                                        
+                                                            </th>
+                                                            <td colSpan={2} className="text-success text-right align-middle fs-3">
+                                                                {moneda(e.monto_abonado)}
+                                                            </td>
+                                                        </tr>
+                                                        <tr className="">
+                                                            <th colSpan={5}></th>
+
+                                                            <th className="align-middle" colSpan={3}>
+                                                                DEUDA                                        
+                                                            </th>
+                                                            <td colSpan={2} className="text-danger text-right align-middle fs-3">
+                                                                {moneda(e.monto)}
+                                                            </td>
+                                                        </tr>
+                                                        <tr className="">
+                                                            <th colSpan={5}></th>
+
+                                                            <th className="align-middle" colSpan={3}>
+                                                                BALANCE                                        
+                                                            </th>
+                                                            <td colSpan={2} className={((e.balance)<0? "text-danger": "text-success")+(" fs-2 text-right align-middle bg-warning")}>
+                                                                <button className="btn btn-outline-success m-2" onClick={()=>abonarFact(e.id_proveedor)}>
+                                                                    <i className=" fa fa-credit-card"></i>
+                                                                    PAGAR 
+                                                                </button>
+                                                                {moneda(e.balance)}
+                                                            </td>
+                                                        </tr>
+                                                    </> 
                                                 :null}
-                                            </td>  
-                                            <td className=" text-right">
-                                                <span className="text-success">{e.fechaemision}</span>
-                                            </td>       
-                                            <td className=" text-right">
-                                                <span className="text-danger ms-1">{e.fechavencimiento}</span>
-                                            </td>  
-                                            <td className=" text-right">
-                                                <span>{e.sucursal.codigo}</span>   
-                                            </td>
-                                            <td className=" text-right">
-                                                <span className="text-muted fs-4">{moneda(e.monto_bruto)}</span>
-                                            </td>
-                                            <td className=" text-right">
-                                                <span className="text-muted fst-italic">{moneda(e.monto_descuento)} ({e.descuento}%)</span>
-                                            </td>
-
-                                            <td className=" text-right">
-                                                <div className="">
-                                                    {e.monto_abonado?
-                                                        <span className={("text-muted fs-6 fw-italic")}>ABONO {moneda(e.monto_abonado)}</span>
-                                                    : <span></span> }
-
-                                                    <span className={(e.monto<0? "text-danger": "text-success")+(" fs-4 fw-bold")}>{moneda(e.monto)}</span>
-                                                    <div>
-                                                        <span className={(e.balance<0? "text-danger": "text-success")+(" fs-6")}>BALANCE</span>
-                                                        <span className={(e.balance<0? "text-danger": "text-success")+(" fs-4")}> {moneda(e.balance)}</span>
-                                                    </div>
-                                                    <hr />
-
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>   
+                                                
+                                            </tbody>
+                                        :null}
+                                    </>
                                 )
                                 : null : null
                             } 
@@ -583,16 +556,12 @@ export default function CuentasporpagarDetalles({
 
                         
                         {
-                            selectCuentaPorPagarId.detalles?!selectCuentaPorPagarId.detalles.length
+                            selectCuentaPorPagarId?selectCuentaPorPagarId.detalles?!selectCuentaPorPagarId.detalles.length
                             ? <div className="text-center">
                                 <span className="text-muted fsw-italic">¡Nada para mostrar!</span>
                             </div>
-                            : null : null
+                            : null : null : null
                         }
-                        <button className="btn boton-fijo-inferiorder btn-danger btn-sm fs-3" onClick={()=>setSelectCuentaPorPagarId(null)}>
-                            <i className="fa fa-arrow-left"></i> VOLVER
-                        </button>
-
                         <div className="boton-fijo-inferiorizq">
                             <div className="container-fluid">
                                 <div className="row">
@@ -634,32 +603,6 @@ export default function CuentasporpagarDetalles({
 
                         
                     </div>
-                    {/* {dataselectFacts.data.length?
-                        <div className="col-3">
-                            <div className="container-fluid p-0 listSelectFats">
-                                <div className="row">
-                                    <div className="col">NUM FACT</div>
-                                    <div className="col">
-                                        
-                                    </div>
-                                    <div className="col">PAGAR</div>
-                                    <div className="col bg-warning">{moneda(dataselectFacts.sum)}</div>
-                                </div>
-                                {dataselectFacts.data.map(e=>
-                                    <div key={e.id} className="row">
-                                        <div className="col"> <span className={
-                                            (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-6 pointer")
-                                        }>{e.numfact}</span></div>
-                                        <div className="col"></div>
-                                        <div className="col"></div>
-                                        <div className="col">{moneda(e.monto)}</div>
-                                    </div>
-                                )}
-
-                            </div>
-
-                        </div>
-                    :null} */}
                 </>}  
             </div>
         </div>

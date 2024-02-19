@@ -1637,6 +1637,9 @@ function Home() {
   useEffect(() => {
     getToday()
     getSucursales()
+    getProveedores()
+    getMetodosPago()
+
 
   }, [])
 
@@ -1752,13 +1755,13 @@ function Home() {
       dataselectFacts: dataselectFacts.data,
       descuentoGeneralFats,
     }).then(res=>{
-      selectCuentaPorPagarProveedorDetallesFun(selectProveedorCxp)
+      selectCuentaPorPagarProveedorDetallesFun()
       notificar(res)
     })
   }
   const abonarFact = id => {
     setcuentasporpagarDetallesView("pagos");
-    setInputsNewFact()
+    setselectProveedorCxp(id)
   }
 
   const selectFacts = (event,id,type="normal") => {
@@ -1891,7 +1894,7 @@ function Home() {
         notificar(res)
         if (res.data.estado) {
           setselectFactEdit(null)
-          selectCuentaPorPagarProveedorDetallesFun(selectProveedorCxp)
+          selectCuentaPorPagarProveedorDetallesFun()
           setcuentasporpagarDetallesView("cuentas")
 
           setnewfactid_proveedor("")
@@ -1925,16 +1928,13 @@ function Home() {
         if (res.data.estado) {
           setSelectCuentaPorPagarDetalle(null)
           setselectFactEdit(null)
-          selectCuentaPorPagarProveedorDetallesFun(selectProveedorCxp)
+          selectCuentaPorPagarProveedorDetallesFun()
         }
         notificar(res)
       })
     }
   }
-  const selectCuentaPorPagarProveedorDetalles = (id) => {
-    selectCuentaPorPagarProveedorDetallesFun(id)
-    setselectProveedorCxp(id)
-  }
+  
 
   const selectFacturaSetPago = (id,numfact) => {
     setselectFactPagoArr({
@@ -1943,13 +1943,29 @@ function Home() {
   }
   const changeAprobarFact = (id) => {
     db.changeAprobarFact({id}).then(res=>{
-      selectCuentaPorPagarProveedorDetallesFun(selectProveedorCxp)
+      selectCuentaPorPagarProveedorDetallesFun()
       setSelectCuentaPorPagarDetalle(null)
     })
   }
-  const selectCuentaPorPagarProveedorDetallesFun = (id,type="buscar") => {
+  useEffect(()=>{
+    selectCuentaPorPagarProveedorDetallesFun()
+  },[selectProveedorCxp])
+  useEffect(()=>{
+    selectCuentaPorPagarProveedorDetallesFun()
+  },[
+      categoriacuentasPorPagarDetalles,
+      tipocuentasPorPagarDetalles,
+      qcuentasPorPagarTipoFact,
+      
+      OrdercuentasPorPagarDetalles,
+      cuentaporpagarAprobado,
+      sucursalcuentasPorPagarDetalles,
+      qCampocuentasPorPagarDetalles,
+  ])
+
+  const selectCuentaPorPagarProveedorDetallesFun = (type="buscar") => {
     let req = {
-      id,
+      id_proveedor:selectProveedorCxp,
       
       categoriacuentasPorPagarDetalles,
       tipocuentasPorPagarDetalles,
@@ -1963,6 +1979,8 @@ function Home() {
       type,
     }
     if (type=="buscar") {
+      setSelectCuentaPorPagarId([])
+
       db.selectCuentaPorPagarProveedorDetalles(req).then(res=>{
         if (res.data) {
           if (res.data.detalles.length) {
@@ -2297,7 +2315,7 @@ function Home() {
           }).then(res=>{
             if (res.data.estado) {
               setcuentasporpagarDetallesView("cuentas")
-              selectCuentaPorPagarProveedorDetallesFun(res.data.id_proveedor)
+              selectCuentaPorPagarProveedorDetallesFun()
               setselectAbonoFact([])
             }
             notificar(res.data.msj)
@@ -2814,7 +2832,7 @@ function Home() {
     {codigo:"AirTM", descripcion: "AirTM"},
   ] */
   
-  const [subViewCuentasxPagar, setsubViewCuentasxPagar] = useState("proveedor")
+  const [subViewCuentasxPagar, setsubViewCuentasxPagar] = useState("")
   
   return (
     <>
@@ -3066,6 +3084,8 @@ function Home() {
               fechasMain2={fechasMain2}
               sucursalSelect={sucursalSelect}
               qestatusaprobaciocaja={qestatusaprobaciocaja}
+              subViewCuentasxPagar={subViewCuentasxPagar}
+              setsubViewCuentasxPagar={setsubViewCuentasxPagar}
             >
               
 
@@ -3095,7 +3115,8 @@ function Home() {
                 </>
               }
               {subviewpanelsucursales === "cuentasporpagar" ?
-                selectCuentaPorPagarId!==null?
+                <>
+                  {subViewCuentasxPagar === "detallado"?
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
@@ -3123,6 +3144,7 @@ function Home() {
                         setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
                         qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
                         selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+                        proveedoresList={proveedoresList}
                         factSelectIndex={factSelectIndex}
                         moneda={moneda}
 
@@ -3158,16 +3180,18 @@ function Home() {
                         setselectAbonoFact={setselectAbonoFact}
                         subViewCuentasxPagar={subViewCuentasxPagar}
                         setsubViewCuentasxPagar={setsubViewCuentasxPagar}
-                        selectCuentaPorPagarProveedorDetalles={selectCuentaPorPagarProveedorDetalles}
                       />
                     :null}
 
 
                     {cuentasporpagarDetallesView=="pagos"?
                       <CuentasporpagarPago
-                        selectProveedorCxp={selectProveedorCxp}
+                        cuentaporpagarAprobado={cuentaporpagarAprobado}
+                        setcuentaporpagarAprobado={setcuentaporpagarAprobado}
                         setselectProveedorCxp={setselectProveedorCxp}
-                        getMetodosPago={getMetodosPago}
+                        selectProveedorCxp={selectProveedorCxp}
+                        sucursalcuentasPorPagarDetalles={sucursalcuentasPorPagarDetalles}
+                        sucursales={sucursales}
                         delItemSelectAbonoFact={delItemSelectAbonoFact}
                         setqcuentasPorPagarTipoFact={setqcuentasPorPagarTipoFact }
                         setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
@@ -3259,24 +3283,29 @@ function Home() {
                       />
                     :null}
                   </>
-                :<Cuentasporpagar
-                  subViewCuentasxPagar={subViewCuentasxPagar}
-                  setsubViewCuentasxPagar={setsubViewCuentasxPagar}
-                  setviewmainPanel={setviewmainPanel}
-                  moneda={moneda}
-                  getsucursalDetallesData={getsucursalDetallesData}
-                  setsucursalDetallesData={setsucursalDetallesData}
-                  sucursalDetallesData={sucursalDetallesData}
-                  getSucursales={getSucursales}
-                  sucursales={sucursales}
-                  number={number}
-                  qcuentasPorPagar={qcuentasPorPagar}
-                  setqcuentasPorPagar={setqcuentasPorPagar}
-                  selectCuentaPorPagarProveedorDetalles={selectCuentaPorPagarProveedorDetalles}
-                  selectCuentaPorPagarId={selectCuentaPorPagarId}
-                  setSelectCuentaPorPagarId={setSelectCuentaPorPagarId}
-                />
-                :null
+                  :null}
+                  {subViewCuentasxPagar === "proveedor"?
+                    <Cuentasporpagar
+                      subViewCuentasxPagar={subViewCuentasxPagar}
+                      setsubViewCuentasxPagar={setsubViewCuentasxPagar}
+                      setviewmainPanel={setviewmainPanel}
+                      moneda={moneda}
+                      getsucursalDetallesData={getsucursalDetallesData}
+                      setsucursalDetallesData={setsucursalDetallesData}
+                      sucursalDetallesData={sucursalDetallesData}
+                      getSucursales={getSucursales}
+                      sucursales={sucursales}
+                      number={number}
+                      qcuentasPorPagar={qcuentasPorPagar}
+                      setqcuentasPorPagar={setqcuentasPorPagar}
+                      selectCuentaPorPagarId={selectCuentaPorPagarId}
+                      setSelectCuentaPorPagarId={setSelectCuentaPorPagarId}
+                      selectProveedorCxp={selectProveedorCxp}
+                      setselectProveedorCxp={setselectProveedorCxp}
+                    />
+                  :null}
+                </>
+              :null
               }
 
             </Efectivo>

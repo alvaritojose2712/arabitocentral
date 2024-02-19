@@ -372,14 +372,11 @@ class CuentasporpagarController extends Controller
     }
     function selectCuentaPorPagarProveedorDetalles(Request $req) {
         
-        $id = $req->id;
-        
+        $id_proveedor = $req->id_proveedor=="null"?null:$req->id_proveedor;
         $cuentaporpagarAprobado = $req->cuentaporpagarAprobado;
-
         $categoriacuentasPorPagarDetalles = $req->categoriacuentasPorPagarDetalles;
         $tipocuentasPorPagarDetalles = $req->tipocuentasPorPagarDetalles;
         $qcuentasPorPagarTipoFact = $req->qcuentasPorPagarTipoFact;
-        
         $qCampocuentasPorPagarDetalles = $req->qCampocuentasPorPagarDetalles;
         $qcuentasPorPagarDetalles = $req->qcuentasPorPagarDetalles;
         $OrdercuentasPorPagarDetalles = $req->OrdercuentasPorPagarDetalles;
@@ -387,25 +384,31 @@ class CuentasporpagarController extends Controller
         $type = $req->type;
         
         
+        
         $today = new \DateTime((new NominaController)->today());
-        $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos","facturas"])
+        $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos"=>function($q) {
+            $q->orderBy("id","desc");
+        },"facturas"])
         ->selectRaw("*,@monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado")
+        ->where("aprobado",$cuentaporpagarAprobado)
 
-        ->when($qcuentasPorPagarDetalles, function($q) use($qcuentasPorPagarDetalles) {
-            $q->orWhere("numfact","LIKE","%$qcuentasPorPagarDetalles%")
-            ->orWhere("monto","LIKE","%$qcuentasPorPagarDetalles%")
-            ->orWhereIn("id_proveedor",proveedores::where("descripcion","LIKE","%$qcuentasPorPagarDetalles%")->select("id"))
-            ->orWhereIn("id_sucursal",sucursal::where("nombre","LIKE","%$qcuentasPorPagarDetalles%")->select("id"));
-            
-        })
-        ->when($id!="todos",function($q) use ($id){
-            $q->where("id_proveedor",$id);
-        })
+        ->when( ($id_proveedor != "" && $id_proveedor != null),function($q) use ($id_proveedor){
+            $q->where("id_proveedor",$id_proveedor);
+        }) 
         ->when($sucursalcuentasPorPagarDetalles!="",function($q) use ($sucursalcuentasPorPagarDetalles){
             $q->where("id_sucursal",$sucursalcuentasPorPagarDetalles);
         })
-        
-        ->where("aprobado",$cuentaporpagarAprobado)
+        ->when($qcuentasPorPagarDetalles!="", function($q) use($qcuentasPorPagarDetalles, $sucursalcuentasPorPagarDetalles) {
+            $q->where(function($q) use ($sucursalcuentasPorPagarDetalles,$qcuentasPorPagarDetalles) {
+                $q->orWhere("numfact","LIKE","%$qcuentasPorPagarDetalles%")
+                ->orWhere("monto","LIKE","$qcuentasPorPagarDetalles%")
+                ->when($sucursalcuentasPorPagarDetalles=="",function($qq) use ($qcuentasPorPagarDetalles) {
+                    $qq->orWhereIn("id_sucursal",sucursal::where("nombre","LIKE","$qcuentasPorPagarDetalles%")->select("id"));
+                });
+            });
+            
+        })
+
         ->when($categoriacuentasPorPagarDetalles!="",function($q) use ($categoriacuentasPorPagarDetalles) {
             $q->where("tipo","$categoriacuentasPorPagarDetalles");
         })
@@ -418,7 +421,10 @@ class CuentasporpagarController extends Controller
             }
             
         })
-        ->when($qcuentasPorPagarTipoFact!="",function($q) use ($qcuentasPorPagarDetalles,$qCampocuentasPorPagarDetalles,$qcuentasPorPagarTipoFact,$today){
+        ->when($qcuentasPorPagarTipoFact=="",function($q) {
+            $q->where("monto","<",0);
+        })
+        ->when($qcuentasPorPagarTipoFact!="",function($q) use ($qcuentasPorPagarTipoFact,$today){
             switch ($qcuentasPorPagarTipoFact) {
                 case "abonos":
                     $q->where("monto",">",0);

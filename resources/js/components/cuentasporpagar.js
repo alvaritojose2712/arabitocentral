@@ -3,31 +3,21 @@ import { useState } from "react"
 export default function Cuentasporpagar({
     moneda,
     getsucursalDetallesData,
-    setsucursalDetallesData,
     sucursalDetallesData,
-    getSucursales,
-    sucursales,
-    number,
 
     setqcuentasPorPagar,
     qcuentasPorPagar,
     selectCuentaPorPagarProveedorDetalles,
-    selectCuentaPorPagarId,
-    setSelectCuentaPorPagarId,
 
     setviewmainPanel,
     subViewCuentasxPagar,
     setsubViewCuentasxPagar,
+
+    selectProveedorCxp,
+    setselectProveedorCxp,
 }){
     return (
         <div>
-            <div className="d-flex justify-content-center">
-                <div className="btn-group m-2">
-                    <button className={("btn btn-sm ")+(subViewCuentasxPagar=="proveedor"?"btn-sinapsis":"")} onClick={()=>{setsubViewCuentasxPagar("proveedor");setsubViewCuentasxPagar("proveedor")}}>Proveedor</button>
-                    <button className={("btn btn-sm ")+(subViewCuentasxPagar=="todos"?"btn-sinapsis":"")} onClick={()=>{setsubViewCuentasxPagar("todos");selectCuentaPorPagarProveedorDetalles("todos")}}>General</button>
-                </div>
-            </div>
-
             {subViewCuentasxPagar=="proveedor"?
                 <>
                     <form onSubmit={getsucursalDetallesData} className="input-group mb-2">
@@ -50,7 +40,7 @@ export default function Cuentasporpagar({
                         ? sucursalDetallesData.cuentasporpagar.map( (e,i) =>
                             <div 
                             key={e.id}
-                            onClick={()=>selectCuentaPorPagarProveedorDetalles(e.id)}
+                            onClick={()=>{setselectProveedorCxp(e.id);setsubViewCuentasxPagar("detallado")}}
                             className={("bg-light")+" text-secondary card mb-3 pointer shadow"}>
                                 <div className="card-header flex-row justify-content-between">
                                     <div className="d-flex justify-content-between">

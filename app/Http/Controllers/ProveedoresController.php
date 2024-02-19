@@ -40,7 +40,7 @@ class ProveedoresController extends Controller
     }
     public function getProveedores(Request $req)
     {
-        return proveedores::where("descripcion","LIKE",$req->q."%")->orwhere("rif","LIKE",$req->q."%")->orderBy("id","desc")->get();
+        return proveedores::where("descripcion","LIKE",$req->q."%")->orwhere("rif","LIKE",$req->q."%")->orderBy("descripcion","desc")->get();
         
     }
 

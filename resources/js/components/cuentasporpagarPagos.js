@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import Proveedores from "./proveedores";
+import SearchBarFacturas from "./searchBarFacturas";
+
 export default function CuentasporpagarPagos({
-    getMetodosPago,
     cuentasporpagarDetallesView,
     setcuentasporpagarDetallesView,
     cuentasPagosDescripcion,
@@ -88,32 +89,25 @@ export default function CuentasporpagarPagos({
     selectFactPagoid,
     setqcuentasPorPagarTipoFact ,
     delItemSelectAbonoFact,
-    selectProveedorCxp,
+
+    cuentaporpagarAprobado,
+    setcuentaporpagarAprobado,
     setselectProveedorCxp,
+    selectProveedorCxp,
+    sucursalcuentasPorPagarDetalles,
+    sucursales,
 
     
 }){
 
-    useEffect(()=>{
+    /* useEffect(()=>{
         setqcuentasPorPagarDetalles("")
         setqCampocuentasPorPagarDetalles("numfact")
         setcategoriacuentasPorPagarDetalles("")
         settipocuentasPorPagarDetalles("")
         setqcuentasPorPagarTipoFact("")
         setsucursalcuentasPorPagarDetalles("")
-        getMetodosPago()
-    },[]) 
-    let id_proveedor = null
-
-    if (selectCuentaPorPagarId) {
-        if (selectCuentaPorPagarId.detalles) {
-            if (selectCuentaPorPagarId.detalles[0]) {
-                if (selectCuentaPorPagarId.detalles[0].proveedor) {
-                    id_proveedor = selectCuentaPorPagarId.detalles[0].proveedor.id
-                }
-            }
-        }
-    }
+    },[])  */
 
     let sumSelectAboFact = selectAbonoFact.map(e=>e.val==""?0:parseFloat(e.val)).reduce((partial_sum, a) => partial_sum + a, 0)
     let restaAbono = sumSelectAboFact-parseFloat(cuentasPagosMonto)
@@ -148,8 +142,9 @@ export default function CuentasporpagarPagos({
                             <div className="input-group">
                                 <span className="input-group-text cell3">Proveedor</span>
                                 <select className="form-control" value={selectProveedorCxp} onChange={e=>setselectProveedorCxp(e.target.value)}>
+                                    <option value="">-PROVEEDOR-</option>
                                     {proveedoresList.map(e=>
-                                        <option key={e.id} value={e.id}>{e.rif}-{e.descripcion}</option>
+                                        <option key={e.id} value={e.id}>{e.descripcion}-{e.rif}</option>
                                     )}
                                 </select>
                             </div>
@@ -224,66 +219,65 @@ export default function CuentasporpagarPagos({
                         </table>
                     </form>
 
-                    <form onSubmit={event=>{
-                        selectCuentaPorPagarProveedorDetallesFun(id_proveedor)
-                        event.preventDefault()
-                    }}>
-                        <table className="table mt-2 table-sm">
-                            <thead>
-                                <tr>
-                                    <th colSpan={3} className="fs-5">ESPECIFICAR ABONO</th>
+                    
+                    <table className="table mt-2 table-sm">
+                        <thead>
+                            <tr>
+                                <th colSpan={3} className="fs-5">ESPECIFICAR ABONO</th>
+                            </tr>
+                            <tr>
+                                <th colSpan={3}>
+                                <SearchBarFacturas
+                                    selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+                                    cuentaporpagarAprobado={cuentaporpagarAprobado}
+                                    setcuentaporpagarAprobado={setcuentaporpagarAprobado}
+                                    setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
+                                    qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
+                                    setselectProveedorCxp={setselectProveedorCxp}
+                                    selectProveedorCxp={selectProveedorCxp}
+                                    proveedoresList={proveedoresList}
+                                    sucursalcuentasPorPagarDetalles={sucursalcuentasPorPagarDetalles}
+                                    setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
+                                    sucursales={sucursales}
+                                    categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
+                                    setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                                />
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        {
+                            selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
+                            ? selectCuentaPorPagarId.detalles.filter(e=>e.monto<0&&e.condicion!="pagadas").map( (e,i) =>
+                            
+                                <tr key={e.id}>
+                                    <td className="align-middle">
+                                        <span className={
+                                            (e.condicion=="pagadas"?"btn-success":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":null))))+(" w-100 btn pointer btn-sm")
+                                        } onDoubleClick={()=>setInputAbonoFact(e.id,(e.balance*-1))}>{e.numfact}</span>
+                                    </td>
+                                    <td className="align-middle cell3">
+                                        <input type="text" className="form-control form-control-sm" onChange={event=>{
+                                            let val = event.currentTarget.value
+                                            setInputAbonoFact(e.id, val)
+                                            event.target.value = val
+                                        }} placeholder={e.numfact} />
+                                    </td>
+                                    <td className="align-middle text-right">
+                                        <div><span className={(e.balance<0? "text-danger": "text-success")+(" ")}>BALANCE {moneda(e.balance)}</span></div>
+                                        <div><span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>ABONO {moneda(e.monto_abonado)}</span></div>
+                                        <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-7")}>DEUDA {moneda(e.monto)}</span></div>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <th colSpan={3}>
-                                        <div className="input-group">
-                                        <input type={
-                                            qCampocuentasPorPagarDetalles=="created_at" || 
-                                            qCampocuentasPorPagarDetalles=="fechaemision" || 
-                                            qCampocuentasPorPagarDetalles=="fecharecepcion" || 
-                                            qCampocuentasPorPagarDetalles=="fechavencimiento" ? "date": "text" 
-                                        } className="form-control form-control-sm" placeholder={"Buscar por "+qCampocuentasPorPagarDetalles} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
-                                            
-                                            
-                                            
-                                            <button type="button" className="btn btn-success" onClick={()=>selectCuentaPorPagarProveedorDetallesFun(id_proveedor)}><i className="fa fa-search"></i></button>
-                                        </div>
+                            )
+                            : null : null
+                            
+                        } 
+                        </tbody>
 
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            {
-                                selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
-                                ? selectCuentaPorPagarId.detalles.filter(e=>e.monto<0&&e.condicion!="pagadas").map( (e,i) =>
-                                
-                                    <tr key={e.id}>
-                                        <td className="align-middle">
-                                            <span className={
-                                                (e.condicion=="pagadas"?"btn-success":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":null))))+(" w-100 btn pointer btn-sm")
-                                            } onDoubleClick={()=>setInputAbonoFact(e.id,(e.balance*-1))}>{e.numfact}</span>
-                                        </td>
-                                        <td className="align-middle cell3">
-                                            <input type="text" className="form-control form-control-sm" onChange={event=>{
-                                                let val = parseFloat(event.currentTarget.value)>(e.balance*-1)?"":event.currentTarget.value
-                                                setInputAbonoFact(e.id, val)
-                                                event.target.value = val
-                                            }} placeholder={e.numfact} />
-                                        </td>
-                                        <td className="align-middle text-right">
-                                            <div><span className={(e.balance<0? "text-danger": "text-success")+(" ")}>BALANCE {moneda(e.balance)}</span></div>
-                                            <div><span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>ABONO {moneda(e.monto_abonado)}</span></div>
-                                            <div><span className={(e.monto<0? "text-danger": "text-success")+(" fs-7")}>DEUDA {moneda(e.monto)}</span></div>
-                                        </td>
-                                    </tr>
-                                )
-                                : null : null
-                                
-                            } 
-                            </tbody>
-
-                        </table>
-                    </form>
+                    </table>
                </>  
             :null}
 
