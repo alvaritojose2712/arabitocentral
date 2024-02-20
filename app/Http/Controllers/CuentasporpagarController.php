@@ -16,12 +16,12 @@ class CuentasporpagarController extends Controller
 {
 
     function getBalance($id_proveedor,$cuentaporpagarAprobado){
-        $b = cuentasporpagar::selectRaw("@monto_sindescuento := SUM((1-(descuento/100))*monto) AS monto_sindescuento")
+        $b = cuentasporpagar::selectRaw("@monto_condescuento := SUM((1-(COALESCE(descuento,0)/100))*monto) AS monto_condescuento")
         ->where("id_proveedor", $id_proveedor)
         ->where("aprobado",$cuentaporpagarAprobado)
-        ->first("monto_sindescuento");
+        ->first("monto_condescuento");
         if ($b) {
-            return $b->monto_sindescuento;
+            return $b->monto_condescuento;
         }
         return 0;
     }
@@ -243,9 +243,10 @@ class CuentasporpagarController extends Controller
         ->get()
         ->map(function($q) use (&$totalSum){
             $b = $this->getBalance($q->id,1);
-            $q->balance = $b; 
+            $q->balance = $b?$b:0; 
 
             $totalSum += $b;
+            
             return $q; 
         })->toArray();
 
@@ -253,7 +254,7 @@ class CuentasporpagarController extends Controller
         array_multisort($cuentasporpagarColumn, SORT_ASC, $cuentasporpagar);
         
         return [
-            "cuentasporpagar" => $cuentasporpagar,
+            "cuentasporpagar" => collect($cuentasporpagar),
             "sum" => $totalSum,
         ];
     }
