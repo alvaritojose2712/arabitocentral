@@ -56,9 +56,9 @@ class CierresController extends Controller
             "fecha" => $today,
 
             "date_last_cierres" => $setCierreFromSucursalToCentral["last"],
-            "id_last_efec" => $setEfecFromSucursalToCentral["last"]-2,
-            "id_last_garantias" => $sendGarantias["last"]-2,
-            "id_last_fallas" => $sendFallas["last"]-2,
+            "id_last_efec" => $setEfecFromSucursalToCentral["last"],
+            "id_last_garantias" => $sendGarantias["last"],
+            "id_last_fallas" => $sendFallas["last"],
         ]);
         return [
             $sendInventarioCt,
