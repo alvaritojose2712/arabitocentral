@@ -340,9 +340,6 @@ export default function CuentasporpagarDetalles({
 
                         <table className="table table-borderless table-striped">
                                 <thead className="">
-                                    { 
-                                    selectCuentaPorPagarId?
-                                        selectCuentaPorPagarId.balance? 
                                             <tr className="align-middle">
                                                 <th colSpan={8}>
                                                     <div className="btn-group">
@@ -357,18 +354,26 @@ export default function CuentasporpagarDetalles({
 
                                                 </th>
                                                 <th>
-                                                    <span className="text-muted">
-                                                        Resultados <b>({selectCuentaPorPagarId.sum})</b>
-                                                    </span>
+                                                { 
+                                                    selectCuentaPorPagarId?
+                                                        selectCuentaPorPagarId.balance? 
+                                                            <span className="text-muted fs-4">
+                                                                Resultados <b>({selectCuentaPorPagarId.sum})</b>
+                                                            </span>
+                                                        :null
+                                                    :null
+                                                }
                                                 </th>
                                                 <th>
-                                                    <span className={(selectCuentaPorPagarId.balance<0? "text-danger": "text-success")+(" fs-1 mb-1 mt-1 bg-warning p-2")}>{moneda(selectCuentaPorPagarId.balance)}</span>
-
+                                                    { 
+                                                    selectCuentaPorPagarId?
+                                                        selectCuentaPorPagarId.balance? 
+                                                                <span className={(selectCuentaPorPagarId.balance<0? "text-danger": "text-success")+(" fs-1 mb-1 mt-1 bg-warning p-2")}>{moneda(selectCuentaPorPagarId.balance)}</span>
+                                                            :null
+                                                        :null
+                                                    }
                                                 </th>
                                             </tr>
-                                            :null
-                                        :null
-                                    }
                                     <tr>
                                         <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="created_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("created_at")}} className="pointer cell1 p-3">
                                             CREADA
@@ -443,7 +448,7 @@ export default function CuentasporpagarDetalles({
                                                     <span className="text-success">{e.fechaemision}</span>
                                                 </td>       
                                                 <td className=" text-right">
-                                                    <span className="text-danger ms-1">{e.fechavencimiento} ({e.dias} días)</span>
+                                                    <span className="text-danger ms-1">{e.fechavencimiento} <br />({e.dias} días)</span>
                                                 </td>  
                                                 <td className=" text-right">
                                                     <span>{e.sucursal.codigo}</span>   

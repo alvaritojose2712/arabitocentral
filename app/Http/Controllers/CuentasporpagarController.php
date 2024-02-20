@@ -16,9 +16,12 @@ class CuentasporpagarController extends Controller
 {
 
     function getBalance($id_proveedor,$cuentaporpagarAprobado){
-        $b = cuentasporpagar::where("id_proveedor", $id_proveedor)->where("aprobado",$cuentaporpagarAprobado)->sum("monto");
+        $b = cuentasporpagar::selectRaw("@monto_sindescuento := SUM((1-(descuento/100))*monto) AS monto_sindescuento")
+        ->where("id_proveedor", $id_proveedor)
+        ->where("aprobado",$cuentaporpagarAprobado)
+        ->first("monto_sindescuento");
         if ($b) {
-            return $b;
+            return $b->monto_sindescuento;
         }
         return 0;
     }
@@ -496,7 +499,7 @@ class CuentasporpagarController extends Controller
         }); 
         $ret =  [
             "detalles" => $detalles_modified, 
-            "balance" => $detalles_modified->sum("monto"), 
+            "balance" => $detalles_modified->sum("balance"), 
             "sum" => $detalles->get()->count(), 
         ];
 

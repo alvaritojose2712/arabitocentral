@@ -4583,7 +4583,7 @@ function CuentasporpagarDetalles(_ref) {
             className: "table table-borderless table-striped",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("thead", {
               className: "",
-              children: [selectCuentaPorPagarId ? selectCuentaPorPagarId.balance ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
                 className: "align-middle",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                   colSpan: 8,
@@ -4622,19 +4622,19 @@ function CuentasporpagarDetalles(_ref) {
                     })]
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-                    className: "text-muted",
+                  children: selectCuentaPorPagarId ? selectCuentaPorPagarId.balance ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+                    className: "text-muted fs-4",
                     children: ["Resultados ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("b", {
                       children: ["(", selectCuentaPorPagarId.sum, ")"]
                     })]
-                  })
+                  }) : null : null
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                  children: selectCuentaPorPagarId ? selectCuentaPorPagarId.balance ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
                     className: (selectCuentaPorPagarId.balance < 0 ? "text-danger" : "text-success") + " fs-1 mb-1 mt-1 bg-warning p-2",
                     children: moneda(selectCuentaPorPagarId.balance)
-                  })
+                  }) : null : null
                 })]
-              }) : null : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                   onClick: function onClick() {
                     if (qCampocuentasPorPagarDetalles == "created_at") {
@@ -4785,7 +4785,7 @@ function CuentasporpagarDetalles(_ref) {
                     className: " text-right",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
                       className: "text-danger ms-1",
-                      children: [e.fechavencimiento, " (", e.dias, " d\xEDas)"]
+                      children: [e.fechavencimiento, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), "(", e.dias, " d\xEDas)"]
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                     className: " text-right",

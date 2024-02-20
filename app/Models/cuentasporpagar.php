@@ -10,13 +10,13 @@ class cuentasporpagar extends Model
 {
     use HasFactory;
 
-    protected $casts = [
+    /* protected $casts = [
         'fechaemision'  => 'date:d-m-Y',
         'fechavencimiento'  => 'date:d-m-Y',
         'fecharecepcion'  => 'date:d-m-Y',
         'created_at' => 'datetime:d-m-Y H:00',
         'updated_at' => 'datetime:d-m-Y H:00',
-    ];
+    ]; */
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

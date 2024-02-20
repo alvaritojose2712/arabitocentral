@@ -20,9 +20,9 @@
             <tr>
                 <th>PROVEEDOR</th>
                 <th># FACT</th>
+                <th>SUCURSAL</th>
                 <th>EMISIÓN</th>
                 <th>VENCIMIENTO</th>
-                <th>SUCURSAL</th>
                 <th>MONTO</th>
             </tr>
             @foreach ($detalles as $cuenta)
@@ -32,13 +32,13 @@
                         {{$cuenta->numfact}}
                     </td>
                     <td>
+                        {{$cuenta->sucursal->codigo}}
+                    </td>
+                    <td>
                         {{$cuenta->fechaemision}}
                     </td>
                     <td>
                         {{$cuenta->fechavencimiento}}
-                    </td>
-                    <td>
-                        {{$cuenta->sucursal->codigo}}
                     </td>
                     <td class="fs-4 text-right">
                         {{number_format($cuenta->monto,2)}}
