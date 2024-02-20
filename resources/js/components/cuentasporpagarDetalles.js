@@ -443,7 +443,7 @@ export default function CuentasporpagarDetalles({
                                                     <span className="text-success">{e.fechaemision}</span>
                                                 </td>       
                                                 <td className=" text-right">
-                                                    <span className="text-danger ms-1">{e.fechavencimiento}</span>
+                                                    <span className="text-danger ms-1">{e.fechavencimiento} ({e.dias} días)</span>
                                                 </td>  
                                                 <td className=" text-right">
                                                     <span>{e.sucursal.codigo}</span>   

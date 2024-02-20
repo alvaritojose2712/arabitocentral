@@ -389,11 +389,12 @@ class CuentasporpagarController extends Controller
         
         
         
-        $today = new \DateTime((new NominaController)->today());
+        $todayWithoutDateTime = (new NominaController)->today();
+        $today = new \DateTime($todayWithoutDateTime);
         $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos"=>function($q) {
             $q->orderBy("id","desc");
         },"facturas"])
-        ->selectRaw("*,@monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado")
+        ->selectRaw("*, @monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado")
         ->where("aprobado",$cuentaporpagarAprobado)
 
         ->when( ($id_proveedor != "" && $id_proveedor != null),function($q) use ($id_proveedor){
@@ -460,7 +461,7 @@ class CuentasporpagarController extends Controller
 
         ->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
 
-        $detalles_modified = $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact) {
+        $detalles_modified = $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact, $todayWithoutDateTime) {
             $descuento = 0;
             if ($q->descuento) {
                 $descuento = $q->monto*($q->descuento/100);
@@ -474,6 +475,11 @@ class CuentasporpagarController extends Controller
             $monto = $q->monto;
 
             $q->balance = floatval($q->monto_abonado)+floatval($q->monto);
+
+            $hoy = new \DateTime($todayWithoutDateTime);
+            $vence = new \DateTime($q->fechavencimiento);
+            $interval = $hoy->diff($vence);
+            $q->dias = $interval->format('%R%a');
 
             if (($qcuentasPorPagarTipoFact=="abonos"|| $qcuentasPorPagarTipoFact=="") && $monto>0){
                 $q->condicion = "abonos";
