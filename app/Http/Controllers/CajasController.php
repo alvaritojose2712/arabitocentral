@@ -22,7 +22,7 @@ class CajasController extends Controller
         $eurobalance = 0;
 
         foreach (sucursal::all() as $sucursal) {
-            $c = cajas::with("sucursal")->where("id_sucursal",$sucursal->id)->where("concepto","LIKE","%INGRESO DESDE CIERRE%")->orderBy("id","desc")->first();
+            $c = cajas::with("sucursal")->where("id_sucursal",$sucursal->id)->where("concepto","LIKE","%INGRESO DESDE CIERRE%")->orderBy("fecha","desc")->first();
             if ($c) {
                 array_push($arr, $c);
                 $dolarbalance += $c->dolarbalance;
