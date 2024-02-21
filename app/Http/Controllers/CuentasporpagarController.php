@@ -431,7 +431,7 @@ class CuentasporpagarController extends Controller
             
         })
         ->when($qcuentasPorPagarTipoFact=="",function($q) {
-            $q->where("monto","<",0);
+            $q->where("monto","<=",0);
         })
         ->when($qcuentasPorPagarTipoFact!="",function($q) use ($qcuentasPorPagarTipoFact,$today){
             switch ($qcuentasPorPagarTipoFact) {
@@ -440,25 +440,25 @@ class CuentasporpagarController extends Controller
                 break;
                 case "pagadas":
                     $q->havingRaw("monto_abonado = monto*-1")
-                    ->where("monto","<",0);
+                    ->where("monto","<=",0);
                 break;
                 case "semipagadas":
                     $q
                     ->havingRaw("COALESCE(monto_abonado, 0) > 0")
                     ->havingRaw("COALESCE(monto_abonado, 0) <> monto*-1")
-                    ->where("monto","<",0);
+                    ->where("monto","<=",0);
                 break;
                 case "porvencer":
                     $q->where("fechavencimiento",">",$today)
                     ->havingRaw("COALESCE(monto_abonado, 0) <> monto*-1")
                     ->havingRaw("COALESCE(monto_abonado, 0) = 0")
-                    ->where("monto","<",0);
+                    ->where("monto","<=",0);
                 break;
                 case "vencidas":
                     $q
                     ->where("fechavencimiento","<=",$today)
                     ->havingRaw("COALESCE(monto_abonado, 0) <> monto*-1")
-                    ->where("monto","<",0);
+                    ->where("monto","<=",0);
                 break;
             }
         })
