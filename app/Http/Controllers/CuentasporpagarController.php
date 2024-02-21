@@ -212,7 +212,7 @@ class CuentasporpagarController extends Controller
                         $updateImage->save();
 
                         return [
-                            "msj" => "Desde Central: Éxito al registrar Factura",
+                            "msj" => "Desde Central: Éxito al registrar Factura ID_CENTRAL_FACT:".$registrarfactura->id,
                             "idinsucursal" => $factura["id"]
                         ];
                     }
