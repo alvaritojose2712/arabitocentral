@@ -2653,7 +2653,7 @@ function Home() {
   let opcionesadmin = [
     {
       route: "efectivo",
-      name: "POR PAGAR & EFECTIVO"
+      name: "POR PAGAR"
     },
     {
       route: "compras",
@@ -3237,6 +3237,7 @@ function Home() {
 
                     {cuentasporpagarDetallesView=="pagos"?
                       <CuentasporpagarPago
+                        qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
                         cuentaporpagarAprobado={cuentaporpagarAprobado}
                         setcuentaporpagarAprobado={setcuentaporpagarAprobado}
                         setselectProveedorCxp={setselectProveedorCxp}

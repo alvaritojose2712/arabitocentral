@@ -4785,7 +4785,10 @@ function CuentasporpagarDetalles(_ref) {
                     className: " text-right",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
                       className: "text-danger ms-1",
-                      children: [e.fechavencimiento, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), "(", e.dias, " d\xEDas)"]
+                      children: [e.fechavencimiento, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+                        className: (e.dias < 0 ? "text-danger" : "text-success") + " ",
+                        children: ["(", e.dias, " d\xEDas)"]
+                      })]
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                     className: " text-right",
@@ -5141,7 +5144,8 @@ function CuentasporpagarPagos(_ref) {
     setselectProveedorCxp = _ref.setselectProveedorCxp,
     selectProveedorCxp = _ref.selectProveedorCxp,
     sucursalcuentasPorPagarDetalles = _ref.sucursalcuentasPorPagarDetalles,
-    sucursales = _ref.sucursales;
+    sucursales = _ref.sucursales,
+    qcuentasPorPagarTipoFact = _ref.qcuentasPorPagarTipoFact;
   /* useEffect(()=>{
       setqcuentasPorPagarDetalles("")
       setqCampocuentasPorPagarDetalles("numfact")
@@ -5286,9 +5290,42 @@ function CuentasporpagarPagos(_ref) {
               children: "ESPECIFICAR ABONO"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
               colSpan: 6,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_searchBarFacturas__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "btn-group",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "btn btn-sm " + (qcuentasPorPagarTipoFact == "abonos" ? "btn-success" : "btn-outline-success"),
+                  onClick: function onClick() {
+                    return setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact == "abonos" ? "" : "abonos");
+                  },
+                  children: "PAGOS"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "btn btn-sm " + (qcuentasPorPagarTipoFact == "pagadas" ? "btn-medsuccess" : "btn-outline-medsuccess"),
+                  onClick: function onClick() {
+                    return setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact == "pagadas" ? "" : "pagadas");
+                  },
+                  children: "PAGADAS"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "btn btn-sm " + (qcuentasPorPagarTipoFact == "semipagadas" ? "btn-primary" : "btn-outline-primary"),
+                  onClick: function onClick() {
+                    return setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact == "semipagadas" ? "" : "semipagadas");
+                  },
+                  children: "ABONADAS"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "btn btn-sm " + (qcuentasPorPagarTipoFact == "porvencer" ? "btn-sinapsis" : "btn-outline-sinapsis"),
+                  onClick: function onClick() {
+                    return setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact == "porvencer" ? "" : "porvencer");
+                  },
+                  children: "POR VENCER"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "btn btn-sm " + (qcuentasPorPagarTipoFact == "vencidas" ? "btn-danger" : "btn-outline-danger"),
+                  onClick: function onClick() {
+                    return setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact == "vencidas" ? "" : "vencidas");
+                  },
+                  children: "VENCIDAS"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_searchBarFacturas__WEBPACK_IMPORTED_MODULE_2__["default"], {
                 selectCuentaPorPagarProveedorDetallesFun: selectCuentaPorPagarProveedorDetallesFun,
                 cuentaporpagarAprobado: cuentaporpagarAprobado,
                 setcuentaporpagarAprobado: setcuentaporpagarAprobado,
@@ -5302,7 +5339,7 @@ function CuentasporpagarPagos(_ref) {
                 sucursales: sucursales,
                 categoriacuentasPorPagarDetalles: categoriacuentasPorPagarDetalles,
                 setcategoriacuentasPorPagarDetalles: setcategoriacuentasPorPagarDetalles
-              })
+              })]
             })
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
@@ -65661,7 +65698,7 @@ function Home() {
 
   var opcionesadmin = [{
     route: "efectivo",
-    name: "POR PAGAR & EFECTIVO"
+    name: "POR PAGAR"
   }, {
     route: "compras",
     name: "COMPRAS"
@@ -66189,6 +66226,7 @@ function Home() {
                 subViewCuentasxPagar: subViewCuentasxPagar,
                 setsubViewCuentasxPagar: setsubViewCuentasxPagar
               }) : null, cuentasporpagarDetallesView == "pagos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_47__.jsx)(_cuentasporpagarPagos__WEBPACK_IMPORTED_MODULE_45__["default"], {
+                qcuentasPorPagarTipoFact: qcuentasPorPagarTipoFact,
                 cuentaporpagarAprobado: cuentaporpagarAprobado,
                 setcuentaporpagarAprobado: setcuentaporpagarAprobado,
                 setselectProveedorCxp: setselectProveedorCxp,

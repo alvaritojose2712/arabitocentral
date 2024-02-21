@@ -485,16 +485,16 @@ class CuentasporpagarController extends Controller
             $interval = $hoy->diff($vence);
             $q->dias = $interval->format('%R%a');
 
-            if (($qcuentasPorPagarTipoFact=="abonos"|| $qcuentasPorPagarTipoFact=="") && $monto>0){
+            if ($monto>0){
                 $q->condicion = "abonos";
-            }else if (($qcuentasPorPagarTipoFact=="vencidas"|| $qcuentasPorPagarTipoFact=="") && $fechavencimiento<=$today && $monto_abonado!=$monto*-1 && $monto<0){
-                $q->condicion = "vencidas";
-            }else if(($qcuentasPorPagarTipoFact=="porvencer"|| $qcuentasPorPagarTipoFact=="") && $fechavencimiento>$today && $monto_abonado!=$monto*-1 && $monto_abonado==0 && $monto<0){
-                $q->condicion = "porvencer";
-            }else if(($qcuentasPorPagarTipoFact=="pagadas"|| $qcuentasPorPagarTipoFact=="") && $monto_abonado==$monto*-1 && $monto<0){
-                $q->condicion = "pagadas";
-            }else if(($qcuentasPorPagarTipoFact=="semipagadas"|| $qcuentasPorPagarTipoFact=="") && $monto_abonado>0 && $monto_abonado!=$monto*-1 && $monto<0){
+            }else if($monto_abonado>0 && $monto_abonado!=$monto*-1 && $monto<0){
                 $q->condicion = "semipagadas";
+            }else if ($fechavencimiento<=$today && $monto_abonado!=$monto*-1 && $monto<0){
+                $q->condicion = "vencidas";
+            }else if($fechavencimiento>$today && $monto_abonado!=$monto*-1 && $monto_abonado==0 && $monto<0){
+                $q->condicion = "porvencer";
+            }else if($monto_abonado==$monto*-1 && $monto<0){
+                $q->condicion = "pagadas";
             }
             return $q;
         }); 

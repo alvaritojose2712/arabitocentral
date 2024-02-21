@@ -96,6 +96,7 @@ export default function CuentasporpagarPagos({
     selectProveedorCxp,
     sucursalcuentasPorPagarDetalles,
     sucursales,
+    qcuentasPorPagarTipoFact,
 
     
 }){
@@ -180,6 +181,15 @@ export default function CuentasporpagarPagos({
                             </tr>
                             <tr>
                                 <th colSpan={6}>
+                                    <div className="btn-group">
+                                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>PAGOS</span>
+
+                                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="pagadas"?"btn-medsuccess":"btn-outline-medsuccess")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="pagadas"?"":"pagadas")}>PAGADAS</span>
+
+                                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="semipagadas"?"btn-primary":"btn-outline-primary")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="semipagadas"?"":"semipagadas")}>ABONADAS</span>
+                                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="porvencer"?"btn-sinapsis":"btn-outline-sinapsis")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="porvencer"?"":"porvencer")}>POR VENCER</span>
+                                        <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="vencidas"?"btn-danger":"btn-outline-danger")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="vencidas"?"":"vencidas")}>VENCIDAS</span>
+                                    </div>
                                 <SearchBarFacturas
                                     selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
                                     cuentaporpagarAprobado={cuentaporpagarAprobado}
