@@ -1722,10 +1722,27 @@ function Home() {
   const [sucursalcuentasPorPagarDetalles,setsucursalcuentasPorPagarDetalles] = useState("")
   const [selectFactPagoid,setselectFactPagoid] = useState(null)
   const [selectFactPagoid_sucursal,setselectFactPagoid_sucursal] = useState(null)
+
+  const [montobs1PagoFact,setmontobs1PagoFact] = useState("")
+  const [tasabs1PagoFact,settasabs1PagoFact] = useState("")
+  const [metodobs1PagoFact,setmetodobs1PagoFact] = useState("")
+
+  const [montobs2PagoFact,setmontobs2PagoFact] = useState("")
+  const [tasabs2PagoFact,settasabs2PagoFact] = useState("")
+  const [metodobs2PagoFact,setmetodobs2PagoFact] = useState("")
+
+  const [montobs3PagoFact,setmontobs3PagoFact] = useState("")
+  const [tasabs3PagoFact,settasabs3PagoFact] = useState("")
+  const [metodobs3PagoFact,setmetodobs3PagoFact] = useState("")
+
+  const [montobs4PagoFact,setmontobs4PagoFact] = useState("")
+  const [tasabs4PagoFact,settasabs4PagoFact] = useState("")
+  const [metodobs4PagoFact,setmetodobs4PagoFact] = useState("")
+
+  const [montobs5PagoFact,setmontobs5PagoFact] = useState("")
+  const [tasabs5PagoFact,settasabs5PagoFact] = useState("")
+  const [metodobs5PagoFact,setmetodobs5PagoFact] = useState("")
   
-
-
-
   const [newfactid_proveedor, setnewfactid_proveedor] = useState("")
   const [newfactnumfact, setnewfactnumfact] = useState("")
   const [newfactnumnota, setnewfactnumnota] = useState("")
@@ -1850,6 +1867,22 @@ function Home() {
                       setcuentasPagosMonto(data.monto)
                       setcuentasPagosMetodo(data.metodo)
                       setcuentasPagosFecha(data.fechaemision)
+
+                      setmontobs1PagoFact(data.montobs1)
+                      settasabs1PagoFact(data.tasabs1)
+                      setmetodobs1PagoFact(data.metodobs1)
+                      setmontobs2PagoFact(data.montobs2)
+                      settasabs2PagoFact(data.tasabs2)
+                      setmetodobs2PagoFact(data.metodobs2)
+                      setmontobs3PagoFact(data.montobs3)
+                      settasabs3PagoFact(data.tasabs3)
+                      setmetodobs3PagoFact(data.metodobs3)
+                      setmontobs4PagoFact(data.montobs4)
+                      settasabs4PagoFact(data.tasabs4)
+                      setmetodobs4PagoFact(data.metodobs4)
+                      setmontobs5PagoFact(data.montobs5)
+                      settasabs5PagoFact(data.tasabs5)
+                      setmetodobs5PagoFact(data.metodobs5)
 
                       let pagos = [] 
                       data.facturas.map(e=>{
@@ -2359,6 +2392,23 @@ function Home() {
             cuentasPagosFecha,
             id_pro:selectProveedorCxp,
             selectAbonoFact,
+
+          
+            montobs1PagoFact,
+            tasabs1PagoFact,
+            metodobs1PagoFact,
+            montobs2PagoFact,
+            tasabs2PagoFact,
+            metodobs2PagoFact,
+            montobs3PagoFact,
+            tasabs3PagoFact,
+            metodobs3PagoFact,
+            montobs4PagoFact,
+            tasabs4PagoFact,
+            metodobs4PagoFact,
+            montobs5PagoFact,
+            tasabs5PagoFact,
+            metodobs5PagoFact,
           }).then(res=>{
             if (res.data.estado) {
               setcuentasporpagarDetallesView("cuentas")
@@ -3237,6 +3287,37 @@ function Home() {
 
                     {cuentasporpagarDetallesView=="pagos"?
                       <CuentasporpagarPago
+                        montobs1PagoFact={montobs1PagoFact}
+                        setmontobs1PagoFact={setmontobs1PagoFact}
+                        tasabs1PagoFact={tasabs1PagoFact}
+                        settasabs1PagoFact={settasabs1PagoFact}
+                        metodobs1PagoFact={metodobs1PagoFact}
+                        setmetodobs1PagoFact={setmetodobs1PagoFact}
+                        montobs2PagoFact={montobs2PagoFact}
+                        setmontobs2PagoFact={setmontobs2PagoFact}
+                        tasabs2PagoFact={tasabs2PagoFact}
+                        settasabs2PagoFact={settasabs2PagoFact}
+                        metodobs2PagoFact={metodobs2PagoFact}
+                        setmetodobs2PagoFact={setmetodobs2PagoFact}
+                        montobs3PagoFact={montobs3PagoFact}
+                        setmontobs3PagoFact={setmontobs3PagoFact}
+                        tasabs3PagoFact={tasabs3PagoFact}
+                        settasabs3PagoFact={settasabs3PagoFact}
+                        metodobs3PagoFact={metodobs3PagoFact}
+                        setmetodobs3PagoFact={setmetodobs3PagoFact}
+                        montobs4PagoFact={montobs4PagoFact}
+                        setmontobs4PagoFact={setmontobs4PagoFact}
+                        tasabs4PagoFact={tasabs4PagoFact}
+                        settasabs4PagoFact={settasabs4PagoFact}
+                        metodobs4PagoFact={metodobs4PagoFact}
+                        setmetodobs4PagoFact={setmetodobs4PagoFact}
+                        montobs5PagoFact={montobs5PagoFact}
+                        setmontobs5PagoFact={setmontobs5PagoFact}
+                        tasabs5PagoFact={tasabs5PagoFact}
+                        settasabs5PagoFact={settasabs5PagoFact}
+                        metodobs5PagoFact={metodobs5PagoFact}
+                        setmetodobs5PagoFact={setmetodobs5PagoFact}
+
                         qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
                         cuentaporpagarAprobado={cuentaporpagarAprobado}
                         setcuentaporpagarAprobado={setcuentaporpagarAprobado}

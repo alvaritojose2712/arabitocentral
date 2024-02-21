@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Proveedores from "./proveedores";
 import SearchBarFacturas from "./searchBarFacturas";
 
@@ -98,9 +98,38 @@ export default function CuentasporpagarPagos({
     sucursales,
     qcuentasPorPagarTipoFact,
 
-    
+    setmontobs1PagoFact,
+    montobs1PagoFact,
+    settasabs1PagoFact,
+    tasabs1PagoFact,
+    setmetodobs1PagoFact,
+    metodobs1PagoFact,
+    setmontobs2PagoFact,
+    montobs2PagoFact,
+    settasabs2PagoFact,
+    tasabs2PagoFact,
+    setmetodobs2PagoFact,
+    metodobs2PagoFact,
+    setmontobs3PagoFact,
+    montobs3PagoFact,
+    settasabs3PagoFact,
+    tasabs3PagoFact,
+    setmetodobs3PagoFact,
+    metodobs3PagoFact,
+    setmontobs4PagoFact,
+    montobs4PagoFact,
+    settasabs4PagoFact,
+    tasabs4PagoFact,
+    setmetodobs4PagoFact,
+    metodobs4PagoFact,
+    setmontobs5PagoFact,
+    montobs5PagoFact,
+    settasabs5PagoFact,
+    tasabs5PagoFact,
+    setmetodobs5PagoFact,
+    metodobs5PagoFact,
 }){
-
+    const [viewMultiplesPagos, setviewMultiplesPagos] = useState(0)
     /* useEffect(()=>{
         setqcuentasPorPagarDetalles("")
         setqCampocuentasPorPagarDetalles("numfact")
@@ -112,6 +141,36 @@ export default function CuentasporpagarPagos({
 
     let sumSelectAboFact = selectAbonoFact.map(e=>e.val==""?0:parseFloat(e.val)).reduce((partial_sum, a) => partial_sum + a, 0)
     let restaAbono = sumSelectAboFact-parseFloat(cuentasPagosMonto)
+
+    let sumBsMonto1 = 0
+    let sumBsMonto2 = 0
+    let sumBsMonto3 = 0
+    let sumBsMonto4 = 0
+    let sumBsMonto5 = 0
+
+    useEffect(()=>{
+        sumBsMonto1 = parseFloat((parseFloat(montobs1PagoFact?montobs1PagoFact:0)/parseFloat(tasabs1PagoFact?tasabs1PagoFact:0)).toFixed(2)) 
+        sumBsMonto2 = parseFloat((parseFloat(montobs2PagoFact?montobs2PagoFact:0)/parseFloat(tasabs2PagoFact?tasabs2PagoFact:0)).toFixed(2)) 
+        sumBsMonto3 = parseFloat((parseFloat(montobs3PagoFact?montobs3PagoFact:0)/parseFloat(tasabs3PagoFact?tasabs3PagoFact:0)).toFixed(2)) 
+        sumBsMonto4 = parseFloat((parseFloat(montobs4PagoFact?montobs4PagoFact:0)/parseFloat(tasabs4PagoFact?tasabs4PagoFact:0)).toFixed(2)) 
+        sumBsMonto5 = parseFloat((parseFloat(montobs5PagoFact?montobs5PagoFact:0)/parseFloat(tasabs5PagoFact?tasabs5PagoFact:0)).toFixed(2)) 
+        let sum =(sumBsMonto1?sumBsMonto1:0)+(sumBsMonto2?sumBsMonto2:0)+(sumBsMonto3?sumBsMonto3:0)+(sumBsMonto4?sumBsMonto4:0)+(sumBsMonto5?sumBsMonto5:0)
+        if (sum) {
+            setcuentasPagosMonto(sum)
+        }
+    },[
+        montobs1PagoFact,
+        tasabs1PagoFact,
+        montobs2PagoFact,
+        tasabs2PagoFact,
+        montobs3PagoFact,
+        tasabs3PagoFact,
+        montobs4PagoFact,
+        tasabs4PagoFact,
+        montobs5PagoFact,
+        tasabs5PagoFact,
+    ])
+   
 
     
     return (
@@ -131,8 +190,14 @@ export default function CuentasporpagarPagos({
                     <form onSubmit={sendPagoCuentaPorPagar} className="border p-2 card shadow mt-3 mb-3">
                         <div className="row mb-2">
                             <div className="col">
-                                <span className="form-label">Monto</span>
-                                <input type="text" className="form-control fs-3 text-success" placeholder="Monto TOTAL de ABONO" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} required />
+                                <span className="form-label">Monto en $</span>
+                                <div className="input-group">
+                                    <input type="text" className="form-control fs-3 text-success" placeholder="Monto TOTAL de ABONO $" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} required />
+                                    <button className="btn btn-success" type="button" onClick={()=>setviewMultiplesPagos(viewMultiplesPagos==5?0:viewMultiplesPagos+1)}>
+                                        {viewMultiplesPagos} <i className="fa fa-plus"></i>
+                                    </button>
+
+                                </div>
                             </div>
 
                             <div className="col">
@@ -150,6 +215,141 @@ export default function CuentasporpagarPagos({
                             </div>
 
                         </div>
+                        {
+                            viewMultiplesPagos!=0 || montobs1PagoFact?
+                                <div className="row mb-2">
+                                    <div className="col-md-auto text-sinapsis">
+                                        <span className="form-label">Monto Bs 1</span>
+                                        <input type="text" className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 1" value={montobs1PagoFact} onChange={e=>setmontobs1PagoFact(number(e.target.value))} />
+                                    </div>
+
+                                    <div className="col-md-auto">
+                                        <span className="form-label">Tasa</span>
+                                        <input type="text" className="form-control fs-6" placeholder="Tasa 1" size={4} value={tasabs1PagoFact} onChange={e=>settasabs1PagoFact(number(e.target.value))}/>
+                                    </div>
+                                    <div className="col-md-auto">
+                                        <span className="form-label">Método 1</span>
+                                        <select className="form-control fs-6" 
+                                        value={metodobs1PagoFact} 
+                                        onChange={e=>setmetodobs1PagoFact(e.target.value)} >
+                                            <option value="">-Método 1-</option>
+                                            {opcionesMetodosPago.map(e=>
+                                                <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
+                                                )}
+                                        </select>    
+                                    </div>
+                                    
+                                </div>
+                            :null
+                        }
+                        {
+                            ([2,3,4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || montobs2PagoFact?
+                                <div className="row mb-2">
+                                    <div className="col-md-auto text-sinapsis">
+                                        <span className="form-label">Monto Bs 2</span>
+                                        <input type="text" className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 2" value={montobs2PagoFact} onChange={e=>setmontobs2PagoFact(number(e.target.value))} />
+                                    </div>
+
+                                    <div className="col-md-auto">
+                                        <span className="form-label">Tasa</span>
+                                        <input type="text" className="form-control fs-6" placeholder="Tasa 2" size={4} value={tasabs2PagoFact} onChange={e=>settasabs2PagoFact(number(e.target.value))}/>
+                                    </div>
+                                    <div className="col-md-auto">
+                                        <span className="form-label">Método 2</span>
+                                        <select className="form-control fs-6" 
+                                        value={metodobs2PagoFact} 
+                                        onChange={e=>setmetodobs2PagoFact(e.target.value)} >
+                                            <option value="">-Método 2-</option>
+                                            {opcionesMetodosPago.map(e=>
+                                                <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
+                                            )}
+                                        </select>    
+                                    </div>
+                                    
+                                </div>
+                            :null
+                        }
+                        {
+                            ([3,4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || montobs3PagoFact?
+                                <div className="row mb-2">
+                                    <div className="col-md-auto text-sinapsis">
+                                        <span className="form-label">Monto Bs 3</span>
+                                        <input type="text" className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 3" value={montobs3PagoFact} onChange={e=>setmontobs3PagoFact(number(e.target.value))} />
+                                    </div>
+
+                                    <div className="col-md-auto">
+                                        <span className="form-label">Tasa</span>
+                                        <input type="text" className="form-control fs-6" placeholder="Tasa 3" size={4} value={tasabs3PagoFact} onChange={e=>settasabs3PagoFact(number(e.target.value))}/>
+                                    </div>
+                                    <div className="col-md-auto">
+                                        <span className="form-label">Método 3</span>
+                                        <select className="form-control fs-6" 
+                                        value={metodobs3PagoFact} 
+                                        onChange={e=>setmetodobs3PagoFact(e.target.value)} >
+                                            <option value="">-Método 3-</option>
+                                            {opcionesMetodosPago.map(e=>
+                                                <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
+                                            )}
+                                        </select>    
+                                    </div>
+                                    
+                                </div>
+                            :null
+                        }
+                        {
+                            ([4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || montobs4PagoFact?
+                                <div className="row mb-2">
+                                    <div className="col-md-auto text-sinapsis">
+                                        <span className="form-label">Monto Bs 4</span>
+                                        <input type="text" className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 4" value={montobs4PagoFact} onChange={e=>setmontobs4PagoFact(number(e.target.value))} />
+                                    </div>
+
+                                    <div className="col-md-auto">
+                                        <span className="form-label">Tasa</span>
+                                        <input type="text" className="form-control fs-6" placeholder="Tasa 4" size={4} value={tasabs4PagoFact} onChange={e=>settasabs4PagoFact(number(e.target.value))}/>
+                                    </div>
+                                    <div className="col-md-auto">
+                                        <span className="form-label">Método 4</span>
+                                        <select className="form-control fs-6" 
+                                        value={metodobs4PagoFact} 
+                                        onChange={e=>setmetodobs4PagoFact(e.target.value)} >
+                                            <option value="">-Método 4-</option>
+                                            {opcionesMetodosPago.map(e=>
+                                                <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
+                                            )}
+                                        </select>    
+                                    </div>
+                                    
+                                </div>
+                            :null
+                        }
+                        {
+                            ([5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || montobs5PagoFact?
+                                <div className="row mb-2">
+                                    <div className="col-md-auto text-sinapsis">
+                                        <span className="form-label">Monto Bs 5</span>
+                                        <input type="text" className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 5" value={montobs5PagoFact} onChange={e=>setmontobs5PagoFact(number(e.target.value))} />
+                                    </div>
+
+                                    <div className="col-md-auto">
+                                        <span className="form-label">Tasa</span>
+                                        <input type="text" className="form-control fs-6" placeholder="Tasa 5" size={4} value={tasabs5PagoFact} onChange={e=>settasabs5PagoFact(number(e.target.value))}/>
+                                    </div>
+                                    <div className="col-md-auto">
+                                        <span className="form-label">Método 5</span>
+                                        <select className="form-control fs-6" 
+                                        value={metodobs5PagoFact} 
+                                        onChange={e=>setmetodobs5PagoFact(e.target.value)} >
+                                            <option value="">-Método 5-</option>
+                                            {opcionesMetodosPago.map(e=>
+                                                <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
+                                            )}
+                                        </select>    
+                                    </div>
+                                    
+                                </div>
+                         :null
+                        }   
                             
                         <div className="input-group mb-2">
                             <select className="form-control fs-3" 

@@ -56,7 +56,8 @@ class BancosController extends Controller
     
     
     
-            $cuenta = cuentasporpagar::with("sucursal")->where("metodo","<>","EFECTIVO")
+            $cuenta = cuentasporpagar::with("sucursal")
+            ->whereNotIn("metodo",["ZELLE","BINANCE","AirTM"])
             ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
                 $q->whereIn("metodo",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
             })
@@ -77,10 +78,27 @@ class BancosController extends Controller
                 $q->categoria = 2;
                 $q->fecha = $q->fechaemision;
                 $q->fecha_liquidacion = $q->fechaemision;
-                $q->monto_liquidado = $q->monto;
                 $q->id_usuario = $q->id;
                 $q->banco = $q->metodo;
-    
+                $sum = 0;
+
+                if ($q->montobs1) {
+                    $sum += $q->montobs1*$q->tasabs1;
+                }
+                if ($q->montobs2) {
+                    $sum += $q->montobs2*$q->tasabs2;
+                }
+                if ($q->montobs3) {
+                    $sum += $q->montobs3*$q->tasabs3;
+                }
+                if ($q->montobs4) {
+                    $sum += $q->montobs4*$q->tasabs4;
+                }
+                if ($q->montobs5) {
+                    $sum += $q->montobs5*$q->tasabs5;
+                }
+                $q->monto_liquidado = $sum*-1;
+                $q->monto = $sum*-1;
                 return $q;
             });
             

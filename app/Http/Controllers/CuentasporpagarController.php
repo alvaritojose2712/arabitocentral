@@ -33,6 +33,58 @@ class CuentasporpagarController extends Controller
         $id_pro = $req->id_pro;
         $selectAbonoFact = $req->selectAbonoFact;
 
+        $montobs1PagoFact = $req->montobs1PagoFact;
+        $tasabs1PagoFact = $req->tasabs1PagoFact;
+        $metodobs1PagoFact = $req->metodobs1PagoFact;
+        $montobs2PagoFact = $req->montobs2PagoFact;
+        $tasabs2PagoFact = $req->tasabs2PagoFact;
+        $metodobs2PagoFact = $req->metodobs2PagoFact;
+        $montobs3PagoFact = $req->montobs3PagoFact;
+        $tasabs3PagoFact = $req->tasabs3PagoFact;
+        $metodobs3PagoFact = $req->metodobs3PagoFact;
+        $montobs4PagoFact = $req->montobs4PagoFact;
+        $tasabs4PagoFact = $req->tasabs4PagoFact;
+        $metodobs4PagoFact = $req->metodobs4PagoFact;
+        $montobs5PagoFact = $req->montobs5PagoFact;
+        $tasabs5PagoFact = $req->tasabs5PagoFact;
+        $metodobs5PagoFact = $req->metodobs5PagoFact;
+
+        if ($montobs1PagoFact) {
+            if (!$tasabs1PagoFact || !$metodobs1PagoFact) {
+                return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 1"];
+            }
+        }
+        if ($montobs2PagoFact) {
+            if (!$tasabs2PagoFact || !$metodobs2PagoFact) {
+                return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 2"];
+            }
+        }
+        if ($montobs3PagoFact) {
+            if (!$tasabs3PagoFact || !$metodobs3PagoFact) {
+                return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 3"];
+            }
+        }
+        if ($montobs4PagoFact) {
+            if (!$tasabs4PagoFact || !$metodobs4PagoFact) {
+                return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 4"];
+            }
+        }
+        if ($montobs5PagoFact) {
+            if (!$tasabs5PagoFact || !$metodobs5PagoFact) {
+                return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 5"];
+            }
+        }
+        if ($selectAbonoFact) {
+            foreach ($selectAbonoFact as $abonoFact) {
+                $c = cuentasporpagar::with("proveedor")->find($abonoFact["id"]);
+                if ($c) {
+                    if ($c->proveedor->id!=$id_pro) {
+                        return ["estado"=>false,"msj"=>$c->numfact." no es del Proveedor Seleccionado en el Abono"];
+                    }
+                }
+            }
+        }
+
         $id = isset($req->id)? $req->id: null;
         $id_sucursal = isset($req->id_sucursal)? $req->id_sucursal: null;
 
@@ -69,6 +121,22 @@ class CuentasporpagarController extends Controller
                 "metodo" => $cuentasPagosMetodo,
                 "selectAbonoFact" =>$selectAbonoFact,
                 "aprobado" =>1,
+
+                "montobs1PagoFact" => $montobs1PagoFact,
+                "tasabs1PagoFact" => $tasabs1PagoFact,
+                "metodobs1PagoFact" => $metodobs1PagoFact,
+                "montobs2PagoFact" => $montobs2PagoFact,
+                "tasabs2PagoFact" => $tasabs2PagoFact,
+                "metodobs2PagoFact" => $metodobs2PagoFact,
+                "montobs3PagoFact" => $montobs3PagoFact,
+                "tasabs3PagoFact" => $tasabs3PagoFact,
+                "metodobs3PagoFact" => $metodobs3PagoFact,
+                "montobs4PagoFact" => $montobs4PagoFact,
+                "tasabs4PagoFact" => $tasabs4PagoFact,
+                "metodobs4PagoFact" => $metodobs4PagoFact,
+                "montobs5PagoFact" => $montobs5PagoFact,
+                "tasabs5PagoFact" => $tasabs5PagoFact,
+                "metodobs5PagoFact" => $metodobs5PagoFact,
             ]);
             if ($pago) {
                 return [
@@ -93,6 +161,22 @@ class CuentasporpagarController extends Controller
         $fecha_creada = $arr["fecha_creada"];
         $metodo = isset($arr["metodo"])?$arr["metodo"]:null;
         $aprobado = isset($arr["aprobado"])?$arr["aprobado"]:0;
+
+        $montobs1PagoFact = isset($arr["montobs1PagoFact"])? $arr["montobs1PagoFact"]: 0;
+        $tasabs1PagoFact = isset($arr["tasabs1PagoFact"])? $arr["tasabs1PagoFact"]: 0;
+        $metodobs1PagoFact = isset($arr["metodobs1PagoFact"])? $arr["metodobs1PagoFact"]: 0;
+        $montobs2PagoFact = isset($arr["montobs2PagoFact"])? $arr["montobs2PagoFact"]: 0;
+        $tasabs2PagoFact = isset($arr["tasabs2PagoFact"])? $arr["tasabs2PagoFact"]: 0;
+        $metodobs2PagoFact = isset($arr["metodobs2PagoFact"])? $arr["metodobs2PagoFact"]: 0;
+        $montobs3PagoFact = isset($arr["montobs3PagoFact"])? $arr["montobs3PagoFact"]: 0;
+        $tasabs3PagoFact = isset($arr["tasabs3PagoFact"])? $arr["tasabs3PagoFact"]: 0;
+        $metodobs3PagoFact = isset($arr["metodobs3PagoFact"])? $arr["metodobs3PagoFact"]: 0;
+        $montobs4PagoFact = isset($arr["montobs4PagoFact"])? $arr["montobs4PagoFact"]: 0;
+        $tasabs4PagoFact = isset($arr["tasabs4PagoFact"])? $arr["tasabs4PagoFact"]: 0;
+        $metodobs4PagoFact = isset($arr["metodobs4PagoFact"])? $arr["metodobs4PagoFact"]: 0;
+        $montobs5PagoFact = isset($arr["montobs5PagoFact"])? $arr["montobs5PagoFact"]: 0;
+        $tasabs5PagoFact = isset($arr["tasabs5PagoFact"])? $arr["tasabs5PagoFact"]: 0;
+        $metodobs5PagoFact = isset($arr["metodobs5PagoFact"])? $arr["metodobs5PagoFact"]: 0;
         
         
         $selectAbonoFact = isset($arr["selectAbonoFact"])?$arr["selectAbonoFact"]:null;
@@ -116,7 +200,24 @@ class CuentasporpagarController extends Controller
             "nota" => "",
             "metodo" => $metodo,
             "aprobado" => $aprobado,
+
+            "montobs1" => $montobs1PagoFact,
+            "tasabs1" => $tasabs1PagoFact,
+            "metodobs1" => $metodobs1PagoFact,
+            "montobs2" => $montobs2PagoFact,
+            "tasabs2" => $tasabs2PagoFact,
+            "metodobs2" => $metodobs2PagoFact,
+            "montobs3" => $montobs3PagoFact,
+            "tasabs3" => $tasabs3PagoFact,
+            "metodobs3" => $metodobs3PagoFact,
+            "montobs4" => $montobs4PagoFact,
+            "tasabs4" => $tasabs4PagoFact,
+            "metodobs4" => $metodobs4PagoFact,
+            "montobs5" => $montobs5PagoFact,
+            "tasabs5" => $tasabs5PagoFact,
+            "metodobs5" => $metodobs5PagoFact,
         ];
+
         $search = [
             "id_sucursal" => $id_sucursal,
             "idinsucursal" => $idinsucursal_pago

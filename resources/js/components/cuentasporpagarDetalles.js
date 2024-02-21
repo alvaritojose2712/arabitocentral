@@ -565,6 +565,29 @@ export default function CuentasporpagarDetalles({
                                                         </tr>
                                                     </> 
                                                 :null}
+                                                {e.facturas ?
+                                                    e.facturas.length?
+                                                        e.facturas.map(fact=>
+                                                            <tr key={fact.id} className="border-top">
+                                                                <td colSpan={4}></td>
+                                                                <td className=" align-middle text-muted fst-italic">
+                                                                    {fact.created_at}
+                                                                </td>
+                                                                <td className=" align-middle text-muted fst-italic text-right" colSpan={2}>
+                                                                    FACTURA ASOCIADA <i className="fa fa-check text-sinapsis"></i>
+                                                                </td>
+                                                                <td className=" align-middle">
+                                                                    <span className="btn-sinapsis btn pointer w-100">
+                                                                        FACT {fact.numfact}
+                                                                    </span> 
+                                                                </td>
+                                                                <td className="text-right align-middle" colSpan={2}>
+                                                                    <span className="text-sinapsis">{moneda(fact.pivot.monto)}</span> / <span className="text-success">{moneda(fact.monto)}</span>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    :null
+                                                :null}
                                                 
                                             </>
                                         :null}

@@ -61,5 +61,21 @@ class cuentasporpagar extends Model
         "id_cuentaporpagar",
         "aprobado",
         "metodo",
+
+        "montobs1",
+        "tasabs1",
+        "metodobs1",
+        "montobs2",
+        "tasabs2",
+        "metodobs2",
+        "montobs3",
+        "tasabs3",
+        "metodobs3",
+        "montobs4",
+        "tasabs4",
+        "metodobs4",
+        "montobs5",
+        "tasabs5",
+        "metodobs5",
     ];
 }

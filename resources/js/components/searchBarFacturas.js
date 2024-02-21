@@ -16,8 +16,8 @@ export default function serarchBar({
     return(
     <form onSubmit={e=>{e.preventDefault();selectCuentaPorPagarProveedorDetallesFun()}} className="mb-3 card p-3 shadow">
         <div className="input-group">
-            <span className={("btn btn-lg btn-"+(cuentaporpagarAprobado==0?"sinapsis":""))} onClick={e=>setcuentaporpagarAprobado(0)}><i className="fa fa-clock-o"></i></span>
-            <span className={("btn btn-lg btn-"+(cuentaporpagarAprobado==1?"success":""))} onClick={e=>setcuentaporpagarAprobado(1)}><i className="fa fa-check"></i></span>
+            <button className={("btn btn-lg btn-"+(cuentaporpagarAprobado==0?"sinapsis":""))} type="button" onClick={e=>setcuentaporpagarAprobado(0)}><i className="fa fa-clock-o"></i></button>
+            <button className={("btn btn-lg btn-"+(cuentaporpagarAprobado==1?"success":""))} type="button" onClick={e=>setcuentaporpagarAprobado(1)}><i className="fa fa-check"></i></button>
             
             <input type="text" className="form-control form-control-lg fs-3" placeholder={"Buscar en..."} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
             <select className="form-control" value={selectProveedorCxp} onChange={e=>{setselectProveedorCxp(e.target.value);selectCuentaPorPagarProveedorDetallesFun("buscar",e.target.value)}}>
