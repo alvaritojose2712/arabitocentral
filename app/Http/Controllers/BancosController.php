@@ -82,21 +82,11 @@ class BancosController extends Controller
                 $q->banco = $q->metodo;
                 $sum = 0;
 
-                if ($q->montobs1) {
-                    $sum += $q->montobs1*$q->tasabs1;
-                }
-                if ($q->montobs2) {
-                    $sum += $q->montobs2*$q->tasabs2;
-                }
-                if ($q->montobs3) {
-                    $sum += $q->montobs3*$q->tasabs3;
-                }
-                if ($q->montobs4) {
-                    $sum += $q->montobs4*$q->tasabs4;
-                }
-                if ($q->montobs5) {
-                    $sum += $q->montobs5*$q->tasabs5;
-                }
+                if ($q->montobs1) {$sum += $q->montobs1;}
+                if ($q->montobs2) {$sum += $q->montobs2;}
+                if ($q->montobs3) {$sum += $q->montobs3;}
+                if ($q->montobs4) {$sum += $q->montobs4;}
+                if ($q->montobs5) {$sum += $q->montobs5;}
                 $q->monto_liquidado = $sum*-1;
                 $q->monto = $sum*-1;
                 return $q;

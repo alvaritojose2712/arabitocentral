@@ -67,7 +67,6 @@ export default function CuentasporpagarDetalles({
     sendDescuentoGeneralFats,
     abonarFact,
     proveedoresList,
-    
 
 }){
     
@@ -104,8 +103,8 @@ export default function CuentasporpagarDetalles({
             SelectCuentaPorPagarDetalle?
                 dataCuenta?
                 <div className="container p-0 mb-6">
-                    <span className="btn btn-danger boton-fijo-inferiorder btn-sm" onClick={()=>setSelectCuentaPorPagarDetalle(null)}>
-                        <i className="fa fa-arrow-left"></i>
+                    <span className="btn btn-danger boton-fijo-inferiorder fs-3" onClick={()=>setSelectCuentaPorPagarDetalle(null)}>
+                        <i className="fa fa-arrow-left"></i> VOLVER
                     </span>
                     <table className="table table-borderless table-sm">
                         <tbody>
@@ -121,16 +120,17 @@ export default function CuentasporpagarDetalles({
                                 </tr>
                                 <tr>
                                     <td colSpan={2} className="align-middle">
-                                        <table className="table table-borderless table-sm">
+                                        <table className="table table-striped w-75">
                                             <tbody>
                                                 {dataCuenta.monto_abonado && dataCuenta.pagos?
                                                 <>
                                                     {dataCuenta.pagos.map(e=>
                                                         <tr key={e.id} className="border-top">
                                                             <td className=" align-middle">
-                                                                <span className="text-muted fst-italic fs-7">{e.created_at}</span>
-                                                                <br />
-                                                                <span className="btn-sinapsis btn pointer btn-sm w-100 fs-7">
+                                                                <span className="text-muted fst-italic">{e.created_at}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span className="btn-success btn pointer w-100">
                                                                     {e.numfact}
                                                                 </span> 
                                                             </td>
@@ -207,7 +207,7 @@ export default function CuentasporpagarDetalles({
                     </table>
                     
                 
-                    <table className="table table-sm">
+                    <table className="table table-sm" onDoubleClick={()=>modeEditarFact(dataCuenta.id)}>
                         {dataCuenta.sucursal?
                             <tbody>
                                 
@@ -240,11 +240,13 @@ export default function CuentasporpagarDetalles({
                                 :null}
                                 
                                 <tr>
-                                    <th>SUBTOTAL</th>
-                                    <td className={dataCuenta.subtotal<0?"text-danger":("text-success")}>{moneda(dataCuenta.subtotal)}</td>
+                                    <th>SUBTOTAL / BRUTO</th>
+                                    <td className={dataCuenta.subtotal<0?"text-danger":("text-success")}>
+                                        {moneda(dataCuenta.subtotal)} / {moneda(dataCuenta.monto_bruto)} 
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th>DESCUENTO</th>
+                                    <th>DESCUENTO %</th>
                                     <td className={dataCuenta.descuento<0?"text-danger":("text-success")}>{moneda(dataCuenta.descuento)}</td>
                                 </tr>
                                 <tr>
@@ -338,7 +340,7 @@ export default function CuentasporpagarDetalles({
                     <table className="table table-borderless table-striped">
                             <thead className="">
                                 <tr className="align-middle">
-                                    <th colSpan={8}>
+                                    <th colSpan={7}>
                                         <div className="btn-group">
                                             <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>PAGOS</span>
 
@@ -350,10 +352,10 @@ export default function CuentasporpagarDetalles({
                                         </div>
 
                                     </th>
-                                    <th>
+                                    <th colSpan={2}>
                                     { 
                                         selectCuentaPorPagarId?
-                                            selectCuentaPorPagarId.balance? 
+                                            selectCuentaPorPagarId.sum!=""? 
                                                 <span className="text-muted fs-4">
                                                     Resultados <b>({selectCuentaPorPagarId.sum})</b>
                                                 </span>
@@ -364,7 +366,7 @@ export default function CuentasporpagarDetalles({
                                     <th>
                                         { 
                                         selectCuentaPorPagarId?
-                                            selectCuentaPorPagarId.balance? 
+                                            selectCuentaPorPagarId.balance!=""? 
                                                     <span className={(selectCuentaPorPagarId.balance<0? "text-danger": "text-success")+(" fs-1 mb-1 mt-1 bg-warning p-2")}>{moneda(selectCuentaPorPagarId.balance)}</span>
                                                 :null
                                             :null

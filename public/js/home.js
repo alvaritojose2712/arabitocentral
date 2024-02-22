@@ -4267,14 +4267,14 @@ function CuentasporpagarDetalles(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
     children: SelectCuentaPorPagarDetalle ? dataCuenta ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "container p-0 mb-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-        className: "btn btn-danger boton-fijo-inferiorder btn-sm",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+        className: "btn btn-danger boton-fijo-inferiorder fs-3",
         onClick: function onClick() {
           return setSelectCuentaPorPagarDetalle(null);
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
           className: "fa fa-arrow-left"
-        })
+        }), " VOLVER"]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
         className: "table table-borderless table-sm",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
@@ -4294,21 +4294,23 @@ function CuentasporpagarDetalles(_ref) {
                 colSpan: 2,
                 className: "align-middle",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
-                  className: "table table-borderless table-sm",
+                  className: "table table-striped w-75",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
                     children: dataCuenta.monto_abonado && dataCuenta.pagos ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
                       children: dataCuenta.pagos.map(function (e) {
                         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
                           className: "border-top",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                             className: " align-middle",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                              className: "text-muted fst-italic fs-7",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                              className: "text-muted fst-italic",
                               children: e.created_at
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                              className: "btn-sinapsis btn pointer btn-sm w-100 fs-7",
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                              className: "btn-success btn pointer w-100",
                               children: e.numfact
-                            })]
+                            })
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
                             className: "text-right align-bottom",
                             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -4393,6 +4395,9 @@ function CuentasporpagarDetalles(_ref) {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
         className: "table table-sm",
+        onDoubleClick: function onDoubleClick() {
+          return modeEditarFact(dataCuenta.id);
+        },
         children: dataCuenta.sucursal ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
@@ -4433,14 +4438,14 @@ function CuentasporpagarDetalles(_ref) {
             })]
           }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-              children: "SUBTOTAL"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+              children: "SUBTOTAL / BRUTO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
               className: dataCuenta.subtotal < 0 ? "text-danger" : "text-success",
-              children: moneda(dataCuenta.subtotal)
+              children: [moneda(dataCuenta.subtotal), " / ", moneda(dataCuenta.monto_bruto)]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-              children: "DESCUENTO"
+              children: "DESCUENTO %"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
               className: dataCuenta.descuento < 0 ? "text-danger" : "text-success",
               children: moneda(dataCuenta.descuento)
@@ -4584,7 +4589,7 @@ function CuentasporpagarDetalles(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
               className: "align-middle",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                colSpan: 8,
+                colSpan: 7,
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
                   className: "btn-group",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -4620,14 +4625,15 @@ function CuentasporpagarDetalles(_ref) {
                   })]
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                children: selectCuentaPorPagarId ? selectCuentaPorPagarId.balance ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+                colSpan: 2,
+                children: selectCuentaPorPagarId ? selectCuentaPorPagarId.sum != "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
                   className: "text-muted fs-4",
                   children: ["Resultados ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("b", {
                     children: ["(", selectCuentaPorPagarId.sum, ")"]
                   })]
                 }) : null : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                children: selectCuentaPorPagarId ? selectCuentaPorPagarId.balance ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                children: selectCuentaPorPagarId ? selectCuentaPorPagarId.balance != "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
                   className: (selectCuentaPorPagarId.balance < 0 ? "text-danger" : "text-success") + " fs-1 mb-1 mt-1 bg-warning p-2",
                   children: moneda(selectCuentaPorPagarId.balance)
                 }) : null : null
@@ -5135,6 +5141,7 @@ function CuentasporpagarPagos(_ref) {
     setnewfactnumnota = _ref.setnewfactnumnota,
     newfactnumnota = _ref.newfactnumnota,
     setnewfactdescripcion = _ref.setnewfactdescripcion,
+    newfactsucursal = _ref.newfactsucursal,
     newfactdescripcion = _ref.newfactdescripcion,
     setnewfactsubtotal = _ref.setnewfactsubtotal,
     newfactsubtotal = _ref.newfactsubtotal,
@@ -5175,6 +5182,7 @@ function CuentasporpagarPagos(_ref) {
     sucursalcuentasPorPagarDetalles = _ref.sucursalcuentasPorPagarDetalles,
     sucursales = _ref.sucursales,
     qcuentasPorPagarTipoFact = _ref.qcuentasPorPagarTipoFact,
+    showImageFact = _ref.showImageFact,
     setmontobs1PagoFact = _ref.setmontobs1PagoFact,
     montobs1PagoFact = _ref.montobs1PagoFact,
     settasabs1PagoFact = _ref.settasabs1PagoFact,
@@ -5878,247 +5886,255 @@ function CuentasporpagarPagos(_ref) {
     }) : null, subviewAgregarFactPago == "factura" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
         onSubmit: saveNewFact,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "form-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            children: "PROVEEDOR"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
-            className: "form-control",
-            value: selectProveedorCxp,
-            onChange: function onChange(e) {
-              return setselectProveedorCxp(e.target.value);
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-              value: "",
-              children: "-"
-            }), proveedoresList.map(function (e) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("option", {
-                value: e.id,
-                children: [e.rif, "-", e.descripcion]
-              }, e.id);
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("table", {
+          className: "table table-sm",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tbody", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: "ENVIADO POR"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: newfactsucursal
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: "PROVEEDOR"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                  className: "form-control",
+                  value: selectProveedorCxp,
+                  onChange: function onChange(e) {
+                    return setselectProveedorCxp(e.target.value);
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                    value: "",
+                    children: "-"
+                  }), proveedoresList.map(function (e) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("option", {
+                      value: e.id,
+                      children: [e.descripcion, "-", e.rif]
+                    }, e.id);
+                  })]
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: newfactnumfact > 0 ? "# PAGO" : "# FACTURA"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  placeholder: "numfact",
+                  value: newfactnumfact,
+                  onChange: function onChange(e) {
+                    return setnewfactnumfact(e.target.value);
+                  },
+                  className: "form-control"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: "# CONTROL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  placeholder: "numnota",
+                  value: newfactnumnota,
+                  onChange: function onChange(e) {
+                    return setnewfactnumnota(e.target.value);
+                  },
+                  className: "form-control"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: "DESCRIPCI\xD3N"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                  className: "btn btn-info",
+                  onClick: function onClick() {
+                    return showImageFact(newfactdescripcion);
+                  },
+                  type: "button",
+                  children: newfactdescripcion
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "SUBTOTAL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  placeholder: "subtotal",
+                  value: newfactsubtotal,
+                  onChange: function onChange(e) {
+                    return setnewfactsubtotal(number(e.target.value));
+                  },
+                  className: "form-control"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "DESCUENTO %"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  placeholder: "descuento",
+                  value: newfactdescuento,
+                  onChange: function onChange(e) {
+                    return setnewfactdescuento(number(e.target.value));
+                  },
+                  className: "form-control"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "MONTO EXENTO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  placeholder: "monto_exento",
+                  value: newfactmonto_exento,
+                  onChange: function onChange(e) {
+                    return setnewfactmonto_exento(number(e.target.value));
+                  },
+                  className: "form-control"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "MONTO GRAVABLE"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  placeholder: "monto_gravable",
+                  value: newfactmonto_gravable,
+                  onChange: function onChange(e) {
+                    return setnewfactmonto_gravable(number(e.target.value));
+                  },
+                  className: "form-control"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "IVA"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  placeholder: "iva",
+                  value: newfactiva,
+                  onChange: function onChange(e) {
+                    return setnewfactiva(number(e.target.value));
+                  },
+                  className: "form-control"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "TOTAL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  placeholder: "monto",
+                  value: newfactmonto,
+                  onChange: function onChange(e) {
+                    return setnewfactmonto(number(e.target.value));
+                  },
+                  className: "form-control fs-3 text-danger"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: "EMISI\xD3N"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "date",
+                  placeholder: "fechaemision",
+                  value: newfactfechaemision,
+                  onChange: function onChange(e) {
+                    return setnewfactfechaemision(e.target.value);
+                  },
+                  className: "form-control text-success"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: "RECEPCI\xD3N"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "date",
+                  placeholder: "fecharecepcion",
+                  value: newfactfecharecepcion,
+                  onChange: function onChange(e) {
+                    return setnewfactfecharecepcion(e.target.value);
+                  },
+                  className: "form-control text-sinapsis"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: "VENCIMIENTO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "date",
+                  placeholder: "fechavencimiento",
+                  value: newfactfechavencimiento,
+                  onChange: function onChange(e) {
+                    return setnewfactfechavencimiento(e.target.value);
+                  },
+                  className: "form-control text-danger"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: "NOTA"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  placeholder: "nota",
+                  value: newfactnota,
+                  onChange: function onChange(e) {
+                    return setnewfactnota(e.target.value);
+                  },
+                  className: "form-control"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: "TIPO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                  className: "form-control",
+                  value: newfacttipo,
+                  onChange: function onChange(e) {
+                    return setnewfacttipo(e.target.value);
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                    value: "",
+                    children: "-"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                    value: "1",
+                    children: "COMPRAS"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                    value: "2",
+                    children: "SERVICIOS"
+                  })]
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: "FRECUENCIA"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  placeholder: "frecuencia",
+                  value: newfactfrecuencia,
+                  onChange: function onChange(e) {
+                    return setnewfactfrecuencia(e.target.value);
+                  },
+                  className: "form-control"
+                })
+              })]
             })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "# FACTURA"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "numfact",
-            value: newfactnumfact,
-            onChange: function onChange(e) {
-              return setnewfactnumfact(e.target.value);
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "# CONTROL"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "numnota",
-            value: newfactnumnota,
-            onChange: function onChange(e) {
-              return setnewfactnumnota(e.target.value);
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "DESCRIPCI\xD3N"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "descripcion",
-            value: newfactdescripcion,
-            onChange: function onChange(e) {
-              return setnewfactdescripcion(e.target.value);
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "SUBTOTAL"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "subtotal",
-            value: newfactsubtotal,
-            onChange: function onChange(e) {
-              return setnewfactsubtotal(number(e.target.value));
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "DESCUENTO"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "descuento",
-            value: newfactdescuento,
-            onChange: function onChange(e) {
-              return setnewfactdescuento(number(e.target.value));
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "MONTO EXENTO"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "monto_exento",
-            value: newfactmonto_exento,
-            onChange: function onChange(e) {
-              return setnewfactmonto_exento(number(e.target.value));
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "MONTO GRAVABLE"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "monto_gravable",
-            value: newfactmonto_gravable,
-            onChange: function onChange(e) {
-              return setnewfactmonto_gravable(number(e.target.value));
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "IVA"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "iva",
-            value: newfactiva,
-            onChange: function onChange(e) {
-              return setnewfactiva(number(e.target.value));
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "input-group-text text-right cell4",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
-              className: "fs-5 text-success",
-              children: "TOTAL"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "monto",
-            value: newfactmonto,
-            onChange: function onChange(e) {
-              return setnewfactmonto(number(e.target.value));
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "EMISI\xD3N"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "date",
-            placeholder: "fechaemision",
-            value: newfactfechaemision,
-            onChange: function onChange(e) {
-              return setnewfactfechaemision(e.target.value);
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "VENCIMIENTO"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "date",
-            placeholder: "fechavencimiento",
-            value: newfactfechavencimiento,
-            onChange: function onChange(e) {
-              return setnewfactfechavencimiento(e.target.value);
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "RECEPCI\xD3N"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "date",
-            placeholder: "fecharecepcion",
-            value: newfactfecharecepcion,
-            onChange: function onChange(e) {
-              return setnewfactfecharecepcion(e.target.value);
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "NOTA"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "nota",
-            value: newfactnota,
-            onChange: function onChange(e) {
-              return setnewfactnota(e.target.value);
-            },
-            className: "form-control"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "TIPO"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
-            className: "form-control",
-            value: newfacttipo,
-            onChange: function onChange(e) {
-              return setnewfacttipo(e.target.value);
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-              value: "",
-              children: "-"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-              value: "1",
-              children: "COMPRAS"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-              value: "2",
-              children: "SERVICIOS"
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group m-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "input-group-text text-right cell4",
-            children: "FRECUENCIA"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "frecuencia",
-            value: newfactfrecuencia,
-            onChange: function onChange(e) {
-              return setnewfactfrecuencia(e.target.value);
-            },
-            className: "form-control"
-          })]
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "boton-fijo-inferiorizq",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -6126,7 +6142,7 @@ function CuentasporpagarPagos(_ref) {
             children: selectFactEdit !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
               className: "btn btn-sinapsis fs-3",
               type: "submit",
-              children: ["EDITAR ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+              children: ["GUARDAR CAMBIOS ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
                 className: "fa fa-pencil"
               })]
             }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
@@ -6139,15 +6155,15 @@ function CuentasporpagarPagos(_ref) {
           })
         })]
       })
-    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-      className: "btn div-fijo-inferiorder  btn-sinapsis",
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+      className: "btn div-fijo-inferiorder btn-danger fs-3",
       onClick: function onClick() {
         return setcuentasporpagarDetallesView("cuentas");
       },
       type: "button",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-        className: "fa fa-list"
-      })
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+        className: "fa fa-arrow-left"
+      }), " VOLVER"]
     })]
   });
 }
@@ -65114,75 +65130,79 @@ function Home() {
     setnewfactdescripcion = _useState412[1];
   var _useState413 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState414 = _slicedToArray(_useState413, 2),
-    newfactsubtotal = _useState414[0],
-    setnewfactsubtotal = _useState414[1];
+    newfactsucursal = _useState414[0],
+    setnewfactsucursal = _useState414[1];
   var _useState415 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState416 = _slicedToArray(_useState415, 2),
-    newfactdescuento = _useState416[0],
-    setnewfactdescuento = _useState416[1];
+    newfactsubtotal = _useState416[0],
+    setnewfactsubtotal = _useState416[1];
   var _useState417 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState418 = _slicedToArray(_useState417, 2),
-    newfactmonto_exento = _useState418[0],
-    setnewfactmonto_exento = _useState418[1];
+    newfactdescuento = _useState418[0],
+    setnewfactdescuento = _useState418[1];
   var _useState419 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState420 = _slicedToArray(_useState419, 2),
-    newfactmonto_gravable = _useState420[0],
-    setnewfactmonto_gravable = _useState420[1];
+    newfactmonto_exento = _useState420[0],
+    setnewfactmonto_exento = _useState420[1];
   var _useState421 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState422 = _slicedToArray(_useState421, 2),
-    newfactiva = _useState422[0],
-    setnewfactiva = _useState422[1];
+    newfactmonto_gravable = _useState422[0],
+    setnewfactmonto_gravable = _useState422[1];
   var _useState423 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState424 = _slicedToArray(_useState423, 2),
-    newfactmonto = _useState424[0],
-    setnewfactmonto = _useState424[1];
+    newfactiva = _useState424[0],
+    setnewfactiva = _useState424[1];
   var _useState425 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState426 = _slicedToArray(_useState425, 2),
-    newfactfechaemision = _useState426[0],
-    setnewfactfechaemision = _useState426[1];
+    newfactmonto = _useState426[0],
+    setnewfactmonto = _useState426[1];
   var _useState427 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState428 = _slicedToArray(_useState427, 2),
-    newfactfechavencimiento = _useState428[0],
-    setnewfactfechavencimiento = _useState428[1];
+    newfactfechaemision = _useState428[0],
+    setnewfactfechaemision = _useState428[1];
   var _useState429 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState430 = _slicedToArray(_useState429, 2),
-    newfactfecharecepcion = _useState430[0],
-    setnewfactfecharecepcion = _useState430[1];
+    newfactfechavencimiento = _useState430[0],
+    setnewfactfechavencimiento = _useState430[1];
   var _useState431 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState432 = _slicedToArray(_useState431, 2),
-    newfactnota = _useState432[0],
-    setnewfactnota = _useState432[1];
-  var _useState433 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("1"),
+    newfactfecharecepcion = _useState432[0],
+    setnewfactfecharecepcion = _useState432[1];
+  var _useState433 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState434 = _slicedToArray(_useState433, 2),
-    newfacttipo = _useState434[0],
-    setnewfacttipo = _useState434[1];
-  var _useState435 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    newfactnota = _useState434[0],
+    setnewfactnota = _useState434[1];
+  var _useState435 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("1"),
     _useState436 = _slicedToArray(_useState435, 2),
-    newfactfrecuencia = _useState436[0],
-    setnewfactfrecuencia = _useState436[1];
-  var _useState437 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    newfacttipo = _useState436[0],
+    setnewfacttipo = _useState436[1];
+  var _useState437 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState438 = _slicedToArray(_useState437, 2),
-    selectFactEdit = _useState438[0],
-    setselectFactEdit = _useState438[1];
-  var _useState439 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    newfactfrecuencia = _useState438[0],
+    setnewfactfrecuencia = _useState438[1];
+  var _useState439 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
     _useState440 = _slicedToArray(_useState439, 2),
-    selectProveedorCxp = _useState440[0],
-    setselectProveedorCxp = _useState440[1];
-  var _useState441 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(1),
+    selectFactEdit = _useState440[0],
+    setselectFactEdit = _useState440[1];
+  var _useState441 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState442 = _slicedToArray(_useState441, 2),
-    cuentaporpagarAprobado = _useState442[0],
-    setcuentaporpagarAprobado = _useState442[1];
-  var _useState443 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    selectProveedorCxp = _useState442[0],
+    setselectProveedorCxp = _useState442[1];
+  var _useState443 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(1),
     _useState444 = _slicedToArray(_useState443, 2),
-    efectivoDisponibleSucursalesData = _useState444[0],
-    setefectivoDisponibleSucursalesData = _useState444[1];
-  var _useState445 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+    cuentaporpagarAprobado = _useState444[0],
+    setcuentaporpagarAprobado = _useState444[1];
+  var _useState445 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    _useState446 = _slicedToArray(_useState445, 2),
+    efectivoDisponibleSucursalesData = _useState446[0],
+    setefectivoDisponibleSucursalesData = _useState446[1];
+  var _useState447 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
       "sum": 0,
       "data": []
     }),
-    _useState446 = _slicedToArray(_useState445, 2),
-    dataselectFacts = _useState446[0],
-    setdataselectFacts = _useState446[1];
+    _useState448 = _slicedToArray(_useState447, 2),
+    dataselectFacts = _useState448[0],
+    setdataselectFacts = _useState448[1];
   var getDisponibleEfectivoSucursal = function getDisponibleEfectivoSucursal() {
     _database_database__WEBPACK_IMPORTED_MODULE_4__["default"].getDisponibleEfectivoSucursal({}).then(function (res) {
       if (res.data.data.length) {
@@ -65192,10 +65212,10 @@ function Home() {
       }
     });
   };
-  var _useState447 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState448 = _slicedToArray(_useState447, 2),
-    descuentoGeneralFats = _useState448[0],
-    setdescuentoGeneralFats = _useState448[1];
+  var _useState449 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState450 = _slicedToArray(_useState449, 2),
+    descuentoGeneralFats = _useState450[0],
+    setdescuentoGeneralFats = _useState450[1];
   var sendDescuentoGeneralFats = function sendDescuentoGeneralFats() {
     _database_database__WEBPACK_IMPORTED_MODULE_4__["default"].sendDescuentoGeneralFats({
       dataselectFacts: dataselectFacts.data,
@@ -65320,12 +65340,13 @@ function Home() {
               setnewfactnumfact(data.numfact);
               setnewfactnumnota(data.numnota);
               setnewfactdescripcion(data.descripcion);
+              setnewfactsucursal(data.sucursal.codigo);
               setnewfactsubtotal(number(data.subtotal));
               setnewfactdescuento(number(data.descuento));
               setnewfactmonto_exento(number(data.monto_exento));
               setnewfactmonto_gravable(number(data.monto_gravable));
               setnewfactiva(number(data.iva));
-              setnewfactmonto(number(data.monto));
+              setnewfactmonto(number(data.monto_bruto));
               setnewfactfechaemision(data.fechaemision);
               setnewfactfechavencimiento(data.fechavencimiento);
               setnewfactfecharecepcion(data.fecharecepcion);
@@ -65369,6 +65390,7 @@ function Home() {
           setnewfactnumfact("");
           setnewfactnumnota("");
           setnewfactdescripcion("");
+          setnewfactsucursal("");
           setnewfactsubtotal("");
           setnewfactdescuento("");
           setnewfactmonto_exento("");
@@ -65718,10 +65740,10 @@ function Home() {
       setprecioxproveedor(res.data);
     });
   };
-  var _useState449 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-    _useState450 = _slicedToArray(_useState449, 2),
-    selectAbonoFact = _useState450[0],
-    setselectAbonoFact = _useState450[1];
+  var _useState451 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    _useState452 = _slicedToArray(_useState451, 2),
+    selectAbonoFact = _useState452[0],
+    setselectAbonoFact = _useState452[1];
   var setInputAbonoFact = function setInputAbonoFact(id, val) {
     var selectAbonoFactClone = (0,lodash__WEBPACK_IMPORTED_MODULE_1__.cloneDeep)(selectAbonoFact);
     if (selectAbonoFactClone.concat(selectCuentaPorPagarId ? selectCuentaPorPagarId.detalles ? selectCuentaPorPagarId.detalles : [] : [])) {
@@ -65861,22 +65883,22 @@ function Home() {
 
   /////Marcas 
 
-  var _useState451 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState452 = _slicedToArray(_useState451, 2),
-    qBuscarMarcas = _useState452[0],
-    setQBuscarMarcas = _useState452[1];
-  var _useState453 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+  var _useState453 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState454 = _slicedToArray(_useState453, 2),
-    marcas = _useState454[0],
-    setmarcas = _useState454[1];
-  var _useState455 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    qBuscarMarcas = _useState454[0],
+    setQBuscarMarcas = _useState454[1];
+  var _useState455 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
     _useState456 = _slicedToArray(_useState455, 2),
-    marcasDescripcion = _useState456[0],
-    setmarcasDescripcion = _useState456[1];
-  var _useState457 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    marcas = _useState456[0],
+    setmarcas = _useState456[1];
+  var _useState457 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState458 = _slicedToArray(_useState457, 2),
-    indexSelectMarcas = _useState458[0],
-    setIndexSelectMarcas = _useState458[1];
+    marcasDescripcion = _useState458[0],
+    setmarcasDescripcion = _useState458[1];
+  var _useState459 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    _useState460 = _slicedToArray(_useState459, 2),
+    indexSelectMarcas = _useState460[0],
+    setIndexSelectMarcas = _useState460[1];
   var delMarcas = function delMarcas() {
     setLoading(true);
     var id = null;
@@ -65932,22 +65954,22 @@ function Home() {
 
   /////Categorias 
 
-  var _useState459 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState460 = _slicedToArray(_useState459, 2),
-    qBuscarCategorias = _useState460[0],
-    setQBuscarCategorias = _useState460[1];
-  var _useState461 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+  var _useState461 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState462 = _slicedToArray(_useState461, 2),
-    categorias = _useState462[0],
-    setcategorias = _useState462[1];
-  var _useState463 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    qBuscarCategorias = _useState462[0],
+    setQBuscarCategorias = _useState462[1];
+  var _useState463 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
     _useState464 = _slicedToArray(_useState463, 2),
-    categoriasDescripcion = _useState464[0],
-    setcategoriasDescripcion = _useState464[1];
-  var _useState465 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    categorias = _useState464[0],
+    setcategorias = _useState464[1];
+  var _useState465 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState466 = _slicedToArray(_useState465, 2),
-    indexSelectCategorias = _useState466[0],
-    setIndexSelectCategorias = _useState466[1];
+    categoriasDescripcion = _useState466[0],
+    setcategoriasDescripcion = _useState466[1];
+  var _useState467 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    _useState468 = _slicedToArray(_useState467, 2),
+    indexSelectCategorias = _useState468[0],
+    setIndexSelectCategorias = _useState468[1];
   var delCategorias = function delCategorias() {
     setLoading(true);
     var id = null;
@@ -66011,22 +66033,22 @@ function Home() {
 
   /////CatGenerals 
 
-  var _useState467 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState468 = _slicedToArray(_useState467, 2),
-    qBuscarCatGenerals = _useState468[0],
-    setQBuscarCatGenerals = _useState468[1];
-  var _useState469 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+  var _useState469 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState470 = _slicedToArray(_useState469, 2),
-    catGenerals = _useState470[0],
-    setcatGenerals = _useState470[1];
-  var _useState471 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    qBuscarCatGenerals = _useState470[0],
+    setQBuscarCatGenerals = _useState470[1];
+  var _useState471 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
     _useState472 = _slicedToArray(_useState471, 2),
-    catGeneralsDescripcion = _useState472[0],
-    setcatGeneralsDescripcion = _useState472[1];
-  var _useState473 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    catGenerals = _useState472[0],
+    setcatGenerals = _useState472[1];
+  var _useState473 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState474 = _slicedToArray(_useState473, 2),
-    indexSelectCatGenerals = _useState474[0],
-    setIndexSelectCatGenerals = _useState474[1];
+    catGeneralsDescripcion = _useState474[0],
+    setcatGeneralsDescripcion = _useState474[1];
+  var _useState475 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    _useState476 = _slicedToArray(_useState475, 2),
+    indexSelectCatGenerals = _useState476[0],
+    setIndexSelectCatGenerals = _useState476[1];
   var delCatGenerals = function delCatGenerals() {
     setLoading(true);
     var id = null;
@@ -66077,10 +66099,10 @@ function Home() {
       }
     });
   };
-  var _useState475 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-    _useState476 = _slicedToArray(_useState475, 2),
-    categoriasCajas = _useState476[0],
-    setcategoriasCajas = _useState476[1];
+  var _useState477 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    _useState478 = _slicedToArray(_useState477, 2),
+    categoriasCajas = _useState478[0],
+    setcategoriasCajas = _useState478[1];
   var getCatCajas = function getCatCajas() {
     _database_database__WEBPACK_IMPORTED_MODULE_4__["default"].getCatCajas({}).then(function (res) {
       if (res.data.length) {
@@ -66170,74 +66192,74 @@ function Home() {
     route: "administracion",
     name: "ADMINISTRACIÓN"
   }];
-  var _useState477 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-    _useState478 = _slicedToArray(_useState477, 2),
-    opcionesMetodosPago = _useState478[0],
-    setopcionesMetodosPago = _useState478[1];
   var _useState479 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
     _useState480 = _slicedToArray(_useState479, 2),
-    bancosdata = _useState480[0],
-    setbancosdata = _useState480[1];
-  var _useState481 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    opcionesMetodosPago = _useState480[0],
+    setopcionesMetodosPago = _useState480[1];
+  var _useState481 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
     _useState482 = _slicedToArray(_useState481, 2),
-    fechaSelectAuditoria = _useState482[0],
-    setfechaSelectAuditoria = _useState482[1];
+    bancosdata = _useState482[0],
+    setbancosdata = _useState482[1];
   var _useState483 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState484 = _slicedToArray(_useState483, 2),
-    fechaHastaSelectAuditoria = _useState484[0],
-    setfechaHastaSelectAuditoria = _useState484[1];
+    fechaSelectAuditoria = _useState484[0],
+    setfechaSelectAuditoria = _useState484[1];
   var _useState485 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState486 = _slicedToArray(_useState485, 2),
-    bancoSelectAuditoria = _useState486[0],
-    setbancoSelectAuditoria = _useState486[1];
+    fechaHastaSelectAuditoria = _useState486[0],
+    setfechaHastaSelectAuditoria = _useState486[1];
   var _useState487 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState488 = _slicedToArray(_useState487, 2),
-    sucursalSelectAuditoria = _useState488[0],
-    setsucursalSelectAuditoria = _useState488[1];
-  var _useState489 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    bancoSelectAuditoria = _useState488[0],
+    setbancoSelectAuditoria = _useState488[1];
+  var _useState489 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState490 = _slicedToArray(_useState489, 2),
-    qdescripcionbancosdata = _useState490[0],
-    setqdescripcionbancosdata = _useState490[1];
-  var _useState491 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    sucursalSelectAuditoria = _useState490[0],
+    setsucursalSelectAuditoria = _useState490[1];
+  var _useState491 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
     _useState492 = _slicedToArray(_useState491, 2),
-    SaldoInicialSelectAuditoria = _useState492[0],
-    setSaldoInicialSelectAuditoria = _useState492[1];
+    qdescripcionbancosdata = _useState492[0],
+    setqdescripcionbancosdata = _useState492[1];
   var _useState493 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState494 = _slicedToArray(_useState493, 2),
-    SaldoActualSelectAuditoria = _useState494[0],
-    setSaldoActualSelectAuditoria = _useState494[1];
-  var _useState495 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    SaldoInicialSelectAuditoria = _useState494[0],
+    setSaldoInicialSelectAuditoria = _useState494[1];
+  var _useState495 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState496 = _slicedToArray(_useState495, 2),
-    movimientoAuditoria = _useState496[0],
-    setmovimientoAuditoria = _useState496[1];
-  var _useState497 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    SaldoActualSelectAuditoria = _useState496[0],
+    setSaldoActualSelectAuditoria = _useState496[1];
+  var _useState497 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
     _useState498 = _slicedToArray(_useState497, 2),
-    selectTrLiquidar = _useState498[0],
-    setselectTrLiquidar = _useState498[1];
-  var _useState499 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    movimientoAuditoria = _useState498[0],
+    setmovimientoAuditoria = _useState498[1];
+  var _useState499 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
     _useState500 = _slicedToArray(_useState499, 2),
-    inpmontoLiquidar = _useState500[0],
-    setinpmontoLiquidar = _useState500[1];
+    selectTrLiquidar = _useState500[0],
+    setselectTrLiquidar = _useState500[1];
   var _useState501 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState502 = _slicedToArray(_useState501, 2),
-    inpfechaLiquidar = _useState502[0],
-    setinpfechaLiquidar = _useState502[1];
-  var _useState503 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("desc"),
+    inpmontoLiquidar = _useState502[0],
+    setinpmontoLiquidar = _useState502[1];
+  var _useState503 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState504 = _slicedToArray(_useState503, 2),
-    orderAuditoria = _useState504[0],
-    setorderAuditoria = _useState504[1];
-  var _useState505 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("tipo"),
+    inpfechaLiquidar = _useState504[0],
+    setinpfechaLiquidar = _useState504[1];
+  var _useState505 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("desc"),
     _useState506 = _slicedToArray(_useState505, 2),
-    orderColumnAuditoria = _useState506[0],
-    setorderColumnAuditoria = _useState506[1];
-  var _useState507 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    orderAuditoria = _useState506[0],
+    setorderAuditoria = _useState506[1];
+  var _useState507 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("tipo"),
     _useState508 = _slicedToArray(_useState507, 2),
-    saldoactualbancofecha = _useState508[0],
-    setsaldoactualbancofecha = _useState508[1];
+    orderColumnAuditoria = _useState508[0],
+    setorderColumnAuditoria = _useState508[1];
   var _useState509 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState510 = _slicedToArray(_useState509, 2),
-    selectConciliacionData = _useState510[0],
-    setselectConciliacionData = _useState510[1];
+    saldoactualbancofecha = _useState510[0],
+    setsaldoactualbancofecha = _useState510[1];
+  var _useState511 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    _useState512 = _slicedToArray(_useState511, 2),
+    selectConciliacionData = _useState512[0],
+    setselectConciliacionData = _useState512[1];
   var selectConciliacion = function selectConciliacion(banco, fecha) {
     setselectConciliacionData(banco + "-" + fecha);
     var fil = bancosdata.xfechaCuadre.filter(function (e) {
@@ -66388,10 +66410,10 @@ function Home() {
     {codigo:"AirTM", descripcion: "AirTM"},
   ] */
 
-  var _useState511 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("disponible"),
-    _useState512 = _slicedToArray(_useState511, 2),
-    subViewCuentasxPagar = _useState512[0],
-    setsubViewCuentasxPagar = _useState512[1];
+  var _useState513 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("disponible"),
+    _useState514 = _slicedToArray(_useState513, 2),
+    subViewCuentasxPagar = _useState514[0],
+    setsubViewCuentasxPagar = _useState514[1];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_47__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_47__.Fragment, {
     children: !loginActive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_47__.jsx)(_components_login__WEBPACK_IMPORTED_MODULE_11__["default"], {
       loginRes: loginRes
@@ -66674,6 +66696,7 @@ function Home() {
                 subViewCuentasxPagar: subViewCuentasxPagar,
                 setsubViewCuentasxPagar: setsubViewCuentasxPagar
               }) : null, cuentasporpagarDetallesView == "pagos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_47__.jsx)(_cuentasporpagarPagos__WEBPACK_IMPORTED_MODULE_45__["default"], {
+                showImageFact: showImageFact,
                 montobs1PagoFact: montobs1PagoFact,
                 setmontobs1PagoFact: setmontobs1PagoFact,
                 tasabs1PagoFact: tasabs1PagoFact,
@@ -66764,7 +66787,9 @@ function Home() {
                 setnewfactnumnota: setnewfactnumnota,
                 newfactnumnota: newfactnumnota,
                 setnewfactdescripcion: setnewfactdescripcion,
+                setnewfactsucursal: setnewfactsucursal,
                 newfactdescripcion: newfactdescripcion,
+                newfactsucursal: newfactsucursal,
                 setnewfactsubtotal: setnewfactsubtotal,
                 newfactsubtotal: newfactsubtotal,
                 setnewfactdescuento: setnewfactdescuento,

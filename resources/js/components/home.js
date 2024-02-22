@@ -1747,6 +1747,8 @@ function Home() {
   const [newfactnumfact, setnewfactnumfact] = useState("")
   const [newfactnumnota, setnewfactnumnota] = useState("")
   const [newfactdescripcion, setnewfactdescripcion] = useState("")
+  const [newfactsucursal, setnewfactsucursal] = useState("")
+  
   const [newfactsubtotal, setnewfactsubtotal] = useState("")
   const [newfactdescuento, setnewfactdescuento] = useState("")
   const [newfactmonto_exento, setnewfactmonto_exento] = useState("")
@@ -1904,13 +1906,13 @@ function Home() {
                       setnewfactnumfact(data.numfact)
                       setnewfactnumnota(data.numnota)
                       setnewfactdescripcion(data.descripcion)
-                      
+                      setnewfactsucursal(data.sucursal.codigo)
                       setnewfactsubtotal(number(data.subtotal))
                       setnewfactdescuento(number(data.descuento))
                       setnewfactmonto_exento(number(data.monto_exento))
                       setnewfactmonto_gravable(number(data.monto_gravable))
                       setnewfactiva(number(data.iva))
-                      setnewfactmonto(number(data.monto))
+                      setnewfactmonto(number(data.monto_bruto))
   
                       setnewfactfechaemision(data.fechaemision)
                       setnewfactfechavencimiento(data.fechavencimiento)
@@ -1957,6 +1959,7 @@ function Home() {
           setnewfactnumfact("")
           setnewfactnumnota("")
           setnewfactdescripcion("")
+          setnewfactsucursal("")
           setnewfactsubtotal("")
           setnewfactdescuento("")
           setnewfactmonto_exento("")
@@ -3287,6 +3290,8 @@ function Home() {
 
                     {cuentasporpagarDetallesView=="pagos"?
                       <CuentasporpagarPago
+                        showImageFact={showImageFact}
+
                         montobs1PagoFact={montobs1PagoFact}
                         setmontobs1PagoFact={setmontobs1PagoFact}
                         tasabs1PagoFact={tasabs1PagoFact}
@@ -3383,7 +3388,9 @@ function Home() {
                         setnewfactnumnota={setnewfactnumnota}
                         newfactnumnota={newfactnumnota}
                         setnewfactdescripcion={setnewfactdescripcion}
+                        setnewfactsucursal={setnewfactsucursal}
                         newfactdescripcion={newfactdescripcion}
+                        newfactsucursal={newfactsucursal}
                         setnewfactsubtotal={setnewfactsubtotal}
                         newfactsubtotal={newfactsubtotal}
                         setnewfactdescuento={setnewfactdescuento}

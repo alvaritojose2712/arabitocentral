@@ -499,7 +499,10 @@ class CuentasporpagarController extends Controller
         $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos"=>function($q) {
             $q->orderBy("id","desc");
         },"facturas"])
-        ->selectRaw("*, @monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado")
+        ->selectRaw("*, @monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado, 
+        @monto_descuento := (COALESCE(monto,0)*(COALESCE(descuento,0)/100)) as monto_descuento,
+        @balanceselect := (COALESCE(@monto_abonado,0) + COALESCE(monto,0) - @monto_descuento) as balance
+        ")
         ->where("aprobado",$cuentaporpagarAprobado)
 
         ->when( ($id_proveedor != "" && $id_proveedor != null),function($q) use ($id_proveedor){
@@ -567,19 +570,13 @@ class CuentasporpagarController extends Controller
         ->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
 
         $detalles_modified = $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact, $todayWithoutDateTime) {
-            $descuento = 0;
-            if ($q->descuento) {
-                $descuento = $q->monto*($q->descuento/100);
-            }
-            $q->monto_descuento = $descuento;
             $q->monto_bruto = $q->monto;
 
-            $q->monto = $q->monto-$descuento;
+            $q->monto = $q->monto-$q->monto_descuento;
             $fechavencimiento = new \DateTime($q->fechavencimiento);
             $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
             $monto = $q->monto;
 
-            $q->balance = floatval($q->monto_abonado)+floatval($q->monto);
 
             $hoy = new \DateTime($todayWithoutDateTime);
             $vence = new \DateTime($q->fechavencimiento);
