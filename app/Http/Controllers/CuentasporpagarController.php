@@ -373,9 +373,11 @@ class CuentasporpagarController extends Controller
             $newfactmonto_gravable = $req->newfactmonto_gravable;
             $newfactiva = $req->newfactiva;
             $newfactmonto = $req->newfactmonto;
+
             $newfactfechaemision = $req->newfactfechaemision;
             $newfactfechavencimiento = $req->newfactfechavencimiento;
             $newfactfecharecepcion = $req->newfactfecharecepcion;
+            
             $newfactnota = $req->newfactnota;
             $newfacttipo = $req->newfacttipo;
             $newfactfrecuencia = $req->newfactfrecuencia;
@@ -414,12 +416,12 @@ class CuentasporpagarController extends Controller
                     "frecuencia" => $newfactfrecuencia,
                 ];
                 
+                $arrinsert["fechaemision"] = $newfactfechaemision;
+                $arrinsert["fechavencimiento"] = $newfactfechavencimiento;
+                $arrinsert["fecharecepcion"] = $newfactfecharecepcion;
                 if (!$id) {
                     $arrinsert["id_proveedor"] = $newfactid_proveedor;
                     $arrinsert["id_sucursal"] = $su->id;
-                    $arrinsert["fechaemision"] = $newfactfechaemision;
-                    $arrinsert["fechavencimiento"] = $newfactfechavencimiento;
-                    $arrinsert["fecharecepcion"] = $newfactfecharecepcion;
                 }
                 $search = ["id" => $id];
                 $cu = $this->setCuentaPorPagar($arrinsert,$search);
