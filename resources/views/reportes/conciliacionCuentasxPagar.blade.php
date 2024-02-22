@@ -15,9 +15,29 @@
 </head>
 <body>
     <section class="container-fluid">
-        <h3 class="text-center">RELACIÓN DE DEUDA</h3>
+        <div class="d-flex justify-content-center align-items-center">
+            <div>
+                <span class="h3 m-5">RELACIÓN DE DEUDA</span> 
+            </div>
+            <div>
+                <span class="h1">
+                    @if ($proveedor)
+                        {{$proveedor->descripcion}}
+                    @endif    
+                </span> 
+                <br>
+                <b>
+                    @php
+                        echo date("d-m-Y H:i")
+                    @endphp
+                </b>
+
+            </div>
+
+        </div>
         <table class="table table-bordered table-striped">
             <tr>
+                <th>ESTATUS</th>
                 <th>PROVEEDOR</th>
                 <th># FACT</th>
                 <th>SUCURSAL</th>
@@ -27,6 +47,11 @@
             </tr>
             @foreach ($detalles as $cuenta)
                 <tr>
+                    <th>
+                        <button class="w-100 btn @if ($cuenta->condicion=="pagadas") btn-medsuccess @endif @if ($cuenta->condicion=="vencidas") btn-danger @endif @if ($cuenta->condicion=="porvencer") btn-sinapsis @endif @if ($cuenta->condicion=="semipagadas") btn-primary @endif @if ($cuenta->condicion=="abonos") btn-success @endif"> 
+                            {{$cuenta->condicion}}
+                        </button>
+                    </th>
                     <th>{{$cuenta->proveedor->descripcion}}</th>
                     <td>
                         {{$cuenta->numfact}}

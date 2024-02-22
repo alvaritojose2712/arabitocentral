@@ -340,7 +340,7 @@ export default function CuentasporpagarDetalles({
                     <table className="table table-borderless table-striped">
                             <thead className="">
                                 <tr className="align-middle">
-                                    <th colSpan={7}>
+                                    <th colSpan={8}>
                                         <div className="btn-group">
                                             <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>PAGOS</span>
 
@@ -352,7 +352,7 @@ export default function CuentasporpagarDetalles({
                                         </div>
 
                                     </th>
-                                    <th colSpan={2}>
+                                    <th colSpan={2} className="text-right">
                                     { 
                                         selectCuentaPorPagarId?
                                             selectCuentaPorPagarId.sum!=""? 
@@ -363,7 +363,7 @@ export default function CuentasporpagarDetalles({
                                         :null
                                     }
                                     </th>
-                                    <th>
+                                    <th colSpan={2} className="text-right">
                                         { 
                                         selectCuentaPorPagarId?
                                             selectCuentaPorPagarId.balance!=""? 
@@ -374,38 +374,45 @@ export default function CuentasporpagarDetalles({
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="created_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("created_at")}} className="pointer cell1 p-3">
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="created_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("created_at")}} className="pointer  p-3">
                                         CREADA
                                     </th> 
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="updated_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("updated_at")}} className="pointer cell1 p-3">
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="updated_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("updated_at")}} className="pointer  p-3">
                                         ACTUALIZADA
                                     </th> 
 
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_proveedor"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_proveedor")}} className="pointer cell1 p-3">
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_proveedor"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_proveedor")}} className="pointer  p-3">
                                         PROVEEDOR
                                     </th>  
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="numfact"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("numfact")}} className="pointer cell2 p-3 text-right">
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="numfact"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("numfact")}} className="pointer  p-3 text-center">
                                         NUM
                                     </th>  
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechaemision"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechaemision")}} className="pointer cell1 p-3 text-right">
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechaemision"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechaemision")}} className="pointer  p-3 text-right">
                                         EMISIÓN
                                     </th>       
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechavencimiento"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechavencimiento")}} className="pointer cell1 p-3 text-right">
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechavencimiento"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechavencimiento")}} className="pointer  p-3 text-right">
                                         VENCE
                                     </th>  
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_sucursal"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_sucursal")}} className="pointer cell1 p-3 text-right">
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_sucursal"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_sucursal")}} className="pointer  p-3 text-right">
                                         ORIGEN
                                     </th>  
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer cell1 p-3 text-right">
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer  p-3 text-right">
                                         MONTO BRUTO
                                     </th>
 
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer cell1 p-3 text-right">
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer  p-3 text-right">
                                         DESCUENTO
                                     </th>
 
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer cell2 p-3 text-right">
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer  p-3 text-right">
                                         MONTO NETO
+                                    </th>
+                                    <th className="text-right p-3">
+                                        <span className={("fs-7")}>ABONO</span>
+                                    </th>
+                                    <th className="text-right p-3">
+                                        <span className={("fs-6")}>BALANCE</span>
+                                        
                                     </th>
                                         
                                 </tr>
@@ -455,33 +462,43 @@ export default function CuentasporpagarDetalles({
                                                 <span>{e.sucursal.codigo}</span>   
                                             </td>
                                             <td className=" text-right">
-                                                <span className="text-muted fs-4">{moneda(e.monto_bruto)}</span>
+                                                <span className="text-muted fs-6">{moneda(e.monto_bruto)}</span>
                                             </td>
                                             <td className=" text-right">
-                                                <span className="text-muted fst-italic">{moneda(e.monto_descuento)} ({e.descuento}%)</span>
+                                                {
+                                                    e.monto_descuento!="" && e.monto_descuento!="0"?
+                                                        <span className="text-muted fst-italic fs-6">{moneda(e.monto_descuento)} <br /> ({e.descuento}%)</span>
+                                                    :null
+                                                }
                                             </td>
 
                                             <td className=" text-right">
                                                 {selectFactViewDetalles!=e.id || !e.pagos.length?
                                                 <>
-                                                    <div className="mb-3">
-                                                        <span className={(e.monto<0? "text-danger": "text-success")+(" fs-3 fw-bold ")}>{moneda(e.monto)}</span>
-                                                    </div>
-                                                    
-                                                    {e.monto_abonado?
-                                                        <div className="">
-                                                            <span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-7")}>ABONO</span>
-                                                            <span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-5")}> {moneda(e.monto_abonado)}</span>
-                                                            <hr className="m-0"/>
-                                                        </div>
-                                                        : null }
-                                                    {e.monto<0?
-                                                        <div>
-                                                            <span className={(e.balance<0? "text-danger": "text-success")+(" fs-6")}>BALANCE</span>
-                                                            <span className={(e.balance<0? "text-danger": "text-success")+(" fs-4")}> {moneda(e.balance)}</span>
-                                                        </div>
-                                                    :null}
+                                                    <span className={(e.monto<0? "text-danger": "text-success")+(" fs-3 fw-bold ")}>{moneda(e.monto)}</span>
                                                 </>:null}
+                                            </td>
+                                            <td className="text-right">
+                                            {selectFactViewDetalles!=e.id || !e.pagos.length?
+                                                <>
+                                                    {e.monto_abonado?
+                                                        <>
+                                                            <span className={(e.monto_abonado<0? "text-danger": "text-success")+(" fs-3 fw-bold")}> {moneda(e.monto_abonado)}</span>
+                                                        </>
+                                                        : null 
+                                                    }
+                                                    
+                                                </>
+                                            :null}
+                                            </td>
+                                            <td className="text-right">
+                                                {selectFactViewDetalles!=e.id || !e.pagos.length?
+                                                    <>
+                                                        {e.monto<0?
+                                                            <span className={(e.balance<0? "text-danger": "text-success")+(" fs-3 fw-bold")}> {moneda(e.balance)}</span>
+                                                        :null}
+                                                    </>
+                                                :null}
                                             </td>
                                         
 
@@ -505,23 +522,33 @@ export default function CuentasporpagarDetalles({
 
                                             {e.pagos.length?
                                                 <>
+                                                    <tr className={(selectFactViewDetalles==e.id?"bg-success-superlight":null)+" border-bottom-5"}>
+                                                        <th colSpan={5}></th>
+
+                                                        <th className="align-middle" colSpan={3}>
+                                                            DEUDA                                        
+                                                        </th>
+                                                        <td colSpan={4} className="text-danger text-right align-middle fs-3">
+                                                            {moneda(e.monto)}
+                                                        </td>
+                                                    </tr>
                                                     {e.monto_abonado && e.pagos?
                                                     <>
                                                         {e.pagos.map(pago=>
                                                                 <tr key={pago.id} className={(selectFactViewDetalles==e.id?"bg-success-superlight":null)+" border-bottom-5 align-middle"}>
-                                                                    <th colSpan={1}></th>
-                                                                    <td className=" text-right" colSpan={3}>
-                                                                        <span className="text-muted fst-italic">{pago.created_at}</span>
+                                                                    <th colSpan={4}></th>
+                                                                    <td className="text-muted fst-italic text-right" colSpan={2}>
+                                                                        {pago.created_at}
                                                                     </td>
-                                                                    <td className="" colSpan={2}>
+                                                                    <td className="align-middle text-muted fst-italic text-right" colSpan={2}>
                                                                         PAGO REALIZADO <i className="fa fa-check text-success"></i>
                                                                     </td>
-                                                                    <td className="align-middle" colSpan={3}>
-                                                                        <span className="btn-success btn pointer btn-sm w-100 fs-5">
+                                                                    <td className="align-middle" colSpan={2}>
+                                                                        <span className="btn-success btn pointer w-100">
                                                                             {pago.numfact}
                                                                         </span> 
                                                                     </td>
-                                                                    <td className="   text-right fs-5">
+                                                                    <td className="text-right fs-5" colSpan={2}>
                                                                         <span className="text-sinapsis">{moneda(pago.monto)}</span> / <span className="text-success">{moneda(pago.pivot.monto)}</span>
                                                                     </td>
                                                                 </tr>
@@ -534,18 +561,8 @@ export default function CuentasporpagarDetalles({
                                                         <th className="align-middle" colSpan={3}>
                                                             ABONADO                                        
                                                         </th>
-                                                        <td colSpan={2} className="text-success text-right align-middle fs-3">
+                                                        <td colSpan={4} className="text-success text-right align-middle fs-3">
                                                             {moneda(e.monto_abonado)}
-                                                        </td>
-                                                    </tr>
-                                                    <tr className={(selectFactViewDetalles==e.id?"bg-success-superlight":null)+" border-bottom-5"}>
-                                                        <th colSpan={5}></th>
-
-                                                        <th className="align-middle" colSpan={3}>
-                                                            DEUDA                                        
-                                                        </th>
-                                                        <td colSpan={2} className="text-danger text-right align-middle fs-3">
-                                                            {moneda(e.monto)}
                                                         </td>
                                                     </tr>
                                                     <tr className={(selectFactViewDetalles==e.id?"bg-success-superlight":null)+" border-bottom-5"}>
@@ -554,7 +571,7 @@ export default function CuentasporpagarDetalles({
                                                         <th className="align-middle" colSpan={3}>
                                                             BALANCE                                        
                                                         </th>
-                                                        <td colSpan={2} className={((e.balance)<0? "text-danger": "text-success")+(" fs-2 text-right align-middle bg-warning-light")}>
+                                                        <td colSpan={4} className={((e.balance)<0? "text-danger": "text-success")+(" fs-2 text-right align-middle bg-warning-light")}>
                                                             {e.condicion!="pagadas" && e.condicion!="abonos"?<button className="btn btn-outline-success m-2" onClick={()=>abonarFact(e.id_proveedor,e.id)}>
                                                                 <i className=" fa fa-credit-card"></i>
                                                                 PAGAR 
@@ -569,13 +586,13 @@ export default function CuentasporpagarDetalles({
                                                     e.facturas.map(fact=>
                                                         <tr key={fact.id} className="border-top">
                                                             <td colSpan={4}></td>
-                                                            <td className=" align-middle text-muted fst-italic">
+                                                            <td className="text-right align-middle text-muted fst-italic" colSpan={2}>
                                                                 {fact.created_at}
                                                             </td>
                                                             <td className=" align-middle text-muted fst-italic text-right" colSpan={2}>
                                                                 FACTURA ASOCIADA <i className="fa fa-check text-sinapsis"></i>
                                                             </td>
-                                                            <td className=" align-middle">
+                                                            <td className=" align-middle" colSpan={2}>
                                                                 <span className="btn-sinapsis btn pointer w-100">
                                                                     FACT {fact.numfact}
                                                                 </span> 
@@ -627,7 +644,6 @@ export default function CuentasporpagarDetalles({
                         <button className="btn btn-sinapsis fs-3" type="button" 
                             onClick={()=>{
                                     setcuentasporpagarDetallesView("pagos");
-                                    setInputsNewFact()
                                 }
                             }
                         >

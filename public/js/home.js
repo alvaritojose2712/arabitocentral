@@ -4589,7 +4589,7 @@ function CuentasporpagarDetalles(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
               className: "align-middle",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                colSpan: 7,
+                colSpan: 8,
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
                   className: "btn-group",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -4626,6 +4626,7 @@ function CuentasporpagarDetalles(_ref) {
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                 colSpan: 2,
+                className: "text-right",
                 children: selectCuentaPorPagarId ? selectCuentaPorPagarId.sum != "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
                   className: "text-muted fs-4",
                   children: ["Resultados ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("b", {
@@ -4633,6 +4634,8 @@ function CuentasporpagarDetalles(_ref) {
                   })]
                 }) : null : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+                colSpan: 2,
+                className: "text-right",
                 children: selectCuentaPorPagarId ? selectCuentaPorPagarId.balance != "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
                   className: (selectCuentaPorPagarId.balance < 0 ? "text-danger" : "text-success") + " fs-1 mb-1 mt-1 bg-warning p-2",
                   children: moneda(selectCuentaPorPagarId.balance)
@@ -4647,7 +4650,7 @@ function CuentasporpagarDetalles(_ref) {
                   ;
                   setqCampocuentasPorPagarDetalles("created_at");
                 },
-                className: "pointer cell1 p-3",
+                className: "pointer  p-3",
                 children: "CREADA"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                 onClick: function onClick() {
@@ -4657,7 +4660,7 @@ function CuentasporpagarDetalles(_ref) {
                   ;
                   setqCampocuentasPorPagarDetalles("updated_at");
                 },
-                className: "pointer cell1 p-3",
+                className: "pointer  p-3",
                 children: "ACTUALIZADA"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                 onClick: function onClick() {
@@ -4667,7 +4670,7 @@ function CuentasporpagarDetalles(_ref) {
                   ;
                   setqCampocuentasPorPagarDetalles("id_proveedor");
                 },
-                className: "pointer cell1 p-3",
+                className: "pointer  p-3",
                 children: "PROVEEDOR"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                 onClick: function onClick() {
@@ -4677,7 +4680,7 @@ function CuentasporpagarDetalles(_ref) {
                   ;
                   setqCampocuentasPorPagarDetalles("numfact");
                 },
-                className: "pointer cell2 p-3 text-right",
+                className: "pointer  p-3 text-center",
                 children: "NUM"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                 onClick: function onClick() {
@@ -4687,7 +4690,7 @@ function CuentasporpagarDetalles(_ref) {
                   ;
                   setqCampocuentasPorPagarDetalles("fechaemision");
                 },
-                className: "pointer cell1 p-3 text-right",
+                className: "pointer  p-3 text-right",
                 children: "EMISI\xD3N"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                 onClick: function onClick() {
@@ -4697,7 +4700,7 @@ function CuentasporpagarDetalles(_ref) {
                   ;
                   setqCampocuentasPorPagarDetalles("fechavencimiento");
                 },
-                className: "pointer cell1 p-3 text-right",
+                className: "pointer  p-3 text-right",
                 children: "VENCE"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                 onClick: function onClick() {
@@ -4707,7 +4710,7 @@ function CuentasporpagarDetalles(_ref) {
                   ;
                   setqCampocuentasPorPagarDetalles("id_sucursal");
                 },
-                className: "pointer cell1 p-3 text-right",
+                className: "pointer  p-3 text-right",
                 children: "ORIGEN"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                 onClick: function onClick() {
@@ -4717,7 +4720,7 @@ function CuentasporpagarDetalles(_ref) {
                   ;
                   setqCampocuentasPorPagarDetalles("monto");
                 },
-                className: "pointer cell1 p-3 text-right",
+                className: "pointer  p-3 text-right",
                 children: "MONTO BRUTO"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                 onClick: function onClick() {
@@ -4727,7 +4730,7 @@ function CuentasporpagarDetalles(_ref) {
                   ;
                   setqCampocuentasPorPagarDetalles("monto");
                 },
-                className: "pointer cell1 p-3 text-right",
+                className: "pointer  p-3 text-right",
                 children: "DESCUENTO"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                 onClick: function onClick() {
@@ -4737,8 +4740,20 @@ function CuentasporpagarDetalles(_ref) {
                   ;
                   setqCampocuentasPorPagarDetalles("monto");
                 },
-                className: "pointer cell2 p-3 text-right",
+                className: "pointer  p-3 text-right",
                 children: "MONTO NETO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+                className: "text-right p-3",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                  className: "fs-7",
+                  children: "ABONO"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+                className: "text-right p-3",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                  className: "fs-6",
+                  children: "BALANCE"
+                })
               })]
             })]
           }), selectCuentaPorPagarId ? selectCuentaPorPagarId.detalles ? selectCuentaPorPagarId.detalles.map(function (e, i) {
@@ -4802,44 +4817,40 @@ function CuentasporpagarDetalles(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                   className: " text-right",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                    className: "text-muted fs-4",
+                    className: "text-muted fs-6",
                     children: moneda(e.monto_bruto)
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                   className: " text-right",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-                    className: "text-muted fst-italic",
-                    children: [moneda(e.monto_descuento), " (", e.descuento, "%)"]
-                  })
+                  children: e.monto_descuento != "" && e.monto_descuento != "0" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+                    className: "text-muted fst-italic fs-6",
+                    children: [moneda(e.monto_descuento), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), " (", e.descuento, "%)"]
+                  }) : null
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                   className: " text-right",
-                  children: selectFactViewDetalles != e.id || !e.pagos.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                      className: "mb-3",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                        className: (e.monto < 0 ? "text-danger" : "text-success") + " fs-3 fw-bold ",
-                        children: moneda(e.monto)
-                      })
-                    }), e.monto_abonado ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                      className: "",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                        className: (e.monto_abonado < 0 ? "text-danger" : "text-success") + " fs-7",
-                        children: "ABONO"
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-                        className: (e.monto_abonado < 0 ? "text-danger" : "text-success") + " fs-5",
+                  children: selectFactViewDetalles != e.id || !e.pagos.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                      className: (e.monto < 0 ? "text-danger" : "text-success") + " fs-3 fw-bold ",
+                      children: moneda(e.monto)
+                    })
+                  }) : null
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                  className: "text-right",
+                  children: selectFactViewDetalles != e.id || !e.pagos.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                    children: e.monto_abonado ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+                        className: (e.monto_abonado < 0 ? "text-danger" : "text-success") + " fs-3 fw-bold",
                         children: [" ", moneda(e.monto_abonado)]
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("hr", {
-                        className: "m-0"
-                      })]
-                    }) : null, e.monto < 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                        className: (e.balance < 0 ? "text-danger" : "text-success") + " fs-6",
-                        children: "BALANCE"
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-                        className: (e.balance < 0 ? "text-danger" : "text-success") + " fs-4",
-                        children: [" ", moneda(e.balance)]
-                      })]
-                    }) : null]
+                      })
+                    }) : null
+                  }) : null
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                  className: "text-right",
+                  children: selectFactViewDetalles != e.id || !e.pagos.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                    children: e.monto < 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+                      className: (e.balance < 0 ? "text-danger" : "text-success") + " fs-3 fw-bold",
+                      children: [" ", moneda(e.balance)]
+                    }) : null
                   }) : null
                 })]
               }, e.id), selectFactViewDetalles == e.id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
@@ -4878,34 +4889,45 @@ function CuentasporpagarDetalles(_ref) {
                     })
                   })
                 }), e.pagos.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-                  children: [e.monto_abonado && e.pagos ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+                    className: (selectFactViewDetalles == e.id ? "bg-success-superlight" : null) + " border-bottom-5",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+                      colSpan: 5
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+                      className: "align-middle",
+                      colSpan: 3,
+                      children: "DEUDA"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                      colSpan: 4,
+                      className: "text-danger text-right align-middle fs-3",
+                      children: moneda(e.monto)
+                    })]
+                  }), e.monto_abonado && e.pagos ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
                     children: e.pagos.map(function (pago) {
                       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
                         className: (selectFactViewDetalles == e.id ? "bg-success-superlight" : null) + " border-bottom-5 align-middle",
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                          colSpan: 1
+                          colSpan: 4
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                          className: " text-right",
-                          colSpan: 3,
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                            className: "text-muted fst-italic",
-                            children: pago.created_at
-                          })
+                          className: "text-muted fst-italic text-right",
+                          colSpan: 2,
+                          children: pago.created_at
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
-                          className: "",
+                          className: "align-middle text-muted fst-italic text-right",
                           colSpan: 2,
                           children: ["PAGO REALIZADO ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
                             className: "fa fa-check text-success"
                           })]
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                           className: "align-middle",
-                          colSpan: 3,
+                          colSpan: 2,
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                            className: "btn-success btn pointer btn-sm w-100 fs-5",
+                            className: "btn-success btn pointer w-100",
                             children: pago.numfact
                           })
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
-                          className: "   text-right fs-5",
+                          className: "text-right fs-5",
+                          colSpan: 2,
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
                             className: "text-sinapsis",
                             children: moneda(pago.monto)
@@ -4925,7 +4947,7 @@ function CuentasporpagarDetalles(_ref) {
                       colSpan: 3,
                       children: "ABONADO"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      colSpan: 2,
+                      colSpan: 4,
                       className: "text-success text-right align-middle fs-3",
                       children: moneda(e.monto_abonado)
                     })]
@@ -4936,22 +4958,9 @@ function CuentasporpagarDetalles(_ref) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
                       className: "align-middle",
                       colSpan: 3,
-                      children: "DEUDA"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      colSpan: 2,
-                      className: "text-danger text-right align-middle fs-3",
-                      children: moneda(e.monto)
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-                    className: (selectFactViewDetalles == e.id ? "bg-success-superlight" : null) + " border-bottom-5",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                      colSpan: 5
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                      className: "align-middle",
-                      colSpan: 3,
                       children: "BALANCE"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
-                      colSpan: 2,
+                      colSpan: 4,
                       className: (e.balance < 0 ? "text-danger" : "text-success") + " fs-2 text-right align-middle bg-warning-light",
                       children: [e.condicion != "pagadas" && e.condicion != "abonos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
                         className: "btn btn-outline-success m-2",
@@ -4970,7 +4979,8 @@ function CuentasporpagarDetalles(_ref) {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                       colSpan: 4
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      className: " align-middle text-muted fst-italic",
+                      className: "text-right align-middle text-muted fst-italic",
+                      colSpan: 2,
                       children: fact.created_at
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
                       className: " align-middle text-muted fst-italic text-right",
@@ -4980,6 +4990,7 @@ function CuentasporpagarDetalles(_ref) {
                       })]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                       className: " align-middle",
+                      colSpan: 2,
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
                         className: "btn-sinapsis btn pointer w-100",
                         children: ["FACT ", fact.numfact]
@@ -5051,7 +5062,6 @@ function CuentasporpagarDetalles(_ref) {
             type: "button",
             onClick: function onClick() {
               setcuentasporpagarDetallesView("pagos");
-              setInputsNewFact();
             },
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
               className: "fa fa-plus"

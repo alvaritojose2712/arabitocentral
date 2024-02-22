@@ -503,7 +503,7 @@ class CuentasporpagarController extends Controller
         },"facturas"])
         ->selectRaw("*, @monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado, 
         @monto_descuento := (COALESCE(monto,0)*(COALESCE(descuento,0)/100)) as monto_descuento,
-        @balanceselect := (COALESCE(@monto_abonado,0) + COALESCE(monto,0) - @monto_descuento) as balance
+        @balance := (COALESCE(@monto_abonado,0) + COALESCE(monto,0) - @monto_descuento) as balance
         ")
         ->where("aprobado",$cuentaporpagarAprobado)
 
@@ -530,7 +530,7 @@ class CuentasporpagarController extends Controller
         ->when($tipocuentasPorPagarDetalles!="",function($q) use ($tipocuentasPorPagarDetalles) {
 
             if ($tipocuentasPorPagarDetalles=="DEUDA") {
-                $q->where("monto","<",0);
+                $q->where("monto","<=",0);
             }else{
                 $q->where("monto",">",0);
             }
@@ -545,25 +545,24 @@ class CuentasporpagarController extends Controller
                     $q->where("monto",">",0);
                 break;
                 case "pagadas":
-                    $q->havingRaw("monto_abonado = monto*-1")
+                    $q->havingRaw("COALESCE(balance,0) > -0.1 AND COALESCE(balance,0) < 0.1")
                     ->where("monto","<=",0);
                 break;
                 case "semipagadas":
                     $q
-                    ->havingRaw("COALESCE(monto_abonado, 0) > 0")
-                    ->havingRaw("COALESCE(monto_abonado, 0) <> monto*-1")
+                    ->havingRaw("COALESCE(balance,0) < -0.1 AND COALESCE(balance,0) > 0.1 AND COALESCE(monto_abonado, 0) > 0")
                     ->where("monto","<=",0);
                 break;
                 case "porvencer":
                     $q->where("fechavencimiento",">",$today)
-                    ->havingRaw("COALESCE(monto_abonado, 0) <> monto*-1")
+                    ->havingRaw("COALESCE(balance,0) < -0.1 AND COALESCE(balance,0) > 0.1")
                     ->havingRaw("COALESCE(monto_abonado, 0) = 0")
                     ->where("monto","<=",0);
                 break;
                 case "vencidas":
                     $q
                     ->where("fechavencimiento","<=",$today)
-                    ->havingRaw("COALESCE(monto_abonado, 0) <> monto*-1")
+                    ->havingRaw("COALESCE(balance,0) < -0.1 AND COALESCE(balance,0) > 0.1")
                     ->where("monto","<=",0);
                 break;
             }
@@ -573,11 +572,12 @@ class CuentasporpagarController extends Controller
 
         $detalles_modified = $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact, $todayWithoutDateTime) {
             $q->monto_bruto = $q->monto;
-
             $q->monto = $q->monto-$q->monto_descuento;
+
             $fechavencimiento = new \DateTime($q->fechavencimiento);
             $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
             $monto = $q->monto;
+            $balance = $q->balance;
 
 
             $hoy = new \DateTime($todayWithoutDateTime);
@@ -587,14 +587,14 @@ class CuentasporpagarController extends Controller
 
             if ($monto>0){
                 $q->condicion = "abonos";
-            }else if($monto_abonado>0 && $monto_abonado!=$monto*-1 && $monto<0){
+            }else if($monto_abonado>0 && ($balance < -0.1 || $balance > 0.1) && $monto<0){
                 $q->condicion = "semipagadas";
+            }else if($balance > -0.1 && $balance < 0.1){
+                $q->condicion = "pagadas";
             }else if ($fechavencimiento<=$today && $monto_abonado!=$monto*-1 && $monto<0){
                 $q->condicion = "vencidas";
             }else if($fechavencimiento>$today && $monto_abonado!=$monto*-1 && $monto_abonado==0 && $monto<0){
                 $q->condicion = "porvencer";
-            }else if($monto_abonado==$monto*-1 && $monto<0){
-                $q->condicion = "pagadas";
             }
             return $q;
         }); 
@@ -602,6 +602,7 @@ class CuentasporpagarController extends Controller
             "detalles" => $detalles_modified, 
             "balance" => $detalles_modified->sum("balance"), 
             "sum" => $detalles->get()->count(), 
+            "proveedor" => $id_proveedor?proveedores::find($id_proveedor):null
         ];
 
         if ($type=="buscar") {
