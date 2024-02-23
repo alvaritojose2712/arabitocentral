@@ -62,14 +62,8 @@ class PedidosController extends Controller
                             if ($ifpro) {
                                 $id_proveedor = $ifpro->id;
                             }else{
-                                $newpro = new proveedores;
-                                $newpro->descripcion = $ee["producto"]["proveedor"]["descripcion"];
-                                $newpro->rif = $ee["producto"]["proveedor"]["rif"];
-                                $newpro->direccion = $ee["producto"]["proveedor"]["direccion"];
-                                $newpro->telefono = $ee["producto"]["proveedor"]["telefono"];
-                                $newpro->save();
 
-                                $id_proveedor = $newpro->id;
+                                $id_proveedor = $ee["producto"]["proveedor"]["id"];
 
                             }
 
