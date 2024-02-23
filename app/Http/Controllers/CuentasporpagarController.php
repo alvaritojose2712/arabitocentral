@@ -561,7 +561,8 @@ class CuentasporpagarController extends Controller
             }
         })
         ->when($qcuentasPorPagarTipoFact=="",function($q) {
-            $q->where("monto","<=",0);
+            $q->where("monto","<=",0)
+            ->where("estatus","<>",2);
         })
         ->when($qcuentasPorPagarTipoFact!="",function($q) use ($qcuentasPorPagarTipoFact,$today){
             switch ($qcuentasPorPagarTipoFact) {
