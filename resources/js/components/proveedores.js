@@ -94,16 +94,19 @@ function Proveedores({
         <div className="row">
           <div className="col">
               <h4 className="text-center">Proveedores</h4>
-              <div className="input-group ">
-                <input type="text" 
-                className="form-control" 
-                placeholder="Buscar..." 
-                value={qBuscarProveedor} 
-                onChange={e=>setQBuscarProveedor(e.target.value)}/>
-                <div className="input-group-prepend">
-                  <button className="btn btn-outline-secondary" type="button" onClick={()=>getProveedores()}><i className="fa fa-search"></i></button>
+              <form onSubmit={e=>{e.preventDefault();getProveedores()}}>
+
+                <div className="input-group ">
+                  <input type="text" 
+                    className="form-control" 
+                    placeholder="Buscar..." 
+                    value={qBuscarProveedor} 
+                    onChange={e=>setQBuscarProveedor(e.target.value)}/>
+                  <div className="input-group-prepend">
+                    <button className="btn btn-outline-secondary" type="submit" onClick={()=>getProveedores()}><i className="fa fa-search"></i></button>
+                  </div>
                 </div>
-              </div>
+              </form>
               { 
                 proveedoresList.length
                 ? proveedoresList.map( (e,i) =>
