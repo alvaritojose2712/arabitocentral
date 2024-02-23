@@ -67,6 +67,7 @@ export default function CuentasporpagarDetalles({
     sendDescuentoGeneralFats,
     abonarFact,
     proveedoresList,
+    setsubviewAgregarFactPago,
 
 }){
     
@@ -644,6 +645,9 @@ export default function CuentasporpagarDetalles({
                         <button className="btn btn-sinapsis fs-3" type="button" 
                             onClick={()=>{
                                     setcuentasporpagarDetallesView("pagos");
+                                    setsubviewAgregarFactPago("pago")
+
+                                    setInputsNewFact()
                                 }
                             }
                         >

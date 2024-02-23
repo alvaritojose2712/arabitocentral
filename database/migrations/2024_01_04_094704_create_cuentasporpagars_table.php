@@ -34,7 +34,7 @@ class CreateCuentasporpagarsTable extends Migration
             $table->decimal("monto_gravable",10,2)->nullable()->default(0);
             $table->decimal("iva",10,2)->nullable()->default(0);
             $table->decimal("monto",10,2)->nullable()->default(0);
-            $table->decimal("balance",10,2)->nullable()->default(0);
+            $table->integer("estatus")->nullable()->default(0);
             
             $table->decimal("montobs1",10,2)->nullable()->default(0);
             $table->decimal("tasabs1",10,2)->nullable()->default(0);

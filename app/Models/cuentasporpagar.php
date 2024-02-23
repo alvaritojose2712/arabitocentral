@@ -55,7 +55,7 @@ class cuentasporpagar extends Model
         "tipo",
         "frecuencia",
         "idinsucursal",
-        "balance",
+        "estatus",
 
         "monto_abonado",
         "id_cuentaporpagar",

@@ -239,9 +239,9 @@ class CuentasporpagarController extends Controller
                             "id_pago" => $cuenta->id,
                             "monto" => $e["val"],
                         ]);
-                        $updateUpdated_at = cuentasporpagar::find($e["id"]);
-                        $updateUpdated_at->updated_at = date("Y-m-d H:i:s");
-                        $updateUpdated_at->save();
+                        
+                        $this->setEstatusFact($e["id"]);
+
                         
                         if ($update_cuenta) {
                             $msjAbono .= $e["val"]." | ";
@@ -425,6 +425,7 @@ class CuentasporpagarController extends Controller
                 }
                 $search = ["id" => $id];
                 $cu = $this->setCuentaPorPagar($arrinsert,$search);
+                $this->setEstatusFact($cu->id);
             }
             
             if ($cu) {
@@ -470,6 +471,33 @@ class CuentasporpagarController extends Controller
 
         }
     }
+    function setEstatusFact($id){
+        $cuenta = cuentasporpagar::find($id);
+        $monto_abonado = cuentasporpagar_pagos::where("id_factura", $id)->sum("monto");
+
+        $monto = $cuenta->monto ? $cuenta->monto: 0;
+        $descuento = $cuenta->descuento ? $cuenta->descuento: 0;
+
+        $monto_descuento = $monto*(($descuento/100)?$descuento/100:0);
+        $balance = $monto_abonado + $monto - $monto_descuento;
+        $estatus = 0;
+        if ($balance > -0.1 && $balance < 0.1) {
+            $estatus = 2;
+        }elseif ($monto_abonado>0) {
+            $estatus = 1;
+        }
+
+        $cuenta->estatus = $estatus;
+        $cuenta->updated_at = date("Y-m-d H:i:s");
+        $cuenta->save();
+    }
+    function setEstatusAll(){
+     $cuentas= cuentasporpagar::all();
+     
+     foreach ($cuentas as $key => $value) {
+        $this->setEstatusFact($value->id);
+     }
+    }
 
     function sendDescuentoGeneralFats(Request $req) {
         $dataselectFacts = $req->dataselectFacts;
@@ -503,7 +531,7 @@ class CuentasporpagarController extends Controller
         },"facturas"])
         ->selectRaw("*, @monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado, 
         @monto_descuento := (COALESCE(monto,0)*(COALESCE(descuento,0)/100)) as monto_descuento,
-        @balance := (COALESCE(@monto_abonado,0) + COALESCE(monto,0) - @monto_descuento) as balance
+        (COALESCE(@monto_abonado,0)+COALESCE(monto,0)-COALESCE(@monto_descuento,0)) as balance
         ")
         ->where("aprobado",$cuentaporpagarAprobado)
 
@@ -516,25 +544,21 @@ class CuentasporpagarController extends Controller
         ->when($qcuentasPorPagarDetalles!="", function($q) use($qcuentasPorPagarDetalles, $sucursalcuentasPorPagarDetalles) {
             $q->where(function($q) use ($sucursalcuentasPorPagarDetalles,$qcuentasPorPagarDetalles) {
                 $q->orWhere("numfact","LIKE","%$qcuentasPorPagarDetalles%")
-                ->orWhere("monto","LIKE","$qcuentasPorPagarDetalles%")
                 ->when($sucursalcuentasPorPagarDetalles=="",function($qq) use ($qcuentasPorPagarDetalles) {
                     $qq->orWhereIn("id_sucursal",sucursal::where("nombre","LIKE","$qcuentasPorPagarDetalles%")->select("id"));
                 });
             });
             
         })
-
         ->when($categoriacuentasPorPagarDetalles!="",function($q) use ($categoriacuentasPorPagarDetalles) {
             $q->where("tipo","$categoriacuentasPorPagarDetalles");
         })
         ->when($tipocuentasPorPagarDetalles!="",function($q) use ($tipocuentasPorPagarDetalles) {
-
             if ($tipocuentasPorPagarDetalles=="DEUDA") {
                 $q->where("monto","<=",0);
             }else{
                 $q->where("monto",">",0);
             }
-            
         })
         ->when($qcuentasPorPagarTipoFact=="",function($q) {
             $q->where("monto","<=",0);
@@ -545,24 +569,23 @@ class CuentasporpagarController extends Controller
                     $q->where("monto",">",0);
                 break;
                 case "pagadas":
-                    $q->havingRaw("COALESCE(balance,0) > -0.1 AND COALESCE(balance,0) < 0.1")
-                    ->where("monto","<=",0);
-                break;
+                    $q->where("monto", "<=", "0")
+                    ->where("estatus",2);
+                    break;
                 case "semipagadas":
                     $q
-                    ->havingRaw("COALESCE(balance,0) < -0.1 AND COALESCE(balance,0) > 0.1 AND COALESCE(monto_abonado, 0) > 0")
+                    ->where("estatus",1)
                     ->where("monto","<=",0);
                 break;
                 case "porvencer":
                     $q->where("fechavencimiento",">",$today)
-                    ->havingRaw("COALESCE(balance,0) < -0.1 AND COALESCE(balance,0) > 0.1")
-                    ->havingRaw("COALESCE(monto_abonado, 0) = 0")
+                    ->where("estatus",0)
                     ->where("monto","<=",0);
                 break;
                 case "vencidas":
                     $q
                     ->where("fechavencimiento","<=",$today)
-                    ->havingRaw("COALESCE(balance,0) < -0.1 AND COALESCE(balance,0) > 0.1")
+                    ->where("estatus",0)
                     ->where("monto","<=",0);
                 break;
             }
@@ -578,22 +601,26 @@ class CuentasporpagarController extends Controller
             $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
             $monto = $q->monto;
             $balance = $q->balance;
-
-
+            
             $hoy = new \DateTime($todayWithoutDateTime);
             $vence = new \DateTime($q->fechavencimiento);
             $interval = $hoy->diff($vence);
+            
             $q->dias = $interval->format('%R%a');
 
             if ($monto>0){
                 $q->condicion = "abonos";
-            }else if($monto_abonado>0 && ($balance < -0.1 || $balance > 0.1) && $monto<0){
+            
+            }else if($q->estatus==1 && $monto<0){
                 $q->condicion = "semipagadas";
-            }else if($balance > -0.1 && $balance < 0.1){
+            
+            }else if($q->estatus==2 && $monto< 0){
                 $q->condicion = "pagadas";
-            }else if ($fechavencimiento<=$today && $monto_abonado!=$monto*-1 && $monto<0){
+            
+            }else if ($fechavencimiento<=$today && $q->estatus==0 && $monto<0){
                 $q->condicion = "vencidas";
-            }else if($fechavencimiento>$today && $monto_abonado!=$monto*-1 && $monto_abonado==0 && $monto<0){
+            
+            }else if($fechavencimiento>$today && $q->estatus==0 && $monto<0){
                 $q->condicion = "porvencer";
             }
             return $q;

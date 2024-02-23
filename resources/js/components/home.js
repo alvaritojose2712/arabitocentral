@@ -3224,6 +3224,7 @@ function Home() {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        setsubviewAgregarFactPago={setsubviewAgregarFactPago}
                         abonarFact={abonarFact}
                         descuentoGeneralFats={descuentoGeneralFats}
                         setdescuentoGeneralFats={setdescuentoGeneralFats}

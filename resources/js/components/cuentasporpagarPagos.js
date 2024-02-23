@@ -219,7 +219,7 @@ export default function CuentasporpagarPagos({
 
                         </div>
                         {
-                            viewMultiplesPagos!=0 || montobs1PagoFact?
+                            viewMultiplesPagos!=0 || (montobs1PagoFact!="" && montobs1PagoFact!="0")?
                                 <div className="row mb-2">
                                     <div className="col-md-auto text-sinapsis">
                                         <span className="form-label">Monto Bs 1</span>
@@ -246,7 +246,7 @@ export default function CuentasporpagarPagos({
                             :null
                         }
                         {
-                            ([2,3,4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || montobs2PagoFact?
+                            ([2,3,4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs2PagoFact!="" && montobs2PagoFact!="0")?
                                 <div className="row mb-2">
                                     <div className="col-md-auto text-sinapsis">
                                         <span className="form-label">Monto Bs 2</span>
@@ -273,7 +273,7 @@ export default function CuentasporpagarPagos({
                             :null
                         }
                         {
-                            ([3,4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || montobs3PagoFact?
+                            ([3,4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs3PagoFact!="" && montobs3PagoFact!="0")?
                                 <div className="row mb-2">
                                     <div className="col-md-auto text-sinapsis">
                                         <span className="form-label">Monto Bs 3</span>
@@ -300,7 +300,7 @@ export default function CuentasporpagarPagos({
                             :null
                         }
                         {
-                            ([4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || montobs4PagoFact?
+                            ([4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs4PagoFact!="" && montobs4PagoFact!="0")?
                                 <div className="row mb-2">
                                     <div className="col-md-auto text-sinapsis">
                                         <span className="form-label">Monto Bs 4</span>
@@ -327,7 +327,7 @@ export default function CuentasporpagarPagos({
                             :null
                         }
                         {
-                            ([5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || montobs5PagoFact?
+                            ([5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs5PagoFact!="" && montobs5PagoFact!="0")?
                                 <div className="row mb-2">
                                     <div className="col-md-auto text-sinapsis">
                                         <span className="form-label">Monto Bs 5</span>

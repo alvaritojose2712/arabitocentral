@@ -4236,7 +4236,8 @@ function CuentasporpagarDetalles(_ref) {
     setdescuentoGeneralFats = _ref.setdescuentoGeneralFats,
     sendDescuentoGeneralFats = _ref.sendDescuentoGeneralFats,
     abonarFact = _ref.abonarFact,
-    proveedoresList = _ref.proveedoresList;
+    proveedoresList = _ref.proveedoresList,
+    setsubviewAgregarFactPago = _ref.setsubviewAgregarFactPago;
   var setInputsNewFact = function setInputsNewFact() {
     setselectFactEdit(null);
     setcuentasPagosDescripcion("");
@@ -5062,6 +5063,8 @@ function CuentasporpagarDetalles(_ref) {
             type: "button",
             onClick: function onClick() {
               setcuentasporpagarDetallesView("pagos");
+              setsubviewAgregarFactPago("pago");
+              setInputsNewFact();
             },
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
               className: "fa fa-plus"
@@ -5346,7 +5349,7 @@ function CuentasporpagarPagos(_ref) {
               })]
             })]
           })]
-        }), viewMultiplesPagos != 0 || montobs1PagoFact ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        }), viewMultiplesPagos != 0 || montobs1PagoFact != "" && montobs1PagoFact != "0" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "row mb-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "col-md-auto text-sinapsis",
@@ -5399,7 +5402,7 @@ function CuentasporpagarPagos(_ref) {
               })]
             })]
           })]
-        }) : null, [2, 3, 4, 5].indexOf(viewMultiplesPagos) != -1 && viewMultiplesPagos != 0 || montobs2PagoFact ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        }) : null, [2, 3, 4, 5].indexOf(viewMultiplesPagos) != -1 && viewMultiplesPagos != 0 || montobs2PagoFact != "" && montobs2PagoFact != "0" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "row mb-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "col-md-auto text-sinapsis",
@@ -5452,7 +5455,7 @@ function CuentasporpagarPagos(_ref) {
               })]
             })]
           })]
-        }) : null, [3, 4, 5].indexOf(viewMultiplesPagos) != -1 && viewMultiplesPagos != 0 || montobs3PagoFact ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        }) : null, [3, 4, 5].indexOf(viewMultiplesPagos) != -1 && viewMultiplesPagos != 0 || montobs3PagoFact != "" && montobs3PagoFact != "0" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "row mb-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "col-md-auto text-sinapsis",
@@ -5505,7 +5508,7 @@ function CuentasporpagarPagos(_ref) {
               })]
             })]
           })]
-        }) : null, [4, 5].indexOf(viewMultiplesPagos) != -1 && viewMultiplesPagos != 0 || montobs4PagoFact ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        }) : null, [4, 5].indexOf(viewMultiplesPagos) != -1 && viewMultiplesPagos != 0 || montobs4PagoFact != "" && montobs4PagoFact != "0" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "row mb-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "col-md-auto text-sinapsis",
@@ -5558,7 +5561,7 @@ function CuentasporpagarPagos(_ref) {
               })]
             })]
           })]
-        }) : null, [5].indexOf(viewMultiplesPagos) != -1 && viewMultiplesPagos != 0 || montobs5PagoFact ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        }) : null, [5].indexOf(viewMultiplesPagos) != -1 && viewMultiplesPagos != 0 || montobs5PagoFact != "" && montobs5PagoFact != "0" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "row mb-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "col-md-auto text-sinapsis",
@@ -66648,6 +66651,7 @@ function Home() {
           }), subviewpanelsucursales === "cuentasporpagar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_47__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_47__.Fragment, {
             children: [subViewCuentasxPagar === "detallado" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_47__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_47__.Fragment, {
               children: [cuentasporpagarDetallesView == "cuentas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_47__.jsx)(_cuentasporpagarDetalles__WEBPACK_IMPORTED_MODULE_44__["default"], {
+                setsubviewAgregarFactPago: setsubviewAgregarFactPago,
                 abonarFact: abonarFact,
                 descuentoGeneralFats: descuentoGeneralFats,
                 setdescuentoGeneralFats: setdescuentoGeneralFats,

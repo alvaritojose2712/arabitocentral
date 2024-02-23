@@ -286,6 +286,7 @@ Route::post('saveMontoFactura', [FacturasController::class,"saveMontoFactura"]);
 Route::get('verFactura', [FacturasController::class,"verFactura"]);
 
 Route::post('delItemFact', [ItemsFacturasController::class,"delItemFact"]);
+Route::get('setestatus', [CuentasporpagarController::class,"setEstatusAll"]);
 
 /* Route::post('setPagoProveedor', [PagoFacturasController::class,"setPagoProveedor"]);
 Route::post('getPagoProveedor', [PagoFacturasController::class,"getPagoProveedor"]); */
