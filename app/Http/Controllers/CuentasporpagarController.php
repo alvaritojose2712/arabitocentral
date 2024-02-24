@@ -36,18 +36,23 @@ class CuentasporpagarController extends Controller
         $montobs1PagoFact = $req->montobs1PagoFact;
         $tasabs1PagoFact = $req->tasabs1PagoFact;
         $metodobs1PagoFact = $req->metodobs1PagoFact;
+        $refbs1PagoFact = $req->refbs1PagoFact;
         $montobs2PagoFact = $req->montobs2PagoFact;
         $tasabs2PagoFact = $req->tasabs2PagoFact;
         $metodobs2PagoFact = $req->metodobs2PagoFact;
+        $refbs2PagoFact = $req->refbs2PagoFact;
         $montobs3PagoFact = $req->montobs3PagoFact;
         $tasabs3PagoFact = $req->tasabs3PagoFact;
         $metodobs3PagoFact = $req->metodobs3PagoFact;
+        $refbs3PagoFact = $req->refbs3PagoFact;
         $montobs4PagoFact = $req->montobs4PagoFact;
         $tasabs4PagoFact = $req->tasabs4PagoFact;
         $metodobs4PagoFact = $req->metodobs4PagoFact;
+        $refbs4PagoFact = $req->refbs4PagoFact;
         $montobs5PagoFact = $req->montobs5PagoFact;
         $tasabs5PagoFact = $req->tasabs5PagoFact;
         $metodobs5PagoFact = $req->metodobs5PagoFact;
+        $refbs5PagoFact = $req->refbs5PagoFact;
 
         if ($montobs1PagoFact) {
             if (!$tasabs1PagoFact || !$metodobs1PagoFact) {
@@ -91,13 +96,15 @@ class CuentasporpagarController extends Controller
         if (
             !$cuentasPagosDescripcion || 
             !$cuentasPagosMonto || 
-            !$cuentasPagosMetodo || 
             !$cuentasPagosFecha 
         ) {
             return [
                 "estado" => false,
                 "msj" => "Error: Campos vacíos",
-                "id_proveedor" => $id_pro
+                "id_proveedor" => $id_pro,
+                "cuentasPagosDescripcion" => $cuentasPagosDescripcion,
+                "cuentasPagosMonto" => $cuentasPagosMonto,
+                "cuentasPagosFecha" => $cuentasPagosFecha,
             ];
         }
         
@@ -137,6 +144,12 @@ class CuentasporpagarController extends Controller
                 "montobs5PagoFact" => $montobs5PagoFact,
                 "tasabs5PagoFact" => $tasabs5PagoFact,
                 "metodobs5PagoFact" => $metodobs5PagoFact,
+
+                "refbs1PagoFact" => $refbs1PagoFact,
+                "refbs2PagoFact" => $refbs2PagoFact,
+                "refbs3PagoFact" => $refbs3PagoFact,
+                "refbs4PagoFact" => $refbs4PagoFact,
+                "refbs5PagoFact" => $refbs5PagoFact,
             ]);
             if ($pago) {
                 return [
@@ -177,6 +190,12 @@ class CuentasporpagarController extends Controller
         $montobs5PagoFact = isset($arr["montobs5PagoFact"])? $arr["montobs5PagoFact"]: 0;
         $tasabs5PagoFact = isset($arr["tasabs5PagoFact"])? $arr["tasabs5PagoFact"]: 0;
         $metodobs5PagoFact = isset($arr["metodobs5PagoFact"])? $arr["metodobs5PagoFact"]: 0;
+
+        $refbs1PagoFact = isset($arr["refbs1PagoFact"])? $arr["refbs1PagoFact"]: 0;
+        $refbs2PagoFact = isset($arr["refbs2PagoFact"])? $arr["refbs2PagoFact"]: 0;
+        $refbs3PagoFact = isset($arr["refbs3PagoFact"])? $arr["refbs3PagoFact"]: 0;
+        $refbs4PagoFact = isset($arr["refbs4PagoFact"])? $arr["refbs4PagoFact"]: 0;
+        $refbs5PagoFact = isset($arr["refbs5PagoFact"])? $arr["refbs5PagoFact"]: 0;
         
         
         $selectAbonoFact = isset($arr["selectAbonoFact"])?$arr["selectAbonoFact"]:null;
@@ -216,6 +235,12 @@ class CuentasporpagarController extends Controller
             "montobs5" => $montobs5PagoFact,
             "tasabs5" => $tasabs5PagoFact,
             "metodobs5" => $metodobs5PagoFact,
+
+            "refbs1" => $refbs1PagoFact,
+            "refbs2" => $refbs2PagoFact,
+            "refbs3" => $refbs3PagoFact,
+            "refbs4" => $refbs4PagoFact,
+            "refbs5" => $refbs5PagoFact,
         ];
 
         $search = [
@@ -521,78 +546,88 @@ class CuentasporpagarController extends Controller
         $OrdercuentasPorPagarDetalles = $req->OrdercuentasPorPagarDetalles;
         $sucursalcuentasPorPagarDetalles = $req->sucursalcuentasPorPagarDetalles;
         $type = $req->type;
+        $id_facts_force = $req->id_facts_force;
+        
         
         
         
         $todayWithoutDateTime = (new NominaController)->today();
         $today = new \DateTime($todayWithoutDateTime);
         $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos"=>function($q) {
+            
             $q->orderBy("id","desc");
-        },"facturas"])
+        },"facturas"=>function($q) {
+
+            $q->with(["sucursal","proveedor"])->orderBy("id","desc");
+        }])
         ->selectRaw("*, @monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado, 
         @monto_descuento := (COALESCE(monto,0)*(COALESCE(descuento,0)/100)) as monto_descuento,
         (COALESCE(@monto_abonado,0)+COALESCE(monto,0)-COALESCE(@monto_descuento,0)) as balance
-        ")
-        ->where("aprobado",$cuentaporpagarAprobado)
-
-        ->when( ($id_proveedor != "" && $id_proveedor != null),function($q) use ($id_proveedor){
-            $q->where("id_proveedor",$id_proveedor);
-        }) 
-        ->when($sucursalcuentasPorPagarDetalles!="",function($q) use ($sucursalcuentasPorPagarDetalles){
-            $q->where("id_sucursal",$sucursalcuentasPorPagarDetalles);
-        })
-        ->when($qcuentasPorPagarDetalles!="", function($q) use($qcuentasPorPagarDetalles, $sucursalcuentasPorPagarDetalles) {
-            $q->where(function($q) use ($sucursalcuentasPorPagarDetalles,$qcuentasPorPagarDetalles) {
-                $q->orWhere("numfact","LIKE","%$qcuentasPorPagarDetalles%")
-                ->when($sucursalcuentasPorPagarDetalles=="",function($qq) use ($qcuentasPorPagarDetalles) {
-                    $qq->orWhereIn("id_sucursal",sucursal::where("nombre","LIKE","$qcuentasPorPagarDetalles%")->select("id"));
-                });
-            });
+        ");
+        if ($id_facts_force) {
+            $detalles = $detalles->whereIn("id",$id_facts_force);
             
-        })
-        ->when($categoriacuentasPorPagarDetalles!="",function($q) use ($categoriacuentasPorPagarDetalles) {
-            $q->where("tipo","$categoriacuentasPorPagarDetalles");
-        })
-        ->when($tipocuentasPorPagarDetalles!="",function($q) use ($tipocuentasPorPagarDetalles) {
-            if ($tipocuentasPorPagarDetalles=="DEUDA") {
-                $q->where("monto","<=",0);
-            }else{
-                $q->where("monto",">",0);
-            }
-        })
-        ->when($qcuentasPorPagarTipoFact=="",function($q) {
-            $q->where("monto","<=",0)
-            ->where("estatus","<>",2);
-        })
-        ->when($qcuentasPorPagarTipoFact!="",function($q) use ($qcuentasPorPagarTipoFact,$today){
-            switch ($qcuentasPorPagarTipoFact) {
-                case "abonos":
+        }else{
+            $detalles = $detalles
+            ->where("aprobado",$cuentaporpagarAprobado)
+            ->when( ($id_proveedor != "" && $id_proveedor != null),function($q) use ($id_proveedor){
+                $q->where("id_proveedor",$id_proveedor);
+            }) 
+            ->when($sucursalcuentasPorPagarDetalles!="",function($q) use ($sucursalcuentasPorPagarDetalles){
+                $q->where("id_sucursal",$sucursalcuentasPorPagarDetalles);
+            })
+            ->when($qcuentasPorPagarDetalles!="", function($q) use($qcuentasPorPagarDetalles, $sucursalcuentasPorPagarDetalles) {
+                $q->where(function($q) use ($sucursalcuentasPorPagarDetalles,$qcuentasPorPagarDetalles) {
+                    $q->orWhere("numfact","LIKE","%$qcuentasPorPagarDetalles%")
+                    ->when($sucursalcuentasPorPagarDetalles=="",function($qq) use ($qcuentasPorPagarDetalles) {
+                        $qq->orWhereIn("id_sucursal",sucursal::where("nombre","LIKE","$qcuentasPorPagarDetalles%")->select("id"));
+                    });
+                });
+                
+            })
+            ->when($categoriacuentasPorPagarDetalles!="",function($q) use ($categoriacuentasPorPagarDetalles) {
+                $q->where("tipo","$categoriacuentasPorPagarDetalles");
+            })
+            ->when($tipocuentasPorPagarDetalles!="",function($q) use ($tipocuentasPorPagarDetalles) {
+                if ($tipocuentasPorPagarDetalles=="DEUDA") {
+                    $q->where("monto","<=",0);
+                }else{
                     $q->where("monto",">",0);
-                break;
-                case "pagadas":
-                    $q->where("monto", "<=", "0")
-                    ->where("estatus",2);
+                }
+            })
+            ->when($qcuentasPorPagarTipoFact=="",function($q) {
+                $q->where("monto","<=",0)
+                ->where("estatus","<>",2);
+            })
+            ->when($qcuentasPorPagarTipoFact!="",function($q) use ($qcuentasPorPagarTipoFact,$today){
+                switch ($qcuentasPorPagarTipoFact) {
+                    case "abonos":
+                        $q->where("monto",">",0);
                     break;
-                case "semipagadas":
-                    $q
-                    ->where("estatus",1)
-                    ->where("monto","<=",0);
-                break;
-                case "porvencer":
-                    $q->where("fechavencimiento",">",$today)
-                    ->where("estatus",0)
-                    ->where("monto","<=",0);
-                break;
-                case "vencidas":
-                    $q
-                    ->where("fechavencimiento","<=",$today)
-                    ->where("estatus",0)
-                    ->where("monto","<=",0);
-                break;
-            }
-        })
-
-        ->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
+                    case "pagadas":
+                        $q->where("monto", "<=", "0")
+                        ->where("estatus",2);
+                        break;
+                    case "semipagadas":
+                        $q
+                        ->where("estatus",1)
+                        ->where("monto","<=",0);
+                    break;
+                    case "porvencer":
+                        $q->where("fechavencimiento",">",$today)
+                        ->where("estatus",0)
+                        ->where("monto","<=",0);
+                    break;
+                    case "vencidas":
+                        $q
+                        ->where("fechavencimiento","<=",$today)
+                        ->where("estatus",0)
+                        ->where("monto","<=",0);
+                    break;
+                }
+            })
+            ->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
+        }
 
         $detalles_modified = $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact, $todayWithoutDateTime) {
             $q->monto_bruto = $q->monto;

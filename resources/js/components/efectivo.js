@@ -23,6 +23,11 @@ export default function Efectivo({
         qestatusaprobaciocaja,
     ])
 
+    useEffect(()=>{
+        setsubviewpanelsucursales("cuentasporpagar")
+        setsubViewCuentasxPagar("proveedor")
+    },[])
+
     const [toggleClientesBtn,settoggleClientesBtn] = useState(false)
     return (
         <>

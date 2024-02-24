@@ -1742,6 +1742,13 @@ function Home() {
   const [montobs5PagoFact,setmontobs5PagoFact] = useState("")
   const [tasabs5PagoFact,settasabs5PagoFact] = useState("")
   const [metodobs5PagoFact,setmetodobs5PagoFact] = useState("")
+
+  const [refbs1PagoFact,setrefbs1PagoFact] = useState("")
+  const [refbs2PagoFact,setrefbs2PagoFact] = useState("")
+  const [refbs3PagoFact,setrefbs3PagoFact] = useState("")
+  const [refbs4PagoFact,setrefbs4PagoFact] = useState("")
+  const [refbs5PagoFact,setrefbs5PagoFact] = useState("")
+
   
   const [newfactid_proveedor, setnewfactid_proveedor] = useState("")
   const [newfactnumfact, setnewfactnumfact] = useState("")
@@ -1870,32 +1877,71 @@ function Home() {
                       setcuentasPagosMetodo(data.metodo)
                       setcuentasPagosFecha(data.fechaemision)
 
-                      setmontobs1PagoFact(data.montobs1)
-                      settasabs1PagoFact(data.tasabs1)
-                      setmetodobs1PagoFact(data.metodobs1)
-                      setmontobs2PagoFact(data.montobs2)
-                      settasabs2PagoFact(data.tasabs2)
-                      setmetodobs2PagoFact(data.metodobs2)
-                      setmontobs3PagoFact(data.montobs3)
-                      settasabs3PagoFact(data.tasabs3)
-                      setmetodobs3PagoFact(data.metodobs3)
-                      setmontobs4PagoFact(data.montobs4)
-                      settasabs4PagoFact(data.tasabs4)
-                      setmetodobs4PagoFact(data.metodobs4)
-                      setmontobs5PagoFact(data.montobs5)
-                      settasabs5PagoFact(data.tasabs5)
-                      setmetodobs5PagoFact(data.metodobs5)
+                      setmontobs1PagoFact(data.montobs1? data.montobs1: "")
+                      settasabs1PagoFact(data.tasabs1? data.tasabs1: "")
+                      setmetodobs1PagoFact(data.metodobs1? data.metodobs1: "")
+                      setmontobs2PagoFact(data.montobs2? data.montobs2: "")
+                      settasabs2PagoFact(data.tasabs2? data.tasabs2: "")
+                      setmetodobs2PagoFact(data.metodobs2? data.metodobs2: "")
+                      setmontobs3PagoFact(data.montobs3? data.montobs3: "")
+                      settasabs3PagoFact(data.tasabs3? data.tasabs3: "")
+                      setmetodobs3PagoFact(data.metodobs3? data.metodobs3: "")
+                      setmontobs4PagoFact(data.montobs4? data.montobs4: "")
+                      settasabs4PagoFact(data.tasabs4? data.tasabs4: "")
+                      setmetodobs4PagoFact(data.metodobs4? data.metodobs4: "")
+                      setmontobs5PagoFact(data.montobs5? data.montobs5: "")
+                      settasabs5PagoFact(data.tasabs5? data.tasabs5: "")
+                      setmetodobs5PagoFact(data.metodobs5? data.metodobs5: "")
 
-                      let pagos = [] 
+                      setrefbs1PagoFact(data.refbs1? data.refbs1: "")
+                      setrefbs2PagoFact(data.refbs2? data.refbs2: "")
+                      setrefbs3PagoFact(data.refbs3? data.refbs3: "")
+                      setrefbs4PagoFact(data.refbs4? data.refbs4: "")
+                      setrefbs5PagoFact(data.refbs5? data.refbs5: "")
+
+
+                      let pagoSIds = []
                       data.facturas.map(e=>{
-                        pagos.push({
+                        pagoSIds.push({
                           id: e.pivot.id_factura,
-                          val: e.pivot.monto,
-                          valfact: e.monto,
-                          numfact: e.numfact
                         })
                       })
-                      setselectAbonoFact(pagos)
+                      selectCuentaPorPagarProveedorDetallesFun("buscar",data.id_proveedor,pagoSIds.map(e=>e.id),res=>{
+                        let pagos = [] 
+
+                        
+                        data.facturas.map(e=>{
+                          let filterData = res.filter(ee=>ee.id==e.pivot.id_factura)
+                          if (filterData.length) {
+                            pagos.push({
+                              id: e.pivot.id_factura,
+                              val: e.pivot.monto,
+                              valfact: e.monto,
+                              numfact: e.numfact,
+    
+                              sucursal: filterData[0].sucursal,
+                              proveedor: filterData[0].proveedor,
+                              fechaemision: filterData[0].fechaemision,
+                              fechavencimiento: filterData[0].fechavencimiento,
+                              monto_bruto: filterData[0].monto_bruto,
+                              monto_descuento: filterData[0].monto_descuento,
+                              descuento: filterData[0].descuento,
+                              aprobado: filterData[0].aprobado,
+                              condicion: filterData[0].condicion,
+                              monto: filterData[0].monto,
+                              monto_abonado: filterData[0].monto_abonado,
+
+                              balance: filterData[0].balance,
+              
+                              guardado:true,
+                            })
+                            
+                          }
+                        })
+                        setselectAbonoFact(pagos)
+
+                      })
+
 
                     }else{
                       setselectFactEdit(id)
@@ -2020,7 +2066,7 @@ function Home() {
       qCampocuentasPorPagarDetalles,
   ])
 
-  const selectCuentaPorPagarProveedorDetallesFun = (type="buscar",id_proveedor_force=null) => {
+  const selectCuentaPorPagarProveedorDetallesFun = (type="buscar",id_proveedor_force=null,id_facts_force=null,callback=null) => {
     let req = {
       id_proveedor: id_proveedor_force===null? selectProveedorCxp: id_proveedor_force,
       
@@ -2034,6 +2080,7 @@ function Home() {
       cuentaporpagarAprobado,
       sucursalcuentasPorPagarDetalles,
       type,
+      id_facts_force,
     }
     if (type=="buscar") {
       setSelectCuentaPorPagarId([])
@@ -2042,6 +2089,10 @@ function Home() {
         if (res.data) {
           if (res.data.detalles.length) {
             setSelectCuentaPorPagarId(res.data)
+
+            if (callback!==null) {
+              callback(res.data.detalles)
+            }
           }else{
             setSelectCuentaPorPagarId([])
           }
@@ -2412,6 +2463,12 @@ function Home() {
             montobs5PagoFact,
             tasabs5PagoFact,
             metodobs5PagoFact,
+
+            refbs1PagoFact,
+            refbs2PagoFact,
+            refbs3PagoFact,
+            refbs4PagoFact,
+            refbs5PagoFact,
           }).then(res=>{
             if (res.data.estado) {
               setcuentasporpagarDetallesView("cuentas")
@@ -3291,6 +3348,7 @@ function Home() {
 
                     {cuentasporpagarDetallesView=="pagos"?
                       <CuentasporpagarPago
+                        setSelectCuentaPorPagarDetalle={setSelectCuentaPorPagarDetalle}
                         showImageFact={showImageFact}
 
                         montobs1PagoFact={montobs1PagoFact}
@@ -3323,6 +3381,16 @@ function Home() {
                         settasabs5PagoFact={settasabs5PagoFact}
                         metodobs5PagoFact={metodobs5PagoFact}
                         setmetodobs5PagoFact={setmetodobs5PagoFact}
+                        refbs1PagoFact={refbs1PagoFact}                        
+                        setrefbs1PagoFact={setrefbs1PagoFact}
+                        refbs2PagoFact={refbs2PagoFact}                        
+                        setrefbs2PagoFact={setrefbs2PagoFact}
+                        refbs3PagoFact={refbs3PagoFact}                        
+                        setrefbs3PagoFact={setrefbs3PagoFact}
+                        refbs4PagoFact={refbs4PagoFact}                        
+                        setrefbs4PagoFact={setrefbs4PagoFact}
+                        refbs5PagoFact={refbs5PagoFact}                        
+                        setrefbs5PagoFact={setrefbs5PagoFact}
 
                         qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
                         cuentaporpagarAprobado={cuentaporpagarAprobado}

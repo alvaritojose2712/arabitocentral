@@ -107,107 +107,7 @@ export default function CuentasporpagarDetalles({
                     <span className="btn btn-danger boton-fijo-inferiorder fs-3" onClick={()=>setSelectCuentaPorPagarDetalle(null)}>
                         <i className="fa fa-arrow-left"></i> VOLVER
                     </span>
-                    <table className="table table-borderless table-sm">
-                        <tbody>
-                            {dataCuenta.monto_abonado && dataCuenta.pagos?
-                            <>
-                                <tr className="">
-                                    <th className="align-middle">
-                                        ABONADO                                        
-                                    </th>
-                                    <td colSpan={2} className="text-success text-right align-middle">
-                                        {moneda(dataCuenta.monto_abonado)}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colSpan={2} className="align-middle">
-                                        <table className="table table-striped w-75">
-                                            <tbody>
-                                                {dataCuenta.monto_abonado && dataCuenta.pagos?
-                                                <>
-                                                    {dataCuenta.pagos.map(e=>
-                                                        <tr key={e.id} className="border-top">
-                                                            <td className=" align-middle">
-                                                                <span className="text-muted fst-italic">{e.created_at}</span>
-                                                            </td>
-                                                            <td>
-                                                                <span className="btn-success btn pointer w-100">
-                                                                    {e.numfact}
-                                                                </span> 
-                                                            </td>
-                                                            <td className="text-right align-bottom">
-                                                                <span className="text-sinapsis">{moneda(e.monto)}</span> / <span className="text-success">{moneda(e.pivot.monto)}</span>
-                                                            </td>
-                                                        </tr>
-                                                    )}
-                                                </>
-                                                :null}
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr className="">
-                                    <th className="align-middle">
-                                        DEUDA                                        
-                                    </th>
-                                    <td colSpan={2} className="text-danger text-right align-middle">
-                                        {moneda(dataCuenta.monto)}
-                                    </td>
-                                </tr>
-                                <tr className="">
-                                    <th className="align-middle">
-                                        BALANCE                                        
-                                    </th>
-                                    <td colSpan={2} className={((dataCuenta.balance)<0? "text-danger": "text-success")+(" fs-4 text-right align-middle")}>
-                                        {moneda(dataCuenta.balance)}
-                                    </td>
-                                </tr>
-                                
-                            </>
-                            :null}
 
-                            {dataCuenta.facturas ?
-                                dataCuenta.facturas.length?
-                                    <>
-                                        <tr className="">
-                                            <th colSpan={3}>
-                                                FACTURAS ASOCIADAS                                        
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <td colSpan={2}>
-                                                <table className="table table-borderless table-sm">
-                                                    <tbody>
-                                                        {dataCuenta && dataCuenta.facturas?
-                                                        <>
-                                                            {dataCuenta.facturas.map(e=>
-                                                                <tr key={e.id} className="border-top">
-                                                                    <td className=" align-middle text-muted fst-italic fs-7">
-                                                                        {e.created_at}
-                                                                    </td>
-                                                                    <td className=" align-middle">
-                                                                        <span className="btn-sinapsis btn pointer btn-sm">
-                                                                            {e.numfact}
-                                                                        </span> 
-                                                                    </td>
-                                                                    <td className="text-right align-middle">
-                                                                        <span className="text-sinapsis">{moneda(e.pivot.monto)}</span> / <span className="text-success">{moneda(e.monto)}</span>
-                                                                    </td>
-                                                                </tr>
-                                                            )}
-                                                        </>
-                                                        :null}
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </>
-                                :null
-                            :null}
-                        </tbody>
-                    </table>
-                    
-                
                     <table className="table table-sm" onDoubleClick={()=>modeEditarFact(dataCuenta.id)}>
                         {dataCuenta.sucursal?
                             <tbody>
@@ -304,6 +204,106 @@ export default function CuentasporpagarDetalles({
                             </tbody>
                         :null}
 
+                    </table>
+                    <table className="table table-borderless table-sm">
+                        <tbody>
+                            {dataCuenta.monto_abonado && dataCuenta.pagos?
+                            <>
+                                <tr className="">
+                                    <th className="align-middle">
+                                        ABONADO                                        
+                                    </th>
+                                    <td colSpan={2} className="text-success text-right align-middle">
+                                        {moneda(dataCuenta.monto_abonado)}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colSpan={2} className="align-middle">
+                                        <table className="table table-striped w-75">
+                                            <tbody>
+                                                {dataCuenta.monto_abonado && dataCuenta.pagos?
+                                                <>
+                                                    {dataCuenta.pagos.map(e=>
+                                                        <tr key={e.id} className="border-top">
+                                                            <td className=" align-middle">
+                                                                <span className="text-muted fst-italic">{e.created_at}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span className="btn-success btn pointer w-100">
+                                                                    {e.numfact}
+                                                                </span> 
+                                                            </td>
+                                                            <td className="text-right align-bottom">
+                                                                <span className="text-sinapsis">{moneda(e.monto)}</span> / <span className="text-success">{moneda(e.pivot.monto)}</span>
+                                                            </td>
+                                                        </tr>
+                                                    )}
+                                                </>
+                                                :null}
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr className="">
+                                    <th className="align-middle">
+                                        DEUDA                                        
+                                    </th>
+                                    <td colSpan={2} className="text-danger text-right align-middle">
+                                        {moneda(dataCuenta.monto)}
+                                    </td>
+                                </tr>
+                                <tr className="">
+                                    <th className="align-middle">
+                                        BALANCE                                        
+                                    </th>
+                                    <td colSpan={2} className={((dataCuenta.balance)<0? "text-danger": "text-success")+(" fs-4 text-right align-middle")}>
+                                        {moneda(dataCuenta.balance)}
+                                    </td>
+                                </tr>
+                                
+                            </>
+                            :null}
+
+                            {dataCuenta.facturas ?
+                                dataCuenta.facturas.length?
+                                    <>
+                                        <tr className="">
+                                            <th colSpan={3} className="text-center">
+                                                FACTURAS ASOCIADAS                                        
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={2}>
+                                                <table className="table table-borderless table-sm">
+                                                    <tbody>
+                                                        {dataCuenta && dataCuenta.facturas?
+                                                        <>
+                                                            {dataCuenta.facturas.map(e=>
+                                                                <tr key={e.id} className="border-top">
+                                                                    <td className=" align-middle text-muted fst-italic fs-7">
+                                                                        {e.created_at}
+                                                                    </td>
+                                                                    <td className=" align-middle">
+                                                                        <span className="btn-sinapsis btn pointer fs-4 w-100">
+                                                                            {e.monto<=0?"FACT ":"ABONO "} 
+                                                                            {e.numfact}
+                                                                        </span> 
+                                                                    </td>
+                                                                    <td className="text-right align-middle">
+                                                                        <span className="text-sinapsis">{moneda(e.pivot.monto)}</span> / <span className="text-success">{moneda(e.monto)}</span>
+                                                                    </td>
+                                                                </tr>
+                                                            )}
+                                                        </>
+                                                        :null}
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </>
+                                :null
+                            :null}
+                        </tbody>
                     </table>
                                             
                     <div className="boton-fijo-inferiorizq">
@@ -447,7 +447,7 @@ export default function CuentasporpagarDetalles({
                                                 <span className={
                                                     (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-75 btn fs-6 pointer")
                                                 }> 
-                                                {e.monto<0?"FACT ":"ABONO "} 
+                                                {e.monto<=0?"FACT ":"ABONO "} 
                                                 {e.numfact}
                                                 </span>
                                             </td>  

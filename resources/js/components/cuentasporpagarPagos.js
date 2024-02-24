@@ -4,6 +4,7 @@ import SearchBarFacturas from "./searchBarFacturas";
 
 export default function CuentasporpagarPagos({
     cuentasporpagarDetallesView,
+    setSelectCuentaPorPagarDetalle,
     setcuentasporpagarDetallesView,
     cuentasPagosDescripcion,
     setcuentasPagosDescripcion,
@@ -131,6 +132,17 @@ export default function CuentasporpagarPagos({
     tasabs5PagoFact,
     setmetodobs5PagoFact,
     metodobs5PagoFact,
+
+    refbs1PagoFact,                        
+    setrefbs1PagoFact,
+    refbs2PagoFact,                        
+    setrefbs2PagoFact,
+    refbs3PagoFact,                        
+    setrefbs3PagoFact,
+    refbs4PagoFact,                        
+    setrefbs4PagoFact,
+    refbs5PagoFact,                        
+    setrefbs5PagoFact,
 }){
     const [viewMultiplesPagos, setviewMultiplesPagos] = useState(0)
     /* useEffect(()=>{
@@ -142,15 +154,16 @@ export default function CuentasporpagarPagos({
         setsucursalcuentasPorPagarDetalles("")
     },[])  */
 
+    
     let sumSelectAboFact = selectAbonoFact.map(e=>e.val==""?0:parseFloat(e.val)).reduce((partial_sum, a) => partial_sum + a, 0)
     let restaAbono = sumSelectAboFact-parseFloat(cuentasPagosMonto)
-
+    
     let sumBsMonto1 = 0
     let sumBsMonto2 = 0
     let sumBsMonto3 = 0
     let sumBsMonto4 = 0
     let sumBsMonto5 = 0
-
+    
     useEffect(()=>{
         sumBsMonto1 = parseFloat((parseFloat(montobs1PagoFact?montobs1PagoFact:0)/parseFloat(tasabs1PagoFact?tasabs1PagoFact:0)).toFixed(2)) 
         sumBsMonto2 = parseFloat((parseFloat(montobs2PagoFact?montobs2PagoFact:0)/parseFloat(tasabs2PagoFact?tasabs2PagoFact:0)).toFixed(2)) 
@@ -173,7 +186,25 @@ export default function CuentasporpagarPagos({
         montobs5PagoFact,
         tasabs5PagoFact,
     ])
-   
+    const pushPago = (id, balance, val) => {
+        let setMonto = 0
+        val = parseFloat(val)?parseFloat(val):0
+        if (cuentasPagosMonto!="" && (sumSelectAboFact+0.1)<cuentasPagosMonto) {
+            if (balance*-1 > ((restaAbono*-1)+val)) {
+                setMonto = restaAbono*-1+val
+            }else{
+                setMonto = balance*-1
+            }
+        }else{
+            setMonto = ""
+        }
+        if (setMonto) {
+            setMonto = setMonto.toFixed(2)
+        }
+
+        setInputAbonoFact(id, setMonto)
+    }
+    
 
     
     return (
@@ -197,7 +228,7 @@ export default function CuentasporpagarPagos({
                                 <div className="input-group">
                                     <input type="text" className="form-control fs-3 text-success" placeholder="Monto TOTAL de ABONO $" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} required />
                                     <button className="btn btn-success" type="button" onClick={()=>setviewMultiplesPagos(viewMultiplesPagos==5?0:viewMultiplesPagos+1)}>
-                                        {viewMultiplesPagos} <i className="fa fa-plus"></i>
+                                        {viewMultiplesPagos!=0?viewMultiplesPagos:""} <i className="fa fa-plus"></i>
                                     </button>
 
                                 </div>
@@ -219,7 +250,7 @@ export default function CuentasporpagarPagos({
 
                         </div>
                         {
-                            viewMultiplesPagos!=0 || (montobs1PagoFact!="" && montobs1PagoFact!="0")?
+                            viewMultiplesPagos!=0 || (montobs1PagoFact!="" && montobs1PagoFact!="0.00")?
                                 <div className="row mb-2">
                                     <div className="col-md-auto text-sinapsis">
                                         <span className="form-label">Monto Bs 1</span>
@@ -241,12 +272,16 @@ export default function CuentasporpagarPagos({
                                                 )}
                                         </select>    
                                     </div>
+                                    <div className="col-md-auto">
+                                        <span className="form-label">REF 1</span>
+                                        <input type="text" className="form-control" value={refbs1PagoFact} placeholder="REF 1"onChange={e=>setrefbs1PagoFact(number(e.target.value))} />
+                                    </div>
                                     
                                 </div>
                             :null
                         }
                         {
-                            ([2,3,4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs2PagoFact!="" && montobs2PagoFact!="0")?
+                            ([2,3,4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs2PagoFact!="" && montobs2PagoFact!="0.00")?
                                 <div className="row mb-2">
                                     <div className="col-md-auto text-sinapsis">
                                         <span className="form-label">Monto Bs 2</span>
@@ -268,12 +303,16 @@ export default function CuentasporpagarPagos({
                                             )}
                                         </select>    
                                     </div>
+                                    <div className="col-md-auto">
+                                        <span className="form-label">REF 2</span>
+                                        <input type="text" className="form-control" value={refbs2PagoFact} placeholder="REF 2"onChange={e=>setrefbs2PagoFact(number(e.target.value))} />
+                                    </div>
                                     
                                 </div>
                             :null
                         }
                         {
-                            ([3,4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs3PagoFact!="" && montobs3PagoFact!="0")?
+                            ([3,4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs3PagoFact!="" && montobs3PagoFact!="0.00")?
                                 <div className="row mb-2">
                                     <div className="col-md-auto text-sinapsis">
                                         <span className="form-label">Monto Bs 3</span>
@@ -295,12 +334,16 @@ export default function CuentasporpagarPagos({
                                             )}
                                         </select>    
                                     </div>
+                                    <div className="col-md-auto">
+                                        <span className="form-label">REF 3</span>
+                                        <input type="text" className="form-control" value={refbs3PagoFact} placeholder="REF 3"onChange={e=>setrefbs3PagoFact(number(e.target.value))} />
+                                    </div>
                                     
                                 </div>
                             :null
                         }
                         {
-                            ([4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs4PagoFact!="" && montobs4PagoFact!="0")?
+                            ([4,5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs4PagoFact!="" && montobs4PagoFact!="0.00")?
                                 <div className="row mb-2">
                                     <div className="col-md-auto text-sinapsis">
                                         <span className="form-label">Monto Bs 4</span>
@@ -322,12 +365,16 @@ export default function CuentasporpagarPagos({
                                             )}
                                         </select>    
                                     </div>
+                                    <div className="col-md-auto">
+                                        <span className="form-label">REF 4</span>
+                                        <input type="text" className="form-control" value={refbs4PagoFact} placeholder="REF 4"onChange={e=>setrefbs4PagoFact(number(e.target.value))} />
+                                    </div>
                                     
                                 </div>
                             :null
                         }
                         {
-                            ([5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs5PagoFact!="" && montobs5PagoFact!="0")?
+                            ([5].indexOf(viewMultiplesPagos)!=-1 && viewMultiplesPagos!=0) || (montobs5PagoFact!="" && montobs5PagoFact!="0.00")?
                                 <div className="row mb-2">
                                     <div className="col-md-auto text-sinapsis">
                                         <span className="form-label">Monto Bs 5</span>
@@ -349,22 +396,27 @@ export default function CuentasporpagarPagos({
                                             )}
                                         </select>    
                                     </div>
+                                    <div className="col-md-auto">
+                                        <span className="form-label">REF 5</span>
+                                        <input type="text" className="form-control" value={refbs5PagoFact} placeholder="REF 5"onChange={e=>setrefbs5PagoFact(number(e.target.value))} />
+                                    </div>
                                     
                                 </div>
                          :null
                         }   
                             
                         <div className="input-group mb-2">
-                            <select className="form-control fs-3" 
-                            value={cuentasPagosMetodo} 
-                            onChange={e=>setcuentasPagosMetodo(e.target.value)} required>
-                                <option value="">-Método-</option>
-                                {opcionesMetodosPago.map(e=>
-                                    <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
-                                )}
-                            </select>
-                            <input type="date" className="form-control fs-3" value={cuentasPagosFecha} onChange={e=>setcuentasPagosFecha(e.target.value)} required />
-                            
+                            {viewMultiplesPagos==0?
+                                <select className="form-control fs-3" 
+                                value={cuentasPagosMetodo} 
+                                onChange={e=>setcuentasPagosMetodo(e.target.value)} required>
+                                    <option value="">-Método-</option>
+                                    {opcionesMetodosPago.map(e=>
+                                        <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
+                                    )}
+                                </select>
+                            :null}
+                                    <input type="date" className="form-control fs-3" value={cuentasPagosFecha} onChange={e=>setcuentasPagosFecha(e.target.value)} required />
                         </div>
 
                         <div className="form-group text-center">
@@ -418,8 +470,8 @@ export default function CuentasporpagarPagos({
                             
                             (selectAbonoFact)
                             .concat((selectCuentaPorPagarId?(selectCuentaPorPagarId.detalles? selectCuentaPorPagarId.detalles.filter(e=>!selectAbonoFact.map(ee=>ee.id).includes(e.id)): ([])) : ([])) )
-                            .filter(e=>e.monto<0&&e.condicion!="pagadas")
                             .sort((a,b)=>b.balance-a.balance)
+                            .filter(e=>e.monto<0)
                             .map( (e,i) =>
                             
                                 <tr className={("shadow border-top border-top-5 border-dark")+ (e.guardado===true?" bg-success-light":"")} key={i}>
@@ -444,11 +496,11 @@ export default function CuentasporpagarPagos({
 
                                         </span>
                                         <span 
-                                        onClick={()=>setInputAbonoFact(e.id, (cuentasPagosMonto!="" && (sumSelectAboFact+0.1)<cuentasPagosMonto ?(e.balance*-1>restaAbono*-1?restaAbono*-1:e.balance*-1):""))}
+                                        onClick={()=>pushPago(e.id, e.balance, e.val)}
                                         className={
                                             (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-75 btn fs-6 pointer")
                                         }> 
-                                        {e.monto<0?"FACT ":"ABONO "} 
+                                        {e.monto<=0?"FACT ":"ABONO "} 
                                         {e.numfact}
                                         </span>
                                     </td>  
@@ -514,7 +566,7 @@ export default function CuentasporpagarPagos({
                                                 <button className="btn-danger btn" onClick={()=>delItemSelectAbonoFact(e.id)} type="button">
                                                     <i className="fa fa-times"></i>
                                                 </button>
-                                                <button className="btn-sinapsis w-100 btn pointer btn-sm" type="button">
+                                                <button className="btn-sinapsis w-100 btn pointer fs-4" type="button">
                                                     FACT {e.numfact}
                                                 </button> 
 
@@ -536,7 +588,7 @@ export default function CuentasporpagarPagos({
                                     <th className="text-center align-middle">
                                         RESTA
                                     </th>
-                                    <th className={(restaAbono<0? "text-danger": "text-sinapsis ")+(" text-center align-middle")}>{moneda(restaAbono)}</th>
+                                    <th className={(restaAbono<0? "text-danger": "text-sinapsis ")+(" text-center align-middle fs-4 bg-warning")}>{moneda(restaAbono)}</th>
                                 </tr>
 
                         </tbody>
@@ -667,7 +719,10 @@ export default function CuentasporpagarPagos({
             :null}
 
 
-            <button className="btn div-fijo-inferiorder btn-danger fs-3" onClick={()=>setcuentasporpagarDetallesView("cuentas")} type="button">
+            <button className="btn div-fijo-inferiorder btn-danger fs-3" onClick={()=>{
+                setcuentasporpagarDetallesView("cuentas")
+                setSelectCuentaPorPagarDetalle(null)
+            }} type="button">
                 <i className="fa fa-arrow-left"></i> VOLVER
             </button>
         </div>
