@@ -619,7 +619,7 @@ export default function Auditoria({
                                         <th className="bg-success-light">{moneda(e.ingreso)}</th>
                                         <th className="bg-danger-light">{moneda(e.egreso)}</th>
                                         <th className="bg-success-light">{moneda(e.balance)}</th>
-                                        <th className={(e.cuadre==0?"bg-success text-light":"bg-danger text-light")+" fs-3 text-right"}>{moneda(e.cuadre)}</th>
+                                        <th className={(e.cuadre>-0.1 && e.cuadre<0.1?"bg-success text-light":"bg-danger text-light")+" fs-3 text-right"}>{moneda(e.cuadre)}</th>
 
                                     </tr>
                                 )}

@@ -3306,7 +3306,7 @@ function Auditoria(_ref) {
                 className: "bg-success-light",
                 children: moneda(e.balance)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: (e.cuadre == 0 ? "bg-success text-light" : "bg-danger text-light") + " fs-3 text-right",
+                className: (e.cuadre > -0.1 && e.cuadre < 0.1 ? "bg-success text-light" : "bg-danger text-light") + " fs-3 text-right",
                 children: moneda(e.cuadre)
               })]
             }, i);
