@@ -6880,6 +6880,9 @@ function Gastos(_ref) {
               style: {
                 backgroundColor: e.color ? e.color : ""
               },
+              onDoubleClick: function onDoubleClick() {
+                return addBeneficiarioList("del", e.id);
+              },
               children: e.codigo
             });
           })
@@ -9280,13 +9283,13 @@ function SucursalResumencierres(_ref) {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   className: "text-sinapsis",
-                  children: sucursalDetallesData.sum.total
+                  children: sucursalDetallesData ? sucursalDetallesData.sum ? sucursalDetallesData.sum.total : null : null
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   className: "text-success",
-                  children: sucursalDetallesData.sum.ganancia
+                  children: sucursalDetallesData ? sucursalDetallesData.sum ? sucursalDetallesData.sum.ganancia : null : null
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   className: "fs-4 text-sinapsis",
-                  children: sucursalDetallesData.sum.numventas
+                  children: sucursalDetallesData ? sucursalDetallesData.sum ? sucursalDetallesData.sum.numventas : null : null
                 })]
               })
             })]

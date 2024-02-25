@@ -46,9 +46,9 @@ export default function SucursalResumencierres({
                                     <tbody>
                                         <tr>
                                             <td></td>
-                                            <td className="text-sinapsis">{(sucursalDetallesData.sum.total)}</td>
-                                            <td className="text-success">{(sucursalDetallesData.sum.ganancia)}</td>
-                                            <td className="fs-4 text-sinapsis">{sucursalDetallesData.sum.numventas}</td>
+                                            <td className="text-sinapsis">{sucursalDetallesData?sucursalDetallesData.sum?sucursalDetallesData.sum.total:null:null}</td>
+                                            <td className="text-success">{sucursalDetallesData?sucursalDetallesData.sum?sucursalDetallesData.sum.ganancia:null:null}</td>
+                                            <td className="fs-4 text-sinapsis">{sucursalDetallesData?sucursalDetallesData.sum?sucursalDetallesData.sum.numventas:null:null}</td>
                                         </tr>
                                     </tbody>  
                                 </>

@@ -194,7 +194,7 @@ export default function Gastos({
 
 						<div className="card p-3 m-2">
 							{listBeneficiario.map(e=>
-								<button className="btn mb-1 me-1" onClick={()=>addBeneficiarioList("del",e.id)} style={{backgroundColor:e.color?e.color:""}}>{e.codigo}</button>	
+								<button className="btn mb-1 me-1" onClick={()=>addBeneficiarioList("del",e.id)} style={{backgroundColor:e.color?e.color:""}} onDoubleClick={()=>addBeneficiarioList("del",e.id)}>{e.codigo}</button>	
 							)}
 						</div>
 					</div>
