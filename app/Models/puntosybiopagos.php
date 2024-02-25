@@ -16,6 +16,9 @@ class puntosybiopagos extends Model
     public function sucursal() { 
         return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
     }
+    public function beneficiario() { 
+        return $this->hasOne(\App\Models\nomina::class,"id","id_beneficiario"); 
+    }
     protected $fillable = [
         "monto",
         "loteserial",
@@ -27,5 +30,9 @@ class puntosybiopagos extends Model
         "categoria",
         "fecha_liquidacion",
         "monto_liquidado",
+        "id_beneficiario",
+        "origen",
+        "monto_dolar",
+        "tasa",
     ];
 }

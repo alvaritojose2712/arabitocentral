@@ -11,6 +11,7 @@ class CreditosController extends Controller
 {
    function sendCreditos($creditos,$id_sucursal) {
     try {
+        creditos::where("id_sucursal",$id_sucursal)->delete();
         $num = 0;
         foreach ($creditos as $e) {
     

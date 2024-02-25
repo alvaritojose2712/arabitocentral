@@ -27,6 +27,14 @@ class CreatePuntosybiopagosTable extends Migration
             
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
+
+            
+            $table->integer("id_beneficiario")->nullable(true)->default(null);
+            $table->integer("origen")->nullable(true)->default(1);
+            //1 Sucursal
+            //2 Administracion
+            $table->decimal("monto_dolar",10,2)->nullable(true)->default(0);
+            $table->decimal("tasa",10,2)->nullable(true)->default(0);
             
             $table->integer("id_usuario");
             

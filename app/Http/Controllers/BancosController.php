@@ -41,6 +41,7 @@ class BancosController extends Controller
                 ->orwhere("monto_liquidado",$qdescripcionbancosdata);
             })
             ->when($qfechabancosdata!="",function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria, $subviewAuditoria) {
+                $field = "fecha_liquidacion";
                 if ($subviewAuditoria=="cuadre" || $subviewAuditoria=="conciliacion") {
                     $field = "fecha_liquidacion";
                 }else if ($subviewAuditoria=="liquidar") {

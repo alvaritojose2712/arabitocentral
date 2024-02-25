@@ -29,7 +29,6 @@ import BalanceCierres from './panel/balanceCierres'
 import SucursalListCierres from './panel/sucursallistcierre'
 import SucursalDetallesCierres from './panel/sucursaldetallescierres'
 
-import Gastos from './panel/gastos'
 import SucursalDetallesGastos from './panel/sucursaldetallesgastos'
 import SucursalListGastos from './panel/sucursallistgastos'
 
@@ -67,6 +66,8 @@ import CuentasporpagarDetalles from './cuentasporpagarDetalles';
 import CuentasporpagarPago from './cuentasporpagarPagos';
 import EfectivoDisponibleSucursales from './efectivoDisponibleSucursales';
 
+import Gastos from './gastos'
+import { use } from 'browser-sync';
 
 
 
@@ -83,15 +84,6 @@ import EfectivoDisponibleSucursales from './efectivoDisponibleSucursales';
 function Home() {
   // ///In Last//////
   const [view, setView] = useState("")
-
-  const [fallas, setfallas] = useState([])
-  const [gastos, setgastos] = useState([])
-  const [ventas, setventas] = useState([])
-
-  const [selectgastos, setselectgastos] = useState("*")
-  const [fechaGastos, setfechaGastos] = useState("")
-
-  const [tipogasto, settipogasto] = useState(1)
 
   const [selectfechaventa, setselectfechaventa] = useState("")
 
@@ -199,14 +191,7 @@ function Home() {
 
   const [typingTimeout, setTypingTimeout] = useState(0)
 
-  /*   useEffect(() => {
-      getFallas()
-    }, [
-      qFallas,
-      orderCatFallas,
-      orderSubCatFallas,
-      ascdescFallas
-    ])
+  /*  
   
     useEffect(() => {
       getFacturas(false)
@@ -1238,11 +1223,6 @@ function Home() {
   ])
 
 
-
-  useEffect(() => {
-    getGastos()
-  }, [fechaGastos])
-
   useEffect(() => {
     getFacturas()
   }, [
@@ -1260,16 +1240,46 @@ function Home() {
     setInputsProveedores()
   }, [indexSelectProveedores])
 
-  useEffect(() => {
-    if (view == "fallas") {
-      getFallas()
 
-    } else if (view == "gastos") {
-      getGastos()
-    } else if (view == "ventas") {
-      getVentas()
+
+  function formatAmountNoDecimals( number ) {
+    var rgx = /(\d+)(\d{3})/;
+    while( rgx.test( number ) ) {
+        number = number.replace( rgx, '$1' + '.' + '$2' );
     }
-  }, [view])
+    return number;
+  }
+  const removeMoneda = val => {
+    return number(val.replace("Bs.","").replace("$","").replace(" ","").replace(".","").replace(",","."))
+  }
+
+function formatAmount( number, simbol ) {
+
+    // remove all the characters except the numeric values
+    number = number.replace( /[^0-9]/g, '' );
+
+    // set the default value
+    if( number.length == 0 ) number = "0.00";
+    else if( number.length == 1 ) number = "0.0" + number;
+    else if( number.length == 2 ) number = "0." + number;
+    else number = number.substring( 0, number.length - 2 ) + '.' + number.substring( number.length - 2, number.length );
+
+    // set the precision
+    number = new Number( number );
+    number = number.toFixed( 2 );    // only works with the "."
+
+    // change the splitter to ","
+    number = number.replace( /\./g, ',' );
+
+    // format the amount
+    let x = number.split( ',' );
+    let x1 = x[0];
+    let x2 = x.length > 1 ? ',' + x[1] : '';
+
+    return simbol+formatAmountNoDecimals( x1 ) + x2;
+}
+
+
 
 
   const moneda = (value, decimals = 2, separators = ['.', ".", ',']) => {
@@ -1335,17 +1345,6 @@ function Home() {
 
   ///////////Inventario
 
-  const getGastos = () => {
-    setLoading(true)
-
-    if (sucursales.filter(e => e.char == sucursalSelect).length) {
-      db.getGastos({ fechaGastos, id_sucursal: sucursales.filter(e => e.char == sucursalSelect)[0].id }).then(res => {
-        setgastos(res.data)
-        setLoading(false)
-      })
-
-    }
-  }
 
   const getVentas = () => {
     setLoading(true)
@@ -1665,12 +1664,20 @@ function Home() {
       setfechaSelectAuditoria(today)
       setfechaHastaSelectAuditoria(today)
       setinpfechaLiquidar(today)
+      setinpfechaLiquidar(today)
+      setgastosFecha(today)
       
     })
   }
-  const getSucursales = () => {
+  const getSucursales = (q="",callback=null) => {
     setLoading(true)
-    db.getSucursales({}).then(res => {
+    db.getSucursales({
+      q
+    }).then(res => {
+      res.data = res.data.map(e=>{
+        e.color =  "#"+colorFun(1575*e.id+(e.codigo).slice(0,6))
+        return e
+      })
       setsucursales(res.data)
       setLoading(false)
       let col = {}
@@ -1678,6 +1685,10 @@ function Home() {
         col[e.codigo] =  "#"+colorFun(1575*e.id+(e.codigo).slice(0,6))
       })
       setcolorSucursalData(col)
+
+      if (callback!==null) {
+        callback(res.data)
+      }
     })
   }
   const getsucursalListData = () => {
@@ -2199,6 +2210,17 @@ function Home() {
       setnominaData(data)
     })
   }
+  const getPersonal = (callback=null) => {
+    db.getPersonalNomina({
+      qNomina,
+      type: "buscar"
+    }).then(({ data }) => {
+      setnominaData(data)
+      if (callback!==null) {
+        callback(data)
+      }
+    })
+  }
 
   ///PUNTOS Y SERIALES
   
@@ -2250,6 +2272,7 @@ function Home() {
       setcargosData(data)
     })
   }
+  
 
   const setInputsUsuarios = () => {
     if (indexSelectUsuarios) {
@@ -2766,6 +2789,14 @@ function Home() {
       name: "POR PAGAR"
     },
     {
+      route: "auditoria",
+      name: "AUDITORÍA"
+    },
+    {
+      route: "gastos",
+      name: "GASTOS"
+    },
+    {
       route: "compras",
       name: "COMPRAS"
     },
@@ -2774,10 +2805,6 @@ function Home() {
       name: "RRHH"
     },
 
-    {
-      route: "auditoria",
-      name: "AUDITORÍA"
-    },
 
     {
       route: "usuarios",
@@ -2977,23 +3004,133 @@ function Home() {
     }
   }
 
-
-
-  /* [
-    {codigo:"EFECTIVO", descripcion: "EFECTIVO"},
-    {codigo:"0102", descripcion: "0102 Banco de Venezuela, S.A. Banco Universal"},
-    {codigo:"0108", descripcion: "0108 Banco Provincial, S.A. Banco Universal"},
-    {codigo:"0105", descripcion: "0105 Banco Mercantil C.A., Banco Universal"},
-    {codigo:"0134", descripcion: "0134 Banesco Banco Universal, C.A."},
-    {codigo:"0175", descripcion: "0175 Banco Bicentenario del Pueblo, Banco Universal C.A."},
-    {codigo:"0191", descripcion: "0191 Banco Nacional de Crédito C.A., Banco Universal"},
-    {codigo:"0151", descripcion: "0151 Banco Fondo Común, C.A Banco Universal"},
-    {codigo:"ZELLE", descripcion: "ZELLE"},
-    {codigo:"BINANCE", descripcion: "Binance"},
-    {codigo:"AirTM", descripcion: "AirTM"},
-  ] */
+  const [modeMoneda, setmodeMoneda] = useState("dolar")
+	const [modeEjecutor, setmodeEjecutor] = useState("personal")
   
   const [subViewCuentasxPagar, setsubViewCuentasxPagar] = useState("disponible")
+
+  const [gastosData,setgastosData] = useState([])
+  const [gastosQ,setgastosQ] = useState("")
+  const [gastosQCategoria,setgastosQCategoria] = useState("")
+  const [gastosQFecha,setgastosQFecha] = useState("")
+  const [gastosQFechaHasta,setgastosQFechaHasta] = useState("")
+  
+  const [gastosDescripcion,setgastosDescripcion] = useState("")
+  const [gastosMonto,setgastosMonto] = useState("")
+  const [gastosCategoria,setgastosCategoria] = useState("")
+  const [gastosBeneficiario,setgastosBeneficiario] = useState("")
+  const [gastosFecha,setgastosFecha] = useState("")
+
+  const [gastosMonto_dolar, setgastosMonto_dolar] = useState("")
+  const [gastosTasa, setgastosTasa] = useState("")
+
+  const [subviewGastos,setsubviewGastos] = useState("cargar")
+  const [selectIdGastos,setselectIdGastos] = useState("")
+  
+  const [qBeneficiario,setqBeneficiario] = useState("")
+  const [qSucursal,setqSucursal] = useState("")
+  const [qCatGastos,setqCatGastos] = useState("")
+  
+  const [listBeneficiario, setlistBeneficiario] = useState([])
+  
+  const addBeneficiarioList = (type,id=null) => {
+    let fil = []
+    if (modeEjecutor=="personal") {
+      
+      fil = nominaData.filter(e=>e.id==gastosBeneficiario)
+    }else{
+      fil = sucursales.filter(e=>e.id==gastosBeneficiario)
+    }
+    if (fil.length) {
+      let clone = (listBeneficiario)
+      if (type=="add") {
+        setlistBeneficiario(clone.concat(fil[0]))
+      }else{
+        setlistBeneficiario(clone.filter(e=>e.id!=id))
+      }
+    }
+  }
+
+  const delGasto = id => {
+    db.delGasto({
+      id
+    }).then(res=>{
+      notificar(res.data.msj)
+      getGastos()
+    })
+  }
+  const saveNewGasto = () => {
+    if (
+      gastosDescripcion && 
+      gastosMonto &&
+      gastosCategoria &&
+      gastosFecha
+    ) {
+      db.saveNewGasto({
+        gastosDescripcion,
+        gastosCategoria,
+        gastosBeneficiario,
+        gastosFecha,
+        
+        gastosMonto: removeMoneda(gastosMonto),
+        gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
+        gastosTasa,
+        selectIdGastos,
+        modeMoneda,
+        modeEjecutor,
+      }).then(res=>{
+        if (res.data.estado) {
+          getGastos()
+          setNewGastosInput()
+          
+        }
+        notificar(res.data.msj)
+      })
+    }else{
+      alert("Campos Vacíos")
+    }
+  }
+  const getGastos = () => {
+    db.getGastos({
+      gastosQ,
+      gastosQCategoria,
+      gastosQFecha,
+      gastosQFechaHasta,
+    }).then(res=>{
+      if (res.data) {
+        if (res.data.data.length) {
+          setgastosData(res.data)
+        }else{
+          setgastosData([])
+        }
+      }
+    })
+  }
+  const setNewGastosInput = () => {
+    setgastosDescripcion("")
+    setgastosMonto("")
+    setgastosCategoria("")
+    setgastosBeneficiario("")
+    setgastosFecha("")
+    setgastosMonto_dolar("")
+    setgastosTasa("")
+  }
+  const setEditGastosInput = id => {
+    let fil = gastosData.filter(e=>e.id===id)
+    if (fil.length) {
+      let dataFil = fil[0] 
+      setgastosDescripcion(dataFil.loteserial)
+      setgastosMonto(dataFil.monto_liquidado)
+      setgastosCategoria(dataFil.categoria)
+      setgastosBeneficiario(dataFil.id_beneficiario)
+      setgastosFecha(dataFil.fecha_liquidacion)
+      setgastosMonto_dolar(dataFil.monto_dolar)
+      setgastosTasa(dataFil.tasa)
+      
+    }
+  }
+
+
   
   return (
     <>
@@ -3532,7 +3669,66 @@ function Home() {
             </Efectivo>
           }
 
+          {
+            viewmainPanel==="gastos" && 
+            <Gastos
+              addBeneficiarioList={addBeneficiarioList}
+              listBeneficiario={listBeneficiario}
+              modeMoneda={modeMoneda}
+              setmodeMoneda={setmodeMoneda}
+              modeEjecutor={modeEjecutor}
+              setmodeEjecutor={setmodeEjecutor}
+              formatAmount={formatAmount}
+              nominaData={nominaData}
 
+              categoriaMovBanco={categoriaMovBanco}
+              gastosData={gastosData}
+              setgastosData={setgastosData}
+              gastosQ={gastosQ}
+              setgastosQ={setgastosQ}
+              gastosQCategoria={gastosQCategoria}
+              setgastosQCategoria={setgastosQCategoria}
+              gastosQFecha={gastosQFecha}
+              setgastosQFecha={setgastosQFecha}
+              gastosQFechaHasta={gastosQFechaHasta}
+              setgastosQFechaHasta={setgastosQFechaHasta}
+              gastosDescripcion={gastosDescripcion}
+              setgastosDescripcion={setgastosDescripcion}
+              gastosMonto={gastosMonto}
+              setgastosMonto={setgastosMonto}
+              gastosCategoria={gastosCategoria}
+              setgastosCategoria={setgastosCategoria}
+              gastosBeneficiario={gastosBeneficiario}
+              setgastosBeneficiario={setgastosBeneficiario}
+              gastosFecha={gastosFecha}
+              setgastosFecha={setgastosFecha}
+              setgastosMonto_dolar={setgastosMonto_dolar}              
+              gastosMonto_dolar={gastosMonto_dolar}
+              setgastosTasa={setgastosTasa}              
+              gastosTasa={gastosTasa}
+              subviewGastos={subviewGastos}
+              setsubviewGastos={setsubviewGastos}
+              selectIdGastos={selectIdGastos}
+              setselectIdGastos={setselectIdGastos}
+              delGasto={delGasto}
+              saveNewGasto={saveNewGasto}
+              getGastos={getGastos}
+              setNewGastosInput={setNewGastosInput}
+              setEditGastosInput={setEditGastosInput}
+              qBeneficiario={qBeneficiario}
+              setqBeneficiario={setqBeneficiario}
+              qSucursal={qSucursal}
+              setqSucursal={setqSucursal}
+              qCatGastos={qCatGastos}
+              setqCatGastos={setqCatGastos}
+              getSucursales={getSucursales}
+              sucursales={sucursales}
+              getPersonal={getPersonal}
+              qNomina={qNomina}
+              setqNomina={setqNomina}
+
+            />
+          }
 
           {viewmainPanel === "pedir" &&
             <Pedir

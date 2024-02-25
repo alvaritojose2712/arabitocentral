@@ -165,6 +165,15 @@ td,th{
   height:  30px;
 
 }
+.input-money{
+  border: 2px solid #333;
+  border-radius: 5px;
+  color: #333;
+  font-size: 32px;
+  margin: 0 0 20px;
+  padding: .5rem 1rem;
+  width: 100%;
+}
 
 .card-pedidos{
   width: 100%;

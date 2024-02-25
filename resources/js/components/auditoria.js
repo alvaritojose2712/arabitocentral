@@ -131,8 +131,8 @@ export default function Auditoria({
                         </div>
                         <div className="form-group m-4 text-center">
                             <div className="btn-group">
-                                <button onClick={()=>setcuentasPagosTipo("egreso")} className={(cuentasPagoTipo=="egreso"?"btn-danger":"")+(" btn")}>Egreso</button>
-                                <button onClick={()=>setcuentasPagosTipo("ingreso")} className={(cuentasPagoTipo=="ingreso"?"btn-success":"")+(" btn")}>Ingreso</button>
+                                <button type="button" onClick={()=>setcuentasPagosTipo("egreso")} className={(cuentasPagoTipo=="egreso"?"btn-danger":"")+(" btn")}>Egreso</button>
+                                <button type="button" onClick={()=>setcuentasPagosTipo("ingreso")} className={(cuentasPagoTipo=="ingreso"?"btn-success":"")+(" btn")}>Ingreso</button>
                             </div>
                         </div>
                         
@@ -588,7 +588,7 @@ export default function Auditoria({
                                     <th>INGRESO</th>
                                     <th>EGRESO</th>
                                     <th className="bg-success-light">CUADRE DIGITAL</th>
-                                    <th>CONCILIACIÓN</th>
+                                    <th className="text-right">CONCILIACIÓN</th>
                                 </tr>
                             </thead>
                             <tbody>

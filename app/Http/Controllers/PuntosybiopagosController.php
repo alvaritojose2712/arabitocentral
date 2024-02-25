@@ -104,4 +104,37 @@ class PuntosybiopagosController extends Controller
         }
 
     }
+
+
+    function getGastos(Request $req) {
+        $gastosQ = $req->gastosQ;
+        $gastosQCategoria = $req->gastosQCategoria;
+        $gastosQFecha = $req->gastosQFecha;
+        $gastosQFechaHasta = $req->gastosQFechaHasta;
+        puntosybiopagos::where("origen", 2)->get();
+    }
+    function delGasto(Request $req) {
+        $id = $req->id;
+
+        $del = puntosybiopagos::where("id", $id)->delete();
+        if ($del) {
+            return [
+                "estado"=> true,
+                "msj"=> "Éxito al eliminar ".$id,
+            ];
+        }
+    }
+    function saveNewGasto(Request $req) {
+        $gastosDescripcion = $req->gastosDescripcion;
+        $gastosMonto = $req->gastosMonto;
+        $gastosCategoria = $req->gastosCategoria;
+        $gastosBeneficiario = $req->gastosBeneficiario;
+        $gastosFecha = $req->gastosFecha;
+        $gastosMonto_dolar = $req->gastosMonto_dolar;
+        $gastosTasa = $req->gastosTasa;
+        $selectIdGastos = $req->selectIdGastos;
+
+        $modeMoneda = $req->modeMoneda;
+        $modeEjecutor = $req->modeEjecutor;
+    }
 }

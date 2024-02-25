@@ -54,19 +54,19 @@ class NominaController extends Controller
        
 
 
-        $qNomina = $req->qNomina;
-        $qSucursalNomina = $req->qSucursalNomina;
-        $qCargoNomina = $req->qCargoNomina;
+        $qNomina = isset($req->qNomina)? $req->qNomina: "";
+        $qSucursalNomina = isset($req->qSucursalNomina)? $req->qSucursalNomina: "";
+        $qCargoNomina = isset($req->qCargoNomina)? $req->qCargoNomina: "";
 
-        $fechasMain1 = $req->fechasMain1;
-        $fechasMain2 = $req->fechasMain2;
+        $fechasMain1 = isset($req->fechasMain1)? $req->fechasMain1: "";
+        $fechasMain2 = isset($req->fechasMain2)? $req->fechasMain2: "";
 
-        $type = $req->type;
+        $type = isset($req->type)? $req->type: "";
 
         $personal = nomina::with(["sucursal", "cargo"])->where(function ($q) use ($qNomina) {
             $q
-                ->orWhere("nominanombre", "LIKE", "$qNomina%")
-                ->orWhere("nominacedula", "LIKE", "$qNomina%");
+                ->orWhere("nominanombre", "LIKE", "%$qNomina%")
+                ->orWhere("nominacedula", "LIKE", "%$qNomina%");
         })
             ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
             ->when($qCargoNomina, function ($q) use ($qCargoNomina) {

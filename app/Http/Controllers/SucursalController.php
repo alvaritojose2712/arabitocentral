@@ -13,6 +13,11 @@ class SucursalController extends Controller
 {
     public function getSucursales(Request $req)
     {
-        return sucursal::all();
+        $q = isset($req->q) ? $req->q :"";
+        if ($q) {
+            return sucursal::orwhere("codigo","LIKE","%$q%")->orwhere("nombre","LIKE","%$q%")->get();
+        }else{
+            return sucursal::all();
+        }
     }
 }

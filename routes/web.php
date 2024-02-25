@@ -109,7 +109,10 @@ Route::get('getCatCajas', [CatcajasController::class,"getCatCajas"]);
 
 Route::get('getFallas', [FallasController::class,"getFallas"]);
 
-Route::get('getGastos', [GastosController::class,"getGastos"]);
+Route::post('getGastos', [PuntosybiopagosController::class,"getGastos"]);
+Route::post('delGasto', [PuntosybiopagosController::class,"delGasto"]);
+Route::post('saveNewGasto', [PuntosybiopagosController::class,"saveNewGasto"]);
+
 
 Route::post('setVentas', [VentasController::class,"setVentas"]);
 Route::get('getVentas', [VentasController::class,"getVentas"]);
