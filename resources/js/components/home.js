@@ -1,9 +1,9 @@
-import { useHotkeys } from 'react-hotkeys-hook';
+/* import { useHotkeys } from 'react-hotkeys-hook'; */
 
 import { cloneDeep } from "lodash";
 
-import { useState, useEffect, useRef, StrictMode } from 'react';
-import ReactDOM, { render } from 'react-dom';
+import { useState, useEffect, useRef } from 'react';
+import { render } from 'react-dom';
 import db from '../database/database';
 import Header from './header';
 import SelectSucursal from './selectSucursal';
@@ -67,7 +67,6 @@ import CuentasporpagarPago from './cuentasporpagarPagos';
 import EfectivoDisponibleSucursales from './efectivoDisponibleSucursales';
 
 import Gastos from './gastos'
-import { use } from 'browser-sync';
 
 
 
