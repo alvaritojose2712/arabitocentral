@@ -12,6 +12,8 @@ class nomina extends Model
     public function pagos() { 
         return $this->hasMany(\App\Models\nominapagos::class,"id_nomina","id"); 
     }
+    
+    
 
     public function sucursal() { 
         return $this->hasOne(\App\Models\sucursal::class,"id","nominasucursal"); 

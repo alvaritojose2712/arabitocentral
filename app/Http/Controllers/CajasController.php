@@ -31,7 +31,7 @@ class CajasController extends Controller
                 $eurobalance += $c->eurobalance;
             }
         }
-        array_multisort(array_column($arr,"dolarbalance"), SORT_DESC, $arr);
+        array_multisort(array_column($arr,"id_sucursal"), SORT_ASC, $arr);
         return [
             "data" => $arr,
             "dolarbalance" => $dolarbalance,
@@ -75,7 +75,7 @@ class CajasController extends Controller
                         if (isset($split[1])) {
                             $ci = $split[1];
                             $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:$e["montopeso"]);
-                            (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $e["id"]);
+                            (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $e["id"],$e["fecha"]);
                         }
     
                     }

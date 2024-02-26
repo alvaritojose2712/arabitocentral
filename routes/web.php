@@ -346,6 +346,8 @@ Route::post('setPersonalNomina', [NominaController::class,"setPersonalNomina"]);
 Route::post('delPersonalCargos', [NominacargosController::class,"delPersonalCargos"]);
 Route::post('getPersonalCargos', [NominacargosController::class,"getPersonalCargos"]);
 Route::post('setPersonalCargos', [NominacargosController::class,"setPersonalCargos"]);
+Route::get('configPagos', [NominapagosController::class,"configPagos"]);
+
 
 Route::post('getUsuarios', [UsuariosController::class,"getUsuarios"]);
 Route::post('setUsuario', [UsuariosController::class,"setUsuario"]);

@@ -22,5 +22,6 @@ class nominapagos extends Model
         "id_nomina",
         "id_sucursal",
         "idinsucursal",
+        "created_at",
     ];
 }

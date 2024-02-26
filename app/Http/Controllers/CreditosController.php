@@ -15,11 +15,11 @@ class CreditosController extends Controller
         $num = 0;
         foreach ($creditos as $e) {
     
-    
+            $c = preg_replace('/\D/', '', $e["identificacion"]);
             $id_cliente = clientes::updateOrCreate([
-                "identificacion" => $e["identificacion"],
+                "identificacion" => $c,
             ],[
-                "identificacion" => $e["identificacion"],
+                "identificacion" => $c,
                 "nombre" => $e["nombre"],
                 "correo" => $e["correo"],
                 "direccion" => $e["direccion"],

@@ -52,7 +52,7 @@ export default function EfectivoDisponibleSucursales({
                         efectivoDisponibleSucursalesData.data.map(e=>
                             <tr key={e.id}>
                                 <td>
-                                    <button className={"btn w-100 fw-bolder "} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.codigo}</button>
+                                    <button className={"btn w-100 fw-bolder "} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.nombre}</button>
                                 </td>
                                 <td>{e.fecha}</td>
                                 <td>{e.created_at}</td>

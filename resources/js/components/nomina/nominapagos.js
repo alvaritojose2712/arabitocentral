@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState,useEffect } from 'react';
 
 export default function Nominapagos({
     qSucursalNomina,
@@ -18,11 +18,12 @@ export default function Nominapagos({
 
     nominapagodetalles,
     setnominapagodetalles,
+    moneda,
 }){
     useEffect(() => {
         getPersonalNomina()
-        getPersonalCargos()
     }, [subViewNomina])
+    const [selectIdPersonal, setselectIdPersonal] = useState(null)
     return (
         <div>
 			{!nominapagodetalles.nominanombre?
@@ -71,6 +72,8 @@ export default function Nominapagos({
                             <th>Cédula</th>
                             <th>Nombres y Apellidos</th>
                             <th>Cargo</th>
+                            <th>PAGOS TOT.</th>
+                            <th>CRÉDITOS TOT.</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,12 +83,41 @@ export default function Nominapagos({
                                 nominaData.personal?
                                     nominaData.personal.length?
                                         nominaData.personal.map((e, i) =>
-                                            <tr key={e.id} className='pointer' onClick={()=>selectNominaDetalles(e.id)}>
-                                                <td>{e.sucursal.nombre}</td>
-                                                <td>{e.nominacedula}</td>
-                                                <td>{e.nominanombre}</td>
-                                                <td>{e.cargo.cargosdescripcion}</td>
-                                            </tr>
+                                            <>
+                                                <tr key={e.id} className={('pointer ')+(e.id==selectIdPersonal?"bg-success-light":"")} onClick={()=>setselectIdPersonal(selectIdPersonal==e.id? null: e.id)}>
+                                                    <td>{e.sucursal.nombre}</td>
+                                                    <td>{e.nominacedula}</td>
+                                                    <td>{e.nominanombre}</td>
+                                                    <td>{e.cargo.cargosdescripcion}</td>
+                                                    <td className={(e.id==selectIdPersonal?"bg-success-light":"")}>{moneda(e.sumPagos)}</td>
+                                                    <td className={(e.id==selectIdPersonal?"bg-danger-light":"")}>{moneda(e.sumCreditos)}</td>
+                                                </tr>
+                                                {selectIdPersonal==e.id?
+                                                    e.pagos.map(pago=>
+                                                        <tr key={pago.id} className={(e.id==selectIdPersonal?"bg-success-superlight":"")}>
+                                                            <td></td>
+                                                            <td>PAGO</td>
+                                                            <td>{pago.created_at.replace("00:00:00","")}</td>
+                                                            <td>{pago.descripcion}</td>
+                                                            <td>{moneda(pago.monto)}</td>
+                                                            <td></td>
+                                                        </tr>
+                                                    )
+                                                    :null}
+
+                                                {selectIdPersonal==e.id?
+                                                    e.creditos.map(credito=>
+                                                        <tr key={credito.id} className={(e.id==selectIdPersonal?"bg-danger-light":"")}>
+                                                            <td></td>
+                                                            <td>CRÉDITO</td>
+                                                            <td>{credito.created_at.replace("00:00:00","")}</td>
+                                                            <td>{credito.sucursal.codigo}</td>
+                                                            <td></td>
+                                                            <td>{moneda(credito.saldo)}</td>
+                                                        </tr>
+                                                    )
+                                                :null}
+                                            </>
                                         )
                                     : null
                                 : null

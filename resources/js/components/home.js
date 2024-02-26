@@ -3270,6 +3270,7 @@ function formatAmount( number, simbol ) {
 
                   nominapagodetalles={nominapagodetalles}
                   setnominapagodetalles={setnominapagodetalles}
+                  moneda={moneda}
 
                 >
                 </NominaPagos>
