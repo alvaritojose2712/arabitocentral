@@ -29,7 +29,9 @@ class BancosController extends Controller
                 return "Fechas de Búsqueda en Blanco";
             }
     
-            $puntosybiopagos = puntosybiopagos::with("sucursal")->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
+            $puntosybiopagos = puntosybiopagos::with("sucursal")
+            ->whereNotIn("banco",["ZELLE","BINANCE","AirTM","EFECTIVO"])
+            ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
                 $q->whereIn("banco",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
             })
             ->when($subviewAuditoria=="liquidar",function($q) {
