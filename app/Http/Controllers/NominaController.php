@@ -90,7 +90,7 @@ class NominaController extends Controller
 
 
             $ids = clientes::where("identificacion", "=",  $cedula)->select("id");
-            $creditos = creditos::whereIn("id_cliente",$ids)->get();
+            $creditos = creditos::with("sucursal")->whereIn("id_cliente",$ids)->get();
             $q->creditos = $creditos; 
             $q->sumCreditos = $creditos->sum("saldo");
             return $q;

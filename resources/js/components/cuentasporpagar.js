@@ -46,8 +46,8 @@ export default function Cuentasporpagar({
                                 <div className="card-header flex-row justify-content-between">
                                     <div className="d-flex justify-content-between">
                                         <div className="w-50">
-                                            <b>{e.rif}</b><br/>
-                                            <small className="fst-italic">{e.descripcion}</small>
+                                            <b>{e.descripcion}</b><br/>
+                                            <small className="fst-italic">{e.rif}</small>
                                         </div>
                                         <div className="w-50 text-right">
                                             {

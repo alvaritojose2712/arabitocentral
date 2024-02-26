@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 export default function serarchBar({
     selectCuentaPorPagarProveedorDetallesFun,
     cuentaporpagarAprobado,
@@ -13,13 +15,25 @@ export default function serarchBar({
     categoriacuentasPorPagarDetalles,
     setcategoriacuentasPorPagarDetalles,
 }){
+
+    useEffect(()=>{
+        let fil = proveedoresList.find(e=>e.descripcion.indexOf(buscardorProveedor)!=-1)
+
+        if (fil.length) {
+            let id = fil[0].id
+            setselectProveedorCxp(id)
+            selectCuentaPorPagarProveedorDetallesFun("buscar",id)
+        }
+    },[buscardorProveedor])
+    const [buscardorProveedor, setbuscardorProveedor] = useState("")
     return(
     <form onSubmit={e=>{e.preventDefault();selectCuentaPorPagarProveedorDetallesFun()}} className="mb-3 card p-3 shadow">
         <div className="input-group">
             <button className={("btn btn-lg btn-"+(cuentaporpagarAprobado==0?"sinapsis":""))} type="button" onClick={e=>setcuentaporpagarAprobado(0)}><i className="fa fa-clock-o"></i></button>
             <button className={("btn btn-lg btn-"+(cuentaporpagarAprobado==1?"success":""))} type="button" onClick={e=>setcuentaporpagarAprobado(1)}><i className="fa fa-check"></i></button>
             
-            <input type="text" className="form-control form-control-lg fs-3" placeholder={"Buscar en..."} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
+            <input type="text" className="form-control form-control-lg fs-3" placeholder={"Buscar factura..."} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
+            <input type="text" value={buscardorProveedor} onChange={e=>setbuscardorProveedor(e.target.value)} className="form-control" placeholder="Buscar proveedor..." />
             <select className="form-control" value={selectProveedorCxp} onChange={e=>{setselectProveedorCxp(e.target.value);selectCuentaPorPagarProveedorDetallesFun("buscar",e.target.value)}}>
                 <option value="">-TODOS LOS PROVEEDORES-</option>
                 {proveedoresList.map(e=>

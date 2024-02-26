@@ -4123,10 +4123,10 @@ function Cuentasporpagar(_ref) {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
                 className: "w-50",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("b", {
-                  children: e.rif
+                  children: e.descripcion
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("small", {
                   className: "fst-italic",
-                  children: e.descripcion
+                  children: e.rif
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
                 className: "w-50 text-right",
@@ -12762,7 +12762,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ serarchBar)
 /* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 function serarchBar(_ref) {
@@ -12779,84 +12787,106 @@ function serarchBar(_ref) {
     sucursales = _ref.sucursales,
     categoriacuentasPorPagarDetalles = _ref.categoriacuentasPorPagarDetalles,
     setcategoriacuentasPorPagarDetalles = _ref.setcategoriacuentasPorPagarDetalles;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("form", {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = proveedoresList.find(function (e) {
+      return e.descripcion.indexOf(buscardorProveedor) != -1;
+    });
+    if (fil.length) {
+      var id = fil[0].id;
+      setselectProveedorCxp(id);
+      selectCuentaPorPagarProveedorDetallesFun("buscar", id);
+    }
+  }, [buscardorProveedor]);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState2 = _slicedToArray(_useState, 2),
+    buscardorProveedor = _useState2[0],
+    setbuscardorProveedor = _useState2[1];
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("form", {
     onSubmit: function onSubmit(e) {
       e.preventDefault();
       selectCuentaPorPagarProveedorDetallesFun();
     },
     className: "mb-3 card p-3 shadow",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "input-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
         className: "btn btn-lg btn-" + (cuentaporpagarAprobado == 0 ? "sinapsis" : ""),
         type: "button",
         onClick: function onClick(e) {
           return setcuentaporpagarAprobado(0);
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
           className: "fa fa-clock-o"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
         className: "btn btn-lg btn-" + (cuentaporpagarAprobado == 1 ? "success" : ""),
         type: "button",
         onClick: function onClick(e) {
           return setcuentaporpagarAprobado(1);
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
           className: "fa fa-check"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
         type: "text",
         className: "form-control form-control-lg fs-3",
-        placeholder: "Buscar en...",
+        placeholder: "Buscar factura...",
         onChange: function onChange(e) {
           return setqcuentasPorPagarDetalles(e.target.value);
         },
         value: qcuentasPorPagarDetalles
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "text",
+        value: buscardorProveedor,
+        onChange: function onChange(e) {
+          return setbuscardorProveedor(e.target.value);
+        },
+        className: "form-control",
+        placeholder: "Buscar proveedor..."
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
         className: "form-control",
         value: selectProveedorCxp,
         onChange: function onChange(e) {
           setselectProveedorCxp(e.target.value);
           selectCuentaPorPagarProveedorDetallesFun("buscar", e.target.value);
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
           value: "",
           children: "-TODOS LOS PROVEEDORES-"
         }), proveedoresList.map(function (e) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("option", {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("option", {
             value: e.id,
             children: [e.descripcion, "-", e.rif]
           }, e.id);
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
         className: "form-control form-control-lg",
         value: sucursalcuentasPorPagarDetalles,
         onChange: function onChange(e) {
           return setsucursalcuentasPorPagarDetalles(e.target.value);
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
           value: "",
           children: "-SUCURSAL-"
         }), sucursales.map(function (e) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
             value: e.id,
             children: e.codigo
           }, e.id);
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
         type: "button",
         className: "btn btn-warning btn-lg",
         onClick: function onClick() {
           return selectCuentaPorPagarProveedorDetallesFun("reporte");
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
           className: "fa fa-print"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
         type: "submit",
         className: "btn btn-success btn-lg",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
           className: "fa fa-search"
         })
       })]
@@ -65742,6 +65772,26 @@ function Home() {
               setcuentasPagosMonto("");
               setcuentasPagosDescripcion("");
               setcuentasPagosMetodo("");
+              setmontobs1PagoFact("");
+              settasabs1PagoFact("");
+              setmetodobs1PagoFact("");
+              setmontobs2PagoFact("");
+              settasabs2PagoFact("");
+              setmetodobs2PagoFact("");
+              setmontobs3PagoFact("");
+              settasabs3PagoFact("");
+              setmetodobs3PagoFact("");
+              setmontobs4PagoFact("");
+              settasabs4PagoFact("");
+              setmetodobs4PagoFact("");
+              setmontobs5PagoFact("");
+              settasabs5PagoFact("");
+              setmetodobs5PagoFact("");
+              setrefbs1PagoFact("");
+              setrefbs2PagoFact("");
+              setrefbs3PagoFact("");
+              setrefbs4PagoFact("");
+              setrefbs5PagoFact("");
             }
             notificar(res.data.msj);
           });

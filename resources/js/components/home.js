@@ -2487,7 +2487,6 @@ function formatAmount( number, simbol ) {
             montobs5PagoFact,
             tasabs5PagoFact,
             metodobs5PagoFact,
-
             refbs1PagoFact,
             refbs2PagoFact,
             refbs3PagoFact,
@@ -2502,6 +2501,27 @@ function formatAmount( number, simbol ) {
               setcuentasPagosMonto("")
               setcuentasPagosDescripcion("")
               setcuentasPagosMetodo("")
+
+              setmontobs1PagoFact("")
+              settasabs1PagoFact("")
+              setmetodobs1PagoFact("")
+              setmontobs2PagoFact("")
+              settasabs2PagoFact("")
+              setmetodobs2PagoFact("")
+              setmontobs3PagoFact("")
+              settasabs3PagoFact("")
+              setmetodobs3PagoFact("")
+              setmontobs4PagoFact("")
+              settasabs4PagoFact("")
+              setmetodobs4PagoFact("")
+              setmontobs5PagoFact("")
+              settasabs5PagoFact("")
+              setmetodobs5PagoFact("")
+              setrefbs1PagoFact("")
+              setrefbs2PagoFact("")
+              setrefbs3PagoFact("")
+              setrefbs4PagoFact("")
+              setrefbs5PagoFact("")
             }
             notificar(res.data.msj)
           })
