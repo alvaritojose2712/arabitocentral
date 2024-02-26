@@ -58,7 +58,7 @@ class BancosController extends Controller
     
     
             $cuenta = cuentasporpagar::with("sucursal")
-            ->whereNotIn("metodo",["ZELLE","BINANCE","AirTM"])
+            ->whereNotIn("metodo",["ZELLE","BINANCE","AirTM","EFECTIVO"])
             ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
                 $q->whereIn("metodo",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
             })
