@@ -111,7 +111,43 @@ class PuntosybiopagosController extends Controller
         $gastosQCategoria = $req->gastosQCategoria;
         $gastosQFecha = $req->gastosQFecha;
         $gastosQFechaHasta = $req->gastosQFechaHasta;
-        puntosybiopagos::where("origen", 2)->get();
+
+        
+        $p =  puntosybiopagos::with(["sucursal","beneficiario"])->where("origen", 2)
+        ->when($gastosQ,function($q) use ($gastosQ){
+            $q->where(function($q) use ($gastosQ) {
+                $q->orwhere("loteserial","LIKE","%$gastosQ%")
+                ->orwhere("banco","LIKE","%$gastosQ%");
+            });
+        })
+        ->when($gastosQFecha,function($q) use ($gastosQFecha,$gastosQFechaHasta) {
+            $q->whereBetween("fecha_liquidacion", [$gastosQFecha, !$gastosQFechaHasta?$gastosQFecha:$gastosQFechaHasta]);
+            
+        })
+        ->when($gastosQCategoria,function($q) use ($gastosQCategoria) {
+            $q->where("categoria",$gastosQCategoria);
+        })
+        ->orderBy("created_at","desc");
+
+        $p_modified = $p->get()->map(function($q) {
+            $tasa = $q->tasa?abs($q->tasa):0;
+            $monto_liquidado = $q->monto_liquidado?$q->monto_liquidado:0;
+            $monto_dolar = $q->monto_dolar?$q->monto_dolar:0;
+            
+            $bs = 0;
+            if ($tasa!=0&&$monto_liquidado!=0) {
+                $bs += $monto_liquidado/($tasa);
+            }
+            $q->bs = $bs;
+
+            $q->sum = $monto_dolar+$bs;
+            return $q;  
+        });
+
+        return [
+            "data" => $p_modified,
+            "sum" => $p_modified->sum("sum"),
+        ];
     }
     function delGasto(Request $req) {
         $id = $req->id;
@@ -126,15 +162,96 @@ class PuntosybiopagosController extends Controller
     }
     function saveNewGasto(Request $req) {
         $gastosDescripcion = $req->gastosDescripcion;
-        $gastosMonto = $req->gastosMonto;
         $gastosCategoria = $req->gastosCategoria;
-        $gastosBeneficiario = $req->gastosBeneficiario;
         $gastosFecha = $req->gastosFecha;
+        $gastosBanco = $req->gastosBanco;
+        
+        $gastosMonto = $req->gastosMonto;
         $gastosMonto_dolar = $req->gastosMonto_dolar;
         $gastosTasa = $req->gastosTasa;
-        $selectIdGastos = $req->selectIdGastos;
 
-        $modeMoneda = $req->modeMoneda;
+        $gastosBeneficiario = $req->gastosBeneficiario;
         $modeEjecutor = $req->modeEjecutor;
+        $listBeneficiario = $req->listBeneficiario;
+        
+        $montoDolar = 0;
+        $montoBs = 0;
+        $taseBs = 0;
+        $modeMoneda = $req->modeMoneda;
+        if ($modeMoneda=="dolar") {
+            $montoDolar = abs($gastosMonto_dolar)*-1;
+        }elseif ($modeMoneda=="bs"){
+            $montoBs = abs($gastosMonto)*-1;
+            $taseBs = abs($gastosTasa);
+        }
+        $tipo = "Transferencia";
+        if (strtoupper($gastosBanco)=="EFECTIVO") {
+            $tipo = "EFECTIVO";
+        }
+        $admin_id = sucursal::updateOrCreate(["codigo"=>"administracion"],[
+            "nombre" => "ADMINISTRACION",
+            "codigo" => "administracion",
+        ]);
+
+        $arrForce = [];
+        if (!count($listBeneficiario)) {
+            array_push($arrForce, $gastosBeneficiario);
+        }else{
+            $arrForce = $listBeneficiario;
+        }
+        $arr = [];
+        $divisor = count($arrForce);
+        foreach ($arrForce as $id) {
+            $id_sucursal = null;
+            $id_beneficiario = null;
+            $id_selectEjecutor = $id["id"];
+            
+            if ($modeEjecutor=="personal") {
+                $id_sucursal = $admin_id->id;
+                $id_beneficiario = $id_selectEjecutor;
+            }else if ($modeEjecutor== "sucursal") {
+                $id_sucursal = $id_selectEjecutor;
+                $id_beneficiario = null;
+            }
+            array_push($arr, [
+                "id_sucursal" => $id_sucursal,
+                "id_beneficiario"=>$id_beneficiario,
+                "tasa" => $taseBs,
+                "monto_dolar" => $montoDolar? ($montoDolar/$divisor): 0,
+                "monto" => $montoBs? ($montoBs/$divisor): 0,
+
+            ]);
+        }
+        
+        $selectIdGastos = $req->selectIdGastos;
+        $num = 0;
+        foreach ($arr as $e) {
+            $p = puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[
+                "loteserial" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):""),
+                "banco" => $gastosBanco,
+                "categoria" => $gastosCategoria,
+                "fecha" => $gastosFecha,
+                "fecha_liquidacion" => $gastosFecha,
+                "tipo" => $tipo,
+
+                "id_sucursal" => $e["id_sucursal"],
+                "id_beneficiario" => $e["id_beneficiario"],
+                "tasa" => $e["tasa"],
+                
+                "monto" => $e["monto"],
+                "monto_liquidado" => $e["monto"],
+                "monto_dolar" => $e["monto_dolar"],
+
+                "origen" => 2,
+                "id_usuario" => 1,
+            ]);
+            if ($p) {
+                $num++;
+            }
+        }
+        return [
+            "msj" => $num." movimiento".($num<=1?"":"s")." cargado".($num<=1?"":"s"),
+            "estado" => true,
+        ];
     }
 }

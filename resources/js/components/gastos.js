@@ -4,7 +4,6 @@ export default function Gastos({
 	nominaData,
 	categoriaMovBanco,
 	gastosData,
-	setgastosData,
 	gastosQ,
 	setgastosQ,
 	gastosQCategoria,
@@ -59,6 +58,11 @@ export default function Gastos({
 	setmodeEjecutor,
 	addBeneficiarioList,
 	listBeneficiario,
+	setlistBeneficiario,
+	gastosBanco,
+	setgastosBanco,
+	opcionesMetodosPago,
+	moneda,
 
 }) {
 
@@ -71,6 +75,9 @@ export default function Gastos({
 				}
 			}
 		})
+		if (qNomina=="") {
+			setgastosBeneficiario("")
+		}
 	},[qNomina])
 
 	useEffect(()=>{
@@ -82,6 +89,9 @@ export default function Gastos({
 				}
 			}
 		})
+		if (qSucursal=="") {
+			setgastosBeneficiario("")
+		}
 	},[qSucursal])
 
 	useEffect(()=>{
@@ -92,13 +102,17 @@ export default function Gastos({
 		gastosQFechaHasta,
 	])
 
+	useEffect(()=>{
+		setlistBeneficiario([])
+	},[modeEjecutor])
+
 	
 	return(
 		<div className="container">
 			<div className="d-flex justify-content-center">
                 <div className="btn-group m-1">
                     <button className={("btn btn-sm ")+(subviewGastos=="cargar"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargar")}>Cargar</button>
-                    <button className={("btn btn-sm ")+(subviewGastos=="Resumen"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("resumen")}>Resumen</button>
+                    <button className={("btn btn-sm ")+(subviewGastos=="resumen"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("resumen")}>Resumen</button>
                 </div>
             </div>
 
@@ -140,6 +154,16 @@ export default function Gastos({
 						</div>
 					:null}
 					<div className="form-group mb-2">
+						<select className="form-control" 
+						value={gastosBanco} 
+						onChange={e=>setgastosBanco(e.target.value)} required={true}>
+							<option value="">-Método-</option>
+							{opcionesMetodosPago.map(e=>
+								<option value={e.codigo} key={e.id}>{e.descripcion}</option>
+							)}
+						</select>
+					</div>
+					<div className="form-group mb-2">
 						<span className="form-label">Fecha</span>
 						<input type="date" className="form-control form-control-lg" value={gastosFecha} onChange={e=>setgastosFecha(e.target.value)} required={true} />
 					</div>
@@ -158,49 +182,71 @@ export default function Gastos({
 
 					<div className="form-group mb-2">
 						<span className="form-label">Ejecutor</span>
-						<div className="input-group">
-							<button className="btn btn-success" type="button" onClick={()=>addBeneficiarioList("add")}><i className="fa fa-arrow-right"></i></button>
 							{modeEjecutor=="personal"?
-								<>
-									<select className={("form-select ")+(gastosBeneficiario?"fs-4 text":"")} 
-									value={gastosBeneficiario} 
-									onChange={e=>setgastosBeneficiario(e.target.value)} required={true}>
-										<option value="">-Personal-</option>
-										{nominaData.personal?nominaData.personal.length?nominaData.personal.map(e=>
-											<option value={e.id} key={e.id}>{e.nominanombre} {e.nominacedula}</option>
-										):null:null}
-									</select>
-									<input type="text" className="form-control" value={qNomina} onChange={e=>setqNomina(e.target.value)} placeholder="Buscar..." size={8} />
-									<button className="btn btn-sinapsis" type="button" onClick={()=>setmodeEjecutor("sucursal")}><i className="fa fa-home"></i> </button>
-								</>
+								<div className="row">
+									<div className="col-md-2">
+										<div className="input-group">
+											<button className="btn btn-sinapsis" type="button" onClick={()=>setmodeEjecutor("sucursal")}><i className="fa fa-home"></i> </button>
+											<input type="text" className="form-control is-invalid" value={qNomina} onChange={e=>setqNomina(e.target.value)} placeholder="Buscar..." />
+										</div>
+									</div>
+									<div className="col">
+										<div className="input-group">
+											<button className="btn btn-success" type="button" onClick={()=>addBeneficiarioList("add")}><i className="fa fa-arrow-right"></i></button>
+											<select className={("form-select ")} 
+											value={gastosBeneficiario} 
+											onChange={e=>setgastosBeneficiario(e.target.value)} required={true}>
+												<option value="">-Personal-</option>
+												{nominaData.personal?nominaData.personal.length?nominaData.personal.map(e=>
+													<option value={e.id} key={e.id}>{e.nominanombre} {e.nominacedula}</option>
+												):null:null}
+											</select>
+										</div>
+									</div>
+								</div>
 							:null}
 
 							{modeEjecutor=="sucursal"?
-								<>
-									<select className={("form-select ")+(gastosBeneficiario?"fs-4 text":"")} 
-									value={gastosBeneficiario} 
-									onChange={e=>setgastosBeneficiario(e.target.value)} required={true}>
-										<option value="">-Sucursal-</option>
-										{sucursales.map(e=>
-											<option value={e.id} key={e.id}>{e.codigo}</option>
-										)}
-									</select>
-									<input type="text" className="form-control" value={qSucursal} onChange={e=>setqSucursal(e.target.value)} placeholder="Buscar..." size={8} />
-									<button className="btn btn-success" type="button" onClick={()=>setmodeEjecutor("personal")}><i className="fa fa-user"></i></button>
-								</>
+								<div className="row">
+									<div className="col-md-2">
+										<div className="input-group">
+											<button className="btn btn-success" type="button" onClick={()=>setmodeEjecutor("personal")}><i className="fa fa-user"></i></button>
+											<input type="text" className="form-control is-invalid" value={qSucursal} onChange={e=>setqSucursal(e.target.value)} placeholder="Buscar..." />
+										</div>
+									</div>
+									<div className="col">
+										<div className="input-group">
+
+											<button className="btn btn-success" type="button" onClick={()=>addBeneficiarioList("add")}><i className="fa fa-arrow-right"></i></button>
+											<select className={("form-select ")} 
+											value={gastosBeneficiario} 
+											onChange={e=>setgastosBeneficiario(e.target.value)} required={true}>
+												<option value="">-Sucursal-</option>
+												{sucursales.map(e=>
+													<option value={e.id} key={e.id}>{e.codigo}</option>
+												)}
+											</select>
+										</div>
+									</div>
+								</div>
 							:null}
 							
-						</div>
+						
 
-						<div className="card p-3 m-2">
-							{listBeneficiario.map(e=>
-								<button className="btn mb-1 me-1" onClick={()=>addBeneficiarioList("del",e.id)} style={{backgroundColor:e.color?e.color:""}} onDoubleClick={()=>addBeneficiarioList("del",e.id)}>{e.codigo}</button>	
-							)}
-						</div>
+						{listBeneficiario.length?
+							<div className="border bg-light p-3 m-2">
+								{listBeneficiario.map(e=>
+									<button key={e.id} className="btn mb-1 me-1" onClick={()=>addBeneficiarioList("del",e.id)} style={{backgroundColor:e.color?e.color:"coral"}} onDoubleClick={()=>addBeneficiarioList("del",e.id)}>
+										{e.codigo?e.codigo:e.nominanombre}
+									</button>	
+								)}
+							</div>
+						:null}
 					</div>
 
-
-					<button className="btn btn-success" type="button"><i className="fa fa-save"></i> Guardar</button>
+					<div className="text-center">
+						<button className="btn btn-success btn-lg"><i className="fa fa-save"></i> Guardar</button>
+					</div>
 				</form>				
 			:null}
 
@@ -211,7 +257,7 @@ export default function Gastos({
 						getGastos()
 					}}>
 						<div className="input-group">
-							<input type="text" className="form-control fs-3" value={gastosQ} onChange={e=>setgastosQ(e.target.value)} />
+							<input type="text" className="form-control fs-3" value={gastosQ} onChange={e=>setgastosQ(e.target.value)} placeholder="Buscar..."/>
 							<select className="form-control" 
 							value={gastosQCategoria} 
 							onChange={e=>setgastosQCategoria(e.target.value)}>
@@ -228,10 +274,37 @@ export default function Gastos({
 						</div>
 					</form>
 					<table className="table">
-						<tbody>
+						<thead>
 							<tr>
-								<td></td>
+								<th>FECHA</th>
+								<th>DESCRIPCIÓN</th>
+								<th>MONTO</th>
+								<th className="bg-warning text-danger fs-3 text-right">
+								{gastosData?gastosData.sum?(
+									<span>
+										{moneda(gastosData.sum)}
+									</span>
+								):null:null}
+								</th>
+
+								<th>SUCURSAL / PERSONA</th>
 							</tr>
+						</thead>
+						<tbody>
+							{gastosData?gastosData.data?gastosData.data.map(e=>
+								<tr key={e.id}>
+									<td>{e.created_at}</td>
+									<td>{e.loteserial}</td>
+									<td className="text-danger fs-4 text-right" colSpan={2}>
+										{e.monto_liquidado!=0?("Bs. "+moneda(e.monto_liquidado)+" / "+e.tasa+" = $ "+moneda(e.bs)):""}
+										{e.monto_dolar!=0?"$ "+moneda(e.monto_dolar):""}
+									</td>
+									<td>
+										{e.sucursal?e.sucursal.codigo:null}
+										{e.beneficiario?" / "+e.beneficiario.nominanombre:null}
+									</td>
+								</tr>
+							):null:null}
 						</tbody>
 					</table>
 				</>

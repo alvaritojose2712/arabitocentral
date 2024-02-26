@@ -1665,6 +1665,8 @@ function formatAmount( number, simbol ) {
       setinpfechaLiquidar(today)
       setinpfechaLiquidar(today)
       setgastosFecha(today)
+      setgastosQFecha(today)
+      setgastosQFechaHasta(today)
       
     })
   }
@@ -3019,6 +3021,7 @@ function formatAmount( number, simbol ) {
   const [gastosCategoria,setgastosCategoria] = useState("")
   const [gastosBeneficiario,setgastosBeneficiario] = useState("")
   const [gastosFecha,setgastosFecha] = useState("")
+  const [gastosBanco,setgastosBanco] = useState("")
 
   const [gastosMonto_dolar, setgastosMonto_dolar] = useState("")
   const [gastosTasa, setgastosTasa] = useState("")
@@ -3036,14 +3039,17 @@ function formatAmount( number, simbol ) {
     let fil = []
     if (modeEjecutor=="personal") {
       
-      fil = nominaData.filter(e=>e.id==gastosBeneficiario)
+      fil = nominaData.personal.filter(e=>e.id==gastosBeneficiario)
     }else{
       fil = sucursales.filter(e=>e.id==gastosBeneficiario)
     }
     if (fil.length) {
       let clone = (listBeneficiario)
       if (type=="add") {
-        setlistBeneficiario(clone.concat(fil[0]))
+        if (!listBeneficiario.filter(e=>e.id==gastosBeneficiario).length) {
+          
+          setlistBeneficiario(clone.concat(fil[0]))
+        }
       }else{
         setlistBeneficiario(clone.filter(e=>e.id!=id))
       }
@@ -3061,8 +3067,8 @@ function formatAmount( number, simbol ) {
   const saveNewGasto = () => {
     if (
       gastosDescripcion && 
-      gastosMonto &&
       gastosCategoria &&
+      gastosBanco &&
       gastosFecha
     ) {
       db.saveNewGasto({
@@ -3070,6 +3076,7 @@ function formatAmount( number, simbol ) {
         gastosCategoria,
         gastosBeneficiario,
         gastosFecha,
+        gastosBanco,
         
         gastosMonto: removeMoneda(gastosMonto),
         gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
@@ -3077,6 +3084,7 @@ function formatAmount( number, simbol ) {
         selectIdGastos,
         modeMoneda,
         modeEjecutor,
+        listBeneficiario,
       }).then(res=>{
         if (res.data.estado) {
           getGastos()
@@ -3113,6 +3121,7 @@ function formatAmount( number, simbol ) {
     setgastosFecha("")
     setgastosMonto_dolar("")
     setgastosTasa("")
+    setgastosBanco("")
   }
   const setEditGastosInput = id => {
     let fil = gastosData.filter(e=>e.id===id)
@@ -3125,6 +3134,7 @@ function formatAmount( number, simbol ) {
       setgastosFecha(dataFil.fecha_liquidacion)
       setgastosMonto_dolar(dataFil.monto_dolar)
       setgastosTasa(dataFil.tasa)
+      setgastosBanco(dataFil.banco)
       
     }
   }
@@ -3671,6 +3681,7 @@ function formatAmount( number, simbol ) {
           {
             viewmainPanel==="gastos" && 
             <Gastos
+              setlistBeneficiario={setlistBeneficiario}
               addBeneficiarioList={addBeneficiarioList}
               listBeneficiario={listBeneficiario}
               modeMoneda={modeMoneda}
@@ -3705,6 +3716,9 @@ function formatAmount( number, simbol ) {
               gastosMonto_dolar={gastosMonto_dolar}
               setgastosTasa={setgastosTasa}              
               gastosTasa={gastosTasa}
+              gastosBanco={gastosBanco}
+              setgastosBanco={setgastosBanco}
+              opcionesMetodosPago={opcionesMetodosPago}
               subviewGastos={subviewGastos}
               setsubviewGastos={setsubviewGastos}
               selectIdGastos={selectIdGastos}
@@ -3725,6 +3739,7 @@ function formatAmount( number, simbol ) {
               getPersonal={getPersonal}
               qNomina={qNomina}
               setqNomina={setqNomina}
+              moneda={moneda}
 
             />
           }
