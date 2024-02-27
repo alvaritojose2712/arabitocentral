@@ -422,7 +422,7 @@ export default function CuentasporpagarDetalles({
                             selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                             ? selectCuentaPorPagarId.detalles.map( (e,i) =>
                                 <tbody key={e.id}>
-                                    <tr className={(selectFactViewDetalles==e.id?"bg-success-light":null)+(" pointer border-top border-top-5 border-dark")} key={e.id} onClick={()=>setselectFactViewDetalles(selectFactViewDetalles==e.id?null:e.id)}>
+                                    <tr className={(selectFactViewDetalles==e.id?"bg-success-light":null)+(" pointer border-top border-top-5 border-dark")} key={e.id}onDoubleClick={event=>selectFacts(event,e.id)} onClick={()=>setselectFactViewDetalles(selectFactViewDetalles==e.id?null:e.id)}>
                                         
                                             
                                             <td className="">
@@ -615,7 +615,7 @@ export default function CuentasporpagarDetalles({
                     </table>
 
                     <div className="boton-fijo-inferiorizq">
-                        <div className="container-fluid">
+                        <div className="container-fluid shadow p-3 card">
                             <div className="row">
                                 <div className="col">
                                     {dataselectFacts.data.map(e=>
