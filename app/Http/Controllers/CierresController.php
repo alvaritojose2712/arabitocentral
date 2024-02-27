@@ -519,11 +519,11 @@ class CierresController extends Controller
         $data = creditos::with(["sucursal","cliente"]) 
         ->when($id_sucursal, function ($q) use ($id_sucursal) {
             $q->where("id_sucursal", $id_sucursal);
-        })->get();
+        })->orderBy("saldo","asc");
 
         return [
-            "data" => $data,
-            "num" => 0
+            "data" => $data->get(),
+            "num" => $data->sum("saldo"),
         ];
     }
     function getFallas($fechasMain1, $fechasMain2, $id_sucursal, $filtros) {

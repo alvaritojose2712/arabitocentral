@@ -11,7 +11,15 @@ export default function Creditos({
 					<tr>
 						<th className="cell1">SUCURSAL</th>
 						<th className="cell4" colSpan={2}>CLIENTE</th>
-						<th className="cell2">SALDO</th>
+						<th className="cell2">
+							SALDO
+							<br />
+							{sucursalDetallesData["num"]?
+								<span className="bg-warning p-1">
+									{moneda(sucursalDetallesData["num"])}
+								</span>
+							:null}
+						</th>
 						<th className="cell2">Fecha</th>
 					</tr>
 				</thead>

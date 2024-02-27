@@ -9699,9 +9699,12 @@ function Creditos(_ref) {
             className: "cell4",
             colSpan: 2,
             children: "CLIENTE"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("th", {
             className: "cell2",
-            children: "SALDO"
+            children: ["SALDO", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("br", {}), sucursalDetallesData["num"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+              className: "bg-warning p-1",
+              children: moneda(sucursalDetallesData["num"])
+            }) : null]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "cell2",
             children: "Fecha"
