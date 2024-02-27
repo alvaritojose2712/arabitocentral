@@ -7679,6 +7679,12 @@ function Nominapagos(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "Cargo"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "MES ANTEPASADO"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "MES PASADO"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "MES ACTUAL"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "PAGOS TOT."
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "CR\xC9DITOS TOT."
@@ -7701,10 +7707,16 @@ function Nominapagos(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 children: e.cargo.cargosdescripcion
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                className: e.id == selectIdPersonal ? "bg-success-light" : "",
+                children: moneda(e.mesantepasado)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: moneda(e.mespasado)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: moneda(e.mes)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                className: e.id == selectIdPersonal ? "bg-success-light" : "text-success",
                 children: moneda(e.sumPagos)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                className: e.id == selectIdPersonal ? "bg-danger-light" : "",
+                className: e.id == selectIdPersonal ? "bg-danger-light" : "text-danger",
                 children: moneda(e.sumCreditos)
               })]
             }, e.id), selectIdPersonal == e.id ? e.pagos.map(function (pago) {
@@ -7716,7 +7728,7 @@ function Nominapagos(_ref) {
                   children: pago.created_at.replace("00:00:00", "")
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   children: pago.descripcion
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   children: moneda(pago.monto)
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {})]
               }, pago.id);
@@ -7729,7 +7741,7 @@ function Nominapagos(_ref) {
                   children: credito.created_at.replace("00:00:00", "")
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   children: credito.sucursal.codigo
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   children: moneda(credito.saldo)
                 })]
               }, credito.id);
@@ -9703,7 +9715,7 @@ function Creditos(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: e.cliente ? e.cliente.nombre : "NO"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: e.cliente ? e.cliente.cedula : "NO"
+              children: e.cliente ? e.cliente.identificacion : "NO"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: moneda(e.saldo)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
@@ -12787,20 +12799,22 @@ function serarchBar(_ref) {
     sucursales = _ref.sucursales,
     categoriacuentasPorPagarDetalles = _ref.categoriacuentasPorPagarDetalles,
     setcategoriacuentasPorPagarDetalles = _ref.setcategoriacuentasPorPagarDetalles;
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var fil = proveedoresList.find(function (e) {
-      return e.descripcion.indexOf(buscardorProveedor) != -1;
-    });
-    if (fil.length) {
-      var id = fil[0].id;
-      setselectProveedorCxp(id);
-      selectCuentaPorPagarProveedorDetallesFun("buscar", id);
-    }
-  }, [buscardorProveedor]);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState2 = _slicedToArray(_useState, 2),
-    buscardorProveedor = _useState2[0],
-    setbuscardorProveedor = _useState2[1];
+    buscadorProveedor = _useState2[0],
+    setbuscadorProveedor = _useState2[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = proveedoresList.find(function (e) {
+      return e.descripcion.toLowerCase().indexOf(buscadorProveedor.toLowerCase()) != -1;
+    });
+    if (fil) {
+      if (fil && buscadorProveedor != "") {
+        var id = fil.id;
+        setselectProveedorCxp(id);
+        selectCuentaPorPagarProveedorDetallesFun("buscar", id);
+      }
+    }
+  }, [buscadorProveedor]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("form", {
     onSubmit: function onSubmit(e) {
       e.preventDefault();
@@ -12837,9 +12851,9 @@ function serarchBar(_ref) {
         value: qcuentasPorPagarDetalles
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
         type: "text",
-        value: buscardorProveedor,
+        value: buscadorProveedor,
         onChange: function onChange(e) {
-          return setbuscardorProveedor(e.target.value);
+          return setbuscadorProveedor(e.target.value);
         },
         className: "form-control",
         placeholder: "Buscar proveedor..."

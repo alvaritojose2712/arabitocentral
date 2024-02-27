@@ -66,10 +66,29 @@ class NominaController extends Controller
 
         $type = isset($req->type)? $req->type: "";
 
+        $today = (new NominaController)->today();
+        $mesDate = strtotime($today);
+        $mesDate = date('Y-m' , $mesDate);
+
+        $mespasadoDate = strtotime('-1 months', strtotime($today));
+        $mespasadoDate = date('Y-m' , $mespasadoDate);
+
+        $mesantepasadoDate = strtotime('-2 months', strtotime($today));
+        $mesantepasadoDate = date('Y-m' , $mesantepasadoDate);
+
+        $mes = $mesDate;
+        $mespasado = $mespasadoDate;
+        $mesantepasado = $mesantepasadoDate;
+
         $personal = nomina::with(["sucursal", "cargo"])->where(function ($q) use ($qNomina) {
             $q
-                ->orWhere("nominanombre", "LIKE", "%$qNomina%")
-                ->orWhere("nominacedula", "LIKE", "%$qNomina%");
+            ->orWhere("nominanombre", "LIKE", "%$qNomina%")
+            ->orWhere("nominacedula", "LIKE", "%$qNomina%");
+        })
+        ->when($type == "pagos", function ($q) use ($fechasMain1, $fechasMain2) {
+            $q->with(["pagos" => function ($q) {
+                $q->with("sucursal")->orderBy("created_at","desc");
+            }]);
         })
         ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
         ->when($qCargoNomina, function ($q) use ($qCargoNomina) {
@@ -78,21 +97,38 @@ class NominaController extends Controller
         ->when($qSucursalNomina, function ($q) use ($qSucursalNomina) {
             $q->where("nominasucursal", $qSucursalNomina);
         })
-        ->when($type == "pagos", function ($q) use ($fechasMain1, $fechasMain2) {
-            $q->with(["pagos" => function ($q) {
-                $q->with("sucursal")->orderBy("created_at","desc");
-            }]);
-        })
         ->get()
-        ->map(function($q) {
-            $q->sumPagos = $q->pagos->sum("monto");
+        ->map(function($q) use ($mes,$mespasado,$mesantepasado) {
             $cedula = $q->nominacedula;
-
-
             $ids = clientes::where("identificacion", "=",  $cedula)->select("id");
-            $creditos = creditos::with("sucursal")->whereIn("id_cliente",$ids)->get();
-            $q->creditos = $creditos; 
-            $q->sumCreditos = $creditos->sum("saldo");
+            $creditos = creditos::with("sucursal")->whereIn("id_cliente",$ids);
+
+            $pagos = $q->pagos;
+
+            $mesSum = 0;
+            $mespasadoSum = 0;
+            $mesantepasadoSum = 0;
+
+            foreach ($pagos as $pago) {
+                if (str_contains($pago["created_at"],$mes)) {
+                    $mesSum += $pago["monto"];
+                }
+                if (str_contains($pago["created_at"],$mespasado)) {
+                    $mespasadoSum += $pago["monto"];
+                }
+                if (str_contains($pago["created_at"],$mesantepasado)) {
+                    $mesantepasadoSum += $pago["monto"];
+                }
+            }
+            
+            $q->mes = $mesSum;
+            $q->mespasado = $mespasadoSum;
+            $q->mesantepasado = $mesantepasadoSum;
+
+            $q->sumPagos = $pagos->sum("monto");
+            
+            $q->creditos = $creditos->get(); 
+            $q->sumCreditos = $creditos->get()->sum("saldo");
             return $q;
         })
         ->toArray();

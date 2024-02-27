@@ -15,17 +15,18 @@ export default function serarchBar({
     categoriacuentasPorPagarDetalles,
     setcategoriacuentasPorPagarDetalles,
 }){
+    const [buscadorProveedor, setbuscadorProveedor] = useState("")
 
     useEffect(()=>{
-        let fil = proveedoresList.find(e=>e.descripcion.indexOf(buscardorProveedor)!=-1)
-
-        if (fil.length) {
-            let id = fil[0].id
-            setselectProveedorCxp(id)
-            selectCuentaPorPagarProveedorDetallesFun("buscar",id)
+        let fil = proveedoresList.find(e=>e.descripcion.toLowerCase().indexOf(buscadorProveedor.toLowerCase())!=-1)
+        if (fil) {
+            if (fil && buscadorProveedor!="") {
+                let id = fil.id
+                setselectProveedorCxp(id)
+                selectCuentaPorPagarProveedorDetallesFun("buscar",id)
+            }
         }
-    },[buscardorProveedor])
-    const [buscardorProveedor, setbuscardorProveedor] = useState("")
+    },[buscadorProveedor])
     return(
     <form onSubmit={e=>{e.preventDefault();selectCuentaPorPagarProveedorDetallesFun()}} className="mb-3 card p-3 shadow">
         <div className="input-group">
@@ -33,7 +34,7 @@ export default function serarchBar({
             <button className={("btn btn-lg btn-"+(cuentaporpagarAprobado==1?"success":""))} type="button" onClick={e=>setcuentaporpagarAprobado(1)}><i className="fa fa-check"></i></button>
             
             <input type="text" className="form-control form-control-lg fs-3" placeholder={"Buscar factura..."} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
-            <input type="text" value={buscardorProveedor} onChange={e=>setbuscardorProveedor(e.target.value)} className="form-control" placeholder="Buscar proveedor..." />
+            <input type="text" value={buscadorProveedor} onChange={e=>setbuscadorProveedor(e.target.value)} className="form-control" placeholder="Buscar proveedor..." />
             <select className="form-control" value={selectProveedorCxp} onChange={e=>{setselectProveedorCxp(e.target.value);selectCuentaPorPagarProveedorDetallesFun("buscar",e.target.value)}}>
                 <option value="">-TODOS LOS PROVEEDORES-</option>
                 {proveedoresList.map(e=>

@@ -72,6 +72,9 @@ export default function Nominapagos({
                             <th>Cédula</th>
                             <th>Nombres y Apellidos</th>
                             <th>Cargo</th>
+                            <th>MES ANTEPASADO</th>
+                            <th>MES PASADO</th>
+                            <th>MES ACTUAL</th>
                             <th>PAGOS TOT.</th>
                             <th>CRÉDITOS TOT.</th>
                         </tr>
@@ -89,8 +92,11 @@ export default function Nominapagos({
                                                     <td>{e.nominacedula}</td>
                                                     <td>{e.nominanombre}</td>
                                                     <td>{e.cargo.cargosdescripcion}</td>
-                                                    <td className={(e.id==selectIdPersonal?"bg-success-light":"")}>{moneda(e.sumPagos)}</td>
-                                                    <td className={(e.id==selectIdPersonal?"bg-danger-light":"")}>{moneda(e.sumCreditos)}</td>
+                                                    <td>{moneda(e.mesantepasado)}</td>
+                                                    <td>{moneda(e.mespasado)}</td>
+                                                    <td>{moneda(e.mes)}</td>
+                                                    <td className={(e.id==selectIdPersonal?"bg-success-light":"text-success")}>{moneda(e.sumPagos)}</td>
+                                                    <td className={(e.id==selectIdPersonal?"bg-danger-light":"text-danger")}>{moneda(e.sumCreditos)}</td>
                                                 </tr>
                                                 {selectIdPersonal==e.id?
                                                     e.pagos.map(pago=>
@@ -99,6 +105,9 @@ export default function Nominapagos({
                                                             <td>PAGO</td>
                                                             <td>{pago.created_at.replace("00:00:00","")}</td>
                                                             <td>{pago.descripcion}</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
                                                             <td>{moneda(pago.monto)}</td>
                                                             <td></td>
                                                         </tr>
@@ -112,6 +121,9 @@ export default function Nominapagos({
                                                             <td>CRÉDITO</td>
                                                             <td>{credito.created_at.replace("00:00:00","")}</td>
                                                             <td>{credito.sucursal.codigo}</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
                                                             <td></td>
                                                             <td>{moneda(credito.saldo)}</td>
                                                         </tr>

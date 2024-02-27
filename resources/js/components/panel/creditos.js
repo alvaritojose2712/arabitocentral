@@ -21,7 +21,7 @@ export default function Creditos({
 							<tr key={e.id}>
 								<td>{e.sucursal.codigo}</td>
 								<td>{e.cliente?e.cliente.nombre:"NO"}</td>
-								<td>{e.cliente?e.cliente.cedula:"NO"}</td>
+								<td>{e.cliente?e.cliente.identificacion:"NO"}</td>
 								<td>{moneda(e.saldo)}</td>
 								<td>{e.created_at}</td>
 							</tr>
