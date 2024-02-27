@@ -15,12 +15,7 @@ class CreditosController extends Controller
         $num = 0;
         foreach ($creditos as $e) {
     
-            
-            if (preg_match('~[0-9]+~', $e["identificacion"])) {
-                $c = preg_replace('/\D/', '', $e["identificacion"]);
-            }else{
-                $c = $e["identificacion"];
-            }
+            $c = str_replace(["-", ".", "v", "V", " "], ["","","","",""], $e["identificacion"]);        
 
             $id_cliente = clientes::updateOrCreate([
                 "identificacion" => $c,
