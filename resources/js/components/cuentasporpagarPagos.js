@@ -470,7 +470,7 @@ export default function CuentasporpagarPagos({
                             
                             (selectAbonoFact)
                             .concat((selectCuentaPorPagarId?(selectCuentaPorPagarId.detalles? selectCuentaPorPagarId.detalles.filter(e=>!selectAbonoFact.map(ee=>ee.id).includes(e.id)): ([])) : ([])) )
-                            .sort((a,b)=>b.balance-a.balance)
+                            .sort((a,b)=>b.id-a.id)
                             .filter(e=>e.monto<0)
                             .map( (e,i) =>
                             
