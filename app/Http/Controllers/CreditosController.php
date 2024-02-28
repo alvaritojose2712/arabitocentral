@@ -28,6 +28,11 @@ class CreditosController extends Controller
                 "estado" => $e["estado"],
                 "ciudad" => $e["ciudad"],
             ]);
+            /* if ($e["pedidos"]) {
+                if (count($e["pedidos"])) {
+                    $
+                }
+            } */
     
     
             if ($id_cliente) {
@@ -38,6 +43,7 @@ class CreditosController extends Controller
                     "id_cliente" => $id_cliente->id,
                     "id_sucursal" => $id_sucursal,
                     "saldo" => $e["saldo"],
+                   // "created_at" => $e["pedidos"]
                 ]);
     
                 $num++;

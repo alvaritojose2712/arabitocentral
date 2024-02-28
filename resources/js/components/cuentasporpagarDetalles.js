@@ -68,6 +68,7 @@ export default function CuentasporpagarDetalles({
     abonarFact,
     proveedoresList,
     setsubviewAgregarFactPago,
+    abonarFactLote,
 
 }){
     
@@ -338,7 +339,7 @@ export default function CuentasporpagarDetalles({
                         setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
                     />
 
-                    <table className="table table-borderless table-striped">
+                    <table className="table table-borderless table-striped mb-500">
                             <thead className="">
                                 <tr className="align-middle">
                                     <th colSpan={8}>
@@ -422,7 +423,7 @@ export default function CuentasporpagarDetalles({
                             selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                             ? selectCuentaPorPagarId.detalles.map( (e,i) =>
                                 <tbody key={e.id}>
-                                    <tr className={(selectFactViewDetalles==e.id?"bg-success-light":null)+(" pointer border-top border-top-5 border-dark")} key={e.id}onDoubleClick={event=>selectFacts(event,e.id)} onClick={()=>setselectFactViewDetalles(selectFactViewDetalles==e.id?null:e.id)}>
+                                    <tr className={(selectFactViewDetalles==e.id?"bg-success-light":null)+(" pointer border-top border-top-5 border-dark")} key={e.id} onDoubleClick={event=>selectFacts(event,e.id)} onClick={()=>setselectFactViewDetalles(selectFactViewDetalles==e.id?null:e.id)}>
                                         
                                             
                                             <td className="">
@@ -445,7 +446,7 @@ export default function CuentasporpagarDetalles({
 
                                                 </span>
                                                 <span className={
-                                                    (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-75 btn fs-6 pointer")
+                                                    (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-75 btn fs-6 pointer fw-bolder text-light")
                                                 }> 
                                                 {e.monto<=0?"FACT ":"ABONO "} 
                                                 {e.numfact}
@@ -615,15 +616,15 @@ export default function CuentasporpagarDetalles({
                     </table>
 
                     <div className="boton-fijo-inferiorizq">
-                        <div className="container-fluid shadow p-3 card">
+                        <div className={("container-fluid shadow card ")+(dataselectFacts.data.length?"p-3":"")}>
                             <div className="row">
                                 <div className="col">
                                     {dataselectFacts.data.map(e=>
                                         <div key={e.id} className="btn-group-vertical me-1">
-                                            <span className={
-                                                (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-6 pointer")
+                                            <span onClick={event=>selectFacts(event,e.id)} className={
+                                                (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-6 pointer fw-bolder text-light")
                                             }>{e.numfact}</span>
-                                            <button className="btn bg-danger-light">{moneda(e.monto)}</button>
+                                            <button className="btn btn-warning">{moneda(e.balance)}</button>
                                         </div>
                                     )}
                                     {dataselectFacts.sum?
@@ -642,7 +643,12 @@ export default function CuentasporpagarDetalles({
                             </div>
                         </div>
 
-                        <button className="btn btn-sinapsis fs-3" type="button" 
+                        {dataselectFacts.data.length?
+                            <button className="btn btn-sinapsis fs-3" onClick={()=>abonarFactLote()}>
+                                <i className=" fa fa-credit-card"></i>
+                                PAGAR
+                            </button>
+                        :<button className="btn btn-sinapsis fs-3" type="button" 
                             onClick={()=>{
                                     setcuentasporpagarDetallesView("pagos");
                                     setsubviewAgregarFactPago("pago")
@@ -653,6 +659,7 @@ export default function CuentasporpagarDetalles({
                         >
                             <i className="fa fa-plus"></i> AGREGAR
                         </button>
+                        }
                     </div>
                 </div>
             </>}  

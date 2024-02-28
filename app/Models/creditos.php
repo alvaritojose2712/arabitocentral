@@ -22,6 +22,7 @@ class creditos extends Model
         "id_cliente",
         "id_sucursal",
         "saldo",
+        "created_at",
     ];
     use HasFactory;
 }

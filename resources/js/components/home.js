@@ -1810,6 +1810,44 @@ function formatAmount( number, simbol ) {
       notificar(res)
     })
   }
+  const abonarFactLote = (id_proveedor=null) => {
+    setcuentasporpagarDetallesView("pagos");
+    setsubviewAgregarFactPago("pago")
+    
+    selectCuentaPorPagarProveedorDetallesFun("buscar",id_proveedor,dataselectFacts.data.map(e=>e.id),res=>{
+      let pagos = [] 
+      dataselectFacts.data.map(e=>{
+        let filterData = res.filter(ee=>ee.id==e.id)
+        if (filterData.length) {
+          pagos.push({
+            id: e.id,
+            val: "",
+            valfact: e.monto,
+            numfact: e.numfact,
+
+            sucursal: filterData[0].sucursal,
+            proveedor: filterData[0].proveedor,
+            fechaemision: filterData[0].fechaemision,
+            fechavencimiento: filterData[0].fechavencimiento,
+            monto_bruto: filterData[0].monto_bruto,
+            monto_descuento: filterData[0].monto_descuento,
+            descuento: filterData[0].descuento,
+            aprobado: filterData[0].aprobado,
+            condicion: filterData[0].condicion,
+            monto: filterData[0].monto,
+            monto_abonado: filterData[0].monto_abonado,
+
+            balance: filterData[0].balance,
+
+            guardado:true,
+          })
+          
+        }
+      })
+      setselectAbonoFact(pagos)
+
+    })
+  }
   const abonarFact = (id_proveedor,id) => {
     setcuentasporpagarDetallesView("pagos");
     setsubviewAgregarFactPago("pago")
@@ -1836,20 +1874,20 @@ function formatAmount( number, simbol ) {
             let clone = cloneDeep(dataselectFacts)
             let sum = 0
             clone.data.map(e=>{
-              sum += parseFloat(e.monto)
+              sum += parseFloat(e.balance)
             })
             
             if(dataselectFacts.data.filter(selefil =>selefil.id==id).length){
-              sum -= parseFloat(dataFilter.monto)
+              sum -= parseFloat(dataFilter.balance)
               setdataselectFacts({
                 data: clone.data.filter(e=>id!=e.id),
                 sum:clone.data.length?sum:0,
               })
             }else{
-              sum += parseFloat(dataFilter.monto)
+              sum += parseFloat(dataFilter.balance)
               setdataselectFacts({
                 data: clone.data.concat(dataFilter),
-                sum:clone.data.length?sum:0,
+                sum
               })
             }
           }
@@ -3448,6 +3486,7 @@ function formatAmount( number, simbol ) {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        abonarFactLote={abonarFactLote}
                         setsubviewAgregarFactPago={setsubviewAgregarFactPago}
                         abonarFact={abonarFact}
                         descuentoGeneralFats={descuentoGeneralFats}
