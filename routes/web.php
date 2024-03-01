@@ -311,7 +311,7 @@ Route::post('sendPagoCuentaPorPagar', [CuentasporpagarController::class,"sendPag
 
 
 Route::post('aprobarCreditoFun', [CreditoAprobacionController::class,"aprobarCreditoFun"]);
-
+Route::post('createCreditoAprobacion', [CreditoAprobacionController::class,"createCreditoAprobacion"]);
 
 
 
