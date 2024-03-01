@@ -12,6 +12,9 @@ const host = ""
 const db = {
   
   aprobarMovCajaFuerte: data=>axios.post(host+"aprobarMovCajaFuerte",data),
+  aprobarCreditoFun: data=>axios.post(host+"aprobarCreditoFun",data),
+  
+  
   selectCuentaPorPagarProveedorDetalles: data=>axios.post(host+"selectCuentaPorPagarProveedorDetalles",data),
 
   selectCuentaPorPagarProveedorDetallesREPORTE: data => window.open(host + "selectCuentaPorPagarProveedorDetalles?"+(new URLSearchParams(data).toString()), "targed=blank"),

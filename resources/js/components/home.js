@@ -60,6 +60,8 @@ import NominaPagos from './nomina/nominapagos';
 import Pedidos from './pedidos';
 import Pedir from './pedir';
 import Efectivo from './efectivo';
+import PorCobrar from './porCobrar';
+
 import AprobacionCajaFuerte from './aprobacioncajafuerte';
 import Cuentasporpagar from './cuentasporpagar';
 import CuentasporpagarDetalles from './cuentasporpagarDetalles';
@@ -1713,6 +1715,14 @@ function formatAmount( number, simbol ) {
       })
     }
   }
+  const aprobarCreditoFun = (id,tipo) => {
+    if (confirm("Confirma ("+tipo+")")) {
+      db.aprobarCreditoFun({tipo,id}).then(res=>{
+        notificar(res.data)
+        getsucursalDetallesData(null,"porpagar") 
+      })
+    }
+  }
   const [subviewAuditoria, setsubviewAuditoria] = useState("cuadre")
 
 
@@ -2848,6 +2858,10 @@ function formatAmount( number, simbol ) {
       name: "POR PAGAR"
     },
     {
+      route: "creditos",
+      name: "POR COBRAR"
+    },
+    {
       route: "auditoria",
       name: "AUDITORÍA"
     },
@@ -3197,6 +3211,8 @@ function formatAmount( number, simbol ) {
     }
   }
 
+  
+
 
   
   return (
@@ -3359,6 +3375,32 @@ function formatAmount( number, simbol ) {
               sucursales={sucursales}
             />
           }
+          {viewmainPanel === "creditos" &&
+            <>
+             
+              <PorCobrar
+                fechasMain1={fechasMain1}
+                fechasMain2={fechasMain2}
+                setfechasMain1={setfechasMain1}
+                setfechasMain2={setfechasMain2}
+                moneda={moneda}
+                getsucursalDetallesData={getsucursalDetallesData}
+                sucursalSelect={sucursalSelect}
+                setsucursalSelect={setsucursalSelect}
+                setsucursalDetallesData={setsucursalDetallesData}
+                sucursalDetallesData={sucursalDetallesData}
+                getSucursales={getSucursales}
+                sucursales={sucursales}
+                qestatusaprobaciocaja={qestatusaprobaciocaja}
+                setqestatusaprobaciocaja={setqestatusaprobaciocaja}
+                aprobarCreditoFun={aprobarCreditoFun}
+                subviewpanelsucursales={subviewpanelsucursales}
+                setsubviewpanelsucursales={setsubviewpanelsucursales}
+                
+                />
+              </>
+          }
+
 
           {viewmainPanel === "compras" &&
             <Compras

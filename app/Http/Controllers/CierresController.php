@@ -495,6 +495,13 @@ class CierresController extends Controller
             }
                 break;
 
+            case 'porcobrar':
+                if ($tipo_usuario==1) {
+                    
+                    return (new CreditoAprobacionController)->getCreditoAprobacion($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                }
+            break;
+
             case 'cuentasporpagar':
                 if ($tipo_usuario==1) {
                     

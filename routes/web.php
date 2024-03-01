@@ -5,6 +5,7 @@ use App\Http\Controllers\BancosListController;
 use App\Http\Controllers\CajasAprobacionController;
 use App\Http\Controllers\CajasController;
 use App\Http\Controllers\CatcajasController;
+use App\Http\Controllers\CreditoAprobacionController;
 use App\Http\Controllers\CuentasporpagarController;
 use App\Http\Controllers\PuntosybiopagosController;
 use App\Http\Controllers\UltimainformacioncargadaController;
@@ -307,6 +308,10 @@ Route::post('delMarca', [MarcasController::class,"delMarca"]);
 Route::post('setMarcas', [MarcasController::class,"setMarcas"]);
 Route::post('changeLiquidacionPagoElec', [PuntosybiopagosController::class,"changeLiquidacionPagoElec"]);
 Route::post('sendPagoCuentaPorPagar', [CuentasporpagarController::class,"sendPagoCuentaPorPagar"]);
+
+
+Route::post('aprobarCreditoFun', [CreditoAprobacionController::class,"aprobarCreditoFun"]);
+
 
 
 

@@ -43,7 +43,7 @@ class CreditosController extends Controller
                     "id_cliente" => $id_cliente->id,
                     "id_sucursal" => $id_sucursal,
                     "saldo" => $e["saldo"],
-                   // "created_at" => $e["pedidos"]
+                    "created_at" => $e["creacion"]
                 ]);
     
                 $num++;
