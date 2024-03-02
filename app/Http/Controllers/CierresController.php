@@ -447,49 +447,49 @@ class CierresController extends Controller
             case 'panel':
                 break;
             case 'cierres':
-                if ($tipo_usuario==1) {
+                if ($tipo_usuario==1 || $tipo_usuario==2) {
                     
                     return $this->getCierreSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
             case 'resumencierres':
-                if ($tipo_usuario==1) {
+                if ($tipo_usuario==1 || $tipo_usuario==2) {
                     
                     return $this->getCierreSucursalResumen($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                 break;
             case 'controldeefectivo':
-                if ($tipo_usuario==1) {
+                if ($tipo_usuario==1 || $tipo_usuario==2) {
                     
                     return $this->getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
             case 'nomina':
-                if ($tipo_usuario==1) {
+                if ($tipo_usuario==1 || $tipo_usuario==2) {
                     
                     return $this->getNominasSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
             case 'comovamos':
-                if ($tipo_usuario==1) {
+                if ($tipo_usuario==1 || $tipo_usuario==2) {
                     
                     return $this->comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
             }case
              'fallas':
-                if ($tipo_usuario==1) {
+                if ($tipo_usuario==1 || $tipo_usuario==2) {
                     
                     return $this->getFallas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
             case 'creditos':
-                if ($tipo_usuario==1) {
+                if ($tipo_usuario==1 || $tipo_usuario==2) {
                     
                     return $this->getCreditos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
 
             case 'aprobacioncajafuerte':
-            if ($tipo_usuario==1) {
+            if ($tipo_usuario==1 || $tipo_usuario==2) {
                 
                 return (new CajasAprobacionController)->getAprobacionCajas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
             }
@@ -503,14 +503,14 @@ class CierresController extends Controller
             break;
 
             case 'cuentasporpagar':
-                if ($tipo_usuario==1) {
+                if ($tipo_usuario==1 || $tipo_usuario==2) {
                     
                     return (new CuentasporpagarController)->getCuentas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
             break;
 
             case 'cuentasporpagardetalles':
-                if ($tipo_usuario==1) {
+                if ($tipo_usuario==1 || $tipo_usuario==2) {
                     
                     return (new CuentasporpagarController)->selectCuentaPorPagarProveedorDetalles($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
