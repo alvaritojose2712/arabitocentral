@@ -13389,10 +13389,34 @@ function Usuarios(_ref) {
                   children: "Administrador"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "2",
-                  children: "Gerente de Sucursal"
+                  children: "Gerente GENERAL"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "3",
-                  children: "Gerente de RRHH"
+                  children: "Gerente SUCURSAL"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "4",
+                  children: "Gerente RRHH"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "5",
+                  children: "Gerente COMPRAS"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "6",
+                  children: "Gerente OPERACIONES"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "7",
+                  children: "Gerente DICI"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "8",
+                  children: "AUDITORIA"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "9",
+                  children: "CEO"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "10",
+                  children: "FINANZAS"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "11",
+                  children: "SOCIAL MEDIA"
                 })]
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -65037,7 +65061,7 @@ function Home() {
         id: id
       }).then(function (res) {
         notificar(res.data);
-        getsucursalDetallesData(null, "porpagar");
+        getsucursalDetallesData();
       });
     }
   };
@@ -66885,7 +66909,7 @@ function Home() {
             setnominapagodetalles: setnominapagodetalles,
             moneda: moneda
           })]
-        }), viewmainPanel === "usuarios" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_usuarios__WEBPACK_IMPORTED_MODULE_26__["default"], {
+        }), viewmainPanel === "adminad" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_usuarios__WEBPACK_IMPORTED_MODULE_26__["default"], {
           usuarioNombre: usuarioNombre,
           setusuarioNombre: setusuarioNombre,
           usuarioUsuario: usuarioUsuario,

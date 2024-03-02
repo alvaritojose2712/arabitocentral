@@ -129,8 +129,16 @@ export default function Usuarios({
 									className="form-control">
 									<option value="">--Seleccione--</option>
 									<option value="1">Administrador</option>
-									<option value="2">Gerente de Sucursal</option>
-									<option value="3">Gerente de RRHH</option>
+									<option value="2">Gerente GENERAL</option>
+									<option value="3">Gerente SUCURSAL</option>
+									<option value="4">Gerente RRHH</option>
+									<option value="5">Gerente COMPRAS</option>
+									<option value="6">Gerente OPERACIONES</option>
+									<option value="7">Gerente DICI</option>
+									<option value="8">AUDITORIA</option>
+									<option value="9">CEO</option>
+									<option value="10">FINANZAS</option>
+									<option value="11">SOCIAL MEDIA</option>
 								</select>
 							</div>
                             <div className="form-group">

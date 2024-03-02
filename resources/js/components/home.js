@@ -1719,7 +1719,7 @@ function formatAmount( number, simbol ) {
     if (confirm("Confirma ("+tipo+")")) {
       db.aprobarCreditoFun({tipo,id}).then(res=>{
         notificar(res.data)
-        getsucursalDetallesData(null,"porpagar") 
+        getsucursalDetallesData() 
       })
     }
   }
@@ -3351,7 +3351,7 @@ function formatAmount( number, simbol ) {
               }
             </NominaHome>
           }
-          {viewmainPanel === "usuarios" &&
+          {viewmainPanel === "adminad" &&
             <Usuarios
               usuarioNombre={usuarioNombre}
               setusuarioNombre={setusuarioNombre}

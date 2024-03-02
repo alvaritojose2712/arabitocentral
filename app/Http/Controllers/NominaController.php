@@ -87,7 +87,7 @@ class NominaController extends Controller
         })
         ->when($type == "pagos", function ($q) use ($fechasMain1, $fechasMain2) {
             $q->with(["pagos" => function ($q) {
-                $q->with("sucursal")->orderBy("created_at","desc");
+                $q->with("sucursal")->orderBy("created_at","asc");
             }]);
         })
         ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
@@ -102,6 +102,11 @@ class NominaController extends Controller
             $cedula = $q->nominacedula;
             $ids = clientes::where("identificacion", "=",  $cedula)->select("id");
             $creditos = creditos::with("sucursal")->whereIn("id_cliente",$ids);
+
+            $q->pagos = $q->pagos->map(function($q) {
+                $q->created_at = date("d-m-Y", strtotime($q->created_at));
+                return $q;
+            });
 
             $pagos = $q->pagos;
 
@@ -127,7 +132,10 @@ class NominaController extends Controller
 
             $q->sumPagos = $pagos->sum("monto");
             
-            $q->creditos = $creditos->get(); 
+            $q->creditos = $creditos->get()->map(function($q) {
+                $q->created_at = date("d-m-Y", strtotime($q->created_at));
+                return $q;
+            }); 
             $q->sumCreditos = $creditos->get()->sum("saldo");
             return $q;
         })
