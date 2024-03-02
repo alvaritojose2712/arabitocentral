@@ -119,7 +119,7 @@ export default function Nominapagos({
                                                         <tr key={credito.id} className={(e.id==selectIdPersonal?"bg-danger-light":"")}>
                                                             <td></td>
                                                             <td>CRÉDITO</td>
-                                                            <td>{credito.created_at.replace("00:00:00","")}</td>
+                                                            <td>{credito.created_at?credito.created_at.replace("00:00:00",""):null}</td>
                                                             <td>{credito.sucursal.codigo}</td>
                                                             <td></td>
                                                             <td></td>
