@@ -31,7 +31,7 @@ class CierresController extends Controller
         garantias::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
         fallas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
         cajas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
-        puntosybiopagos::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
+        puntosybiopagos::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->whereNull("fecha")->delete();
         cierres::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
 
         $sendInventarioCt = (new InventarioSucursalController)->sendInventarioCt($req->sendInventarioCt, $id_sucursal);
@@ -90,23 +90,34 @@ class CierresController extends Controller
                 $totlote += count($lotes);
                 foreach ($lotes as $lote) {
 
-                    $loteSql = puntosybiopagos::updateOrCreate([
-                        "fecha" => $lote["fecha"],
-                        "id_usuario" => $lote["id_usuario"],
-                        "id_sucursal" => $id_origen,
-                        "tipo" => $lote["tipo"],
-                    ], [
-                        "loteserial" => $lote["lote"],
-                        "monto" => $lote["monto"],
-                        "banco" => $lote["banco"],
-                        "fecha_liquidacion" => $lote["tipo"]=="Transferencia"? $lote["fecha"]: null,
-                        "monto_liquidado" => $lote["tipo"]=="Transferencia"? $lote["monto"]: null,
-                        
+                    $ispermiso = true;
+                    $checkliqui = puntosybiopagos::where("fecha",$lote["fecha"])
+                    ->where("id_usuario",$lote["id_usuario"])
+                    ->where("id_sucursal",$id_origen)
+                    ->where("tipo",$lote["tipo"])->first();
+                    if ($checkliqui) {
+                        if ($checkliqui->fecha_liquidacion) {
+                            $ispermiso = false;
+                        }
+                    }
 
-                    ]);
-
-                    if ($loteSql) {
-                        $numlote++;
+                    if ($ispermiso) {
+                        $loteSql = puntosybiopagos::updateOrCreate([
+                            "fecha" => $lote["fecha"],
+                            "id_usuario" => $lote["id_usuario"],
+                            "id_sucursal" => $id_origen,
+                            "tipo" => $lote["tipo"],
+                        ], [
+                            "loteserial" => $lote["lote"],
+                            "monto" => $lote["monto"],
+                            "banco" => $lote["banco"],
+                            "fecha_liquidacion" => $lote["tipo"]=="Transferencia"? $lote["fecha"]: null,
+                            "monto_liquidado" => $lote["tipo"]=="Transferencia"? $lote["monto"]: null,
+                        ]);
+    
+                        if ($loteSql) {
+                            $numlote++;
+                        }
                     }
                 }
                 $cierresobj = cierres::updateOrCreate([
