@@ -149,6 +149,13 @@ class PuntosybiopagosController extends Controller
             "sum" => $p_modified->sum("sum"),
         ];
     }
+    function changeBank(Request $req) {
+        
+        $upd = puntosybiopagos::find($req->id);
+        $upd->banco = $req->banco;
+        $upd->save();
+        
+    }
     function delGasto(Request $req) {
         $id = $req->id;
 

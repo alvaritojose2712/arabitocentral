@@ -69,6 +69,7 @@ export default function Auditoria({
     colors,
     colorSucursal,
     reverserLiquidar,
+    changeBank,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -527,7 +528,7 @@ export default function Auditoria({
                                 {bancosdata.xliquidar.map((e,i)=>
                                     <tr key={e.id} onClick={()=>setselectTrLiquidar(i)}>
                                         <th>
-                                            <button className="btn w-100 fw-bolder" 
+                                            <button onDoubleClick={()=>changeBank(e.id)} className="btn w-100 fw-bolder" 
                                             style={{
                                                 backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
                                                 color:colors[e.banco]?colors[e.banco][1]:""
@@ -540,7 +541,7 @@ export default function Auditoria({
                                         </th>
                                         <th>{e.fecha}</th>
                                         <th>{e.fecha_liquidacion}</th>
-                                        <th> <button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button> </th>
+                                        <th><button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button></th>
                                         <th> 
                                             <button className="btn w-100 fw-bolder" style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.codigo}</button>
                                         </th>

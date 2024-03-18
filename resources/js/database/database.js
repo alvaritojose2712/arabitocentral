@@ -14,6 +14,9 @@ const db = {
   aprobarMovCajaFuerte: data=>axios.post(host+"aprobarMovCajaFuerte",data),
   aprobarCreditoFun: data=>axios.post(host+"aprobarCreditoFun",data),
   
+  getDatinputSelectVinculacion: data=>axios.post(host+"getDatinputSelectVinculacion",data),
+  saveCuatroNombres: data=>axios.post(host+"saveCuatroNombres",data),
+  addnewNombre: data=>axios.post(host+"addnewNombre",data),
   
   selectCuentaPorPagarProveedorDetalles: data=>axios.post(host+"selectCuentaPorPagarProveedorDetalles",data),
 
@@ -30,6 +33,8 @@ const db = {
   
   sendDescuentoGeneralFats: data=>axios.post(host+"sendDescuentoGeneralFats",data),
   liquidarMov: data=>axios.post(host+"liquidarMov",data),
+  changeBank: data=>axios.post(host+"changeBank",data),
+  
   sendsaldoactualbancofecha: data=>axios.post(host+"sendsaldoactualbancofecha",data),
   reverserLiquidar: data=>axios.post(host+"reverserLiquidar",data),
   getDisponibleEfectivoSucursal: data=>axios.post(host+"getDisponibleEfectivoSucursal",data),

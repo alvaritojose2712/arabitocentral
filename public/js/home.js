@@ -2247,8 +2247,8 @@ __webpack_require__.r(__webpack_exports__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
@@ -2313,7 +2313,8 @@ function Auditoria(_ref) {
     colorFun = _ref.colorFun,
     colors = _ref.colors,
     colorSucursal = _ref.colorSucursal,
-    reverserLiquidar = _ref.reverserLiquidar;
+    reverserLiquidar = _ref.reverserLiquidar,
+    changeBank = _ref.changeBank;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getMetodosPago();
     getBancosData();
@@ -3126,6 +3127,9 @@ function Auditoria(_ref) {
               },
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                  onDoubleClick: function onDoubleClick() {
+                    return changeBank(e.id);
+                  },
                   className: "btn w-100 fw-bolder",
                   style: {
                     backgroundColor: colors[e.banco] ? colors[e.banco][0] : "",
@@ -3145,11 +3149,11 @@ function Auditoria(_ref) {
                 children: e.fecha
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 children: e.fecha_liquidacion
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
                   className: "btn w-100 " + (e.monto < 0 ? "btn-danger" : "btn-success"),
                   children: e.monto < 0 ? "EGRESO" : "INGRESO"
-                }), " "]
+                })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
                   className: "btn w-100 fw-bolder",
@@ -10046,6 +10050,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -10074,15 +10084,328 @@ function Gestioninventario(_ref) {
     catGenerals = _ref.catGenerals,
     getMarcas = _ref.getMarcas,
     getCatGenerals = _ref.getCatGenerals,
-    getCategorias = _ref.getCategorias;
+    getCategorias = _ref.getCategorias,
+    selectIdVinculacion = _ref.selectIdVinculacion,
+    setselectIdVinculacion = _ref.setselectIdVinculacion,
+    qvinculacion1 = _ref.qvinculacion1,
+    setqvinculacion1 = _ref.setqvinculacion1,
+    qvinculacion2 = _ref.qvinculacion2,
+    setqvinculacion2 = _ref.setqvinculacion2,
+    qvinculacion3 = _ref.qvinculacion3,
+    setqvinculacion3 = _ref.setqvinculacion3,
+    qvinculacion4 = _ref.qvinculacion4,
+    setqvinculacion4 = _ref.setqvinculacion4,
+    qvinculacionmarca = _ref.qvinculacionmarca,
+    setqvinculacionmarca = _ref.setqvinculacionmarca,
+    datavinculacion1 = _ref.datavinculacion1,
+    datavinculacion2 = _ref.datavinculacion2,
+    datavinculacion3 = _ref.datavinculacion3,
+    datavinculacion4 = _ref.datavinculacion4,
+    datavinculacionmarca = _ref.datavinculacionmarca,
+    inputselectvinculacion1 = _ref.inputselectvinculacion1,
+    setinputselectvinculacion1 = _ref.setinputselectvinculacion1,
+    inputselectvinculacion2 = _ref.inputselectvinculacion2,
+    setinputselectvinculacion2 = _ref.setinputselectvinculacion2,
+    inputselectvinculacion3 = _ref.inputselectvinculacion3,
+    setinputselectvinculacion3 = _ref.setinputselectvinculacion3,
+    inputselectvinculacion4 = _ref.inputselectvinculacion4,
+    setinputselectvinculacion4 = _ref.setinputselectvinculacion4,
+    inputselectvinculacionmarca = _ref.inputselectvinculacionmarca,
+    setinputselectvinculacionmarca = _ref.setinputselectvinculacionmarca,
+    inputselectvinculacion1General = _ref.inputselectvinculacion1General,
+    setinputselectvinculacion1General = _ref.setinputselectvinculacion1General,
+    inputselectvinculacion2General = _ref.inputselectvinculacion2General,
+    setinputselectvinculacion2General = _ref.setinputselectvinculacion2General,
+    inputselectvinculacion3General = _ref.inputselectvinculacion3General,
+    setinputselectvinculacion3General = _ref.setinputselectvinculacion3General,
+    inputselectvinculacion4General = _ref.inputselectvinculacion4General,
+    setinputselectvinculacion4General = _ref.setinputselectvinculacion4General,
+    inputselectvinculacionmarcaGeneral = _ref.inputselectvinculacionmarcaGeneral,
+    setinputselectvinculacionmarcaGeneral = _ref.setinputselectvinculacionmarcaGeneral,
+    getDatinputSelectVinculacion = _ref.getDatinputSelectVinculacion,
+    saveCuatroNombres = _ref.saveCuatroNombres,
+    qvinculacion1General = _ref.qvinculacion1General,
+    setqvinculacion1General = _ref.setqvinculacion1General,
+    qvinculacion2General = _ref.qvinculacion2General,
+    setqvinculacion2General = _ref.setqvinculacion2General,
+    qvinculacion3General = _ref.qvinculacion3General,
+    setqvinculacion3General = _ref.setqvinculacion3General,
+    qvinculacion4General = _ref.qvinculacion4General,
+    setqvinculacion4General = _ref.setqvinculacion4General,
+    qvinculacionmarcaGeneral = _ref.qvinculacionmarcaGeneral,
+    setqvinculacionmarcaGeneral = _ref.setqvinculacionmarcaGeneral,
+    addnewNombre = _ref.addnewNombre,
+    newNombre1 = _ref.newNombre1,
+    setnewNombre1 = _ref.setnewNombre1,
+    newNombre2 = _ref.newNombre2,
+    setnewNombre2 = _ref.setnewNombre2,
+    newNombre3 = _ref.newNombre3,
+    setnewNombre3 = _ref.setnewNombre3,
+    newNombre4 = _ref.newNombre4,
+    setnewNombre4 = _ref.setnewNombre4,
+    newNombremarca = _ref.newNombremarca,
+    setnewNombremarca = _ref.setnewNombremarca;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getMarcas();
     getCatGenerals();
     getCategorias();
+    getDatinputSelectVinculacion();
   }, []);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    showInputGeneral = _useState2[0],
+    setshowInputGeneral = _useState2[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = datavinculacion1.find(function (e) {
+      return e.nombre ? e.nombre.toLowerCase().substr(0, qvinculacion1.length) == qvinculacion1.toLowerCase() : false;
+    });
+    if (fil) {
+      if (fil && qvinculacion1 != "") {
+        setinputselectvinculacion1(fil.nombre);
+      }
+    } else {
+      setinputselectvinculacion1("");
+    }
+    if (!qvinculacion1) {
+      setinputselectvinculacion1("");
+    }
+  }, [qvinculacion1]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = datavinculacion2.find(function (e) {
+      return e.nombre ? e.nombre.toLowerCase().substr(0, qvinculacion2.length) == qvinculacion2.toLowerCase() : false;
+    });
+    if (fil) {
+      if (fil && qvinculacion2 != "") {
+        setinputselectvinculacion2(fil.nombre);
+      }
+    } else {
+      setinputselectvinculacion2("");
+    }
+    if (!qvinculacion2) {
+      setinputselectvinculacion2("");
+    }
+  }, [qvinculacion2]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = datavinculacion3.find(function (e) {
+      return e.nombre ? e.nombre.toLowerCase().substr(0, qvinculacion3.length) == qvinculacion3.toLowerCase() : false;
+    });
+    if (fil) {
+      if (fil && qvinculacion3 != "") {
+        setinputselectvinculacion3(fil.nombre);
+      }
+    } else {
+      setinputselectvinculacion3("");
+    }
+    if (!qvinculacion3) {
+      setinputselectvinculacion3("");
+    }
+  }, [qvinculacion3]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = datavinculacion4.find(function (e) {
+      return e.nombre ? e.nombre.toLowerCase().substr(0, qvinculacion4.length) == qvinculacion4.toLowerCase() : false;
+    });
+    if (fil) {
+      if (fil && qvinculacion4 != "") {
+        setinputselectvinculacion4(fil.nombre);
+      }
+    } else {
+      setinputselectvinculacion4("");
+    }
+    if (!qvinculacion4) {
+      setinputselectvinculacion4("");
+    }
+  }, [qvinculacion4]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = datavinculacionmarca.find(function (e) {
+      return e.descripcion ? e.descripcion.toLowerCase().substr(0, qvinculacionmarca.length) == qvinculacionmarca.toLowerCase() : false;
+    });
+    if (fil) {
+      if (fil && qvinculacionmarca != "") {
+        setinputselectvinculacionmarca(fil.descripcion);
+      }
+    } else {
+      setinputselectvinculacionmarca("");
+    }
+    if (!qvinculacionmarca) {
+      setinputselectvinculacionmarca("");
+    }
+  }, [qvinculacionmarca]);
+
+  ///////////////
+
+  var selectAllIds = function selectAllIds(val) {
+    if (val.length) {
+      if (productosInventario.length) {
+        var acumulateIds = [];
+        productosInventario.map(function (e) {
+          acumulateIds.push(e.id);
+        });
+        setselectIdVinculacion(acumulateIds);
+      }
+    } else {
+      setselectIdVinculacion([]);
+    }
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = datavinculacion1.find(function (e) {
+      return e.nombre ? e.nombre.toLowerCase().indexOf(qvinculacion1General.toLowerCase()) != -1 : false;
+    });
+    if (fil) {
+      if (fil && qvinculacion1General != "") {
+        selectAllIds(qvinculacion1General);
+        setinputselectvinculacion1General(fil.nombre);
+        setinputselectvinculacion1(fil.nombre);
+      }
+    } else {
+      selectAllIds("");
+      setinputselectvinculacion1("");
+      setinputselectvinculacion1General("");
+    }
+  }, [qvinculacion1General]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = datavinculacion2.find(function (e) {
+      return e.nombre ? e.nombre.toLowerCase().indexOf(qvinculacion2General.toLowerCase()) != -1 : false;
+    });
+    if (fil) {
+      if (fil && qvinculacion2General != "") {
+        selectAllIds(qvinculacion2General);
+        setinputselectvinculacion2General(fil.nombre);
+        setinputselectvinculacion2(fil.nombre);
+      }
+    } else {
+      selectAllIds("");
+      setinputselectvinculacion2("");
+      setinputselectvinculacion2General("");
+    }
+  }, [qvinculacion2General]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = datavinculacion3.find(function (e) {
+      return e.nombre ? e.nombre.toLowerCase().indexOf(qvinculacion3General.toLowerCase()) != -1 : false;
+    });
+    if (fil) {
+      if (fil && qvinculacion3General != "") {
+        selectAllIds(qvinculacion3General);
+        setinputselectvinculacion3General(fil.nombre);
+        setinputselectvinculacion3(fil.nombre);
+      }
+    } else {
+      selectAllIds("");
+      setinputselectvinculacion3("");
+      setinputselectvinculacion3General("");
+    }
+  }, [qvinculacion3General]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = datavinculacion4.find(function (e) {
+      return e.nombre ? e.nombre.toLowerCase().indexOf(qvinculacion4General.toLowerCase()) != -1 : false;
+    });
+    if (fil) {
+      if (fil && qvinculacion4General != "") {
+        selectAllIds(qvinculacion4General);
+        setinputselectvinculacion4General(fil.nombre);
+        setinputselectvinculacion4(fil.nombre);
+      }
+    } else {
+      selectAllIds("");
+      setinputselectvinculacion4("");
+      setinputselectvinculacion4General("");
+    }
+  }, [qvinculacion4General]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = datavinculacionmarca.find(function (e) {
+      return e.descripcion ? e.descripcion.toLowerCase().indexOf(qvinculacionmarcaGeneral.toLowerCase()) != -1 : false;
+    });
+    if (fil) {
+      if (fil && qvinculacionmarcaGeneral != "") {
+        selectAllIds(qvinculacionmarcaGeneral);
+        setinputselectvinculacionmarcaGeneral(fil.descripcion);
+        setinputselectvinculacionmarca(fil.descripcion);
+      }
+    } else {
+      selectAllIds("");
+      setinputselectvinculacionmarca("");
+      setinputselectvinculacionmarca("");
+    }
+  }, [qvinculacionmarcaGeneral]);
+  var funIdVinc = function funIdVinc(id, n1, n2, n3, n4, marca) {
+    setselectIdVinculacion([id]);
+    setinputselectvinculacion1(n1);
+    setinputselectvinculacion2(n2);
+    setinputselectvinculacion3(n3);
+    setinputselectvinculacion4(n4);
+    setinputselectvinculacionmarca(marca);
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "container-fluid p-0",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+    children: [showInputGeneral ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "boton-fijo-inferiorizq shadow",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "row",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "btn-group",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "text",
+            className: "fs-3",
+            size: 7,
+            value: newNombre1,
+            onChange: function onChange(e) {
+              return setnewNombre1(e.target.value.toUpperCase());
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "btn btn-primary me-3 form-control-sm",
+            placeholder: "n1",
+            onClick: function onClick() {
+              return addnewNombre(newNombre1.toUpperCase(), "n1");
+            },
+            children: "n1"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "text",
+            className: "fs-3",
+            size: 7,
+            value: newNombre2,
+            onChange: function onChange(e) {
+              return setnewNombre2(e.target.value.toUpperCase());
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "btn btn-info me-3 form-control-sm",
+            placeholder: "n2",
+            onClick: function onClick() {
+              return addnewNombre(newNombre2.toUpperCase(), "n2");
+            },
+            children: "n2"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "text",
+            className: "fs-3",
+            size: 7,
+            value: newNombre3,
+            onChange: function onChange(e) {
+              return setnewNombre3(e.target.value.toUpperCase());
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "btn btn-sinapsis me-3 form-control-sm",
+            placeholder: "n3",
+            onClick: function onClick() {
+              return addnewNombre(newNombre3.toUpperCase(), "n3");
+            },
+            children: "n3"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "text",
+            className: "fs-3",
+            size: 7,
+            value: newNombremarca,
+            onChange: function onChange(e) {
+              return setnewNombremarca(e.target.value.toUpperCase());
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "btn btn-success me-3 form-control-sm",
+            placeholder: "marca",
+            onClick: function onClick() {
+              return addnewNombre(newNombremarca.toUpperCase(), "marca");
+            },
+            children: "marca"
+          })]
+        })
+      })
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
       className: "input-group",
       onSubmit: function onSubmit(e) {
         e.preventDefault();
@@ -10151,7 +10474,7 @@ function Gestioninventario(_ref) {
         return e.preventDefault();
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
-        className: "table",
+        className: "table mb-5 table-borderless",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
@@ -10179,36 +10502,12 @@ function Gestioninventario(_ref) {
                 children: "C. Barras"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              className: "cell05 pointer",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                onClick: function onClick() {
-                  return setInvorderColumn("unidad");
-                },
-                children: "Unidad"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
               className: "cell2 pointer",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                 onClick: function onClick() {
                   return setInvorderColumn("descripcion");
                 },
                 children: "Descripci\xF3n"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-              className: "cell15 pointer",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                onClick: function onClick() {
-                  return setInvorderColumn("id_marca");
-                },
-                children: "Marca"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              className: "cell05 pointer",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                onClick: function onClick() {
-                  return setInvorderColumn("cantidad");
-                },
-                children: "Ct."
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
               className: "cell1 pointer",
@@ -10218,337 +10517,381 @@ function Gestioninventario(_ref) {
                 },
                 children: "Base"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
               className: "cell15 pointer",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                 onClick: function onClick() {
                   return setInvorderColumn("precio");
                 },
                 children: "Venta"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-              className: "cell15 pointer",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                className: "btn btn-success",
                 onClick: function onClick() {
-                  return setInvorderColumn("id_categoria");
+                  return setshowInputGeneral(!showInputGeneral);
                 },
-                children: "Departamento"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-              className: "cell15 pointer",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                onClick: function onClick() {
-                  return setInvorderColumn("id_catgeneral");
-                },
-                children: "Cat General"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              className: "cell05 pointer",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                onClick: function onClick() {
-                  return setInvorderColumn("iva");
-                },
-                children: "IVA"
-              })
+                children: "SHOW GENERAL"
+              })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
               className: "cell1"
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
           children: productosInventario.length ? productosInventario.map(function (e, i) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-              className: "pointer",
-              onDoubleClick: function onDoubleClick() {
-                return changeInventario(null, i, e.id, "update");
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                className: "cell05",
-                children: e.id
-              }), type(e.type) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                className: " align-bottom border-top border-top-1 border-dark pointer " + (e.type === "delete" ? "bg-danger-light " : selectIdVinculacion.indexOf(e.id) != -1 ? " bg-sinapsis " : "") + (e.n1 && e.n2 && e.n3 && e.marca ? "bg-success" : "bg-danger"),
+                onClick: function onClick() {
+                  return funIdVinc(e.id, e.n1, e.n2, e.n3, e.n4, e.marca);
+                },
+                onDoubleClick: function onDoubleClick() {
+                  return changeInventario(null, i, e.id, "delMode");
+                },
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell1",
-                  children: e.codigo_proveedor
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell1",
-                  children: e.codigo_barras
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   className: "cell05",
-                  children: e.unidad
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell2",
-                  children: e.descripcion
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell15",
-                  children: e.marca.descripcion
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  className: "cell05",
-                  children: e.cantidad
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell1",
-                  children: e.precio_base
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell15 text-success",
-                  children: e.precio
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell15",
-                  children: e.categoria.descripcion
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell15",
-                  children: e.catgeneral.descripcion
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell05",
-                  children: e.iva
-                })]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell1",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                    type: "text",
-                    disabled: type(e.type),
-                    className: "form-control form-control-sm",
-                    value: !e.codigo_proveedor ? "" : e.codigo_proveedor,
-                    onChange: function onChange(e) {
-                      return changeInventario(e.target.value, i, e.id, "changeInput", "codigo_proveedor");
-                    },
-                    placeholder: "codigo_proveedor..."
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell1",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                    type: "text",
-                    disabled: type(e.type),
-                    className: "form-control form-control-sm",
-                    value: !e.codigo_barras ? "" : e.codigo_barras,
-                    onChange: function onChange(e) {
-                      return changeInventario(e.target.value, i, e.id, "changeInput", "codigo_barras");
-                    },
-                    placeholder: "codigo_barras..."
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell05",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-                    disabled: type(e.type),
-                    className: "form-control form-control-sm",
-                    value: !e.unidad ? "" : e.unidad,
-                    onChange: function onChange(e) {
-                      return changeInventario(e.target.value, i, e.id, "changeInput", "unidad");
-                    },
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "",
-                      children: "--Select--"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "UND",
-                      children: "UND"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "PAR",
-                      children: "PAR"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "JUEGO",
-                      children: "JUEGO"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "PQT",
-                      children: "PQT"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "MTR",
-                      children: "MTR"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "KG",
-                      children: "KG"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "GRS",
-                      children: "GRS"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "LTR",
-                      children: "LTR"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "ML",
-                      children: "ML"
-                    })]
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell2",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("textarea", {
-                    type: "text",
-                    disabled: type(e.type),
-                    className: "form-control form-control-sm",
-                    value: !e.descripcion ? "" : e.descripcion,
-                    onChange: function onChange(e) {
-                      return changeInventario(e.target.value, i, e.id, "changeInput", "descripcion");
-                    },
-                    placeholder: "descripcion..."
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell15",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-                    disabled: type(e.type),
-                    className: "form-control form-control-sm",
-                    value: !e.id_marca ? "" : e.id_marca,
-                    onChange: function onChange(e) {
-                      return changeInventario(e.target.value, i, e.id, "changeInput", "id_marca");
-                    },
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "",
-                      children: "--Select--"
-                    }), marcas.map(function (e) {
-                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                        value: e.id,
-                        children: e.descripcion
-                      }, e.id);
-                    })]
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell05",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                    type: "text",
-                    disabled: type(e.type),
-                    className: "form-control form-control-sm",
-                    value: !e.cantidad ? "" : e.cantidad,
-                    onChange: function onChange(e) {
-                      return changeInventario(number(e.target.value), i, e.id, "changeInput", "cantidad");
-                    },
-                    placeholder: "cantidad..."
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell1",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                    type: "text",
-                    disabled: type(e.type),
-                    className: "form-control form-control-sm",
-                    value: !e.precio_base ? "" : e.precio_base,
-                    onChange: function onChange(e) {
-                      return changeInventario(number(e.target.value), i, e.id, "changeInput", "precio_base");
-                    },
-                    placeholder: "Costo..."
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell15",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-                    className: "input-group",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                  children: e.id
+                }), type(e.type) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                    className: "cell1",
+                    children: e.codigo_proveedor
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                    className: "cell1",
+                    children: e.codigo_barras
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                    className: "cell2",
+                    children: e.descripcion
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                    className: "cell1",
+                    children: e.precio_base
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                    className: "cell15 text-success",
+                    children: e.precio
+                  })]
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                    className: "cell1",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
                       type: "text",
                       disabled: type(e.type),
                       className: "form-control form-control-sm",
-                      value: !e.precio ? "" : e.precio,
+                      value: !e.codigo_proveedor ? "" : e.codigo_proveedor,
                       onChange: function onChange(e) {
-                        return changeInventario(number(e.target.value), i, e.id, "changeInput", "precio");
+                        return changeInventario(e.target.value, i, e.id, "changeInput", "codigo_proveedor");
                       },
-                      placeholder: "Final..."
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                      className: "btn btn-sm",
-                      onClick: function onClick() {
-                        return setporcenganancia("list", e.precio_base, function (precio) {
-                          changeInventario(precio, i, e.id, "changeInput", "precio");
-                        });
+                      placeholder: "codigo_proveedor..."
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                    className: "cell1",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                      type: "text",
+                      disabled: type(e.type),
+                      className: "form-control form-control-sm",
+                      value: !e.codigo_barras ? "" : e.codigo_barras,
+                      onChange: function onChange(e) {
+                        return changeInventario(e.target.value, i, e.id, "changeInput", "codigo_barras");
                       },
-                      children: "%"
-                    })]
-                  })
+                      placeholder: "codigo_barras..."
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                    className: "cell2",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("textarea", {
+                      type: "text",
+                      disabled: type(e.type),
+                      className: "form-control form-control-sm",
+                      value: !e.descripcion ? "" : e.descripcion,
+                      onChange: function onChange(e) {
+                        return changeInventario(e.target.value, i, e.id, "changeInput", "descripcion");
+                      },
+                      placeholder: "descripcion..."
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                    className: "cell15",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                      disabled: type(e.type),
+                      className: "form-control form-control-sm",
+                      value: !e.id_marca ? "" : e.id_marca,
+                      onChange: function onChange(e) {
+                        return changeInventario(e.target.value, i, e.id, "changeInput", "id_marca");
+                      },
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                        value: "",
+                        children: "--Select--"
+                      }), marcas.map(function (e) {
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                          value: e.id,
+                          children: e.descripcion
+                        }, e.id);
+                      })]
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                    className: "cell05",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                      type: "text",
+                      disabled: type(e.type),
+                      className: "form-control form-control-sm",
+                      value: !e.cantidad ? "" : e.cantidad,
+                      onChange: function onChange(e) {
+                        return changeInventario(number(e.target.value), i, e.id, "changeInput", "cantidad");
+                      },
+                      placeholder: "cantidad..."
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                    className: "cell1",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                      type: "text",
+                      disabled: type(e.type),
+                      className: "form-control form-control-sm",
+                      value: !e.precio_base ? "" : e.precio_base,
+                      onChange: function onChange(e) {
+                        return changeInventario(number(e.target.value), i, e.id, "changeInput", "precio_base");
+                      },
+                      placeholder: "Costo..."
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                    className: "cell15",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                      className: "input-group",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                        type: "text",
+                        disabled: type(e.type),
+                        className: "form-control form-control-sm",
+                        value: !e.precio ? "" : e.precio,
+                        onChange: function onChange(e) {
+                          return changeInventario(number(e.target.value), i, e.id, "changeInput", "precio");
+                        },
+                        placeholder: "Final..."
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "btn btn-sm",
+                        onClick: function onClick() {
+                          return setporcenganancia("list", e.precio_base, function (precio) {
+                            changeInventario(precio, i, e.id, "changeInput", "precio");
+                          });
+                        },
+                        children: "%"
+                      })]
+                    })
+                  })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell15",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-                    disabled: type(e.type),
-                    className: "form-control form-control-sm",
-                    value: !e.id_categoria ? "" : e.id_categoria,
-                    onChange: function onChange(e) {
-                      return changeInventario(e.target.value, i, e.id, "changeInput", "id_categoria");
-                    },
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "",
-                      children: "--Select--"
-                    }), categorias.map(function (e) {
-                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                        value: e.id,
-                        children: e.descripcion
-                      }, e.id);
-                    })]
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell15",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-                    disabled: type(e.type),
-                    className: "form-control form-control-sm",
-                    value: !e.id_catgeneral ? "" : e.id_catgeneral,
-                    onChange: function onChange(e) {
-                      return changeInventario(e.target.value, i, e.id, "changeInput", "id_catgeneral");
-                    },
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                      value: "",
-                      children: "--Select--"
-                    }), catGenerals.map(function (e) {
-                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                        value: e.id,
-                        children: e.descripcion
-                      }, e.id);
-                    })]
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "cell05",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                    type: "text",
-                    disabled: type(e.type),
-                    className: "form-control form-control-sm",
-                    value: !e.iva ? "" : e.iva,
-                    onChange: function onChange(e) {
-                      return changeInventario(number(e.target.value, 2), i, e.id, "changeInput", "iva");
-                    },
-                    placeholder: "iva..."
-                  })
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                className: "cell1",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-                  className: "d-flex justify-content-between",
-                  children: [!e.type ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                  className: "cell1",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                    className: "d-flex justify-content-between",
+                    children: [!e.type ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "btn-sm btn btn-danger",
+                        onClick: function onClick() {
+                          return changeInventario(null, i, e.id, "delMode");
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+                          className: "fa fa-trash"
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "btn-sm btn btn-warning",
+                        onClick: function onClick() {
+                          return changeInventario(null, i, e.id, "update");
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+                          className: "fa fa-pencil"
+                        })
+                      })]
+                    }) : null, e.type === "new" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                       className: "btn-sm btn btn-danger",
                       onClick: function onClick() {
-                        return changeInventario(null, i, e.id, "delMode");
+                        return changeInventario(null, i, e.id, "delNew");
                       },
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                        className: "fa fa-trash"
+                        className: "fa fa-times"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    }) : null, e.type === "update" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                       className: "btn-sm btn btn-warning",
                       onClick: function onClick() {
-                        return changeInventario(null, i, e.id, "update");
+                        return changeInventario(null, i, e.id, "delModeUpdateDelete");
                       },
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                        className: "fa fa-pencil"
+                        className: "fa fa-times"
                       })
-                    })]
-                  }) : null, e.type === "new" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                    className: "btn-sm btn btn-danger",
-                    onClick: function onClick() {
-                      return changeInventario(null, i, e.id, "delNew");
-                    },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                      className: "fa fa-times"
-                    })
-                  }) : null, e.type === "update" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                    className: "btn-sm btn btn-warning",
-                    onClick: function onClick() {
-                      return changeInventario(null, i, e.id, "delModeUpdateDelete");
-                    },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                      className: "fa fa-times"
-                    })
-                  }) : null, e.type === "delete" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                    className: "btn-sm btn btn-danger",
-                    onClick: function onClick() {
-                      return changeInventario(null, i, e.id, "delModeUpdateDelete");
-                    },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                      className: "fa fa-arrow-left"
+                    }) : null, e.type === "delete" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                      className: "btn-sm btn btn-danger",
+                      onClick: function onClick() {
+                        return changeInventario(null, i, e.id, "delModeUpdateDelete");
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+                        className: "fa fa-arrow-left"
+                      })
+                    }) : null]
+                  })
+                })]
+              }, i), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                className: selectIdVinculacion.indexOf(e.id) != -1 ? " bg-success-superlight " : "",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
+                    className: "table table-sm",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        children: e.n1 ? e.n1 + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                          className: "text-success fw-bold",
+                          children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacion1 : ""
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        children: e.n2 ? e.n2 + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                          className: "text-success fw-bold",
+                          children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacion2 : ""
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        children: e.n3 ? e.n3 + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                          className: "text-success fw-bold",
+                          children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacion3 : ""
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        children: e.marca ? e.marca + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                          className: "text-success fw-bold",
+                          children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacionmarca : ""
+                        })
+                      })]
+                    }), selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                            type: "text",
+                            className: "",
+                            value: qvinculacion1,
+                            onChange: function onChange(event) {
+                              return setqvinculacion1(event.target.value);
+                            },
+                            placeholder: "N1"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                            type: "text",
+                            className: "",
+                            value: qvinculacion2,
+                            onChange: function onChange(event) {
+                              return setqvinculacion2(event.target.value);
+                            },
+                            placeholder: "N2"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                            type: "text",
+                            className: "",
+                            value: qvinculacion3,
+                            onChange: function onChange(event) {
+                              return setqvinculacion3(event.target.value);
+                            },
+                            placeholder: "N3"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                            type: "text",
+                            className: "",
+                            value: qvinculacionmarca,
+                            onChange: function onChange(event) {
+                              return setqvinculacionmarca(event.target.value);
+                            },
+                            placeholder: "Marca"
+                          })
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                            type: "text",
+                            className: " text-primary",
+                            value: inputselectvinculacion1,
+                            onChange: function onChange() {
+                              return setinputselectvinculacion1;
+                            },
+                            placeholder: "VIN 1",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                              value: ""
+                            }), datavinculacion1.map(function (data) {
+                              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                                value: data.nombre,
+                                children: data.nombre
+                              }, data.id);
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                            type: "text",
+                            className: " text-info",
+                            value: inputselectvinculacion2,
+                            onChange: function onChange() {
+                              return setinputselectvinculacion2;
+                            },
+                            placeholder: "VIN 2",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                              value: ""
+                            }), datavinculacion2.map(function (data) {
+                              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                                value: data.nombre,
+                                children: data.nombre
+                              }, data.id);
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                            type: "text",
+                            className: " text-sinapsis",
+                            value: inputselectvinculacion3,
+                            onChange: function onChange() {
+                              return setinputselectvinculacion3;
+                            },
+                            placeholder: "VIN 3",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                              value: ""
+                            }), datavinculacion3.map(function (data) {
+                              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                                value: data.nombre,
+                                children: data.nombre
+                              }, data.id);
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                            type: "text",
+                            className: " text-success",
+                            value: inputselectvinculacionmarca,
+                            onChange: function onChange() {
+                              return setinputselectvinculacionmarca;
+                            },
+                            placeholder: "VIN marca",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                              value: ""
+                            }), datavinculacionmarca.map(function (data) {
+                              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                                value: data.descripcion,
+                                children: data.descripcion
+                              }, data.id);
+                            })]
+                          })
+                        })]
+                      })]
+                    }) : null]
+                  }), selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                      className: "btn btn-success",
+                      type: "button",
+                      onClick: function onClick() {
+                        return saveCuatroNombres();
+                      },
+                      children: "GUARDAR"
                     })
                   }) : null]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: "text-muted"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: "text-muted"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: "text-muted"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: "text-muted"
+                })]
+              }), selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                  className: selectIdVinculacion.indexOf(e.id) != -1 ? " bg-success-superlight " : "",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {})]
                 })
-              })]
-            }, i);
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: "Sin resultados"
-            })
-          })
+              }) : null]
+            });
+          }) : null
         })]
       })
     })]
@@ -13631,6 +13974,15 @@ var db = (_db = {
   aprobarCreditoFun: function aprobarCreditoFun(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "aprobarCreditoFun", data);
   },
+  getDatinputSelectVinculacion: function getDatinputSelectVinculacion(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getDatinputSelectVinculacion", data);
+  },
+  saveCuatroNombres: function saveCuatroNombres(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "saveCuatroNombres", data);
+  },
+  addnewNombre: function addnewNombre(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "addnewNombre", data);
+  },
   selectCuentaPorPagarProveedorDetalles: function selectCuentaPorPagarProveedorDetalles(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "selectCuentaPorPagarProveedorDetalles", data);
   },
@@ -13669,6 +14021,9 @@ var db = (_db = {
   },
   liquidarMov: function liquidarMov(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "liquidarMov", data);
+  },
+  changeBank: function changeBank(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "changeBank", data);
   },
   sendsaldoactualbancofecha: function sendsaldoactualbancofecha(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "sendsaldoactualbancofecha", data);
@@ -66526,6 +66881,22 @@ function Home() {
       });
     }
   };
+  var changeBank = function changeBank(id) {
+    var codigos = opcionesMetodosPago.map(function (e) {
+      return e.codigo;
+    });
+    var banco = window.prompt("Código de Banco");
+    if (codigos.indexOf(banco) != -1) {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].changeBank({
+        id: id,
+        banco: banco
+      }).then(function (res) {
+        getBancosData();
+      });
+    } else {
+      alert("Código de Banco no está en la lista. " + banco);
+    }
+  };
   var selectxMovimientos = function selectxMovimientos(type, typebanco) {
     setmovimientoAuditoria([]);
     var data = [];
@@ -66807,6 +67178,181 @@ function Home() {
       setgastosBanco(dataFil.banco);
     }
   };
+  var _useState555 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState556 = _slicedToArray(_useState555, 2),
+    selectIdVinculacion = _useState556[0],
+    setselectIdVinculacion = _useState556[1];
+  var _useState557 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState558 = _slicedToArray(_useState557, 2),
+    qvinculacion1 = _useState558[0],
+    setqvinculacion1 = _useState558[1];
+  var _useState559 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState560 = _slicedToArray(_useState559, 2),
+    qvinculacion2 = _useState560[0],
+    setqvinculacion2 = _useState560[1];
+  var _useState561 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState562 = _slicedToArray(_useState561, 2),
+    qvinculacion3 = _useState562[0],
+    setqvinculacion3 = _useState562[1];
+  var _useState563 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState564 = _slicedToArray(_useState563, 2),
+    qvinculacion4 = _useState564[0],
+    setqvinculacion4 = _useState564[1];
+  var _useState565 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState566 = _slicedToArray(_useState565, 2),
+    qvinculacionmarca = _useState566[0],
+    setqvinculacionmarca = _useState566[1];
+  var _useState567 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState568 = _slicedToArray(_useState567, 2),
+    qvinculacion1General = _useState568[0],
+    setqvinculacion1General = _useState568[1];
+  var _useState569 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState570 = _slicedToArray(_useState569, 2),
+    qvinculacion2General = _useState570[0],
+    setqvinculacion2General = _useState570[1];
+  var _useState571 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState572 = _slicedToArray(_useState571, 2),
+    qvinculacion3General = _useState572[0],
+    setqvinculacion3General = _useState572[1];
+  var _useState573 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState574 = _slicedToArray(_useState573, 2),
+    qvinculacion4General = _useState574[0],
+    setqvinculacion4General = _useState574[1];
+  var _useState575 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState576 = _slicedToArray(_useState575, 2),
+    qvinculacionmarcaGeneral = _useState576[0],
+    setqvinculacionmarcaGeneral = _useState576[1];
+  var _useState577 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState578 = _slicedToArray(_useState577, 2),
+    datavinculacion1 = _useState578[0],
+    setdatavinculacion1 = _useState578[1];
+  var _useState579 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState580 = _slicedToArray(_useState579, 2),
+    datavinculacion2 = _useState580[0],
+    setdatavinculacion2 = _useState580[1];
+  var _useState581 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState582 = _slicedToArray(_useState581, 2),
+    datavinculacion3 = _useState582[0],
+    setdatavinculacion3 = _useState582[1];
+  var _useState583 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState584 = _slicedToArray(_useState583, 2),
+    datavinculacion4 = _useState584[0],
+    setdatavinculacion4 = _useState584[1];
+  var _useState585 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState586 = _slicedToArray(_useState585, 2),
+    datavinculacionmarca = _useState586[0],
+    setdatavinculacionmarca = _useState586[1];
+  var _useState587 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState588 = _slicedToArray(_useState587, 2),
+    inputselectvinculacion1 = _useState588[0],
+    setinputselectvinculacion1 = _useState588[1];
+  var _useState589 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState590 = _slicedToArray(_useState589, 2),
+    inputselectvinculacion2 = _useState590[0],
+    setinputselectvinculacion2 = _useState590[1];
+  var _useState591 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState592 = _slicedToArray(_useState591, 2),
+    inputselectvinculacion3 = _useState592[0],
+    setinputselectvinculacion3 = _useState592[1];
+  var _useState593 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState594 = _slicedToArray(_useState593, 2),
+    inputselectvinculacion4 = _useState594[0],
+    setinputselectvinculacion4 = _useState594[1];
+  var _useState595 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState596 = _slicedToArray(_useState595, 2),
+    inputselectvinculacionmarca = _useState596[0],
+    setinputselectvinculacionmarca = _useState596[1];
+  var _useState597 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState598 = _slicedToArray(_useState597, 2),
+    inputselectvinculacion1General = _useState598[0],
+    setinputselectvinculacion1General = _useState598[1];
+  var _useState599 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState600 = _slicedToArray(_useState599, 2),
+    inputselectvinculacion2General = _useState600[0],
+    setinputselectvinculacion2General = _useState600[1];
+  var _useState601 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState602 = _slicedToArray(_useState601, 2),
+    inputselectvinculacion3General = _useState602[0],
+    setinputselectvinculacion3General = _useState602[1];
+  var _useState603 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState604 = _slicedToArray(_useState603, 2),
+    inputselectvinculacion4General = _useState604[0],
+    setinputselectvinculacion4General = _useState604[1];
+  var _useState605 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState606 = _slicedToArray(_useState605, 2),
+    inputselectvinculacionmarcaGeneral = _useState606[0],
+    setinputselectvinculacionmarcaGeneral = _useState606[1];
+  var _useState607 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState608 = _slicedToArray(_useState607, 2),
+    newNombre1 = _useState608[0],
+    setnewNombre1 = _useState608[1];
+  var _useState609 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState610 = _slicedToArray(_useState609, 2),
+    newNombre2 = _useState610[0],
+    setnewNombre2 = _useState610[1];
+  var _useState611 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState612 = _slicedToArray(_useState611, 2),
+    newNombre3 = _useState612[0],
+    setnewNombre3 = _useState612[1];
+  var _useState613 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState614 = _slicedToArray(_useState613, 2),
+    newNombre4 = _useState614[0],
+    setnewNombre4 = _useState614[1];
+  var _useState615 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState616 = _slicedToArray(_useState615, 2),
+    newNombremarca = _useState616[0],
+    setnewNombremarca = _useState616[1];
+  var getDatinputSelectVinculacion = function getDatinputSelectVinculacion() {
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getDatinputSelectVinculacion({}).then(function (res) {
+      var data = res.data;
+      setdatavinculacion1(data.datavinculacion1);
+      setdatavinculacion2(data.datavinculacion2);
+      setdatavinculacion3(data.datavinculacion3);
+      setdatavinculacion4(data.datavinculacion4);
+      setdatavinculacionmarca(data.datavinculacionmarca);
+    });
+  };
+  var saveCuatroNombres = function saveCuatroNombres() {
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].saveCuatroNombres({
+      selectIdVinculacion: selectIdVinculacion,
+      inputselectvinculacion1: inputselectvinculacion1,
+      inputselectvinculacion2: inputselectvinculacion2,
+      inputselectvinculacion3: inputselectvinculacion3,
+      inputselectvinculacion4: inputselectvinculacion4,
+      inputselectvinculacionmarca: inputselectvinculacionmarca
+    }).then(function (res) {
+      buscarInventario();
+      setselectIdVinculacion([]);
+      setinputselectvinculacion1("");
+      setinputselectvinculacion2("");
+      setinputselectvinculacion3("");
+      setinputselectvinculacion4("");
+      setinputselectvinculacionmarca("");
+      setinputselectvinculacion1General("");
+      setinputselectvinculacion2General("");
+      setinputselectvinculacion3General("");
+      setinputselectvinculacion4General("");
+      setinputselectvinculacionmarcaGeneral("");
+      setqvinculacion1("");
+      setqvinculacion2("");
+      setqvinculacion3("");
+      setqvinculacion4("");
+      setqvinculacionmarca("");
+      setqvinculacion1General("");
+      setqvinculacion2General("");
+      setqvinculacion3General("");
+      setqvinculacion4General("");
+      setqvinculacionmarcaGeneral("");
+    });
+  };
+  var addnewNombre = function addnewNombre(palabra, type) {
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].addnewNombre({
+      palabra: palabra,
+      type: type
+    }).then(function (res) {
+      getDatinputSelectVinculacion();
+    });
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
     children: !loginActive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_components_login__WEBPACK_IMPORTED_MODULE_10__["default"], {
       loginRes: loginRes
@@ -66953,6 +67499,7 @@ function Home() {
           setviewmainPanel: setviewmainPanel,
           viewmainPanel: viewmainPanel
         }), viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_28__["default"], {
+          changeBank: changeBank,
           reverserLiquidar: reverserLiquidar,
           colorFun: colorFun,
           colors: colors,
@@ -67380,6 +67927,70 @@ function Home() {
             subViewInventario: subViewInventario,
             setsubViewInventario: setsubViewInventario
           }), subViewInventario == "gestion" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_panel_gestioninventario__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            qvinculacion1General: qvinculacion1General,
+            setqvinculacion1General: setqvinculacion1General,
+            qvinculacion2General: qvinculacion2General,
+            setqvinculacion2General: setqvinculacion2General,
+            qvinculacion3General: qvinculacion3General,
+            setqvinculacion3General: setqvinculacion3General,
+            qvinculacion4General: qvinculacion4General,
+            setqvinculacion4General: setqvinculacion4General,
+            qvinculacionmarcaGeneral: qvinculacionmarcaGeneral,
+            setqvinculacionmarcaGeneral: setqvinculacionmarcaGeneral,
+            selectIdVinculacion: selectIdVinculacion,
+            setselectIdVinculacion: setselectIdVinculacion,
+            qvinculacion1: qvinculacion1,
+            setqvinculacion1: setqvinculacion1,
+            qvinculacion2: qvinculacion2,
+            setqvinculacion2: setqvinculacion2,
+            qvinculacion3: qvinculacion3,
+            setqvinculacion3: setqvinculacion3,
+            qvinculacion4: qvinculacion4,
+            setqvinculacion4: setqvinculacion4,
+            qvinculacionmarca: qvinculacionmarca,
+            setqvinculacionmarca: setqvinculacionmarca,
+            datavinculacion1: datavinculacion1,
+            setdatavinculacion1: setdatavinculacion1,
+            datavinculacion2: datavinculacion2,
+            setdatavinculacion2: setdatavinculacion2,
+            datavinculacion3: datavinculacion3,
+            setdatavinculacion3: setdatavinculacion3,
+            datavinculacion4: datavinculacion4,
+            setdatavinculacion4: setdatavinculacion4,
+            datavinculacionmarca: datavinculacionmarca,
+            setdatavinculacionmarca: setdatavinculacionmarca,
+            inputselectvinculacion1: inputselectvinculacion1,
+            setinputselectvinculacion1: setinputselectvinculacion1,
+            inputselectvinculacion2: inputselectvinculacion2,
+            setinputselectvinculacion2: setinputselectvinculacion2,
+            inputselectvinculacion3: inputselectvinculacion3,
+            setinputselectvinculacion3: setinputselectvinculacion3,
+            inputselectvinculacion4: inputselectvinculacion4,
+            setinputselectvinculacion4: setinputselectvinculacion4,
+            inputselectvinculacionmarca: inputselectvinculacionmarca,
+            setinputselectvinculacionmarca: setinputselectvinculacionmarca,
+            inputselectvinculacion1General: inputselectvinculacion1General,
+            setinputselectvinculacion1General: setinputselectvinculacion1General,
+            inputselectvinculacion2General: inputselectvinculacion2General,
+            setinputselectvinculacion2General: setinputselectvinculacion2General,
+            inputselectvinculacion3General: inputselectvinculacion3General,
+            setinputselectvinculacion3General: setinputselectvinculacion3General,
+            inputselectvinculacion4General: inputselectvinculacion4General,
+            setinputselectvinculacion4General: setinputselectvinculacion4General,
+            inputselectvinculacionmarcaGeneral: inputselectvinculacionmarcaGeneral,
+            setinputselectvinculacionmarcaGeneral: setinputselectvinculacionmarcaGeneral,
+            getDatinputSelectVinculacion: getDatinputSelectVinculacion,
+            saveCuatroNombres: saveCuatroNombres,
+            newNombre1: newNombre1,
+            setnewNombre1: setnewNombre1,
+            newNombre2: newNombre2,
+            setnewNombre2: setnewNombre2,
+            newNombre3: newNombre3,
+            setnewNombre3: setnewNombre3,
+            newNombre4: newNombre4,
+            setnewNombre4: setnewNombre4,
+            newNombremarca: newNombremarca,
+            setnewNombremarca: setnewNombremarca,
             setporcenganancia: setporcenganancia,
             productosInventario: productosInventario,
             qBuscarInventario: qBuscarInventario,
@@ -67403,7 +68014,8 @@ function Home() {
             catGenerals: catGenerals,
             getMarcas: getMarcas,
             getCatGenerals: getCatGenerals,
-            getCategorias: getCategorias
+            getCategorias: getCategorias,
+            addnewNombre: addnewNombre
           }) : null, subViewInventario == "departamentos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_panel_departamentosInventario__WEBPACK_IMPORTED_MODULE_22__["default"], {
             getCategorias: getCategorias,
             addNewCategorias: addNewCategorias,

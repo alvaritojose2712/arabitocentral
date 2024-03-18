@@ -2974,6 +2974,19 @@ function formatAmount( number, simbol ) {
     }
   }
 
+  const changeBank = id => {
+    let codigos = opcionesMetodosPago.map(e=>e.codigo)
+    let banco = window.prompt("Código de Banco")
+    if (codigos.indexOf(banco)!=-1) {
+      db.changeBank({id,banco})
+      .then(res=>{
+        getBancosData()
+      })
+    }else{
+      alert("Código de Banco no está en la lista. "+banco)
+    }
+  }
+
   const selectxMovimientos = (type,typebanco) => {
     setmovimientoAuditoria([])
     let data = []
@@ -3211,9 +3224,103 @@ function formatAmount( number, simbol ) {
     }
   }
 
+  const [selectIdVinculacion, setselectIdVinculacion] = useState([])
   
+  const [qvinculacion1, setqvinculacion1] = useState("")
+  const [qvinculacion2, setqvinculacion2] = useState("")
+  const [qvinculacion3, setqvinculacion3] = useState("")
+  const [qvinculacion4, setqvinculacion4] = useState("")
+  const [qvinculacionmarca, setqvinculacionmarca] = useState("")
+
+  const [qvinculacion1General, setqvinculacion1General] = useState("")
+  const [qvinculacion2General, setqvinculacion2General] = useState("")
+  const [qvinculacion3General, setqvinculacion3General] = useState("")
+  const [qvinculacion4General, setqvinculacion4General] = useState("")
+  const [qvinculacionmarcaGeneral, setqvinculacionmarcaGeneral] = useState("")
+  
+  const [datavinculacion1, setdatavinculacion1] = useState([])
+  const [datavinculacion2, setdatavinculacion2] = useState([])
+  const [datavinculacion3, setdatavinculacion3] = useState([])
+  const [datavinculacion4, setdatavinculacion4] = useState([])
+  const [datavinculacionmarca, setdatavinculacionmarca] = useState([])
+
+  const [inputselectvinculacion1, setinputselectvinculacion1] = useState("")
+  const [inputselectvinculacion2, setinputselectvinculacion2] = useState("")
+  const [inputselectvinculacion3, setinputselectvinculacion3] = useState("")
+  const [inputselectvinculacion4, setinputselectvinculacion4] = useState("")
+  const [inputselectvinculacionmarca, setinputselectvinculacionmarca] = useState("")
+
+  const [inputselectvinculacion1General, setinputselectvinculacion1General] = useState("")
+  const [inputselectvinculacion2General, setinputselectvinculacion2General] = useState("")
+  const [inputselectvinculacion3General, setinputselectvinculacion3General] = useState("")
+  const [inputselectvinculacion4General, setinputselectvinculacion4General] = useState("")
+  const [inputselectvinculacionmarcaGeneral, setinputselectvinculacionmarcaGeneral] = useState("")
+
+  const [newNombre1,setnewNombre1] = useState("")
+  const [newNombre2,setnewNombre2] = useState("")
+  const [newNombre3,setnewNombre3] = useState("")
+  const [newNombre4,setnewNombre4] = useState("")
+  const [newNombremarca,setnewNombremarca] = useState("")
+
+  const getDatinputSelectVinculacion = () => {
+    db.getDatinputSelectVinculacion({}).then(res=>{
+      let data = res.data
+      setdatavinculacion1(data.datavinculacion1)
+      setdatavinculacion2(data.datavinculacion2)
+      setdatavinculacion3(data.datavinculacion3)
+      setdatavinculacion4(data.datavinculacion4)
+      setdatavinculacionmarca(data.datavinculacionmarca)
+
+    })
+  }
+
+  const saveCuatroNombres = () => {
+    db.saveCuatroNombres({
+      selectIdVinculacion,
+      inputselectvinculacion1,
+      inputselectvinculacion2,
+      inputselectvinculacion3,
+      inputselectvinculacion4,
+      inputselectvinculacionmarca,
+    }).then(res=>{
+      buscarInventario()
+      setselectIdVinculacion([])
+      setinputselectvinculacion1("")
+      setinputselectvinculacion2("")
+      setinputselectvinculacion3("")
+      setinputselectvinculacion4("")
+      setinputselectvinculacionmarca("")
+
+      setinputselectvinculacion1General("")
+      setinputselectvinculacion2General("")
+      setinputselectvinculacion3General("")
+      setinputselectvinculacion4General("")
+      setinputselectvinculacionmarcaGeneral("")
 
 
+
+      setqvinculacion1("")
+      setqvinculacion2("")
+      setqvinculacion3("")
+      setqvinculacion4("")
+      setqvinculacionmarca("")
+
+      setqvinculacion1General("")
+      setqvinculacion2General("")
+      setqvinculacion3General("")
+      setqvinculacion4General("")
+      setqvinculacionmarcaGeneral("")
+    })
+  }
+
+  const addnewNombre = (palabra,type) =>{
+    db.addnewNombre({
+      palabra,
+      type,
+    }).then(res=>{
+      getDatinputSelectVinculacion()
+    })
+  } 
   
   return (
     <>
@@ -3410,6 +3517,7 @@ function formatAmount( number, simbol ) {
           }
           {viewmainPanel === "auditoria" &&
             <Auditoria
+              changeBank={changeBank}
               reverserLiquidar={reverserLiquidar}
               colorFun={colorFun}
               colors={colors}
@@ -3916,6 +4024,73 @@ function formatAmount( number, simbol ) {
               />
               {subViewInventario == "gestion" ?
                 <GestionInventario
+                qvinculacion1General={qvinculacion1General}
+                setqvinculacion1General={setqvinculacion1General}
+                qvinculacion2General={qvinculacion2General}
+                setqvinculacion2General={setqvinculacion2General}
+                qvinculacion3General={qvinculacion3General}
+                setqvinculacion3General={setqvinculacion3General}
+                qvinculacion4General={qvinculacion4General}
+                setqvinculacion4General={setqvinculacion4General}
+                qvinculacionmarcaGeneral={qvinculacionmarcaGeneral}
+                setqvinculacionmarcaGeneral={setqvinculacionmarcaGeneral}
+
+                selectIdVinculacion={selectIdVinculacion} 
+                setselectIdVinculacion={setselectIdVinculacion}
+                qvinculacion1={qvinculacion1} 
+                setqvinculacion1={setqvinculacion1}
+                qvinculacion2={qvinculacion2} 
+                setqvinculacion2={setqvinculacion2}
+                qvinculacion3={qvinculacion3} 
+                setqvinculacion3={setqvinculacion3}
+                qvinculacion4={qvinculacion4} 
+                setqvinculacion4={setqvinculacion4}
+                qvinculacionmarca={qvinculacionmarca} 
+                setqvinculacionmarca={setqvinculacionmarca}
+                datavinculacion1={datavinculacion1} 
+                setdatavinculacion1={setdatavinculacion1}
+                datavinculacion2={datavinculacion2} 
+                setdatavinculacion2={setdatavinculacion2}
+                datavinculacion3={datavinculacion3} 
+                setdatavinculacion3={setdatavinculacion3}
+                datavinculacion4={datavinculacion4} 
+                setdatavinculacion4={setdatavinculacion4}
+                datavinculacionmarca={datavinculacionmarca} 
+                setdatavinculacionmarca={setdatavinculacionmarca}
+                inputselectvinculacion1={inputselectvinculacion1} 
+                setinputselectvinculacion1={setinputselectvinculacion1}
+                inputselectvinculacion2={inputselectvinculacion2} 
+                setinputselectvinculacion2={setinputselectvinculacion2}
+                inputselectvinculacion3={inputselectvinculacion3} 
+                setinputselectvinculacion3={setinputselectvinculacion3}
+                inputselectvinculacion4={inputselectvinculacion4} 
+                setinputselectvinculacion4={setinputselectvinculacion4}
+                inputselectvinculacionmarca={inputselectvinculacionmarca} 
+                setinputselectvinculacionmarca={setinputselectvinculacionmarca}
+                inputselectvinculacion1General={inputselectvinculacion1General} 
+                setinputselectvinculacion1General={setinputselectvinculacion1General}
+                inputselectvinculacion2General={inputselectvinculacion2General} 
+                setinputselectvinculacion2General={setinputselectvinculacion2General}
+                inputselectvinculacion3General={inputselectvinculacion3General} 
+                setinputselectvinculacion3General={setinputselectvinculacion3General}
+                inputselectvinculacion4General={inputselectvinculacion4General} 
+                setinputselectvinculacion4General={setinputselectvinculacion4General}
+                inputselectvinculacionmarcaGeneral={inputselectvinculacionmarcaGeneral} 
+                setinputselectvinculacionmarcaGeneral={setinputselectvinculacionmarcaGeneral}
+                getDatinputSelectVinculacion={getDatinputSelectVinculacion}
+                saveCuatroNombres={saveCuatroNombres}
+
+                newNombre1={newNombre1}
+                setnewNombre1={setnewNombre1}
+                newNombre2={newNombre2}
+                setnewNombre2={setnewNombre2}
+                newNombre3={newNombre3}
+                setnewNombre3={setnewNombre3}
+                newNombre4={newNombre4}
+                setnewNombre4={setnewNombre4}
+                newNombremarca={newNombremarca}
+                setnewNombremarca={setnewNombremarca}
+
                   setporcenganancia={setporcenganancia}
                   productosInventario={productosInventario}
                   qBuscarInventario={qBuscarInventario}
@@ -3941,6 +4116,7 @@ function formatAmount( number, simbol ) {
                   getMarcas={getMarcas}
                   getCatGenerals={getCatGenerals}
                   getCategorias={getCategorias}
+                  addnewNombre={addnewNombre}
                 />
                 : null}
 

@@ -17,21 +17,24 @@ class inventario extends Model
     public function categoria() { 
         return $this->hasOne(\App\Models\categorias::class,"id","id_categoria"); 
     }
-    public function marca() { 
-        return $this->hasOne(\App\Models\marcas::class,"id","id_marca"); 
-    }
+   
     public function catgeneral() { 
         return $this->hasOne(\App\Models\CatGenerals::class,"id","id_catgeneral"); 
+    }
+
+    public function sucursales() { 
+        return $this->hasMany('App\Models\inventario_sucursal',"id_vinculacion","id"); 
+
     }
   
 
     protected $fillable = [
         "id",
         "codigo_proveedor",
+        "codigo_proveedor2",
         "codigo_barras",
         "id_proveedor",
         "id_categoria",
-        "id_marca",
         "id_catgeneral",
         "unidad",
         "id_deposito",
@@ -47,6 +50,11 @@ class inventario extends Model
         "precio3",
         "stockmin",
         "stockmax",
+        "marca",
+        "n1",
+        "n1",
+        "n1",
+        "n1",
     ];
     
 }

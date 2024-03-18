@@ -222,6 +222,8 @@ Route::post('delCuentaPorPagar', [CuentasporpagarController::class,"delCuentaPor
 Route::post('sendMovimientoBanco', [PuntosybiopagosController::class,"sendMovimientoBanco"]);
 Route::post('sendDescuentoGeneralFats', [CuentasporpagarController::class,"sendDescuentoGeneralFats"]);
 Route::post('liquidarMov', [PuntosybiopagosController::class,"liquidarMov"]);
+Route::post('changeBank', [PuntosybiopagosController::class,"changeBank"]);
+
 Route::post('sendsaldoactualbancofecha', [BancosController::class,"sendsaldoactualbancofecha"]);
 Route::post('reverserLiquidar', [PuntosybiopagosController::class,"reverserLiquidar"]);
 
@@ -313,7 +315,18 @@ Route::post('sendPagoCuentaPorPagar', [CuentasporpagarController::class,"sendPag
 Route::post('aprobarCreditoFun', [CreditoAprobacionController::class,"aprobarCreditoFun"]);
 Route::post('createCreditoAprobacion', [CreditoAprobacionController::class,"createCreditoAprobacion"]);
 
+Route::get('unicoinventario', [InventarioController::class,"unicoinventario"]);
+Route::get('vincularinventario', [InventarioController::class,"vincularinventario"]);
+Route::get('estatusVinculacion', [InventarioController::class,"estatusVinculacion"]);
 
+Route::get('setNombres1', [InventarioController::class,"setNombres1"]);
+Route::post('getDatinputSelectVinculacion', [InventarioController::class,"getDatinputSelectVinculacion"]);
+Route::post('saveCuatroNombres', [InventarioController::class,"saveCuatroNombres"]);
+Route::post('addnewNombre', [InventarioController::class,"addnewNombre"]);
+Route::get('delInventarioDuplicado', [InventarioController::class,"delInventarioDuplicado"]);
+Route::get('delInventarioSucursalDuplicado', [InventarioController::class,"delInventarioSucursalDuplicado"]);
+
+Route::get('setNombres1Inventario', [InventarioController::class,"setNombres1Inventario"]);
 
 
 Route::post('setPedidoInCentralFromMasters', [PedidosController::class,"setPedidoInCentralFromMasters"]);
