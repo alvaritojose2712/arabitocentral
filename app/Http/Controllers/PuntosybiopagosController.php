@@ -74,7 +74,7 @@ class PuntosybiopagosController extends Controller
                     "loteserial" => $cuentasPagosDescripcion,
                     "banco" => $banco->codigo,
                     "tipo" => "Transferencia",
-                    "fecha" => $today,
+                    "fecha" => $cuentasPagosFecha,
                     "fecha_liquidacion" => $cuentasPagosFecha,
                     "monto" => $cuentasPagosMonto,
                     "monto_liquidado" => $cuentasPagosMonto,
