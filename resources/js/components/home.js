@@ -2986,6 +2986,20 @@ function formatAmount( number, simbol ) {
       alert("Código de Banco no está en la lista. "+banco)
     }
   }
+  const changeSucursal = id => {
+    let codigos = sucursales.map(e=>e.codigo)
+    let sucursal = window.prompt("Código de sucursal")
+    if (codigos.indexOf(sucursal)!=-1) {
+      db.changeSucursal({id,sucursal})
+      .then(res=>{
+        selectCuentaPorPagarProveedorDetallesFun()
+      })
+    }else{
+      alert("Código de sucursal no está en la lista. "+sucursal)
+    }
+  }
+
+  
 
   const selectxMovimientos = (type,typebanco) => {
     setmovimientoAuditoria([])
@@ -3636,6 +3650,7 @@ function formatAmount( number, simbol ) {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        changeSucursal={changeSucursal}
                         abonarFactLote={abonarFactLote}
                         setsubviewAgregarFactPago={setsubviewAgregarFactPago}
                         abonarFact={abonarFact}

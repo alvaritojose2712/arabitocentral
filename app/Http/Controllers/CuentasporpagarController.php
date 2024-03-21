@@ -384,6 +384,19 @@ class CuentasporpagarController extends Controller
             "sum" => $totalSum,
         ];
     }
+    function changeSucursal(Request $req) {
+        
+        $su = $req->sucursal;        
+        $sucursal = sucursal::where("codigo",$su)->first();
+        if ($sucursal) {
+            $upd = cuentasporpagar::find($req->id);
+            $upd->id_sucursal = $sucursal->id;
+            return $upd->save();
+        }else{
+            return "No se encontró Sucursal";
+        }
+        
+    }
 
     function saveNewFact(Request $req) {
 

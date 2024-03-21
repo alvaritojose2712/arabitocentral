@@ -4245,7 +4245,8 @@ function CuentasporpagarDetalles(_ref) {
     abonarFact = _ref.abonarFact,
     proveedoresList = _ref.proveedoresList,
     setsubviewAgregarFactPago = _ref.setsubviewAgregarFactPago,
-    abonarFactLote = _ref.abonarFactLote;
+    abonarFactLote = _ref.abonarFactLote,
+    changeSucursal = _ref.changeSucursal;
   var setInputsNewFact = function setInputsNewFact() {
     setselectFactEdit(null);
     setcuentasPagosDescripcion("");
@@ -4825,6 +4826,7 @@ function CuentasporpagarDetalles(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                   className: " text-right",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                    className: "pointer",
                     children: e.sucursal.codigo
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
@@ -4898,6 +4900,12 @@ function CuentasporpagarDetalles(_ref) {
                         children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
                           className: "fa fa-pencil"
                         }), " EDITAR "]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+                        className: "btn",
+                        onDoubleClick: function onDoubleClick() {
+                          return changeSucursal(e.id);
+                        },
+                        children: [" ", e.sucursal.codigo, " "]
                       })]
                     })
                   })
@@ -14024,6 +14032,9 @@ var db = (_db = {
   },
   changeBank: function changeBank(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "changeBank", data);
+  },
+  changeSucursal: function changeSucursal(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "changeSucursal", data);
   },
   sendsaldoactualbancofecha: function sendsaldoactualbancofecha(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "sendsaldoactualbancofecha", data);
@@ -66897,6 +66908,22 @@ function Home() {
       alert("Código de Banco no está en la lista. " + banco);
     }
   };
+  var changeSucursal = function changeSucursal(id) {
+    var codigos = sucursales.map(function (e) {
+      return e.codigo;
+    });
+    var sucursal = window.prompt("Código de sucursal");
+    if (codigos.indexOf(sucursal) != -1) {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].changeSucursal({
+        id: id,
+        sucursal: sucursal
+      }).then(function (res) {
+        selectCuentaPorPagarProveedorDetallesFun();
+      });
+    } else {
+      alert("Código de sucursal no está en la lista. " + sucursal);
+    }
+  };
   var selectxMovimientos = function selectxMovimientos(type, typebanco) {
     setmovimientoAuditoria([]);
     var data = [];
@@ -67599,6 +67626,7 @@ function Home() {
           }), subviewpanelsucursales === "cuentasporpagar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
             children: [subViewCuentasxPagar === "detallado" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
               children: [cuentasporpagarDetallesView == "cuentas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_cuentasporpagarDetalles__WEBPACK_IMPORTED_MODULE_43__["default"], {
+                changeSucursal: changeSucursal,
                 abonarFactLote: abonarFactLote,
                 setsubviewAgregarFactPago: setsubviewAgregarFactPago,
                 abonarFact: abonarFact,

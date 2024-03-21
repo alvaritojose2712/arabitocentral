@@ -69,6 +69,7 @@ export default function CuentasporpagarDetalles({
     proveedoresList,
     setsubviewAgregarFactPago,
     abonarFactLote,
+    changeSucursal,
 
 }){
     
@@ -461,7 +462,7 @@ export default function CuentasporpagarDetalles({
                                                 </span>
                                             </td>  
                                             <td className=" text-right">
-                                                <span>{e.sucursal.codigo}</span>   
+                                                <span className="pointer">{e.sucursal.codigo}</span>   
                                             </td>
                                             <td className=" text-right">
                                                 <span className="text-muted fs-6">{moneda(e.monto_bruto)}</span>
@@ -517,6 +518,9 @@ export default function CuentasporpagarDetalles({
                                                         </button>:null}
                                                         <button className="btn btn-outline-info" onClick={()=>showImageFact(e.descripcion)}> <i className="fa fa-eye"></i> VER </button>
                                                         <button className="btn btn-outline-sinapsis" onClick={()=>setSelectCuentaPorPagarDetalle(e.id)}> <i className="fa fa-pencil"></i> EDITAR </button>
+                                                        
+                                                        <button className="btn" onDoubleClick={()=>changeSucursal(e.id)}> {e.sucursal.codigo} </button>
+                                                        
                                                     </div>
                                                 </th>
 
