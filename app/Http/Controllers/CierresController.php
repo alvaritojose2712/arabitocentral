@@ -470,7 +470,7 @@ class CierresController extends Controller
                 }
                 break;
             case 'controldeefectivo':
-                if ($tipo_usuario==1 || $tipo_usuario==2) {
+                if ($tipo_usuario==1 || $tipo_usuario==2 || $tipo_usuario==4) {
                     
                     return $this->getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
