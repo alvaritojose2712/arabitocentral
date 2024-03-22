@@ -73,7 +73,14 @@ class home extends Controller
                 
             } 
             
-            return Response::json( ["estado"=>true,"msj"=>"¡Inicio exitoso! Bienvenido/a, ".$d->nombre] );
+            return Response::json( [
+                "id_usuario" => $d->id,
+                "tipo_usuario" => $d->tipo_usuario,
+                "usuario" => $d->usuario,
+                "nombre" => $d->nombre,
+                "estado"=>true,
+                "msj"=>"¡Inicio exitoso! Bienvenido/a, ".$d->nombre
+            ] );
         } catch (\Exception $e) {
             return Response::json(["msj"=>"Error: ".$e->getMessage(),"estado"=>false]);
         }

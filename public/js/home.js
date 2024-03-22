@@ -2243,13 +2243,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Auditoria)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _panel_panelopciones__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./panel/panelopciones */ "./resources/js/components/panel/panelopciones.js");
+/* harmony import */ var _panel_fechasmain__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./panel/fechasmain */ "./resources/js/components/panel/fechasmain.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -2314,13 +2318,35 @@ function Auditoria(_ref) {
     colors = _ref.colors,
     colorSucursal = _ref.colorSucursal,
     reverserLiquidar = _ref.reverserLiquidar,
-    changeBank = _ref.changeBank;
+    changeBank = _ref.changeBank,
+    subviewAuditoriaGeneral = _ref.subviewAuditoriaGeneral,
+    setsubviewAuditoriaGeneral = _ref.setsubviewAuditoriaGeneral,
+    setsubviewpanelsucursales = _ref.setsubviewpanelsucursales,
+    subviewpanelsucursales = _ref.subviewpanelsucursales,
+    fechasMain1 = _ref.fechasMain1,
+    fechasMain2 = _ref.fechasMain2,
+    sucursalSelect = _ref.sucursalSelect,
+    setsucursalSelect = _ref.setsucursalSelect,
+    qestatusaprobaciocaja = _ref.qestatusaprobaciocaja,
+    setfechasMain1 = _ref.setfechasMain1,
+    setfechasMain2 = _ref.setfechasMain2,
+    aprobarTransferenciaFun = _ref.aprobarTransferenciaFun,
+    getSucursales = _ref.getSucursales,
+    getsucursalDetallesData = _ref.getsucursalDetallesData,
+    sucursalDetallesData = _ref.sucursalDetallesData,
+    setqestatusaprobaciocaja = _ref.setqestatusaprobaciocaja;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getMetodosPago();
     getBancosData();
     getCatGeneralFun();
     getCatCajas();
+    getSucursales();
+    setsubviewpanelsucursales("aprobtransferencia");
+    setsubviewAuditoriaGeneral("");
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getsucursalDetallesData();
+  }, [subviewpanelsucursales, fechasMain1, fechasMain2, sucursalSelect, qestatusaprobaciocaja]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getBancosData();
   }, [qdescripcionbancosdata, fechaSelectAuditoria, fechaHastaSelectAuditoria, bancoSelectAuditoria, sucursalSelectAuditoria, orderColumnAuditoria, orderAuditoria]);
@@ -2337,989 +2363,1109 @@ function Auditoria(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     nummm = _useState2[0],
     setnummm = _useState2[1];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "container-fluid",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "d-flex justify-content-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "btn-group m-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-          className: "btn btn-sm " + (subviewAuditoria == "cargar" ? "btn-sinapsis" : ""),
-          onClick: function onClick() {
-            return setsubviewAuditoria("cargar");
-          },
-          children: "Cargar"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-          className: "btn btn-sm " + (subviewAuditoria == "liquidar" ? "btn-sinapsis" : ""),
-          onClick: function onClick() {
-            setsubviewAuditoria("liquidar");
-            getBancosData("liquidar");
-          },
-          children: "Liquidar"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-          className: "btn btn-sm " + (subviewAuditoria == "cuadre" ? "btn-sinapsis" : ""),
-          onClick: function onClick() {
-            setsubviewAuditoria("cuadre");
-            getBancosData("cuadre");
-          },
-          children: "Movimientos"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-          className: "btn btn-sm " + (subviewAuditoria == "conciliacion" ? "btn-sinapsis" : ""),
-          onClick: function onClick() {
-            setsubviewAuditoria("conciliacion");
-            getBancosData("conciliacion");
-          },
-          children: "Cuadre"
-        })]
-      })
-    }), subviewAuditoria == "cargar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
-      onSubmit: sendMovimientoBanco,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "form-group",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "input-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-            className: "input-group-text cell3",
-            children: "Descripci\xF3n"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-            type: "text",
-            className: "form-control",
-            placeholder: "Referencia",
-            value: cuentasPagosDescripcion,
-            onChange: function onChange(e) {
-              return setcuentasPagosDescripcion(e.target.value);
-            }
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "form-group",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "input-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-            className: "input-group-text cell3",
-            children: "Monto"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-            type: "text",
-            className: "form-control",
-            placeholder: "Monto",
-            value: cuentasPagosMonto,
-            onChange: function onChange(e) {
-              return setcuentasPagosMonto(number(e.target.value));
-            }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-            type: "date",
-            className: "form-control",
-            value: cuentasPagosFecha,
-            onChange: function onChange(e) {
-              return setcuentasPagosFecha(e.target.value);
-            }
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "form-group m-4 text-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "btn-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            type: "button",
+  var opcionesAuditoria = [{
+    route: "banco",
+    name: "BANCO"
+  }, {
+    route: "efectivo",
+    name: "EFECTIVO"
+  }, {
+    route: "aprobtransferencia",
+    name: "APRB. TRANSFE"
+  }];
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: [subviewAuditoriaGeneral == "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_panel_panelopciones__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      viewmainPanel: null,
+      setviewmainPanel: setsubviewAuditoriaGeneral,
+      opciones: opcionesAuditoria
+    }) : null, subviewAuditoriaGeneral == "banco" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "container-fluid",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "d-flex justify-content-center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "btn-group m-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "btn btn-sm " + (subviewAuditoria == "cargar" ? "btn-sinapsis" : ""),
             onClick: function onClick() {
-              return setcuentasPagosTipo("egreso");
+              return setsubviewAuditoria("cargar");
             },
-            className: (cuentasPagoTipo == "egreso" ? "btn-danger" : "") + " btn",
-            children: "Egreso"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            type: "button",
+            children: "Cargar"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "btn btn-sm " + (subviewAuditoria == "liquidar" ? "btn-sinapsis" : ""),
             onClick: function onClick() {
-              return setcuentasPagosTipo("ingreso");
+              setsubviewAuditoria("liquidar");
+              getBancosData("liquidar");
             },
-            className: (cuentasPagoTipo == "ingreso" ? "btn-success" : "") + " btn",
-            children: "Ingreso"
+            children: "Liquidar"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "btn btn-sm " + (subviewAuditoria == "cuadre" ? "btn-sinapsis" : ""),
+            onClick: function onClick() {
+              setsubviewAuditoria("cuadre");
+              getBancosData("cuadre");
+            },
+            children: "Movimientos"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "btn btn-sm " + (subviewAuditoria == "conciliacion" ? "btn-sinapsis" : ""),
+            onClick: function onClick() {
+              setsubviewAuditoria("conciliacion");
+              getBancosData("conciliacion");
+            },
+            children: "Cuadre"
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "input-group",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-          className: "form-control",
-          value: cuentasPagosMetodo,
-          onChange: function onChange(e) {
-            return setcuentasPagosMetodo(e.target.value);
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-            value: "",
-            children: "-M\xE9todo-"
-          }), opcionesMetodosPago.filter(function (e) {
-            return e.codigo != "EFECTIVO";
-          }).map(function (e) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-              value: e.id,
-              children: e.descripcion
-            }, e.id);
+      }), subviewAuditoria == "cargar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+        onSubmit: sendMovimientoBanco,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "form-group",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "input-group",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "input-group-text cell3",
+              children: "Descripci\xF3n"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "text",
+              className: "form-control",
+              placeholder: "Referencia",
+              value: cuentasPagosDescripcion,
+              onChange: function onChange(e) {
+                return setcuentasPagosDescripcion(e.target.value);
+              }
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "form-group",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "input-group",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "input-group-text cell3",
+              children: "Monto"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "text",
+              className: "form-control",
+              placeholder: "Monto",
+              value: cuentasPagosMonto,
+              onChange: function onChange(e) {
+                return setcuentasPagosMonto(number(e.target.value));
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "date",
+              className: "form-control",
+              value: cuentasPagosFecha,
+              onChange: function onChange(e) {
+                return setcuentasPagosFecha(e.target.value);
+              }
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "form-group m-4 text-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "btn-group",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              type: "button",
+              onClick: function onClick() {
+                return setcuentasPagosTipo("egreso");
+              },
+              className: (cuentasPagoTipo == "egreso" ? "btn-danger" : "") + " btn",
+              children: "Egreso"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              type: "button",
+              onClick: function onClick() {
+                return setcuentasPagosTipo("ingreso");
+              },
+              className: (cuentasPagoTipo == "ingreso" ? "btn-success" : "") + " btn",
+              children: "Ingreso"
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "input-group",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+            className: "form-control",
+            value: cuentasPagosMetodo,
+            onChange: function onChange(e) {
+              return setcuentasPagosMetodo(e.target.value);
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+              value: "",
+              children: "-M\xE9todo-"
+            }), opcionesMetodosPago.filter(function (e) {
+              return e.codigo != "EFECTIVO";
+            }).map(function (e) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                value: e.id,
+                children: e.descripcion
+              }, e.id);
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+            className: "form-control",
+            value: cuentasPagosCategoria,
+            onChange: function onChange(e) {
+              return setcuentasPagosCategoria(e.target.value);
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+              value: "",
+              children: "-Categor\xEDa-"
+            }), categoriaMovBanco.map(function (e) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                value: e.id,
+                children: e.descripcion
+              }, e.id);
+            })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-          className: "form-control",
-          value: cuentasPagosCategoria,
-          onChange: function onChange(e) {
-            return setcuentasPagosCategoria(e.target.value);
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-            value: "",
-            children: "-Categor\xEDa-"
-          }), categoriaMovBanco.map(function (e) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-              value: e.id,
-              children: e.descripcion
-            }, e.id);
-          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "form-group w-100",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "mt-2 btn btn-outline-success btn-block w-100 btn-sm",
+            type: "submit",
+            children: "Guardar"
+          })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "form-group w-100",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-          className: "mt-2 btn btn-outline-success btn-block w-100 btn-sm",
-          type: "submit",
-          children: "Guardar"
-        })
-      })]
-    }) : null, subviewAuditoria == "cuadre" && bancosdata.view == "cuadre" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "row",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "col",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            className: "form-group",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-              className: "input-group",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                type: "date",
-                className: "form-control",
-                value: fechaSelectAuditoria,
-                onChange: function onChange(event) {
-                  return setfechaSelectAuditoria(event.target.value);
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                type: "date",
-                className: "form-control",
-                value: fechaHastaSelectAuditoria,
-                onChange: function onChange(event) {
-                  return setfechaHastaSelectAuditoria(event.target.value);
-                }
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            className: "form-group",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-              className: "input-group",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-                className: "form-control",
-                value: bancoSelectAuditoria,
-                onChange: function onChange(event) {
-                  return setbancoSelectAuditoria(event.target.value);
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                  value: "",
-                  children: "-BANCO-"
-                }), opcionesMetodosPago.map(function (e) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                    value: e.id,
-                    children: e.codigo
-                  }, e.id);
+      }) : null, subviewAuditoria == "cuadre" && bancosdata.view == "cuadre" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "col",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "form-group",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "input-group",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "date",
+                  className: "form-control",
+                  value: fechaSelectAuditoria,
+                  onChange: function onChange(event) {
+                    return setfechaSelectAuditoria(event.target.value);
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "date",
+                  className: "form-control",
+                  value: fechaHastaSelectAuditoria,
+                  onChange: function onChange(event) {
+                    return setfechaHastaSelectAuditoria(event.target.value);
+                  }
                 })]
               })
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            className: "form-group",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-              className: "input-group",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-                className: "form-control",
-                value: sucursalSelectAuditoria,
-                onChange: function onChange(event) {
-                  return setsucursalSelectAuditoria(event.target.value);
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                  value: "",
-                  children: "-SUCURSAL-"
-                }), sucursales.map(function (e) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                    value: e.id,
-                    children: e.codigo
-                  }, e.id);
-                })]
-              })
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            className: "form-group",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-              className: "input-group",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                type: "text",
-                className: "form-control",
-                placeholder: "Buscar Descripci\xF3n o Monto...",
-                value: qdescripcionbancosdata,
-                onChange: function onChange(event) {
-                  return setqdescripcionbancosdata(event.target.value);
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                className: "btn btn-success",
-                onClick: function onClick() {
-                  return getBancosData();
-                },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                  className: "fa fa-search"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "form-group",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "input-group",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                  className: "form-control",
+                  value: bancoSelectAuditoria,
+                  onChange: function onChange(event) {
+                    return setbancoSelectAuditoria(event.target.value);
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                    value: "",
+                    children: "-BANCO-"
+                  }), opcionesMetodosPago.map(function (e) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                      value: e.id,
+                      children: e.codigo
+                    }, e.id);
+                  })]
                 })
-              })]
-            })
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "row",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "col",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
-            className: "table table-sm table-striped ",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("thead", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  colSpan: 8,
-                  className: "text-center text-success",
-                  children: "INGRESO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  colSpan: 4,
-                  className: "text-center text-danger",
-                  children: "EGRESO"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  className: "text-center",
-                  children: "BANCO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  colSpan: 2,
-                  className: "text-right bg-primary-light pointer",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                    className: "btn",
-                    style: {
-                      backgroundColor: colors["Transferencia"]
-                    },
-                    onClick: function onClick() {
-                      return selectxMovimientos("ingreso_Transferencia", null);
-                    },
-                    children: "TRANSFERENCIA"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "form-group",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "input-group",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                  className: "form-control",
+                  value: sucursalSelectAuditoria,
+                  onChange: function onChange(event) {
+                    return setsucursalSelectAuditoria(event.target.value);
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                    value: "",
+                    children: "-SUCURSAL-"
+                  }), sucursales.map(function (e) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                      value: e.id,
+                      children: e.codigo
+                    }, e.id);
+                  })]
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "form-group",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "input-group",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  className: "form-control",
+                  placeholder: "Buscar Descripci\xF3n o Monto...",
+                  value: qdescripcionbancosdata,
+                  onChange: function onChange(event) {
+                    return setqdescripcionbancosdata(event.target.value);
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                  className: "btn btn-success",
+                  onClick: function onClick() {
+                    return getBancosData();
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                    className: "fa fa-search"
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-                  colSpan: 2,
-                  className: "text-right bg-warning-light pointer",
-                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                    className: "btn",
-                    onClick: function onClick() {
-                      return selectxMovimientos("ingreso_PUNTO", null);
-                    },
-                    style: {
-                      backgroundColor: colors["PUNTO"]
-                    },
-                    children: "PUNTO"
-                  }), " "]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-                  colSpan: 2,
-                  className: "text-right bg-danger-light pointer",
-                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                    className: "btn",
-                    onClick: function onClick() {
-                      return selectxMovimientos("ingreso_BIOPAGO", null);
-                    },
-                    style: {
-                      backgroundColor: colors["BIOPAGO"]
-                    },
-                    children: "BIOPAGO"
-                  }), " "]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  className: "text-right bg-success"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  className: "text-right bg-success"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-                  colSpan: 2,
-                  className: "text-right bg-primary-light pointer",
-                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                    className: "btn",
-                    onClick: function onClick() {
-                      return selectxMovimientos("egreso_Transferencia", null);
-                    },
-                    style: {
-                      backgroundColor: colors["Transferencia"]
-                    },
-                    children: "TRANSFERENCIA"
-                  }), " "]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  className: "text-center bg-danger"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  className: "text-center bg-danger"
                 })]
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-              children: bancosdata.puntosybiopagosxbancos ? Object.entries(bancosdata.puntosybiopagosxbancos).map(function (bancos) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    className: "pointer align-middle",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                      className: "btn w-100 fw-bolder",
-                      style: {
-                        backgroundColor: colors[bancos[0]] ? colors[bancos[0]][0] : "",
-                        color: colors[bancos[0]] ? colors[bancos[0]][1] : ""
-                      },
-                      onClick: function onClick() {
-                        return selectxMovimientos("banco", bancos[0]);
-                      },
-                      children: bancos[0]
-                    })
-                  }), bancos[1] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                    children: [bancos[1]["ingreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "fw-bolder text-right bg-primary-light align-middle pb-1 pt-1",
-                        children: bancos[1]["ingreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-success",
-                            children: moneda(bancos[1]["ingreso"]["Transferencia"]["monto_liquidado"])
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                            className: "m-0"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-sinapsis",
-                            children: moneda(bancos[1]["ingreso"]["Transferencia"]["monto"])
-                          })]
-                        }) : null
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle pb-1 pt-1 bg-primary-light",
-                        children: bancos[1]["ingreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-                            className: "text-danger",
-                            children: [moneda(bancos[1]["ingreso"]["Transferencia"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                              className: "m-0"
-                            }), "(", moneda(bancos[1]["ingreso"]["Transferencia"]["porcentaje"]), "%)"]
-                          })
-                        }) : null
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "fw-bolder text-right bg-warning-light align-middle pb-1 pt-1",
-                        children: bancos[1]["ingreso"]["PUNTO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-success",
-                            children: moneda(bancos[1]["ingreso"]["PUNTO"]["monto_liquidado"])
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                            className: "m-0"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-sinapsis",
-                            children: moneda(bancos[1]["ingreso"]["PUNTO"]["monto"])
-                          })]
-                        }) : null
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle pb-1 pt-1 bg-warning-light",
-                        children: bancos[1]["ingreso"]["PUNTO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-                            className: "text-danger",
-                            children: [moneda(bancos[1]["ingreso"]["PUNTO"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                              className: "m-0"
-                            }), "(", moneda(bancos[1]["ingreso"]["PUNTO"]["porcentaje"]), "%)"]
-                          })
-                        }) : null
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "fw-bolder text-right bg-danger-light align-middle pb-1 pt-1",
-                        children: bancos[1]["ingreso"]["BIOPAGO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-success",
-                            children: moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto_liquidado"])
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                            className: "m-0"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-sinapsis",
-                            children: moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto"])
-                          })]
-                        }) : null
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle pb-1 pt-1 bg-danger-light",
-                        children: bancos[1]["ingreso"]["BIOPAGO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-                            className: "text-danger",
-                            children: [moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                              className: "m-0"
-                            }), "(", moneda(bancos[1]["ingreso"]["BIOPAGO"]["porcentaje"]), "%)"]
-                          })
-                        }) : null
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "fw-bolder text-right bg-success-superlight align-middle pb-1 pt-1 fs-4",
-                        children: bancos[1]["ingreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-success",
-                            children: moneda(bancos[1]["ingreso"]["monto_liquidado"])
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                            className: "m-0"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-sinapsis",
-                            children: moneda(bancos[1]["ingreso"]["monto"])
-                          })]
-                        }) : null
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle pb-1 pt-1 bg-success-superlight",
-                        children: bancos[1]["ingreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-                            className: "text-danger",
-                            children: [moneda(bancos[1]["ingreso"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                              className: "m-0"
-                            }), "(", moneda(bancos[1]["ingreso"]["porcentaje"]), "%)"]
-                          })
-                        }) : null
-                      })]
-                    }) : null, bancos[1]["egreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "fw-bolder text-right bg-primary-light align-middle pb-1 pt-1",
-                        children: bancos[1]["egreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-success",
-                            children: moneda(bancos[1]["egreso"]["Transferencia"]["monto_liquidado"])
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                            className: "m-0"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-sinapsis",
-                            children: moneda(bancos[1]["egreso"]["Transferencia"]["monto"])
-                          })]
-                        }) : null
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle pb-1 pt-1 bg-primary-light",
-                        children: bancos[1]["egreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-                            className: "text-danger",
-                            children: [moneda(bancos[1]["egreso"]["Transferencia"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                              className: "m-0"
-                            }), "(", moneda(bancos[1]["egreso"]["Transferencia"]["porcentaje"]), "%)"]
-                          })
-                        }) : null
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "fw-bolder text-right bg-danger-superlight align-middle pb-1 pt-1 fs-4",
-                        children: bancos[1]["egreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-success",
-                            children: moneda(bancos[1]["egreso"]["monto_liquidado"])
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                            className: "m-0"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                            className: "text-sinapsis",
-                            children: moneda(bancos[1]["egreso"]["monto"])
-                          })]
-                        }) : null
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        className: "align-middle pb-1 pt-1 bg-danger-superlight",
-                        children: bancos[1]["egreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-                            className: "text-danger",
-                            children: [moneda(bancos[1]["egreso"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {
-                              className: "m-0"
-                            }), "(", moneda(bancos[1]["egreso"]["porcentaje"]), "%)"]
-                          })
-                        }) : null
-                      })]
-                    }) : null]
-                  }) : console.log(bancos[1], "bancos[1]")]
-                }, bancos[0]);
-              }) : null
+              })
             })]
           })
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "row",
-        children: movimientoAuditoria.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "col",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
-            className: "table",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  onClick: function onClick() {
-                    if (orderColumnAuditoria == "banco") {
-                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                    }
-                    ;
-                    setorderColumnAuditoria("banco");
-                  },
-                  className: "pointer",
-                  children: "BANCO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  onClick: function onClick() {
-                    if (orderColumnAuditoria == "tipo") {
-                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                    }
-                    ;
-                    setorderColumnAuditoria("tipo");
-                  },
-                  className: "pointer",
-                  children: "M\xC9TODO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  onClick: function onClick() {
-                    if (orderColumnAuditoria == "fecha") {
-                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                    }
-                    ;
-                    setorderColumnAuditoria("fecha");
-                  },
-                  className: "pointer",
-                  children: "FECHA REPORTADO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  onClick: function onClick() {
-                    if (orderColumnAuditoria == "fecha_liquidacion") {
-                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                    }
-                    ;
-                    setorderColumnAuditoria("fecha_liquidacion");
-                  },
-                  className: "pointer",
-                  children: "FECHA LIQUIDADO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  children: "TIPO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  onClick: function onClick() {
-                    if (orderColumnAuditoria == "id_sucursal") {
-                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                    }
-                    ;
-                    setorderColumnAuditoria("id_sucursal");
-                  },
-                  className: "pointer",
-                  children: "SUCURSAL"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  onClick: function onClick() {
-                    if (orderColumnAuditoria == "loteserial") {
-                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                    }
-                    ;
-                    setorderColumnAuditoria("loteserial");
-                  },
-                  className: "pointer",
-                  children: "LOTE / REFERENCIA"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  onClick: function onClick() {
-                    if (orderColumnAuditoria == "categoria") {
-                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                    }
-                    ;
-                    setorderColumnAuditoria("categoria");
-                  },
-                  className: "pointer",
-                  children: "CATEGOR\xCDA"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  onClick: function onClick() {
-                    if (orderColumnAuditoria == "monto") {
-                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                    }
-                    ;
-                    setorderColumnAuditoria("monto");
-                  },
-                  className: "pointer",
-                  children: "MONTO BRUTO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  onClick: function onClick() {
-                    if (orderColumnAuditoria == "monto_liquidado") {
-                      setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                    }
-                    ;
-                    setorderColumnAuditoria("monto_liquidado");
-                  },
-                  className: "pointer",
-                  children: "LIQUIDADO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  children: "COMISI\xD3N"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                  children: "%"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {})]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-              children: movimientoAuditoria.map(function (e) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                      className: "btn w-100 fw-bolder",
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "col",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+              className: "table table-sm table-striped ",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("thead", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    colSpan: 8,
+                    className: "text-center text-success",
+                    children: "INGRESO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    colSpan: 4,
+                    className: "text-center text-danger",
+                    children: "EGRESO"
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    className: "text-center",
+                    children: "BANCO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    colSpan: 2,
+                    className: "text-right bg-primary-light pointer",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                      className: "btn",
                       style: {
-                        backgroundColor: colors[e.banco] ? colors[e.banco][0] : "",
-                        color: colors[e.banco] ? colors[e.banco][1] : ""
+                        backgroundColor: colors["Transferencia"]
                       },
-                      children: e.banco
+                      onClick: function onClick() {
+                        return selectxMovimientos("ingreso_Transferencia", null);
+                      },
+                      children: "TRANSFERENCIA"
                     })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                      className: "btn w-100 fw-bolder",
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+                    colSpan: 2,
+                    className: "text-right bg-warning-light pointer",
+                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                      className: "btn",
+                      onClick: function onClick() {
+                        return selectxMovimientos("ingreso_PUNTO", null);
+                      },
                       style: {
-                        backgroundColor: colors[e.tipo]
+                        backgroundColor: colors["PUNTO"]
                       },
-                      children: e.tipo
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: e.fecha
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: e.fecha_liquidacion
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                      className: "btn w-100 " + (e.monto < 0 ? "btn-danger" : "btn-success"),
-                      children: e.monto < 0 ? "EGRESO" : "INGRESO"
+                      children: "PUNTO"
                     }), " "]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                      className: "btn w-100 fw-bolder ",
-                      style: {
-                        backgroundColor: colorSucursal(e.sucursal.codigo)
-                      },
-                      children: e.sucursal.codigo
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: e.loteserial
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: getCat(e.categoria)
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: moneda(e.monto)
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: moneda(e.monto_liquidado)
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    className: "text-danger",
-                    children: moneda(e.monto_comision)
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-                    className: "text-muted",
-                    children: [moneda(e.porcentaje), "%"]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                      className: "btn btn-danger",
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+                    colSpan: 2,
+                    className: "text-right bg-danger-light pointer",
+                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                      className: "btn",
                       onClick: function onClick() {
-                        return reverserLiquidar(e.id);
+                        return selectxMovimientos("ingreso_BIOPAGO", null);
                       },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                        className: "fa fa-arrow-left"
+                      style: {
+                        backgroundColor: colors["BIOPAGO"]
+                      },
+                      children: "BIOPAGO"
+                    }), " "]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    className: "text-right bg-success"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    className: "text-right bg-success"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+                    colSpan: 2,
+                    className: "text-right bg-primary-light pointer",
+                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                      className: "btn",
+                      onClick: function onClick() {
+                        return selectxMovimientos("egreso_Transferencia", null);
+                      },
+                      style: {
+                        backgroundColor: colors["Transferencia"]
+                      },
+                      children: "TRANSFERENCIA"
+                    }), " "]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    className: "text-center bg-danger"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    className: "text-center bg-danger"
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
+                children: bancosdata.puntosybiopagosxbancos ? Object.entries(bancosdata.puntosybiopagosxbancos).map(function (bancos) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      className: "pointer align-middle",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                        className: "btn w-100 fw-bolder",
+                        style: {
+                          backgroundColor: colors[bancos[0]] ? colors[bancos[0]][0] : "",
+                          color: colors[bancos[0]] ? colors[bancos[0]][1] : ""
+                        },
+                        onClick: function onClick() {
+                          return selectxMovimientos("banco", bancos[0]);
+                        },
+                        children: bancos[0]
                       })
-                    })
-                  })]
-                }, e.id);
-              })
-            })]
-          })
-        }) : null
-      })]
-    }) : null, subviewAuditoria == "liquidar" && bancosdata.view == "liquidar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "form-group",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "input-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-            type: "date",
-            className: "form-control",
-            value: fechaSelectAuditoria,
-            onChange: function onChange(event) {
-              return setfechaSelectAuditoria(event.target.value);
-            }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-            type: "date",
-            className: "form-control",
-            value: fechaHastaSelectAuditoria,
-            onChange: function onChange(event) {
-              return setfechaHastaSelectAuditoria(event.target.value);
-            }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            className: "btn btn-success",
-            onClick: function onClick() {
-              return getBancosData();
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-              className: "fa fa-search"
-            })
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
-        className: "table",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              onClick: function onClick() {
-                if (orderColumnAuditoria == "banco") {
-                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                }
-                ;
-                setorderColumnAuditoria("banco");
-              },
-              className: "pointer",
-              children: "BANCO"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              onClick: function onClick() {
-                if (orderColumnAuditoria == "tipo") {
-                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                }
-                ;
-                setorderColumnAuditoria("tipo");
-              },
-              className: "pointer",
-              children: "M\xC9TODO"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              onClick: function onClick() {
-                if (orderColumnAuditoria == "fecha") {
-                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                }
-                ;
-                setorderColumnAuditoria("fecha");
-              },
-              className: "pointer",
-              children: "FECHA REPORTADO"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              onClick: function onClick() {
-                if (orderColumnAuditoria == "fecha_liquidacion") {
-                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                }
-                ;
-                setorderColumnAuditoria("fecha_liquidacion");
-              },
-              className: "pointer",
-              children: "FECHA LIQUIDADO"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              children: "TIPO"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              onClick: function onClick() {
-                if (orderColumnAuditoria == "id_sucursal") {
-                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                }
-                ;
-                setorderColumnAuditoria("id_sucursal");
-              },
-              className: "pointer",
-              children: "SUCURSAL"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              onClick: function onClick() {
-                if (orderColumnAuditoria == "loteserial") {
-                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                }
-                ;
-                setorderColumnAuditoria("loteserial");
-              },
-              className: "pointer",
-              children: "LOTE / REFERENCIA"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              onClick: function onClick() {
-                if (orderColumnAuditoria == "categoria") {
-                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                }
-                ;
-                setorderColumnAuditoria("categoria");
-              },
-              className: "pointer",
-              children: "CATEGOR\xCDA"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              onClick: function onClick() {
-                if (orderColumnAuditoria == "monto") {
-                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                }
-                ;
-                setorderColumnAuditoria("monto");
-              },
-              className: "pointer",
-              children: "MONTO BRUTO"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              onClick: function onClick() {
-                if (orderColumnAuditoria == "monto_liquidado") {
-                  setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
-                }
-                ;
-                setorderColumnAuditoria("monto_liquidado");
-              },
-              className: "pointer",
-              children: "LIQUIDADO"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {})]
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-          children: bancosdata.xliquidar.map(function (e, i) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-              onClick: function onClick() {
-                return setselectTrLiquidar(i);
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                  onDoubleClick: function onDoubleClick() {
-                    return changeBank(e.id);
-                  },
-                  className: "btn w-100 fw-bolder",
-                  style: {
-                    backgroundColor: colors[e.banco] ? colors[e.banco][0] : "",
-                    color: colors[e.banco] ? colors[e.banco][1] : ""
-                  },
-                  children: e.banco
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                  className: "btn w-100 fw-bolder",
-                  style: {
-                    backgroundColor: colors[e.tipo]
-                  },
-                  children: e.tipo
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: e.fecha
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: e.fecha_liquidacion
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                  className: "btn w-100 " + (e.monto < 0 ? "btn-danger" : "btn-success"),
-                  children: e.monto < 0 ? "EGRESO" : "INGRESO"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                  className: "btn w-100 fw-bolder",
-                  style: {
-                    backgroundColor: colorSucursal(e.sucursal.codigo)
-                  },
-                  children: e.sucursal.codigo
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: e.loteserial
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: getCat(e.categoria)
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: moneda(e.monto)
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: moneda(e.monto_liquidado)
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: selectTrLiquidar === i ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-                  className: "input-group-vertical",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                    type: "text",
-                    className: "form-control",
-                    value: inpmontoLiquidar,
-                    placeholder: "Monto Liquidado",
-                    onChange: function onChange(event) {
-                      return setinpmontoLiquidar(event.target.value);
-                    }
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                    type: "date",
-                    className: "form-control",
-                    value: inpfechaLiquidar,
-                    onChange: function onChange(event) {
-                      return setinpfechaLiquidar(event.target.value);
-                    }
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
-                    className: "btn btn-warning w-100",
-                    onClick: function onClick() {
-                      return liquidarMov(e.id);
-                    },
-                    children: ["LIQUIDAR ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                      className: "fa fa-send"
-                    })]
-                  })]
+                    }), bancos[1] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                      children: [bancos[1]["ingreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "fw-bolder text-right bg-primary-light align-middle pb-1 pt-1",
+                          children: bancos[1]["ingreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-success",
+                              children: moneda(bancos[1]["ingreso"]["Transferencia"]["monto_liquidado"])
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                              className: "m-0"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-sinapsis",
+                              children: moneda(bancos[1]["ingreso"]["Transferencia"]["monto"])
+                            })]
+                          }) : null
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "align-middle pb-1 pt-1 bg-primary-light",
+                          children: bancos[1]["ingreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                              className: "text-danger",
+                              children: [moneda(bancos[1]["ingreso"]["Transferencia"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                                className: "m-0"
+                              }), "(", moneda(bancos[1]["ingreso"]["Transferencia"]["porcentaje"]), "%)"]
+                            })
+                          }) : null
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "fw-bolder text-right bg-warning-light align-middle pb-1 pt-1",
+                          children: bancos[1]["ingreso"]["PUNTO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-success",
+                              children: moneda(bancos[1]["ingreso"]["PUNTO"]["monto_liquidado"])
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                              className: "m-0"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-sinapsis",
+                              children: moneda(bancos[1]["ingreso"]["PUNTO"]["monto"])
+                            })]
+                          }) : null
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "align-middle pb-1 pt-1 bg-warning-light",
+                          children: bancos[1]["ingreso"]["PUNTO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                              className: "text-danger",
+                              children: [moneda(bancos[1]["ingreso"]["PUNTO"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                                className: "m-0"
+                              }), "(", moneda(bancos[1]["ingreso"]["PUNTO"]["porcentaje"]), "%)"]
+                            })
+                          }) : null
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "fw-bolder text-right bg-danger-light align-middle pb-1 pt-1",
+                          children: bancos[1]["ingreso"]["BIOPAGO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-success",
+                              children: moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto_liquidado"])
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                              className: "m-0"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-sinapsis",
+                              children: moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto"])
+                            })]
+                          }) : null
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "align-middle pb-1 pt-1 bg-danger-light",
+                          children: bancos[1]["ingreso"]["BIOPAGO"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                              className: "text-danger",
+                              children: [moneda(bancos[1]["ingreso"]["BIOPAGO"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                                className: "m-0"
+                              }), "(", moneda(bancos[1]["ingreso"]["BIOPAGO"]["porcentaje"]), "%)"]
+                            })
+                          }) : null
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "fw-bolder text-right bg-success-superlight align-middle pb-1 pt-1 fs-4",
+                          children: bancos[1]["ingreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-success",
+                              children: moneda(bancos[1]["ingreso"]["monto_liquidado"])
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                              className: "m-0"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-sinapsis",
+                              children: moneda(bancos[1]["ingreso"]["monto"])
+                            })]
+                          }) : null
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "align-middle pb-1 pt-1 bg-success-superlight",
+                          children: bancos[1]["ingreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                              className: "text-danger",
+                              children: [moneda(bancos[1]["ingreso"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                                className: "m-0"
+                              }), "(", moneda(bancos[1]["ingreso"]["porcentaje"]), "%)"]
+                            })
+                          }) : null
+                        })]
+                      }) : null, bancos[1]["egreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "fw-bolder text-right bg-primary-light align-middle pb-1 pt-1",
+                          children: bancos[1]["egreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-success",
+                              children: moneda(bancos[1]["egreso"]["Transferencia"]["monto_liquidado"])
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                              className: "m-0"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-sinapsis",
+                              children: moneda(bancos[1]["egreso"]["Transferencia"]["monto"])
+                            })]
+                          }) : null
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "align-middle pb-1 pt-1 bg-primary-light",
+                          children: bancos[1]["egreso"]["Transferencia"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                              className: "text-danger",
+                              children: [moneda(bancos[1]["egreso"]["Transferencia"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                                className: "m-0"
+                              }), "(", moneda(bancos[1]["egreso"]["Transferencia"]["porcentaje"]), "%)"]
+                            })
+                          }) : null
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "fw-bolder text-right bg-danger-superlight align-middle pb-1 pt-1 fs-4",
+                          children: bancos[1]["egreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-success",
+                              children: moneda(bancos[1]["egreso"]["monto_liquidado"])
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                              className: "m-0"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                              className: "text-sinapsis",
+                              children: moneda(bancos[1]["egreso"]["monto"])
+                            })]
+                          }) : null
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          className: "align-middle pb-1 pt-1 bg-danger-superlight",
+                          children: bancos[1]["egreso"] ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                              className: "text-danger",
+                              children: [moneda(bancos[1]["egreso"]["monto_comision"]), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {
+                                className: "m-0"
+                              }), "(", moneda(bancos[1]["egreso"]["porcentaje"]), "%)"]
+                            })
+                          }) : null
+                        })]
+                      }) : null]
+                    }) : console.log(bancos[1], "bancos[1]")]
+                  }, bancos[0]);
                 }) : null
               })]
-            }, e.id);
-          })
-        })]
-      })]
-    }) : null, subviewAuditoria == "conciliacion" && bancosdata.view == "conciliacion" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "form-group",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "input-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-            type: "date",
-            className: "form-control",
-            value: fechaSelectAuditoria,
-            onChange: function onChange(event) {
-              return setfechaSelectAuditoria(event.target.value);
-            }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-            type: "date",
-            className: "form-control",
-            value: fechaHastaSelectAuditoria,
-            onChange: function onChange(event) {
-              return setfechaHastaSelectAuditoria(event.target.value);
-            }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            className: "btn btn-success",
-            onClick: function onClick() {
-              return getBancosData();
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-              className: "fa fa-search"
             })
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
-        className: "table",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              children: "BANCO"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              children: "FECHA"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              className: "bg-success-light",
-              children: "CUADRE REAL"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              children: "SALDO INCIAL"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              children: "INGRESO"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              children: "EGRESO"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              className: "bg-success-light",
-              children: "CUADRE DIGITAL"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              className: "text-right",
-              children: "CONCILIACI\xD3N"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "row",
+          children: movimientoAuditoria.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "col",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+              className: "table",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    onClick: function onClick() {
+                      if (orderColumnAuditoria == "banco") {
+                        setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                      }
+                      ;
+                      setorderColumnAuditoria("banco");
+                    },
+                    className: "pointer",
+                    children: "BANCO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    onClick: function onClick() {
+                      if (orderColumnAuditoria == "tipo") {
+                        setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                      }
+                      ;
+                      setorderColumnAuditoria("tipo");
+                    },
+                    className: "pointer",
+                    children: "M\xC9TODO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    onClick: function onClick() {
+                      if (orderColumnAuditoria == "fecha") {
+                        setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                      }
+                      ;
+                      setorderColumnAuditoria("fecha");
+                    },
+                    className: "pointer",
+                    children: "FECHA REPORTADO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    onClick: function onClick() {
+                      if (orderColumnAuditoria == "fecha_liquidacion") {
+                        setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                      }
+                      ;
+                      setorderColumnAuditoria("fecha_liquidacion");
+                    },
+                    className: "pointer",
+                    children: "FECHA LIQUIDADO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    children: "TIPO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    onClick: function onClick() {
+                      if (orderColumnAuditoria == "id_sucursal") {
+                        setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                      }
+                      ;
+                      setorderColumnAuditoria("id_sucursal");
+                    },
+                    className: "pointer",
+                    children: "SUCURSAL"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    onClick: function onClick() {
+                      if (orderColumnAuditoria == "loteserial") {
+                        setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                      }
+                      ;
+                      setorderColumnAuditoria("loteserial");
+                    },
+                    className: "pointer",
+                    children: "LOTE / REFERENCIA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    onClick: function onClick() {
+                      if (orderColumnAuditoria == "categoria") {
+                        setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                      }
+                      ;
+                      setorderColumnAuditoria("categoria");
+                    },
+                    className: "pointer",
+                    children: "CATEGOR\xCDA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    onClick: function onClick() {
+                      if (orderColumnAuditoria == "monto") {
+                        setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                      }
+                      ;
+                      setorderColumnAuditoria("monto");
+                    },
+                    className: "pointer",
+                    children: "MONTO BRUTO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    onClick: function onClick() {
+                      if (orderColumnAuditoria == "monto_liquidado") {
+                        setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                      }
+                      ;
+                      setorderColumnAuditoria("monto_liquidado");
+                    },
+                    className: "pointer",
+                    children: "LIQUIDADO"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    children: "COMISI\xD3N"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                    children: "%"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {})]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
+                children: movimientoAuditoria.map(function (e) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                        className: "btn w-100 fw-bolder",
+                        style: {
+                          backgroundColor: colors[e.banco] ? colors[e.banco][0] : "",
+                          color: colors[e.banco] ? colors[e.banco][1] : ""
+                        },
+                        children: e.banco
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                        className: "btn w-100 fw-bolder",
+                        style: {
+                          backgroundColor: colors[e.tipo]
+                        },
+                        children: e.tipo
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: e.fecha
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: e.fecha_liquidacion
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+                      children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                        className: "btn w-100 " + (e.monto < 0 ? "btn-danger" : "btn-success"),
+                        children: e.monto < 0 ? "EGRESO" : "INGRESO"
+                      }), " "]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                        className: "btn w-100 fw-bolder ",
+                        style: {
+                          backgroundColor: colorSucursal(e.sucursal.codigo)
+                        },
+                        children: e.sucursal.codigo
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: e.loteserial
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: getCat(e.categoria)
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: moneda(e.monto)
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: moneda(e.monto_liquidado)
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      className: "text-danger",
+                      children: moneda(e.monto_comision)
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+                      className: "text-muted",
+                      children: [moneda(e.porcentaje), "%"]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                        className: "btn btn-danger",
+                        onClick: function onClick() {
+                          return reverserLiquidar(e.id);
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                          className: "fa fa-arrow-left"
+                        })
+                      })
+                    })]
+                  }, e.id);
+                })
+              })]
+            })
+          }) : null
+        })]
+      }) : null, subviewAuditoria == "liquidar" && bancosdata.view == "liquidar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "form-group",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "input-group",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "date",
+              className: "form-control",
+              value: fechaSelectAuditoria,
+              onChange: function onChange(event) {
+                return setfechaSelectAuditoria(event.target.value);
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "date",
+              className: "form-control",
+              value: fechaHastaSelectAuditoria,
+              onChange: function onChange(event) {
+                return setfechaHastaSelectAuditoria(event.target.value);
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "btn btn-success",
+              onClick: function onClick() {
+                return getBancosData();
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                className: "fa fa-search"
+              })
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-          children: bancosdata.xfechaCuadre.map(function (e, i) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-              onClick: function onClick() {
-                return selectConciliacion(e.banco, e.fecha);
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                  className: "btn w-100 fw-bolder",
-                  style: {
-                    backgroundColor: colors[e.banco] ? colors[e.banco][0] : "",
-                    color: colors[e.banco] ? colors[e.banco][1] : ""
-                  },
-                  onClick: function onClick() {
-                    return selectxMovimientos("banco", e.banco);
-                  },
-                  children: e.banco
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: e.fecha
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-success-light",
-                children: selectConciliacionData == e.banco + "-" + e.fecha ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-                  className: "input-group",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                    type: "text",
-                    placeholder: "Saldo ACTUAL",
-                    size: 5,
-                    className: "form-control",
-                    value: saldoactualbancofecha,
-                    onChange: function onChange(event) {
-                      return setsaldoactualbancofecha(event.target.value);
-                    }
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                    className: "btn btn-warning",
-                    onClick: function onClick() {
-                      return sendsaldoactualbancofecha(e.banco, e.fecha);
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+          className: "table",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "banco") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("banco");
+                },
+                className: "pointer",
+                children: "BANCO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "tipo") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("tipo");
+                },
+                className: "pointer",
+                children: "M\xC9TODO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "fecha") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("fecha");
+                },
+                className: "pointer",
+                children: "FECHA REPORTADO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "fecha_liquidacion") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("fecha_liquidacion");
+                },
+                className: "pointer",
+                children: "FECHA LIQUIDADO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "TIPO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "id_sucursal") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("id_sucursal");
+                },
+                className: "pointer",
+                children: "SUCURSAL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "loteserial") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("loteserial");
+                },
+                className: "pointer",
+                children: "LOTE / REFERENCIA"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "categoria") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("categoria");
+                },
+                className: "pointer",
+                children: "CATEGOR\xCDA"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "monto") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("monto");
+                },
+                className: "pointer",
+                children: "MONTO BRUTO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "monto_liquidado") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("monto_liquidado");
+                },
+                className: "pointer",
+                children: "LIQUIDADO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {})]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
+            children: bancosdata.xliquidar.map(function (e, i) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                onClick: function onClick() {
+                  return setselectTrLiquidar(i);
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                    onDoubleClick: function onDoubleClick() {
+                      return changeBank(e.id);
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                      className: "fa fa-send"
-                    })
-                  })]
-                }) : e.guardado ? moneda(e.guardado.saldo) : "----"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-warning-light",
-                children: moneda(e.inicial)
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-success-light",
-                children: moneda(e.ingreso)
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-danger-light",
-                children: moneda(e.egreso)
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-success-light",
-                children: moneda(e.balance)
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: (e.cuadre > -0.1 && e.cuadre < 0.1 ? "bg-success text-light" : "bg-danger text-light") + " fs-3 text-right",
-                children: moneda(e.cuadre)
-              })]
-            }, i);
-          })
+                    className: "btn w-100 fw-bolder",
+                    style: {
+                      backgroundColor: colors[e.banco] ? colors[e.banco][0] : "",
+                      color: colors[e.banco] ? colors[e.banco][1] : ""
+                    },
+                    children: e.banco
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                    className: "btn w-100 fw-bolder",
+                    style: {
+                      backgroundColor: colors[e.tipo]
+                    },
+                    children: e.tipo
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: e.fecha
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: e.fecha_liquidacion
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                    className: "btn w-100 " + (e.monto < 0 ? "btn-danger" : "btn-success"),
+                    children: e.monto < 0 ? "EGRESO" : "INGRESO"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                    className: "btn w-100 fw-bolder",
+                    style: {
+                      backgroundColor: colorSucursal(e.sucursal.codigo)
+                    },
+                    children: e.sucursal.codigo
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: e.loteserial
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: getCat(e.categoria)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: moneda(e.monto)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: moneda(e.monto_liquidado)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: selectTrLiquidar === i ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                    className: "input-group-vertical",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                      type: "text",
+                      className: "form-control",
+                      value: inpmontoLiquidar,
+                      placeholder: "Monto Liquidado",
+                      onChange: function onChange(event) {
+                        return setinpmontoLiquidar(event.target.value);
+                      }
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                      type: "date",
+                      className: "form-control",
+                      value: inpfechaLiquidar,
+                      onChange: function onChange(event) {
+                        return setinpfechaLiquidar(event.target.value);
+                      }
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                      className: "btn btn-warning w-100",
+                      onClick: function onClick() {
+                        return liquidarMov(e.id);
+                      },
+                      children: ["LIQUIDAR ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                        className: "fa fa-send"
+                      })]
+                    })]
+                  }) : null
+                })]
+              }, e.id);
+            })
+          })]
         })]
-      })]
+      }) : null, subviewAuditoria == "conciliacion" && bancosdata.view == "conciliacion" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "form-group",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "input-group",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "date",
+              className: "form-control",
+              value: fechaSelectAuditoria,
+              onChange: function onChange(event) {
+                return setfechaSelectAuditoria(event.target.value);
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "date",
+              className: "form-control",
+              value: fechaHastaSelectAuditoria,
+              onChange: function onChange(event) {
+                return setfechaHastaSelectAuditoria(event.target.value);
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "btn btn-success",
+              onClick: function onClick() {
+                return getBancosData();
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                className: "fa fa-search"
+              })
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+          className: "table",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "BANCO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "FECHA"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                className: "bg-success-light",
+                children: "CUADRE REAL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "SALDO INCIAL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "INGRESO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                children: "EGRESO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                className: "bg-success-light",
+                children: "CUADRE DIGITAL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                className: "text-right",
+                children: "CONCILIACI\xD3N"
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
+            children: bancosdata.xfechaCuadre.map(function (e, i) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                onClick: function onClick() {
+                  return selectConciliacion(e.banco, e.fecha);
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                    className: "btn w-100 fw-bolder",
+                    style: {
+                      backgroundColor: colors[e.banco] ? colors[e.banco][0] : "",
+                      color: colors[e.banco] ? colors[e.banco][1] : ""
+                    },
+                    onClick: function onClick() {
+                      return selectxMovimientos("banco", e.banco);
+                    },
+                    children: e.banco
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  children: e.fecha
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: "bg-success-light",
+                  children: selectConciliacionData == e.banco + "-" + e.fecha ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                    className: "input-group",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                      type: "text",
+                      placeholder: "Saldo ACTUAL",
+                      size: 5,
+                      className: "form-control",
+                      value: saldoactualbancofecha,
+                      onChange: function onChange(event) {
+                        return setsaldoactualbancofecha(event.target.value);
+                      }
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                      className: "btn btn-warning",
+                      onClick: function onClick() {
+                        return sendsaldoactualbancofecha(e.banco, e.fecha);
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                        className: "fa fa-send"
+                      })
+                    })]
+                  }) : e.guardado ? moneda(e.guardado.saldo) : "----"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: "bg-warning-light",
+                  children: moneda(e.inicial)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: "bg-success-light",
+                  children: moneda(e.ingreso)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: "bg-danger-light",
+                  children: moneda(e.egreso)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: "bg-success-light",
+                  children: moneda(e.balance)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: (e.cuadre > -0.1 && e.cuadre < 0.1 ? "bg-success text-light" : "bg-danger text-light") + " fs-3 text-right",
+                  children: moneda(e.cuadre)
+                })]
+              }, i);
+            })
+          })]
+        })]
+      }) : null]
+    }) : null, subviewAuditoriaGeneral == "efectivo" ? null : null, subviewAuditoriaGeneral == "aprobtransferencia" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "container",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_panel_fechasmain__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          fechasMain1: fechasMain1,
+          fechasMain2: fechasMain2,
+          setfechasMain1: setfechasMain1,
+          setfechasMain2: setfechasMain2
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "input-group mb-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+              className: "form-control",
+              onChange: function onChange(e) {
+                return setsucursalSelect(e.target.value);
+              },
+              value: sucursalSelect === null ? "" : sucursalSelect,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                value: "",
+                children: "-TODAS SUCURSALES-"
+              }), sucursales.map(function (e) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: e.id,
+                  children: e.codigo
+                }, e.id);
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "input-group-prepend",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                className: "btn btn-" + (qestatusaprobaciocaja == 0 ? "sinapsis" : ""),
+                onClick: function onClick(e) {
+                  return setqestatusaprobaciocaja(0);
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: "fa fa-clock-o"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                className: "btn btn-" + (qestatusaprobaciocaja == 1 ? "success" : ""),
+                onClick: function onClick(e) {
+                  return setqestatusaprobaciocaja(1);
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: "fa fa-check"
+                })
+              })]
+            })]
+          }), sucursalDetallesData.aprobaciontransferenciasdata ? sucursalDetallesData.aprobaciontransferenciasdata.length ? sucursalDetallesData.aprobaciontransferenciasdata.map(function (e, i) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: (!e.estatus ? "bg-sinapsis-light" : "bg-light") + " text-secondary card mb-3 pointer shadow",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "card-header flex-row justify-content-between",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                  className: "d-flex justify-content-between",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                    className: "w-50",
+                    children: ["SOLICITA ", e.sucursal.codigo]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                    className: "w-50 text-right",
+                    children: e.saldo != 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                        className: "h6 text-muted font-italic fs-3",
+                        children: ["Monto $ ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
+                          children: moneda(e.saldo)
+                        })]
+                      })
+                    }) : null
+                  })]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "text-center",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  className: "card-title ",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("small", {
+                    className: "fst-italic fs-2",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
+                      children: e.loteserial
+                    }), " (", e.banco, ")"]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {})]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "card-body d-flex justify-content-between",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                  className: "btn btn-sm btn-danger",
+                  onClick: function onClick() {
+                    return aprobarTransferenciaFun(e.id, "delete");
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                    className: "fa fa-times"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                  className: "btn btn-sm btn-success",
+                  onClick: function onClick() {
+                    return aprobarTransferenciaFun(e.id, "aprobar");
+                  },
+                  children: [e.estatus == 0 ? "APROBAR" : "REVERSAR", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                    className: "fa fa-check"
+                  })]
+                })]
+              })]
+            }, e.id);
+          }) : null : null]
+        })]
+      })
     }) : null]
   });
 }
@@ -8379,6 +8525,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function PanelSucursales(_ref) {
   var children = _ref.children,
     sucursales = _ref.sucursales,
@@ -8423,7 +8570,8 @@ function PanelSucursales(_ref) {
     SaldoActualSelectAuditoria = _ref.SaldoActualSelectAuditoria,
     setSaldoActualSelectAuditoria = _ref.setSaldoActualSelectAuditoria,
     getCatGeneralFun = _ref.getCatGeneralFun,
-    getCatCajas = _ref.getCatCajas;
+    getCatCajas = _ref.getCatCajas,
+    user = _ref.user;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getSucursales();
   }, []);
@@ -8472,61 +8620,67 @@ function PanelSucursales(_ref) {
           className: "col table-responsive mb-2 pb-2 pt-2 d-flex justify-content-center",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
             className: "btn-group w-100",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
-              className: "btn btn" + (subviewpanelsucursales == "resumencierres" ? "" : "-outline") + "-success",
-              onClick: function onClick() {
-                return setsubviewpanelsucursales("resumencierres");
-              },
-              children: "RESUMEN"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
-              className: "btn btn" + (subviewpanelsucursales == "cierres" ? "" : "-outline") + "-success",
-              onClick: function onClick() {
-                return setsubviewpanelsucursales("cierres");
-              },
-              children: "Cierres"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
-              className: "btn btn" + (subviewpanelsucursales == "controldeefectivo" ? "" : "-outline") + "-success",
-              onClick: function onClick() {
-                return setsubviewpanelsucursales("controldeefectivo");
-              },
-              children: "Efectivo"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
-              className: "btn btn" + (subviewpanelsucursales == "puntosyseriales" ? "" : "-outline") + "-success",
-              onClick: function onClick() {
-                return setsubviewpanelsucursales("puntosyseriales");
-              },
-              children: "PagoElectr\xF3nicos"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
-              className: "btn btn" + (subviewpanelsucursales == "creditos" ? "" : "-outline") + "-success",
-              onClick: function onClick() {
-                return setsubviewpanelsucursales("creditos");
-              },
-              children: "Cr\xE9ditos"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
-              className: "btn btn" + (subviewpanelsucursales == "inventario" ? "" : "-outline") + "-sinapsis",
-              onClick: function onClick() {
-                return setsubviewpanelsucursales("inventario");
-              },
-              children: "Inventario"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
-              className: "btn btn" + (subviewpanelsucursales == "estadisticas" ? "" : "-outline") + "-sinapsis",
-              onClick: function onClick() {
-                return setsubviewpanelsucursales("estadisticas");
-              },
-              children: "Estad\xEDsticas"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
-              className: "btn btn" + (subviewpanelsucursales == "fallas" ? "" : "-outline") + "-danger",
-              onClick: function onClick() {
-                return setsubviewpanelsucursales("fallas");
-              },
-              children: "Fallas"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
-              className: "btn btn" + (subviewpanelsucursales == "nomina" ? "" : "-outline") + "-info",
-              onClick: function onClick() {
-                return setsubviewpanelsucursales("nomina");
-              },
-              children: " N\xF3mina "
-            })]
+            children: [user.tipo_usuario == 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
+                className: "btn btn" + (subviewpanelsucursales == "resumencierres" ? "" : "-outline") + "-success",
+                onClick: function onClick() {
+                  return setsubviewpanelsucursales("resumencierres");
+                },
+                children: "RESUMEN"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
+                className: "btn btn" + (subviewpanelsucursales == "cierres" ? "" : "-outline") + "-success",
+                onClick: function onClick() {
+                  return setsubviewpanelsucursales("cierres");
+                },
+                children: "Cierres"
+              })]
+            }) : null, user.tipo_usuario == 4 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
+                className: "btn btn" + (subviewpanelsucursales == "controldeefectivo" ? "" : "-outline") + "-success",
+                onClick: function onClick() {
+                  return setsubviewpanelsucursales("controldeefectivo");
+                },
+                children: "Efectivo"
+              })
+            }) : null, user.tipo_usuario == 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
+                className: "btn btn" + (subviewpanelsucursales == "puntosyseriales" ? "" : "-outline") + "-success",
+                onClick: function onClick() {
+                  return setsubviewpanelsucursales("puntosyseriales");
+                },
+                children: "PagoElectr\xF3nicos"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
+                className: "btn btn" + (subviewpanelsucursales == "creditos" ? "" : "-outline") + "-success",
+                onClick: function onClick() {
+                  return setsubviewpanelsucursales("creditos");
+                },
+                children: "Cr\xE9ditos"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
+                className: "btn btn" + (subviewpanelsucursales == "inventario" ? "" : "-outline") + "-sinapsis",
+                onClick: function onClick() {
+                  return setsubviewpanelsucursales("inventario");
+                },
+                children: "Inventario"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
+                className: "btn btn" + (subviewpanelsucursales == "estadisticas" ? "" : "-outline") + "-sinapsis",
+                onClick: function onClick() {
+                  return setsubviewpanelsucursales("estadisticas");
+                },
+                children: "Estad\xEDsticas"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
+                className: "btn btn" + (subviewpanelsucursales == "fallas" ? "" : "-outline") + "-danger",
+                onClick: function onClick() {
+                  return setsubviewpanelsucursales("fallas");
+                },
+                children: "Fallas"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
+                className: "btn btn" + (subviewpanelsucursales == "nomina" ? "" : "-outline") + "-info",
+                onClick: function onClick() {
+                  return setsubviewpanelsucursales("nomina");
+                },
+                children: " N\xF3mina "
+              })]
+            }) : null]
           })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
@@ -13981,6 +14135,9 @@ var db = (_db = {
   },
   aprobarCreditoFun: function aprobarCreditoFun(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "aprobarCreditoFun", data);
+  },
+  aprobarTransferenciaFun: function aprobarTransferenciaFun(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "aprobarTransferenciaFun", data);
   },
   getDatinputSelectVinculacion: function getDatinputSelectVinculacion(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getDatinputSelectVinculacion", data);
@@ -64865,6 +65022,12 @@ function Home() {
     notificar(res);
     if (res.data) {
       setLoginActive(res.data.estado);
+      setuser({
+        id_usuario: res.data.id_usuario,
+        tipo_usuario: res.data.tipo_usuario,
+        usuario: res.data.usuario,
+        nombre: res.data.nombre
+      });
     }
   };
   var notificar = function notificar(msj) {
@@ -65431,245 +65594,261 @@ function Home() {
       });
     }
   };
+  var aprobarTransferenciaFun = function aprobarTransferenciaFun(id, tipo) {
+    if (confirm("Confirma (" + tipo + ")")) {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].aprobarTransferenciaFun({
+        tipo: tipo,
+        id: id
+      }).then(function (res) {
+        notificar(res.data);
+        getsucursalDetallesData();
+      });
+    }
+  };
   var _useState329 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("cuadre"),
     _useState330 = _slicedToArray(_useState329, 2),
     subviewAuditoria = _useState330[0],
     setsubviewAuditoria = _useState330[1];
-  var _useState331 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+  var _useState331 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState332 = _slicedToArray(_useState331, 2),
-    selectCuentaPorPagarId = _useState332[0],
-    setSelectCuentaPorPagarId = _useState332[1];
-  var _useState333 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    subviewAuditoriaGeneral = _useState332[0],
+    setsubviewAuditoriaGeneral = _useState332[1]; //efectivo banco transferencias 
+
+  var _useState333 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
     _useState334 = _slicedToArray(_useState333, 2),
-    qcuentasPorPagarDetalles = _useState334[0],
-    setqcuentasPorPagarDetalles = _useState334[1];
+    selectCuentaPorPagarId = _useState334[0],
+    setSelectCuentaPorPagarId = _useState334[1];
   var _useState335 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState336 = _slicedToArray(_useState335, 2),
-    qcuentasPorPagarTipoFact = _useState336[0],
-    setqcuentasPorPagarTipoFact = _useState336[1];
-  var _useState337 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("updated_at"),
+    qcuentasPorPagarDetalles = _useState336[0],
+    setqcuentasPorPagarDetalles = _useState336[1];
+  var _useState337 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState338 = _slicedToArray(_useState337, 2),
-    qCampocuentasPorPagarDetalles = _useState338[0],
-    setqCampocuentasPorPagarDetalles = _useState338[1];
-  var _useState339 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    qcuentasPorPagarTipoFact = _useState338[0],
+    setqcuentasPorPagarTipoFact = _useState338[1];
+  var _useState339 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("updated_at"),
     _useState340 = _slicedToArray(_useState339, 2),
-    qFechaCampocuentasPorPagarDetalles = _useState340[0],
-    setqFechaCampocuentasPorPagarDetalles = _useState340[1];
+    qCampocuentasPorPagarDetalles = _useState340[0],
+    setqCampocuentasPorPagarDetalles = _useState340[1];
   var _useState341 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState342 = _slicedToArray(_useState341, 2),
-    fechacuentasPorPagarDetalles = _useState342[0],
-    setfechacuentasPorPagarDetalles = _useState342[1];
+    qFechaCampocuentasPorPagarDetalles = _useState342[0],
+    setqFechaCampocuentasPorPagarDetalles = _useState342[1];
   var _useState343 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState344 = _slicedToArray(_useState343, 2),
-    categoriacuentasPorPagarDetalles = _useState344[0],
-    setcategoriacuentasPorPagarDetalles = _useState344[1];
+    fechacuentasPorPagarDetalles = _useState344[0],
+    setfechacuentasPorPagarDetalles = _useState344[1];
   var _useState345 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState346 = _slicedToArray(_useState345, 2),
-    tipocuentasPorPagarDetalles = _useState346[0],
-    settipocuentasPorPagarDetalles = _useState346[1];
-  var _useState347 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
+    categoriacuentasPorPagarDetalles = _useState346[0],
+    setcategoriacuentasPorPagarDetalles = _useState346[1];
+  var _useState347 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState348 = _slicedToArray(_useState347, 2),
-    OrdercuentasPorPagarDetalles = _useState348[0],
-    setOrdercuentasPorPagarDetalles = _useState348[1];
+    tipocuentasPorPagarDetalles = _useState348[0],
+    settipocuentasPorPagarDetalles = _useState348[1];
   var _useState349 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
     _useState350 = _slicedToArray(_useState349, 2),
-    OrderFechacuentasPorPagarDetalles = _useState350[0],
-    setOrderFechacuentasPorPagarDetalles = _useState350[1];
-  var _useState351 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    OrdercuentasPorPagarDetalles = _useState350[0],
+    setOrdercuentasPorPagarDetalles = _useState350[1];
+  var _useState351 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
     _useState352 = _slicedToArray(_useState351, 2),
-    SelectCuentaPorPagarDetalle = _useState352[0],
-    setSelectCuentaPorPagarDetalle = _useState352[1];
-  var _useState353 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    OrderFechacuentasPorPagarDetalles = _useState352[0],
+    setOrderFechacuentasPorPagarDetalles = _useState352[1];
+  var _useState353 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
     _useState354 = _slicedToArray(_useState353, 2),
-    selectFactPagoArr = _useState354[0],
-    setselectFactPagoArr = _useState354[1];
-  var _useState355 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("pago"),
+    SelectCuentaPorPagarDetalle = _useState354[0],
+    setSelectCuentaPorPagarDetalle = _useState354[1];
+  var _useState355 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState356 = _slicedToArray(_useState355, 2),
-    subviewAgregarFactPago = _useState356[0],
-    setsubviewAgregarFactPago = _useState356[1];
-  var _useState357 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    selectFactPagoArr = _useState356[0],
+    setselectFactPagoArr = _useState356[1];
+  var _useState357 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("pago"),
     _useState358 = _slicedToArray(_useState357, 2),
-    sucursalcuentasPorPagarDetalles = _useState358[0],
-    setsucursalcuentasPorPagarDetalles = _useState358[1];
-  var _useState359 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    subviewAgregarFactPago = _useState358[0],
+    setsubviewAgregarFactPago = _useState358[1];
+  var _useState359 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState360 = _slicedToArray(_useState359, 2),
-    selectFactPagoid = _useState360[0],
-    setselectFactPagoid = _useState360[1];
+    sucursalcuentasPorPagarDetalles = _useState360[0],
+    setsucursalcuentasPorPagarDetalles = _useState360[1];
   var _useState361 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
     _useState362 = _slicedToArray(_useState361, 2),
-    selectFactPagoid_sucursal = _useState362[0],
-    setselectFactPagoid_sucursal = _useState362[1];
-  var _useState363 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    selectFactPagoid = _useState362[0],
+    setselectFactPagoid = _useState362[1];
+  var _useState363 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
     _useState364 = _slicedToArray(_useState363, 2),
-    montobs1PagoFact = _useState364[0],
-    setmontobs1PagoFact = _useState364[1];
+    selectFactPagoid_sucursal = _useState364[0],
+    setselectFactPagoid_sucursal = _useState364[1];
   var _useState365 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState366 = _slicedToArray(_useState365, 2),
-    tasabs1PagoFact = _useState366[0],
-    settasabs1PagoFact = _useState366[1];
+    montobs1PagoFact = _useState366[0],
+    setmontobs1PagoFact = _useState366[1];
   var _useState367 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState368 = _slicedToArray(_useState367, 2),
-    metodobs1PagoFact = _useState368[0],
-    setmetodobs1PagoFact = _useState368[1];
+    tasabs1PagoFact = _useState368[0],
+    settasabs1PagoFact = _useState368[1];
   var _useState369 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState370 = _slicedToArray(_useState369, 2),
-    montobs2PagoFact = _useState370[0],
-    setmontobs2PagoFact = _useState370[1];
+    metodobs1PagoFact = _useState370[0],
+    setmetodobs1PagoFact = _useState370[1];
   var _useState371 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState372 = _slicedToArray(_useState371, 2),
-    tasabs2PagoFact = _useState372[0],
-    settasabs2PagoFact = _useState372[1];
+    montobs2PagoFact = _useState372[0],
+    setmontobs2PagoFact = _useState372[1];
   var _useState373 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState374 = _slicedToArray(_useState373, 2),
-    metodobs2PagoFact = _useState374[0],
-    setmetodobs2PagoFact = _useState374[1];
+    tasabs2PagoFact = _useState374[0],
+    settasabs2PagoFact = _useState374[1];
   var _useState375 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState376 = _slicedToArray(_useState375, 2),
-    montobs3PagoFact = _useState376[0],
-    setmontobs3PagoFact = _useState376[1];
+    metodobs2PagoFact = _useState376[0],
+    setmetodobs2PagoFact = _useState376[1];
   var _useState377 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState378 = _slicedToArray(_useState377, 2),
-    tasabs3PagoFact = _useState378[0],
-    settasabs3PagoFact = _useState378[1];
+    montobs3PagoFact = _useState378[0],
+    setmontobs3PagoFact = _useState378[1];
   var _useState379 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState380 = _slicedToArray(_useState379, 2),
-    metodobs3PagoFact = _useState380[0],
-    setmetodobs3PagoFact = _useState380[1];
+    tasabs3PagoFact = _useState380[0],
+    settasabs3PagoFact = _useState380[1];
   var _useState381 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState382 = _slicedToArray(_useState381, 2),
-    montobs4PagoFact = _useState382[0],
-    setmontobs4PagoFact = _useState382[1];
+    metodobs3PagoFact = _useState382[0],
+    setmetodobs3PagoFact = _useState382[1];
   var _useState383 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState384 = _slicedToArray(_useState383, 2),
-    tasabs4PagoFact = _useState384[0],
-    settasabs4PagoFact = _useState384[1];
+    montobs4PagoFact = _useState384[0],
+    setmontobs4PagoFact = _useState384[1];
   var _useState385 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState386 = _slicedToArray(_useState385, 2),
-    metodobs4PagoFact = _useState386[0],
-    setmetodobs4PagoFact = _useState386[1];
+    tasabs4PagoFact = _useState386[0],
+    settasabs4PagoFact = _useState386[1];
   var _useState387 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState388 = _slicedToArray(_useState387, 2),
-    montobs5PagoFact = _useState388[0],
-    setmontobs5PagoFact = _useState388[1];
+    metodobs4PagoFact = _useState388[0],
+    setmetodobs4PagoFact = _useState388[1];
   var _useState389 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState390 = _slicedToArray(_useState389, 2),
-    tasabs5PagoFact = _useState390[0],
-    settasabs5PagoFact = _useState390[1];
+    montobs5PagoFact = _useState390[0],
+    setmontobs5PagoFact = _useState390[1];
   var _useState391 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState392 = _slicedToArray(_useState391, 2),
-    metodobs5PagoFact = _useState392[0],
-    setmetodobs5PagoFact = _useState392[1];
+    tasabs5PagoFact = _useState392[0],
+    settasabs5PagoFact = _useState392[1];
   var _useState393 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState394 = _slicedToArray(_useState393, 2),
-    refbs1PagoFact = _useState394[0],
-    setrefbs1PagoFact = _useState394[1];
+    metodobs5PagoFact = _useState394[0],
+    setmetodobs5PagoFact = _useState394[1];
   var _useState395 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState396 = _slicedToArray(_useState395, 2),
-    refbs2PagoFact = _useState396[0],
-    setrefbs2PagoFact = _useState396[1];
+    refbs1PagoFact = _useState396[0],
+    setrefbs1PagoFact = _useState396[1];
   var _useState397 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState398 = _slicedToArray(_useState397, 2),
-    refbs3PagoFact = _useState398[0],
-    setrefbs3PagoFact = _useState398[1];
+    refbs2PagoFact = _useState398[0],
+    setrefbs2PagoFact = _useState398[1];
   var _useState399 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState400 = _slicedToArray(_useState399, 2),
-    refbs4PagoFact = _useState400[0],
-    setrefbs4PagoFact = _useState400[1];
+    refbs3PagoFact = _useState400[0],
+    setrefbs3PagoFact = _useState400[1];
   var _useState401 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState402 = _slicedToArray(_useState401, 2),
-    refbs5PagoFact = _useState402[0],
-    setrefbs5PagoFact = _useState402[1];
+    refbs4PagoFact = _useState402[0],
+    setrefbs4PagoFact = _useState402[1];
   var _useState403 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState404 = _slicedToArray(_useState403, 2),
-    newfactid_proveedor = _useState404[0],
-    setnewfactid_proveedor = _useState404[1];
+    refbs5PagoFact = _useState404[0],
+    setrefbs5PagoFact = _useState404[1];
   var _useState405 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState406 = _slicedToArray(_useState405, 2),
-    newfactnumfact = _useState406[0],
-    setnewfactnumfact = _useState406[1];
+    newfactid_proveedor = _useState406[0],
+    setnewfactid_proveedor = _useState406[1];
   var _useState407 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState408 = _slicedToArray(_useState407, 2),
-    newfactnumnota = _useState408[0],
-    setnewfactnumnota = _useState408[1];
+    newfactnumfact = _useState408[0],
+    setnewfactnumfact = _useState408[1];
   var _useState409 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState410 = _slicedToArray(_useState409, 2),
-    newfactdescripcion = _useState410[0],
-    setnewfactdescripcion = _useState410[1];
+    newfactnumnota = _useState410[0],
+    setnewfactnumnota = _useState410[1];
   var _useState411 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState412 = _slicedToArray(_useState411, 2),
-    newfactsucursal = _useState412[0],
-    setnewfactsucursal = _useState412[1];
+    newfactdescripcion = _useState412[0],
+    setnewfactdescripcion = _useState412[1];
   var _useState413 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState414 = _slicedToArray(_useState413, 2),
-    newfactsubtotal = _useState414[0],
-    setnewfactsubtotal = _useState414[1];
+    newfactsucursal = _useState414[0],
+    setnewfactsucursal = _useState414[1];
   var _useState415 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState416 = _slicedToArray(_useState415, 2),
-    newfactdescuento = _useState416[0],
-    setnewfactdescuento = _useState416[1];
+    newfactsubtotal = _useState416[0],
+    setnewfactsubtotal = _useState416[1];
   var _useState417 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState418 = _slicedToArray(_useState417, 2),
-    newfactmonto_exento = _useState418[0],
-    setnewfactmonto_exento = _useState418[1];
+    newfactdescuento = _useState418[0],
+    setnewfactdescuento = _useState418[1];
   var _useState419 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState420 = _slicedToArray(_useState419, 2),
-    newfactmonto_gravable = _useState420[0],
-    setnewfactmonto_gravable = _useState420[1];
+    newfactmonto_exento = _useState420[0],
+    setnewfactmonto_exento = _useState420[1];
   var _useState421 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState422 = _slicedToArray(_useState421, 2),
-    newfactiva = _useState422[0],
-    setnewfactiva = _useState422[1];
+    newfactmonto_gravable = _useState422[0],
+    setnewfactmonto_gravable = _useState422[1];
   var _useState423 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState424 = _slicedToArray(_useState423, 2),
-    newfactmonto = _useState424[0],
-    setnewfactmonto = _useState424[1];
+    newfactiva = _useState424[0],
+    setnewfactiva = _useState424[1];
   var _useState425 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState426 = _slicedToArray(_useState425, 2),
-    newfactfechaemision = _useState426[0],
-    setnewfactfechaemision = _useState426[1];
+    newfactmonto = _useState426[0],
+    setnewfactmonto = _useState426[1];
   var _useState427 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState428 = _slicedToArray(_useState427, 2),
-    newfactfechavencimiento = _useState428[0],
-    setnewfactfechavencimiento = _useState428[1];
+    newfactfechaemision = _useState428[0],
+    setnewfactfechaemision = _useState428[1];
   var _useState429 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState430 = _slicedToArray(_useState429, 2),
-    newfactfecharecepcion = _useState430[0],
-    setnewfactfecharecepcion = _useState430[1];
+    newfactfechavencimiento = _useState430[0],
+    setnewfactfechavencimiento = _useState430[1];
   var _useState431 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState432 = _slicedToArray(_useState431, 2),
-    newfactnota = _useState432[0],
-    setnewfactnota = _useState432[1];
-  var _useState433 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("1"),
+    newfactfecharecepcion = _useState432[0],
+    setnewfactfecharecepcion = _useState432[1];
+  var _useState433 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState434 = _slicedToArray(_useState433, 2),
-    newfacttipo = _useState434[0],
-    setnewfacttipo = _useState434[1];
-  var _useState435 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    newfactnota = _useState434[0],
+    setnewfactnota = _useState434[1];
+  var _useState435 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("1"),
     _useState436 = _slicedToArray(_useState435, 2),
-    newfactfrecuencia = _useState436[0],
-    setnewfactfrecuencia = _useState436[1];
-  var _useState437 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    newfacttipo = _useState436[0],
+    setnewfacttipo = _useState436[1];
+  var _useState437 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState438 = _slicedToArray(_useState437, 2),
-    selectFactEdit = _useState438[0],
-    setselectFactEdit = _useState438[1];
-  var _useState439 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    newfactfrecuencia = _useState438[0],
+    setnewfactfrecuencia = _useState438[1];
+  var _useState439 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
     _useState440 = _slicedToArray(_useState439, 2),
-    selectProveedorCxp = _useState440[0],
-    setselectProveedorCxp = _useState440[1];
-  var _useState441 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(1),
+    selectFactEdit = _useState440[0],
+    setselectFactEdit = _useState440[1];
+  var _useState441 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState442 = _slicedToArray(_useState441, 2),
-    cuentaporpagarAprobado = _useState442[0],
-    setcuentaporpagarAprobado = _useState442[1];
-  var _useState443 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    selectProveedorCxp = _useState442[0],
+    setselectProveedorCxp = _useState442[1];
+  var _useState443 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(1),
     _useState444 = _slicedToArray(_useState443, 2),
-    efectivoDisponibleSucursalesData = _useState444[0],
-    setefectivoDisponibleSucursalesData = _useState444[1];
-  var _useState445 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    cuentaporpagarAprobado = _useState444[0],
+    setcuentaporpagarAprobado = _useState444[1];
+  var _useState445 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState446 = _slicedToArray(_useState445, 2),
+    efectivoDisponibleSucursalesData = _useState446[0],
+    setefectivoDisponibleSucursalesData = _useState446[1];
+  var _useState447 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
       "sum": 0,
       "data": []
     }),
-    _useState446 = _slicedToArray(_useState445, 2),
-    dataselectFacts = _useState446[0],
-    setdataselectFacts = _useState446[1];
+    _useState448 = _slicedToArray(_useState447, 2),
+    dataselectFacts = _useState448[0],
+    setdataselectFacts = _useState448[1];
   var getDisponibleEfectivoSucursal = function getDisponibleEfectivoSucursal() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getDisponibleEfectivoSucursal({}).then(function (res) {
       if (res.data.data.length) {
@@ -65679,10 +65858,10 @@ function Home() {
       }
     });
   };
-  var _useState447 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState448 = _slicedToArray(_useState447, 2),
-    descuentoGeneralFats = _useState448[0],
-    setdescuentoGeneralFats = _useState448[1];
+  var _useState449 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState450 = _slicedToArray(_useState449, 2),
+    descuentoGeneralFats = _useState450[0],
+    setdescuentoGeneralFats = _useState450[1];
   var sendDescuentoGeneralFats = function sendDescuentoGeneralFats() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].sendDescuentoGeneralFats({
       dataselectFacts: dataselectFacts.data,
@@ -66296,10 +66475,10 @@ function Home() {
       setprecioxproveedor(res.data);
     });
   };
-  var _useState449 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-    _useState450 = _slicedToArray(_useState449, 2),
-    selectAbonoFact = _useState450[0],
-    setselectAbonoFact = _useState450[1];
+  var _useState451 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState452 = _slicedToArray(_useState451, 2),
+    selectAbonoFact = _useState452[0],
+    setselectAbonoFact = _useState452[1];
   var setInputAbonoFact = function setInputAbonoFact(id, val) {
     var selectAbonoFactClone = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.cloneDeep)(selectAbonoFact);
     if (selectAbonoFactClone.concat(selectCuentaPorPagarId ? selectCuentaPorPagarId.detalles ? selectCuentaPorPagarId.detalles : [] : [])) {
@@ -66464,22 +66643,22 @@ function Home() {
 
   /////Marcas 
 
-  var _useState451 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState452 = _slicedToArray(_useState451, 2),
-    qBuscarMarcas = _useState452[0],
-    setQBuscarMarcas = _useState452[1];
-  var _useState453 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState453 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState454 = _slicedToArray(_useState453, 2),
-    marcas = _useState454[0],
-    setmarcas = _useState454[1];
-  var _useState455 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    qBuscarMarcas = _useState454[0],
+    setQBuscarMarcas = _useState454[1];
+  var _useState455 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState456 = _slicedToArray(_useState455, 2),
-    marcasDescripcion = _useState456[0],
-    setmarcasDescripcion = _useState456[1];
-  var _useState457 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    marcas = _useState456[0],
+    setmarcas = _useState456[1];
+  var _useState457 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState458 = _slicedToArray(_useState457, 2),
-    indexSelectMarcas = _useState458[0],
-    setIndexSelectMarcas = _useState458[1];
+    marcasDescripcion = _useState458[0],
+    setmarcasDescripcion = _useState458[1];
+  var _useState459 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    _useState460 = _slicedToArray(_useState459, 2),
+    indexSelectMarcas = _useState460[0],
+    setIndexSelectMarcas = _useState460[1];
   var delMarcas = function delMarcas() {
     setLoading(true);
     var id = null;
@@ -66535,22 +66714,22 @@ function Home() {
 
   /////Categorias 
 
-  var _useState459 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState460 = _slicedToArray(_useState459, 2),
-    qBuscarCategorias = _useState460[0],
-    setQBuscarCategorias = _useState460[1];
-  var _useState461 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState461 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState462 = _slicedToArray(_useState461, 2),
-    categorias = _useState462[0],
-    setcategorias = _useState462[1];
-  var _useState463 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    qBuscarCategorias = _useState462[0],
+    setQBuscarCategorias = _useState462[1];
+  var _useState463 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState464 = _slicedToArray(_useState463, 2),
-    categoriasDescripcion = _useState464[0],
-    setcategoriasDescripcion = _useState464[1];
-  var _useState465 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    categorias = _useState464[0],
+    setcategorias = _useState464[1];
+  var _useState465 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState466 = _slicedToArray(_useState465, 2),
-    indexSelectCategorias = _useState466[0],
-    setIndexSelectCategorias = _useState466[1];
+    categoriasDescripcion = _useState466[0],
+    setcategoriasDescripcion = _useState466[1];
+  var _useState467 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    _useState468 = _slicedToArray(_useState467, 2),
+    indexSelectCategorias = _useState468[0],
+    setIndexSelectCategorias = _useState468[1];
   var delCategorias = function delCategorias() {
     setLoading(true);
     var id = null;
@@ -66614,22 +66793,22 @@ function Home() {
 
   /////CatGenerals 
 
-  var _useState467 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState468 = _slicedToArray(_useState467, 2),
-    qBuscarCatGenerals = _useState468[0],
-    setQBuscarCatGenerals = _useState468[1];
-  var _useState469 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState469 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState470 = _slicedToArray(_useState469, 2),
-    catGenerals = _useState470[0],
-    setcatGenerals = _useState470[1];
-  var _useState471 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    qBuscarCatGenerals = _useState470[0],
+    setQBuscarCatGenerals = _useState470[1];
+  var _useState471 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState472 = _slicedToArray(_useState471, 2),
-    catGeneralsDescripcion = _useState472[0],
-    setcatGeneralsDescripcion = _useState472[1];
-  var _useState473 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    catGenerals = _useState472[0],
+    setcatGenerals = _useState472[1];
+  var _useState473 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState474 = _slicedToArray(_useState473, 2),
-    indexSelectCatGenerals = _useState474[0],
-    setIndexSelectCatGenerals = _useState474[1];
+    catGeneralsDescripcion = _useState474[0],
+    setcatGeneralsDescripcion = _useState474[1];
+  var _useState475 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    _useState476 = _slicedToArray(_useState475, 2),
+    indexSelectCatGenerals = _useState476[0],
+    setIndexSelectCatGenerals = _useState476[1];
   var delCatGenerals = function delCatGenerals() {
     setLoading(true);
     var id = null;
@@ -66680,10 +66859,10 @@ function Home() {
       }
     });
   };
-  var _useState475 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-    _useState476 = _slicedToArray(_useState475, 2),
-    categoriasCajas = _useState476[0],
-    setcategoriasCajas = _useState476[1];
+  var _useState477 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState478 = _slicedToArray(_useState477, 2),
+    categoriasCajas = _useState478[0],
+    setcategoriasCajas = _useState478[1];
   var getCatCajas = function getCatCajas() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getCatCajas({}).then(function (res) {
       if (res.data.length) {
@@ -66779,74 +66958,74 @@ function Home() {
     route: "administracion",
     name: "ADMINISTRACIÓN"
   }];
-  var _useState477 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-    _useState478 = _slicedToArray(_useState477, 2),
-    opcionesMetodosPago = _useState478[0],
-    setopcionesMetodosPago = _useState478[1];
   var _useState479 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState480 = _slicedToArray(_useState479, 2),
-    bancosdata = _useState480[0],
-    setbancosdata = _useState480[1];
-  var _useState481 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    opcionesMetodosPago = _useState480[0],
+    setopcionesMetodosPago = _useState480[1];
+  var _useState481 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState482 = _slicedToArray(_useState481, 2),
-    fechaSelectAuditoria = _useState482[0],
-    setfechaSelectAuditoria = _useState482[1];
+    bancosdata = _useState482[0],
+    setbancosdata = _useState482[1];
   var _useState483 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState484 = _slicedToArray(_useState483, 2),
-    fechaHastaSelectAuditoria = _useState484[0],
-    setfechaHastaSelectAuditoria = _useState484[1];
+    fechaSelectAuditoria = _useState484[0],
+    setfechaSelectAuditoria = _useState484[1];
   var _useState485 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState486 = _slicedToArray(_useState485, 2),
-    bancoSelectAuditoria = _useState486[0],
-    setbancoSelectAuditoria = _useState486[1];
+    fechaHastaSelectAuditoria = _useState486[0],
+    setfechaHastaSelectAuditoria = _useState486[1];
   var _useState487 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState488 = _slicedToArray(_useState487, 2),
-    sucursalSelectAuditoria = _useState488[0],
-    setsucursalSelectAuditoria = _useState488[1];
-  var _useState489 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    bancoSelectAuditoria = _useState488[0],
+    setbancoSelectAuditoria = _useState488[1];
+  var _useState489 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState490 = _slicedToArray(_useState489, 2),
-    qdescripcionbancosdata = _useState490[0],
-    setqdescripcionbancosdata = _useState490[1];
-  var _useState491 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    sucursalSelectAuditoria = _useState490[0],
+    setsucursalSelectAuditoria = _useState490[1];
+  var _useState491 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState492 = _slicedToArray(_useState491, 2),
-    SaldoInicialSelectAuditoria = _useState492[0],
-    setSaldoInicialSelectAuditoria = _useState492[1];
+    qdescripcionbancosdata = _useState492[0],
+    setqdescripcionbancosdata = _useState492[1];
   var _useState493 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState494 = _slicedToArray(_useState493, 2),
-    SaldoActualSelectAuditoria = _useState494[0],
-    setSaldoActualSelectAuditoria = _useState494[1];
-  var _useState495 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    SaldoInicialSelectAuditoria = _useState494[0],
+    setSaldoInicialSelectAuditoria = _useState494[1];
+  var _useState495 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState496 = _slicedToArray(_useState495, 2),
-    movimientoAuditoria = _useState496[0],
-    setmovimientoAuditoria = _useState496[1];
-  var _useState497 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    SaldoActualSelectAuditoria = _useState496[0],
+    setSaldoActualSelectAuditoria = _useState496[1];
+  var _useState497 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState498 = _slicedToArray(_useState497, 2),
-    selectTrLiquidar = _useState498[0],
-    setselectTrLiquidar = _useState498[1];
-  var _useState499 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    movimientoAuditoria = _useState498[0],
+    setmovimientoAuditoria = _useState498[1];
+  var _useState499 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
     _useState500 = _slicedToArray(_useState499, 2),
-    inpmontoLiquidar = _useState500[0],
-    setinpmontoLiquidar = _useState500[1];
+    selectTrLiquidar = _useState500[0],
+    setselectTrLiquidar = _useState500[1];
   var _useState501 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState502 = _slicedToArray(_useState501, 2),
-    inpfechaLiquidar = _useState502[0],
-    setinpfechaLiquidar = _useState502[1];
-  var _useState503 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
+    inpmontoLiquidar = _useState502[0],
+    setinpmontoLiquidar = _useState502[1];
+  var _useState503 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState504 = _slicedToArray(_useState503, 2),
-    orderAuditoria = _useState504[0],
-    setorderAuditoria = _useState504[1];
-  var _useState505 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("tipo"),
+    inpfechaLiquidar = _useState504[0],
+    setinpfechaLiquidar = _useState504[1];
+  var _useState505 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("desc"),
     _useState506 = _slicedToArray(_useState505, 2),
-    orderColumnAuditoria = _useState506[0],
-    setorderColumnAuditoria = _useState506[1];
-  var _useState507 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    orderAuditoria = _useState506[0],
+    setorderAuditoria = _useState506[1];
+  var _useState507 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("tipo"),
     _useState508 = _slicedToArray(_useState507, 2),
-    saldoactualbancofecha = _useState508[0],
-    setsaldoactualbancofecha = _useState508[1];
+    orderColumnAuditoria = _useState508[0],
+    setorderColumnAuditoria = _useState508[1];
   var _useState509 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState510 = _slicedToArray(_useState509, 2),
-    selectConciliacionData = _useState510[0],
-    setselectConciliacionData = _useState510[1];
+    saldoactualbancofecha = _useState510[0],
+    setsaldoactualbancofecha = _useState510[1];
+  var _useState511 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState512 = _slicedToArray(_useState511, 2),
+    selectConciliacionData = _useState512[0],
+    setselectConciliacionData = _useState512[1];
   var selectConciliacion = function selectConciliacion(banco, fecha) {
     setselectConciliacionData(banco + "-" + fecha);
     var fil = bancosdata.xfechaCuadre.filter(function (e) {
@@ -67014,94 +67193,94 @@ function Home() {
       });
     }
   };
-  var _useState511 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("dolar"),
-    _useState512 = _slicedToArray(_useState511, 2),
-    modeMoneda = _useState512[0],
-    setmodeMoneda = _useState512[1];
-  var _useState513 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("personal"),
+  var _useState513 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("dolar"),
     _useState514 = _slicedToArray(_useState513, 2),
-    modeEjecutor = _useState514[0],
-    setmodeEjecutor = _useState514[1];
-  var _useState515 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("disponible"),
+    modeMoneda = _useState514[0],
+    setmodeMoneda = _useState514[1];
+  var _useState515 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("personal"),
     _useState516 = _slicedToArray(_useState515, 2),
-    subViewCuentasxPagar = _useState516[0],
-    setsubViewCuentasxPagar = _useState516[1];
-  var _useState517 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    modeEjecutor = _useState516[0],
+    setmodeEjecutor = _useState516[1];
+  var _useState517 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("disponible"),
     _useState518 = _slicedToArray(_useState517, 2),
-    gastosData = _useState518[0],
-    setgastosData = _useState518[1];
-  var _useState519 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    subViewCuentasxPagar = _useState518[0],
+    setsubViewCuentasxPagar = _useState518[1];
+  var _useState519 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState520 = _slicedToArray(_useState519, 2),
-    gastosQ = _useState520[0],
-    setgastosQ = _useState520[1];
+    gastosData = _useState520[0],
+    setgastosData = _useState520[1];
   var _useState521 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState522 = _slicedToArray(_useState521, 2),
-    gastosQCategoria = _useState522[0],
-    setgastosQCategoria = _useState522[1];
+    gastosQ = _useState522[0],
+    setgastosQ = _useState522[1];
   var _useState523 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState524 = _slicedToArray(_useState523, 2),
-    gastosQFecha = _useState524[0],
-    setgastosQFecha = _useState524[1];
+    gastosQCategoria = _useState524[0],
+    setgastosQCategoria = _useState524[1];
   var _useState525 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState526 = _slicedToArray(_useState525, 2),
-    gastosQFechaHasta = _useState526[0],
-    setgastosQFechaHasta = _useState526[1];
+    gastosQFecha = _useState526[0],
+    setgastosQFecha = _useState526[1];
   var _useState527 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState528 = _slicedToArray(_useState527, 2),
-    gastosDescripcion = _useState528[0],
-    setgastosDescripcion = _useState528[1];
+    gastosQFechaHasta = _useState528[0],
+    setgastosQFechaHasta = _useState528[1];
   var _useState529 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState530 = _slicedToArray(_useState529, 2),
-    gastosMonto = _useState530[0],
-    setgastosMonto = _useState530[1];
+    gastosDescripcion = _useState530[0],
+    setgastosDescripcion = _useState530[1];
   var _useState531 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState532 = _slicedToArray(_useState531, 2),
-    gastosCategoria = _useState532[0],
-    setgastosCategoria = _useState532[1];
+    gastosMonto = _useState532[0],
+    setgastosMonto = _useState532[1];
   var _useState533 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState534 = _slicedToArray(_useState533, 2),
-    gastosBeneficiario = _useState534[0],
-    setgastosBeneficiario = _useState534[1];
+    gastosCategoria = _useState534[0],
+    setgastosCategoria = _useState534[1];
   var _useState535 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState536 = _slicedToArray(_useState535, 2),
-    gastosFecha = _useState536[0],
-    setgastosFecha = _useState536[1];
+    gastosBeneficiario = _useState536[0],
+    setgastosBeneficiario = _useState536[1];
   var _useState537 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState538 = _slicedToArray(_useState537, 2),
-    gastosBanco = _useState538[0],
-    setgastosBanco = _useState538[1];
+    gastosFecha = _useState538[0],
+    setgastosFecha = _useState538[1];
   var _useState539 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState540 = _slicedToArray(_useState539, 2),
-    gastosMonto_dolar = _useState540[0],
-    setgastosMonto_dolar = _useState540[1];
+    gastosBanco = _useState540[0],
+    setgastosBanco = _useState540[1];
   var _useState541 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState542 = _slicedToArray(_useState541, 2),
-    gastosTasa = _useState542[0],
-    setgastosTasa = _useState542[1];
-  var _useState543 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("cargar"),
+    gastosMonto_dolar = _useState542[0],
+    setgastosMonto_dolar = _useState542[1];
+  var _useState543 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState544 = _slicedToArray(_useState543, 2),
-    subviewGastos = _useState544[0],
-    setsubviewGastos = _useState544[1];
-  var _useState545 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    gastosTasa = _useState544[0],
+    setgastosTasa = _useState544[1];
+  var _useState545 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("cargar"),
     _useState546 = _slicedToArray(_useState545, 2),
-    selectIdGastos = _useState546[0],
-    setselectIdGastos = _useState546[1];
+    subviewGastos = _useState546[0],
+    setsubviewGastos = _useState546[1];
   var _useState547 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState548 = _slicedToArray(_useState547, 2),
-    qBeneficiario = _useState548[0],
-    setqBeneficiario = _useState548[1];
+    selectIdGastos = _useState548[0],
+    setselectIdGastos = _useState548[1];
   var _useState549 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState550 = _slicedToArray(_useState549, 2),
-    qSucursal = _useState550[0],
-    setqSucursal = _useState550[1];
+    qBeneficiario = _useState550[0],
+    setqBeneficiario = _useState550[1];
   var _useState551 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState552 = _slicedToArray(_useState551, 2),
-    qCatGastos = _useState552[0],
-    setqCatGastos = _useState552[1];
-  var _useState553 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    qSucursal = _useState552[0],
+    setqSucursal = _useState552[1];
+  var _useState553 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState554 = _slicedToArray(_useState553, 2),
-    listBeneficiario = _useState554[0],
-    setlistBeneficiario = _useState554[1];
+    qCatGastos = _useState554[0],
+    setqCatGastos = _useState554[1];
+  var _useState555 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState556 = _slicedToArray(_useState555, 2),
+    listBeneficiario = _useState556[0],
+    setlistBeneficiario = _useState556[1];
   var addBeneficiarioList = function addBeneficiarioList(type) {
     var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     var fil = [];
@@ -67205,130 +67384,130 @@ function Home() {
       setgastosBanco(dataFil.banco);
     }
   };
-  var _useState555 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-    _useState556 = _slicedToArray(_useState555, 2),
-    selectIdVinculacion = _useState556[0],
-    setselectIdVinculacion = _useState556[1];
-  var _useState557 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState557 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState558 = _slicedToArray(_useState557, 2),
-    qvinculacion1 = _useState558[0],
-    setqvinculacion1 = _useState558[1];
+    selectIdVinculacion = _useState558[0],
+    setselectIdVinculacion = _useState558[1];
   var _useState559 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState560 = _slicedToArray(_useState559, 2),
-    qvinculacion2 = _useState560[0],
-    setqvinculacion2 = _useState560[1];
+    qvinculacion1 = _useState560[0],
+    setqvinculacion1 = _useState560[1];
   var _useState561 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState562 = _slicedToArray(_useState561, 2),
-    qvinculacion3 = _useState562[0],
-    setqvinculacion3 = _useState562[1];
+    qvinculacion2 = _useState562[0],
+    setqvinculacion2 = _useState562[1];
   var _useState563 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState564 = _slicedToArray(_useState563, 2),
-    qvinculacion4 = _useState564[0],
-    setqvinculacion4 = _useState564[1];
+    qvinculacion3 = _useState564[0],
+    setqvinculacion3 = _useState564[1];
   var _useState565 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState566 = _slicedToArray(_useState565, 2),
-    qvinculacionmarca = _useState566[0],
-    setqvinculacionmarca = _useState566[1];
+    qvinculacion4 = _useState566[0],
+    setqvinculacion4 = _useState566[1];
   var _useState567 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState568 = _slicedToArray(_useState567, 2),
-    qvinculacion1General = _useState568[0],
-    setqvinculacion1General = _useState568[1];
+    qvinculacionmarca = _useState568[0],
+    setqvinculacionmarca = _useState568[1];
   var _useState569 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState570 = _slicedToArray(_useState569, 2),
-    qvinculacion2General = _useState570[0],
-    setqvinculacion2General = _useState570[1];
+    qvinculacion1General = _useState570[0],
+    setqvinculacion1General = _useState570[1];
   var _useState571 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState572 = _slicedToArray(_useState571, 2),
-    qvinculacion3General = _useState572[0],
-    setqvinculacion3General = _useState572[1];
+    qvinculacion2General = _useState572[0],
+    setqvinculacion2General = _useState572[1];
   var _useState573 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState574 = _slicedToArray(_useState573, 2),
-    qvinculacion4General = _useState574[0],
-    setqvinculacion4General = _useState574[1];
+    qvinculacion3General = _useState574[0],
+    setqvinculacion3General = _useState574[1];
   var _useState575 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState576 = _slicedToArray(_useState575, 2),
-    qvinculacionmarcaGeneral = _useState576[0],
-    setqvinculacionmarcaGeneral = _useState576[1];
-  var _useState577 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    qvinculacion4General = _useState576[0],
+    setqvinculacion4General = _useState576[1];
+  var _useState577 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState578 = _slicedToArray(_useState577, 2),
-    datavinculacion1 = _useState578[0],
-    setdatavinculacion1 = _useState578[1];
+    qvinculacionmarcaGeneral = _useState578[0],
+    setqvinculacionmarcaGeneral = _useState578[1];
   var _useState579 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState580 = _slicedToArray(_useState579, 2),
-    datavinculacion2 = _useState580[0],
-    setdatavinculacion2 = _useState580[1];
+    datavinculacion1 = _useState580[0],
+    setdatavinculacion1 = _useState580[1];
   var _useState581 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState582 = _slicedToArray(_useState581, 2),
-    datavinculacion3 = _useState582[0],
-    setdatavinculacion3 = _useState582[1];
+    datavinculacion2 = _useState582[0],
+    setdatavinculacion2 = _useState582[1];
   var _useState583 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState584 = _slicedToArray(_useState583, 2),
-    datavinculacion4 = _useState584[0],
-    setdatavinculacion4 = _useState584[1];
+    datavinculacion3 = _useState584[0],
+    setdatavinculacion3 = _useState584[1];
   var _useState585 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState586 = _slicedToArray(_useState585, 2),
-    datavinculacionmarca = _useState586[0],
-    setdatavinculacionmarca = _useState586[1];
-  var _useState587 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    datavinculacion4 = _useState586[0],
+    setdatavinculacion4 = _useState586[1];
+  var _useState587 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState588 = _slicedToArray(_useState587, 2),
-    inputselectvinculacion1 = _useState588[0],
-    setinputselectvinculacion1 = _useState588[1];
+    datavinculacionmarca = _useState588[0],
+    setdatavinculacionmarca = _useState588[1];
   var _useState589 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState590 = _slicedToArray(_useState589, 2),
-    inputselectvinculacion2 = _useState590[0],
-    setinputselectvinculacion2 = _useState590[1];
+    inputselectvinculacion1 = _useState590[0],
+    setinputselectvinculacion1 = _useState590[1];
   var _useState591 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState592 = _slicedToArray(_useState591, 2),
-    inputselectvinculacion3 = _useState592[0],
-    setinputselectvinculacion3 = _useState592[1];
+    inputselectvinculacion2 = _useState592[0],
+    setinputselectvinculacion2 = _useState592[1];
   var _useState593 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState594 = _slicedToArray(_useState593, 2),
-    inputselectvinculacion4 = _useState594[0],
-    setinputselectvinculacion4 = _useState594[1];
+    inputselectvinculacion3 = _useState594[0],
+    setinputselectvinculacion3 = _useState594[1];
   var _useState595 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState596 = _slicedToArray(_useState595, 2),
-    inputselectvinculacionmarca = _useState596[0],
-    setinputselectvinculacionmarca = _useState596[1];
+    inputselectvinculacion4 = _useState596[0],
+    setinputselectvinculacion4 = _useState596[1];
   var _useState597 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState598 = _slicedToArray(_useState597, 2),
-    inputselectvinculacion1General = _useState598[0],
-    setinputselectvinculacion1General = _useState598[1];
+    inputselectvinculacionmarca = _useState598[0],
+    setinputselectvinculacionmarca = _useState598[1];
   var _useState599 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState600 = _slicedToArray(_useState599, 2),
-    inputselectvinculacion2General = _useState600[0],
-    setinputselectvinculacion2General = _useState600[1];
+    inputselectvinculacion1General = _useState600[0],
+    setinputselectvinculacion1General = _useState600[1];
   var _useState601 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState602 = _slicedToArray(_useState601, 2),
-    inputselectvinculacion3General = _useState602[0],
-    setinputselectvinculacion3General = _useState602[1];
+    inputselectvinculacion2General = _useState602[0],
+    setinputselectvinculacion2General = _useState602[1];
   var _useState603 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState604 = _slicedToArray(_useState603, 2),
-    inputselectvinculacion4General = _useState604[0],
-    setinputselectvinculacion4General = _useState604[1];
+    inputselectvinculacion3General = _useState604[0],
+    setinputselectvinculacion3General = _useState604[1];
   var _useState605 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState606 = _slicedToArray(_useState605, 2),
-    inputselectvinculacionmarcaGeneral = _useState606[0],
-    setinputselectvinculacionmarcaGeneral = _useState606[1];
+    inputselectvinculacion4General = _useState606[0],
+    setinputselectvinculacion4General = _useState606[1];
   var _useState607 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState608 = _slicedToArray(_useState607, 2),
-    newNombre1 = _useState608[0],
-    setnewNombre1 = _useState608[1];
+    inputselectvinculacionmarcaGeneral = _useState608[0],
+    setinputselectvinculacionmarcaGeneral = _useState608[1];
   var _useState609 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState610 = _slicedToArray(_useState609, 2),
-    newNombre2 = _useState610[0],
-    setnewNombre2 = _useState610[1];
+    newNombre1 = _useState610[0],
+    setnewNombre1 = _useState610[1];
   var _useState611 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState612 = _slicedToArray(_useState611, 2),
-    newNombre3 = _useState612[0],
-    setnewNombre3 = _useState612[1];
+    newNombre2 = _useState612[0],
+    setnewNombre2 = _useState612[1];
   var _useState613 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState614 = _slicedToArray(_useState613, 2),
-    newNombre4 = _useState614[0],
-    setnewNombre4 = _useState614[1];
+    newNombre3 = _useState614[0],
+    setnewNombre3 = _useState614[1];
   var _useState615 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState616 = _slicedToArray(_useState615, 2),
-    newNombremarca = _useState616[0],
-    setnewNombremarca = _useState616[1];
+    newNombre4 = _useState616[0],
+    setnewNombre4 = _useState616[1];
+  var _useState617 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState618 = _slicedToArray(_useState617, 2),
+    newNombremarca = _useState618[0],
+    setnewNombremarca = _useState618[1];
   var getDatinputSelectVinculacion = function getDatinputSelectVinculacion() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getDatinputSelectVinculacion({}).then(function (res) {
       var data = res.data;
@@ -67525,75 +67704,93 @@ function Home() {
         }), viewmainPanel === "compras" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_compras__WEBPACK_IMPORTED_MODULE_27__["default"], {
           setviewmainPanel: setviewmainPanel,
           viewmainPanel: viewmainPanel
-        }), viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_28__["default"], {
-          changeBank: changeBank,
-          reverserLiquidar: reverserLiquidar,
-          colorFun: colorFun,
-          colors: colors,
-          colorSucursal: colorSucursal,
-          subviewAuditoria: subviewAuditoria,
-          setsubviewAuditoria: setsubviewAuditoria,
-          selectxMovimientos: selectxMovimientos,
-          setviewmainPanel: setviewmainPanel,
-          viewmainPanel: viewmainPanel,
-          opcionesMetodosPago: opcionesMetodosPago,
-          setopcionesMetodosPago: setopcionesMetodosPago,
-          bancosdata: bancosdata,
-          setbancosdata: setbancosdata,
-          fechaSelectAuditoria: fechaSelectAuditoria,
-          setfechaSelectAuditoria: setfechaSelectAuditoria,
-          fechaHastaSelectAuditoria: fechaHastaSelectAuditoria,
-          setfechaHastaSelectAuditoria: setfechaHastaSelectAuditoria,
-          bancoSelectAuditoria: bancoSelectAuditoria,
-          setbancoSelectAuditoria: setbancoSelectAuditoria,
-          sucursalSelectAuditoria: sucursalSelectAuditoria,
-          setsucursalSelectAuditoria: setsucursalSelectAuditoria,
-          qdescripcionbancosdata: qdescripcionbancosdata,
-          setqdescripcionbancosdata: setqdescripcionbancosdata,
-          SaldoInicialSelectAuditoria: SaldoInicialSelectAuditoria,
-          setSaldoInicialSelectAuditoria: setSaldoInicialSelectAuditoria,
-          SaldoActualSelectAuditoria: SaldoActualSelectAuditoria,
-          setSaldoActualSelectAuditoria: setSaldoActualSelectAuditoria,
-          getMetodosPago: getMetodosPago,
-          getBancosData: getBancosData,
-          getCatGeneralFun: getCatGeneralFun,
-          getCatCajas: getCatCajas,
-          sucursales: sucursales,
-          cuentasPagosDescripcion: cuentasPagosDescripcion,
-          setcuentasPagosDescripcion: setcuentasPagosDescripcion,
-          cuentasPagosMonto: cuentasPagosMonto,
-          setcuentasPagosMonto: setcuentasPagosMonto,
-          cuentasPagosMetodo: cuentasPagosMetodo,
-          setcuentasPagosMetodo: setcuentasPagosMetodo,
-          cuentasPagosFecha: cuentasPagosFecha,
-          setcuentasPagosFecha: setcuentasPagosFecha,
-          sendMovimientoBanco: sendMovimientoBanco,
-          cuentasPagoTipo: cuentasPagoTipo,
-          setcuentasPagosTipo: setcuentasPagosTipo,
-          cuentasPagosCategoria: cuentasPagosCategoria,
-          setcuentasPagosCategoria: setcuentasPagosCategoria,
-          categoriaMovBanco: categoriaMovBanco,
-          number: number,
-          moneda: moneda,
-          movimientoAuditoria: movimientoAuditoria,
-          setmovimientoAuditoria: setmovimientoAuditoria,
-          selectTrLiquidar: selectTrLiquidar,
-          setselectTrLiquidar: setselectTrLiquidar,
-          inpmontoLiquidar: inpmontoLiquidar,
-          setinpmontoLiquidar: setinpmontoLiquidar,
-          inpfechaLiquidar: inpfechaLiquidar,
-          setinpfechaLiquidar: setinpfechaLiquidar,
-          liquidarMov: liquidarMov,
-          orderAuditoria: orderAuditoria,
-          setorderAuditoria: setorderAuditoria,
-          orderColumnAuditoria: orderColumnAuditoria,
-          setorderColumnAuditoria: setorderColumnAuditoria,
-          selectConciliacion: selectConciliacion,
-          saldoactualbancofecha: saldoactualbancofecha,
-          setsaldoactualbancofecha: setsaldoactualbancofecha,
-          sendsaldoactualbancofecha: sendsaldoactualbancofecha,
-          selectConciliacionData: selectConciliacionData,
-          setselectConciliacionData: setselectConciliacionData
+        }), viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_28__["default"], {
+            setqestatusaprobaciocaja: setqestatusaprobaciocaja,
+            sucursalDetallesData: sucursalDetallesData,
+            getsucursalDetallesData: getsucursalDetallesData,
+            getSucursales: getSucursales,
+            setsubviewpanelsucursales: setsubviewpanelsucursales,
+            subviewpanelsucursales: subviewpanelsucursales,
+            fechasMain1: fechasMain1,
+            fechasMain2: fechasMain2,
+            sucursalSelect: sucursalSelect,
+            setsucursalSelect: setsucursalSelect,
+            qestatusaprobaciocaja: qestatusaprobaciocaja,
+            setfechasMain1: setfechasMain1,
+            setfechasMain2: setfechasMain2,
+            aprobarTransferenciaFun: aprobarTransferenciaFun,
+            subviewAuditoriaGeneral: subviewAuditoriaGeneral,
+            setsubviewAuditoriaGeneral: setsubviewAuditoriaGeneral,
+            changeBank: changeBank,
+            reverserLiquidar: reverserLiquidar,
+            colorFun: colorFun,
+            colors: colors,
+            colorSucursal: colorSucursal,
+            subviewAuditoria: subviewAuditoria,
+            setsubviewAuditoria: setsubviewAuditoria,
+            selectxMovimientos: selectxMovimientos,
+            setviewmainPanel: setviewmainPanel,
+            viewmainPanel: viewmainPanel,
+            opcionesMetodosPago: opcionesMetodosPago,
+            setopcionesMetodosPago: setopcionesMetodosPago,
+            bancosdata: bancosdata,
+            setbancosdata: setbancosdata,
+            fechaSelectAuditoria: fechaSelectAuditoria,
+            setfechaSelectAuditoria: setfechaSelectAuditoria,
+            fechaHastaSelectAuditoria: fechaHastaSelectAuditoria,
+            setfechaHastaSelectAuditoria: setfechaHastaSelectAuditoria,
+            bancoSelectAuditoria: bancoSelectAuditoria,
+            setbancoSelectAuditoria: setbancoSelectAuditoria,
+            sucursalSelectAuditoria: sucursalSelectAuditoria,
+            setsucursalSelectAuditoria: setsucursalSelectAuditoria,
+            qdescripcionbancosdata: qdescripcionbancosdata,
+            setqdescripcionbancosdata: setqdescripcionbancosdata,
+            SaldoInicialSelectAuditoria: SaldoInicialSelectAuditoria,
+            setSaldoInicialSelectAuditoria: setSaldoInicialSelectAuditoria,
+            SaldoActualSelectAuditoria: SaldoActualSelectAuditoria,
+            setSaldoActualSelectAuditoria: setSaldoActualSelectAuditoria,
+            getMetodosPago: getMetodosPago,
+            getBancosData: getBancosData,
+            getCatGeneralFun: getCatGeneralFun,
+            getCatCajas: getCatCajas,
+            sucursales: sucursales,
+            cuentasPagosDescripcion: cuentasPagosDescripcion,
+            setcuentasPagosDescripcion: setcuentasPagosDescripcion,
+            cuentasPagosMonto: cuentasPagosMonto,
+            setcuentasPagosMonto: setcuentasPagosMonto,
+            cuentasPagosMetodo: cuentasPagosMetodo,
+            setcuentasPagosMetodo: setcuentasPagosMetodo,
+            cuentasPagosFecha: cuentasPagosFecha,
+            setcuentasPagosFecha: setcuentasPagosFecha,
+            sendMovimientoBanco: sendMovimientoBanco,
+            cuentasPagoTipo: cuentasPagoTipo,
+            setcuentasPagosTipo: setcuentasPagosTipo,
+            cuentasPagosCategoria: cuentasPagosCategoria,
+            setcuentasPagosCategoria: setcuentasPagosCategoria,
+            categoriaMovBanco: categoriaMovBanco,
+            number: number,
+            moneda: moneda,
+            movimientoAuditoria: movimientoAuditoria,
+            setmovimientoAuditoria: setmovimientoAuditoria,
+            selectTrLiquidar: selectTrLiquidar,
+            setselectTrLiquidar: setselectTrLiquidar,
+            inpmontoLiquidar: inpmontoLiquidar,
+            setinpmontoLiquidar: setinpmontoLiquidar,
+            inpfechaLiquidar: inpfechaLiquidar,
+            setinpfechaLiquidar: setinpfechaLiquidar,
+            liquidarMov: liquidarMov,
+            orderAuditoria: orderAuditoria,
+            setorderAuditoria: setorderAuditoria,
+            orderColumnAuditoria: orderColumnAuditoria,
+            setorderColumnAuditoria: setorderColumnAuditoria,
+            selectConciliacion: selectConciliacion,
+            saldoactualbancofecha: saldoactualbancofecha,
+            setsaldoactualbancofecha: setsaldoactualbancofecha,
+            sendsaldoactualbancofecha: sendsaldoactualbancofecha,
+            selectConciliacionData: selectConciliacionData,
+            setselectConciliacionData: setselectConciliacionData
+          })
         }), viewmainPanel === "efectivo" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_efectivo__WEBPACK_IMPORTED_MODULE_39__["default"], {
           subviewpanelsucursales: subviewpanelsucursales,
           setsubviewpanelsucursales: setsubviewpanelsucursales,
@@ -68079,6 +68276,7 @@ function Home() {
             marcas: marcas
           }) : null]
         }), viewmainPanel === "sucursales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_panelSucursales__WEBPACK_IMPORTED_MODULE_30__["default"], {
+          user: user,
           changeLiquidacionPagoElec: changeLiquidacionPagoElec,
           getPersonalCargos: getPersonalCargos,
           cargosData: cargosData,

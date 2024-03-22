@@ -60,6 +60,7 @@ export default function PanelSucursales({
     setSaldoActualSelectAuditoria,
     getCatGeneralFun,
     getCatCajas,
+    user,
 
 }) {
     useEffect(() => {
@@ -104,17 +105,31 @@ export default function PanelSucursales({
                 <div className="row">
                     <div className="col table-responsive mb-2 pb-2 pt-2 d-flex justify-content-center">
                         <div className="btn-group w-100">
-                            <button className={("btn btn") + (subviewpanelsucursales == "resumencierres" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("resumencierres")}>RESUMEN</button>
-                            <button className={("btn btn") + (subviewpanelsucursales == "cierres" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("cierres")}>Cierres</button>
-                            <button className={("btn btn") + (subviewpanelsucursales == "controldeefectivo" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("controldeefectivo")}>Efectivo</button>
-                            <button className={("btn btn") + (subviewpanelsucursales == "puntosyseriales" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("puntosyseriales")}>PagoElectrónicos</button>
-                            <button className={("btn btn") + (subviewpanelsucursales == "creditos" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("creditos")}>Créditos</button>
+                            {user.tipo_usuario==1?
+                                <>
+                                    <button className={("btn btn") + (subviewpanelsucursales == "resumencierres" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("resumencierres")}>RESUMEN</button>
+                                    <button className={("btn btn") + (subviewpanelsucursales == "cierres" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("cierres")}>Cierres</button>
+                                </>
+                            :null}
+                            {user.tipo_usuario==4?
+                                <>
+                                    <button className={("btn btn") + (subviewpanelsucursales == "controldeefectivo" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("controldeefectivo")}>Efectivo</button>
+                                </>
+                            :null}
                             
-                            <button className={("btn btn") + (subviewpanelsucursales == "inventario" ? "" : "-outline") + ("-sinapsis")} onClick={() => setsubviewpanelsucursales("inventario")}>Inventario</button>
-                            <button className={("btn btn") + (subviewpanelsucursales == "estadisticas" ? "" : "-outline") + ("-sinapsis")} onClick={() => setsubviewpanelsucursales("estadisticas")}>Estadísticas</button>
-                            <button className={("btn btn") + (subviewpanelsucursales == "fallas" ? "" : "-outline") + ("-danger")} onClick={() => setsubviewpanelsucursales("fallas")}>Fallas</button>
-                            
-                            <button className={("btn btn") + (subviewpanelsucursales == "nomina" ? "" : "-outline") + ("-info")} onClick={() => setsubviewpanelsucursales("nomina")}> Nómina </button>
+
+                            {user.tipo_usuario==1?
+                                <>
+                                    <button className={("btn btn") + (subviewpanelsucursales == "puntosyseriales" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("puntosyseriales")}>PagoElectrónicos</button>
+                                    <button className={("btn btn") + (subviewpanelsucursales == "creditos" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("creditos")}>Créditos</button>
+                                    <button className={("btn btn") + (subviewpanelsucursales == "inventario" ? "" : "-outline") + ("-sinapsis")} onClick={() => setsubviewpanelsucursales("inventario")}>Inventario</button>
+                                    <button className={("btn btn") + (subviewpanelsucursales == "estadisticas" ? "" : "-outline") + ("-sinapsis")} onClick={() => setsubviewpanelsucursales("estadisticas")}>Estadísticas</button>
+                                    <button className={("btn btn") + (subviewpanelsucursales == "fallas" ? "" : "-outline") + ("-danger")} onClick={() => setsubviewpanelsucursales("fallas")}>Fallas</button>
+                                    
+                                    <button className={("btn btn") + (subviewpanelsucursales == "nomina" ? "" : "-outline") + ("-info")} onClick={() => setsubviewpanelsucursales("nomina")}> Nómina </button>
+                                </>
+                            :null}
+
                         </div>
 
                     </div>

@@ -527,6 +527,13 @@ class CierresController extends Controller
                 }
             break;
 
+            case 'aprobtransferencia':
+                if ($tipo_usuario==3) {
+                    
+                    return (new TransferenciaAprobacionController)->gettransferenciaAprobacion($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
+                }
+            break;
+
                     
 
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\CatcajasController;
 use App\Http\Controllers\CreditoAprobacionController;
 use App\Http\Controllers\CuentasporpagarController;
 use App\Http\Controllers\PuntosybiopagosController;
+use App\Http\Controllers\TransferenciaAprobacionController;
 use App\Http\Controllers\UltimainformacioncargadaController;
 use Illuminate\Support\Facades\Route;
 
@@ -315,7 +316,11 @@ Route::post('sendPagoCuentaPorPagar', [CuentasporpagarController::class,"sendPag
 
 
 Route::post('aprobarCreditoFun', [CreditoAprobacionController::class,"aprobarCreditoFun"]);
+Route::post('aprobarTransferenciaFun', [TransferenciaAprobacionController::class,"aprobarTransferenciaFun"]);
+
 Route::post('createCreditoAprobacion', [CreditoAprobacionController::class,"createCreditoAprobacion"]);
+Route::post('createTranferenciaAprobacion', [TransferenciaAprobacionController::class,"createTranferenciaAprobacion"]);
+
 
 Route::get('unicoinventario', [InventarioController::class,"unicoinventario"]);
 Route::get('vincularinventario', [InventarioController::class,"vincularinventario"]);

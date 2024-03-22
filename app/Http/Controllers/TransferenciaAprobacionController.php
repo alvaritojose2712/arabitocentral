@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class TransferenciaAprobacionController extends Controller
 {
-        function createtransferenciaAprobacion(Request $req) {
+        function createTranferenciaAprobacion(Request $req) {
             $data = $req->data;
             $codigo_origen = $req->codigo_origen;
     
@@ -60,7 +60,7 @@ class TransferenciaAprobacionController extends Controller
             ];
         }
     
-        function aprobartransferenciaFun(Request $req) {
+        function aprobarTransferenciaFun(Request $req) {
             $tipo = $req->tipo;
             $id = $req->id;
     

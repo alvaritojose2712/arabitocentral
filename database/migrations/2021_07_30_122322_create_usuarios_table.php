@@ -19,7 +19,9 @@ class CreateUsuariosTable extends Migration
             $table->string('nombre');
             $table->string('usuario')->unique();
             $table->string('clave');
-            $table->integer('tipo_usuario');
+            $table->integer('tipo_usuario'); 
+            // 3
+            // 4 GASTOS  
             $table->string('area');
             $table->timestamps();
         });
