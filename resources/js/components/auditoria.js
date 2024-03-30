@@ -756,8 +756,8 @@ export default function Auditoria({
                             </span>
                         </div> 
                         <div className="card-body d-flex justify-content-between">
-                            <button className="btn btn-sm btn-danger" onClick={()=>aprobarTransferenciaFun(e.id,"delete")}><i className="fa fa-times"></i></button>
-                            <button className="btn btn-sm btn-success" onClick={()=>aprobarTransferenciaFun(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></button>
+                            <i onClick={()=>aprobarTransferenciaFun(e.id,"delete")} className="fa fa-times text-danger"></i>
+                            <span className="text-success" onClick={()=>aprobarTransferenciaFun(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></span>
                         </div>
                         <div className="text-center text-muted">
                             <small>{e.created_at}</small>
