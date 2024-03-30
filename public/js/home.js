@@ -2335,7 +2335,8 @@ function Auditoria(_ref) {
     getSucursales = _ref.getSucursales,
     getsucursalDetallesData = _ref.getsucursalDetallesData,
     sucursalDetallesData = _ref.sucursalDetallesData,
-    setqestatusaprobaciocaja = _ref.setqestatusaprobaciocaja;
+    setqestatusaprobaciocaja = _ref.setqestatusaprobaciocaja,
+    permiso = _ref.permiso;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getMetodosPago();
     getBancosData();
@@ -2372,14 +2373,14 @@ function Auditoria(_ref) {
     name: "EFECTIVO"
   }, {
     route: "aprobtransferencia",
-    name: "APRB. TRANSFE"
+    name: "APRB. TRANSF."
   }];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
     children: [subviewAuditoriaGeneral == "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_panel_panelopciones__WEBPACK_IMPORTED_MODULE_1__["default"], {
       viewmainPanel: null,
       setviewmainPanel: setsubviewAuditoriaGeneral,
       opciones: opcionesAuditoria
-    }) : null, subviewAuditoriaGeneral == "banco" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    }) : null, permiso([1, 2, 3]) && subviewAuditoriaGeneral == "banco" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "container-fluid",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "d-flex justify-content-center",
@@ -3363,7 +3364,7 @@ function Auditoria(_ref) {
           })]
         })]
       }) : null]
-    }) : null, subviewAuditoriaGeneral == "efectivo" ? null : null, subviewAuditoriaGeneral == "aprobtransferencia" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    }) : null, permiso([1, 2, 3]) && subviewAuditoriaGeneral == "efectivo" ? null : null, permiso([1, 2, 3, 6]) && subviewAuditoriaGeneral == "aprobtransferencia" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "container",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_panel_fechasmain__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -3395,7 +3396,10 @@ function Auditoria(_ref) {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
                 className: "btn btn-" + (qestatusaprobaciocaja == 0 ? "sinapsis" : ""),
                 onClick: function onClick(e) {
-                  return setqestatusaprobaciocaja(0);
+                  setqestatusaprobaciocaja(0);
+                  if (qestatusaprobaciocaja == 0) {
+                    getsucursalDetallesData();
+                  }
                 },
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
                   className: "fa fa-clock-o"
@@ -3403,7 +3407,10 @@ function Auditoria(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
                 className: "btn btn-" + (qestatusaprobaciocaja == 1 ? "success" : ""),
                 onClick: function onClick(e) {
-                  return setqestatusaprobaciocaja(1);
+                  setqestatusaprobaciocaja(1);
+                  if (qestatusaprobaciocaja == 1) {
+                    getsucursalDetallesData();
+                  }
                 },
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
                   className: "fa fa-check"
@@ -13907,37 +13914,25 @@ function Usuarios(_ref) {
                   children: "--Seleccione--"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "1",
-                  children: "Administrador"
+                  children: "SUPERUSUARIO"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "2",
-                  children: "Gerente GENERAL"
+                  children: "DUE\xD1O"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "3",
-                  children: "Gerente SUCURSAL"
+                  children: "AUDITOR"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "4",
-                  children: "Gerente RRHH"
+                  children: "ADMINISTRADOR"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "5",
-                  children: "Gerente COMPRAS"
+                  children: "GASTOS"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "6",
-                  children: "Gerente OPERACIONES"
+                  children: "APROBAR_TRANSF"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "7",
-                  children: "Gerente DICI"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
-                  value: "8",
-                  children: "AUDITORIA"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
-                  value: "9",
-                  children: "CEO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
-                  value: "10",
-                  children: "FINANZAS"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
-                  value: "11",
-                  children: "SOCIAL MEDIA"
+                  children: "CONSULTA_INVENTARIO"
                 })]
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -63672,8 +63667,9 @@ function Home() {
     setselectfechaventa = _useState4[1];
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
       id_usuario: "",
-      nombre: "",
-      usuario: ""
+      tipo_usuario: "",
+      usuario: "",
+      nombre: ""
     }),
     _useState6 = _slicedToArray(_useState5, 2),
     user = _useState6[0],
@@ -67599,6 +67595,13 @@ function Home() {
       getDatinputSelectVinculacion();
     });
   };
+  var permiso = function permiso(arrpermis) {
+    if (arrpermis.indexOf(user.tipo_usuario) !== -1) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
     children: !loginActive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_components_login__WEBPACK_IMPORTED_MODULE_10__["default"], {
       loginRes: loginRes
@@ -67623,7 +67626,7 @@ function Home() {
           viewmainPanel: viewmainPanel,
           setviewmainPanel: setviewmainPanel,
           opciones: opcionesadmin
-        }), viewmainPanel === "nomina" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_nomina_nominahome__WEBPACK_IMPORTED_MODULE_32__["default"], {
+        }), permiso([1]) && viewmainPanel === "nomina" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_nomina_nominahome__WEBPACK_IMPORTED_MODULE_32__["default"], {
           subViewNomina: subViewNomina,
           setsubViewNomina: setsubViewNomina,
           children: [subViewNomina === "gestion" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_nomina_nomina__WEBPACK_IMPORTED_MODULE_33__["default"], {
@@ -67701,7 +67704,7 @@ function Home() {
             setnominapagodetalles: setnominapagodetalles,
             moneda: moneda
           })]
-        }), viewmainPanel === "admin" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_usuarios__WEBPACK_IMPORTED_MODULE_26__["default"], {
+        }), permiso([1]) && viewmainPanel === "usuarios" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_usuarios__WEBPACK_IMPORTED_MODULE_26__["default"], {
           usuarioNombre: usuarioNombre,
           setusuarioNombre: setusuarioNombre,
           usuarioUsuario: usuarioUsuario,
@@ -67721,118 +67724,115 @@ function Home() {
           addNewUsuario: addNewUsuario,
           getUsuarios: getUsuarios,
           sucursales: sucursales
-        }), viewmainPanel === "creditos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_porCobrar__WEBPACK_IMPORTED_MODULE_40__["default"], {
-            fechasMain1: fechasMain1,
-            fechasMain2: fechasMain2,
-            setfechasMain1: setfechasMain1,
-            setfechasMain2: setfechasMain2,
-            moneda: moneda,
-            getsucursalDetallesData: getsucursalDetallesData,
-            sucursalSelect: sucursalSelect,
-            setsucursalSelect: setsucursalSelect,
-            setsucursalDetallesData: setsucursalDetallesData,
-            sucursalDetallesData: sucursalDetallesData,
-            getSucursales: getSucursales,
-            sucursales: sucursales,
-            qestatusaprobaciocaja: qestatusaprobaciocaja,
-            setqestatusaprobaciocaja: setqestatusaprobaciocaja,
-            aprobarCreditoFun: aprobarCreditoFun,
-            subviewpanelsucursales: subviewpanelsucursales,
-            setsubviewpanelsucursales: setsubviewpanelsucursales
-          })
-        }), viewmainPanel === "compras" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_compras__WEBPACK_IMPORTED_MODULE_27__["default"], {
+        }), permiso([1, 2]) && viewmainPanel === "creditos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_porCobrar__WEBPACK_IMPORTED_MODULE_40__["default"], {
+          fechasMain1: fechasMain1,
+          fechasMain2: fechasMain2,
+          setfechasMain1: setfechasMain1,
+          setfechasMain2: setfechasMain2,
+          moneda: moneda,
+          getsucursalDetallesData: getsucursalDetallesData,
+          sucursalSelect: sucursalSelect,
+          setsucursalSelect: setsucursalSelect,
+          setsucursalDetallesData: setsucursalDetallesData,
+          sucursalDetallesData: sucursalDetallesData,
+          getSucursales: getSucursales,
+          sucursales: sucursales,
+          qestatusaprobaciocaja: qestatusaprobaciocaja,
+          setqestatusaprobaciocaja: setqestatusaprobaciocaja,
+          aprobarCreditoFun: aprobarCreditoFun,
+          subviewpanelsucursales: subviewpanelsucursales,
+          setsubviewpanelsucursales: setsubviewpanelsucursales
+        }), permiso([1]) && viewmainPanel === "compras" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_compras__WEBPACK_IMPORTED_MODULE_27__["default"], {
           setviewmainPanel: setviewmainPanel,
           viewmainPanel: viewmainPanel
-        }), viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_28__["default"], {
-            getBancoName: getBancoName,
-            setqestatusaprobaciocaja: setqestatusaprobaciocaja,
-            sucursalDetallesData: sucursalDetallesData,
-            getsucursalDetallesData: getsucursalDetallesData,
-            getSucursales: getSucursales,
-            setsubviewpanelsucursales: setsubviewpanelsucursales,
-            subviewpanelsucursales: subviewpanelsucursales,
-            fechasMain1: fechasMain1,
-            fechasMain2: fechasMain2,
-            sucursalSelect: sucursalSelect,
-            setsucursalSelect: setsucursalSelect,
-            qestatusaprobaciocaja: qestatusaprobaciocaja,
-            setfechasMain1: setfechasMain1,
-            setfechasMain2: setfechasMain2,
-            aprobarTransferenciaFun: aprobarTransferenciaFun,
-            subviewAuditoriaGeneral: subviewAuditoriaGeneral,
-            setsubviewAuditoriaGeneral: setsubviewAuditoriaGeneral,
-            changeBank: changeBank,
-            reverserLiquidar: reverserLiquidar,
-            colorFun: colorFun,
-            colors: colors,
-            colorSucursal: colorSucursal,
-            subviewAuditoria: subviewAuditoria,
-            setsubviewAuditoria: setsubviewAuditoria,
-            selectxMovimientos: selectxMovimientos,
-            setviewmainPanel: setviewmainPanel,
-            viewmainPanel: viewmainPanel,
-            opcionesMetodosPago: opcionesMetodosPago,
-            setopcionesMetodosPago: setopcionesMetodosPago,
-            bancosdata: bancosdata,
-            setbancosdata: setbancosdata,
-            fechaSelectAuditoria: fechaSelectAuditoria,
-            setfechaSelectAuditoria: setfechaSelectAuditoria,
-            fechaHastaSelectAuditoria: fechaHastaSelectAuditoria,
-            setfechaHastaSelectAuditoria: setfechaHastaSelectAuditoria,
-            bancoSelectAuditoria: bancoSelectAuditoria,
-            setbancoSelectAuditoria: setbancoSelectAuditoria,
-            sucursalSelectAuditoria: sucursalSelectAuditoria,
-            setsucursalSelectAuditoria: setsucursalSelectAuditoria,
-            qdescripcionbancosdata: qdescripcionbancosdata,
-            setqdescripcionbancosdata: setqdescripcionbancosdata,
-            SaldoInicialSelectAuditoria: SaldoInicialSelectAuditoria,
-            setSaldoInicialSelectAuditoria: setSaldoInicialSelectAuditoria,
-            SaldoActualSelectAuditoria: SaldoActualSelectAuditoria,
-            setSaldoActualSelectAuditoria: setSaldoActualSelectAuditoria,
-            getMetodosPago: getMetodosPago,
-            getBancosData: getBancosData,
-            getCatGeneralFun: getCatGeneralFun,
-            getCatCajas: getCatCajas,
-            sucursales: sucursales,
-            cuentasPagosDescripcion: cuentasPagosDescripcion,
-            setcuentasPagosDescripcion: setcuentasPagosDescripcion,
-            cuentasPagosMonto: cuentasPagosMonto,
-            setcuentasPagosMonto: setcuentasPagosMonto,
-            cuentasPagosMetodo: cuentasPagosMetodo,
-            setcuentasPagosMetodo: setcuentasPagosMetodo,
-            cuentasPagosFecha: cuentasPagosFecha,
-            setcuentasPagosFecha: setcuentasPagosFecha,
-            sendMovimientoBanco: sendMovimientoBanco,
-            cuentasPagoTipo: cuentasPagoTipo,
-            setcuentasPagosTipo: setcuentasPagosTipo,
-            cuentasPagosCategoria: cuentasPagosCategoria,
-            setcuentasPagosCategoria: setcuentasPagosCategoria,
-            categoriaMovBanco: categoriaMovBanco,
-            number: number,
-            moneda: moneda,
-            movimientoAuditoria: movimientoAuditoria,
-            setmovimientoAuditoria: setmovimientoAuditoria,
-            selectTrLiquidar: selectTrLiquidar,
-            setselectTrLiquidar: setselectTrLiquidar,
-            inpmontoLiquidar: inpmontoLiquidar,
-            setinpmontoLiquidar: setinpmontoLiquidar,
-            inpfechaLiquidar: inpfechaLiquidar,
-            setinpfechaLiquidar: setinpfechaLiquidar,
-            liquidarMov: liquidarMov,
-            orderAuditoria: orderAuditoria,
-            setorderAuditoria: setorderAuditoria,
-            orderColumnAuditoria: orderColumnAuditoria,
-            setorderColumnAuditoria: setorderColumnAuditoria,
-            selectConciliacion: selectConciliacion,
-            saldoactualbancofecha: saldoactualbancofecha,
-            setsaldoactualbancofecha: setsaldoactualbancofecha,
-            sendsaldoactualbancofecha: sendsaldoactualbancofecha,
-            selectConciliacionData: selectConciliacionData,
-            setselectConciliacionData: setselectConciliacionData
-          })
-        }), viewmainPanel === "efectivo" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_efectivo__WEBPACK_IMPORTED_MODULE_39__["default"], {
+        }), permiso([1, 2, 3, 6]) && viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_28__["default"], {
+          permiso: permiso,
+          getBancoName: getBancoName,
+          setqestatusaprobaciocaja: setqestatusaprobaciocaja,
+          sucursalDetallesData: sucursalDetallesData,
+          getsucursalDetallesData: getsucursalDetallesData,
+          getSucursales: getSucursales,
+          setsubviewpanelsucursales: setsubviewpanelsucursales,
+          subviewpanelsucursales: subviewpanelsucursales,
+          fechasMain1: fechasMain1,
+          fechasMain2: fechasMain2,
+          sucursalSelect: sucursalSelect,
+          setsucursalSelect: setsucursalSelect,
+          qestatusaprobaciocaja: qestatusaprobaciocaja,
+          setfechasMain1: setfechasMain1,
+          setfechasMain2: setfechasMain2,
+          aprobarTransferenciaFun: aprobarTransferenciaFun,
+          subviewAuditoriaGeneral: subviewAuditoriaGeneral,
+          setsubviewAuditoriaGeneral: setsubviewAuditoriaGeneral,
+          changeBank: changeBank,
+          reverserLiquidar: reverserLiquidar,
+          colorFun: colorFun,
+          colors: colors,
+          colorSucursal: colorSucursal,
+          subviewAuditoria: subviewAuditoria,
+          setsubviewAuditoria: setsubviewAuditoria,
+          selectxMovimientos: selectxMovimientos,
+          setviewmainPanel: setviewmainPanel,
+          viewmainPanel: viewmainPanel,
+          opcionesMetodosPago: opcionesMetodosPago,
+          setopcionesMetodosPago: setopcionesMetodosPago,
+          bancosdata: bancosdata,
+          setbancosdata: setbancosdata,
+          fechaSelectAuditoria: fechaSelectAuditoria,
+          setfechaSelectAuditoria: setfechaSelectAuditoria,
+          fechaHastaSelectAuditoria: fechaHastaSelectAuditoria,
+          setfechaHastaSelectAuditoria: setfechaHastaSelectAuditoria,
+          bancoSelectAuditoria: bancoSelectAuditoria,
+          setbancoSelectAuditoria: setbancoSelectAuditoria,
+          sucursalSelectAuditoria: sucursalSelectAuditoria,
+          setsucursalSelectAuditoria: setsucursalSelectAuditoria,
+          qdescripcionbancosdata: qdescripcionbancosdata,
+          setqdescripcionbancosdata: setqdescripcionbancosdata,
+          SaldoInicialSelectAuditoria: SaldoInicialSelectAuditoria,
+          setSaldoInicialSelectAuditoria: setSaldoInicialSelectAuditoria,
+          SaldoActualSelectAuditoria: SaldoActualSelectAuditoria,
+          setSaldoActualSelectAuditoria: setSaldoActualSelectAuditoria,
+          getMetodosPago: getMetodosPago,
+          getBancosData: getBancosData,
+          getCatGeneralFun: getCatGeneralFun,
+          getCatCajas: getCatCajas,
+          sucursales: sucursales,
+          cuentasPagosDescripcion: cuentasPagosDescripcion,
+          setcuentasPagosDescripcion: setcuentasPagosDescripcion,
+          cuentasPagosMonto: cuentasPagosMonto,
+          setcuentasPagosMonto: setcuentasPagosMonto,
+          cuentasPagosMetodo: cuentasPagosMetodo,
+          setcuentasPagosMetodo: setcuentasPagosMetodo,
+          cuentasPagosFecha: cuentasPagosFecha,
+          setcuentasPagosFecha: setcuentasPagosFecha,
+          sendMovimientoBanco: sendMovimientoBanco,
+          cuentasPagoTipo: cuentasPagoTipo,
+          setcuentasPagosTipo: setcuentasPagosTipo,
+          cuentasPagosCategoria: cuentasPagosCategoria,
+          setcuentasPagosCategoria: setcuentasPagosCategoria,
+          categoriaMovBanco: categoriaMovBanco,
+          number: number,
+          moneda: moneda,
+          movimientoAuditoria: movimientoAuditoria,
+          setmovimientoAuditoria: setmovimientoAuditoria,
+          selectTrLiquidar: selectTrLiquidar,
+          setselectTrLiquidar: setselectTrLiquidar,
+          inpmontoLiquidar: inpmontoLiquidar,
+          setinpmontoLiquidar: setinpmontoLiquidar,
+          inpfechaLiquidar: inpfechaLiquidar,
+          setinpfechaLiquidar: setinpfechaLiquidar,
+          liquidarMov: liquidarMov,
+          orderAuditoria: orderAuditoria,
+          setorderAuditoria: setorderAuditoria,
+          orderColumnAuditoria: orderColumnAuditoria,
+          setorderColumnAuditoria: setorderColumnAuditoria,
+          selectConciliacion: selectConciliacion,
+          saldoactualbancofecha: saldoactualbancofecha,
+          setsaldoactualbancofecha: setsaldoactualbancofecha,
+          sendsaldoactualbancofecha: sendsaldoactualbancofecha,
+          selectConciliacionData: selectConciliacionData,
+          setselectConciliacionData: setselectConciliacionData
+        }), permiso([1, 2, 4]) && viewmainPanel === "efectivo" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_efectivo__WEBPACK_IMPORTED_MODULE_39__["default"], {
           subviewpanelsucursales: subviewpanelsucursales,
           setsubviewpanelsucursales: setsubviewpanelsucursales,
           getsucursalDetallesData: getsucursalDetallesData,
@@ -68084,7 +68084,7 @@ function Home() {
               moneda: moneda
             }) : null]
           }) : null]
-        }), viewmainPanel === "gastos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        }), permiso([1, 2, 5]) && viewmainPanel === "gastos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_7__["default"], {
           setlistBeneficiario: setlistBeneficiario,
           addBeneficiarioList: addBeneficiarioList,
           listBeneficiario: listBeneficiario,
@@ -68143,7 +68143,7 @@ function Home() {
           qNomina: qNomina,
           setqNomina: setqNomina,
           moneda: moneda
-        }), viewmainPanel === "pedir" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_pedir__WEBPACK_IMPORTED_MODULE_38__["default"], {
+        }), permiso([1]) && viewmainPanel === "pedir" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_pedir__WEBPACK_IMPORTED_MODULE_38__["default"], {
           productos: productos,
           getProductos: getProductos,
           moneda: moneda,
@@ -68169,7 +68169,7 @@ function Home() {
           selectPrecioxProveedorPrecio: selectPrecioxProveedorPrecio,
           setselectPrecioxProveedorPrecio: setselectPrecioxProveedorPrecio,
           getPrecioxProveedor: getPrecioxProveedor
-        }), viewmainPanel === "proveedores" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_proveedores__WEBPACK_IMPORTED_MODULE_29__["default"], {
+        }), permiso([1]) && viewmainPanel === "proveedores" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_proveedores__WEBPACK_IMPORTED_MODULE_29__["default"], {
           getProveedores: getProveedores,
           setviewmainPanel: setviewmainPanel,
           number: number,
@@ -68188,7 +68188,7 @@ function Home() {
           setQBuscarProveedor: setQBuscarProveedor,
           proveedoresList: proveedoresList,
           delProveedor: delProveedor
-        }), viewmainPanel === "enviar" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_pedidos__WEBPACK_IMPORTED_MODULE_37__["default"], {}), viewmainPanel === "inventario" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
+        }), permiso([1]) && viewmainPanel === "enviar" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_pedidos__WEBPACK_IMPORTED_MODULE_37__["default"], {}), permiso([1]) && viewmainPanel === "inventario" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_panel_navInventario__WEBPACK_IMPORTED_MODULE_25__["default"], {
             subViewInventario: subViewInventario,
             setsubViewInventario: setsubViewInventario
@@ -68316,7 +68316,7 @@ function Home() {
             delMarcas: delMarcas,
             marcas: marcas
           }) : null]
-        }), viewmainPanel === "sucursales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_panelSucursales__WEBPACK_IMPORTED_MODULE_30__["default"], {
+        }), permiso([1, 2, 3]) && viewmainPanel === "sucursales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_panelSucursales__WEBPACK_IMPORTED_MODULE_30__["default"], {
           user: user,
           changeLiquidacionPagoElec: changeLiquidacionPagoElec,
           getPersonalCargos: getPersonalCargos,
@@ -68367,7 +68367,7 @@ function Home() {
             setfechasMain1: setfechasMain1,
             setfechasMain2: setfechasMain2
           })
-        }), viewmainPanel === "comovamos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_comovamos__WEBPACK_IMPORTED_MODULE_31__["default"], {
+        }), permiso([1, 2]) && viewmainPanel === "comovamos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_comovamos__WEBPACK_IMPORTED_MODULE_31__["default"], {
           getsucursalDetallesData: getsucursalDetallesData,
           sucursalDetallesData: sucursalDetallesData,
           subviewpanelsucursales: subviewpanelsucursales,

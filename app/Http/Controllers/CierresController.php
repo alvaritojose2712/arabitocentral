@@ -458,77 +458,77 @@ class CierresController extends Controller
             case 'panel':
                 break;
             case 'cierres':
-                if ($tipo_usuario==1 || $tipo_usuario==2) {
+                if (true) {
                     
                     return $this->getCierreSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
             case 'resumencierres':
-                if ($tipo_usuario==1 || $tipo_usuario==2) {
+                if (true) {
                     
                     return $this->getCierreSucursalResumen($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                 break;
             case 'controldeefectivo':
-                if ($tipo_usuario==1 || $tipo_usuario==2 || $tipo_usuario==4) {
+                if (true || $tipo_usuario==4) {
                     
                     return $this->getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
             case 'nomina':
-                if ($tipo_usuario==1 || $tipo_usuario==2) {
+                if (true) {
                     
                     return $this->getNominasSucursal($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
             case 'comovamos':
-                if ($tipo_usuario==1 || $tipo_usuario==2) {
+                if (true) {
                     
                     return $this->comovamos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
             }case
              'fallas':
-                if ($tipo_usuario==1 || $tipo_usuario==2) {
+                if (true) {
                     
                     return $this->getFallas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
             case 'creditos':
-                if ($tipo_usuario==1 || $tipo_usuario==2) {
+                if (true) {
                     
                     return $this->getCreditos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
 
             case 'aprobacioncajafuerte':
-            if ($tipo_usuario==1 || $tipo_usuario==2) {
+            if (true) {
                 
                 return (new CajasAprobacionController)->getAprobacionCajas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
             }
                 break;
 
             case 'porcobrar':
-                if ($tipo_usuario==2) {
+                if (true) {
                     
                     return (new CreditoAprobacionController)->getCreditoAprobacion($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
             break;
 
             case 'cuentasporpagar':
-                if ($tipo_usuario==1 || $tipo_usuario==2) {
+                if (true) {
                     
                     return (new CuentasporpagarController)->getCuentas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
             break;
 
             case 'cuentasporpagardetalles':
-                if ($tipo_usuario==1 || $tipo_usuario==2) {
+                if (true) {
                     
                     return (new CuentasporpagarController)->selectCuentaPorPagarProveedorDetalles($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
             break;
 
             case 'aprobtransferencia':
-                if ($tipo_usuario==1||$tipo_usuario==3) {
+                if (true) {
                     
                     return (new TransferenciaAprobacionController)->gettransferenciaAprobacion($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
@@ -575,7 +575,10 @@ class CierresController extends Controller
             ->orderBy("total", "desc")
             ->get()
             ->map(function($q){
-                $q->ticked = number_format($q->total/$q->numventas,2);
+                $q->ticked = 0;
+                if ($q->numventas && $q->total) {
+                    $q->ticked = number_format($q->total/$q->numventas,2);
+                }
                 return $q;
             });
 

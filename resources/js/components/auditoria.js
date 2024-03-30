@@ -91,6 +91,7 @@ export default function Auditoria({
     getsucursalDetallesData,
     sucursalDetallesData,
     setqestatusaprobaciocaja,
+    permiso,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -149,7 +150,7 @@ export default function Auditoria({
     
         {
           route: "aprobtransferencia",
-          name: "APRB. TRANSFE"
+          name: "APRB. TRANSF."
         },
     
     ]
@@ -164,7 +165,7 @@ export default function Auditoria({
 
             />
         :null}
-        {subviewAuditoriaGeneral=="banco"?
+        {permiso([1,2,3]) && subviewAuditoriaGeneral=="banco"?
             <div className="container-fluid">
                     <div className="d-flex justify-content-center">
                         <div className="btn-group m-2">
@@ -694,8 +695,8 @@ export default function Auditoria({
 
             </div>
         :null}
-        {subviewAuditoriaGeneral=="efectivo"?null:null}
-        {subviewAuditoriaGeneral=="aprobtransferencia"?<div className="container">
+        {permiso([1,2,3]) && subviewAuditoriaGeneral=="efectivo"?null:null}
+        {permiso([1,2,3,6]) && subviewAuditoriaGeneral=="aprobtransferencia"?<div className="container">
         <>
             <FechasMain
                 fechasMain1={fechasMain1}
@@ -714,8 +715,8 @@ export default function Auditoria({
                         }
                     </select>
                     <div className="input-group-prepend">
-                        <button className={("btn btn-"+(qestatusaprobaciocaja==0?"sinapsis":""))} onClick={e=>setqestatusaprobaciocaja(0)}><i className="fa fa-clock-o"></i></button>
-                        <button className={("btn btn-"+(qestatusaprobaciocaja==1?"success":""))} onClick={e=>setqestatusaprobaciocaja(1)}><i className="fa fa-check"></i></button>
+                        <button className={("btn btn-"+(qestatusaprobaciocaja==0?"sinapsis":""))} onClick={e=>{setqestatusaprobaciocaja(0);if(qestatusaprobaciocaja==0){getsucursalDetallesData()}}}><i className="fa fa-clock-o"></i></button>
+                        <button className={("btn btn-"+(qestatusaprobaciocaja==1?"success":""))} onClick={e=>{setqestatusaprobaciocaja(1);if(qestatusaprobaciocaja==1){getsucursalDetallesData()}}}><i className="fa fa-check"></i></button>
                     </div>
                 </div>
                 { 

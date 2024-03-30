@@ -90,8 +90,9 @@ function Home() {
 
   const [user, setuser] = useState({
     id_usuario: "",
+    tipo_usuario: "",
+    usuario: "",
     nombre: "",
-    usuario: ""
   })
 
   ///////////Inventario
@@ -3372,6 +3373,14 @@ function formatAmount( number, simbol ) {
       getDatinputSelectVinculacion()
     })
   } 
+
+  const permiso = (arrpermis) => {
+    if (arrpermis.indexOf(user.tipo_usuario)!==-1) {
+      return true
+    }else{
+      return false
+    }
+  }
   
   return (
     <>
@@ -3410,7 +3419,7 @@ function formatAmount( number, simbol ) {
             />
           }
 
-          {viewmainPanel === "nomina" &&
+          {permiso([1]) && viewmainPanel === "nomina" &&
             <NominaHome
               subViewNomina={subViewNomina}
               setsubViewNomina={setsubViewNomina}
@@ -3512,7 +3521,7 @@ function formatAmount( number, simbol ) {
               }
             </NominaHome>
           }
-          {viewmainPanel === "admin" &&
+          {permiso([1]) && viewmainPanel === "usuarios" &&
             <Usuarios
               usuarioNombre={usuarioNombre}
               setusuarioNombre={setusuarioNombre}
@@ -3536,134 +3545,131 @@ function formatAmount( number, simbol ) {
               sucursales={sucursales}
             />
           }
-          {viewmainPanel === "creditos" &&
-            <>
-             
-              <PorCobrar
-                fechasMain1={fechasMain1}
-                fechasMain2={fechasMain2}
-                setfechasMain1={setfechasMain1}
-                setfechasMain2={setfechasMain2}
-                moneda={moneda}
-                getsucursalDetallesData={getsucursalDetallesData}
-                sucursalSelect={sucursalSelect}
-                setsucursalSelect={setsucursalSelect}
-                setsucursalDetallesData={setsucursalDetallesData}
-                sucursalDetallesData={sucursalDetallesData}
-                getSucursales={getSucursales}
-                sucursales={sucursales}
-                qestatusaprobaciocaja={qestatusaprobaciocaja}
-                setqestatusaprobaciocaja={setqestatusaprobaciocaja}
-                aprobarCreditoFun={aprobarCreditoFun}
-                subviewpanelsucursales={subviewpanelsucursales}
-                setsubviewpanelsucursales={setsubviewpanelsucursales}
-                
-                />
-              </>
+          {permiso([1,2]) && viewmainPanel === "creditos" &&
+            <PorCobrar
+              fechasMain1={fechasMain1}
+              fechasMain2={fechasMain2}
+              setfechasMain1={setfechasMain1}
+              setfechasMain2={setfechasMain2}
+              moneda={moneda}
+              getsucursalDetallesData={getsucursalDetallesData}
+              sucursalSelect={sucursalSelect}
+              setsucursalSelect={setsucursalSelect}
+              setsucursalDetallesData={setsucursalDetallesData}
+              sucursalDetallesData={sucursalDetallesData}
+              getSucursales={getSucursales}
+              sucursales={sucursales}
+              qestatusaprobaciocaja={qestatusaprobaciocaja}
+              setqestatusaprobaciocaja={setqestatusaprobaciocaja}
+              aprobarCreditoFun={aprobarCreditoFun}
+              subviewpanelsucursales={subviewpanelsucursales}
+              setsubviewpanelsucursales={setsubviewpanelsucursales}
+              
+              />
           }
 
 
-          {viewmainPanel === "compras" &&
+          {permiso([1]) && viewmainPanel === "compras" &&
             <Compras
               setviewmainPanel={setviewmainPanel}
               viewmainPanel={viewmainPanel}
             />
           }
-          {viewmainPanel === "auditoria" && <>
-              <Auditoria
-                getBancoName={getBancoName}
-                setqestatusaprobaciocaja={setqestatusaprobaciocaja }
-                sucursalDetallesData={sucursalDetallesData }
-                getsucursalDetallesData={getsucursalDetallesData }
-                getSucursales={getSucursales}
-                setsubviewpanelsucursales={setsubviewpanelsucursales}
-                subviewpanelsucursales={subviewpanelsucursales}
-                fechasMain1={fechasMain1}
-                fechasMain2={fechasMain2}
-                sucursalSelect={sucursalSelect}
-                setsucursalSelect={setsucursalSelect}
-                qestatusaprobaciocaja={qestatusaprobaciocaja}
-                setfechasMain1={setfechasMain1}
-                setfechasMain2={setfechasMain2}
-                aprobarTransferenciaFun={aprobarTransferenciaFun}
-                subviewAuditoriaGeneral={subviewAuditoriaGeneral}
-                setsubviewAuditoriaGeneral={setsubviewAuditoriaGeneral}
-                changeBank={changeBank}
-                reverserLiquidar={reverserLiquidar}
-                colorFun={colorFun}
-                colors={colors}
-                colorSucursal={colorSucursal}
-                subviewAuditoria={subviewAuditoria}
-                setsubviewAuditoria={setsubviewAuditoria}
-                selectxMovimientos={selectxMovimientos}
-                setviewmainPanel={setviewmainPanel}
-                viewmainPanel={viewmainPanel}
-                opcionesMetodosPago={opcionesMetodosPago}
-                setopcionesMetodosPago={setopcionesMetodosPago}
-                bancosdata={bancosdata}
-                setbancosdata={setbancosdata}
-                fechaSelectAuditoria={fechaSelectAuditoria}
-                setfechaSelectAuditoria={setfechaSelectAuditoria}
-                fechaHastaSelectAuditoria={fechaHastaSelectAuditoria}
-                setfechaHastaSelectAuditoria={setfechaHastaSelectAuditoria}
-                bancoSelectAuditoria={bancoSelectAuditoria}
-                setbancoSelectAuditoria={setbancoSelectAuditoria}
-                sucursalSelectAuditoria={sucursalSelectAuditoria}
-                setsucursalSelectAuditoria={setsucursalSelectAuditoria}
-                qdescripcionbancosdata={qdescripcionbancosdata}
-                setqdescripcionbancosdata={setqdescripcionbancosdata}
-                SaldoInicialSelectAuditoria={SaldoInicialSelectAuditoria}
-                setSaldoInicialSelectAuditoria={setSaldoInicialSelectAuditoria}
-                SaldoActualSelectAuditoria={SaldoActualSelectAuditoria}
-                setSaldoActualSelectAuditoria={setSaldoActualSelectAuditoria}
-                getMetodosPago={getMetodosPago}
-                getBancosData={getBancosData}
-                getCatGeneralFun={getCatGeneralFun}
-                getCatCajas={getCatCajas}
-                sucursales={sucursales}
+          {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
+            <Auditoria
+              permiso={permiso}
+              getBancoName={getBancoName}
+              setqestatusaprobaciocaja={setqestatusaprobaciocaja }
+              sucursalDetallesData={sucursalDetallesData }
+              getsucursalDetallesData={getsucursalDetallesData }
+              getSucursales={getSucursales}
+              setsubviewpanelsucursales={setsubviewpanelsucursales}
+              subviewpanelsucursales={subviewpanelsucursales}
+              fechasMain1={fechasMain1}
+              fechasMain2={fechasMain2}
+              sucursalSelect={sucursalSelect}
+              setsucursalSelect={setsucursalSelect}
+              qestatusaprobaciocaja={qestatusaprobaciocaja}
+              setfechasMain1={setfechasMain1}
+              setfechasMain2={setfechasMain2}
+              aprobarTransferenciaFun={aprobarTransferenciaFun}
+              subviewAuditoriaGeneral={subviewAuditoriaGeneral}
+              setsubviewAuditoriaGeneral={setsubviewAuditoriaGeneral}
+              changeBank={changeBank}
+              reverserLiquidar={reverserLiquidar}
+              colorFun={colorFun}
+              colors={colors}
+              colorSucursal={colorSucursal}
+              subviewAuditoria={subviewAuditoria}
+              setsubviewAuditoria={setsubviewAuditoria}
+              selectxMovimientos={selectxMovimientos}
+              setviewmainPanel={setviewmainPanel}
+              viewmainPanel={viewmainPanel}
+              opcionesMetodosPago={opcionesMetodosPago}
+              setopcionesMetodosPago={setopcionesMetodosPago}
+              bancosdata={bancosdata}
+              setbancosdata={setbancosdata}
+              fechaSelectAuditoria={fechaSelectAuditoria}
+              setfechaSelectAuditoria={setfechaSelectAuditoria}
+              fechaHastaSelectAuditoria={fechaHastaSelectAuditoria}
+              setfechaHastaSelectAuditoria={setfechaHastaSelectAuditoria}
+              bancoSelectAuditoria={bancoSelectAuditoria}
+              setbancoSelectAuditoria={setbancoSelectAuditoria}
+              sucursalSelectAuditoria={sucursalSelectAuditoria}
+              setsucursalSelectAuditoria={setsucursalSelectAuditoria}
+              qdescripcionbancosdata={qdescripcionbancosdata}
+              setqdescripcionbancosdata={setqdescripcionbancosdata}
+              SaldoInicialSelectAuditoria={SaldoInicialSelectAuditoria}
+              setSaldoInicialSelectAuditoria={setSaldoInicialSelectAuditoria}
+              SaldoActualSelectAuditoria={SaldoActualSelectAuditoria}
+              setSaldoActualSelectAuditoria={setSaldoActualSelectAuditoria}
+              getMetodosPago={getMetodosPago}
+              getBancosData={getBancosData}
+              getCatGeneralFun={getCatGeneralFun}
+              getCatCajas={getCatCajas}
+              sucursales={sucursales}
 
-                cuentasPagosDescripcion={cuentasPagosDescripcion}
-                setcuentasPagosDescripcion={setcuentasPagosDescripcion}
-                cuentasPagosMonto={cuentasPagosMonto}
-                setcuentasPagosMonto={setcuentasPagosMonto}
-                cuentasPagosMetodo={cuentasPagosMetodo}
-                setcuentasPagosMetodo={setcuentasPagosMetodo}
-                cuentasPagosFecha={cuentasPagosFecha}
-                setcuentasPagosFecha={setcuentasPagosFecha}
-                sendMovimientoBanco={sendMovimientoBanco}
+              cuentasPagosDescripcion={cuentasPagosDescripcion}
+              setcuentasPagosDescripcion={setcuentasPagosDescripcion}
+              cuentasPagosMonto={cuentasPagosMonto}
+              setcuentasPagosMonto={setcuentasPagosMonto}
+              cuentasPagosMetodo={cuentasPagosMetodo}
+              setcuentasPagosMetodo={setcuentasPagosMetodo}
+              cuentasPagosFecha={cuentasPagosFecha}
+              setcuentasPagosFecha={setcuentasPagosFecha}
+              sendMovimientoBanco={sendMovimientoBanco}
 
-                cuentasPagoTipo={cuentasPagoTipo}
-                setcuentasPagosTipo={setcuentasPagosTipo}
-                cuentasPagosCategoria={cuentasPagosCategoria}
-                setcuentasPagosCategoria={setcuentasPagosCategoria}
-                categoriaMovBanco={categoriaMovBanco}
-                number={number}
-                moneda={moneda}
-                movimientoAuditoria={movimientoAuditoria}
-                setmovimientoAuditoria={setmovimientoAuditoria}
-                selectTrLiquidar={selectTrLiquidar}
-                setselectTrLiquidar={setselectTrLiquidar}
-                inpmontoLiquidar={inpmontoLiquidar}
-                setinpmontoLiquidar={setinpmontoLiquidar}
-                inpfechaLiquidar={inpfechaLiquidar}
-                setinpfechaLiquidar={setinpfechaLiquidar}
-                liquidarMov={liquidarMov}
-                orderAuditoria={orderAuditoria}
-                setorderAuditoria={setorderAuditoria}
-                orderColumnAuditoria={orderColumnAuditoria}
-                setorderColumnAuditoria={setorderColumnAuditoria}
-                selectConciliacion={selectConciliacion}
-                saldoactualbancofecha={saldoactualbancofecha}
-                setsaldoactualbancofecha={setsaldoactualbancofecha}
-                sendsaldoactualbancofecha={sendsaldoactualbancofecha}
-                selectConciliacionData={selectConciliacionData}
-                setselectConciliacionData={setselectConciliacionData}
+              cuentasPagoTipo={cuentasPagoTipo}
+              setcuentasPagosTipo={setcuentasPagosTipo}
+              cuentasPagosCategoria={cuentasPagosCategoria}
+              setcuentasPagosCategoria={setcuentasPagosCategoria}
+              categoriaMovBanco={categoriaMovBanco}
+              number={number}
+              moneda={moneda}
+              movimientoAuditoria={movimientoAuditoria}
+              setmovimientoAuditoria={setmovimientoAuditoria}
+              selectTrLiquidar={selectTrLiquidar}
+              setselectTrLiquidar={setselectTrLiquidar}
+              inpmontoLiquidar={inpmontoLiquidar}
+              setinpmontoLiquidar={setinpmontoLiquidar}
+              inpfechaLiquidar={inpfechaLiquidar}
+              setinpfechaLiquidar={setinpfechaLiquidar}
+              liquidarMov={liquidarMov}
+              orderAuditoria={orderAuditoria}
+              setorderAuditoria={setorderAuditoria}
+              orderColumnAuditoria={orderColumnAuditoria}
+              setorderColumnAuditoria={setorderColumnAuditoria}
+              selectConciliacion={selectConciliacion}
+              saldoactualbancofecha={saldoactualbancofecha}
+              setsaldoactualbancofecha={setsaldoactualbancofecha}
+              sendsaldoactualbancofecha={sendsaldoactualbancofecha}
+              selectConciliacionData={selectConciliacionData}
+              setselectConciliacionData={setselectConciliacionData}
 
-              />
-            </>
+            />
           }
 
-          {viewmainPanel === "efectivo" &&
+          {permiso([1,2,4]) && viewmainPanel === "efectivo" &&
             <Efectivo
               subviewpanelsucursales={subviewpanelsucursales}
               setsubviewpanelsucursales={setsubviewpanelsucursales}
@@ -3961,8 +3967,7 @@ function formatAmount( number, simbol ) {
             </Efectivo>
           }
 
-          {
-            viewmainPanel==="gastos" && 
+          {permiso([1,2,5]) && viewmainPanel === "gastos" && 
             <Gastos
               setlistBeneficiario={setlistBeneficiario}
               addBeneficiarioList={addBeneficiarioList}
@@ -4027,7 +4032,7 @@ function formatAmount( number, simbol ) {
             />
           }
 
-          {viewmainPanel === "pedir" &&
+          {permiso([1]) && viewmainPanel === "pedir" &&
             <Pedir
               productos={productos}
               getProductos={getProductos}
@@ -4059,7 +4064,7 @@ function formatAmount( number, simbol ) {
             </Pedir>
           }
 
-          {viewmainPanel === "proveedores" && 
+          {permiso([1]) && viewmainPanel === "proveedores" && 
             <Proveedores
               getProveedores={getProveedores}
               setviewmainPanel={setviewmainPanel}
@@ -4082,14 +4087,14 @@ function formatAmount( number, simbol ) {
             />
           }
 
-          {viewmainPanel === "enviar" &&
+          {permiso([1]) && viewmainPanel === "enviar" &&
             <Pedidos >
               
             </Pedidos>
           }
 
 
-          {viewmainPanel === "inventario" &&
+          {permiso([1]) && viewmainPanel === "inventario" &&
             <>
               <NavInventario
                 subViewInventario={subViewInventario}
@@ -4241,7 +4246,7 @@ function formatAmount( number, simbol ) {
           }
 
 
-          {viewmainPanel === "sucursales" &&
+          {permiso([1,2,3]) && viewmainPanel === "sucursales" &&
             <PanelSucursales
               user={user}
               changeLiquidacionPagoElec={changeLiquidacionPagoElec}
@@ -4305,7 +4310,7 @@ function formatAmount( number, simbol ) {
             </PanelSucursales>
           }
 
-          {viewmainPanel === "comovamos" &&
+          {permiso([1,2]) && viewmainPanel === "comovamos" &&
             <ComoVamos
               getsucursalDetallesData={getsucursalDetallesData}
               sucursalDetallesData={sucursalDetallesData}
