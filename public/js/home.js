@@ -2259,7 +2259,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Auditoria(_ref) {
-  var opcionesMetodosPago = _ref.opcionesMetodosPago,
+  var getBancoName = _ref.getBancoName,
+    opcionesMetodosPago = _ref.opcionesMetodosPago,
     fechaSelectAuditoria = _ref.fechaSelectAuditoria,
     setfechaSelectAuditoria = _ref.setfechaSelectAuditoria,
     fechaHastaSelectAuditoria = _ref.fechaHastaSelectAuditoria,
@@ -3416,9 +3417,15 @@ function Auditoria(_ref) {
                 className: "card-header flex-row justify-content-between",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                   className: "d-flex justify-content-between",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "w-50",
-                    children: ["SOLICITA ", e.sucursal.codigo]
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                      className: "btn fw-bolder",
+                      style: {
+                        backgroundColor: colorSucursal(e.sucursal.codigo)
+                      },
+                      children: e.sucursal.codigo
+                    })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "w-50 text-right",
                     children: e.saldo != 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
@@ -3439,7 +3446,14 @@ function Auditoria(_ref) {
                     className: "fst-italic fs-2",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
                       children: e.loteserial
-                    }), " (", e.banco, ")"]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                      className: "btn fw-bolder m-1",
+                      style: {
+                        backgroundColor: colors[e.banco] ? colors[e.banco][0] : "",
+                        color: colors[e.banco] ? colors[e.banco][1] : ""
+                      },
+                      children: getBancoName(e.banco)
+                    })]
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {})]
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3461,6 +3475,11 @@ function Auditoria(_ref) {
                     className: "fa fa-check"
                   })]
                 })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "text-center text-muted",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("small", {
+                  children: e.created_at
+                })
               })]
             }, e.id);
           }) : null : null]
@@ -64232,6 +64251,17 @@ function Home() {
     }
     return "";
   };
+  var getBancoName = function getBancoName(code) {
+    if (opcionesMetodosPago.length) {
+      var fil = opcionesMetodosPago.filter(function (e) {
+        return code == e.codigo;
+      });
+      if (fil.length) {
+        return fil[0].descripcion;
+      }
+    }
+    return "N/A";
+  };
   var colors = {
     "BIOPAGO 1": "rgb(200, 109, 109)",
     "BIOPAGO": "rgb(200, 109, 109)",
@@ -67719,6 +67749,7 @@ function Home() {
           viewmainPanel: viewmainPanel
         }), viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.Fragment, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_28__["default"], {
+            getBancoName: getBancoName,
             setqestatusaprobaciocaja: setqestatusaprobaciocaja,
             sucursalDetallesData: sucursalDetallesData,
             getsucursalDetallesData: getsucursalDetallesData,

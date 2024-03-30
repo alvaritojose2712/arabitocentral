@@ -3,6 +3,7 @@ import PanelOpciones from './panel/panelopciones'
 import FechasMain from './panel/fechasmain'
 
 export default function Auditoria({
+    getBancoName,
     opcionesMetodosPago,
 
     fechaSelectAuditoria,
@@ -726,7 +727,8 @@ export default function Auditoria({
                         <div className="card-header flex-row justify-content-between">
                             <div className="d-flex justify-content-between">
                                 <div className="w-50">
-                                    SOLICITA {e.sucursal.codigo}
+                                    <button className="btn fw-bolder" style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.codigo}</button>
+                                    
                                 </div>
                                 <div className="w-50 text-right">
                                     {
@@ -742,12 +744,23 @@ export default function Auditoria({
                         </div>
                         <div className="text-center">
                             <span className="card-title ">
-                                <small className="fst-italic fs-2"><b>{e.loteserial}</b> ({e.banco})</small><br/>
+                                <small className="fst-italic fs-2">
+                                <b>{e.loteserial}</b>
+                                <br /> 
+                                <button className="btn fw-bolder m-1" 
+                                style={{
+                                    backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
+                                    color:colors[e.banco]?colors[e.banco][1]:""
+                                }}>{getBancoName(e.banco)}</button>
+                                </small><br/>
                             </span>
                         </div> 
                         <div className="card-body d-flex justify-content-between">
                             <button className="btn btn-sm btn-danger" onClick={()=>aprobarTransferenciaFun(e.id,"delete")}><i className="fa fa-times"></i></button>
                             <button className="btn btn-sm btn-success" onClick={()=>aprobarTransferenciaFun(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></button>
+                        </div>
+                        <div className="text-center text-muted">
+                            <small>{e.created_at}</small>
                         </div>
                             
                     </div>

@@ -396,7 +396,15 @@ function Home() {
   }
 
 
-
+  const getBancoName = (code) => {
+    if (opcionesMetodosPago.length) {
+      let fil = opcionesMetodosPago.filter(e=>code==e.codigo)
+      if (fil.length) {
+        return fil[0].descripcion
+      }
+    }
+    return "N/A"
+  }
   const colors = {
     "BIOPAGO 1": "rgb(200, 109, 109)",
     "BIOPAGO": "rgb(200, 109, 109)",
@@ -3563,6 +3571,7 @@ function formatAmount( number, simbol ) {
           }
           {viewmainPanel === "auditoria" && <>
               <Auditoria
+                getBancoName={getBancoName}
                 setqestatusaprobaciocaja={setqestatusaprobaciocaja }
                 sucursalDetallesData={sucursalDetallesData }
                 getsucursalDetallesData={getsucursalDetallesData }
