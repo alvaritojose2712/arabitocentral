@@ -3412,7 +3412,7 @@ function Auditoria(_ref) {
             })]
           }), sucursalDetallesData.aprobaciontransferenciasdata ? sucursalDetallesData.aprobaciontransferenciasdata.length ? sucursalDetallesData.aprobaciontransferenciasdata.map(function (e, i) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-              className: (!e.estatus ? "bg-sinapsis-light" : "bg-light") + " text-secondary card mb-3 pointer shadow",
+              className: (!e.estatus ? "bg-sinapsis-light" : "bg-light") + " text-secondary card mb-3 pointer shadow border border-dark",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "card-header flex-row justify-content-between",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {

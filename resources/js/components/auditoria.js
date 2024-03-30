@@ -723,7 +723,7 @@ export default function Auditoria({
                 ? sucursalDetallesData.aprobaciontransferenciasdata.map( (e,i) =>
                     <div 
                     key={e.id}
-                    className={(!e.estatus?"bg-sinapsis-light":"bg-light")+" text-secondary card mb-3 pointer shadow"}>
+                    className={(!e.estatus?"bg-sinapsis-light":"bg-light")+" text-secondary card mb-3 pointer shadow border border-dark"}>
                         <div className="card-header flex-row justify-content-between">
                             <div className="d-flex justify-content-between">
                                 <div className="w-50">
