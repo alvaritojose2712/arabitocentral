@@ -31,7 +31,7 @@ class CierresController extends Controller
         garantias::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
         fallas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
         cajas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
-        puntosybiopagos::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->whereNull("fecha")->delete();
+        puntosybiopagos::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->whereNull("fecha_liquidacion")->delete();
         cierres::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
 
         $sendInventarioCt = (new InventarioSucursalController)->sendInventarioCt($req->sendInventarioCt, $id_sucursal);
@@ -528,7 +528,7 @@ class CierresController extends Controller
             break;
 
             case 'aprobtransferencia':
-                if ($tipo_usuario==3) {
+                if ($tipo_usuario==1||$tipo_usuario==3) {
                     
                     return (new TransferenciaAprobacionController)->gettransferenciaAprobacion($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }

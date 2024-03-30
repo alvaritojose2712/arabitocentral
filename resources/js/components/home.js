@@ -400,8 +400,21 @@ function Home() {
   const colors = {
     "BIOPAGO 1": "rgb(200, 109, 109)",
     "BIOPAGO": "rgb(200, 109, 109)",
+    "PUNTO 0": "rgb(245, 222, 35)",
     "PUNTO 1": "rgb(245, 222, 35)",
     "PUNTO 2": "rgb(245, 222, 35)",
+    "PUNTO 3": "rgb(245, 222, 35)",
+    "PUNTO 4": "rgb(245, 222, 35)",
+    "PUNTO 5": "rgb(245, 222, 35)",
+    "PUNTO 6": "rgb(245, 222, 35)",
+    "PUNTO 7": "rgb(245, 222, 35)",
+    "PUNTO 8": "rgb(245, 222, 35)",
+    "PUNTO 9": "rgb(245, 222, 35)",
+    "PUNTO 10": "rgb(245, 222, 35)",
+    "PUNTO 11": "rgb(245, 222, 35)",
+    "PUNTO 12": "rgb(245, 222, 35)",
+    "PUNTO 13": "rgb(245, 222, 35)",
+    "PUNTO 14": "rgb(245, 222, 35)",
     "PUNTO": "rgb(245, 222, 35)",
     "Transferencia": "#0091ff",
 
@@ -3491,7 +3504,7 @@ function formatAmount( number, simbol ) {
               }
             </NominaHome>
           }
-          {viewmainPanel === "adminad" &&
+          {viewmainPanel === "admin" &&
             <Usuarios
               usuarioNombre={usuarioNombre}
               setusuarioNombre={setusuarioNombre}

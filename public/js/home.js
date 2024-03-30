@@ -3424,7 +3424,7 @@ function Auditoria(_ref) {
                     children: e.saldo != 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
                         className: "h6 text-muted font-italic fs-3",
-                        children: ["Monto $ ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
+                        children: ["Monto ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
                           children: moneda(e.saldo)
                         })]
                       })
@@ -64235,8 +64235,21 @@ function Home() {
   var colors = {
     "BIOPAGO 1": "rgb(200, 109, 109)",
     "BIOPAGO": "rgb(200, 109, 109)",
+    "PUNTO 0": "rgb(245, 222, 35)",
     "PUNTO 1": "rgb(245, 222, 35)",
     "PUNTO 2": "rgb(245, 222, 35)",
+    "PUNTO 3": "rgb(245, 222, 35)",
+    "PUNTO 4": "rgb(245, 222, 35)",
+    "PUNTO 5": "rgb(245, 222, 35)",
+    "PUNTO 6": "rgb(245, 222, 35)",
+    "PUNTO 7": "rgb(245, 222, 35)",
+    "PUNTO 8": "rgb(245, 222, 35)",
+    "PUNTO 9": "rgb(245, 222, 35)",
+    "PUNTO 10": "rgb(245, 222, 35)",
+    "PUNTO 11": "rgb(245, 222, 35)",
+    "PUNTO 12": "rgb(245, 222, 35)",
+    "PUNTO 13": "rgb(245, 222, 35)",
+    "PUNTO 14": "rgb(245, 222, 35)",
     "PUNTO": "rgb(245, 222, 35)",
     "Transferencia": "#0091ff",
     "EFECTIVO": ["#06f977", "#000000"],
@@ -67661,7 +67674,7 @@ function Home() {
             setnominapagodetalles: setnominapagodetalles,
             moneda: moneda
           })]
-        }), viewmainPanel === "adminad" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_usuarios__WEBPACK_IMPORTED_MODULE_26__["default"], {
+        }), viewmainPanel === "admin" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_usuarios__WEBPACK_IMPORTED_MODULE_26__["default"], {
           usuarioNombre: usuarioNombre,
           setusuarioNombre: setusuarioNombre,
           usuarioUsuario: usuarioUsuario,

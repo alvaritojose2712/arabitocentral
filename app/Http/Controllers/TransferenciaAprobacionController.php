@@ -14,39 +14,51 @@ class TransferenciaAprobacionController extends Controller
             $codigo_origen = $req->codigo_origen;
     
             $id_sucursal = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen)["id_origen"];
-            $idinsucursal = $data["idinsucursal"];
+            /* $idinsucursal = $data["idinsucursal"];
             $saldo = $data["saldo"];
             $loteserial = $data["loteserial"];
-            $banco = $data["banco"];
-            
-            $check = transferencia_aprobacion::where("idinsucursal",$idinsucursal)->where("id_sucursal",$id_sucursal)->first("estatus");
-            if ($check) {
-                if ($check->estatus==1) {
-                    return "APROBADO";
+            $banco = $data["banco"]; */
+
+            $count_refs = count($data["refs"]);
+            $count_apro = 0;
+
+            foreach ($data["refs"] as $ref) {
+                $check = transferencia_aprobacion::where("idinsucursal",$ref["id"])->where("id_sucursal",$id_sucursal)->first("estatus");
+                if ($check) {
+                    if ($check->estatus==1) {
+                        $count_apro++;
+                    }
                 }
             }
-    
-            $transferencia_aprobacion = transferencia_aprobacion::updateOrCreate([
-                "id_sucursal" => $id_sucursal,
-                "idinsucursal" => $idinsucursal,
-            ],[
-                "id_sucursal" => $id_sucursal,
-                "idinsucursal" => $idinsucursal,
-                "estatus" => 0,
-                "saldo" => $saldo,
-                "loteserial"=>$loteserial,
-                "banco"=>$banco,
-            ]);
-            if ($transferencia_aprobacion) {
 
-                return "Solicitud enviada. Esperar aprobación de Transferencia...";
+            if ($count_refs==$count_apro) {
+                return ["estado" =>true, "msj" => "APROBADO"];
             }
+
+            $count_createTrans = 0;
+            foreach ($data["refs"] as $ref) {
+                $transferencia_aprobacion = transferencia_aprobacion::updateOrCreate([
+                    "id_sucursal" => $id_sucursal,
+                    "idinsucursal" => $ref["id"],
+                ],[
+                    "id_sucursal" => $id_sucursal,
+                    "idinsucursal" => $ref["id"],
+                    "estatus" => 0,
+                    "saldo" => $ref["monto"],
+                    "loteserial"=>$ref["descripcion"],
+                    "banco"=>$ref["banco"],
+                ]);
+                if ($transferencia_aprobacion) {
+                    $count_createTrans++;
+                }
+            }
+            return ["estado" =>false, "msj" => "DESDE CENTRAL: $count_createTrans Referencias enviadas. En espera de aprobación..."];
             
         }
         function gettransferenciaAprobacion($fechasMain1, $fechasMain2, $id_sucursal, $filtros) {
             $qestatus = $filtros["qestatusaprobaciocaja"];
             
-            $data = transferencia_aprobacion::with(["sucursal","cliente"])
+            $data = transferencia_aprobacion::with(["sucursal"])
             ->when($id_sucursal, function ($q) use ($id_sucursal) {
                 $q->where("id_sucursal", $id_sucursal);
             })

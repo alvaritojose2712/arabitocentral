@@ -102,7 +102,7 @@ class BancosController extends Controller
             array_multisort(array_column($puntosmascuentas, $columnOrder), $order=="desc"? SORT_DESC: SORT_ASC, $puntosmascuentas);
             
             $xbanco = collect($puntosmascuentas)->map(function ($q) {
-                if ($q["tipo"]=="PUNTO 1" OR $q["tipo"]=="PUNTO 2") {
+                if (str_contains($q["tipo"], "PUNTO")) {
                     $q["tipo"] = "PUNTO";
                 }
     

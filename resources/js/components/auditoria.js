@@ -732,7 +732,7 @@ export default function Auditoria({
                                     {
                                         e.saldo!=0?
                                             <>
-                                                <span className="h6 text-muted font-italic fs-3">Monto $ <b>{moneda(e.saldo)}</b></span>
+                                                <span className="h6 text-muted font-italic fs-3">Monto <b>{moneda(e.saldo)}</b></span>
                                             </>
                                         :null
                                     }
