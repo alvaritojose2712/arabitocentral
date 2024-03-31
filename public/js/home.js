@@ -8716,7 +8716,7 @@ function PanelSucursales(_ref) {
             moneda: moneda
           }) : null, permiso([1, 2]) && subviewpanelsucursales == "cierres" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallescierres__WEBPACK_IMPORTED_MODULE_1__["default"], {
             sucursalDetallesData: sucursalDetallesData
-          }) : null, permiso([1, 2, 7]) && subviewpanelsucursales == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallesinvetario__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          }) : null, permiso([1, 2, 7, 8]) && subviewpanelsucursales == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallesinvetario__WEBPACK_IMPORTED_MODULE_3__["default"], {
             getsucursalDetallesData: getsucursalDetallesData,
             sucursalDetallesData: sucursalDetallesData,
             invsuc_itemCero: invsuc_itemCero,
@@ -68320,7 +68320,7 @@ function Home() {
             delMarcas: delMarcas,
             marcas: marcas
           }) : null]
-        }), permiso([1, 2, 3, 5, 7]) && viewmainPanel === "sucursales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_panelSucursales__WEBPACK_IMPORTED_MODULE_30__["default"], {
+        }), permiso([1, 2, 3, 5, 7, 8]) && viewmainPanel === "sucursales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_panelSucursales__WEBPACK_IMPORTED_MODULE_30__["default"], {
           permiso: permiso,
           user: user,
           changeLiquidacionPagoElec: changeLiquidacionPagoElec,
