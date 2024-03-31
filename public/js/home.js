@@ -8594,7 +8594,8 @@ function PanelSucursales(_ref) {
     setSaldoActualSelectAuditoria = _ref.setSaldoActualSelectAuditoria,
     getCatGeneralFun = _ref.getCatGeneralFun,
     getCatCajas = _ref.getCatCajas,
-    user = _ref.user;
+    user = _ref.user,
+    permiso = _ref.permiso;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getSucursales();
   }, []);
@@ -8643,7 +8644,7 @@ function PanelSucursales(_ref) {
           className: "col table-responsive mb-2 pb-2 pt-2 d-flex justify-content-center",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
             className: "btn-group w-100",
-            children: [user.tipo_usuario == 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
                 className: "btn btn" + (subviewpanelsucursales == "resumencierres" ? "" : "-outline") + "-success",
                 onClick: function onClick() {
@@ -8657,7 +8658,7 @@ function PanelSucursales(_ref) {
                 },
                 children: "Cierres"
               })]
-            }) : null, user.tipo_usuario == 4 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
                 className: "btn btn" + (subviewpanelsucursales == "controldeefectivo" ? "" : "-outline") + "-success",
                 onClick: function onClick() {
@@ -8665,7 +8666,7 @@ function PanelSucursales(_ref) {
                 },
                 children: "Efectivo"
               })
-            }) : null, user.tipo_usuario == 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
                 className: "btn btn" + (subviewpanelsucursales == "puntosyseriales" ? "" : "-outline") + "-success",
                 onClick: function onClick() {
@@ -8703,19 +8704,19 @@ function PanelSucursales(_ref) {
                 },
                 children: " N\xF3mina "
               })]
-            }) : null]
+            })]
           })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "row",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "col table-responsive mb-2",
-          children: [subviewpanelsucursales == "resumencierres" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_SucursalResumencierres__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          children: [permiso([1, 2]) && subviewpanelsucursales == "resumencierres" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_SucursalResumencierres__WEBPACK_IMPORTED_MODULE_2__["default"], {
             sucursalDetallesData: sucursalDetallesData,
             moneda: moneda
-          }) : null, subviewpanelsucursales == "cierres" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallescierres__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          }) : null, permiso([1, 2]) && subviewpanelsucursales == "cierres" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallescierres__WEBPACK_IMPORTED_MODULE_1__["default"], {
             sucursalDetallesData: sucursalDetallesData
-          }) : null, subviewpanelsucursales == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallesinvetario__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          }) : null, permiso([1, 2, 7]) && subviewpanelsucursales == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallesinvetario__WEBPACK_IMPORTED_MODULE_3__["default"], {
             getsucursalDetallesData: getsucursalDetallesData,
             sucursalDetallesData: sucursalDetallesData,
             invsuc_itemCero: invsuc_itemCero,
@@ -8730,7 +8731,7 @@ function PanelSucursales(_ref) {
             setinvsuc_orderColumn: setinvsuc_orderColumn,
             invsuc_orderBy: invsuc_orderBy,
             setinvsuc_orderBy: setinvsuc_orderBy
-          }) : null, subviewpanelsucursales == "puntosyseriales" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_Puntosyseriales__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          }) : null, permiso([1, 2, 3]) && subviewpanelsucursales == "puntosyseriales" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_Puntosyseriales__WEBPACK_IMPORTED_MODULE_4__["default"], {
             getsucursalDetallesData: getsucursalDetallesData,
             sucursalDetallesData: sucursalDetallesData,
             changeLiquidacionPagoElec: changeLiquidacionPagoElec,
@@ -8742,7 +8743,7 @@ function PanelSucursales(_ref) {
             setSaldoInicialSelectAuditoria: setSaldoInicialSelectAuditoria,
             SaldoActualSelectAuditoria: SaldoActualSelectAuditoria,
             setSaldoActualSelectAuditoria: setSaldoActualSelectAuditoria
-          }) : null, subviewpanelsucursales == "controldeefectivo" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_Controldeefectivo__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }) : null, permiso([1, 2, 3, 5]) && subviewpanelsucursales == "controldeefectivo" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_Controldeefectivo__WEBPACK_IMPORTED_MODULE_5__["default"], {
             getsucursalDetallesData: getsucursalDetallesData,
             sucursalDetallesData: sucursalDetallesData,
             controlefecSelectGeneral: controlefecSelectGeneral,
@@ -8750,7 +8751,7 @@ function PanelSucursales(_ref) {
             moneda: moneda,
             getCatGeneralFun: getCatGeneralFun,
             getCatCajas: getCatCajas
-          }) : null, subviewpanelsucursales == "nomina" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_nominasucursal__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          }) : null, permiso([1, 2]) && subviewpanelsucursales == "nomina" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_nominasucursal__WEBPACK_IMPORTED_MODULE_6__["default"], {
             getsucursalDetallesData: getsucursalDetallesData,
             sucursalDetallesData: sucursalDetallesData,
             controlefecSelectGeneral: controlefecSelectGeneral,
@@ -8762,11 +8763,11 @@ function PanelSucursales(_ref) {
             moneda: moneda,
             getPersonalCargos: getPersonalCargos,
             cargosData: cargosData
-          }) : null, subviewpanelsucursales == "fallas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_fallas__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          }) : null, permiso([1, 2]) && subviewpanelsucursales == "fallas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_fallas__WEBPACK_IMPORTED_MODULE_7__["default"], {
             getsucursalDetallesData: getsucursalDetallesData,
             sucursalDetallesData: sucursalDetallesData,
             moneda: moneda
-          }) : null, subviewpanelsucursales == "creditos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_creditos__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          }) : null, permiso([1, 2]) && subviewpanelsucursales == "creditos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_creditos__WEBPACK_IMPORTED_MODULE_8__["default"], {
             getsucursalDetallesData: getsucursalDetallesData,
             sucursalDetallesData: sucursalDetallesData,
             moneda: moneda
@@ -13933,6 +13934,9 @@ function Usuarios(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "7",
                   children: "CONSULTA_INVENTARIO"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "8",
+                  children: "COMPRAS"
                 })]
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -67626,7 +67630,7 @@ function Home() {
           viewmainPanel: viewmainPanel,
           setviewmainPanel: setviewmainPanel,
           opciones: opcionesadmin
-        }), permiso([1]) && viewmainPanel === "nomina" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_nomina_nominahome__WEBPACK_IMPORTED_MODULE_32__["default"], {
+        }), permiso([1, 2]) && viewmainPanel === "nomina" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_nomina_nominahome__WEBPACK_IMPORTED_MODULE_32__["default"], {
           subViewNomina: subViewNomina,
           setsubViewNomina: setsubViewNomina,
           children: [subViewNomina === "gestion" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_nomina_nomina__WEBPACK_IMPORTED_MODULE_33__["default"], {
@@ -67832,7 +67836,7 @@ function Home() {
           sendsaldoactualbancofecha: sendsaldoactualbancofecha,
           selectConciliacionData: selectConciliacionData,
           setselectConciliacionData: setselectConciliacionData
-        }), permiso([1, 2, 4]) && viewmainPanel === "efectivo" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_efectivo__WEBPACK_IMPORTED_MODULE_39__["default"], {
+        }), permiso([1, 2, 4, 8]) && viewmainPanel === "efectivo" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsxs)(_efectivo__WEBPACK_IMPORTED_MODULE_39__["default"], {
           subviewpanelsucursales: subviewpanelsucursales,
           setsubviewpanelsucursales: setsubviewpanelsucursales,
           getsucursalDetallesData: getsucursalDetallesData,
@@ -68143,7 +68147,7 @@ function Home() {
           qNomina: qNomina,
           setqNomina: setqNomina,
           moneda: moneda
-        }), permiso([1]) && viewmainPanel === "pedir" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_pedir__WEBPACK_IMPORTED_MODULE_38__["default"], {
+        }), permiso([1, 2]) && viewmainPanel === "pedir" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_pedir__WEBPACK_IMPORTED_MODULE_38__["default"], {
           productos: productos,
           getProductos: getProductos,
           moneda: moneda,
@@ -68169,7 +68173,7 @@ function Home() {
           selectPrecioxProveedorPrecio: selectPrecioxProveedorPrecio,
           setselectPrecioxProveedorPrecio: setselectPrecioxProveedorPrecio,
           getPrecioxProveedor: getPrecioxProveedor
-        }), permiso([1]) && viewmainPanel === "proveedores" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_proveedores__WEBPACK_IMPORTED_MODULE_29__["default"], {
+        }), permiso([1, 2]) && viewmainPanel === "proveedores" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_proveedores__WEBPACK_IMPORTED_MODULE_29__["default"], {
           getProveedores: getProveedores,
           setviewmainPanel: setviewmainPanel,
           number: number,
@@ -68316,7 +68320,8 @@ function Home() {
             delMarcas: delMarcas,
             marcas: marcas
           }) : null]
-        }), permiso([1, 2, 3]) && viewmainPanel === "sucursales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_panelSucursales__WEBPACK_IMPORTED_MODULE_30__["default"], {
+        }), permiso([1, 2, 3, 5, 7]) && viewmainPanel === "sucursales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_46__.jsx)(_panelSucursales__WEBPACK_IMPORTED_MODULE_30__["default"], {
+          permiso: permiso,
           user: user,
           changeLiquidacionPagoElec: changeLiquidacionPagoElec,
           getPersonalCargos: getPersonalCargos,

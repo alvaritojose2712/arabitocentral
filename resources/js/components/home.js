@@ -3419,7 +3419,7 @@ function formatAmount( number, simbol ) {
             />
           }
 
-          {permiso([1]) && viewmainPanel === "nomina" &&
+          {permiso([1,2]) && viewmainPanel === "nomina" &&
             <NominaHome
               subViewNomina={subViewNomina}
               setsubViewNomina={setsubViewNomina}
@@ -3669,7 +3669,7 @@ function formatAmount( number, simbol ) {
             />
           }
 
-          {permiso([1,2,4]) && viewmainPanel === "efectivo" &&
+          {permiso([1,2,4,8]) && viewmainPanel === "efectivo" &&
             <Efectivo
               subviewpanelsucursales={subviewpanelsucursales}
               setsubviewpanelsucursales={setsubviewpanelsucursales}
@@ -4032,7 +4032,7 @@ function formatAmount( number, simbol ) {
             />
           }
 
-          {permiso([1]) && viewmainPanel === "pedir" &&
+          {permiso([1,2]) && viewmainPanel === "pedir" &&
             <Pedir
               productos={productos}
               getProductos={getProductos}
@@ -4064,7 +4064,7 @@ function formatAmount( number, simbol ) {
             </Pedir>
           }
 
-          {permiso([1]) && viewmainPanel === "proveedores" && 
+          {permiso([1,2]) && viewmainPanel === "proveedores" && 
             <Proveedores
               getProveedores={getProveedores}
               setviewmainPanel={setviewmainPanel}
@@ -4246,8 +4246,9 @@ function formatAmount( number, simbol ) {
           }
 
 
-          {permiso([1,2,3]) && viewmainPanel === "sucursales" &&
+          {permiso([1,2,3,5,7]) && viewmainPanel === "sucursales" &&
             <PanelSucursales
+              permiso={permiso}
               user={user}
               changeLiquidacionPagoElec={changeLiquidacionPagoElec}
               getPersonalCargos={getPersonalCargos}

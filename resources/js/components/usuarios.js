@@ -135,6 +135,7 @@ export default function Usuarios({
 									<option value="5">GASTOS</option>
 									<option value="6">APROBAR_TRANSF</option>
 									<option value="7">CONSULTA_INVENTARIO</option>
+									<option value="8">COMPRAS</option>
 								</select>
 							</div>
                             <div className="form-group">

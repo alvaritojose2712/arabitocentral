@@ -61,6 +61,7 @@ export default function PanelSucursales({
     getCatGeneralFun,
     getCatCajas,
     user,
+    permiso,
 
 }) {
     useEffect(() => {
@@ -105,20 +106,15 @@ export default function PanelSucursales({
                 <div className="row">
                     <div className="col table-responsive mb-2 pb-2 pt-2 d-flex justify-content-center">
                         <div className="btn-group w-100">
-                            {user.tipo_usuario==1?
                                 <>
                                     <button className={("btn btn") + (subviewpanelsucursales == "resumencierres" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("resumencierres")}>RESUMEN</button>
                                     <button className={("btn btn") + (subviewpanelsucursales == "cierres" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("cierres")}>Cierres</button>
                                 </>
-                            :null}
-                            {user.tipo_usuario==4?
                                 <>
                                     <button className={("btn btn") + (subviewpanelsucursales == "controldeefectivo" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("controldeefectivo")}>Efectivo</button>
                                 </>
-                            :null}
                             
 
-                            {user.tipo_usuario==1?
                                 <>
                                     <button className={("btn btn") + (subviewpanelsucursales == "puntosyseriales" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("puntosyseriales")}>PagoElectrónicos</button>
                                     <button className={("btn btn") + (subviewpanelsucursales == "creditos" ? "" : "-outline") + ("-success")} onClick={() => setsubviewpanelsucursales("creditos")}>Créditos</button>
@@ -128,7 +124,6 @@ export default function PanelSucursales({
                                     
                                     <button className={("btn btn") + (subviewpanelsucursales == "nomina" ? "" : "-outline") + ("-info")} onClick={() => setsubviewpanelsucursales("nomina")}> Nómina </button>
                                 </>
-                            :null}
 
                         </div>
 
@@ -137,7 +132,7 @@ export default function PanelSucursales({
                 <div className="row">
                     <div className="col table-responsive mb-2">
                         
-                        {subviewpanelsucursales == "resumencierres" ?
+                        {permiso([1,2]) && subviewpanelsucursales == "resumencierres" ?
                             <SucursalResumencierres
                                 sucursalDetallesData={sucursalDetallesData}
                                 moneda={moneda}
@@ -146,14 +141,14 @@ export default function PanelSucursales({
                             />
                         : null}
 
-                        {subviewpanelsucursales == "cierres" ?
+                        {permiso([1,2]) && subviewpanelsucursales == "cierres" ?
                             <SucursalDetallesCierres
                                 sucursalDetallesData={sucursalDetallesData}
 
                             />
                         : null}
 
-                        {subviewpanelsucursales == "inventario" ?
+                        {permiso([1,2,7]) && subviewpanelsucursales == "inventario" ?
                             <SucursalDetallesinvetario
                                 getsucursalDetallesData={getsucursalDetallesData}
                                 sucursalDetallesData={sucursalDetallesData}
@@ -173,7 +168,7 @@ export default function PanelSucursales({
                             />
                             : null}
 
-                        {subviewpanelsucursales == "puntosyseriales" ?
+                        {permiso([1,2,3]) && subviewpanelsucursales == "puntosyseriales" ?
                             <Puntosyseriales
                                 getsucursalDetallesData={getsucursalDetallesData}
                                 sucursalDetallesData={sucursalDetallesData}
@@ -191,7 +186,7 @@ export default function PanelSucursales({
                             : null}
 
 
-                        {subviewpanelsucursales == "controldeefectivo" ?
+                        {permiso([1,2,3,5]) && subviewpanelsucursales == "controldeefectivo" ?
                             <Controldeefectivo
                                 getsucursalDetallesData={getsucursalDetallesData}
                                 sucursalDetallesData={sucursalDetallesData}
@@ -204,7 +199,7 @@ export default function PanelSucursales({
                             />
                             : null}
 
-                        {subviewpanelsucursales == "nomina" ?
+                        {permiso([1,2]) && subviewpanelsucursales == "nomina" ?
                             <NominasSucursal
                                 getsucursalDetallesData={getsucursalDetallesData}
                                 sucursalDetallesData={sucursalDetallesData}
@@ -221,7 +216,7 @@ export default function PanelSucursales({
                             />
                         : null}
 
-                        {subviewpanelsucursales == "fallas" ?
+                        {permiso([1,2]) && subviewpanelsucursales == "fallas" ?
                             <Fallas
                                 getsucursalDetallesData={getsucursalDetallesData}
                                 sucursalDetallesData={sucursalDetallesData}
@@ -229,7 +224,7 @@ export default function PanelSucursales({
                             />
                         : null}
 
-                        {subviewpanelsucursales == "creditos" ?
+                        {permiso([1,2]) && subviewpanelsucursales == "creditos" ?
                             <Creditos
                                 getsucursalDetallesData={getsucursalDetallesData}
                                 sucursalDetallesData={sucursalDetallesData}
