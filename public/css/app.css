@@ -422,6 +422,16 @@ body{
   box-shadow: 1px 8px 13px -14px black;
   color: #00000085;
 }
+.border-select{
+  border-color: #9cff88 !important;
+  border-width: 27px !important;
+  border-style: groove !important;
+
+}
+.text-successfuerte{
+  font-weight: bolder !important;
+  color: #34751d !important;
+}
 .card-arabito .descripcion{
   font-size: 1em;
   font-weight: bold;

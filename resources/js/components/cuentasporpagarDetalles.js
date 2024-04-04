@@ -70,6 +70,9 @@ export default function CuentasporpagarDetalles({
     setsubviewAgregarFactPago,
     abonarFactLote,
     changeSucursal,
+    returnCondicion,
+    colorSucursal,
+    dateFormat,
 
 }){
     
@@ -97,9 +100,10 @@ export default function CuentasporpagarDetalles({
         }
     }
 
-    
-
     const [selectFactViewDetalles, setselectFactViewDetalles] = useState(null)
+    const [viewAvanzatedShow, setviewAvanzatedShow] = useState(false)
+
+
     return (
         <>
             {
@@ -343,7 +347,7 @@ export default function CuentasporpagarDetalles({
                     <table className="table table-borderless table-striped mb-500">
                             <thead className="">
                                 <tr className="align-middle">
-                                    <th colSpan={8}>
+                                    <th colSpan={6}>
                                         <div className="btn-group">
                                             <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>PAGOS</span>
 
@@ -377,24 +381,34 @@ export default function CuentasporpagarDetalles({
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="created_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("created_at")}} className="pointer  p-3">
-                                        CREADA
-                                    </th> 
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="updated_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("updated_at")}} className="pointer  p-3">
-                                        ACTUALIZADA
-                                    </th> 
+                                    {viewAvanzatedShow?<>
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="created_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("created_at")}} className="pointer  p-3">
+                                            CREADA
+                                        </th> 
+                                        <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="updated_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("updated_at")}} className="pointer  p-3">
+                                            ACTUALIZADA
+                                        </th> 
+                                    </>:null}
 
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_proveedor"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_proveedor")}} className="pointer  p-3">
-                                        PROVEEDOR
-                                    </th>  
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="numfact"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("numfact")}} className="pointer  p-3 text-center">
-                                        NUM
-                                    </th>  
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechaemision"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechaemision")}} className="pointer  p-3 text-right">
-                                        EMISIÓN
+                                    <th className="p-3 text-right">
+                                        <i className="fa fa-eye text-success pointer me-1" onClick={()=>setviewAvanzatedShow(!viewAvanzatedShow)}></i>
+
+                                        <span className="pointer" onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechaemision"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechaemision")}}>
+                                            EMISIÓN
+                                        </span>
                                     </th>       
                                     <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="fechavencimiento"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fechavencimiento")}} className="pointer  p-3 text-right">
                                         VENCE
+                                    </th>  
+
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_proveedor"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_proveedor")}} className="pointer p-3 text-right">
+                                        PROVEEDOR
+                                    </th>  
+                                    <th>
+
+                                    </th>
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="numfact"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("numfact")}} className="pointer  p-3 text-center">
+                                        NúMERO DE FACTURA
                                     </th>  
                                     <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_sucursal"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_sucursal")}} className="pointer  p-3 text-right">
                                         ORIGEN
@@ -426,43 +440,45 @@ export default function CuentasporpagarDetalles({
                                 <tbody key={e.id}>
                                     <tr className={(selectFactViewDetalles==e.id?"bg-success-light":null)+(" pointer border-top border-top-5 border-dark")} key={e.id} onDoubleClick={event=>selectFacts(event,e.id)} onClick={()=>setselectFactViewDetalles(selectFactViewDetalles==e.id?null:e.id)}>
                                         
-                                            
-                                            <td className="">
-                                                <small className="text-muted">{e.created_at}</small>
-                                            </td> 
-                                            <td className="">
-                                                <small className="text-muted">{e.updated_at}</small>
-                                            </td> 
+                                            {viewAvanzatedShow?<>
+                                                <td className="">
+                                                    <small className="text-muted">{e.created_at}</small>
+                                                </td> 
+                                                <td className="">
+                                                    <small className="text-muted">{e.updated_at}</small>
+                                                </td>
+                                            </>:null}
 
-                                            <td className="">
-                                                <span className="fw-bold">{e.proveedor.descripcion}</span>
+                                            <td className="text-right fs-4">
+                                                <span className="text-successfuerte">{dateFormat(e.fechaemision,"dd-MM-yyyy")}</span>
+                                            </td>       
+                                            <td className="text-right fs-4">
+                                                <span className="text-danger ms-1">{dateFormat(e.fechavencimiento,"dd-MM-yyyy")} <br />
+                                                    <span className={(e.dias<0? "text-danger": "text-success")+(" ")}>({e.dias} días)</span>
+                                                </span>
                                             </td>  
-                                            <td className=" text-right">
+
+                                            <td className="text-right">
+                                                <span className="fw-bold fs-4">{e.proveedor.descripcion}</span>
+                                            </td>  
+                                            <td>
+                                                <span className="m-2">
+                                                    {e.aprobado==0?<i className="fa-2x fa fa-clock-o text-sinapsis"></i>:<i className="fa fa-check text-success"></i>} 
+                                                </span>
+                                            </td>
+                                            <td className="text-right">
                                                 
                                                 {/* <input type="checkbox" className="form-check-input me-1 fs-2" onMouseEnter={event=>selectFacts(event,e.id,"leave")} onChange={event=>selectFacts(event,e.id)} checked={dataselectFacts.data.filter(selefil =>selefil.id==e.id).length?
                                                     true
                                                 :false} /> */}
-                                                <span className="m-2">
-                                                    {e.aprobado==0?<i className="fa-2x fa fa-clock-o text-sinapsis"></i>:<i className="fa fa-check text-success"></i>} 
-
-                                                </span>
-                                                <span className={
-                                                    (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-75 btn fs-6 pointer fw-bolder text-light")
-                                                }> 
-                                                {e.monto<=0?"FACT ":"ABONO "} 
-                                                {e.numfact}
+                                                <span className={(returnCondicion(e.condicion))+(" w-100 btn fs-2 pointer fw-bolder text-light ")+(dataselectFacts.data.filter(fil=>fil.id == e.id).length?"border-select":"")}> 
+                                                    {e.numfact}
                                                 </span>
                                             </td>  
                                             <td className=" text-right">
-                                                <span className="text-success">{e.fechaemision}</span>
-                                            </td>       
-                                            <td className=" text-right">
-                                                <span className="text-danger ms-1">{e.fechavencimiento} <br />
-                                                    <span className={(e.dias<0? "text-danger": "text-success")+(" ")}>({e.dias} días)</span>
-                                                </span>
-                                            </td>  
-                                            <td className=" text-right">
-                                                <span className="pointer">{e.sucursal.codigo}</span>   
+                                                <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
+                                                    {e.sucursal.codigo}
+                                                </button>
                                             </td>
                                             <td className=" text-right">
                                                 <span className="text-muted fs-6">{moneda(e.monto_bruto)}</span>
@@ -623,14 +639,14 @@ export default function CuentasporpagarDetalles({
                         <div className={("container-fluid shadow card ")+(dataselectFacts.data.length?"p-3":"")}>
                             <div className="row">
                                 <div className="col">
-                                    {dataselectFacts.data.map(e=>
+                                    {/* {dataselectFacts.data.map(e=>
                                         <div key={e.id} className="btn-group-vertical me-1">
                                             <span onClick={event=>selectFacts(event,e.id)} className={
                                                 (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-100 btn fs-6 pointer fw-bolder text-light")
                                             }>{e.numfact}</span>
                                             <button className="btn btn-warning">{moneda(e.balance)}</button>
                                         </div>
-                                    )}
+                                    )} */}
                                     {dataselectFacts.sum?
                                         <button className="btn btn-warning fs-2">{moneda(dataselectFacts.sum)}</button> 
                                     :null}

@@ -143,6 +143,7 @@ export default function CuentasporpagarPagos({
     setrefbs4PagoFact,
     refbs5PagoFact,                        
     setrefbs5PagoFact,
+    returnCondicion,
 }){
     const [viewMultiplesPagos, setviewMultiplesPagos] = useState(0)
     /* useEffect(()=>{
@@ -204,7 +205,7 @@ export default function CuentasporpagarPagos({
 
         setInputAbonoFact(id, setMonto)
     }
-    
+    let sumSelectFats = 0;
 
     
     return (
@@ -463,6 +464,7 @@ export default function CuentasporpagarPagos({
 
                                 </th>
                             </tr>
+                            
                         </thead>
                         <tbody>
 
@@ -472,10 +474,10 @@ export default function CuentasporpagarPagos({
                             .concat((selectCuentaPorPagarId?(selectCuentaPorPagarId.detalles? selectCuentaPorPagarId.detalles.filter(e=>!selectAbonoFact.map(ee=>ee.id).includes(e.id)): ([])) : ([])) )
                             .sort((a,b)=>b.id-a.id)
                             .filter(e=>e.monto<0)
-                            .map( (e,i) =>
-                            
-                                <tr className={("shadow border-top border-top-5 border-dark")+ (e.guardado===true?" bg-success-light":"")} key={i}>
-                                    
+                            .map( (e,i) =>{
+
+                                sumSelectFats += e.balance
+                                return <tr className={("shadow border-top border-top-5 border-dark")+ (e.guardado===true?" bg-success-light":"")} key={i}>
                                     <td className="p-3 align-bottom">
                                         <span className="fws-italic">{e.sucursal.codigo}</span>
                                         <br />   
@@ -498,9 +500,8 @@ export default function CuentasporpagarPagos({
                                         <span 
                                         onClick={()=>pushPago(e.id, e.balance, e.val)}
                                         className={
-                                            (e.condicion=="pagadas"?"btn-medsuccess":(e.condicion=="vencidas"?"btn-danger":(e.condicion=="porvencer"?"btn-sinapsis":(e.condicion=="semipagadas"?"btn-primary":(e.condicion=="abonos"?"btn-success":null)))))+(" w-75 btn fs-6 pointer")
+                                            (returnCondicion(e.condicion))+(" w-75 btn fs-2 pointer fw-bolder text-light")
                                         }> 
-                                        {e.monto<=0?"FACT ":"ABONO "} 
                                         {e.numfact}
                                         </span>
                                     </td>  
@@ -546,9 +547,14 @@ export default function CuentasporpagarPagos({
                                         
                                     </td>
                                 </tr>
-                            )
+                            })
                             
                         } 
+
+                            <tr>
+                                <td colSpan={5}></td>
+                                <td className="text-right m-3 text-sinapsis fs-1">{moneda(sumSelectFats)}</td>
+                            </tr>
                         </tbody>
 
                     </table>

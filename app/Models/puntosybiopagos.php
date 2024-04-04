@@ -28,6 +28,7 @@ class puntosybiopagos extends Model
         "id_usuario",
         "tipo",
         "categoria",
+        "debito_credito",
         "fecha_liquidacion",
         "monto_liquidado",
         "id_beneficiario",

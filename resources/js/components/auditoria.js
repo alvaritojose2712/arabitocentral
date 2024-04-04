@@ -576,6 +576,7 @@ export default function Auditoria({
                                         <tr>
                                             <th onClick={()=>{if(orderColumnAuditoria=="banco"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("banco")}} className="pointer">BANCO</th>
                                             <th onClick={()=>{if(orderColumnAuditoria=="tipo"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("tipo")}} className="pointer">MÉTODO</th>
+                                            <th onClick={()=>{if(orderColumnAuditoria=="debito_credito"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("debito_credito")}} className="pointer">DÉBITO/CRÉDITO</th>
                                             <th onClick={()=>{if(orderColumnAuditoria=="fecha"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha")}} className="pointer">FECHA REPORTADO</th>
                                             <th onClick={()=>{if(orderColumnAuditoria=="fecha_liquidacion"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha_liquidacion")}} className="pointer">FECHA LIQUIDADO</th>
                                             <th>TIPO</th>
@@ -601,6 +602,9 @@ export default function Auditoria({
                                                 <th>
                                                     <button className="btn w-100 fw-bolder" 
                                                     style={{backgroundColor:colors[e.tipo]}}>{e.tipo}</button> 
+                                                </th>
+                                                <th>
+                                                    {e.debito_credito}
                                                 </th>
                                                 <th>{e.fecha}</th>
                                                 <th>{e.fecha_liquidacion}</th>

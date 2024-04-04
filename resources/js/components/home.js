@@ -1302,7 +1302,30 @@ function formatAmount( number, simbol ) {
     return simbol+formatAmountNoDecimals( x1 ) + x2;
 }
 
+  function dateFormat(input_D, format_D) {
+    // input date parsed
+    const date = new Date(input_D);
 
+    //extracting parts of date string
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();    
+
+    //to replace month
+    format_D = format_D.replace("MM", month.toString().padStart(2,"0"));        
+
+    //to replace year
+    if (format_D.indexOf("yyyy") > -1) {
+        format_D = format_D.replace("yyyy", year.toString());
+    } else if (format_D.indexOf("yy") > -1) {
+        format_D = format_D.replace("yy", year.toString().substr(2,2));
+    }
+
+    //to replace day
+    format_D = format_D.replace("dd", day.toString().padStart(2,"0"));
+
+    return format_D;
+  }
 
 
   const moneda = (value, decimals = 2, separators = ['.', ".", ',']) => {
@@ -3381,6 +3404,28 @@ function formatAmount( number, simbol ) {
       return false
     }
   }
+
+  const returnCondicion = (condicion) => {
+
+    switch (condicion) {
+      case "pagadas":
+        return "btn-medsuccess";  
+      break;
+      case "vencidas":
+        return "btn-danger";  
+      break;
+      case "porvencer":
+        return "btn-sinapsis";  
+      break;
+      case "semipagadas":
+        return "btn-primary";  
+      break;
+      case "abonos":
+        return "btn-success";  
+      break;
+    }
+
+  }
   
   return (
     <>
@@ -3714,6 +3759,9 @@ function formatAmount( number, simbol ) {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        dateFormat={dateFormat}
+                        colorSucursal={colorSucursal}
+                        returnCondicion={returnCondicion}
                         changeSucursal={changeSucursal}
                         abonarFactLote={abonarFactLote}
                         setsubviewAgregarFactPago={setsubviewAgregarFactPago}
@@ -3783,6 +3831,7 @@ function formatAmount( number, simbol ) {
 
                     {cuentasporpagarDetallesView=="pagos"?
                       <CuentasporpagarPago
+                        returnCondicion={returnCondicion}
                         setSelectCuentaPorPagarDetalle={setSelectCuentaPorPagarDetalle}
                         showImageFact={showImageFact}
 

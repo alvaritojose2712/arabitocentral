@@ -26,7 +26,7 @@ class CreateCuentasporpagarsTable extends Migration
             $table->string("numfact");
             $table->string("numnota")->nullable(true)->default(null);
             
-            $table->string("descripcion");
+            $table->string("descripcion")->nullable(true);
             
             $table->decimal("subtotal",10,2)->nullable()->default(0);
             $table->decimal("descuento",10,2)->nullable()->default(0);

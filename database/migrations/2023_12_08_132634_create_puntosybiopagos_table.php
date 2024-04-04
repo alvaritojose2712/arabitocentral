@@ -19,6 +19,7 @@ class CreatePuntosybiopagosTable extends Migration
             $table->string("banco")->nullable(true);
             $table->string("tipo")->nullable(true);
             $table->integer("categoria")->nullable(true)->default(1);
+            $table->string("debito_credito")->nullable(true);
             
             $table->date("fecha");
             $table->date("fecha_liquidacion")->nullable(true)->default(null);
