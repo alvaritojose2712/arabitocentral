@@ -111,7 +111,7 @@ class CierresController extends Controller
                             "loteserial" => $lote["lote"],
                             "monto" => $lote["monto"],
                             "banco" => $lote["banco"],
-                            "debito_credito" => $lote["categoria"],
+                            "debito_credito" => isset($lote["categoria"])?$lote["categoria"]:null,
                             "fecha_liquidacion" => $lote["tipo"]=="Transferencia"? $lote["fecha"]: null,
                             "monto_liquidado" => $lote["tipo"]=="Transferencia"? $lote["monto"]: null,
                         ]);
