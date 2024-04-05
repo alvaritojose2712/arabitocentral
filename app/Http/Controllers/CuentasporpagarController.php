@@ -415,7 +415,7 @@ class CuentasporpagarController extends Controller
             return $q; 
         })->toArray();
 
-        $cuentasporpagarColumn = array_column($cuentasporpagar, 'balance');
+        $cuentasporpagarColumn = array_column($cuentasporpagar, 'vencido');
         array_multisort($cuentasporpagarColumn, SORT_ASC, $cuentasporpagar);
         
         return [

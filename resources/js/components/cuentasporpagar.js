@@ -58,6 +58,11 @@ export default function Cuentasporpagar({
                                                 :null
                                             }
                                         </div>
+
+                                    </div>
+                                    <div className="text-center">
+                                            <span className="fs-4 text-danger me-4">V. <b>{moneda(e.vencido)}</b></span>
+                                            <span className="fs-4 text-sinapsis">P/V. <b>{moneda(e.porVencer)}</b></span>
                                     </div>
                                 </div>
                             </div>
