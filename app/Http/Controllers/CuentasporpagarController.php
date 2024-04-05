@@ -26,16 +26,6 @@ class CuentasporpagarController extends Controller
         return 0;
     }
 
-    function getBalance($id_proveedor,$cuentaporpagarAprobado){
-        $b = cuentasporpagar::selectRaw("@monto_condescuento := SUM((1-(COALESCE(descuento,0)/100))*monto) AS monto_condescuento")
-        ->where("id_proveedor", $id_proveedor)
-        ->where("aprobado",$cuentaporpagarAprobado)
-        ->first("monto_condescuento");
-        if ($b) {
-            return $b->monto_condescuento;
-        }
-        return 0;
-    }
     function getVencido($id_proveedor,$cuentaporpagarAprobado) {
         $today = (new NominaController)->today();
 
