@@ -600,7 +600,7 @@ class CuentasporpagarController extends Controller
         $type = $req->type;
         $id_facts_force = $req->id_facts_force;
         
-        
+        $fasts_no = [];
         
         
         $todayWithoutDateTime = (new NominaController)->today();
@@ -685,8 +685,19 @@ class CuentasporpagarController extends Controller
                 }
             }
             $idsOrden = rtrim($idsOrden, ",");
-            
             $detalles = $detalles->orderByRaw("FIELD(id,$idsOrden)");
+
+            foreach ($keys as $key => $split) {
+                $esta = false;
+                $getIds->map(function($factnum) use ($split,&$esta){
+                    if (str_contains($factnum["numfact"], $split)) {
+                        $esta = true;
+                    } 
+                });
+                if (!$esta) {
+                   array_push($fasts_no, $split); 
+                }
+            }
         }else{
             $detalles = $detalles
             ->where("aprobado",$cuentaporpagarAprobado)
@@ -785,7 +796,8 @@ class CuentasporpagarController extends Controller
             "detalles" => $detalles_modified, 
             "balance" => $detalles_modified->sum("balance"), 
             "sum" => $detalles->get()->count(), 
-            "proveedor" => $id_proveedor?proveedores::find($id_proveedor):null
+            "proveedor" => $id_proveedor?proveedores::find($id_proveedor):null,
+            "fasts_no" => $fasts_no
         ];
 
         if ($type=="buscar") {

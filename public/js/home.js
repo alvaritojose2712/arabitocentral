@@ -5253,6 +5253,24 @@ function CuentasporpagarDetalles(_ref) {
                 }) : null : null]
               }) : null]
             }, e.id);
+          }) : null : null, selectCuentaPorPagarId ? selectCuentaPorPagarId.fasts_no ? selectCuentaPorPagarId.fasts_no.map(function (fact_no) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                  colSpan: 4,
+                  className: ""
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                  className: "text-right",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+                    className: " w-100 btn fs-2 pointer fw-bolder text-light btn-secondary ",
+                    children: ["*", fact_no, "* NO APARECE"]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                  colSpan: 6,
+                  className: " text-right"
+                })]
+              })
+            }, fact_no);
           }) : null : null]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "boton-fijo-inferiorizq",

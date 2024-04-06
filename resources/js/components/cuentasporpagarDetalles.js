@@ -100,6 +100,7 @@ export default function CuentasporpagarDetalles({
         }
     }
 
+
     const [selectFactViewDetalles, setselectFactViewDetalles] = useState(null)
     const [viewAvanzatedShow, setviewAvanzatedShow] = useState(false)
 
@@ -635,17 +636,36 @@ export default function CuentasporpagarDetalles({
                                         </>
                                     :null}
 
-                                        {/* {qcuentasPorPagarDetalles.indexOf(",")!==-1?
-                                            qcuentasPorPagarDetalles.split(",").map(split=>{
-                                                if (e.numfact.indexOf(split)!==-1) {
-                                                    
-                                                } 
-                                            })
-                                        :null} */}
                                 </tbody>
                             )
                             : null : null
                         } 
+                        
+                        {
+                            selectCuentaPorPagarId?selectCuentaPorPagarId.fasts_no
+                            ?
+                            selectCuentaPorPagarId.fasts_no.map(fact_no=>
+                                <tbody key={fact_no}>
+                                    <tr>
+                                        <td colSpan={4} className="">
+                                        </td>       
+                                        
+                                        <td className="text-right">
+                                            <span className={(" w-100 btn fs-2 pointer fw-bolder text-light btn-secondary ")}> 
+                                                *{fact_no}* NO APARECE
+                                            </span>
+                                        </td>  
+                                        <td colSpan={6} className=" text-right">
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            )
+                            : null : null
+                        } 
+
+                          
+                        
                     </table>
 
                     <div className="boton-fijo-inferiorizq">
