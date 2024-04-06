@@ -4837,12 +4837,14 @@ function CuentasporpagarDetalles(_ref) {
                   })]
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                colSpan: 2,
+                colSpan: 3,
                 className: "text-right",
-                children: selectCuentaPorPagarId ? selectCuentaPorPagarId.sum != "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-                  className: "text-muted fs-4",
-                  children: ["Resultados ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("b", {
-                    children: ["(", selectCuentaPorPagarId.sum, ")"]
+                children: selectCuentaPorPagarId ? selectCuentaPorPagarId.sum != "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                  children: ["Resultados", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                    className: "text-muted fs-2 ms-2",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("b", {
+                      children: ["(", selectCuentaPorPagarId.sum, ")"]
+                    })
                   })]
                 }) : null : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
@@ -5021,7 +5023,7 @@ function CuentasporpagarDetalles(_ref) {
                   className: "text-right",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
                     className: "fw-bold fs-4",
-                    children: e.proveedor.descripcion
+                    children: e.proveedor ? e.proveedor.descripcion : null
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -8761,9 +8763,9 @@ function PanelSucursales(_ref) {
           children: [permiso([1, 2]) && subviewpanelsucursales == "resumencierres" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_SucursalResumencierres__WEBPACK_IMPORTED_MODULE_2__["default"], {
             sucursalDetallesData: sucursalDetallesData,
             moneda: moneda
-          }) : null, permiso([1, 2]) && subviewpanelsucursales == "cierres" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallescierres__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          }) : null, permiso([1, 2, 3]) && subviewpanelsucursales == "cierres" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallescierres__WEBPACK_IMPORTED_MODULE_1__["default"], {
             sucursalDetallesData: sucursalDetallesData
-          }) : null, permiso([1, 2, 7, 8]) && subviewpanelsucursales == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallesinvetario__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          }) : null, permiso([1, 2, 3, 7, 8]) && subviewpanelsucursales == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallesinvetario__WEBPACK_IMPORTED_MODULE_3__["default"], {
             getsucursalDetallesData: getsucursalDetallesData,
             sucursalDetallesData: sucursalDetallesData,
             invsuc_itemCero: invsuc_itemCero,

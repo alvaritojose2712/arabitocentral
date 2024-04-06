@@ -141,14 +141,14 @@ export default function PanelSucursales({
                             />
                         : null}
 
-                        {permiso([1,2]) && subviewpanelsucursales == "cierres" ?
+                        {permiso([1,2,3]) && subviewpanelsucursales == "cierres" ?
                             <SucursalDetallesCierres
                                 sucursalDetallesData={sucursalDetallesData}
 
                             />
                         : null}
 
-                        {permiso([1,2,7,8]) && subviewpanelsucursales == "inventario" ?
+                        {permiso([1,2,3,7,8]) && subviewpanelsucursales == "inventario" ?
                             <SucursalDetallesinvetario
                                 getsucursalDetallesData={getsucursalDetallesData}
                                 sucursalDetallesData={sucursalDetallesData}

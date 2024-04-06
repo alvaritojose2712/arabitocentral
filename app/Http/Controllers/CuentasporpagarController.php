@@ -620,6 +620,8 @@ class CuentasporpagarController extends Controller
             $detalles = $detalles->whereIn("id",$id_facts_force);
             
         }elseif(str_contains($qcuentasPorPagarDetalles,",")){
+            $keys = explode(",",$qcuentasPorPagarDetalles);
+
             $detalles = $detalles
             ->when( ($id_proveedor != "" && $id_proveedor != null),function($q) use ($id_proveedor){
                 $q->where("id_proveedor",$id_proveedor);
@@ -668,13 +670,23 @@ class CuentasporpagarController extends Controller
                     break;
                 }
             })
-            ->where(function($q) use ($qcuentasPorPagarDetalles){
-                $keys = explode(",",$qcuentasPorPagarDetalles);
+            ->where(function($q) use ($keys){
                 foreach ($keys as $i => $val) {
                     $q->orWhere("numfact","LIKE","%$val%");
                 }
-            })
-            ->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
+            });
+            $idsOrden = "";
+            $getIds = $detalles->get(["id","numfact"]);
+            foreach ($keys as $key => $val) {
+                foreach ($getIds as $key => $getId) {
+                    if (str_contains($getId["numfact"],$val)) {
+                        $idsOrden .= $getId["id"].",";
+                    }
+                }
+            }
+            $idsOrden = rtrim($idsOrden, ",");
+            
+            $detalles = $detalles->orderByRaw("FIELD(id,$idsOrden)");
         }else{
             $detalles = $detalles
             ->where("aprobado",$cuentaporpagarAprobado)

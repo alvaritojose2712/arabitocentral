@@ -359,13 +359,16 @@ export default function CuentasporpagarDetalles({
                                         </div>
 
                                     </th>
-                                    <th colSpan={2} className="text-right">
+                                    <th colSpan={3} className="text-right">
                                     { 
                                         selectCuentaPorPagarId?
                                             selectCuentaPorPagarId.sum!=""? 
-                                                <span className="text-muted fs-4">
-                                                    Resultados <b>({selectCuentaPorPagarId.sum})</b>
-                                                </span>
+                                                <>
+                                                    Resultados
+                                                    <span className="text-muted fs-2 ms-2">
+                                                        <b>({selectCuentaPorPagarId.sum})</b>
+                                                    </span>
+                                                </>
                                             :null
                                         :null
                                     }
@@ -449,6 +452,8 @@ export default function CuentasporpagarDetalles({
                                                 </td>
                                             </>:null}
 
+                                            
+
                                             <td className="text-right fs-4">
                                                 <span className="text-successfuerte">{dateFormat(e.fechaemision,"dd-MM-yyyy")}</span>
                                             </td>       
@@ -459,7 +464,7 @@ export default function CuentasporpagarDetalles({
                                             </td>  
 
                                             <td className="text-right">
-                                                <span className="fw-bold fs-4">{e.proveedor.descripcion}</span>
+                                                <span className="fw-bold fs-4">{e.proveedor?e.proveedor.descripcion:null}</span>
                                             </td>  
                                             <td>
                                                 <span className="m-2">
@@ -629,6 +634,14 @@ export default function CuentasporpagarDetalles({
                                             
                                         </>
                                     :null}
+
+                                        {/* {qcuentasPorPagarDetalles.indexOf(",")!==-1?
+                                            qcuentasPorPagarDetalles.split(",").map(split=>{
+                                                if (e.numfact.indexOf(split)!==-1) {
+                                                    
+                                                } 
+                                            })
+                                        :null} */}
                                 </tbody>
                             )
                             : null : null
