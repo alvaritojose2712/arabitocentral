@@ -1894,10 +1894,9 @@ function formatAmount( number, simbol ) {
         if (filterData.length) {
           pagos.push({
             id: e.id,
-            val: "",
+            val: filterData[0].balance*-1,
             valfact: e.monto,
             numfact: e.numfact,
-
             sucursal: filterData[0].sucursal,
             proveedor: filterData[0].proveedor,
             fechaemision: filterData[0].fechaemision,
@@ -3797,6 +3796,7 @@ function formatAmount( number, simbol ) {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        setdataselectFacts={setdataselectFacts}
                         dateFormat={dateFormat}
                         colorSucursal={colorSucursal}
                         returnCondicion={returnCondicion}

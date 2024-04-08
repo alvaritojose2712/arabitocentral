@@ -689,12 +689,14 @@ class CuentasporpagarController extends Controller
 
             foreach ($keys as $key => $split) {
                 $esta = false;
-                $getIds->map(function($factnum) use ($split,&$esta){
+                $id = "";
+                $getIds->map(function($factnum) use ($split,&$esta,&$id){
                     if (str_contains($factnum["numfact"], $split)) {
                         $esta = true;
+                        $id = $factnum["id"];
                     } 
                 });
-                array_push($fasts_no, ["numfact"=>$split, "show" => $esta]); 
+                array_push($fasts_no, ["id"=>$id, "numfact"=>$split, "show" => $esta]); 
             }
         }else{
             $detalles = $detalles
