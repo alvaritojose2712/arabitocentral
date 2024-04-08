@@ -57,6 +57,8 @@ class PuntosybiopagosController extends Controller
             
             $cuentasPagosMonto = $cuentasPagoTipo=="egreso"? $req->cuentasPagosMonto*-1:$req->cuentasPagosMonto;
             $cuentasPagosMetodo = $req->cuentasPagosMetodo;
+            $cuentasPagosPuntooTranfe = $req->cuentasPagosPuntooTranfe;
+            
             $cuentasPagosFecha = $req->cuentasPagosFecha;
 
             $cuentasPagosCategoria = $req->cuentasPagosCategoria;
@@ -73,11 +75,12 @@ class PuntosybiopagosController extends Controller
                 ],[
                     "loteserial" => $cuentasPagosDescripcion,
                     "banco" => $banco->codigo,
-                    "tipo" => "Transferencia",
+                    "tipo" => $cuentasPagosPuntooTranfe,
+
                     "fecha" => $cuentasPagosFecha,
-                    "fecha_liquidacion" => $cuentasPagosFecha,
                     "monto" => $cuentasPagosMonto,
-                    "monto_liquidado" => $cuentasPagosMonto,
+                    "fecha_liquidacion" => $cuentasPagosPuntooTranfe=="Transferencia"? $cuentasPagosFecha:null,
+                    "monto_liquidado" => $cuentasPagosPuntooTranfe=="Transferencia"? $cuentasPagosMonto:null,
                     "id_sucursal" => $su->id,
                     "id_usuario" => 1,
                     "categoria" => $cuentasPagosCategoria

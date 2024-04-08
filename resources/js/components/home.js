@@ -1628,6 +1628,7 @@ function formatAmount( number, simbol ) {
 
   const [cuentasPagosDescripcion, setcuentasPagosDescripcion] = useState("")
   const [cuentasPagosMonto, setcuentasPagosMonto] = useState("")
+  const [cuentasPagosPuntooTranfe, setcuentasPagosPuntooTranfe] = useState("Transferencia")
   const [cuentasPagosMetodo, setcuentasPagosMetodo] = useState("")
   const [cuentasPagosFecha, setcuentasPagosFecha] = useState("")
   
@@ -3186,6 +3187,7 @@ function formatAmount( number, simbol ) {
         cuentasPagosFecha,
         cuentasPagoTipo,
         cuentasPagosCategoria,
+        cuentasPagosPuntooTranfe,
       }).then(res=>{
         if (res.data.estado) {
           getBancosData()
@@ -3710,6 +3712,8 @@ function formatAmount( number, simbol ) {
               setcuentasPagosMonto={setcuentasPagosMonto}
               cuentasPagosMetodo={cuentasPagosMetodo}
               setcuentasPagosMetodo={setcuentasPagosMetodo}
+              cuentasPagosPuntooTranfe={cuentasPagosPuntooTranfe}
+              setcuentasPagosPuntooTranfe={setcuentasPagosPuntooTranfe}
               cuentasPagosFecha={cuentasPagosFecha}
               setcuentasPagosFecha={setcuentasPagosFecha}
               sendMovimientoBanco={sendMovimientoBanco}

@@ -92,6 +92,8 @@ export default function Auditoria({
     sucursalDetallesData,
     setqestatusaprobaciocaja,
     permiso,
+    cuentasPagosPuntooTranfe,
+    setcuentasPagosPuntooTranfe,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -178,53 +180,65 @@ export default function Auditoria({
 
                     {
                         subviewAuditoria=="cargar"? 
-                            <form onSubmit={sendMovimientoBanco}>
-                                <div className="form-group">
-                                    <div className="input-group">
-                                        <span className="input-group-text cell3">Descripción</span>
+                            <div className="container">
+
+                                <form onSubmit={sendMovimientoBanco}>
+                                    <div className="form-group mb-1">
+                                        <span className="text-label fs-4 cell3">Descripción</span>
                                         <input type="text" className="form-control" placeholder="Referencia" value={cuentasPagosDescripcion} onChange={e=>setcuentasPagosDescripcion(e.target.value)} />
                                     </div>
-                                </div>
 
-                                <div className="form-group">
+                                    <div className="form-group mb-1 row">
+                                        <div className="col">
+                                            <span className="text-label fs-4 cell3">Monto</span>
+                                            <input type="text" className="form-control fs-3 text-success" placeholder="Monto" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} />
+                                        </div>
+                                        <div className="col">
+                                            <span className="text-label fs-4 cell3">Fecha</span>
+                                            <input type="date" className="form-control" value={cuentasPagosFecha} onChange={e=>setcuentasPagosFecha(e.target.value)} />
+                                        </div>
+                                    </div>
+                                    <div className="form-group mb-1">
+                                        <span className="text-label fs-4 cell3">Método</span>
+                                        <select className="form-control" value={cuentasPagosPuntooTranfe} onChange={e=>setcuentasPagosPuntooTranfe((e.target.value))}>
+                                            <option value="">-</option>
+                                            <option value="PUNTO">PUNTO</option>
+                                            <option value="Transferencia">TRANSFERENCIA</option>
+                                            <option value="BioPago">BIOPAGO</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group m-4 text-center">
+                                        <div className="btn-group">
+                                            <button type="button" onClick={()=>setcuentasPagosTipo("egreso")} className={(cuentasPagoTipo=="egreso"?"btn-danger":"")+(" btn")}>Egreso</button>
+                                            <button type="button" onClick={()=>setcuentasPagosTipo("ingreso")} className={(cuentasPagoTipo=="ingreso"?"btn-success":"")+(" btn")}>Ingreso</button>
+                                        </div>
+                                    </div>
+                                    
                                     <div className="input-group">
-                                        <span className="input-group-text cell3">Monto</span>
-                                        <input type="text" className="form-control" placeholder="Monto" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} />
-                                        <input type="date" className="form-control" value={cuentasPagosFecha} onChange={e=>setcuentasPagosFecha(e.target.value)} />
+                                        <select className="form-control" 
+                                        value={cuentasPagosMetodo} 
+                                        onChange={e=>setcuentasPagosMetodo(e.target.value)}>
+                                            <option value="">-Banco-</option>
+                                            {opcionesMetodosPago.filter(e=>e.codigo!="EFECTIVO").map(e=>
+                                                <option value={e.id} key={e.id}>{e.descripcion}</option>
+                                            )}
+                                        </select>
+
+                                        <select className="form-control" 
+                                        value={cuentasPagosCategoria} 
+                                        onChange={e=>setcuentasPagosCategoria(e.target.value)}>
+                                            <option value="">-Categoría-</option>
+                                            {categoriaMovBanco.map(e=>
+                                                <option value={e.id} key={e.id}>{e.descripcion}</option>
+                                            )}
+                                        </select>
                                     </div>
-                                </div>
-                                <div className="form-group m-4 text-center">
-                                    <div className="btn-group">
-                                        <button type="button" onClick={()=>setcuentasPagosTipo("egreso")} className={(cuentasPagoTipo=="egreso"?"btn-danger":"")+(" btn")}>Egreso</button>
-                                        <button type="button" onClick={()=>setcuentasPagosTipo("ingreso")} className={(cuentasPagoTipo=="ingreso"?"btn-success":"")+(" btn")}>Ingreso</button>
+
+                                    <div className="form-group w-100 text-center">
+                                        <button className="mt-2 btn btn-outline-success fs-3 btn-lg" type="submit">Guardar</button>
                                     </div>
-                                </div>
-                                
-                                <div className="input-group">
-                                    <select className="form-control" 
-                                    value={cuentasPagosMetodo} 
-                                    onChange={e=>setcuentasPagosMetodo(e.target.value)}>
-                                        <option value="">-Método-</option>
-                                        {opcionesMetodosPago.filter(e=>e.codigo!="EFECTIVO").map(e=>
-                                            <option value={e.id} key={e.id}>{e.descripcion}</option>
-                                        )}
-                                    </select>
-
-                                    <select className="form-control" 
-                                    value={cuentasPagosCategoria} 
-                                    onChange={e=>setcuentasPagosCategoria(e.target.value)}>
-                                        <option value="">-Categoría-</option>
-                                        {categoriaMovBanco.map(e=>
-                                            <option value={e.id} key={e.id}>{e.descripcion}</option>
-                                        )}
-                                    </select>
-                                </div>
-
-                                <div className="form-group w-100">
-                                    <button className="mt-2 btn btn-outline-success btn-block w-100 btn-sm" type="submit">Guardar</button>
-                                </div>
-                            </form>
-
+                                </form>
+                            </div>
                         :null
                     }
 
