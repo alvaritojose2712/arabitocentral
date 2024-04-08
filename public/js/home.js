@@ -3181,7 +3181,7 @@ function Auditoria(_ref) {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
                     onDoubleClick: function onDoubleClick() {
-                      return changeBank(e.id);
+                      return changeBank(e.id, "banco");
                     },
                     className: "btn w-100 fw-bolder",
                     style: {
@@ -3199,7 +3199,13 @@ function Auditoria(_ref) {
                     children: e.tipo
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-                  children: e.debito_credito
+                  className: "pointer",
+                  onDoubleClick: function onDoubleClick() {
+                    return changeBank(e.id, "debito_credito");
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                    children: e.debito_credito
+                  })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                   children: e.fecha
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
@@ -3222,7 +3228,13 @@ function Auditoria(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                   children: getCat(e.categoria)
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-                  children: moneda(e.monto)
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                    onDoubleClick: function onDoubleClick() {
+                      return changeBank(e.id, "monto");
+                    },
+                    className: "pointer",
+                    children: moneda(e.monto)
+                  })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                   children: moneda(e.monto_liquidado)
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
@@ -4878,7 +4890,9 @@ function CuentasporpagarDetalles(_ref) {
                   className: "pointer  p-3",
                   children: "ACTUALIZADA"
                 })]
-              }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("th", {
+              }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+                children: "ID"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("th", {
                 className: "p-3 text-right",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
                   className: "fa fa-eye text-success pointer me-1",
@@ -4982,7 +4996,23 @@ function CuentasporpagarDetalles(_ref) {
             })]
           }), selectCuentaPorPagarId ? selectCuentaPorPagarId.detalles ? selectCuentaPorPagarId.detalles.map(function (e, i) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+              children: [selectCuentaPorPagarId ? selectCuentaPorPagarId.fasts_no ? selectCuentaPorPagarId.fasts_no.map(function (fact_no, ii) {
+                return !fact_no["show"] && e.numfact.indexOf(fact_no["numfact"]) == -1 && ii == i ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                    colSpan: 5,
+                    className: ""
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                    className: "text-right",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+                      className: " w-100 btn fs-2 pointer fw-bolder text-light btn-secondary ",
+                      children: ["*", fact_no["numfact"], "* NO APARECE"]
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                    colSpan: 6,
+                    className: " text-right"
+                  })]
+                }, fact_no["numfact"]) : null;
+              }) : null : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
                 className: (selectFactViewDetalles == e.id ? "bg-success-light" : null) + " pointer border-top border-top-5 border-dark",
                 onDoubleClick: function onDoubleClick(event) {
                   return selectFacts(event, e.id);
@@ -5005,6 +5035,8 @@ function CuentasporpagarDetalles(_ref) {
                     })
                   })]
                 }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                  children: i + 1
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                   className: "text-right fs-4",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
                     className: "text-successfuerte",
@@ -5090,7 +5122,7 @@ function CuentasporpagarDetalles(_ref) {
                     }) : null
                   }) : null
                 })]
-              }, e.id), selectFactViewDetalles == e.id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+              }), selectFactViewDetalles == e.id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tr", {
                   className: (selectFactViewDetalles == e.id ? "bg-success-superlight" : null) + " border-bottom-5",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
@@ -5253,24 +5285,6 @@ function CuentasporpagarDetalles(_ref) {
                 }) : null : null]
               }) : null]
             }, e.id);
-          }) : null : null, selectCuentaPorPagarId ? selectCuentaPorPagarId.fasts_no ? selectCuentaPorPagarId.fasts_no.map(function (fact_no) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                  colSpan: 4,
-                  className: ""
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                  className: "text-right",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-                    className: " w-100 btn fs-2 pointer fw-bolder text-light btn-secondary ",
-                    children: ["*", fact_no, "* NO APARECE"]
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                  colSpan: 6,
-                  className: " text-right"
-                })]
-              })
-            }, fact_no);
           }) : null : null]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "boton-fijo-inferiorizq",
@@ -66706,6 +66720,7 @@ function Home() {
               setcuentasPagosMonto("");
               setcuentasPagosDescripcion("");
               setcuentasPagosMetodo("");
+              setcuentasPagosFecha("");
               setmontobs1PagoFact("");
               settasabs1PagoFact("");
               setmetodobs1PagoFact("");
@@ -66726,6 +66741,10 @@ function Home() {
               setrefbs3PagoFact("");
               setrefbs4PagoFact("");
               setrefbs5PagoFact("");
+              setdataselectFacts({
+                "sum": 0,
+                "data": []
+              });
             }
             notificar(res.data.msj);
           });
@@ -67201,20 +67220,47 @@ function Home() {
       });
     }
   };
-  var changeBank = function changeBank(id) {
+  var changeBank = function changeBank(id, type) {
     var codigos = opcionesMetodosPago.map(function (e) {
       return e.codigo;
     });
-    var banco = window.prompt("Código de Banco");
-    if (codigos.indexOf(banco) != -1) {
-      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].changeBank({
-        id: id,
-        banco: banco
-      }).then(function (res) {
-        getBancosData();
-      });
-    } else {
-      alert("Código de Banco no está en la lista. " + banco);
+    var banco = window.prompt("Editar " + type);
+    switch (type) {
+      case "banco":
+        if (codigos.indexOf(banco) != -1) {
+          _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].changeBank({
+            id: id,
+            banco: banco,
+            type: type
+          }).then(function (res) {
+            getBancosData();
+          });
+        } else {
+          alert("Código de Banco no está en la lista. " + banco);
+        }
+        break;
+      case "debito_credito":
+        if (banco == "DEBITO" || banco == "CREDITO") {
+          _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].changeBank({
+            id: id,
+            banco: banco,
+            type: type
+          }).then(function (res) {
+            getBancosData();
+          });
+        } else {
+          alert("Debe ser DEBITO o CREDITO. " + banco);
+        }
+        break;
+      case "monto":
+        _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].changeBank({
+          id: id,
+          banco: number(banco),
+          type: type
+        }).then(function (res) {
+          getBancosData();
+        });
+        break;
     }
   };
   var changeSucursal = function changeSucursal(id) {

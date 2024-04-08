@@ -694,9 +694,7 @@ class CuentasporpagarController extends Controller
                         $esta = true;
                     } 
                 });
-                if (!$esta) {
-                   array_push($fasts_no, $split); 
-                }
+                array_push($fasts_no, ["numfact"=>$split, "show" => $esta]); 
             }
         }else{
             $detalles = $detalles

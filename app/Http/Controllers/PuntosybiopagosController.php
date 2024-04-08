@@ -150,9 +150,20 @@ class PuntosybiopagosController extends Controller
         ];
     }
     function changeBank(Request $req) {
-        
+        $type = $req->type;
         $upd = puntosybiopagos::find($req->id);
-        $upd->banco = $req->banco;
+
+        switch ($type) {
+            case 'banco':
+                $upd->banco = $req->banco;
+            break;
+            case 'debito_credito':
+                $upd->debito_credito = $req->banco;
+            break;
+            case 'monto':
+                $upd->monto = $req->banco;
+            break;
+        }
         $upd->save();
         
     }

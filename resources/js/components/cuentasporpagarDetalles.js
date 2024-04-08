@@ -393,6 +393,7 @@ export default function CuentasporpagarDetalles({
                                             ACTUALIZADA
                                         </th> 
                                     </>:null}
+                                    <th>ID</th>
 
                                     <th className="p-3 text-right">
                                         <i className="fa fa-eye text-success pointer me-1" onClick={()=>setviewAvanzatedShow(!viewAvanzatedShow)}></i>
@@ -442,7 +443,31 @@ export default function CuentasporpagarDetalles({
                             selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                             ? selectCuentaPorPagarId.detalles.map( (e,i) =>
                                 <tbody key={e.id}>
-                                    <tr className={(selectFactViewDetalles==e.id?"bg-success-light":null)+(" pointer border-top border-top-5 border-dark")} key={e.id} onDoubleClick={event=>selectFacts(event,e.id)} onClick={()=>setselectFactViewDetalles(selectFactViewDetalles==e.id?null:e.id)}>
+                                    {
+                                        selectCuentaPorPagarId?selectCuentaPorPagarId.fasts_no
+                                        ?
+                                        selectCuentaPorPagarId.fasts_no.map((fact_no,ii)=>
+                                            !fact_no["show"] && e.numfact.indexOf(fact_no["numfact"])==-1 && ii==i?
+                                                <tr key={fact_no["numfact"]}>
+                                                    <td colSpan={5} className="">
+                                                    </td>       
+                                                    
+                                                    <td className="text-right">
+                                                        <span className={(" w-100 btn fs-2 pointer fw-bolder text-light btn-secondary ")}> 
+                                                            *{fact_no["numfact"]}* NO APARECE
+                                                        </span>
+                                                    </td>  
+                                                    <td colSpan={6} className=" text-right">
+                                                        
+                                                    </td>
+                                                </tr>
+                                            :null
+                                        )
+                                        : null : null
+                                    }  
+
+
+                                    <tr className={(selectFactViewDetalles==e.id?"bg-success-light":null)+(" pointer border-top border-top-5 border-dark")} onDoubleClick={event=>selectFacts(event,e.id)} onClick={()=>setselectFactViewDetalles(selectFactViewDetalles==e.id?null:e.id)}>
                                         
                                             {viewAvanzatedShow?<>
                                                 <td className="">
@@ -454,7 +479,9 @@ export default function CuentasporpagarDetalles({
                                             </>:null}
 
                                             
-
+                                            <td>
+                                                {i+1}
+                                            </td>
                                             <td className="text-right fs-4">
                                                 <span className="text-successfuerte">{dateFormat(e.fechaemision,"dd-MM-yyyy")}</span>
                                             </td>       
@@ -641,13 +668,13 @@ export default function CuentasporpagarDetalles({
                             : null : null
                         } 
                         
-                        {
+                       {/*  {
                             selectCuentaPorPagarId?selectCuentaPorPagarId.fasts_no
                             ?
                             selectCuentaPorPagarId.fasts_no.map(fact_no=>
                                 <tbody key={fact_no}>
                                     <tr>
-                                        <td colSpan={4} className="">
+                                        <td colSpan={5} className="">
                                         </td>       
                                         
                                         <td className="text-right">
@@ -662,7 +689,7 @@ export default function CuentasporpagarDetalles({
                                 </tbody>
                             )
                             : null : null
-                        } 
+                        }  */}
 
                           
                         

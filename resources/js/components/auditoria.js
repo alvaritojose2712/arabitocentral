@@ -592,7 +592,7 @@ export default function Auditoria({
                                         {bancosdata.xliquidar.map((e,i)=>
                                             <tr key={e.id} onClick={()=>setselectTrLiquidar(i)}>
                                                 <th>
-                                                    <button onDoubleClick={()=>changeBank(e.id)} className="btn w-100 fw-bolder" 
+                                                    <button onDoubleClick={()=>changeBank(e.id,"banco")} className="btn w-100 fw-bolder" 
                                                     style={{
                                                         backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
                                                         color:colors[e.banco]?colors[e.banco][1]:""
@@ -603,8 +603,8 @@ export default function Auditoria({
                                                     <button className="btn w-100 fw-bolder" 
                                                     style={{backgroundColor:colors[e.tipo]}}>{e.tipo}</button> 
                                                 </th>
-                                                <th>
-                                                    {e.debito_credito}
+                                                <th className="pointer" onDoubleClick={()=>changeBank(e.id,"debito_credito")} >
+                                                    <span >{e.debito_credito}</span> 
                                                 </th>
                                                 <th>{e.fecha}</th>
                                                 <th>{e.fecha_liquidacion}</th>
@@ -616,7 +616,9 @@ export default function Auditoria({
                                                 <th>
                                                     {getCat(e.categoria)}
                                                 </th>
-                                                <th>{moneda(e.monto)}</th>
+                                                <th>
+                                                    <span onDoubleClick={()=>changeBank(e.id,"monto")} className="pointer">{moneda(e.monto)}</span> 
+                                                </th>
                                                 <th>{moneda(e.monto_liquidado)}</th>
                                                 <th>
                                                     {selectTrLiquidar===i?
