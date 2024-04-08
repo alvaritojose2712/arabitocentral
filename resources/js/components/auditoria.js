@@ -94,6 +94,8 @@ export default function Auditoria({
     permiso,
     cuentasPagosPuntooTranfe,
     setcuentasPagosPuntooTranfe,
+    cuentasPagosSucursal,
+    setcuentasPagosSucursal,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -207,6 +209,19 @@ export default function Auditoria({
                                             <option value="BioPago">BIOPAGO</option>
                                         </select>
                                     </div>
+
+                                    <div className="form-group mb-1">
+                                        <span className="text-label fs-4 cell3">Sucursal</span>
+                                        <select className="form-control" 
+                                        value={cuentasPagosSucursal} 
+                                        onChange={e=>setcuentasPagosSucursal(e.target.value)}>
+                                            <option value="">-SUCURSAL-</option>
+                                                {sucursales.map(e=>
+                                                    <option key={e.id} value={e.id}>{e.codigo}</option>
+                                                )}
+                                        </select>
+                                    </div>
+
                                     <div className="form-group m-4 text-center">
                                         <div className="btn-group">
                                             <button type="button" onClick={()=>setcuentasPagosTipo("egreso")} className={(cuentasPagoTipo=="egreso"?"btn-danger":"")+(" btn")}>Egreso</button>

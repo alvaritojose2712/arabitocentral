@@ -58,6 +58,9 @@ class PuntosybiopagosController extends Controller
             $cuentasPagosMonto = $cuentasPagoTipo=="egreso"? $req->cuentasPagosMonto*-1:$req->cuentasPagosMonto;
             $cuentasPagosMetodo = $req->cuentasPagosMetodo;
             $cuentasPagosPuntooTranfe = $req->cuentasPagosPuntooTranfe;
+            $cuentasPagosSucursal = $req->cuentasPagosSucursal;
+            
+
             
             $cuentasPagosFecha = $req->cuentasPagosFecha;
 
@@ -81,7 +84,7 @@ class PuntosybiopagosController extends Controller
                     "monto" => $cuentasPagosMonto,
                     "fecha_liquidacion" => $cuentasPagosPuntooTranfe=="Transferencia"? $cuentasPagosFecha:null,
                     "monto_liquidado" => $cuentasPagosPuntooTranfe=="Transferencia"? $cuentasPagosMonto:null,
-                    "id_sucursal" => $su->id,
+                    "id_sucursal" => $cuentasPagosSucursal?$cuentasPagosSucursal: $su->id,
                     "id_usuario" => 1,
                     "categoria" => $cuentasPagosCategoria
                 ]);
