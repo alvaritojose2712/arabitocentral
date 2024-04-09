@@ -225,6 +225,7 @@ Route::post('sendDescuentoGeneralFats', [CuentasporpagarController::class,"sendD
 Route::post('liquidarMov', [PuntosybiopagosController::class,"liquidarMov"]);
 Route::post('changeBank', [PuntosybiopagosController::class,"changeBank"]);
 Route::post('changeSucursal', [CuentasporpagarController::class,"changeSucursal"]);
+Route::post('sendComprasFats', [CuentasporpagarController::class,"sendComprasFats"]);
 
 
 Route::post('sendsaldoactualbancofecha', [BancosController::class,"sendsaldoactualbancofecha"]);

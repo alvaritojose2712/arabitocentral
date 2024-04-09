@@ -65,6 +65,7 @@ class home extends Controller
                     "tipo_usuario" => $d->tipo_usuario,
                     "usuario" => $d->usuario,
                     "nombre" => $d->nombre,
+                    "id_sucursal" => $d->id_sucursal,
                 ]);
                 
                 $estado = $this->selectRedirect();
@@ -75,6 +76,7 @@ class home extends Controller
             
             return Response::json( [
                 "id_usuario" => $d->id,
+                "id_sucursal" => $d->id_sucursal,
                 "tipo_usuario" => $d->tipo_usuario,
                 "usuario" => $d->usuario,
                 "nombre" => $d->nombre,

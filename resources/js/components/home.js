@@ -41,6 +41,10 @@ import NavInventario from './panel/navInventario'
 
 import Usuarios from './usuarios';
 import Compras from './compras';
+import ComprasCargarFacts from './comprascargarfacts';
+import ComprasCargarFactsDigitales from './comprascargarfactsdigitales';
+
+
 
 import Auditoria from './auditoria';
 import Proveedores from './proveedores';
@@ -366,14 +370,29 @@ function Home() {
   const [selectPrecioxProveedorPrecio, setselectPrecioxProveedorPrecio] = useState("")
   const [precioxproveedor, setprecioxproveedor] = useState([])
 
-
-
+  
+  
   ///Proveedores Props
-
+  
   const [qBuscarProveedor, setQBuscarProveedor] = useState("")
   const [proveedoresList, setProveedoresList] = useState([])
-
-
+  
+  const [factInpImagen, setfactInpImagen] = useState("");
+  const [factInpProveedor, setfactInpProveedor] = useState("");
+  const [factNumfact, setfactNumfact] = useState("");
+  const sendComprasFats = (event) => {
+    event.preventDefault()
+    const formData = new FormData();
+    formData.append("factInpImagen",factInpImagen);
+    formData.append("factInpProveedor",factInpProveedor);
+    formData.append("factNumfact",factNumfact);
+    db.sendComprasFats(
+        formData
+    ).then((res) => {
+        notificar(res);
+        
+    });
+  } 
 
 
   const [colorSucursalData,setcolorSucursalData] = useState({})
@@ -1883,6 +1902,83 @@ function formatAmount( number, simbol ) {
       notificar(res)
     })
   }
+  const handleFacturaxLotes = (val, i, type, name = null) => {
+    let det = cloneDeep(selectCuentaPorPagarId);
+    let obj = det.detalles
+
+    switch (type) {
+        case "update":
+            if (obj[i].type != "new") {
+                obj[i].type = "update";
+            }
+            break;
+        case "delModeUpdateDelete":
+            delete obj[i].type;
+            break;
+        case "delNew":
+            obj = obj.filter((e, ii) => ii !== i);
+            break;
+        case "changeInput":
+            obj[i][name] = val;
+            break;
+        case "add":
+            let pro = "";
+            let newObj = [
+                {
+                    id: null,
+                    id_proveedor: "",
+                    id_sucursal: "",
+                    numfact: "",
+                    numnota: "",
+                    descripcion: "",
+                    subtotal: "",
+                    descuento: "",
+                    monto_exento: "",
+                    monto_gravable: "",
+                    iva: "",
+                    monto: "",
+                    estatus: "",
+                    montobs1: "",
+                    tasabs1: "",
+                    metodobs1: "",
+                    refbs1: "",
+                    montobs2: "",
+                    tasabs2: "",
+                    metodobs2: "",
+                    refbs2: "",
+                    montobs3: "",
+                    tasabs3: "",
+                    metodobs3: "",
+                    refbs3: "",
+                    montobs4: "",
+                    tasabs4: "",
+                    metodobs4: "",
+                    refbs4: "",
+                    montobs5: "",
+                    tasabs5: "",
+                    metodobs5: "",
+                    refbs5: "",
+                    metodo: "",
+                    fechaemision: "",
+                    fechavencimiento: "",
+                    fecharecepcion: "",
+                    nota: "",
+                    aprobado: "",
+                    tipo: "",
+                    frecuencia: "",
+                    idinsucursal: "",
+                },
+            ];
+
+            obj = newObj.concat(obj);
+            break;
+
+        case "delMode":
+            obj[i].type = "delete";
+            break;
+    }
+    setSelectCuentaPorPagarId(obj);
+};
   const abonarFactLote = (id_proveedor=null) => {
     setcuentasporpagarDetallesView("pagos");
     setsubviewAgregarFactPago("pago")
@@ -3647,8 +3743,9 @@ function formatAmount( number, simbol ) {
           }
 
 
-          {permiso([1]) && viewmainPanel === "compras" &&
+          {permiso([1,9]) && viewmainPanel === "compras" &&
             <Compras
+              permiso={permiso}
               setviewmainPanel={setviewmainPanel}
               viewmainPanel={viewmainPanel}
             />
@@ -4053,6 +4150,47 @@ function formatAmount( number, simbol ) {
 
             </Efectivo>
           }
+          {permiso([1,9]) && viewmainPanel === "cargarfacts" &&
+            <ComprasCargarFacts
+              factInpImagen={factInpImagen}              
+              setfactInpImagen={setfactInpImagen}
+              factInpProveedor={factInpProveedor}              
+              setfactInpProveedor={setfactInpProveedor}
+              factNumfact={factNumfact}              
+              setfactNumfact={setfactNumfact}
+              sendComprasFats={sendComprasFats}              
+              proveedoresList={proveedoresList}
+              sucursales={sucursales}
+            />
+          }
+          {permiso([1]) && viewmainPanel === "cargarfactsdigitales" &&
+            <ComprasCargarFactsDigitales
+              selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+              cuentaporpagarAprobado={cuentaporpagarAprobado}
+              setcuentaporpagarAprobado={setcuentaporpagarAprobado}
+              setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
+              qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
+              setselectProveedorCxp={setselectProveedorCxp}
+              selectProveedorCxp={selectProveedorCxp}
+              proveedoresList={proveedoresList}
+              sucursalcuentasPorPagarDetalles={sucursalcuentasPorPagarDetalles}
+              setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
+              sucursales={sucursales}
+              categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
+              setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+              qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
+              setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
+              setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+              selectCuentaPorPagarId={selectCuentaPorPagarId}
+              qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
+              dateFormat={dateFormat}
+              returnCondicion={returnCondicion}
+              colorSucursal={colorSucursal}
+              moneda={moneda}
+            />
+          }
+          
+
 
           {permiso([1,2,5]) && viewmainPanel === "gastos" && 
             <Gastos

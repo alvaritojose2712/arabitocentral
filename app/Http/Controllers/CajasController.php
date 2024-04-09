@@ -20,8 +20,9 @@ class CajasController extends Controller
         $bsbalance = 0;
         $pesobalance = 0;
         $eurobalance = 0;
+        $su = sucursal::orderByRaw("FIELD(id,1,2,5,4,3,6,7,15,8,9,10,11,12,14)")->get();
 
-        foreach (sucursal::all() as $sucursal) {
+        foreach ($su as $sucursal) {
             $c = cajas::with("sucursal")->where("id_sucursal",$sucursal->id)->where("concepto","LIKE","%INGRESO DESDE CIERRE%")->orderBy("fecha","desc")->first();
             if ($c) {
                 array_push($arr, $c);
@@ -31,7 +32,7 @@ class CajasController extends Controller
                 $eurobalance += $c->eurobalance;
             }
         }
-        array_multisort(array_column($arr,"id_sucursal"), SORT_ASC, $arr);
+        //array_multisort(array_column($arr,"id_sucursal"), SORT_ASC, $arr);
         return [
             "data" => $arr,
             "dolarbalance" => $dolarbalance,

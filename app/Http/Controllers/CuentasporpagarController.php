@@ -586,6 +586,20 @@ class CuentasporpagarController extends Controller
             $c->save();
         }
     }
+    function sendComprasFats(Request $req){
+        $fecha = date("dmY");
+        $factInpProveedor = $req->factInpProveedor;
+        $factNumfact = $req->factNumfact;
+        $factInpImagen = $req->factInpImagen;
+
+
+
+        $filename = $fecha."-".$factInpProveedor."-$factNumfact." . $factInpImagen->getClientOriginalExtension();
+        $factInpImagen->move(public_path($factInpProveedor."/mantecal"), $filename);
+
+
+        return $factNumfact;
+    }
     function selectCuentaPorPagarProveedorDetalles(Request $req) {
         
         $id_proveedor = $req->id_proveedor=="null"?null:$req->id_proveedor;

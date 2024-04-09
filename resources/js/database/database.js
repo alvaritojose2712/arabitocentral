@@ -14,6 +14,7 @@ const db = {
   aprobarMovCajaFuerte: data=>axios.post(host+"aprobarMovCajaFuerte",data),
   aprobarCreditoFun: data=>axios.post(host+"aprobarCreditoFun",data),
   aprobarTransferenciaFun: data=>axios.post(host+"aprobarTransferenciaFun",data),
+  sendComprasFats: data=>axios.post(host+"sendComprasFats",data),
   
   
   getDatinputSelectVinculacion: data=>axios.post(host+"getDatinputSelectVinculacion",data),
