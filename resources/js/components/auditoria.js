@@ -764,7 +764,7 @@ export default function Auditoria({
                             <div className="d-flex justify-content-between">
                                 <div className="w-50">
                                     <button className="btn fw-bolder" style={{
-                                        color:colorSucursal(e.sucursal.codigo),
+                                        backgroundColor:colorSucursal(e.sucursal.codigo),
                                     }}>{e.sucursal.codigo}</button>
                                     
                                 </div>

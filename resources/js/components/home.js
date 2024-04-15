@@ -46,6 +46,7 @@ import ComprasCargarFactsDigitales from './comprascargarfactsdigitales';
 
 
 
+
 import Auditoria from './auditoria';
 import Proveedores from './proveedores';
 
@@ -563,21 +564,7 @@ function Home() {
       }
     }
   }
-  const delItemFact = e => {
-    let id = e.currentTarget.attributes["data-id"].value
-
-    if (confirm("¿Desea Eliminar?")) {
-      setLoading(true)
-      db.delItemFact({ id }).then(res => {
-        setLoading(false)
-        notificar(res)
-        if (res.data.estado) {
-          getFacturas(false)
-          buscarInventario()
-        }
-      })
-    }
-  }
+ 
   const delFalla = e => {
     if (confirm("¿Desea Eliminar?")) {
       let id = e.currentTarget.attributes["data-id"].value
@@ -851,49 +838,52 @@ function Home() {
   const reporteInventario = () => {
     db.openReporteInventario()
   }
+  const modItemFact = (id,campo) => {
+    let valor = window.prompt("Valor para "+campo)
+    if (valor) {
+      db.modItemFact({id,campo,valor}).then(res=>{
+        notificar(res)
+        if (res.data.estado) {
+          buscarInventario()
+        }
+      })
+    }
+  }
+  const delItemFact = (id) => {
+    db.delItemFact({id}).then(res=>{
+      notificar(res)
+      if (res.data.estado) {
+        selectCuentaPorPagarProveedorDetallesFun()
+      }
+    })
+  }
   const guardarNuevoProductoLote = () => {
     let id_factura = null
 
-    if (factSelectIndex != null) {
-      if (facturas[factSelectIndex]) {
-        id_factura = facturas[factSelectIndex].id
-      }
+    if (facturaSelectAddItems) {
+      id_factura = facturaSelectAddItems
     }
     let lotesFil = productosInventario.filter(e => e.type)
 
 
-    let checkempty = lotesFil.filter(e =>
-      e.codigo_barras == "" ||
-      e.descripcion == "" ||
-      e.id_categoria == "" ||
-      e.id_catgeneral == "" ||
-      e.id_marca == "" ||
-      e.unidad == "" ||
-      e.cantidad == "" ||
-      e.precio_base == "" ||
-      e.precio == "")
-
-    if (lotesFil.length && !checkempty.length) {
+    if (lotesFil.length) {
 
       setLoading(true)
       db.guardarNuevoProductoLote({ lotes: lotesFil, id_factura }).then(res => {
         notificar(res)
         setLoading(false)
-        try {
-          if (res.data.estado) {
-            getFacturas(null)
-
-            buscarInventario()
-
-          }
-        } catch (err) { }
+        if (res.data.estado) {
+          buscarInventario()
+          selectCuentaPorPagarProveedorDetallesFun()
+        }
       })
     } else {
       alert("¡Error con los campos! Algunos pueden estar vacíos" + JSON.stringify(checkempty))
     }
-
   }
-  const changeInventario = (val, i, id, type, name = null) => {
+
+  
+  const changeInventario = (val, i, type, name = null) => {
     let obj = cloneDeep(productosInventario)
 
     switch (type) {
@@ -1034,7 +1024,6 @@ function Home() {
     let checkempty = productosInventario.filter(e => e.type).filter(e =>
       e.codigo_barras == "" ||
       e.descripcion == "" ||
-      e.id_categoria == "" ||
       e.unidad == "" ||
       e.cantidad == "" ||
       e.precio_base == "" ||
@@ -1876,7 +1865,8 @@ function formatAmount( number, simbol ) {
   const [selectProveedorCxp, setselectProveedorCxp] = useState("")
   const [cuentaporpagarAprobado,setcuentaporpagarAprobado] = useState(1)
   const [efectivoDisponibleSucursalesData,setefectivoDisponibleSucursalesData] = useState([])
-
+  const [controlefecSelectCat,setcontrolefecSelectCat] = useState("")
+  
   const [dataselectFacts, setdataselectFacts] = useState({
     "sum": 0,
     "data": []
@@ -1898,6 +1888,15 @@ function formatAmount( number, simbol ) {
       dataselectFacts: dataselectFacts.data,
       descuentoGeneralFats,
     }).then(res=>{
+      selectCuentaPorPagarProveedorDetallesFun()
+      notificar(res)
+    })
+  }
+  const saveFacturaLote = () => {
+    db.saveFacturaLote({
+      facturas: selectCuentaPorPagarId.detalles.filter(e=>e.type)
+    })
+    .then(res=>{
       selectCuentaPorPagarProveedorDetallesFun()
       notificar(res)
     })
@@ -1967,6 +1966,7 @@ function formatAmount( number, simbol ) {
                     tipo: "",
                     frecuencia: "",
                     idinsucursal: "",
+                    type: "new",
                 },
             ];
 
@@ -1977,8 +1977,9 @@ function formatAmount( number, simbol ) {
             obj[i].type = "delete";
             break;
     }
-    setSelectCuentaPorPagarId(obj);
-};
+    det.detalles = obj
+    setSelectCuentaPorPagarId(det);
+  };
   const abonarFactLote = (id_proveedor=null) => {
     setcuentasporpagarDetallesView("pagos");
     setsubviewAgregarFactPago("pago")
@@ -2341,6 +2342,7 @@ function formatAmount( number, simbol ) {
         filtronominacargo,
         qestatusaprobaciocaja,
         qcuentasPorPagar,
+        controlefecSelectCat,
       },
 
       subviewpanelsucursales: subviewpanelsucursalesforce ? subviewpanelsucursalesforce : subviewpanelsucursales,
@@ -3294,6 +3296,9 @@ function formatAmount( number, simbol ) {
     }
   }
 
+
+  const [facturaSelectAddItems, setfacturaSelectAddItems] = useState(null)
+
   const [modeMoneda, setmodeMoneda] = useState("dolar")
 	const [modeEjecutor, setmodeEjecutor] = useState("personal")
   
@@ -4150,7 +4155,7 @@ function formatAmount( number, simbol ) {
 
             </Efectivo>
           }
-          {permiso([1,9]) && viewmainPanel === "cargarfacts" &&
+          {permiso([1,9,10]) && viewmainPanel === "cargarfacts" &&
             <ComprasCargarFacts
               factInpImagen={factInpImagen}              
               setfactInpImagen={setfactInpImagen}
@@ -4163,8 +4168,11 @@ function formatAmount( number, simbol ) {
               sucursales={sucursales}
             />
           }
-          {permiso([1]) && viewmainPanel === "cargarfactsdigitales" &&
+          {permiso([1,10]) && viewmainPanel === "cargarfactsdigitales" &&
             <ComprasCargarFactsDigitales
+              number={number}
+              saveFacturaLote={saveFacturaLote}
+              handleFacturaxLotes={handleFacturaxLotes}
               selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
               cuentaporpagarAprobado={cuentaporpagarAprobado}
               setcuentaporpagarAprobado={setcuentaporpagarAprobado}
@@ -4189,8 +4197,185 @@ function formatAmount( number, simbol ) {
               moneda={moneda}
             />
           }
-          
+         
+          {permiso([1,10]) && viewmainPanel === "cargarfactsitems" &&
+            <>
+              {/* <NavInventario
+                subViewInventario={subViewInventario}
+                setsubViewInventario={setsubViewInventario}
+              /> */}
+              {subViewInventario == "gestion" ?
+                <GestionInventario
+                  modItemFact={modItemFact}
+                  delItemFact={delItemFact}
+                  facturaSelectAddItems={facturaSelectAddItems}
+                  setfacturaSelectAddItems={setfacturaSelectAddItems}
+                  number={number}
+                  saveFacturaLote={saveFacturaLote}
+                  handleFacturaxLotes={handleFacturaxLotes}
+                  selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+                  cuentaporpagarAprobado={cuentaporpagarAprobado}
+                  setcuentaporpagarAprobado={setcuentaporpagarAprobado}
+                  setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
+                  qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
+                  setselectProveedorCxp={setselectProveedorCxp}
+                  selectProveedorCxp={selectProveedorCxp}
+                  proveedoresList={proveedoresList}
+                  sucursalcuentasPorPagarDetalles={sucursalcuentasPorPagarDetalles}
+                  setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
+                  sucursales={sucursales}
+                  categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
+                  setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                  qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
+                  setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
+                  setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+                  selectCuentaPorPagarId={selectCuentaPorPagarId}
+                  qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
+                  dateFormat={dateFormat}
+                  returnCondicion={returnCondicion}
+                  colorSucursal={colorSucursal}
+                  moneda={moneda}
 
+                  qvinculacion1General={qvinculacion1General}
+                  setqvinculacion1General={setqvinculacion1General}
+                  qvinculacion2General={qvinculacion2General}
+                  setqvinculacion2General={setqvinculacion2General}
+                  qvinculacion3General={qvinculacion3General}
+                  setqvinculacion3General={setqvinculacion3General}
+                  qvinculacion4General={qvinculacion4General}
+                  setqvinculacion4General={setqvinculacion4General}
+                  qvinculacionmarcaGeneral={qvinculacionmarcaGeneral}
+                  setqvinculacionmarcaGeneral={setqvinculacionmarcaGeneral}
+
+                  selectIdVinculacion={selectIdVinculacion} 
+                  setselectIdVinculacion={setselectIdVinculacion}
+                  qvinculacion1={qvinculacion1} 
+                  setqvinculacion1={setqvinculacion1}
+                  qvinculacion2={qvinculacion2} 
+                  setqvinculacion2={setqvinculacion2}
+                  qvinculacion3={qvinculacion3} 
+                  setqvinculacion3={setqvinculacion3}
+                  qvinculacion4={qvinculacion4} 
+                  setqvinculacion4={setqvinculacion4}
+                  qvinculacionmarca={qvinculacionmarca} 
+                  setqvinculacionmarca={setqvinculacionmarca}
+                  datavinculacion1={datavinculacion1} 
+                  setdatavinculacion1={setdatavinculacion1}
+                  datavinculacion2={datavinculacion2} 
+                  setdatavinculacion2={setdatavinculacion2}
+                  datavinculacion3={datavinculacion3} 
+                  setdatavinculacion3={setdatavinculacion3}
+                  datavinculacion4={datavinculacion4} 
+                  setdatavinculacion4={setdatavinculacion4}
+                  datavinculacionmarca={datavinculacionmarca} 
+                  setdatavinculacionmarca={setdatavinculacionmarca}
+                  inputselectvinculacion1={inputselectvinculacion1} 
+                  setinputselectvinculacion1={setinputselectvinculacion1}
+                  inputselectvinculacion2={inputselectvinculacion2} 
+                  setinputselectvinculacion2={setinputselectvinculacion2}
+                  inputselectvinculacion3={inputselectvinculacion3} 
+                  setinputselectvinculacion3={setinputselectvinculacion3}
+                  inputselectvinculacion4={inputselectvinculacion4} 
+                  setinputselectvinculacion4={setinputselectvinculacion4}
+                  inputselectvinculacionmarca={inputselectvinculacionmarca} 
+                  setinputselectvinculacionmarca={setinputselectvinculacionmarca}
+                  inputselectvinculacion1General={inputselectvinculacion1General} 
+                  setinputselectvinculacion1General={setinputselectvinculacion1General}
+                  inputselectvinculacion2General={inputselectvinculacion2General} 
+                  setinputselectvinculacion2General={setinputselectvinculacion2General}
+                  inputselectvinculacion3General={inputselectvinculacion3General} 
+                  setinputselectvinculacion3General={setinputselectvinculacion3General}
+                  inputselectvinculacion4General={inputselectvinculacion4General} 
+                  setinputselectvinculacion4General={setinputselectvinculacion4General}
+                  inputselectvinculacionmarcaGeneral={inputselectvinculacionmarcaGeneral} 
+                  setinputselectvinculacionmarcaGeneral={setinputselectvinculacionmarcaGeneral}
+                  getDatinputSelectVinculacion={getDatinputSelectVinculacion}
+                  saveCuatroNombres={saveCuatroNombres}
+
+                  newNombre1={newNombre1}
+                  setnewNombre1={setnewNombre1}
+                  newNombre2={newNombre2}
+                  setnewNombre2={setnewNombre2}
+                  newNombre3={newNombre3}
+                  setnewNombre3={setnewNombre3}
+                  newNombre4={newNombre4}
+                  setnewNombre4={setnewNombre4}
+                  newNombremarca={newNombremarca}
+                  setnewNombremarca={setnewNombremarca}
+
+                  setporcenganancia={setporcenganancia}
+                  productosInventario={productosInventario}
+                  qBuscarInventario={qBuscarInventario}
+                  buscarInventario={buscarInventario}
+                  setQBuscarInventario={setQBuscarInventario}
+                  type={type}
+                  changeInventario={changeInventario}
+                  Invnum={Invnum}
+                  setInvnum={setInvnum}
+                  InvorderColumn={InvorderColumn}
+                  setInvorderColumn={setInvorderColumn}
+                  InvorderBy={InvorderBy}
+                  setInvorderBy={setInvorderBy}
+                  inputBuscarInventario={inputBuscarInventario}
+                  guardarNuevoProductoLote={guardarNuevoProductoLote}
+                  refsInpInvList={refsInpInvList}
+                  categorias={categorias}
+                  marcas={marcas}
+                  catGenerals={catGenerals}
+
+                  getMarcas={getMarcas}
+                  getCatGenerals={getCatGenerals}
+                  getCategorias={getCategorias}
+                  addnewNombre={addnewNombre}
+                />
+                : null}
+
+              {subViewInventario == "departamentos" ?
+                <DepartamentosInventario
+                  getCategorias={getCategorias}
+                  addNewCategorias={addNewCategorias}
+                  categoriasDescripcion={categoriasDescripcion}
+                  setcategoriasDescripcion={setcategoriasDescripcion}
+                  indexSelectCategorias={indexSelectCategorias}
+                  setIndexSelectCategorias={setIndexSelectCategorias}
+                  qBuscarCategorias={qBuscarCategorias}
+                  setQBuscarCategorias={setQBuscarCategorias}
+                  delCategorias={delCategorias}
+                  categorias={categorias}
+                />
+                : null}
+
+              {subViewInventario == "catgeneral" ?
+                <CatGeneral
+                  getCatGenerals={getCatGenerals}
+                  addNewCatGenerals={addNewCatGenerals}
+                  catGeneralsDescripcion={catGeneralsDescripcion}
+                  setcatGeneralsDescripcion={setcatGeneralsDescripcion}
+                  indexSelectCatGenerals={indexSelectCatGenerals}
+                  setIndexSelectCatGenerals={setIndexSelectCatGenerals}
+                  qBuscarCatGenerals={qBuscarCatGenerals}
+                  setQBuscarCatGenerals={setQBuscarCatGenerals}
+                  delCatGenerals={delCatGenerals}
+                  catGenerals={catGenerals}
+                />
+                : null}
+
+              {subViewInventario == "marcas" ?
+                <Marcas
+                  getMarcas={getMarcas}
+                  addNewMarcas={addNewMarcas}
+                  marcasDescripcion={marcasDescripcion}
+                  setmarcasDescripcion={setmarcasDescripcion}
+                  indexSelectMarcas={indexSelectMarcas}
+                  setIndexSelectMarcas={setIndexSelectMarcas}
+                  qBuscarMarcas={qBuscarMarcas}
+                  setQBuscarMarcas={setQBuscarMarcas}
+                  delMarcas={delMarcas}
+                  marcas={marcas}
+                />
+                : null}
+            </>
+          }
 
           {permiso([1,2,5]) && viewmainPanel === "gastos" && 
             <Gastos
@@ -4319,160 +4504,13 @@ function formatAmount( number, simbol ) {
           }
 
 
-          {permiso([1]) && viewmainPanel === "inventario" &&
-            <>
-              <NavInventario
-                subViewInventario={subViewInventario}
-                setsubViewInventario={setsubViewInventario}
-              />
-              {subViewInventario == "gestion" ?
-                <GestionInventario
-                qvinculacion1General={qvinculacion1General}
-                setqvinculacion1General={setqvinculacion1General}
-                qvinculacion2General={qvinculacion2General}
-                setqvinculacion2General={setqvinculacion2General}
-                qvinculacion3General={qvinculacion3General}
-                setqvinculacion3General={setqvinculacion3General}
-                qvinculacion4General={qvinculacion4General}
-                setqvinculacion4General={setqvinculacion4General}
-                qvinculacionmarcaGeneral={qvinculacionmarcaGeneral}
-                setqvinculacionmarcaGeneral={setqvinculacionmarcaGeneral}
-
-                selectIdVinculacion={selectIdVinculacion} 
-                setselectIdVinculacion={setselectIdVinculacion}
-                qvinculacion1={qvinculacion1} 
-                setqvinculacion1={setqvinculacion1}
-                qvinculacion2={qvinculacion2} 
-                setqvinculacion2={setqvinculacion2}
-                qvinculacion3={qvinculacion3} 
-                setqvinculacion3={setqvinculacion3}
-                qvinculacion4={qvinculacion4} 
-                setqvinculacion4={setqvinculacion4}
-                qvinculacionmarca={qvinculacionmarca} 
-                setqvinculacionmarca={setqvinculacionmarca}
-                datavinculacion1={datavinculacion1} 
-                setdatavinculacion1={setdatavinculacion1}
-                datavinculacion2={datavinculacion2} 
-                setdatavinculacion2={setdatavinculacion2}
-                datavinculacion3={datavinculacion3} 
-                setdatavinculacion3={setdatavinculacion3}
-                datavinculacion4={datavinculacion4} 
-                setdatavinculacion4={setdatavinculacion4}
-                datavinculacionmarca={datavinculacionmarca} 
-                setdatavinculacionmarca={setdatavinculacionmarca}
-                inputselectvinculacion1={inputselectvinculacion1} 
-                setinputselectvinculacion1={setinputselectvinculacion1}
-                inputselectvinculacion2={inputselectvinculacion2} 
-                setinputselectvinculacion2={setinputselectvinculacion2}
-                inputselectvinculacion3={inputselectvinculacion3} 
-                setinputselectvinculacion3={setinputselectvinculacion3}
-                inputselectvinculacion4={inputselectvinculacion4} 
-                setinputselectvinculacion4={setinputselectvinculacion4}
-                inputselectvinculacionmarca={inputselectvinculacionmarca} 
-                setinputselectvinculacionmarca={setinputselectvinculacionmarca}
-                inputselectvinculacion1General={inputselectvinculacion1General} 
-                setinputselectvinculacion1General={setinputselectvinculacion1General}
-                inputselectvinculacion2General={inputselectvinculacion2General} 
-                setinputselectvinculacion2General={setinputselectvinculacion2General}
-                inputselectvinculacion3General={inputselectvinculacion3General} 
-                setinputselectvinculacion3General={setinputselectvinculacion3General}
-                inputselectvinculacion4General={inputselectvinculacion4General} 
-                setinputselectvinculacion4General={setinputselectvinculacion4General}
-                inputselectvinculacionmarcaGeneral={inputselectvinculacionmarcaGeneral} 
-                setinputselectvinculacionmarcaGeneral={setinputselectvinculacionmarcaGeneral}
-                getDatinputSelectVinculacion={getDatinputSelectVinculacion}
-                saveCuatroNombres={saveCuatroNombres}
-
-                newNombre1={newNombre1}
-                setnewNombre1={setnewNombre1}
-                newNombre2={newNombre2}
-                setnewNombre2={setnewNombre2}
-                newNombre3={newNombre3}
-                setnewNombre3={setnewNombre3}
-                newNombre4={newNombre4}
-                setnewNombre4={setnewNombre4}
-                newNombremarca={newNombremarca}
-                setnewNombremarca={setnewNombremarca}
-
-                  setporcenganancia={setporcenganancia}
-                  productosInventario={productosInventario}
-                  qBuscarInventario={qBuscarInventario}
-                  buscarInventario={buscarInventario}
-                  setQBuscarInventario={setQBuscarInventario}
-                  type={type}
-                  changeInventario={changeInventario}
-                  Invnum={Invnum}
-                  setInvnum={setInvnum}
-                  InvorderColumn={InvorderColumn}
-                  setInvorderColumn={setInvorderColumn}
-                  InvorderBy={InvorderBy}
-                  setInvorderBy={setInvorderBy}
-                  inputBuscarInventario={inputBuscarInventario}
-                  guardarNuevoProductoLote={guardarNuevoProductoLote}
-                  proveedoresList={proveedoresList}
-                  number={number}
-                  refsInpInvList={refsInpInvList}
-                  categorias={categorias}
-                  marcas={marcas}
-                  catGenerals={catGenerals}
-
-                  getMarcas={getMarcas}
-                  getCatGenerals={getCatGenerals}
-                  getCategorias={getCategorias}
-                  addnewNombre={addnewNombre}
-                />
-                : null}
-
-              {subViewInventario == "departamentos" ?
-                <DepartamentosInventario
-                  getCategorias={getCategorias}
-                  addNewCategorias={addNewCategorias}
-                  categoriasDescripcion={categoriasDescripcion}
-                  setcategoriasDescripcion={setcategoriasDescripcion}
-                  indexSelectCategorias={indexSelectCategorias}
-                  setIndexSelectCategorias={setIndexSelectCategorias}
-                  qBuscarCategorias={qBuscarCategorias}
-                  setQBuscarCategorias={setQBuscarCategorias}
-                  delCategorias={delCategorias}
-                  categorias={categorias}
-                />
-                : null}
-
-              {subViewInventario == "catgeneral" ?
-                <CatGeneral
-                  getCatGenerals={getCatGenerals}
-                  addNewCatGenerals={addNewCatGenerals}
-                  catGeneralsDescripcion={catGeneralsDescripcion}
-                  setcatGeneralsDescripcion={setcatGeneralsDescripcion}
-                  indexSelectCatGenerals={indexSelectCatGenerals}
-                  setIndexSelectCatGenerals={setIndexSelectCatGenerals}
-                  qBuscarCatGenerals={qBuscarCatGenerals}
-                  setQBuscarCatGenerals={setQBuscarCatGenerals}
-                  delCatGenerals={delCatGenerals}
-                  catGenerals={catGenerals}
-                />
-                : null}
-
-              {subViewInventario == "marcas" ?
-                <Marcas
-                  getMarcas={getMarcas}
-                  addNewMarcas={addNewMarcas}
-                  marcasDescripcion={marcasDescripcion}
-                  setmarcasDescripcion={setmarcasDescripcion}
-                  indexSelectMarcas={indexSelectMarcas}
-                  setIndexSelectMarcas={setIndexSelectMarcas}
-                  qBuscarMarcas={qBuscarMarcas}
-                  setQBuscarMarcas={setQBuscarMarcas}
-                  delMarcas={delMarcas}
-                  marcas={marcas}
-                />
-                : null}
-            </>
-          }
+          
 
 
           {permiso([1,2,3,5,7,8]) && viewmainPanel === "sucursales" &&
             <PanelSucursales
+              controlefecSelectCat={controlefecSelectCat}
+              setcontrolefecSelectCat={setcontrolefecSelectCat}
               permiso={permiso}
               user={user}
               changeLiquidacionPagoElec={changeLiquidacionPagoElec}

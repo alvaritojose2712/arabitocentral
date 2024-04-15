@@ -23,20 +23,6 @@ export default function Compras({
                             <div className="content_shadow"></div>
                         </div>
                     </div> 
-
-                    <div className="col d-flex justify-content-center">
-                        <div className="circle" onClick={()=>setviewmainPanel("inventario")}>
-                            <div className="circle_title">
-                                <h2>RECIBIR</h2>
-                                <h3>Módulo</h3>
-                            </div>
-                            <div className="circle_inner">
-                                R
-                            </div>
-                            <div className="content_shadow"></div>
-                        </div>
-                    </div> 
-
                     <div className="col d-flex justify-content-center">
                         <div className="circle" onClick={()=>setviewmainPanel("enviar")}>
                             <div className="circle_title">
@@ -49,7 +35,6 @@ export default function Compras({
                             <div className="content_shadow"></div>
                         </div>
                     </div> 
-
                     <div className="col d-flex justify-content-center">
                         <div className="circle" onClick={()=>setviewmainPanel("proveedores")}>
                             <div className="circle_title">
@@ -58,6 +43,20 @@ export default function Compras({
                             </div>
                             <div className="circle_inner">
                                 P
+                            </div>
+                            <div className="content_shadow"></div>
+                        </div>
+                    </div> 
+                </>}
+                {permiso([1,10]) && <>
+                    <div className="col d-flex justify-content-center">
+                        <div className="circle" onClick={()=>setviewmainPanel("cargarfactsitems")}>
+                            <div className="circle_title">
+                                <h2>CARGAR ITEMS</h2>
+                                <h3>Módulo</h3>
+                            </div>
+                            <div className="circle_inner">
+                                I
                             </div>
                             <div className="content_shadow"></div>
                         </div>
@@ -72,14 +71,14 @@ export default function Compras({
                                 <h3>Módulo</h3>
                             </div>
                             <div className="circle_inner">
-                                C
+                                F
                             </div>
                             <div className="content_shadow"></div>
                         </div>
                     </div> 
                 </>}
 
-                {permiso([1,9]) && <>
+                {permiso([1,10]) && <>
                     <div className="col d-flex justify-content-center">
                         <div className="circle" onClick={()=>setviewmainPanel("cargarfactsdigitales")}>
                             <div className="circle_title">
@@ -87,12 +86,14 @@ export default function Compras({
                                 <h3>Módulo</h3>
                             </div>
                             <div className="circle_inner">
-                                C
+                                D
                             </div>
                             <div className="content_shadow"></div>
                         </div>
                     </div> 
                 </>}
+
+                
 
             </div>    
         </>

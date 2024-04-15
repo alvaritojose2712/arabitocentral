@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\cuentasporpagar;
 set_time_limit(300000);
 use App\Models\marcas;
 use App\Models\productonombre1;
@@ -8,11 +9,10 @@ use App\Models\productonombre2;
 use App\Models\productonombre3;
 use App\Models\productonombre4;
 
+use App\Models\cuentasporpagar_items;
 use App\Models\inventario;
 use App\Models\sucursal;
-use App\Models\facturas;
 use App\Models\inventario_sucursal;
-use App\Models\items_facturas;
 use App\Models\moneda;
 use App\Models\fallas;
 
@@ -420,121 +420,91 @@ public function delProducto(Request $req)
 public function guardarNuevoProductoLote(Request $req)
 {
     try {
-        foreach ($req->lotes as $key => $ee) {
-        if (isset($ee["type"])) {
-            if ($ee["type"]==="update"||$ee["type"]==="new") {
+        $msj = "";
+        foreach ($req->lotes as $i => $ee) {
+            if (isset($ee["type"])) {
+                if ($ee["type"]==="update"||$ee["type"]==="new") {
+                    $ee["id_factura"] = $req->id_factura;
 
-                $this->guardarProducto(
-                    $req->id_factura,
-                    $ee["cantidad"],
-                    $ee["id"],
-                    $ee["codigo_barras"],
-                    $ee["codigo_proveedor"],
-                    $ee["unidad"],
-                    $ee["id_categoria"],
-                    $ee["descripcion"],
-                    $ee["precio_base"],
-                    $ee["precio"],
-                    $ee["iva"],
-                    $ee["id_catgeneral"],
-                );
-            }else if ($ee["type"]==="delete") {
-                $this->delProductoFun($ee["id"]);
-            }
-        }   
+                    $guardar = $this->guardarProducto($ee);
+                    $msj .= $guardar["msj"]."\n";
+                }else if ($ee["type"]==="delete") {
+                    $this->delProductoFun($ee["id"]);
+                }
+            }   
         }
-            return Response::json(["msj"=>"Éxito","estado"=>true]);   
+        return Response::json(["msj"=>"Éxito","estado"=>true]);   
     } catch (\Exception $e) {
-        return Response::json(["msj"=>"Error: ".$e->getMessage(),"estado"=>false]);
+        return Response::json(["msj"=>"Error: ".$e->getMessage()." LINEA ".$e->getLine(),"estado"=>false]);
     }  
 }
 public function guardarNuevoProducto(Request $req)
 {   
-    try {
-        $this->guardarProducto(
-            $req->id_factura,
-            $req->inpInvcantidad,
-            $req->id,
-            $req->inpInvbarras,
-            $req->inpInvalterno,
-            $req->inpInvunidad,
-            $req->inpInvcategoria,
-            $req->inpInvdescripcion,
-            $req->inpInvbase,
-            $req->inpInvventa,
-            $req->inpInviva,
-            $req->id_catgeneral
-            );
-            return Response::json(["msj"=>"Éxito","estado"=>true]);   
+    /* try {
+        $this->guardarProducto([
+            "req_id_factura" => $req->id_factura,
+            "req_inpInvcantidad" => $req->inpInvcantidad,
+            "req_id" => $req->id,
+            "req_inpInvbarras" => $req->inpInvbarras,
+            "req_inpInvalterno" => $req->inpInvalterno,
+            "req_inpInvunidad" => $req->inpInvunidad,
+            "req_inpInvcategoria" => $req->inpInvcategoria,
+            "req_inpInvdescripcion" => $req->inpInvdescripcion,
+            "req_inpInvbase" => $req->inpInvbase,
+            "req_inpInvventa" => $req->inpInvventa,
+            "req_inpInviva" => $req->inpInviva,
+            "id_catgeneral" => $req->id_catgeneral
+        ]);
+        return Response::json(["msj"=>"Éxito","estado"=>true]);   
     } catch (\Exception $e) {
         return Response::json(["msj"=>"Error: ".$e->getMessage(),"estado"=>false]);
-    }
-
-
-
+    } */
         
 }
 
-public function guardarProducto(
-    $req_id_factura,
-    $req_inpInvcantidad,
-    $req_id,
-    $req_inpInvbarras,
-    $req_inpInvalterno,
-    $req_inpInvunidad,
-    $req_inpInvcategoria,
-    $req_inpInvdescripcion,
-    $req_inpInvbase,
-    $req_inpInvventa,
-    $req_inpInviva,
-    $id_catgeneral
-){
-    $id_factura = $req_id_factura;
+public function guardarProducto($arr){
+    $id_factura = $arr["id_factura"];
 
-    $ctInsert = $req_inpInvcantidad;
-
-        try {
-        
-        $beforecantidad = 0;
-        $ctNew = 0;
-        $tipo = "";
-        if (!$req_id) {
-            $ctNew = $ctInsert;
-            $tipo = "Nuevo";
-        }else{
-            $before = inventario::find($req_id);
-
-            if ($before) {
-                $beforecantidad = $before->cantidad;
-                $ctNew = $ctInsert - $beforecantidad;
-                $tipo = "Actualización";
-            }
-        }
-        
-        $insertOrUpdateInv = inventario::updateOrCreate([
-            "id" => $req_id
+    $cuentasporpagar = cuentasporpagar::find($id_factura);
+    if ($cuentasporpagar->aprobado==1) {
+        return ["msj"=>"Error: Cuenta ya aprobada, no se puede modificar", "estado"=>true];   
+    }else{
+        $crearProducto = inventario::updateOrCreate([
+            "id" => $arr["id"]? $arr["id"]:null
         ],[
-            "codigo_barras" => $req_inpInvbarras,
-            "cantidad" => $ctInsert,
-            "codigo_proveedor" => $req_inpInvalterno,
-            "unidad" => $req_inpInvunidad,
-            "id_categoria" => $req_inpInvcategoria,
-            "descripcion" => $req_inpInvdescripcion,
-            "precio_base" => $req_inpInvbase,
-            "precio" => $req_inpInvventa,
-            "iva" => $req_inpInviva,
-            "id_catgeneral" => $id_catgeneral,
-        ]);
-
-        /* $this->checkFalla($req_id,$ctInsert);
-        $this->setMovimientoNotCliente($insertOrUpdateInv->id,"",$ctNew,"",$tipo);
-        $this->insertItemFact($id_factura,$insertOrUpdateInv,$ctInsert,$beforecantidad,$ctNew,$tipo); */
-        
-
-        return true;   
-    } catch (\Exception $e) {
-        throw new \Exception("Error: ".$e->getMessage(), 1);
+            "codigo_barras" => $arr["codigo_barras"],
+            "codigo_proveedor" => $arr["codigo_proveedor"],
+            "descripcion" => $arr["descripcion"],
+            "unidad" => $arr["unidad"],
+            "id_categoria" => $arr["id_categoria"],
+            "id_catgeneral" => $arr["id_catgeneral"],
+            "iva" => $arr["iva"],
+            "precio" => $arr["precio"],
+            "precio_base" => $arr["precio_base"],
+            "cantidad" => 0,
+        ]); 
+    
+        if ($crearProducto) {
+            $cargarItem = cuentasporpagar_items::updateOrCreate([
+                "id_cuenta" => $id_factura,
+                "id_producto" => $crearProducto->id, 
+            ],[
+                "id_cuenta" => $id_factura,
+                "id_producto" => $crearProducto->id,
+                "cantidad" => $arr["cantidad"],
+                "basef" => $arr["basef"],
+                "base" => $arr["precio_base"],
+                "venta" => $arr["precio"],
+                "estado" => 0,
+            ]);
+            if ($cargarItem) {
+                return ["msj"=>"OK item ".$arr["codigo_barras"], "estado"=>true];   
+            }
+            
+        }
+        return ["msj"=>"NO item ".$arr["codigo_barras"], "estado"=>false];   
     }
+    
 }
 public function insertItemFact($id_factura,$insertOrUpdateInv,$ctInsert,$beforecantidad,$ctNew,$tipo)
 {

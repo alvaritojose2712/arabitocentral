@@ -3,6 +3,8 @@ export default function Controldeefectivo({
     sucursalDetallesData,
     controlefecSelectGeneral,
     setcontrolefecSelectGeneral,
+    controlefecSelectCat,
+    setcontrolefecSelectCat,
     moneda,
     getCatGeneralFun,
     getCatCajas,
@@ -71,7 +73,9 @@ export default function Controldeefectivo({
                                 Object.entries(sucursalDetallesData.sum.categorias).map((e,i)=>
                                     <tr key={i}>
                                         <th>
-                                            <button className="btn w-100 btn-sm" style={{color:"white",fontWeight:"bold",backgroundColor:getCatGeneralFun(e[1].categoria).color}}>{getCatGeneralFun(e[1].categoria).nombre}</button>
+                                        
+
+                                            <button className="btn w-100 btn-sm" onClick={()=>setcontrolefecSelectCat(controlefecSelectCat==e[1].categoria?"": e[1].categoria)} style={{color:"white",fontWeight:"bold",backgroundColor:getCatGeneralFun(e[1].categoria).color}}>{getCatGeneralFun(e[1].categoria).nombre}</button>
                                         </th>
                                         <th>
                                             {e[1].nombre}

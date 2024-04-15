@@ -199,6 +199,65 @@ class CuentasporpagarController extends Controller
 
         return cuentasporpagar::updateOrCreate($search,$arr);
     }
+    function negative($num){
+        return -1 * abs($num);
+    }
+    function saveFacturaLote(Request $req){
+
+        try {
+            $facturas = $req->facturas;
+            $msj = "";
+            foreach ($facturas as $i => $factura) {
+
+                $ifexistfact = cuentasporpagar::find($factura["id"]);
+
+                if ($ifexistfact) {
+                    if ($ifexistfact->aprobado==1) {
+                        return "No puede modificar una factura aprobada ".$ifexistfact->numfact;
+                    }
+                }
+                if (isset($factura["type"])) {
+                    $type = $factura["type"];
+                    if ($type=="update" || $type=="new") {
+                        $arrinsert = [
+                            "tipo" => 1, //COMPRAS
+                            "frecuencia" => 0,
+                            "idinsucursal" => null,
+                            "id_proveedor" =>  $factura["id_proveedor"],
+                            "id_sucursal" =>  $factura["id_sucursal"],
+                            "numfact" => $factura["numfact"],
+                            "numnota" => $factura["numnota"],
+                            "descripcion" => "IMAGEN",
+                            "descuento" => $factura["descuento"],
+                            "subtotal" => $this->negative($factura["subtotal"]),
+                            "monto_exento" => $this->negative($factura["monto_exento"]),
+                            "monto_gravable" => $this->negative($factura["monto_gravable"]),
+                            "iva" => $this->negative($factura["iva"]),
+                            "monto" => $this->negative($factura["monto"]),
+                            "fechaemision" => $factura["fechaemision"],
+                            "fechavencimiento" => $factura["fechavencimiento"],
+                            "fecharecepcion" => $factura["fecharecepcion"],
+                            "nota" => $factura["nota"],
+                        ];
+                        $search = [
+                            "id" => $factura["id"]
+                        ];
+                        
+                        $this->setCuentaPorPagar($arrinsert,$search);
+                        
+                    }else if($type=="delete"){
+                        cuentasporpagar::find($factura["id"])->delete();
+                    }
+                    $msj .= ($i+1)." ".$type;
+                }
+    
+            }
+            return ["msj" => $msj, "estado"=>true];
+        } catch (\Exception $e) {
+            return ["estado"=>false, "msj"=>$e->getMessage()];
+        }
+
+    }
     function setPago($arr) {
 
         $id_sucursal = $arr["id_sucursal"];
@@ -619,7 +678,9 @@ class CuentasporpagarController extends Controller
         
         $todayWithoutDateTime = (new NominaController)->today();
         $today = new \DateTime($todayWithoutDateTime);
-        $detalles = cuentasporpagar::with(["sucursal","proveedor","pagos"=>function($q) {
+        $detalles = cuentasporpagar::with(["items"=>function($q){
+            $q->with("producto");
+        },"sucursal","proveedor","pagos"=>function($q) {
             
             $q->orderBy("id","desc");
         },"facturas"=>function($q) {

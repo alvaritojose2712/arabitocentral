@@ -624,7 +624,7 @@ class CierresController extends Controller
     function getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
     {
         $controlefecQ = "";
-        $controlefecQCategoria = "";
+        $controlefecQCategoria = $filtros["controlefecSelectCat"];
 
         $controlefecSelectGeneral = $filtros["controlefecSelectGeneral"];
 

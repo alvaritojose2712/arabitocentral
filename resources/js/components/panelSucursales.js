@@ -11,6 +11,8 @@ import Creditos from './panel/creditos'
 
 
 export default function PanelSucursales({
+    controlefecSelectCat,
+    setcontrolefecSelectCat,
     children,
     sucursales,
     sucursalSelect,
@@ -63,6 +65,7 @@ export default function PanelSucursales({
     user,
     permiso,
 
+
 }) {
     useEffect(() => {
         getSucursales()
@@ -79,6 +82,7 @@ export default function PanelSucursales({
         fechasMain1,
         fechasMain2,
         controlefecSelectGeneral,
+        controlefecSelectCat,
     ])
 
     try {
@@ -188,6 +192,8 @@ export default function PanelSucursales({
 
                         {permiso([1,2,3,5]) && subviewpanelsucursales == "controldeefectivo" ?
                             <Controldeefectivo
+                                controlefecSelectCat={controlefecSelectCat}
+                                setcontrolefecSelectCat={setcontrolefecSelectCat}
                                 getsucursalDetallesData={getsucursalDetallesData}
                                 sucursalDetallesData={sucursalDetallesData}
                                 controlefecSelectGeneral={controlefecSelectGeneral}

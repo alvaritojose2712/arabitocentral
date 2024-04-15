@@ -39,6 +39,18 @@
   border-color: var(--sinapsis-color) !important;
 
 }
+
+.bg-ct{
+  background-color: #f4cccc !important;
+}
+.bg-base{
+  background-color: #fce5cd !important;
+  
+}
+.bg-venta{
+  background-color: #d9ead3 !important;
+
+}
 .borderleft{
 
   border-top:    0px solid  black;

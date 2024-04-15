@@ -7,6 +7,7 @@ use App\Http\Controllers\CajasController;
 use App\Http\Controllers\CatcajasController;
 use App\Http\Controllers\CreditoAprobacionController;
 use App\Http\Controllers\CuentasporpagarController;
+use App\Http\Controllers\CuentasporpagarItemsController;
 use App\Http\Controllers\PuntosybiopagosController;
 use App\Http\Controllers\TransferenciaAprobacionController;
 use App\Http\Controllers\UltimainformacioncargadaController;
@@ -226,6 +227,8 @@ Route::post('liquidarMov', [PuntosybiopagosController::class,"liquidarMov"]);
 Route::post('changeBank', [PuntosybiopagosController::class,"changeBank"]);
 Route::post('changeSucursal', [CuentasporpagarController::class,"changeSucursal"]);
 Route::post('sendComprasFats', [CuentasporpagarController::class,"sendComprasFats"]);
+Route::post('saveFacturaLote', [CuentasporpagarController::class,"saveFacturaLote"]);
+
 
 
 Route::post('sendsaldoactualbancofecha', [BancosController::class,"sendsaldoactualbancofecha"]);
@@ -295,7 +298,9 @@ Route::post('delFactura', [FacturasController::class,"delFactura"]);
 Route::post('saveMontoFactura', [FacturasController::class,"saveMontoFactura"]);
 Route::get('verFactura', [FacturasController::class,"verFactura"]);
 
-Route::post('delItemFact', [ItemsFacturasController::class,"delItemFact"]);
+Route::post('delItemFact', [CuentasporpagarItemsController::class,"delItemFact"]);
+Route::post('modItemFact', [CuentasporpagarItemsController::class,"modItemFact"]);
+
 Route::get('setestatus', [CuentasporpagarController::class,"setEstatusAll"]);
 
 /* Route::post('setPagoProveedor', [PagoFacturasController::class,"setPagoProveedor"]);
