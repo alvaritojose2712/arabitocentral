@@ -447,7 +447,7 @@ export default function Gestioninventario({
                                 </thead>
                                     {productosInventario.length?productosInventario.map((e,i)=>
                                         <tbody key={i}>
-                                            <tr className={" align-bottom border-top border-top-1 border-dark pointer "} /* onClick={()=>funIdVinc(e.id,e.n1,e.n2,e.n3,e.n4,e.marca)} */ onDoubleClick={() => changeInventario(null, i, "delMode")}>
+                                            <tr className={" align-bottom border-top border-top-1 border-dark pointer "} /* onClick={()=>funIdVinc(e.id,e.n1,e.n2,e.n3,e.n4,e.marca)} */ onDoubleClick={() => changeInventario(null, i, "update")}>
                                                 <td className="">
                                                     {e.id}
                                                 </td>

@@ -64,6 +64,8 @@ export default function PanelSucursales({
     getCatCajas,
     user,
     permiso,
+    controlefecQDescripcion,
+    setcontrolefecQDescripcion,
 
 
 }) {
@@ -192,6 +194,8 @@ export default function PanelSucursales({
 
                         {permiso([1,2,3,5]) && subviewpanelsucursales == "controldeefectivo" ?
                             <Controldeefectivo
+                                controlefecQDescripcion={controlefecQDescripcion}
+                                setcontrolefecQDescripcion={setcontrolefecQDescripcion}
                                 controlefecSelectCat={controlefecSelectCat}
                                 setcontrolefecSelectCat={setcontrolefecSelectCat}
                                 getsucursalDetallesData={getsucursalDetallesData}

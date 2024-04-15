@@ -5,9 +5,12 @@ export default function Controldeefectivo({
     setcontrolefecSelectGeneral,
     controlefecSelectCat,
     setcontrolefecSelectCat,
+    controlefecQDescripcion,
+    setcontrolefecQDescripcion,
     moneda,
     getCatGeneralFun,
     getCatCajas,
+    getsucursalDetallesData,
 }){
     const [subviewCajasResDet, setsubviewCajasResDet] = useState("resumen")
     useEffect(()=>{
@@ -94,6 +97,11 @@ export default function Controldeefectivo({
                 {subviewCajasResDet=="detallado"?
 
                     <div className="">
+    
+                        <div className="input-group">
+                            <input type="text" className="form-control" placeholder="Buscar..." onChange={e=>setcontrolefecQDescripcion(e.target.value)} value={controlefecQDescripcion} />
+                            <button className="btn btn-secondary" type="button" onClick={()=>getsucursalDetallesData()}><i className="fa fa-search"></i></button>
+                        </div>
                         <table className="table">
                             <thead>
                                 <tr>

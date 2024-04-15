@@ -1866,6 +1866,9 @@ function formatAmount( number, simbol ) {
   const [cuentaporpagarAprobado,setcuentaporpagarAprobado] = useState(1)
   const [efectivoDisponibleSucursalesData,setefectivoDisponibleSucursalesData] = useState([])
   const [controlefecSelectCat,setcontrolefecSelectCat] = useState("")
+  const [controlefecQDescripcion,setcontrolefecQDescripcion] = useState("")
+  
+
   
   const [dataselectFacts, setdataselectFacts] = useState({
     "sum": 0,
@@ -2343,6 +2346,7 @@ function formatAmount( number, simbol ) {
         qestatusaprobaciocaja,
         qcuentasPorPagar,
         controlefecSelectCat,
+        controlefecQDescripcion,
       },
 
       subviewpanelsucursales: subviewpanelsucursalesforce ? subviewpanelsucursalesforce : subviewpanelsucursales,
@@ -4509,6 +4513,8 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,3,5,7,8]) && viewmainPanel === "sucursales" &&
             <PanelSucursales
+              controlefecQDescripcion={controlefecQDescripcion}
+              setcontrolefecQDescripcion={setcontrolefecQDescripcion}
               controlefecSelectCat={controlefecSelectCat}
               setcontrolefecSelectCat={setcontrolefecSelectCat}
               permiso={permiso}

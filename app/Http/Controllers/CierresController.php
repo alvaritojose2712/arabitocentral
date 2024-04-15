@@ -623,21 +623,21 @@ class CierresController extends Controller
 
     function getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
     {
-        $controlefecQ = "";
+        $controlefecQ = $filtros["controlefecQDescripcion"];
         $controlefecQCategoria = $filtros["controlefecSelectCat"];
 
         $controlefecSelectGeneral = $filtros["controlefecSelectGeneral"];
 
         $cajas = cajas::with(["cat", "sucursal"])->where("tipo", $controlefecSelectGeneral)
-        ->when($controlefecQ, function ($q) use ($controlefecQ) {
-            $q->orWhere("concepto", $controlefecQ);
-            $q->orWhere("monto", $controlefecQ);
-        })
         ->when($controlefecQCategoria, function ($q) use ($controlefecQCategoria) {
             $q->where("categoria", $controlefecQCategoria);
         })
         ->when($id_sucursal, function ($q) use ($id_sucursal) {
             $q->where("id_sucursal", $id_sucursal);
+        })
+        ->when($controlefecQ, function ($q) use ($controlefecQ) {
+            $q->where("concepto", "LIKE", "%$controlefecQ%");
+            //$q->orWhere("montodolar", "LIKE", "%$controlefecQ%");
         })
         ->whereBetween("fecha", [$fechasMain1, $fechasMain2])->orderBy("idinsucursal", "desc")
         ->get();
