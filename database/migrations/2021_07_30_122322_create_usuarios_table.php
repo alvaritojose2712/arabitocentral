@@ -23,8 +23,7 @@ class CreateUsuariosTable extends Migration
             // 3
             // 4 GASTOS  
             $table->string('area');
-            $table->integer("id_sucursal")->unsigned();
-            $table->foreign('id_sucursal')->references('id')->on('sucursals');
+            $table->integer("id_sucursal");
             
             $table->timestamps();
         });
