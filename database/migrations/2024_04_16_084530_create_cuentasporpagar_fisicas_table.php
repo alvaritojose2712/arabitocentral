@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCreditoAprobacionsTable extends Migration
+class CreateCuentasporpagarFisicasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,18 @@ class CreateCreditoAprobacionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('credito_aprobacions', function (Blueprint $table) {
+        Schema::create('cuentasporpagar_fisicas', function (Blueprint $table) {
             $table->increments("id");
+            $table->integer("estado");
+            $table->string("ruta");
 
-            $table->integer("id_cliente")->unsigned();
-            $table->foreign('id_cliente')->references('id')->on('clientes');
-
+            $table->integer("id_proveedor")->unsigned();
+            $table->foreign('id_proveedor')->references('id')->on('proveedores');
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
+            $table->string("numfact");
 
-            $table->integer("estatus");
-            $table->integer("idinsucursal");
 
-            $table->decimal("saldo",10,2);
-            $table->decimal("deuda",10,2)->default(0);
-            
-            $table->unique(["id_sucursal","idinsucursal"]);
             $table->timestamps();
         });
     }
@@ -40,6 +36,6 @@ class CreateCreditoAprobacionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('credito_aprobacions');
+        Schema::dropIfExists('cuentasporpagar_fisicas');
     }
 }

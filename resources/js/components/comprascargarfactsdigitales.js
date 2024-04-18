@@ -27,6 +27,13 @@ export default function Comprascargarfactsdigitales({
     handleFacturaxLotes,
     saveFacturaLote,
     number,
+    setmodalfilesexplorercxp,
+    modalfilesexplorercxp,
+    setviewmainPanel,
+
+    selectFilecxp,
+    setselectFilecxp,
+    dataFilescxp,
 }){
     useEffect(()=>{
         setcuentaporpagarAprobado(0)
@@ -36,7 +43,27 @@ export default function Comprascargarfactsdigitales({
     const type = type => {
         return !type || type === "delete" ? true : false
     }
+    let numfact_select = ""
+    let numfact_selectPath = ""
+    if (selectFilecxp) {
+        if (dataFilescxp.cuentasporpagar_fisicas) {
+            
+            let fil_selectFilecxp = dataFilescxp.cuentasporpagar_fisicas.filter(e=>e.id==selectFilecxp)
+            if (fil_selectFilecxp.length) {
+                numfact_select = fil_selectFilecxp[0].numfact
+                numfact_selectPath = fil_selectFilecxp[0].ruta
+            } 
+        }
+    }
+
     return <div className="container-fluid">
+        <div className="boton-fijo-inferiorizq">
+            <div className={("container-fluid shadow card ")}>
+
+            </div>
+        </div>
+
+
         <SearchBarFacturas
             selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
             cuentaporpagarAprobado={cuentaporpagarAprobado}
@@ -95,7 +122,6 @@ export default function Comprascargarfactsdigitales({
                             <span onClick={()=>{if(qCampocuentasPorPagarDetalles=="created_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("created_at")}}>CREADA</span>
                             <br />
                             <span onClick={()=>{if(qCampocuentasPorPagarDetalles=="updated_at"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("updated_at")}}>ACTUALIZADA</span>
-
                         </th> 
                         <th className="p-3">
                             <span className="pointer" onClick={()=>{if(qCampocuentasPorPagarDetalles=="fecharecepcion"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("fecharecepcion")}}>
@@ -138,7 +164,9 @@ export default function Comprascargarfactsdigitales({
                         <tr>
                             {e.type=="update" || e.type=="new" || e.type=="delete"?
                                 <>
-                                    <td colSpan={2}></td>
+                                    <td colSpan={2}>
+                                        <button className="btn btn-warning" onClick={()=>setviewmainPanel("comprascargarfactsfisica")}>ANCLAR <i className="fa fa-link"></i></button>
+                                    </td>
                                     <td>
                                         <input disabled={type(e.type)} type="date" className="form-control"
                                         placeholder="fecharecepcion" 

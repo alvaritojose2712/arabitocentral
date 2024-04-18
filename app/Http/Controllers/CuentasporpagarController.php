@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\cuentasporpagar;
 use App\Http\Requests\StorecuentasporpagarRequest;
 use App\Http\Requests\UpdatecuentasporpagarRequest;
+use App\Models\cuentasporpagar_fisicas;
 use App\Models\cuentasporpagar_pagos;
 use App\Models\proveedores;
 use App\Models\sucursal;
@@ -206,6 +207,8 @@ class CuentasporpagarController extends Controller
 
         try {
             $facturas = $req->facturas;
+            $selectFilecxp = $req->selectFilecxp;
+            
             $msj = "";
             foreach ($facturas as $i => $factura) {
 
@@ -219,6 +222,13 @@ class CuentasporpagarController extends Controller
                 if (isset($factura["type"])) {
                     $type = $factura["type"];
                     if ($type=="update" || $type=="new") {
+                        $imagen = "IMAGEN";
+                        if ($selectFilecxp) {
+                            $fisica = cuentasporpagar_fisicas::find($selectFilecxp);
+                            if ($fisica) {
+                                $imagen = $fisica->ruta;
+                            }
+                        }
                         $arrinsert = [
                             "tipo" => 1, //COMPRAS
                             "frecuencia" => 0,
@@ -227,7 +237,7 @@ class CuentasporpagarController extends Controller
                             "id_sucursal" =>  $factura["id_sucursal"],
                             "numfact" => $factura["numfact"],
                             "numnota" => $factura["numnota"],
-                            "descripcion" => "IMAGEN",
+                            "descripcion" => $imagen,
                             "descuento" => $factura["descuento"],
                             "subtotal" => $this->negative($factura["subtotal"]),
                             "monto_exento" => $this->negative($factura["monto_exento"]),
@@ -242,6 +252,7 @@ class CuentasporpagarController extends Controller
                         $search = [
                             "id" => $factura["id"]
                         ];
+
                         
                         $this->setCuentaPorPagar($arrinsert,$search);
                         
@@ -644,20 +655,6 @@ class CuentasporpagarController extends Controller
             $c->descuento = $descuentoGeneralFats;
             $c->save();
         }
-    }
-    function sendComprasFats(Request $req){
-        $fecha = date("dmY");
-        $factInpProveedor = $req->factInpProveedor;
-        $factNumfact = $req->factNumfact;
-        $factInpImagen = $req->factInpImagen;
-
-
-
-        $filename = $fecha."-".$factInpProveedor."-$factNumfact." . $factInpImagen->getClientOriginalExtension();
-        $factInpImagen->move(public_path($factInpProveedor."/mantecal"), $filename);
-
-
-        return $factNumfact;
     }
     function selectCuentaPorPagarProveedorDetalles(Request $req) {
         

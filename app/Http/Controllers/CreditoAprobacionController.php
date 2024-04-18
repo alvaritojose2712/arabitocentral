@@ -19,6 +19,10 @@ class CreditoAprobacionController extends Controller
         $id_sucursal = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen)["id_origen"];
         $idinsucursal = $data["idinsucursal"];
         $saldo = $data["saldo"];
+        $deuda = 0;
+        if (isset($data["deuda"]["pedido_total"]["diferencia_clean"])) {
+            $deuda = $data["deuda"]["pedido_total"]["diferencia_clean"];
+        }
         
         $check = credito_aprobacion::where("idinsucursal",$idinsucursal)->where("id_sucursal",$id_sucursal)->first("estatus");
         if ($check) {
@@ -52,6 +56,7 @@ class CreditoAprobacionController extends Controller
                     "id_cliente" => $id_cliente->id,
                     "estatus" => 0,
                     "saldo" => $saldo,
+                    "deuda" => $deuda,
                 ]);
                 if ($credito_aprobacion) {
 

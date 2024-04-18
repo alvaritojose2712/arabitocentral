@@ -90,6 +90,12 @@ export default function PorCobrar({
                                 <small className="fst-italic fs-2">{e.cliente.nombre} ({e.cliente.identificacion})</small><br/>
                             </span>
                         </div> 
+                        <div className="text-center">
+                            DEUDA <span className="text-danger fs-2">{moneda(e.deuda)}</span>
+                        </div>
+                        <div className="text-center">
+                            <small className="text-muted">{e.created_at}</small>
+                        </div>
                         <div className="card-body d-flex justify-content-between">
                             <button className="btn btn-sm btn-danger" onClick={()=>aprobarCreditoFun(e.id,"delete")}><i className="fa fa-times"></i></button>
                             <button className="btn btn-sm btn-success" onClick={()=>aprobarCreditoFun(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></button>

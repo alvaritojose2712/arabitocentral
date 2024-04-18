@@ -14,5 +14,6 @@ class usuarios extends Model
         "tipo_usuario",
         "area",
         "clave",
+        "id_sucursal",
     ];
 }

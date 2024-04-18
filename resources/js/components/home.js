@@ -43,6 +43,8 @@ import Usuarios from './usuarios';
 import Compras from './compras';
 import ComprasCargarFacts from './comprascargarfacts';
 import ComprasCargarFactsDigitales from './comprascargarfactsdigitales';
+import ComprasCargarFactsFisica from './comprascargarfactsfisicas';
+import Comprasmenufactsdigital from './Comprasmenufactsdigital';
 
 
 
@@ -384,9 +386,9 @@ function Home() {
   const sendComprasFats = (event) => {
     event.preventDefault()
     const formData = new FormData();
-    formData.append("factInpImagen",factInpImagen);
-    formData.append("factInpProveedor",factInpProveedor);
-    formData.append("factNumfact",factNumfact);
+    formData.append("imagen",factInpImagen);
+    formData.append("id_proveedor",factInpProveedor);
+    formData.append("numfact",factNumfact);
     db.sendComprasFats(
         formData
     ).then((res) => {
@@ -1680,6 +1682,9 @@ function formatAmount( number, simbol ) {
   const [usuarioRole, setusuarioRole] = useState("");
   const [usuarioClave, setusuarioClave] = useState("");
   const [usuarioArea, setusuarioArea] = useState("");
+  const [usuarioId_sucursal, setusuarioId_sucursal] = useState("");
+  
+
 
   const [qBuscarUsuario, setQBuscarUsuario] = useState("");
   const [indexSelectUsuarios, setIndexSelectUsuarios] = useState(null);
@@ -1867,13 +1872,46 @@ function formatAmount( number, simbol ) {
   const [efectivoDisponibleSucursalesData,setefectivoDisponibleSucursalesData] = useState([])
   const [controlefecSelectCat,setcontrolefecSelectCat] = useState("")
   const [controlefecQDescripcion,setcontrolefecQDescripcion] = useState("")
-  
-
-  
   const [dataselectFacts, setdataselectFacts] = useState({
     "sum": 0,
     "data": []
   })
+  
+  const [modalfilesexplorercxp,setmodalfilesexplorercxp] = useState(false)
+  const [selectFilecxp,setselectFilecxp] = useState(null)
+
+  const [dataFilescxp, setdataFilescxp] = useState([])
+  const [qnumfactFilescxp, setqnumfactFilescxp] = useState("")
+  const [qid_proveedorFilescxp, setqid_proveedorFilescxp] = useState("")
+  const [qid_sucursalFilescxp, setqid_sucursalFilescxp] = useState("")
+  const [qfechaFilescxp, setqfechaFilescxp] = useState("")
+
+  const delFilescxp = (id) => {
+    db.delFilescxp({id}).then(res=>{
+      if (res.data.estado) {
+        getFilescxp()
+      }
+      notificar(res)
+    })
+  }
+  const getFilescxp = (id) => {
+    db.getFilescxp({
+      qnumfactFilescxp,
+      qid_proveedorFilescxp,
+      qid_sucursalFilescxp,
+      qfechaFilescxp,
+    }).then(res=>{
+      if (res.data.estado) {
+        setdataFilescxp(res.data)
+      }else{
+        setdataFilescxp([])
+      }
+    })
+  }
+  const showFilescxp = (id) => {
+    db.showFilescxp(id)
+  }
+  
 
   const getDisponibleEfectivoSucursal = () => {
     db.getDisponibleEfectivoSucursal({}).then(res=>{
@@ -1897,6 +1935,7 @@ function formatAmount( number, simbol ) {
   }
   const saveFacturaLote = () => {
     db.saveFacturaLote({
+      selectFilecxp,
       facturas: selectCuentaPorPagarId.detalles.filter(e=>e.type)
     })
     .then(res=>{
@@ -1909,19 +1948,21 @@ function formatAmount( number, simbol ) {
     let obj = det.detalles
 
     switch (type) {
+      case "delModeUpdateDelete":
+        delete obj[i].type;
+        break;
+        case "delNew":
+          obj = obj.filter((e, ii) => ii !== i);
+          break;
+        case "changeInput":
+          obj[i][name] = val;
+          break;
         case "update":
             if (obj[i].type != "new") {
-                obj[i].type = "update";
+                if (!obj.filter(e=>e.type).length) {
+                  obj[i].type = "update";
+                }
             }
-            break;
-        case "delModeUpdateDelete":
-            delete obj[i].type;
-            break;
-        case "delNew":
-            obj = obj.filter((e, ii) => ii !== i);
-            break;
-        case "changeInput":
-            obj[i][name] = val;
             break;
         case "add":
             let pro = "";
@@ -1973,11 +2014,15 @@ function formatAmount( number, simbol ) {
                 },
             ];
 
-            obj = newObj.concat(obj);
+            if (!obj.filter(e=>e.type).length) {
+              obj = newObj.concat(obj);
+            }
             break;
-
         case "delMode":
-            obj[i].type = "delete";
+              if (!obj.filter(e=>e.type).length) {
+                
+                obj[i].type = "delete";
+              }
             break;
     }
     det.detalles = obj
@@ -2494,6 +2539,7 @@ function formatAmount( number, simbol ) {
         setusuarioNombre(obj.nombre);
         setusuarioUsuario(obj.usuario);
         setusuarioRole(obj.tipo_usuario);
+        setusuarioId_sucursal(obj.id_sucursal);
         setusuarioArea(obj.area);
         setusuarioClave(obj.clave);
       }
@@ -2533,6 +2579,7 @@ function formatAmount( number, simbol ) {
         usuario: usuarioUsuario,
         clave: usuarioClave,
         area: usuarioArea,
+        id_sucursal: usuarioId_sucursal,
       }).then((res) => {
         notificar(res);
         setLoading(false);
@@ -3025,11 +3072,11 @@ function formatAmount( number, simbol ) {
   let opcionesadmin = [
     {
       route: "efectivo",
-      name: "POR PAGAR"
+      name: "CXP"
     },
     {
       route: "creditos",
-      name: "POR COBRAR"
+      name: "CXC"
     },
     {
       route: "auditoria",
@@ -3724,8 +3771,9 @@ function formatAmount( number, simbol ) {
               usuariosData={usuariosData}
               addNewUsuario={addNewUsuario}
               getUsuarios={getUsuarios}
-
               sucursales={sucursales}
+              usuarioId_sucursal={usuarioId_sucursal}
+              setusuarioId_sucursal={setusuarioId_sucursal}
             />
           }
           {permiso([1,2]) && viewmainPanel === "creditos" &&
@@ -4172,42 +4220,93 @@ function formatAmount( number, simbol ) {
               sucursales={sucursales}
             />
           }
-          {permiso([1,10]) && viewmainPanel === "cargarfactsdigitales" &&
-            <ComprasCargarFactsDigitales
-              number={number}
-              saveFacturaLote={saveFacturaLote}
-              handleFacturaxLotes={handleFacturaxLotes}
-              selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
-              cuentaporpagarAprobado={cuentaporpagarAprobado}
-              setcuentaporpagarAprobado={setcuentaporpagarAprobado}
-              setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
-              qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
-              setselectProveedorCxp={setselectProveedorCxp}
-              selectProveedorCxp={selectProveedorCxp}
-              proveedoresList={proveedoresList}
-              sucursalcuentasPorPagarDetalles={sucursalcuentasPorPagarDetalles}
-              setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
-              sucursales={sucursales}
-              categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
-              setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
-              qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
-              setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
-              setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
-              selectCuentaPorPagarId={selectCuentaPorPagarId}
-              qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
-              dateFormat={dateFormat}
-              returnCondicion={returnCondicion}
-              colorSucursal={colorSucursal}
-              moneda={moneda}
-            />
+          {permiso([1,10]) && viewmainPanel === "comprascargarfactsfisica" &&
+              <ComprasCargarFactsFisica
+                colorSucursal={colorSucursal}
+                setviewmainPanel={setviewmainPanel}
+                modalfilesexplorercxp={modalfilesexplorercxp}
+                setmodalfilesexplorercxp={setmodalfilesexplorercxp}
+                selectFilecxp={selectFilecxp}
+                setselectFilecxp={setselectFilecxp}
+                delFilescxp={delFilescxp}
+                getFilescxp={getFilescxp}
+                showFilescxp={showFilescxp}
+                dataFilescxp={dataFilescxp}
+                setdataFilescxp={setdataFilescxp}
+
+                qnumfactFilescxp={qnumfactFilescxp}
+                setqnumfactFilescxp={setqnumfactFilescxp}
+
+                qid_proveedorFilescxp={qid_proveedorFilescxp}
+                setqid_proveedorFilescxp={setqid_proveedorFilescxp}
+
+                qid_sucursalFilescxp={qid_sucursalFilescxp}
+                setqid_sucursalFilescxp={setqid_sucursalFilescxp}
+
+                qfechaFilescxp={qfechaFilescxp}
+                setqfechaFilescxp={setqfechaFilescxp}
+                proveedoresList={proveedoresList}
+                sucursales={sucursales}
+              />
           }
-         
+          
+          {permiso([1,10]) && viewmainPanel === "cargarfactsdigitales" &&
+          <>
+              <Comprasmenufactsdigital 
+                viewmainPanel={viewmainPanel}
+                setviewmainPanel={setviewmainPanel}
+                permiso={permiso}
+              />
+              <ComprasCargarFactsDigitales
+                dataFilescxp={dataFilescxp}
+                selectFilecxp={selectFilecxp}
+                setselectFilecxp={setselectFilecxp}
+                setviewmainPanel={setviewmainPanel}
+                number={number}
+                saveFacturaLote={saveFacturaLote}
+                handleFacturaxLotes={handleFacturaxLotes}
+                selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+                cuentaporpagarAprobado={cuentaporpagarAprobado}
+                setcuentaporpagarAprobado={setcuentaporpagarAprobado}
+                setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
+                qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
+                setselectProveedorCxp={setselectProveedorCxp}
+                selectProveedorCxp={selectProveedorCxp}
+                proveedoresList={proveedoresList}
+                sucursalcuentasPorPagarDetalles={sucursalcuentasPorPagarDetalles}
+                setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
+                sucursales={sucursales}
+                categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
+                setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
+                setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
+                setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+                selectCuentaPorPagarId={selectCuentaPorPagarId}
+                qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
+                dateFormat={dateFormat}
+                returnCondicion={returnCondicion}
+                colorSucursal={colorSucursal}
+                moneda={moneda}
+              />
+          </>
+          }
+           {permiso([1,10]) && viewmainPanel === "procesarfactsdigitales" &&
+            <>
+              <Comprasmenufactsdigital 
+                viewmainPanel={viewmainPanel}
+                setviewmainPanel={setviewmainPanel}
+                permiso={permiso}
+              />
+            </>
+          }
+          
           {permiso([1,10]) && viewmainPanel === "cargarfactsitems" &&
             <>
-              {/* <NavInventario
-                subViewInventario={subViewInventario}
-                setsubViewInventario={setsubViewInventario}
-              /> */}
+              <Comprasmenufactsdigital 
+                viewmainPanel={viewmainPanel}
+                setviewmainPanel={setviewmainPanel}
+                permiso={permiso}
+              />
               {subViewInventario == "gestion" ?
                 <GestionInventario
                   modItemFact={modItemFact}

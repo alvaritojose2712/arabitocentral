@@ -4,6 +4,9 @@ export default function Usuarios({
 	
     usuarioUsuario,
 	setusuarioUsuario,
+
+	usuarioId_sucursal,
+	setusuarioId_sucursal,
 	
     usuarioRole,
 	setusuarioRole,
@@ -43,6 +46,8 @@ export default function Usuarios({
 		setusuarioRole("")
 		setusuarioClave("")
         setusuarioArea("")
+        setusuarioId_sucursal("")
+		
 		setIndexSelectUsuarios(null)
 	}
     return(
@@ -118,6 +123,20 @@ export default function Usuarios({
 									value={usuarioUsuario}
 									onChange={e => setusuarioUsuario(e.target.value)}
 									className="form-control" />
+							</div>
+							<div className="form-group">
+								<label htmlFor="">
+									SUCURSAL
+								</label>
+								<select
+									value={usuarioId_sucursal}
+									onChange={e => setusuarioId_sucursal(e.target.value)}
+									className="form-control">
+									<option value="">-SUCURSAL-</option>
+									{sucursales.map(e=>
+										<option key={e.id} value={e.id}>{e.codigo}</option>
+									)}
+								</select>
 							</div>
 							<div className="form-group">
 								<label htmlFor="">

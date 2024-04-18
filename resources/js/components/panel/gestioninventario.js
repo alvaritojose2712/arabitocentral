@@ -240,7 +240,7 @@ export default function Gestioninventario({
     return (
         <>
             {subviewcargaritemsfact=="cargar"?
-            <div className="container-fluid p-0">
+            <div className="container p-0">
                 {facturaSelectAddItemsSelect.id?
                 <>
                     <div className="row">
@@ -749,7 +749,7 @@ export default function Gestioninventario({
 
 
             {subviewcargaritemsfact=="selectfacts"?
-                <div className="container p-0">
+                <div className="container-fluid p-0">
                     <SearchBarFacturas
                         selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
                         cuentaporpagarAprobado={cuentaporpagarAprobado}
@@ -797,8 +797,8 @@ export default function Gestioninventario({
                                     <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_proveedor"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_proveedor")}} className="pointer p-3">
                                         PROVEEDOR
                                     </th>  
-                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="numfact"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("numfact")}} className="pointer  p-3 text-center">
-                                        NúMERO DE FACTURA
+                                    <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="numfact"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("numfact")}} className="pointer p-3">
+                                        NÚMERO DE FACTURA
                                     </th>  
                                     <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_sucursal"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_sucursal")}} className="pointer p-3 text-center">
                                         ORIGEN

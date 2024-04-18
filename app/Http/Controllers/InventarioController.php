@@ -469,6 +469,19 @@ public function guardarProducto($arr){
     if ($cuentasporpagar->aprobado==1) {
         return ["msj"=>"Error: Cuenta ya aprobada, no se puede modificar", "estado"=>true];   
     }else{
+        $sum_subtotal = 0;
+        $allitems = cuentasporpagar_items::where("id_cuenta",$id_factura)->get()
+        ->map(function($q) use (&$sum_subtotal){
+            $sum_subtotal += $q->basef*$q->cantidad;
+        });
+        $sum_subtotal += $arr["cantidad"]*$arr["basef"];
+
+        if ($sum_subtotal<$sum_subtotal) {
+            # code...
+        }
+
+
+
         $crearProducto = inventario::updateOrCreate([
             "id" => $arr["id"]? $arr["id"]:null
         ],[

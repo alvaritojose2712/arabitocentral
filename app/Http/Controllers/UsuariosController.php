@@ -24,6 +24,8 @@ class UsuariosController extends Controller
                 "usuario"=>$req->usuario,
                 "tipo_usuario"=>$req->role,
                 "area"=>$req->area,
+                "id_sucursal"=>$req->id_sucursal,
+                
             ];
             if ($req->clave) {
                 $arr["clave"] = Hash::make($req->clave);

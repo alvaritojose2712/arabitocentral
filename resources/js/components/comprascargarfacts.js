@@ -51,10 +51,10 @@ export default function Comprascargarfacts({
 
             <div className="row mb-1">
                 <div className="col">
-                    <span className="label-text">
+                    <b className="label-text">
                         NÚMERO DE FACTURA
-                    </span>
-                    <input className="form-control" placeholder="Número completo de Factura..." onChange={event=>setfactNumfact(event.target.value)} value={factNumfact}/>
+                    </b>
+                    <input className="form-control w-30 fs-2 text-success" placeholder="Número completo de Factura..." onChange={event=>setfactNumfact(event.target.value)} value={factNumfact}/>
                 </div>
             </div>
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\CajasController;
 use App\Http\Controllers\CatcajasController;
 use App\Http\Controllers\CreditoAprobacionController;
 use App\Http\Controllers\CuentasporpagarController;
+use App\Http\Controllers\CuentasporpagarFisicasController;
 use App\Http\Controllers\CuentasporpagarItemsController;
 use App\Http\Controllers\PuntosybiopagosController;
 use App\Http\Controllers\TransferenciaAprobacionController;
@@ -221,12 +222,17 @@ Route::post('aprobarMovCajaFuerte', [CajasAprobacionController::class,"aprobarMo
 Route::post('verificarMovPenControlEfec', [CajasAprobacionController::class,"verificarMovPenControlEfec"]);
 Route::post('delCuentaPorPagar', [CuentasporpagarController::class,"delCuentaPorPagar"]);
 
+Route::post('delFilescxp', [CuentasporpagarFisicasController::class,"delFilescxp"]);
+Route::post('getFilescxp', [CuentasporpagarFisicasController::class,"getFilescxp"]);
+Route::post('showFilescxp', [CuentasporpagarFisicasController::class,"showFilescxp"]);
+Route::post('sendComprasFats', [CuentasporpagarFisicasController::class,"sendComprasFats"]);
+
+
 Route::post('sendMovimientoBanco', [PuntosybiopagosController::class,"sendMovimientoBanco"]);
 Route::post('sendDescuentoGeneralFats', [CuentasporpagarController::class,"sendDescuentoGeneralFats"]);
 Route::post('liquidarMov', [PuntosybiopagosController::class,"liquidarMov"]);
 Route::post('changeBank', [PuntosybiopagosController::class,"changeBank"]);
 Route::post('changeSucursal', [CuentasporpagarController::class,"changeSucursal"]);
-Route::post('sendComprasFats', [CuentasporpagarController::class,"sendComprasFats"]);
 Route::post('saveFacturaLote', [CuentasporpagarController::class,"saveFacturaLote"]);
 
 
