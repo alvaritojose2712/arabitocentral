@@ -43,7 +43,7 @@ const db = {
   reverserLiquidar: data=>axios.post(host+"reverserLiquidar",data),
   getDisponibleEfectivoSucursal: data=>axios.post(host+"getDisponibleEfectivoSucursal",data),
   saveFacturaLote: data=>axios.post(host+"saveFacturaLote",data),
-  
+  sendlistdistribucionselect: data=>axios.post(host+"sendlistdistribucionselect",data),
   
   getGastos: data=>axios.post(host+"getGastos",data),
   delGasto: data=>axios.post(host+"delGasto",data),
@@ -135,7 +135,7 @@ const db = {
   selectPrecioxProveedorSave: data=>axios.post(host+"selectPrecioxProveedorSave",data),
   getPrecioxProveedor: data=>axios.post(host+"getPrecioxProveedor",data),
   
-  showImageFact: (id) => window.open(host + "facturas/" + id, "targed=blank"),
+  showImageFact: (id) => window.open(host + "" + id, "targed=blank"),
 
   
   

@@ -420,20 +420,24 @@ public function delProducto(Request $req)
 public function guardarNuevoProductoLote(Request $req)
 {
     try {
-        $msj = "";
+        $msj = [];
         foreach ($req->lotes as $i => $ee) {
             if (isset($ee["type"])) {
                 if ($ee["type"]==="update"||$ee["type"]==="new") {
                     $ee["id_factura"] = $req->id_factura;
 
                     $guardar = $this->guardarProducto($ee);
-                    $msj .= $guardar["msj"]."\n";
+                    array_push($msj, $guardar["msj"]);
+
+                    if (!$guardar["estado"]) {
+                        return Response::json(["msj"=>$msj, "estado"=>false]);   
+                    }
                 }else if ($ee["type"]==="delete") {
                     $this->delProductoFun($ee["id"]);
                 }
             }   
         }
-        return Response::json(["msj"=>"Éxito","estado"=>true]);   
+        return Response::json(["msj"=>$msj, "estado"=>true]);   
     } catch (\Exception $e) {
         return Response::json(["msj"=>"Error: ".$e->getMessage()." LINEA ".$e->getLine(),"estado"=>false]);
     }  
@@ -470,50 +474,60 @@ public function guardarProducto($arr){
         return ["msj"=>"Error: Cuenta ya aprobada, no se puede modificar", "estado"=>true];   
     }else{
         $sum_subtotal = 0;
-        $allitems = cuentasporpagar_items::where("id_cuenta",$id_factura)->get()
+        $fact_monto = 0;
+        $Getfactmonto = cuentasporpagar::find($id_factura);
+        if ($Getfactmonto) {
+            $fact_monto = abs($Getfactmonto->monto);
+        }
+        cuentasporpagar_items::where("id_cuenta",$id_factura)->get()
         ->map(function($q) use (&$sum_subtotal){
             $sum_subtotal += $q->basef*$q->cantidad;
         });
+
         $sum_subtotal += $arr["cantidad"]*$arr["basef"];
 
-        if ($sum_subtotal<$sum_subtotal) {
-            # code...
+        if ($sum_subtotal<=$fact_monto) {
+            $check = true;
+        }else{
+            $check = false;
+            return ["msj"=>"Valor de Items supera monto de factura [$arr[codigo_barras]]", "estado"=>false];   
+
         }
+        //return ["msj"=>$sum_subtotal."______".$fact_monto, "estado"=>false];   
 
-
-
-        $crearProducto = inventario::updateOrCreate([
-            "id" => $arr["id"]? $arr["id"]:null
-        ],[
-            "codigo_barras" => $arr["codigo_barras"],
-            "codigo_proveedor" => $arr["codigo_proveedor"],
-            "descripcion" => $arr["descripcion"],
-            "unidad" => $arr["unidad"],
-            "id_categoria" => $arr["id_categoria"],
-            "id_catgeneral" => $arr["id_catgeneral"],
-            "iva" => $arr["iva"],
-            "precio" => $arr["precio"],
-            "precio_base" => $arr["precio_base"],
-            "cantidad" => 0,
-        ]); 
-    
-        if ($crearProducto) {
-            $cargarItem = cuentasporpagar_items::updateOrCreate([
-                "id_cuenta" => $id_factura,
-                "id_producto" => $crearProducto->id, 
+        if ($check) {
+            $crearProducto = inventario::updateOrCreate([
+                "id" => $arr["id"]? $arr["id"]:null
             ],[
-                "id_cuenta" => $id_factura,
-                "id_producto" => $crearProducto->id,
-                "cantidad" => $arr["cantidad"],
-                "basef" => $arr["basef"],
-                "base" => $arr["precio_base"],
-                "venta" => $arr["precio"],
-                "estado" => 0,
-            ]);
-            if ($cargarItem) {
-                return ["msj"=>"OK item ".$arr["codigo_barras"], "estado"=>true];   
+                "codigo_barras" => $arr["codigo_barras"],
+                "codigo_proveedor" => $arr["codigo_proveedor"],
+                "descripcion" => $arr["descripcion"],
+                "unidad" => $arr["unidad"],
+                "id_categoria" => $arr["id_categoria"],
+                "id_catgeneral" => $arr["id_catgeneral"],
+                "iva" => $arr["iva"],
+                "precio" => $arr["precio"],
+                "precio_base" => $arr["precio_base"],
+                "cantidad" => 0,
+            ]); 
+            if ($crearProducto) {
+                $cargarItem = cuentasporpagar_items::updateOrCreate([
+                    "id_cuenta" => $id_factura,
+                    "id_producto" => $crearProducto->id, 
+                ],[
+                    "id_cuenta" => $id_factura,
+                    "id_producto" => $crearProducto->id,
+                    "cantidad" => $arr["cantidad"],
+                    "basef" => $arr["basef"],
+                    "base" => $arr["precio_base"],
+                    "venta" => $arr["precio"],
+                    "estado" => 0,
+                ]);
+                if ($cargarItem) {
+                    return ["msj"=>"OK item ".$arr["codigo_barras"], "estado"=>true];   
+                }
+                
             }
-            
         }
         return ["msj"=>"NO item ".$arr["codigo_barras"], "estado"=>false];   
     }

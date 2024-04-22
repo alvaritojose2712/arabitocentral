@@ -71,30 +71,28 @@ export default function SucursalDetallesinvetario({
             <table className="table">
                 <thead>
                     <tr>
-                        <th className="cell05 pointer"><span>SUCURSAL</span></th>
-                        <th className="cell05 pointer"><span onClick={() => setinvsuc_orderColumn("id")}>ID in SUCURSAL</span></th>
-                        <th className="cell1 pointer"><span onClick={() => setinvsuc_orderColumn("codigo_proveedor")}>C. Alterno</span></th>
-                        <th className="cell1 pointer"><span onClick={() => setinvsuc_orderColumn("codigo_barras")}>C. Barras</span></th>
-                        <th className="cell05 pointer"><span onClick={() => setinvsuc_orderColumn("unidad")}>Unidad</span></th>
-                        <th className="cell2 pointer"><span onClick={() => setinvsuc_orderColumn("descripcion")}>Descripción</span></th>
-                        <th className="cell05 pointer"><span onClick={() => setinvsuc_orderColumn("cantidad")}>Ct.</span>/ <span onClick={() => setinvsuc_orderColumn("push")}>Inventario</span></th>
-                        <th className="cell1 pointer"><span onClick={() => setinvsuc_orderColumn("precio_base")}>Base</span></th>
-                        <th className="cell15 pointer">
+                        <th className="pointer"><span>SUCURSAL</span></th>
+                        <th className="pointer"><span onClick={() => setinvsuc_orderColumn("id")}>ID in SUCURSAL</span></th>
+                        <th className="pointer"><span onClick={() => setinvsuc_orderColumn("codigo_proveedor")}>C. Alterno</span></th>
+                        <th className="pointer"><span onClick={() => setinvsuc_orderColumn("codigo_barras")}>C. Barras</span></th>
+                        <th className="pointer"><span onClick={() => setinvsuc_orderColumn("unidad")}>Unidad</span></th>
+                        <th className="pointer"><span onClick={() => setinvsuc_orderColumn("descripcion")}>Descripción</span></th>
+                        <th className="pointer">
                             <span onClick={() => setinvsuc_orderColumn("precio")}>Venta </span>
                         </th>
-                        <th className="cell15 pointer" >
+                        <th className="pointer"><span onClick={() => setinvsuc_orderColumn("cantidad")}>Ct.</span>/ <span onClick={() => setinvsuc_orderColumn("push")}>Inventario</span></th>
+                        <th className="pointer"><span onClick={() => setinvsuc_orderColumn("precio_base")}>Base</span></th>
+                        <th className="pointer" >
                             <span onClick={() => setinvsuc_orderColumn("id_categoria")}>
                                 Categoría
                             </span>
-                            <br />
                             <br/>
                             <span onClick={() => setinvsuc_orderColumn("id_proveedor")}>
                                 Proveedor
                             </span>
-                            
                         </th>
-                        <th className="cell05 pointer"><span onClick={() => setinvsuc_orderColumn("iva")}>IVA</span></th>
-                        <th className="cell1">ACTUALIZACIÓN</th>
+                        <th className="pointer"><span onClick={() => setinvsuc_orderColumn("iva")}>IVA</span></th>
+                        <th className="">ACTUALIZACIÓN</th>
 
                     </tr>
                 </thead>
@@ -103,19 +101,17 @@ export default function SucursalDetallesinvetario({
                     {sucursalDetallesData.length?sucursalDetallesData[0].codigo_barras?sucursalDetallesData.map(e=>
                         
                         <tr key={e.id}>
-                            <td className="cell1">{e.sucursal.codigo}</td>
-                            <td className="cell1">{e.idinsucursal}</td>
-                            <td className="cell1">{e.codigo_proveedor}</td>
-                            <td className="cell1">{e.codigo_barras}</td>
-                            <td className="cell05">{e.unidad}</td>
-                            <td className="cell2">{e.descripcion}</td>
-                            <th className="cell05">{e.cantidad}</th>
-                            <td className="cell1">{e.precio_base}</td>
-                            <td className="cell15 text-success">
-                            {e.precio}<br/>
-                            <span className="text-success">
-                                {getPorGanacia(!e.precio?0:e.precio,!e.precio_base?0:e.precio_base)}
-                            </span>
+                            <td className="">{e.sucursal.codigo}</td>
+                            <td className="">{e.idinsucursal}</td>
+                            <td className="">{e.codigo_proveedor}</td>
+                            <td className="">{e.codigo_barras}</td>
+                            <td className="">{e.unidad}</td>
+                            <td className="">{e.descripcion}</td>
+                            <td className="text-success">
+                                {e.precio}<br/>
+                                <span className="text-success">
+                                    {getPorGanacia(!e.precio?0:e.precio,!e.precio_base?0:e.precio_base)}
+                                </span>
                                 <br/>
                                 <div className="btn-group w-100">
                                     <span className="btn btn-outline-success btn-sm" 
@@ -127,14 +123,13 @@ export default function SucursalDetallesinvetario({
                                     data-id={e.id} 
                                     data-type="p2" 
                                     >P2.<br/>{e.precio2}</span>
-
-                                    
-
                                 </div>
                             </td>
-                                <td className="cell15"> <br /> </td>
-                            <td className="cell05">{e.iva}</td>
-                            <td className="cell05">{e.updated_at}</td>
+                            <th className="">{e.cantidad}</th>
+                            <td className="">{e.precio_base}</td>
+                            <td className=""></td>
+                            <td className="">{e.iva}</td>
+                            <td className="">{e.updated_at}</td>
                         </tr>
                         
                     ):null:null}

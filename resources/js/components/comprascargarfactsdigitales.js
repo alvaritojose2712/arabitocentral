@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import  SearchBarFacturas  from "./searchBarFacturas";
+import Modalselectfile from "./modalselectfile";
 
 export default function Comprascargarfactsdigitales({
     selectCuentaPorPagarProveedorDetallesFun,
@@ -34,34 +35,27 @@ export default function Comprascargarfactsdigitales({
     selectFilecxp,
     setselectFilecxp,
     dataFilescxp,
+    showFilescxp,
+    numfact_select_imagen,
+    
 }){
-    useEffect(()=>{
+    /* useEffect(()=>{
         setcuentaporpagarAprobado(0)
         setqCampocuentasPorPagarDetalles("id")
         setOrdercuentasPorPagarDetalles("desc")
-    },[])
+    },[]) */
     const type = type => {
         return !type || type === "delete" ? true : false
     }
-    let numfact_select = ""
-    let numfact_selectPath = ""
-    if (selectFilecxp) {
-        if (dataFilescxp.cuentasporpagar_fisicas) {
-            
-            let fil_selectFilecxp = dataFilescxp.cuentasporpagar_fisicas.filter(e=>e.id==selectFilecxp)
-            if (fil_selectFilecxp.length) {
-                numfact_select = fil_selectFilecxp[0].numfact
-                numfact_selectPath = fil_selectFilecxp[0].ruta
-            } 
-        }
-    }
+    
 
     return <div className="container-fluid">
-        <div className="boton-fijo-inferiorizq">
-            <div className={("container-fluid shadow card ")}>
-
-            </div>
-        </div>
+        <Modalselectfile
+            numfact_select_imagen={numfact_select_imagen}
+            setselectFilecxp={setselectFilecxp}
+            colorSucursal={colorSucursal}
+            showFilescxp={showFilescxp}
+        />
 
 
         <SearchBarFacturas
@@ -83,7 +77,7 @@ export default function Comprascargarfactsdigitales({
         <table className="table table-borderless table-striped mb-500">
                 <thead className="">
                     <tr className="align-middle">
-                        <th colSpan={6}>
+                        <th colSpan={6} className="p-0">
                             {/* <div className="btn-group">
                                 <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="abonos"?"btn-success":"btn-outline-success")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="abonos"?"":"abonos")}>PAGOS</span>
 
@@ -93,6 +87,8 @@ export default function Comprascargarfactsdigitales({
                                 <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="porvencer"?"btn-sinapsis":"btn-outline-sinapsis")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="porvencer"?"":"porvencer")}>POR VENCER</span>
                                 <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="vencidas"?"btn-danger":"btn-outline-danger")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="vencidas"?"":"vencidas")}>VENCIDAS</span>
                             </div> */}
+                            <button className="btn btn-warning fs-2" onClick={()=>setviewmainPanel("comprasmodalselectfactsfisicas")}>ANCLAR <i className="fa fa-link"></i></button>
+
 
                         </th>
                         <th colSpan={4} className="text-right">
@@ -161,11 +157,10 @@ export default function Comprascargarfactsdigitales({
                 selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
                 ? selectCuentaPorPagarId.detalles.map( (e,i) =>
                     <tbody key={i}>
-                        <tr>
+                        <tr className={e.aprobado?"bg-success-superlight":"bg-sinapsis-superlight"}>
                             {e.type=="update" || e.type=="new" || e.type=="delete"?
                                 <>
                                     <td colSpan={2}>
-                                        <button className="btn btn-warning" onClick={()=>setviewmainPanel("comprascargarfactsfisica")}>ANCLAR <i className="fa fa-link"></i></button>
                                     </td>
                                     <td>
                                         <input disabled={type(e.type)} type="date" className="form-control"
@@ -254,7 +249,7 @@ export default function Comprascargarfactsdigitales({
                                         <span className="fw-bold fs-4">{e.proveedor?e.proveedor.descripcion:null}</span>
                                     </td>  
                                     <td className="">
-                                        <span className={(returnCondicion(e.condicion))+(" w-100 btn fs-2 pointer fw-bolder text-light ")}> 
+                                        <span className={(returnCondicion(e.condicion))+(" w-100 btn fs-2 pointer fw-bolder text-light ")} onClick={()=>showFilescxp(e.descripcion)}> 
                                             {e.numfact}
                                         </span>
                                     </td>  

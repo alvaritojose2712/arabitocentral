@@ -50,7 +50,7 @@ export default function Compras({
                 </>}
                 {permiso([1,10]) && <>
                     <div className="col d-flex justify-content-center">
-                        <div className="circle" onClick={()=>setviewmainPanel("procesarfactsdigitales")}>
+                        <div className="circle" onClick={()=>setviewmainPanel("cargarfactsdigitales")}>
                             <div className="circle_title">
                                 <h2>PROCESAR FACTURAS</h2>
                                 <h3>Módulo</h3>
@@ -65,7 +65,7 @@ export default function Compras({
 
                 {permiso([1,9]) && <>
                     <div className="col d-flex justify-content-center">
-                        <div className="circle" onClick={()=>setviewmainPanel("cargarfacts")}>
+                        <div className="circle" onClick={()=>setviewmainPanel("comprascargarfactsfisicas")}>
                             <div className="circle_title">
                                 <h2>CARGAR FACTURAS</h2>
                                 <h3>Módulo</h3>

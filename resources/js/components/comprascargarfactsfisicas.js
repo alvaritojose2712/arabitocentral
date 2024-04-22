@@ -1,83 +1,73 @@
-export default function ComprasCargarFactsFisica({
-    selectFilecxp,
-    setselectFilecxp,
-
-    delFilescxp,
-    getFilescxp,
-    showFilescxp,
-
-    dataFilescxp,
-    setdataFilescxp,
-
-    qnumfactFilescxp,
-    setqnumfactFilescxp,
-
-    qid_proveedorFilescxp,
-    setqid_proveedorFilescxp,
-
-    qid_sucursalFilescxp,
-    setqid_sucursalFilescxp,
-
-    qfechaFilescxp,
-    setqfechaFilescxp,
-
+import { useEffect, useState } from "react";
+export default function Comprascargarfacts({
     proveedoresList,
+    setfactInpImagen,
+    factInpProveedor,              
+    setfactInpProveedor,
+   
     sucursales,
-    setviewmainPanel,
-    colorSucursal,
+    factInpImagen,  
+
+    factNumfact,              
+    setfactNumfact,
+    
+    sendComprasFats,              
 }){
+    const [buscadorProveedor, setbuscadorProveedor] = useState("")
+
+    useEffect(()=>{
+            let fil = proveedoresList.find(e=>e.descripcion.toLowerCase().indexOf(buscadorProveedor.toLowerCase())!=-1)
+            if (fil) {
+                if (fil && buscadorProveedor!="") {
+                    let id = fil.id
+                    setfactInpProveedor(id)
+                }
+            }
+        },[buscadorProveedor])
     return <>
-        <div className="container">
-            <div className="text-danger text-center pointer mb-2" onClick={()=>setviewmainPanel("cargarfactsdigitales")}><i className="fa fa-times fa-2x"></i></div>
-            <form className="input-group" onSubmit={event=>{event.preventDefault();getFilescxp()}}>
-                <input type="text" className="form-control" onChange={event=>setqnumfactFilescxp(event.target.value)} value={qnumfactFilescxp} placeholder="Buscar Numfact..." />
-                <input type="date" className="form-control" onChange={event=>setqfechaFilescxp(event.target.value)} value={qfechaFilescxp} />
-                <select className="form-control" value={qid_proveedorFilescxp} onChange={e=>setqid_proveedorFilescxp(e.target.value)}>
-                    <option value="">-TODOS LOS PROVEEDORES-</option>
-                    {proveedoresList.map(e=>
-                        <option key={e.id} value={e.id}>{e.descripcion}-{e.rif}</option>
-                    )}
-                </select>
-                <select className="form-control form-control-lg" value={qid_sucursalFilescxp} onChange={e=>setqid_sucursalFilescxp(e.target.value)}>
-                    <option value="">-SUCURSAL-</option>
-                    {sucursales.map(e=>
-                        <option key={e.id} value={e.id}>{e.codigo}</option>
-                    )}
-                </select>
-                <button className="btn btn-success"><i className="fa fa-search"></i></button>
-            </form>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>FECHA</th>
-                        <th>NUM</th>
-                        <th>PROVEEDOR</th>
-                        <th>SUCURSAL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {dataFilescxp.cuentasporpagar_fisicas?dataFilescxp.cuentasporpagar_fisicas.length?dataFilescxp.cuentasporpagar_fisicas.map(e=>
-                        <tr key={e.id}>
-                            <td className="align-middle">
-                                <button className="btn btn-info" onClick={()=>setselectFilecxp(e.id)}>{e.id}</button>
-                            </td>
-                            <td className="align-middle">{e.created_at}</td>
-                            <td className="align-middle">
-                                <span className="w-100 btn fs-2 pointer fw-bolder btn-sinapsis" onClick={()=>showFilescxp(e.ruta)}>
-                                    {e.numfact}
-                                </span>
-                            </td>
-                            <th className="align-middle fs-4">{e.proveedor?e.proveedor.descripcion:null}</th>
-                            <td className="align-middle">
-                                <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal? e.sucursal.codigo:"")}}>
-                                    {e.sucursal? e.sucursal.codigo:""}
-                                </button>
-                            </td>
-                        </tr>
-                    ):null:null}
-                </tbody>
-            </table>
-        </div>
+        <form onSubmit={sendComprasFats} className="container">
+            <span className="fs-4 fw-bolder">COMPRAS - CARGAR FACTURAS</span>
+
+            <div className="row mb-2">
+                <div className="col">
+                    <span className="label-text">
+                        <i className="fa fa-search text-success"></i> PROVEEDOR
+                    </span>
+                    <input className="form-control" onChange={event=>setbuscadorProveedor(event.target.value)} value={buscadorProveedor}/>
+
+                </div>
+                <div className="col">
+                    <span className="label-text">
+                        PROVEEDOR
+                    </span>
+                    <select className="form-control" onChange={event=>setfactInpProveedor(event.target.value)} value={factInpProveedor}>
+                        <option value="">-TODOS LOS PROVEEDORES-</option>
+                        {proveedoresList.map(e=>
+                            <option key={e.id} value={e.id}>{e.descripcion}-{e.rif}</option>
+                        )}
+                    </select>
+                </div>
+            </div>
+
+            <div className="row mb-1">
+                <div className="col">
+                    <b className="label-text">
+                        NÚMERO DE FACTURA
+                    </b>
+                    <input className="form-control w-30 fs-2 text-success" placeholder="Número completo de Factura..." onChange={event=>setfactNumfact(event.target.value)} value={factNumfact}/>
+                </div>
+            </div>
+
+            <div className="form-group mb-2">
+                <label htmlFor="formFile" className="form-label">Adjunte FOTO NITIDA, COMPLETA Y CENTRADA DE LA FACTURA</label>
+                <input type="file" required={true} className="form-control" id="formFile" onChange={event=>setfactInpImagen(event.target.files[0])}/>
+            </div>
+
+            <div className="row mb-1">
+                <div className="col text-center">
+                    <button className="btn btn-success btn-lg">ENVIAR</button>
+                </div>
+            </div>
+        </form>
     </>
 }

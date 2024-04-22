@@ -94,6 +94,9 @@ export default function PorCobrar({
                             DEUDA <span className="text-danger fs-2">{moneda(e.deuda)}</span>
                         </div>
                         <div className="text-center">
+                            ÚLTIMO PAGO <span className="text-danger fs-4">{e.fecha_ultimopago}</span>
+                        </div>
+                        <div className="text-center">
                             <small className="text-muted">{e.created_at}</small>
                         </div>
                         <div className="card-body d-flex justify-content-between">

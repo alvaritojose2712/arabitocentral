@@ -234,6 +234,7 @@ Route::post('liquidarMov', [PuntosybiopagosController::class,"liquidarMov"]);
 Route::post('changeBank', [PuntosybiopagosController::class,"changeBank"]);
 Route::post('changeSucursal', [CuentasporpagarController::class,"changeSucursal"]);
 Route::post('saveFacturaLote', [CuentasporpagarController::class,"saveFacturaLote"]);
+Route::post('sendlistdistribucionselect', [CuentasporpagarController::class,"sendlistdistribucionselect"]);
 
 
 

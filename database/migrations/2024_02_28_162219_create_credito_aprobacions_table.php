@@ -26,7 +26,9 @@ class CreateCreditoAprobacionsTable extends Migration
             $table->integer("idinsucursal");
 
             $table->decimal("saldo",10,2);
+            
             $table->decimal("deuda",10,2)->default(0);
+            $table->date("fecha_ultimopago")->nullable();
             
             $table->unique(["id_sucursal","idinsucursal"]);
             $table->timestamps();

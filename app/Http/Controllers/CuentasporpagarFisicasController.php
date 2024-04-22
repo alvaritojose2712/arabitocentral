@@ -44,7 +44,7 @@ class CuentasporpagarFisicasController extends Controller
         ->when($qfechaFilescxp, function($q) use ($qfechaFilescxp){
             $q->where("created_at","LIKE",$qfechaFilescxp."%");
         })
-        ->orderBy("created_at","desc")
+        ->orderBy("estado","asc")
         ->get();
 
         return [

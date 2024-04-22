@@ -6,9 +6,16 @@ use App\Models\cuentasporpagar;
 use App\Http\Requests\StorecuentasporpagarRequest;
 use App\Http\Requests\UpdatecuentasporpagarRequest;
 use App\Models\cuentasporpagar_fisicas;
+use App\Models\cuentasporpagar_items;
 use App\Models\cuentasporpagar_pagos;
 use App\Models\proveedores;
 use App\Models\sucursal;
+use App\Models\pedidos;
+use App\Models\items_pedidos;
+use App\Models\inventario_sucursal;
+
+
+
 use Illuminate\Http\Request;
 use Response;
 
@@ -396,6 +403,10 @@ class CuentasporpagarController extends Controller
 
             $factura = json_decode($req->factura,2);
             $imagen = $req->imagen;
+
+            if ($id_sucursal==14) {
+                return "No puede cargar Facturas. Debe hacerlo por la APP";
+            }
 
             
 
@@ -846,6 +857,11 @@ class CuentasporpagarController extends Controller
             $interval = $hoy->diff($vence);
             
             $q->dias = $interval->format('%R%a');
+            $subtotal = 0;
+            $q->items->map(function($item) use (&$subtotal) {
+                $subtotal += $item->cantidad * $item->basef;
+            });
+            $q->sumitems = $subtotal;
 
             if ($monto>0){
                 $q->condicion = "abonos";
@@ -876,6 +892,134 @@ class CuentasporpagarController extends Controller
             return $ret;
         }else{
             return view("reportes.conciliacionCuentasxPagar",$ret);
+        }
+    }
+
+    function sendlistdistribucionselect(Request $req) {
+        $listdistribucionselect = $req->listdistribucionselect;
+        $groupListbyIdItem = [];
+        foreach ($listdistribucionselect as $i => $item_su) {
+            if (array_key_exists($item_su["id_item"], $groupListbyIdItem)) {
+                $last_cantidad = $groupListbyIdItem[$item_su["id_item"]];
+                $groupListbyIdItem[$item_su["id_item"]] = $last_cantidad + $item_su["cantidad"];
+            }else{
+                $groupListbyIdItem[$item_su["id_item"]] = $item_su["cantidad"];
+            }
+        }
+
+        if (count($listdistribucionselect)) {
+            $check = true;
+            $codeError = "";
+
+            foreach ($groupListbyIdItem as $id_item => $cantidad) {
+                $item = cuentasporpagar_items::with(["producto"])->find($id_item);
+                if ($item) {
+                    $total_ct_itemfact = $item->cantidad;
+                    if ($total_ct_itemfact!=$cantidad) {
+                        $check = false;
+                        if ($item->producto) {
+                            $codeError = "BARRAS: ".$item->producto->codigo_barras;
+                        }else{
+                            $codeError = "ID: ".$item->id;
+                        }
+                    }
+                }
+            }
+            if ($check) {
+                $groupListbyIdSucursal = [];
+                foreach ($listdistribucionselect as $i => $item_su) {
+                    if (array_key_exists($item_su["id_sucursal"], $groupListbyIdSucursal)) {
+                        array_push($groupListbyIdSucursal[$item_su["id_sucursal"]], [
+                            "cantidad" => $item_su["cantidad"],
+                            "id_item" => $item_su["id_item"],
+                        ]);
+                    }else{
+                        $groupListbyIdSucursal[$item_su["id_sucursal"]] = [
+                            [
+                                "cantidad" => $item_su["cantidad"],
+                                "id_item" => $item_su["id_item"],
+                            ]
+                        ];
+                    }
+                }
+                $administracion = sucursal::where("codigo","administracion")->first();
+                if ($administracion) {
+                    $count = 0;
+                    foreach ($groupListbyIdSucursal as $id_sucursal => $e) {
+                        $lastid = pedidos::orderBy("id","desc")->first("id");
+                        if (!$lastid) {
+                            $lastid = 0;
+                        }else{
+                            $lastid = $lastid->id;
+                        }
+                        
+                            $lastid = ($lastid)+1;
+                            $ped = new pedidos;
+                            $ped->idinsucursal = $lastid;
+                            $ped->estado = 1;
+                            $ped->id_origen = $administracion->id;
+                            $ped->id_destino = $id_sucursal;//id Destino
+                            if ($ped->save()) {
+                                foreach ($e as $ii => $ee) {
+                                    $cuentaitem = cuentasporpagar_items::with(["producto"])->find($ee["id_item"]);  
+                                    if ($cuentaitem) {
+                                        $inv_master = $cuentaitem->producto;
+                                        $inv = inventario_sucursal::updateOrCreate([
+                                            "id_sucursal" => $administracion->id,
+                                            "idinsucursal" => $inv_master["id"],
+                                        ],[
+                                            "id_sucursal" =>  $administracion->id,
+                                            "idinsucursal" => $inv_master["id"],
+                                            
+                                            "codigo_barras" => $inv_master["codigo_barras"],
+                                            "codigo_proveedor" => $inv_master["codigo_proveedor"],
+                                            "id_proveedor" => $inv_master["id_proveedor"],
+                                            "id_categoria" => $inv_master["id_categoria"],
+                                            "id_marca" => $inv_master["id_marca"],
+                                            "unidad" => $inv_master["unidad"],
+                                            "id_deposito" => $inv_master["id_deposito"],
+                                            "descripcion" => $inv_master["descripcion"],
+                                            "iva" => $inv_master["iva"],
+                                            "porcentaje_ganancia" => $inv_master["porcentaje_ganancia"],
+                                            "precio_base" => $inv_master["precio_base"],
+                                            "precio" => $inv_master["precio"],
+                                            "precio1" => $inv_master["precio1"],
+                                            "precio2" => $inv_master["precio2"],
+                                            "precio3" => $inv_master["precio3"],
+                                            "bulto" => $inv_master["bulto"],
+                                            "stockmin" => $inv_master["stockmin"],
+                                            "stockmax" => $inv_master["stockmax"],
+                                            "cantidad" => $inv_master["cantidad"],
+                                            "push" => 0,
+                                            "id_vinculacion" => 0,
+                                        ]);
+                                        if ($inv) {
+                                            $items_pedidos = new items_pedidos;
+                                                    
+                                            $items_pedidos->id_producto = $inv->id;
+                                            $items_pedidos->id_pedido = $ped->id;
+                                            $items_pedidos->cantidad = $ee["cantidad"];
+                                            $items_pedidos->descuento = 0;
+                                            $items_pedidos->monto = $inv_master["precio"]*$ee["cantidad"];
+                
+                                            if ($items_pedidos->save()) {
+                                                $count++;  
+                                            }
+                                        }
+        
+                                    }                         
+                                }
+                            }
+                        
+                        
+                    }
+    
+                    return Response::json(["msj"=>"$count Items Procesados".$codeError,"estado"=>true]);
+                }
+            }else{
+                return Response::json(["msj"=>"Cantidad no coincide ".$codeError,"estado"=>false]);
+            }
+            
         }
     }
 }

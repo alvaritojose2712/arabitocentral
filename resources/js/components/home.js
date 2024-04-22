@@ -32,7 +32,6 @@ import SucursalDetallesCierres from './panel/sucursaldetallescierres'
 import SucursalDetallesGastos from './panel/sucursaldetallesgastos'
 import SucursalListGastos from './panel/sucursallistgastos'
 
-import GestionInventario from './panel/gestioninventario'
 import DepartamentosInventario from './panel/departamentosInventario'
 import CatGeneral from './panel/catGeneral'
 import Marcas from './panel/marcas'
@@ -41,10 +40,14 @@ import NavInventario from './panel/navInventario'
 
 import Usuarios from './usuarios';
 import Compras from './compras';
-import ComprasCargarFacts from './comprascargarfacts';
-import ComprasCargarFactsDigitales from './comprascargarfactsdigitales';
-import ComprasCargarFactsFisica from './comprascargarfactsfisicas';
+
 import Comprasmenufactsdigital from './Comprasmenufactsdigital';
+import ComprasCargarFactsFiscas from './comprascargarfactsfisicas';
+import ComprasCargarFactsDigitales from './comprascargarfactsdigitales';
+import Comprasmodalselectfactfisicas from './comprasmodalselectfactfisicas';
+import ComprasDistribuirFacts from './comprasdistribuirfacts'
+import ComprascargarFactsItems from './panel/comprascargarfactsItems'
+
 
 
 
@@ -872,7 +875,11 @@ function Home() {
 
       setLoading(true)
       db.guardarNuevoProductoLote({ lotes: lotesFil, id_factura }).then(res => {
-        notificar(res)
+        if (typeof res.data === "string") {
+          notificar(res.data, false);
+        }else{
+          notificar(res.data.msj.join("\n"), false);
+        }
         setLoading(false)
         if (res.data.estado) {
           buscarInventario()
@@ -1808,11 +1815,11 @@ function formatAmount( number, simbol ) {
   
   const [qcuentasPorPagarTipoFact, setqcuentasPorPagarTipoFact] = useState("")
   const [qCampocuentasPorPagarDetalles, setqCampocuentasPorPagarDetalles] = useState("updated_at")
+  const [OrdercuentasPorPagarDetalles, setOrdercuentasPorPagarDetalles] = useState("desc")
   const [qFechaCampocuentasPorPagarDetalles, setqFechaCampocuentasPorPagarDetalles] = useState("")
   const [fechacuentasPorPagarDetalles, setfechacuentasPorPagarDetalles] = useState("")
   const [categoriacuentasPorPagarDetalles, setcategoriacuentasPorPagarDetalles] = useState("")
   const [tipocuentasPorPagarDetalles, settipocuentasPorPagarDetalles] = useState("")
-  const [OrdercuentasPorPagarDetalles, setOrdercuentasPorPagarDetalles] = useState("desc")
   const [OrderFechacuentasPorPagarDetalles,setOrderFechacuentasPorPagarDetalles] = useState("desc")
   const [SelectCuentaPorPagarDetalle,setSelectCuentaPorPagarDetalle] = useState(null)
   const [selectFactPagoArr,setselectFactPagoArr] = useState([])
@@ -1886,6 +1893,11 @@ function formatAmount( number, simbol ) {
   const [qid_sucursalFilescxp, setqid_sucursalFilescxp] = useState("")
   const [qfechaFilescxp, setqfechaFilescxp] = useState("")
 
+  const seleccionarFilecxpFun = (id) => {
+    setselectFilecxp(id)
+    setviewmainPanel("cargarfactsdigitales")
+  }
+
   const delFilescxp = (id) => {
     db.delFilescxp({id}).then(res=>{
       if (res.data.estado) {
@@ -1940,6 +1952,7 @@ function formatAmount( number, simbol ) {
     })
     .then(res=>{
       selectCuentaPorPagarProveedorDetallesFun()
+      setselectFilecxp(null)
       notificar(res)
     })
   }
@@ -2350,7 +2363,7 @@ function formatAmount( number, simbol ) {
       id_facts_force,
     }
     if (type=="buscar") {
-      setSelectCuentaPorPagarId([])
+      //setSelectCuentaPorPagarId([])
 
       db.selectCuentaPorPagarProveedorDetalles(req).then(res=>{
         if (res.data) {
@@ -3379,6 +3392,8 @@ function formatAmount( number, simbol ) {
   const [qCatGastos,setqCatGastos] = useState("")
   
   const [listBeneficiario, setlistBeneficiario] = useState([])
+
+  
   
   const addBeneficiarioList = (type,id=null) => {
     let fil = []
@@ -3522,6 +3537,100 @@ function formatAmount( number, simbol ) {
   const [newNombre4,setnewNombre4] = useState("")
   const [newNombremarca,setnewNombremarca] = useState("")
 
+  const [subviewDistribuir, setsubviewDistribuir] = useState("selectfacttodistribuir") 
+  const [listdistribucionselect, setlistdistribucionselect] = useState([]) 
+  const [distribucionSelectSucursal, setdistribucionSelectSucursal] = useState("") 
+
+  const autorepartircantidades = (type,id_item) => {
+    switch (type) {
+      case "general":
+        let facturaSelectAddItemsSelect = {}
+
+        if (facturaSelectAddItems) {
+          if (selectCuentaPorPagarId.detalles) {
+            let match = selectCuentaPorPagarId.detalles.filter(e=>e.id==facturaSelectAddItems) 
+            if (match.length) {
+              facturaSelectAddItemsSelect = match[0]
+              let list = cloneDeep(listdistribucionselect)
+              facturaSelectAddItemsSelect.items.map(item=>{
+                let num_suc = list.filter(l=>l.id_item==item.id).length
+                let ct = item.cantidad
+                list.map(l=>{
+                  if (l.id_item == item.id) {
+                    l.cantidad = ct/num_suc
+                  }
+                  return l
+                })
+                
+              })
+              setlistdistribucionselect(list)
+            }
+          }
+        }
+
+      break;
+
+      case "item":
+        
+      break;
+    }
+  }
+
+  const addlistdistribucionselect = () => {
+
+    let facturaSelectAddItemsSelect = {}
+    if (facturaSelectAddItems) {
+        if (selectCuentaPorPagarId.detalles) {
+            
+          let match = selectCuentaPorPagarId.detalles.filter(e=>e.id==facturaSelectAddItems) 
+          if (match.length) {
+            facturaSelectAddItemsSelect = match[0]
+            if (!listdistribucionselect.filter(e=>e.id_sucursal==distribucionSelectSucursal).length && distribucionSelectSucursal) {
+              let list = cloneDeep(listdistribucionselect)
+              facturaSelectAddItemsSelect.items.map(e=>{
+                list.push({
+                  id_sucursal: distribucionSelectSucursal,
+                  id_item: e.id,
+                  cantidad:0,
+                })
+              })
+              setlistdistribucionselect(list)
+            }
+
+          }
+        }
+    }
+
+  }
+
+  const dellistdistribucionselect = (id_sucursal) => {
+    let list = cloneDeep(listdistribucionselect)
+    setlistdistribucionselect(list.filter(e=>e.id_sucursal!=id_sucursal))
+  }
+
+  const sendlistdistribucionselect = () => {
+    if (listdistribucionselect.length) {
+      db.sendlistdistribucionselect({
+        listdistribucionselect
+      }).then(res=>{
+  
+      })
+    }
+  }
+
+  const changeInputDistribuirpedido = (id_item,id_sucursal,value) => {
+    let clone_listdistribucionselect = cloneDeep(listdistribucionselect)
+
+    clone_listdistribucionselect.map(e=> {
+      if (e.id_sucursal==id_sucursal && e.id_item==id_item) {
+        e.cantidad = value
+      }
+      return e
+    })
+
+    setlistdistribucionselect(clone_listdistribucionselect)
+  }
+
   const getDatinputSelectVinculacion = () => {
     db.getDatinputSelectVinculacion({}).then(res=>{
       let data = res.data
@@ -3610,6 +3719,17 @@ function formatAmount( number, simbol ) {
       break;
     }
 
+  }
+
+  let numfact_select_imagen = null
+  if (selectFilecxp) {
+      if (dataFilescxp.cuentasporpagar_fisicas) {
+          
+          let fil_selectFilecxp = dataFilescxp.cuentasporpagar_fisicas.filter(e=>e.id==selectFilecxp)
+          if (fil_selectFilecxp.length) {
+              numfact_select_imagen = fil_selectFilecxp[0]
+          } 
+      }
   }
   
   return (
@@ -3800,7 +3920,7 @@ function formatAmount( number, simbol ) {
           }
 
 
-          {permiso([1,9]) && viewmainPanel === "compras" &&
+          {permiso([1]) && viewmainPanel === "compras" &&
             <Compras
               permiso={permiso}
               setviewmainPanel={setviewmainPanel}
@@ -4207,8 +4327,9 @@ function formatAmount( number, simbol ) {
 
             </Efectivo>
           }
-          {permiso([1,9,10]) && viewmainPanel === "cargarfacts" &&
-            <ComprasCargarFacts
+          {permiso([1,9,10]) && viewmainPanel === "comprascargarfactsfisicas" &&
+            <ComprasCargarFactsFiscas
+              numfact_select_imagen={numfact_select_imagen}
               factInpImagen={factInpImagen}              
               setfactInpImagen={setfactInpImagen}
               factInpProveedor={factInpProveedor}              
@@ -4220,8 +4341,10 @@ function formatAmount( number, simbol ) {
               sucursales={sucursales}
             />
           }
-          {permiso([1,10]) && viewmainPanel === "comprascargarfactsfisica" &&
-              <ComprasCargarFactsFisica
+          {permiso([1,10]) && viewmainPanel === "comprasmodalselectfactsfisicas" &&
+              <Comprasmodalselectfactfisicas
+                numfact_select_imagen={numfact_select_imagen}
+                seleccionarFilecxpFun={seleccionarFilecxpFun}
                 colorSucursal={colorSucursal}
                 setviewmainPanel={setviewmainPanel}
                 modalfilesexplorercxp={modalfilesexplorercxp}
@@ -4258,6 +4381,8 @@ function formatAmount( number, simbol ) {
                 permiso={permiso}
               />
               <ComprasCargarFactsDigitales
+                numfact_select_imagen={numfact_select_imagen}
+                showFilescxp={showFilescxp}
                 dataFilescxp={dataFilescxp}
                 selectFilecxp={selectFilecxp}
                 setselectFilecxp={setselectFilecxp}
@@ -4290,6 +4415,53 @@ function formatAmount( number, simbol ) {
               />
           </>
           }
+
+          {permiso([1,10]) && viewmainPanel === "distribuirfacts" &&
+          <>
+            <Comprasmenufactsdigital 
+              viewmainPanel={viewmainPanel}
+              setviewmainPanel={setviewmainPanel}
+              permiso={permiso}
+            />
+            <ComprasDistribuirFacts
+              autorepartircantidades={autorepartircantidades}
+              number={number}
+              changeInputDistribuirpedido={changeInputDistribuirpedido}
+              subviewDistribuir={subviewDistribuir}
+              setsubviewDistribuir={setsubviewDistribuir}
+              listdistribucionselect={listdistribucionselect}
+              setlistdistribucionselect={setlistdistribucionselect}
+              distribucionSelectSucursal={distribucionSelectSucursal}
+              setdistribucionSelectSucursal={setdistribucionSelectSucursal}
+              addlistdistribucionselect={addlistdistribucionselect}
+              dellistdistribucionselect={dellistdistribucionselect}
+              sendlistdistribucionselect={sendlistdistribucionselect}
+              setfacturaSelectAddItems={setfacturaSelectAddItems}
+              facturaSelectAddItems={facturaSelectAddItems}
+              selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+              cuentaporpagarAprobado={cuentaporpagarAprobado}
+              setcuentaporpagarAprobado={setcuentaporpagarAprobado}
+              setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
+              qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
+              setselectProveedorCxp={setselectProveedorCxp}
+              selectProveedorCxp={selectProveedorCxp}
+              proveedoresList={proveedoresList}
+              sucursalcuentasPorPagarDetalles={sucursalcuentasPorPagarDetalles}
+              setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
+              sucursales={sucursales}
+              categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
+              setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+              qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
+              setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
+              setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+              selectCuentaPorPagarId={selectCuentaPorPagarId}
+              returnCondicion={returnCondicion}
+              colorSucursal={colorSucursal}
+              moneda={moneda}
+            />
+          </>
+          }
+          
            {permiso([1,10]) && viewmainPanel === "procesarfactsdigitales" &&
             <>
               <Comprasmenufactsdigital 
@@ -4308,7 +4480,8 @@ function formatAmount( number, simbol ) {
                 permiso={permiso}
               />
               {subViewInventario == "gestion" ?
-                <GestionInventario
+                <ComprascargarFactsItems
+                  showFilescxp={showFilescxp}
                   modItemFact={modItemFact}
                   delItemFact={delItemFact}
                   facturaSelectAddItems={facturaSelectAddItems}

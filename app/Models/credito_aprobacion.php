@@ -27,5 +27,6 @@ class credito_aprobacion extends Model
         "idinsucursal",
         "saldo",
         "deuda",
+        "fecha_ultimopago",
     ];
 }

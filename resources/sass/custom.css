@@ -13,6 +13,8 @@
    --sinapsis-color : rgba(242,109,10);
    --sinapsis-color-light : rgba(255,177,113,0.75);
    --sinapsis-color-select : rgba(221,143,79,0.75); 
+
+
  
    /*Verde
    --sinapsis-color : #216234;
@@ -49,7 +51,6 @@
 }
 .bg-venta{
   background-color: #d9ead3 !important;
-
 }
 .borderleft{
 
@@ -583,6 +584,15 @@ body{
   text-shadow: 0 0 black;
 }
 
+.bg-sinapsis-superlight {
+  background-color: #ffe9ba !important;
+  text-shadow: 0 0 black;
+}
+
+.table-distribucion{
+  border-collapse: separate;
+  border-spacing: 9px 1em;
+}
 
 
 .app-body{
@@ -631,6 +641,49 @@ body{
 .listSelectFats{
   position: fixed;
   top: 0;
+}
+
+.bg-elorza{
+  background-color: #9cff88;
+}
+.bg-mantecal{
+  background-color: #edff88;
+}
+.bg-achaguas{
+  background-color: #1951eb;
+}
+.bg-elsaman{
+  background-color: #9cff88;
+}
+.bg-bruzual{
+  background-color: #9cff88;
+}
+.bg-sanfernando1{
+  background-color: #9cff88;
+}
+.bg-sanfernando2{
+  background-color: #9cff88;
+}
+.bg-calabozo{
+  background-color: #9cff88;
+}
+.bg-valledelapascua{
+  background-color: #9cff88;
+}
+.bg-valledelapascua2{
+  background-color: #9cff88;
+}
+.bg-sanjuandelosmorros{
+  background-color: #9cff88;
+}
+.bg-maracay{
+  background-color: #9cff88;
+}
+.bg-guacara{
+  background-color: #9cff88;
+}
+.bg-sanfernando3{
+  background-color: #9cff88;
 }
 
 /* @media 
