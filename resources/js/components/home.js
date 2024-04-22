@@ -3920,7 +3920,7 @@ function formatAmount( number, simbol ) {
           }
 
 
-          {permiso([1,10]) && viewmainPanel === "compras" &&
+          {permiso([1,9,10]) && viewmainPanel === "compras" &&
             <Compras
               permiso={permiso}
               setviewmainPanel={setviewmainPanel}
