@@ -256,6 +256,11 @@ export default function ComprascargarFactsItems({
                         showFilescxp={showFilescxp}
                     />
                     <div className="container-fluid p-0">
+                        <div className="row">
+                            <div className="col">
+                                {/* <textarea cols="30" rows="10" onChange={event=>setinputimportitems(event.target.value)} value={inputimportitems}></textarea> */}
+                            </div>
+                        </div>
                         {facturaSelectAddItemsSelect.id?
                         <>
                             <div className="row">

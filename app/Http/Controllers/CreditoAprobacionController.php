@@ -20,10 +20,12 @@ class CreditoAprobacionController extends Controller
         $idinsucursal = $data["idinsucursal"];
         $saldo = $data["saldo"];
         $deuda = 0;
+        $fecha_ultimopago = "2000-01-01";
         if (isset($data["deuda"]["pedido_total"]["diferencia_clean"])) {
             $deuda = $data["deuda"]["pedido_total"]["diferencia_clean"];
+        }
+        if (isset($data["fecha_ultimopago"])) {
             $fecha_ultimopago = $data["fecha_ultimopago"];
-            
         }
         
         $check = credito_aprobacion::where("idinsucursal",$idinsucursal)->where("id_sucursal",$id_sucursal)->first("estatus");
