@@ -264,7 +264,7 @@ class CuentasporpagarController extends Controller
                         $this->setCuentaPorPagar($arrinsert,$search);
                         
                     }else if($type=="delete"){
-                        cuentasporpagar::find($factura["id"])->delete();
+                        //cuentasporpagar::find($factura["id"])->delete();
                     }
                     $msj .= ($i+1)." ".$type;
                 }
