@@ -50,12 +50,12 @@ export default function Comprascargarfactsdigitales({
     
 
     return <div className="container-fluid">
-        <Modalselectfile
+        {/* <Modalselectfile
             numfact_select_imagen={numfact_select_imagen}
             setselectFilecxp={setselectFilecxp}
             colorSucursal={colorSucursal}
             showFilescxp={showFilescxp}
-        />
+        /> */}
 
 
         <SearchBarFacturas
@@ -161,6 +161,16 @@ export default function Comprascargarfactsdigitales({
                             {e.type=="update" || e.type=="new" || e.type=="delete"?
                                 <>
                                     <td colSpan={2}>
+                                        {numfact_select_imagen?
+                                            <div className="text-center">
+                                                <div>
+                                                    <img src={numfact_select_imagen.ruta} width={150} onClick={()=>showFilescxp(numfact_select_imagen.ruta)} className="pointer"/>
+                                                </div>
+                                                <span>{numfact_select_imagen.ruta}</span>
+                                            </div>
+                                        :null}
+                                        <button className="btn btn-warning w-100" onClick={()=>setviewmainPanel("comprasmodalselectfactsfisicas")}><i className="fa fa-link"></i></button>
+
                                     </td>
                                     <td>
                                         <input disabled={type(e.type)} type="date" className="form-control"
@@ -200,6 +210,12 @@ export default function Comprascargarfactsdigitales({
                                         value={!e.numfact?"":e.numfact}
                                         onChange={e => handleFacturaxLotes((e.target.value), i, "changeInput", "numfact")} 
                                         />
+
+                                        <textarea disabled={type(e.type)} placeholder="Observaciones..." className="form-control fs-3"
+                                        value={!e.nota?"":e.nota}
+                                        onChange={e => handleFacturaxLotes((e.target.value), i, "changeInput", "nota")} 
+                                        ></textarea>
+                                        <button className="btn btn-info w-100" onClick={()=>setviewmainPanel("comprascargarfactsfisicas")}><i className="fa fa-file"></i></button>
                                     </td>
                                     <td>
                                         <select disabled={type(e.type)} className="form-control" 
@@ -252,6 +268,14 @@ export default function Comprascargarfactsdigitales({
                                         <span className={(returnCondicion(e.condicion))+(" w-100 btn fs-2 pointer fw-bolder text-light ")} onClick={()=>showFilescxp(e.descripcion)}> 
                                             {e.numfact}
                                         </span>
+                                        {e.nota?
+                                            <>
+                                                <hr />
+                                                <p>
+                                                    {e.nota}
+                                                </p>
+                                            </>
+                                        :null}
                                     </td>  
                                     <td className=" ">
                                         <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal? e.sucursal.codigo:"")}}>

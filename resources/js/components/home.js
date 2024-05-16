@@ -453,8 +453,12 @@ function Home() {
     db.sendComprasFats(
         formData
     ).then((res) => {
-        notificar(res);
-        
+        notificar(res.data.msj);
+        if (res.data.id) {
+          console.log(res.data.id)
+          seleccionarFilecxpFun(res.data.id)
+          getFilescxp()
+        }
     });
   } 
 

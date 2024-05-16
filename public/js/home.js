@@ -4684,12 +4684,7 @@ function Comprascargarfactsdigitales(_ref) {
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "container-fluid",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_modalselectfile__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      numfact_select_imagen: numfact_select_imagen,
-      setselectFilecxp: setselectFilecxp,
-      colorSucursal: colorSucursal,
-      showFilescxp: showFilescxp
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_searchBarFacturas__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_searchBarFacturas__WEBPACK_IMPORTED_MODULE_1__["default"], {
       selectCuentaPorPagarProveedorDetallesFun: selectCuentaPorPagarProveedorDetallesFun,
       cuentaporpagarAprobado: cuentaporpagarAprobado,
       setcuentaporpagarAprobado: setcuentaporpagarAprobado,
@@ -4869,8 +4864,31 @@ function Comprascargarfactsdigitales(_ref) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
             className: e.aprobado ? "bg-success-superlight" : "bg-sinapsis-superlight",
             children: [e.type == "update" || e.type == "new" || e.type == "delete" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                colSpan: 2
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                colSpan: 2,
+                children: [numfact_select_imagen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                  className: "text-center",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+                      src: numfact_select_imagen.ruta,
+                      width: 150,
+                      onClick: function onClick() {
+                        return showFilescxp(numfact_select_imagen.ruta);
+                      },
+                      className: "pointer"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                    children: numfact_select_imagen.ruta
+                  })]
+                }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                  className: "btn btn-warning w-100",
+                  onClick: function onClick() {
+                    return setviewmainPanel("comprasmodalselectfactsfisicas");
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                    className: "fa fa-link"
+                  })
+                })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   disabled: type(e.type),
@@ -4922,8 +4940,8 @@ function Comprascargarfactsdigitales(_ref) {
                     }, e.id);
                   })]
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   disabled: type(e.type),
                   type: "text",
                   className: "form-control fs-3",
@@ -4932,7 +4950,23 @@ function Comprascargarfactsdigitales(_ref) {
                   onChange: function onChange(e) {
                     return handleFacturaxLotes(e.target.value, i, "changeInput", "numfact");
                   }
-                })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("textarea", {
+                  disabled: type(e.type),
+                  placeholder: "Observaciones...",
+                  className: "form-control fs-3",
+                  value: !e.nota ? "" : e.nota,
+                  onChange: function onChange(e) {
+                    return handleFacturaxLotes(e.target.value, i, "changeInput", "nota");
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                  className: "btn btn-info w-100",
+                  onClick: function onClick() {
+                    return setviewmainPanel("comprascargarfactsfisicas");
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                    className: "fa fa-file"
+                  })
+                })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
                   disabled: type(e.type),
@@ -5010,15 +5044,19 @@ function Comprascargarfactsdigitales(_ref) {
                   className: "fw-bold fs-4",
                   children: e.proveedor ? e.proveedor.descripcion : null
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
                 className: "",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: returnCondicion(e.condicion) + " w-100 btn fs-2 pointer fw-bolder text-light ",
                   onClick: function onClick() {
                     return showFilescxp(e.descripcion);
                   },
                   children: e.numfact
-                })
+                }), e.nota ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+                    children: e.nota
+                  })]
+                }) : null]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                 className: " ",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
@@ -67120,7 +67158,12 @@ function Home() {
     formData.append("id_proveedor", factInpProveedor);
     formData.append("numfact", factNumfact);
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].sendComprasFats(formData).then(function (res) {
-      notificar(res);
+      notificar(res.data.msj);
+      if (res.data.id) {
+        console.log(res.data.id);
+        seleccionarFilecxpFun(res.data.id);
+        getFilescxp();
+      }
     });
   };
   var _useState241 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),

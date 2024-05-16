@@ -57,13 +57,22 @@ class CuentasporpagarFisicasController extends Controller
         
     }
     function sendComprasFats(Request $req){
-        $fecha = date("dmY");
         $id_proveedor = $req->id_proveedor;
         $numfact = $req->numfact;
         $imagen = $req->imagen;
-
+        return $this->sendComprasFatsFun([
+            "id_proveedor" => $id_proveedor,
+            "numfact" => $numfact,
+            "imagen" => $imagen,
+        ]);
+    }
+    function sendComprasFatsFun($arr) {
+        $id_proveedor = $arr["id_proveedor"];
+        $numfact = $arr["numfact"];
+        $imagen = $arr["imagen"];
+        $fecha = date("dmY");
         $id_usuario = session("id_usuario");
-
+    
         if ($id_usuario) {
             $usuario = usuarios::find($id_usuario);
             $findSucursal = sucursal::find($usuario->id_sucursal);
@@ -79,7 +88,7 @@ class CuentasporpagarFisicasController extends Controller
                     "id_sucursal" => $usuario->id_sucursal,
                     "numfact" => $numfact,
                 ],[
-
+    
                     "estado" => 0,
                     "ruta" => $path,
                     "id_proveedor" => $id_proveedor,
@@ -88,12 +97,13 @@ class CuentasporpagarFisicasController extends Controller
                 ]);
                 if ($cuentasporpagar_fisicas->save()) {
                     
-                    return "LISTO, PANA MÍO";
+                    return ["msj"=>"LISTO, PANA MÍO", "id"=>$cuentasporpagar_fisicas->id];
                 }
         
             }else{
                 return "Su usuario no tiene una sucursal asociada";
             }
         }
+        
     }
 }
