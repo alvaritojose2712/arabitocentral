@@ -23,6 +23,9 @@ class CreatePedidosTable extends Migration
             //1 "Procesado"
             //2 "Extraído"
 
+            //3 "En Revision"
+            //4 "Revisado"
+
             $table->integer("id_origen")->unsigned();
             $table->foreign('id_origen')->references('id')->on('sucursals');
 

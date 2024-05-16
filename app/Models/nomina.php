@@ -12,6 +12,9 @@ class nomina extends Model
     public function pagos() { 
         return $this->hasMany(\App\Models\nominapagos::class,"id_nomina","id"); 
     }
+    public function prestamos() { 
+        return $this->hasMany(\App\Models\nominaprestamos::class,"id_nomina","id"); 
+    }
     
     
 
@@ -33,5 +36,6 @@ class nomina extends Model
         "nominagradoinstruccion",
         "nominacargo",
         "nominasucursal",
+        "activo",
     ];
 }

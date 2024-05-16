@@ -964,47 +964,16 @@ class CuentasporpagarController extends Controller
                                     $cuentaitem = cuentasporpagar_items::with(["producto"])->find($ee["id_item"]);  
                                     if ($cuentaitem) {
                                         $inv_master = $cuentaitem->producto;
-                                        $inv = inventario_sucursal::updateOrCreate([
-                                            "id_sucursal" => $administracion->id,
-                                            "idinsucursal" => $inv_master["id"],
-                                        ],[
-                                            "id_sucursal" =>  $administracion->id,
-                                            "idinsucursal" => $inv_master["id"],
-                                            
-                                            "codigo_barras" => $inv_master["codigo_barras"],
-                                            "codigo_proveedor" => $inv_master["codigo_proveedor"],
-                                            "id_proveedor" => $inv_master["id_proveedor"],
-                                            "id_categoria" => $inv_master["id_categoria"],
-                                            "id_marca" => $inv_master["id_marca"],
-                                            "unidad" => $inv_master["unidad"],
-                                            "id_deposito" => $inv_master["id_deposito"],
-                                            "descripcion" => $inv_master["descripcion"],
-                                            "iva" => $inv_master["iva"],
-                                            "porcentaje_ganancia" => $inv_master["porcentaje_ganancia"],
-                                            "precio_base" => $inv_master["precio_base"],
-                                            "precio" => $inv_master["precio"],
-                                            "precio1" => $inv_master["precio1"],
-                                            "precio2" => $inv_master["precio2"],
-                                            "precio3" => $inv_master["precio3"],
-                                            "bulto" => $inv_master["bulto"],
-                                            "stockmin" => $inv_master["stockmin"],
-                                            "stockmax" => $inv_master["stockmax"],
-                                            "cantidad" => $inv_master["cantidad"],
-                                            "push" => 0,
-                                            "id_vinculacion" => 0,
-                                        ]);
-                                        if ($inv) {
-                                            $items_pedidos = new items_pedidos;
-                                                    
-                                            $items_pedidos->id_producto = $inv->id;
-                                            $items_pedidos->id_pedido = $ped->id;
-                                            $items_pedidos->cantidad = $ee["cantidad"];
-                                            $items_pedidos->descuento = 0;
-                                            $items_pedidos->monto = $inv_master["precio"]*$ee["cantidad"];
-                
-                                            if ($items_pedidos->save()) {
-                                                $count++;  
-                                            }
+                                        $items_pedidos = new items_pedidos;
+                                                
+                                        $items_pedidos->id_producto = $cuentaitem->id_producto;
+                                        $items_pedidos->id_pedido = $ped->id;
+                                        $items_pedidos->cantidad = $ee["cantidad"];
+                                        $items_pedidos->descuento = 0;
+                                        $items_pedidos->monto = $inv_master["precio"]*$ee["cantidad"];
+            
+                                        if ($items_pedidos->save()) {
+                                            $count++;  
                                         }
         
                                     }                         

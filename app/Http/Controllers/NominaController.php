@@ -39,23 +39,101 @@ class NominaController extends Controller
             ]);
         }
     }
+    function activarPersonal(Request $req) {
+        $id = $req->id;
+
+        $n = nomina::find($id);
+
+        if ($n) {
+            $es = 0;
+            if (!$n->activo) {
+                $es = 1;
+            }
+            $n->activo = $es;
+            $n->save();
+        }
+    }
     function getNomina(Request $req)
     {
         $codigo_origen = $req->codigo_origen;
-
         $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
         $id_origen = $id_ruta["id_origen"];
 
+        $today = (new NominaController)->today();
+        $mesDate = strtotime($today);
+        $mesDate = date('Y-m' , $mesDate);
 
-        return nomina::with("cargo")->orwhere("nominasucursal", $id_origen)
-            ->orwhereIn("id", nominavariassucursales::where("id_sucursal", $id_origen)->select("id_nomina"))
-            ->orderBy("nominanombre", "asc")
-            ->get();
+        $mespasadoDate = strtotime('-1 months', strtotime($today));
+        $mespasadoDate = date('Y-m' , $mespasadoDate);
+
+        $mesantepasadoDate = strtotime('-2 months', strtotime($today));
+        $mesantepasadoDate = date('Y-m' , $mesantepasadoDate);
+
+        $mes = $mesDate;
+        $mespasado = $mespasadoDate;
+        $mesantepasado = $mesantepasadoDate;
+
+        return nomina::with(["cargo","prestamos", "pagos"=>function ($q) {
+            $q->with("sucursal")->orderBy("created_at","asc");
+        }])
+        ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
+        ->where("activo",1)
+        ->where("nominasucursal", $id_origen)
+        //->whereIn("id", nominavariassucursales::where("id_sucursal", $id_origen)->select("id_nomina"))
+        ->orderBy("nominanombre", "asc")
+        ->get()
+        ->map(function($q) use ($mes,$mespasado,$mesantepasado) {
+            $cedula = $q->nominacedula;
+            $ids = clientes::where("identificacion", "=",  $cedula)->select("id");
+            $creditos = creditos::with("sucursal")->whereIn("id_cliente",$ids);
+
+            $q->pagos = $q->pagos->map(function($q) {
+                $q->created_at = date("d-m-Y", strtotime($q->created_at));
+                return $q;
+            });
+
+            $pagos = $q->pagos;
+
+            $mesSum = 0;
+            $mespasadoSum = 0;
+            $mesantepasadoSum = 0;
+
+            foreach ($pagos as $pago) {
+                if (str_contains($pago["created_at"],$mes)) {
+                    $mesSum += $pago["monto"];
+                }
+                if (str_contains($pago["created_at"],$mespasado)) {
+                    $mespasadoSum += $pago["monto"];
+                }
+                if (str_contains($pago["created_at"],$mesantepasado)) {
+                    $mesantepasadoSum += $pago["monto"];
+                }
+            }
+            $bono = $q["cargo"]["cargossueldo"];
+            
+            $q->mes = $mesSum;
+            $q->mespasado = $mespasadoSum;
+            $q->mesantepasado = $mesantepasadoSum;
+            $q->bono = $bono;
+
+            $q->quincena = $bono;
+            $q->sumprestamos = $q->prestamos->sum("monto");
+            
+            $q->sumPagos = $pagos->sum("monto");
+            
+            $q->creditos = $creditos
+            ->get()
+            ->map(function($q) {
+                $q->created_at = date("d-m-Y", strtotime($q->created_at));
+                return $q;
+            }); 
+            $q->sumCreditos = $creditos->get()->sum("saldo");
+            return $q;
+        });
+
     }
     function getPersonalNomina(Request $req)
     {
-       
-
 
         $qNomina = isset($req->qNomina)? $req->qNomina: "";
         $qSucursalNomina = isset($req->qSucursalNomina)? $req->qSucursalNomina: "";

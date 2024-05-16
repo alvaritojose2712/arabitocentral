@@ -9,7 +9,7 @@ class catcajas extends Model
 {
 
     protected $fillable = [
-        "indice",
+        "id",
         "nombre",
         "tipo",
         "catgeneral",

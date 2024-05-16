@@ -9,7 +9,6 @@ import Header from './header';
 import SelectSucursal from './selectSucursal';
 
 import VentasComponent from './ventas';
-import GastosComponent from './gastos';
 
 import Notificacion from '../components/notificacion';
 
@@ -39,6 +38,7 @@ import Marcas from './panel/marcas'
 import NavInventario from './panel/navInventario'
 
 import Usuarios from './usuarios';
+import Alquileres from './Alquileres';
 import Compras from './compras';
 
 import Comprasmenufactsdigital from './Comprasmenufactsdigital';
@@ -172,7 +172,7 @@ function Home() {
   const [viewProductos, setviewProductos] = useState("")
 
   const [indexSelectCarrito, setindexSelectCarrito] = useState(null)
-  const [showCantidadCarrito, setshowCantidadCarrito] = useState("buscar")
+  const [showCantidadCarrito, setshowCantidadCarrito] = useState("procesar")
 
   const [ctSucursales, setctSucursales] = useState([])
 
@@ -376,7 +376,65 @@ function Home() {
   const [selectPrecioxProveedorPrecio, setselectPrecioxProveedorPrecio] = useState("")
   const [precioxproveedor, setprecioxproveedor] = useState([])
 
+  ///ALQUILERES
+
+  const [alquileresData, setalquileresData] = useState([])
+  const [alquileresq, setalquileresq] = useState("")
+  const [alquileresq_sucursal, setalquileresq_sucursal] = useState("")
+
+  const [sendalquilerdesc, setsendalquilerdesc] = useState("")
+  const [sendalquilermonto, setsendalquilermonto] = useState("")
+  const [sendalquilersucursal, setsendalquilersucursal] = useState("")
+  const [sendalquilerid, setsendalquilerid] = useState(null)
+  const [subviewAlquileres, setsubviewAlquileres] = useState("list")
+
   
+  const delAlquiler = () => {
+    if (confirm("¿Desea realmente eliminar?")) {
+      db.delAlquiler({id:sendalquilerid}).then(res=>{
+        notificar(res)
+        if (res.data.estado) {
+          setsendalquilerid(null)
+          setsubviewAlquileres("list")
+          getAlquileres()
+        }
+      })
+    }
+  }
+  
+  const setNewAlquiler = () => {
+    db.setNewAlquiler({
+      sendalquilerdesc,
+      sendalquilermonto,
+      sendalquilersucursal,
+      sendalquilerid,
+    })
+    .then(res=>{
+      notificar(res)
+      if (res.data.estado) {
+        setsendalquilerid(null)
+        setsubviewAlquileres("list")
+        getAlquileres()
+      }
+    })
+  }
+
+  const getAlquileres = () => {
+    db.getAlquileres({
+      alquileresq,
+      alquileresq_sucursal,
+    }).then(res=>{
+      if (res.data) {
+        setsendalquilerid(null)
+        if (res.data.data.length) {
+          setalquileresData(res.data)
+        }else{
+          setalquileresData([])
+        }
+        
+      }
+    })
+  }
   
   ///Proveedores Props
   
@@ -464,6 +522,96 @@ function Home() {
     "ZELLE": ["#6d093b", "#fff"],
     "BINANCE": ["#836901", "#000000"],
     "AirTM": ["#6d093b", "#000000"],
+  }
+
+  const colorCat = {
+    1:	{color: "#d9ead3",	desc:"CAJA CHICA: EFECTIVO ADICIONAL"},
+    2:	{color: "#c9daf8",	desc:"CAJA CHICA: CENA NOCTURNA"},
+    3:	{color: "#c9daf8",	desc:"CAJA CHICA: TORTA DE CUMPLEAÑOS"},
+    4:	{color: "#c9daf8",	desc:"CAJA CHICA: ALMUERZO DE TRABAJADOR"},
+    5:	{color: "#c9daf8",	desc:"CAJA CHICA: EXAMENES MEDICOS"},
+    6:	{color: "#00ffff",	desc:"CAJA CHICA: LIMPIEZA: CLORO, JABON, AROMATIZANTE, CERA"},
+    7:	{color: "#00ffff",	desc:"CAJA CHICA: LIMPIEZA: COLETO, CEPILLOS, PALAS, TRAPOS, PAPEL HIGIENICO"},
+    8:	{color: "#fff2cc",	desc:"CAJA CHICA: VASOS PARA CAFE"},
+    9:	{color: "#fff2cc",	desc:"CAJA CHICA: VASOS PARA PANELADA"},
+    10:	{color: "#d9ead3",	desc:"CAJA CHICA: BOLSAS"},
+    11:	{color: "#f4cccc",	desc:"CAJA CHICA: AZUCAR"},
+    12:	{color: "#f4cccc",	desc:"CAJA CHICA: CAFE"},
+    13:	{color: "#f4cccc",	desc:"CAJA CHICA: PANELADA O JUGO"},
+    14:	{color: "#fce5cd",	desc:"CAJA CHICA: PAPELERIA: HOJAS, CARTULINA, FOTOCOPIAS, MARCADORES"},
+    15:	{color: "#6d9eeb",	desc:"CAJA CHICA: AGUA: BOTELLON"},
+    16:	{color: "#6d9eeb",	desc:"CAJA CHICA: AGUA: HIELO"},
+    17:	{color: "#6d9eeb",	desc:"CAJA CHICA: AGUA: CISTERNA"},
+    18:	{color: "#d9d2e9",	desc:"CAJA CHICA: SUMINISTROS CASA IMPORTADOS "},
+    19:	{color: "#d9d2e9",	desc:"CAJA CHICA: CALETEROS "},
+    20:	{color: "#d9d2e9",	desc:"CAJA CHICA: COLABORACION SUCURSAL "},
+    21:	{color: "#dd7e6b",	desc:"CAJA CHICA: REPARACIONES Y MANTENIMIENTO"},
+    22:	{color: "#fff2cc",	desc:"CAJA CHICA: TRANSPORTE: TAXI Y MOTOTAXI "},
+    23:	{color: "#fff2cc",	desc:"CAJA CHICA: TRANSPORTE: COMBUSTIBLE "},
+    24:	{color: "#fff2cc",	desc:"CAJA CHICA: TRANSPORTE: REPARACION DE VEHICULOS "},
+    25:	{color: "#f4cccc",	desc:"CAJA CHICA: TRASPASO A CAJA FUERTE"},
+    26:	{color: "#00ff00",	desc:"INGRESO DESDE CIERRE"},
+    27:	{color: "#d9ead3",	desc:"CAJA FUERTE: EFECTIVO ADICIONAL"},
+    28:	{color: "#ffff00",	desc:"CAJA FUERTE: NOMINA ABONO"},
+    29:	{color: "#ffff00",	desc:"CAJA FUERTE: NOMINA QUINCENA "},
+    30:	{color: "#ffff00",	desc:"CAJA FUERTE: NOMINA PRESTAMO "},
+    31:	{color: "#b4a7d6",	desc:"CAJA FUERTE: SERVICIOS: ELECTRICIDAD "},
+    32:	{color: "#b4a7d6",	desc:"CAJA FUERTE: SERVICIOS: AGUA "},
+    33:	{color: "#b4a7d6",	desc:"CAJA FUERTE: SERVICIOS: INTERNET "},
+    34:	{color: "#b6d7a8",	desc:"CAJA FUERTE: ALQUILER "},
+    35:	{color: "#fff2cc",	desc:"CAJA FUERTE: TALONARIOS, SELLOS, ETC "},
+    36:	{color: "#e6b8af",	desc:"CAJA FUERTE: COLABORACIONES GENERAL (TODAS SUCURSALES)"},
+    37:	{color: "#dd7e6b",	desc:"CAJA FUERTE: TRANSPORTE: COMBUSTIBLE (TODAS SUCURSALES)"},
+    38:	{color: "#dd7e6b",	desc:"CAJA FUERTE: TRANSPORTE: REPARACION DE VEHICULOS (TODAS SUCURSALES)"},
+    39:	{color: "#dd7e6b",	desc:"CAJA FUERTE: TRANSPORTE: VIATICOS Y PEAJES (TODAS SUCURSALES)"},
+    40:	{color: "#ff0000",	desc:"CAJA FUERTE: PAGO PROVEEDOR"},
+    41:	{color: "#6aa84f",	desc:"CAJA FUERTE: FDI"},
+    42:	{color: "#fff2cc",	desc:"CAJA FUERTE: TRASPASO A CAJA MATRIZ (RAID RETIRA)"},
+    43:	{color: "#d9d9d9",	desc:"CAJA FUERTE: TRANSFERENCIA TRABAJADOR"},
+    44:	{color: "#f4cccc",	desc:"CAJA FUERTE: TRASPASO A CAJA CHICA"},
+    45:	{color: "#b7b7b7",	desc:"CAJA FUERTE: EGRESO TRANSFERENCIA SUCURSAL"},
+    46:	{color: "#b7b7b7",	desc:"CAJA FUERTE: INGRESO TRANSFERENCIA SUCURSAL"},
+  }
+  
+  
+  const colorCatGeneral = {
+    0: {color:"#ff0000", desc: "PAGO A PROVEEDORES"},
+    1: {color:"#00ff00", desc: "INGRESO"},
+    2: {color:"#ff9900", desc: "GASTO"},
+    3: {color:"#b45f06", desc: "GASTO GENERAL"},
+    4: {color:"#999999", desc: "TRANSFERENCIA TRABAJADOR"},
+    5: {color:"#434343", desc: "MOVIMIENTO NULO INTERNO"},
+    6: {color:"#fff2cc", desc: "CAJA MATRIZ"},
+    7: {color:"#b7b7b7", desc: "FDI"},
+    8: {color:"#6aa84f", desc: "INGRESO EXTERNO"},
+    9: {color:"#93c47d", desc: "INGRESO INTERNO"},
+    10: {color:"#999999", desc: "TRANSFERENCIA EFECTIVO SUCURSAL"},
+  }
+  const colorIngresoegre = {
+    0:	{color:"#f4cccc", desc:"EGRESO"}, 
+    1:	{color:"#d9ead3", desc:"INGRESO"}, 
+    2:	{color:"#fff2cc", desc:"TRASPASO"}, 
+    3:	{color:"#ffd966", desc:"TRASPASO EXTERNO"}, 
+    4:	{color:"#93c47d", desc:"INGRESO NULO"}, 
+  }
+  const colorsGastosCat = (id,cat,tipo) => {
+    try {
+      switch (cat) {
+        case "cat":
+          return colorCat[id][tipo]  
+        break;
+        case "catgeneral":
+          return colorCatGeneral[id][tipo]  
+        break;
+        case "ingreso_egreso":
+          return colorIngresoegre[id][tipo]  
+        break;
+      }
+      
+    } catch (error) {
+      console.log(error)
+      return "SIN DESC "+id+" "+cat+" "+tipo
+    }
   }
 
 
@@ -926,6 +1074,7 @@ function Home() {
           id_catgeneral: "",
           unidad: "UND",
           cantidad: "",
+          basef: "",
           precio_base: "",
           precio: "",
           iva: "0",
@@ -1586,7 +1735,22 @@ function formatAmount( number, simbol ) {
   }
 
 
+  const aprobarRevisionPedido = () => {
+    if (pedidoData) {
+      if (pedidoData.id) {
+        if (confirm("¿Realmente desea enviar el pedido " + pedidoData.id + " a " + pedidoData.sucursal.nombre)) {
+          setLoading(true)
+          db.aprobarRevisionPedido({ id: pedidoData.id }).then(res => {
+            notificar(res)
+            getPedidos()
+            setshowCantidadCarrito("procesar")
+            setLoading(false)
+          })
+        }
+      }
+    }
 
+  }
   const sendPedidoSucursal = () => {
     if (pedidoData) {
       if (pedidoData.id) {
@@ -1699,7 +1863,7 @@ function formatAmount( number, simbol ) {
   const [filtronominaq, setfiltronominaq] = useState("")
   const [filtronominacargo, setfiltronominacargo] = useState("")
 
-  const categoriaMovBanco = [
+  /* const categoriasCajas = [
     {id:1, descripcion: "INGRESO DE SUCURSAL"},
     {id:2, descripcion: "PAGO PROVEEDOR"},
     {id:3, descripcion: "INVERSION"},
@@ -1707,13 +1871,14 @@ function formatAmount( number, simbol ) {
     {id:5, descripcion: "COMPRAS CONTADO"},
     {id:6, descripcion: "TRASPASO ENTRE CUENTA"},
     {id:7, descripcion: "COMISIÓN"},
-  ]
+  ] */
 
   useEffect(() => {
     getToday()
     getSucursales()
     getProveedores()
     getMetodosPago()
+    getCatCajas()
 
 
   }, [])
@@ -1892,6 +2057,9 @@ function formatAmount( number, simbol ) {
   const [qid_proveedorFilescxp, setqid_proveedorFilescxp] = useState("")
   const [qid_sucursalFilescxp, setqid_sucursalFilescxp] = useState("")
   const [qfechaFilescxp, setqfechaFilescxp] = useState("")
+  const [inputimportitems, setinputimportitems] = useState("")
+  
+  
 
   const seleccionarFilecxpFun = (id) => {
     setselectFilecxp(id)
@@ -2465,6 +2633,13 @@ function formatAmount( number, simbol ) {
       }
       notificar(data.msj)
     })
+  }
+  const activarPersonal = id => {
+    if (confirm("Confirme")) {
+      db.activarPersonal({id}).then(res=>{
+        getPersonalNomina()
+      }) 
+    }
   }
   const getPersonalNomina = event => {
     if (event) {
@@ -3044,31 +3219,6 @@ function formatAmount( number, simbol ) {
       }
     })
   }
-  const getCatGeneralFun = (id_cat) => {
-
-    let catgeneralList = [
-        {color:"#cc3300", nombre:"EGRESOS",},
-        {color:"#3E7B00", nombre:"INGRESO",},
-        {color:"#ff9900", nombre:"GASTO",},
-        {color:"#A07800", nombre:"GASTO GENERAL",},
-        {color:"#808080", nombre:"MOVIMIENTO EXTERNO",},
-        {color:"#595959", nombre:"MOVIMIENTO NULO INTERNO",},
-        {color:"#A8A805", nombre:"CAJA GENERAL IDEPENDIENTE",},
-    ]
-    let catfilter = categoriasCajas.filter(e=>e.indice==id_cat)
-    if (catfilter.length) {
-      if (catfilter[0].catgeneral) {
-        return catgeneralList[catfilter[0].catgeneral]
-      }else if(catfilter[0].catgeneral==0){
-        return catgeneralList[catfilter[0].catgeneral]
-      }else{
-        return {color:"", nombre:""}
-      }
-    }
-
-    return {color:"", nombre:""}
-
-}
 
   ///END CatGenerals
   const type = type => {
@@ -3112,6 +3262,10 @@ function formatAmount( number, simbol ) {
     {
       route: "usuarios",
       name: "USUARIOS"
+    },
+    {
+      route: "alquileres",
+      name: "ALQUILERES"
     },
   ]
 
@@ -3373,6 +3527,13 @@ function formatAmount( number, simbol ) {
   const [gastosQCategoria,setgastosQCategoria] = useState("")
   const [gastosQFecha,setgastosQFecha] = useState("")
   const [gastosQFechaHasta,setgastosQFechaHasta] = useState("")
+
+  const [gastoscatgeneral, setgastoscatgeneral] = useState("")
+  const [gastosingreso_egreso, setgastosingreso_egreso] = useState("")
+  const [gastostypecaja, setgastostypecaja] = useState("")
+
+  const [gastosorder, setgastosorder] = useState("desc")
+  const [gastosfieldorder, setgastosfieldorder] = useState("id")
   
   const [gastosDescripcion,setgastosDescripcion] = useState("")
   const [gastosMonto,setgastosMonto] = useState("")
@@ -3380,6 +3541,8 @@ function formatAmount( number, simbol ) {
   const [gastosBeneficiario,setgastosBeneficiario] = useState("")
   const [gastosFecha,setgastosFecha] = useState("")
   const [gastosBanco,setgastosBanco] = useState("")
+
+  const [distribucionGastosCat, setdistribucionGastosCat] = useState([])
 
   const [gastosMonto_dolar, setgastosMonto_dolar] = useState("")
   const [gastosTasa, setgastosTasa] = useState("")
@@ -3457,12 +3620,27 @@ function formatAmount( number, simbol ) {
       alert("Campos Vacíos")
     }
   }
+  const getGastosDistribucion = () => {
+    db.getGastosDistribucion({
+      gastosQFecha,
+      gastosQFechaHasta,
+    })
+    .then(res=>{
+      let data = res.data
+      setdistribucionGastosCat(data)
+    })
+  }
   const getGastos = () => {
     db.getGastos({
       gastosQ,
       gastosQCategoria,
       gastosQFecha,
       gastosQFechaHasta,
+      gastoscatgeneral,
+      gastosingreso_egreso,
+      gastostypecaja,
+      gastosorder,
+      gastosfieldorder,
     }).then(res=>{
       if (res.data) {
         if (res.data.data.length) {
@@ -3541,6 +3719,70 @@ function formatAmount( number, simbol ) {
   const [listdistribucionselect, setlistdistribucionselect] = useState([]) 
   const [distribucionSelectSucursal, setdistribucionSelectSucursal] = useState("") 
 
+  const [subviewcargaritemsfact, setsubviewcargaritemsfact] = useState("selectfacts")
+  const [showtextarea, setshowtextarea] = useState(true)
+
+  const procesarTextitemscompras = () => {
+    
+    let obj = cloneDeep(productosInventario)
+    let rows = inputimportitems.split("\n")
+    let cols,row, alterno,barras,unidad,descripcion,ct,basef,base,venta,departamento,catgeneral,iva;
+    if (inputimportitems) {
+      for(let i in rows){
+        row = rows[i]
+        cols = row.split("\t")
+  
+        if (
+          typeof cols[0]==="undefined"
+          ||typeof cols[1]==="undefined"
+          ||typeof cols[2]==="undefined"
+          ||typeof cols[3]==="undefined"
+          ||typeof cols[4]==="undefined"
+          ||typeof cols[5]==="undefined"
+          ||typeof cols[6]==="undefined"
+          ||typeof cols[7]==="undefined"
+          ||typeof cols[8]==="undefined"
+          ||typeof cols[9]==="undefined"
+          ||typeof cols[10]==="undefined"
+        ) {
+          break
+        }
+  
+        alterno = cols[0]?cols[0]:""
+        barras = cols[1]?cols[1]:""
+        unidad = cols[2]?cols[2]:""
+        descripcion = cols[3]?cols[3]:""
+        ct = cols[4]?cols[4]:""
+        basef = cols[5]?cols[5]:""
+        base = cols[6]?cols[6]:""
+        venta = cols[7]?cols[7]:""
+        departamento = cols[8]?cols[8]:""
+        catgeneral = cols[9]?cols[9]:""
+        iva = cols[10]?cols[10]:""
+  
+        let newObj = [{
+          id: null,
+          codigo_proveedor: alterno,
+          codigo_barras: barras,
+          unidad: unidad,
+          descripcion: descripcion,
+          cantidad: ct,
+          basef: basef,
+          precio_base: base,
+          precio: venta,
+          id_categoria: departamento,
+          id_catgeneral: catgeneral,
+          iva: "0",
+          type: "new",
+          id_marca: "",
+  
+        }]
+  
+        obj = newObj.concat(obj)
+      }
+      setProductosInventario(obj)
+    }
+  }
   const autorepartircantidades = (type,id_item) => {
     switch (type) {
       case "general":
@@ -3613,7 +3855,7 @@ function formatAmount( number, simbol ) {
       db.sendlistdistribucionselect({
         listdistribucionselect
       }).then(res=>{
-  
+        notificar(res)
       })
     }
   }
@@ -3721,6 +3963,8 @@ function formatAmount( number, simbol ) {
 
   }
 
+  
+
   let numfact_select_imagen = null
   if (selectFilecxp) {
       if (dataFilescxp.cuentasporpagar_fisicas) {
@@ -3769,7 +4013,7 @@ function formatAmount( number, simbol ) {
             />
           }
 
-          {permiso([1,2]) && viewmainPanel === "nomina" &&
+          {permiso([1,2,5]) && viewmainPanel === "nomina" &&
             <NominaHome
               subViewNomina={subViewNomina}
               setsubViewNomina={setsubViewNomina}
@@ -3782,6 +4026,7 @@ function formatAmount( number, simbol ) {
                 >
                   {subViewNominaGestion === "personal" &&
                     <NominaPersonal
+                      activarPersonal={activarPersonal}
                       nominaNombre={nominaNombre}
                       setnominaNombre={setnominaNombre}
                       nominaCedula={nominaCedula}
@@ -3871,6 +4116,34 @@ function formatAmount( number, simbol ) {
               }
             </NominaHome>
           }
+
+          {permiso([1]) && viewmainPanel === "alquileres" &&
+            <Alquileres
+              alquileresData={alquileresData}
+              alquileresq={alquileresq}
+              setalquileresq={setalquileresq}
+              alquileresq_sucursal={alquileresq_sucursal}
+              setalquileresq_sucursal={setalquileresq_sucursal}
+              getAlquileres={getAlquileres}
+              sucursales={sucursales}
+              sendalquilerdesc={sendalquilerdesc}
+              setsendalquilerdesc={setsendalquilerdesc}
+              sendalquilermonto={sendalquilermonto}
+              setsendalquilermonto={setsendalquilermonto}
+              sendalquilersucursal={sendalquilersucursal}
+              setsendalquilersucursal={setsendalquilersucursal}
+              setNewAlquiler={setNewAlquiler}
+
+              sendalquilerid={sendalquilerid}
+              setsendalquilerid={setsendalquilerid}
+              subviewAlquileres={subviewAlquileres}
+              setsubviewAlquileres={setsubviewAlquileres}
+              colorSucursal={colorSucursal}
+              delAlquiler={delAlquiler}
+              moneda={moneda}
+            />
+          }
+
           {permiso([1]) && viewmainPanel === "usuarios" &&
             <Usuarios
               usuarioNombre={usuarioNombre}
@@ -3929,6 +4202,7 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
             <Auditoria
+              categoriasCajas={categoriasCajas }
               permiso={permiso}
               getBancoName={getBancoName}
               setqestatusaprobaciocaja={setqestatusaprobaciocaja }
@@ -3977,7 +4251,7 @@ function formatAmount( number, simbol ) {
               setSaldoActualSelectAuditoria={setSaldoActualSelectAuditoria}
               getMetodosPago={getMetodosPago}
               getBancosData={getBancosData}
-              getCatGeneralFun={getCatGeneralFun}
+              colorsGastosCat={colorsGastosCat}
               getCatCajas={getCatCajas}
               sucursales={sucursales}
 
@@ -3999,7 +4273,7 @@ function formatAmount( number, simbol ) {
               setcuentasPagosTipo={setcuentasPagosTipo}
               cuentasPagosCategoria={cuentasPagosCategoria}
               setcuentasPagosCategoria={setcuentasPagosCategoria}
-              categoriaMovBanco={categoriaMovBanco}
+              categoriasCajas={categoriasCajas}
               number={number}
               moneda={moneda}
               movimientoAuditoria={movimientoAuditoria}
@@ -4472,6 +4746,69 @@ function formatAmount( number, simbol ) {
             </>
           }
           
+          {permiso([1]) && viewmainPanel === "pedidos" &&
+          <>
+            <Comprasmenufactsdigital 
+              viewmainPanel={viewmainPanel}
+              setviewmainPanel={setviewmainPanel}
+              permiso={permiso}
+            />
+            <Pedidos 
+              inputBuscarInventario={inputBuscarInventario}
+              qBuscarInventario={qBuscarInventario}
+              setQBuscarInventario={setQBuscarInventario}
+              Invnum={Invnum}
+              setInvnum={setInvnum}
+              InvorderColumn={InvorderColumn}
+              setInvorderColumn={setInvorderColumn}
+              InvorderBy={InvorderBy}
+              setInvorderBy={setInvorderBy}
+              productosInventario={productosInventario}
+              indexSelectCarrito={indexSelectCarrito}
+              setindexSelectCarrito={setindexSelectCarrito}
+              showCantidadCarritoFun={showCantidadCarritoFun}
+              showCantidadCarrito={showCantidadCarrito}
+              setshowCantidadCarrito={setshowCantidadCarrito}
+              sucursales={sucursales}
+              ctSucursales={ctSucursales}
+              setctSucursales={setctSucursales}
+              number={number}
+              setCarrito={setCarrito}
+              pedidoList={pedidoList}
+              id_pedido={id_pedido}
+              setid_pedido={setid_pedido}
+              qpedido={qpedido}
+              setqpedido={setqpedido}
+              qpedidoDateFrom={qpedidoDateFrom}
+              setqpedidoDateFrom={setqpedidoDateFrom}
+              qpedidoDateTo={qpedidoDateTo}
+              setqpedidoDateTo={setqpedidoDateTo}
+              qpedidoOrderBy={qpedidoOrderBy}
+              setqpedidoOrderBy={setqpedidoOrderBy}
+              qpedidoOrderByDescAsc={qpedidoOrderByDescAsc}
+              setqpedidoOrderByDescAsc={setqpedidoOrderByDescAsc}
+              pedidos={pedidos}
+              setpedidos={setpedidos}
+              pedidoData={pedidoData}
+              setpedidoData={setpedidoData}
+              qestadopedido={qestadopedido}
+              setqestadopedido={setqestadopedido}
+              getPedidos={getPedidos}
+              delPedido={delPedido}
+              selectPedido={selectPedido}
+              moneda={moneda}
+              setDelCarrito={setDelCarrito}
+              setCtCarrito={setCtCarrito}
+              setProdCarritoInterno={setProdCarritoInterno}
+              sendPedidoSucursal={sendPedidoSucursal}
+              showPedidoBarras={showPedidoBarras}
+              aprobarRevisionPedido={aprobarRevisionPedido}
+            >
+              
+            </Pedidos>
+          </>
+
+          }
           {permiso([1,10]) && viewmainPanel === "cargarfactsitems" &&
             <>
               <Comprasmenufactsdigital 
@@ -4481,6 +4818,13 @@ function formatAmount( number, simbol ) {
               />
               {subViewInventario == "gestion" ?
                 <ComprascargarFactsItems
+                  procesarTextitemscompras={procesarTextitemscompras}
+                  subviewcargaritemsfact={subviewcargaritemsfact}
+                  setsubviewcargaritemsfact={setsubviewcargaritemsfact}
+                  showtextarea={showtextarea}
+                  setshowtextarea={setshowtextarea}
+                  inputimportitems={inputimportitems}
+                  setinputimportitems={setinputimportitems}
                   showFilescxp={showFilescxp}
                   modItemFact={modItemFact}
                   delItemFact={delItemFact}
@@ -4655,6 +4999,11 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5]) && viewmainPanel === "gastos" && 
             <Gastos
+              getGastosDistribucion={getGastosDistribucion}
+              distribucionGastosCat={distribucionGastosCat}
+              categoriasCajas={categoriasCajas}
+              colorsGastosCat={colorsGastosCat}
+              colorSucursal={colorSucursal}
               setlistBeneficiario={setlistBeneficiario}
               addBeneficiarioList={addBeneficiarioList}
               listBeneficiario={listBeneficiario}
@@ -4665,9 +5014,20 @@ function formatAmount( number, simbol ) {
               formatAmount={formatAmount}
               nominaData={nominaData}
 
-              categoriaMovBanco={categoriaMovBanco}
               gastosData={gastosData}
               setgastosData={setgastosData}
+
+              gastoscatgeneral={gastoscatgeneral}
+              setgastoscatgeneral={setgastoscatgeneral}
+              gastosingreso_egreso={gastosingreso_egreso}
+              setgastosingreso_egreso={setgastosingreso_egreso}
+              gastostypecaja={gastostypecaja}
+              setgastostypecaja={setgastostypecaja}
+              gastosorder={gastosorder}
+              setgastosorder={setgastosorder}
+              gastosfieldorder={gastosfieldorder}
+              setgastosfieldorder={setgastosfieldorder}
+
               gastosQ={gastosQ}
               setgastosQ={setgastosQ}
               gastosQCategoria={gastosQCategoria}
@@ -4773,11 +5133,7 @@ function formatAmount( number, simbol ) {
             />
           }
 
-          {permiso([1]) && viewmainPanel === "enviar" &&
-            <Pedidos >
-              
-            </Pedidos>
-          }
+          
 
 
           
@@ -4838,7 +5194,7 @@ function formatAmount( number, simbol ) {
               setSaldoInicialSelectAuditoria={setSaldoInicialSelectAuditoria}
               SaldoActualSelectAuditoria={SaldoActualSelectAuditoria}
               setSaldoActualSelectAuditoria={setSaldoActualSelectAuditoria}
-              getCatGeneralFun={getCatGeneralFun}
+              colorsGastosCat={colorsGastosCat}
               getCatCajas={getCatCajas}
 
             >

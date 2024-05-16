@@ -24,7 +24,7 @@ export default function Auditoria({
     
     getMetodosPago,
     getBancosData,
-    getCatGeneralFun,
+    colorsGastosCat,
     getCatCajas,
 
     bancosdata,
@@ -43,7 +43,6 @@ export default function Auditoria({
     setcuentasPagosTipo,
     cuentasPagosCategoria,
     setcuentasPagosCategoria,
-    categoriaMovBanco,
     number,
     moneda,
     selectxMovimientos,
@@ -96,11 +95,11 @@ export default function Auditoria({
     setcuentasPagosPuntooTranfe,
     cuentasPagosSucursal,
     setcuentasPagosSucursal,
+    categoriasCajas,
 }){
     useEffect(()=>{
         getMetodosPago()
         getBancosData()
-        getCatGeneralFun()
         getCatCajas()
         getSucursales()
         setsubviewpanelsucursales("aprobtransferencia")
@@ -133,11 +132,8 @@ export default function Auditoria({
 
 
     const getCat = id => {
-        let fil = categoriaMovBanco.filter(e=>e.id==id)
-        if (fil.length) {
-            return fil[0].descripcion
-        }
-        return "0"
+        
+        return id
     }
 
     const [nummm, setnummm] = useState(0)
@@ -243,8 +239,8 @@ export default function Auditoria({
                                         value={cuentasPagosCategoria} 
                                         onChange={e=>setcuentasPagosCategoria(e.target.value)}>
                                             <option value="">-Categoría-</option>
-                                            {categoriaMovBanco.map(e=>
-                                                <option value={e.id} key={e.id}>{e.descripcion}</option>
+                                            {categoriasCajas.map(e=>
+                                                <option value={e.id} key={e.id}>{e.nombre}</option>
                                             )}
                                         </select>
                                     </div>

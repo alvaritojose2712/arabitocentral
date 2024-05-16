@@ -62,6 +62,7 @@ export default function ComprasCargarFactsFisica({
                         <th>PROVEEDOR</th>
                         <th>SUCURSAL</th>
                         <td></td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,6 +88,9 @@ export default function ComprasCargarFactsFisica({
                             </td>
                             <td className="text-center">
                                 <img src={e.ruta} width={200} onClick={()=>showFilescxp(e.ruta)} className="pointer"/>
+                            </td>
+                            <td>
+                                <button className="btn btn-danger" onClick={()=>delFilescxp(e.id)} data-numfact={e.numfact}><i className="fa fa-times"></i></button>
                             </td>
                         </tr>
                     ):null:null}

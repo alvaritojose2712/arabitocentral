@@ -54,7 +54,7 @@ export default function Comprascargarfacts({
                     <b className="label-text">
                         NÚMERO DE FACTURA
                     </b>
-                    <input className="form-control w-30 fs-2 text-success" placeholder="Número completo de Factura..." onChange={event=>setfactNumfact(event.target.value)} value={factNumfact}/>
+                    <input className="form-control fs-2 text-success" placeholder="Número completo de Factura..." onChange={event=>setfactNumfact(event.target.value)} value={factNumfact}/>
                 </div>
             </div>
 

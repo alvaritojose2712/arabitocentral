@@ -107,7 +107,25 @@ export default function AprobacionCajaFuerte({
                     </div> 
                     <div className="card-body d-flex justify-content-between">
                         <button className="btn btn-sm btn-danger" onClick={()=>aprobarMovCajaFuerte(e.id,"delete")}><i className="fa fa-times"></i></button>
-                        <button className="btn btn-sm btn-success" onClick={()=>aprobarMovCajaFuerte(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></button>
+                        {e.id_sucursal_destino?
+                            (e.sucursal_destino_aprobacion==1?
+
+                                <>
+                                    <div className="btn-group">
+                                        <button className="btn btn-danger">ENVIA {e.sucursal.codigo}</button>
+                                        <button className="btn btn-success">RECIBE {e.destino?e.destino.codigo:null}</button>
+                                    </div>
+                                    <button className="btn btn-sm btn-success" onClick={()=>aprobarMovCajaFuerte(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></button>
+                                </>
+                                :
+                                <button className="btn btn-sm btn-warning">ESPERANDO APROBACIÓN DEL RECEPTOR <i className="fa fa-clock-o"></i></button>
+                                
+                            )
+                        :
+                            
+                            <button className="btn btn-sm btn-success" onClick={()=>aprobarMovCajaFuerte(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></button>
+                        }
+                           
                     </div>
                         
                 </div>

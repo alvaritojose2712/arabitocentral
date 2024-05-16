@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlquileresController;
 use App\Http\Controllers\BancosController;
 use App\Http\Controllers\BancosListController;
 use App\Http\Controllers\CajasAprobacionController;
@@ -108,12 +109,16 @@ Route::post('setEstadisticas', [InventarioSucursalController::class,"setEstadist
 
 
 Route::post('getNomina', [NominaController::class,"getNomina"]);
+Route::post('getAlquileresSucursal', [AlquileresController::class,"getAlquileresSucursal"]);
+
 Route::get('getCatCajas', [CatcajasController::class,"getCatCajas"]);
 
 
 Route::get('getFallas', [FallasController::class,"getFallas"]);
 
 Route::post('getGastos', [PuntosybiopagosController::class,"getGastos"]);
+Route::post('getGastosDistribucion', [PuntosybiopagosController::class,"getGastosDistribucion"]);
+
 Route::post('delGasto', [PuntosybiopagosController::class,"delGasto"]);
 Route::post('saveNewGasto', [PuntosybiopagosController::class,"saveNewGasto"]);
 
@@ -215,11 +220,81 @@ Route::get('metodos',  function() {
 });
 
 
+Route::get('categoriasgastos',  function() {
+    
+    $data = [["1","CAJA CHICA: EFECTIVO ADICIONAL","0","9","4"],
+    ["2","CAJA CHICA: CENA NOCTURNA","0","2","0"],
+    ["3","CAJA CHICA: TORTA DE CUMPLEAÑOS","0","2","0"],
+    ["4","CAJA CHICA: ALMUERZO DE TRABAJADOR","0","2","0"],
+    ["5","CAJA CHICA: EXAMENES MEDICOS","0","2","0"],
+    ["6","CAJA CHICA: LIMPIEZA: CLORO, JABON, AROMATIZANTE, CERA","0","2","0"],
+    ["7","CAJA CHICA: LIMPIEZA: COLETO, CEPILLOS, PALAS, TRAPOS, PAPEL HIGIENICO","0","2","0"],
+    ["8","CAJA CHICA: VASOS PARA CAFE","0","2","0"],
+    ["9","CAJA CHICA: VASOS PARA PANELADA","0","2","0"],
+    ["10","CAJA CHICA: BOLSAS","0","2","0"],
+    ["11","CAJA CHICA: AZUCAR","0","2","0"],
+    ["12","CAJA CHICA: CAFE","0","2","0"],
+    ["13","CAJA CHICA: PANELADA O JUGO","0","2","0"],
+    ["14","CAJA CHICA: PAPELERIA: HOJAS, CARTULINA, FOTOCOPIAS, MARCADORES","0","2","0"],
+    ["15","CAJA CHICA: AGUA: BOTELLON","0","2","0"],
+    ["16","CAJA CHICA: AGUA: HIELO","0","2","0"],
+    ["17","CAJA CHICA: AGUA: CISTERNA","0","2","0"],
+    ["18","CAJA CHICA: SUMINISTROS CASA IMPORTADOS","0","2","0"],
+    ["19","CAJA CHICA: CALETEROS","0","2","0"],
+    ["20","CAJA CHICA: COLABORACION SUCURSAL","0","2","0"],
+    ["21","CAJA CHICA: REPARACIONES Y MANTENIMIENTO","0","2","0"],
+    ["22","CAJA CHICA: TRANSPORTE: TAXI Y MOTOTAXI","0","2","0"],
+    ["23","CAJA CHICA: TRANSPORTE: COMBUSTIBLE","0","2","0"],
+    ["24","CAJA CHICA: TRANSPORTE: REPARACION DE VEHICULOS","0","2","0"],
+    ["25","CAJA CHICA: TRASPASO A CAJA FUERTE","0","5","2"],
+    ["26","INGRESO DESDE CIERRE","1","1","1"],
+    ["27","CAJA FUERTE: EFECTIVO ADICIONAL","1","8","4"],
+    ["28","CAJA FUERTE: NOMINA ABONO","1","8","4"],
+    ["29","CAJA FUERTE: NOMINA QUINCENA","1","2","0"],
+    ["30","CAJA FUERTE: NOMINA PRESTAMO","1","2","0"],
+    ["31","CAJA FUERTE: SERVICIOS: ELECTRICIDAD","1","2","0"],
+    ["32","CAJA FUERTE: SERVICIOS: AGUA","1","2","0"],
+    ["33","CAJA FUERTE: SERVICIOS: INTERNET","1","2","0"],
+    ["34","CAJA FUERTE: ALQUILER","1","2","0"],
+    ["35","CAJA FUERTE: TALONARIOS, SELLOS, ETC","1","2","0"],
+    ["36","CAJA FUERTE: COLABORACIONES GENERAL (TODAS SUCURSALES)","1","3","0"],
+    ["37","CAJA FUERTE: TRANSPORTE: COMBUSTIBLE (TODAS SUCURSALES)","1","3","0"],
+    ["38","CAJA FUERTE: TRANSPORTE: REPARACION DE VEHICULOS (TODAS SUCURSALES)","1","3","0"],
+    ["39","CAJA FUERTE: TRANSPORTE: VIATICOS Y PEAJES (TODAS SUCURSALES)","1","3","0"],
+    ["40","CAJA FUERTE: PAGO PROVEEDOR","1","0","0"],
+    ["41","CAJA FUERTE: FDI","1","7","3"],
+    ["42","CAJA FUERTE: TRASPASO A CAJA MATRIZ (RAID RETIRA)","1","6","3"],
+    ["43","CAJA FUERTE: TRANSFERENCIA TRABAJADOR","1","4","2"],
+    ["44","CAJA FUERTE: TRASPASO A CAJA CHICA","1","5","2"],
+    ["45","CAJA FUERTE: EGRESO TRANSFERENCIA SUCURSAL","1","10","2"],
+    ["46","CAJA FUERTE: INGRESO TRANSFERENCIA SUCURSAL","1","10","2"]];
+    DB::table("catcajas")->truncate();
+
+    foreach ($data as $i => $e) {
+        DB::table("catcajas")->insert([
+            [
+                "id" => $e[0],
+                "nombre" => $e[1],
+                "tipo" => $e[2],
+                "catgeneral" => $e[3],
+                "ingreso_egreso" => $e[4],
+            ],
+        ]); 
+    }
+});
+
+
+
+
 
 Route::post('setAll', [CierresController::class,"setAll"]);
 Route::post('setPermisoCajas', [CajasAprobacionController::class,"setPermisoCajas"]);
+Route::post('checkDelMovCajaCentral', [CajasAprobacionController::class,"checkDelMovCajaCentral"]);
+
 Route::post('aprobarMovCajaFuerte', [CajasAprobacionController::class,"aprobarMovCajaFuerte"]);
 Route::post('verificarMovPenControlEfec', [CajasAprobacionController::class,"verificarMovPenControlEfec"]);
+Route::post('aprobarRecepcionCaja', [CajasAprobacionController::class,"aprobarRecepcionCaja"]);
+
 Route::post('delCuentaPorPagar', [CuentasporpagarController::class,"delCuentaPorPagar"]);
 
 Route::post('delFilescxp', [CuentasporpagarFisicasController::class,"delFilescxp"]);
@@ -236,7 +311,14 @@ Route::post('changeSucursal', [CuentasporpagarController::class,"changeSucursal"
 Route::post('saveFacturaLote', [CuentasporpagarController::class,"saveFacturaLote"]);
 Route::post('sendlistdistribucionselect', [CuentasporpagarController::class,"sendlistdistribucionselect"]);
 
+//ALQUILERES
+Route::post('getAlquileres', [AlquileresController::class,"getAlquileres"]);
+Route::post('setNewAlquiler', [AlquileresController::class,"setNewAlquiler"]);
+Route::post('delAlquiler', [AlquileresController::class,"delAlquiler"]);
 
+
+
+///END ALQUILERES
 
 Route::post('sendsaldoactualbancofecha', [BancosController::class,"sendsaldoactualbancofecha"]);
 Route::post('reverserLiquidar', [PuntosybiopagosController::class,"reverserLiquidar"]);
@@ -273,6 +355,8 @@ Route::post('setCtCarrito', [PedidosController::class,"setCtCarrito"]);
 Route::post('setDelCarrito', [PedidosController::class,"setDelCarrito"]);
 
 Route::post('sendPedidoSucursal', [PedidosController::class,"sendPedidoSucursal"]);
+Route::post('aprobarRevisionPedido', [PedidosController::class,"aprobarRevisionPedido"]);
+
 Route::get('showPedidoBarras', [PedidosController::class,"showPedidoBarras"]);
 
 Route::post('getPedidoPendSucursal', [PedidosController::class,"getPedidoPendSucursal"]);
@@ -280,11 +364,12 @@ Route::post('extraerPedidoPendSucursal', [PedidosController::class,"extraerPedid
 
 Route::post('sendInventario', [InventarioController::class,"sendInventario"]);
 
+Route::post('sendItemsPedidosChecked', [ItemsPedidosController::class,"sendItemsPedidosChecked"]);
 
+Route::post('guardarNuevoProductoLote', [InventarioSucursalController::class,"guardarNuevoProductoLote"]);
+Route::post('getinventario', [InventarioSucursalController::class,"index"]);
 
-Route::post('getinventario', [InventarioController::class,"index"]);
 Route::post('guardarNuevoProducto', [InventarioController::class,"guardarNuevoProducto"]);
-Route::post('guardarNuevoProductoLote', [InventarioController::class,"guardarNuevoProductoLote"]);
 Route::post('delProducto', [InventarioController::class,"delProducto"]);
 Route::post('getFallas', [InventarioController::class,"getFallas"]);
 Route::post('setFalla', [InventarioController::class,"setFalla"]);
@@ -318,6 +403,8 @@ Route::post('delCategoria', [CategoriasController::class,"delCategoria"]);
 Route::post('setCategorias', [CategoriasController::class,"setCategorias"]);
 
 Route::get('getCatGenerals', [CatGeneralsController::class,"getCatGenerals"]);
+Route::get('importarusers', [UsuariosController::class,"importarusers"]);
+
 Route::post('delCatGeneral', [CatGeneralsController::class,"delCatGeneral"]);
 Route::post('setCatGenerals', [CatGeneralsController::class,"setCatGenerals"]);
 
@@ -380,6 +467,8 @@ Route::post('getsucursalDetallesData', [CierresController::class,"getsucursalDet
 Route::post('delPersonalNomina', [NominaController::class,"delPersonalNomina"]);
 Route::post('getPersonalNomina', [NominaController::class,"getPersonalNomina"]);
 Route::post('setPersonalNomina', [NominaController::class,"setPersonalNomina"]);
+Route::post('activarPersonal', [NominaController::class,"activarPersonal"]);
+
 
 Route::post('delPersonalCargos', [NominacargosController::class,"delPersonalCargos"]);
 Route::post('getPersonalCargos', [NominacargosController::class,"getPersonalCargos"]);

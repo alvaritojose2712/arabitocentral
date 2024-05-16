@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 export default function Gastos({
+	categoriasCajas,
 	formatAmount,
 	nominaData,
-	categoriaMovBanco,
 	gastosData,
 	gastosQ,
 	setgastosQ,
@@ -12,6 +12,18 @@ export default function Gastos({
 	setgastosQFecha,
 	gastosQFechaHasta,
 	setgastosQFechaHasta,
+
+	gastoscatgeneral,
+	setgastoscatgeneral,
+	gastosingreso_egreso,
+	setgastosingreso_egreso,
+	gastostypecaja,
+	setgastostypecaja,
+	gastosorder,
+	setgastosorder,
+	gastosfieldorder,
+	setgastosfieldorder,
+	
 
 	gastosDescripcion,
 	setgastosDescripcion,
@@ -63,6 +75,11 @@ export default function Gastos({
 	setgastosBanco,
 	opcionesMetodosPago,
 	moneda,
+	colorSucursal,
+	colorsGastosCat,
+
+	distribucionGastosCat,
+	getGastosDistribucion,
 
 }) {
 
@@ -98,8 +115,10 @@ export default function Gastos({
 		getGastos()
 	},[
 		gastosQCategoria,
-		gastosQFecha,
-		gastosQFechaHasta,
+		gastoscatgeneral,
+		gastosingreso_egreso,
+		gastosorder,
+		gastosfieldorder,
 	])
 
 	useEffect(()=>{
@@ -108,11 +127,12 @@ export default function Gastos({
 
 	
 	return(
-		<div className="container">
+		<div className="container-fluid">
 			<div className="d-flex justify-content-center">
                 <div className="btn-group m-1">
                     <button className={("btn btn-sm ")+(subviewGastos=="cargar"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargar")}>Cargar</button>
-                    <button className={("btn btn-sm ")+(subviewGastos=="resumen"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("resumen")}>Resumen</button>
+                    <button className={("btn btn-sm ")+(subviewGastos=="resumen"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("resumen")}>Destalles</button>
+                    <button className={("btn btn-sm ")+(subviewGastos=="distribucion"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("distribucion")}>Resumen</button>
                 </div>
             </div>
 
@@ -174,8 +194,8 @@ export default function Gastos({
 						value={gastosCategoria} 
 						onChange={e=>setgastosCategoria(e.target.value)} required={true}>
 							<option value="">-Categoría-</option>
-							{categoriaMovBanco.map(e=>
-								<option value={e.id} key={e.id}>{e.descripcion}</option>
+							{categoriasCajas.map(e=>
+								<option value={e.id} key={e.id}>{e.nombre}</option>
 							)}
 						</select>
 					</div>
@@ -262,7 +282,7 @@ export default function Gastos({
 							value={gastosQCategoria} 
 							onChange={e=>setgastosQCategoria(e.target.value)}>
 								<option value="">-Buscar por Categoría-</option>
-								{categoriaMovBanco.map(e=>
+								{categoriasCajas.map(e=>
 									<option value={e.id} key={e.id}>{e.descripcion}</option>
 								)}
 							</select>
@@ -276,37 +296,159 @@ export default function Gastos({
 					<table className="table">
 						<thead>
 							<tr>
-								<th>FECHA</th>
-								<th>DESCRIPCIÓN</th>
-								<th>MONTO</th>
-								<th className="bg-warning text-danger fs-3 text-right">
-								{gastosData?gastosData.sum?(
-									<span>
-										{moneda(gastosData.sum)}
-									</span>
-								):null:null}
-								</th>
-
-								<th>SUCURSAL / PERSONA</th>
+								<th className="pointer" onClick={()=>{setgastosfieldorder("created_at");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>FECHA</th>
+								<th className="pointer" onClick={()=>{setgastosfieldorder("id_sucursal");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>SUCURSAL / PERSONA</th>
+								<th className="pointer">DESCRIPCIÓN</th>
+								{/* <th className="bg-warning text-danger fs-3 text-right">
+									{gastosData?gastosData.sum?(
+										<span>
+											{moneda(gastosData.sum)}
+										</span>
+									):null:null}
+								</th> */}
+								<th className="pointer text-center" onClick={()=>{setgastosfieldorder("categoria");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CATEGORÍA</th>
+								<th className="pointer text-center" onClick={()=>{setgastosfieldorder("catgeneral");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CATGENERAL</th>
+								<th className="pointer text-center" onClick={()=>{setgastosfieldorder("ingreso_egreso");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>TIPO</th>
+								<th className="pointer text-right" onClick={()=>{setgastosfieldorder("montodolar");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>MONTO</th>
 							</tr>
 						</thead>
 						<tbody>
 							{gastosData?gastosData.data?gastosData.data.map(e=>
 								<tr key={e.id}>
 									<td>{e.created_at}</td>
-									<td>{e.loteserial}</td>
-									<td className="text-danger fs-4 text-right" colSpan={2}>
-										{e.monto_liquidado!=0?("Bs. "+moneda(e.monto_liquidado)+" / "+e.tasa+" = $ "+moneda(e.bs)):""}
-										{e.monto_dolar!=0?"$ "+moneda(e.monto_dolar):""}
-									</td>
-									<td>
-										{e.sucursal?e.sucursal.codigo:null}
+									<td className="text-center">
+										{e.sucursal?
+											<>
+												<button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
+													{e.sucursal.codigo}
+												</button>
+												{e.origen? <b>CARGA ADMINISTRACIÓN</b> :null}
+											</>
+										:null}
 										{e.beneficiario?" / "+e.beneficiario.nominanombre:null}
 									</td>
+									
+									<td>{e.concepto?e.concepto:(e.loteserial?e.loteserial:null)}</td>
+									<td> 
+										{e.cat?
+											<button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorsGastosCat(e.cat.id,"cat","color")}}>
+												{colorsGastosCat(e.cat.id,"cat","desc")}
+											</button>
+										:null}
+									</td>
+									<td> 
+										{e.cat?
+											<button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorsGastosCat(e.cat.catgeneral,"catgeneral","color")}}>
+												{colorsGastosCat(e.cat.catgeneral,"catgeneral","desc")}
+											</button>
+										:null}
+									</td>
+									<td> 
+										{e.cat?
+											<button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorsGastosCat(e.cat.ingreso_egreso,"ingreso_egreso","color")}}>
+												{colorsGastosCat(e.cat.ingreso_egreso,"ingreso_egreso","desc")}
+											</button>
+										:null}
+									</td>
+									
+									<td className={("fs-3 text-right ")+(e.montodolar<0?"text-danger":"text-success")}>{moneda(e.montodolar)}</td>
 								</tr>
 							):null:null}
 						</tbody>
 					</table>
+				</>
+			:null}
+
+			{subviewGastos=="distribucion"?
+				<>
+					<form onSubmit={event=>{
+						event.preventDefault()
+						getGastosDistribucion()
+					}}>
+						<div className="input-group">
+							<input type="date" className="form-control fs-3" value={gastosQFecha} onChange={e=>setgastosQFecha(e.target.value)} />
+							<input type="date" className="form-control fs-3" value={gastosQFechaHasta} onChange={e=>setgastosQFechaHasta(e.target.value)} />
+
+							<button className="btn btn-success"><i className="fa fa-search"></i></button>
+						</div>
+					</form>
+
+					<div className="row">
+						<div className="col">
+							<div className="container-fluid">
+								<div className="row">
+									<div className="col">
+									{distribucionGastosCat.distribucionGastosCat?
+										Object.entries(distribucionGastosCat.distribucionGastosCat).map((ingregre,i)=>
+											<table className="table mb-2">
+												<tbody>
+													{ingregre[1]["data"].map(e=>
+														<tr key={e.id}>
+															<td className="cell3">
+																<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(ingregre[0],"ingreso_egreso","color")}}>
+																	{colorsGastosCat(ingregre[0],"ingreso_egreso","desc")}
+																</button>
+															</td>
+															<td className="cell5">
+																<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.id,"cat","color")}}>
+																	{e.nombre}
+																</button>
+															</td>
+															<td className="fs-3 text-right text-danger cell1">{moneda(e.sum)}</td>
+															<td className="text-muted fst-italic text-right cell1">{(e.por)}%</td>
+														</tr>
+													)}
+													<tr>
+														<td></td>
+														<td></td>
+														<td colSpan={2} className="bg-warning fs-3 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
+													</tr>
+												</tbody>
+											</table>
+										)
+									:null}
+									</div>
+									
+								</div>
+							</div>
+						</div>
+						<div className="col">
+							<div className="container-fluid">
+								<div className="col">
+								{distribucionGastosCat.distribucionGastosSucursal?
+										Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>
+											<table className="table mb-3">
+												<tbody>
+													{ingregre[1]["data"].map(e=>
+														<tr key={e.id}>
+															<td className=" cell3">
+																<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(ingregre[0],"ingreso_egreso","color")}}>
+																	{colorsGastosCat(ingregre[0],"ingreso_egreso","desc")}
+																</button>
+															</td>
+															<td className=" cell5">
+																<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.id,"cat","color")}}>
+																	{e.nombre}
+																</button>
+															</td>
+															<td className="fs-3 text-right text-danger cell1">{moneda(e.sum)}</td>
+															<td className="text-muted fst-italic text-right cell1">{(e.por)}%</td>
+														</tr>
+													)}
+													<tr>
+														<td></td>
+														<td></td>
+														<td colSpan={2} className="bg-warning fs-3 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
+													</tr>
+												</tbody>
+											</table>
+										)
+									:null}
+								</div>
+							</div>
+
+						</div>
+					</div>
 				</>
 			:null}
 			

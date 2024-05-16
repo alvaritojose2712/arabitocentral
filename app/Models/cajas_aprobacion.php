@@ -12,8 +12,13 @@ class cajas_aprobacion extends Model
         return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
     }
 
+    public function destino() { 
+        return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal_destino"); 
+    }
+    
+
     public function cat() { 
-        return $this->hasOne('App\Models\catcajas',"indice","categoria"); 
+        return $this->hasOne('App\Models\catcajas',"id","categoria"); 
     }
     protected function serializeDate(DateTimeInterface $date)
     {
@@ -35,5 +40,9 @@ class cajas_aprobacion extends Model
         "tipo",
         "id_sucursal",
         "idinsucursal",
+        "id_sucursal_destino",
+        "id_sucursal_emisora",
+        "sucursal_destino_aprobacion",
+        
     ];
 }

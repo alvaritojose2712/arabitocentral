@@ -63,12 +63,14 @@ export default function Pedidos({
 	setCtCarrito,
 	setProdCarritoInterno,
 	sendPedidoSucursal,
+	aprobarRevisionPedido,
 	showPedidoBarras,
+
 }){
 	return (
 		<>
-		<h3>Pedidos</h3>
-		{showCantidadCarrito=="buscar"?
+		
+		{/* {showCantidadCarrito=="buscar"?
 			<BuscarProductosCarrito
 				inputBuscarInventario={inputBuscarInventario}
 				qBuscarInventario={qBuscarInventario}
@@ -108,49 +110,55 @@ export default function Pedidos({
 				setid_pedido={setid_pedido}
 
 			/>
-		:null}
+		:null} */}
+		<div className="container">
+			<div className="btn-group mb-2">
+				{/* <button className="btn btn-sinapsis" onClick={()=>setshowCantidadCarrito("buscar")}>BUSCAR</button>
+				<button className="btn btn-sinapsis" onClick={()=>setshowCantidadCarrito("carrito")}>CARRITO</button> */}
+				<button className={"btn btn-"+(showCantidadCarrito=="procesar"?"":"outline-")+"sinapsis"} onClick={()=>setshowCantidadCarrito("procesar")}>PROCESAR</button>
+				<button className={"btn btn-"+(showCantidadCarrito=="pedidoSelect"?"":"outline-")+"sinapsis"} onClick={()=>setshowCantidadCarrito("pedidoSelect")}>PEDIDOSELECT</button>
+			</div>
+			{showCantidadCarrito=="procesar"?
+				<PedidosList
+					qpedido={qpedido}
+					setqpedido={setqpedido}
+					qpedidoDateFrom={qpedidoDateFrom}
+					setqpedidoDateFrom={setqpedidoDateFrom}
+					qpedidoDateTo={qpedidoDateTo}
+					setqpedidoDateTo={setqpedidoDateTo}
+					qpedidoOrderBy={qpedidoOrderBy}
+					setqpedidoOrderBy={setqpedidoOrderBy}
+					qpedidoOrderByDescAsc={qpedidoOrderByDescAsc}
+					setqpedidoOrderByDescAsc={setqpedidoOrderByDescAsc}
+					pedidos={pedidos}
+					setpedidos={setpedidos}
 
-		{showCantidadCarrito=="procesar"?
-			<PedidosList
-				qpedido={qpedido}
-				setqpedido={setqpedido}
-				qpedidoDateFrom={qpedidoDateFrom}
-				setqpedidoDateFrom={setqpedidoDateFrom}
-				qpedidoDateTo={qpedidoDateTo}
-				setqpedidoDateTo={setqpedidoDateTo}
-				qpedidoOrderBy={qpedidoOrderBy}
-				setqpedidoOrderBy={setqpedidoOrderBy}
-				qpedidoOrderByDescAsc={qpedidoOrderByDescAsc}
-				setqpedidoOrderByDescAsc={setqpedidoOrderByDescAsc}
-				pedidos={pedidos}
-				setpedidos={setpedidos}
+					qestadopedido={qestadopedido}
+					setqestadopedido={setqestadopedido}
 
-				qestadopedido={qestadopedido}
-				setqestadopedido={setqestadopedido}
+					getPedidos={getPedidos}
+					delPedido={delPedido}
+					selectPedido={selectPedido}
+					moneda={moneda}
 
-				getPedidos={getPedidos}
-				delPedido={delPedido}
-				selectPedido={selectPedido}
-				moneda={moneda}
+					setshowCantidadCarrito={setshowCantidadCarrito}
+				/>
+			:null}
+			{showCantidadCarrito=="pedidoSelect"?
+				<PedidoSelect
+					aprobarRevisionPedido={aprobarRevisionPedido}
+					setshowCantidadCarrito={setshowCantidadCarrito}
+					pedidoData={pedidoData}
+					setDelCarrito={setDelCarrito}
+					setCtCarrito={setCtCarrito}
+					delPedido={delPedido}
+					moneda={moneda}
+					sendPedidoSucursal={sendPedidoSucursal}
+					showPedidoBarras={showPedidoBarras}
+				/>
+			:null}
+		</div>
 
-				setshowCantidadCarrito={setshowCantidadCarrito}
-			/>
-		:null}
-
-		{showCantidadCarrito=="pedidoSelect"?
-			<PedidoSelect
-				setshowCantidadCarrito={setshowCantidadCarrito}
-				pedidoData={pedidoData}
-				setDelCarrito={setDelCarrito}
-				setCtCarrito={setCtCarrito}
-				delPedido={delPedido}
-				moneda={moneda}
-				sendPedidoSucursal={sendPedidoSucursal}
-				showPedidoBarras={showPedidoBarras}
-
-
-			/>
-		:null}
 			
 
 		</>

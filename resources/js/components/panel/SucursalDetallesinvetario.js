@@ -109,11 +109,7 @@ export default function SucursalDetallesinvetario({
                             <td className="">{e.descripcion}</td>
                             <td className="text-success">
                                 {e.precio}<br/>
-                                <span className="text-success">
-                                    {getPorGanacia(!e.precio?0:e.precio,!e.precio_base?0:e.precio_base)}
-                                </span>
-                                <br/>
-                                <div className="btn-group w-100">
+                               {/*  <div className="btn-group w-100">
                                     <span className="btn btn-outline-success btn-sm" 
                                     data-id={e.id} 
                                     data-type="p1" 
@@ -123,10 +119,15 @@ export default function SucursalDetallesinvetario({
                                     data-id={e.id} 
                                     data-type="p2" 
                                     >P2.<br/>{e.precio2}</span>
-                                </div>
+                                </div> */}
                             </td>
                             <th className="">{e.cantidad}</th>
-                            <td className="">{e.precio_base}</td>
+                            <td className="">
+                                {e.precio_base}
+                                <span className="text-success">
+                                    {getPorGanacia(!e.precio?0:e.precio,!e.precio_base?0:e.precio_base)}
+                                </span>
+                            </td>
                             <td className=""></td>
                             <td className="">{e.iva}</td>
                             <td className="">{e.updated_at}</td>

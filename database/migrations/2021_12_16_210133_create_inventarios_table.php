@@ -16,7 +16,7 @@ class CreateInventariosTable extends Migration
         Schema::create('inventarios', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string("codigo_barras");//->unique();
+            $table->string("codigo_barras")->nullable()->default(null);//->unique();
             $table->string("codigo_proveedor")->nullable()->default(null);
             $table->string("codigo_proveedor2")->nullable()->default(null);
 

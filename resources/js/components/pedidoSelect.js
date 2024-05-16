@@ -7,9 +7,10 @@ export default function PedidoSelect({
 	moneda,
 	sendPedidoSucursal,
 	showPedidoBarras,
+	aprobarRevisionPedido,
 }) {
 	return(
-		<div className="container-fluid">
+		<div className="container">
 			<div className="text-center"><i className="text-danger fa fa-times" onClick={()=>setshowCantidadCarrito("procesar")}></i></div>
 			{pedidoData?
 				pedidoData.sucursal?
@@ -45,7 +46,17 @@ export default function PedidoSelect({
 				<thead>
 					<tr>
 						<th className="cell2">Ct.</th>
+						<th className="cell2">Ct Real.</th>
+						
+						<th className="cell2">Barras</th>
+						<th className="cell2">Barras REAl</th>
+
+						<th className="cell2">Alterno</th>
+						<th className="cell2">Alterno REAl</th>
+						
 						<th className="cell4">Descripción <button className="btn btn-sm btn-outline-success" onClick={()=>setshowCantidadCarrito("buscar")}><i className="fa fa-plus"></i></button></th>
+						
+						
 						<th className="cell2">P.U.</th>
 						<th className="cell2 text-right">Tot.</th>
 					</tr>
@@ -58,9 +69,27 @@ export default function PedidoSelect({
 								<td className="align-middle cell2">
 									<span className="text-success fst-italic pointer" onClick={setCtCarrito} data-id={e.id}>{e.cantidad}</span>
 								</td>
+								<td className="align-middle cell2">
+									<span className="text-sinapsis fst-italic pointer" data-id={e.id}>{e.ct_real}</span>
+								</td>
+
+								<td className="align-middle cell2">
+									<span className="text-success fst-italic pointer" data-id={e.id}>{e.producto.codigo_barras}</span>
+								</td>
+								<td className="align-middle cell2">
+									<span className="text-sinapsis fst-italic pointer" data-id={e.id}>{e.barras_real}</span>
+								</td>
+
+								<td className="align-middle cell2">
+									<span className="text-success fst-italic pointer" data-id={e.id}>{e.producto.codigo_proveedor}</span>
+								</td>
+								<td className="align-middle cell2">
+									<span className="text-sinapsis fst-italic pointer" data-id={e.id}>{e.alterno_real}</span>
+								</td>
+
+
+
 								<td className="cell4"> 
-									<small className="text-muted fst-italic">{e.producto.codigo_barras}</small>
-									<br/>
 									<small>{e.producto.descripcion}</small> 
 								</td>
 								<td className="align-middle cell2">
@@ -85,7 +114,11 @@ export default function PedidoSelect({
 				:null}
 
 				<button className="btn btn-circle btn-xl m-3 btn-outline-success" title="Ver reporte sucursal" onClick={showPedidoBarras}><i className="fa fa-print fa-3x"></i></button>
-				<button className="btn btn-circle btn-xl m-3 btn-outline-success" title="Enviar a sucursal" onClick={sendPedidoSucursal}><i className="fa fa-send fa-3x"></i></button>
+				{pedidoData?
+					pedidoData.estado==3?
+						<button className="btn fs-3 m-3 btn-outline-success" title="Enviar a sucursal" onClick={aprobarRevisionPedido}>Aprobar Revisión</button>
+					:null
+				:null}
 			</div>
 		</div>
 	)

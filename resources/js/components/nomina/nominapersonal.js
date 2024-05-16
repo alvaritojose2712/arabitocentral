@@ -40,6 +40,7 @@ export default function NominaPersonal({
     subViewNominaGestion,
     getPersonalCargos,
 	getSucursales,
+	activarPersonal,
 }) {
 
     useEffect(() => {
@@ -273,6 +274,8 @@ export default function NominaPersonal({
                                                 <p className="card-text">
                                                 </p>
                                             </div>
+											<button onClick={()=>activarPersonal(e.id)} className={"btn "+(e.activo?"btn-success":"btn-danger")}>{e.activo?"ACTIVO":"INACTIVO"}</button>
+											
                                         </div>
                                     )
                                 : <div className='h3 text-center text-dark mt-2'><i>¡Sin resultados!</i></div>

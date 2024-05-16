@@ -654,17 +654,17 @@ class CierresController extends Controller
 
             if ($q["cat"]) {
                 
-                if (isset($categorias[$q["cat"]["indice"]])) {
-                    $categorias[$q["cat"]["indice"]] = [
+                if (isset($categorias[$q["cat"]["id"]])) {
+                    $categorias[$q["cat"]["id"]] = [
                         "categoria" => $q["categoria"],
                         "nombre" => $q["cat"]["nombre"],
-                        "montodolar" => $categorias[$q["cat"]["indice"]]["montodolar"] + ($q["montodolar"]),
-                        "montobs" => $categorias[$q["cat"]["indice"]]["montobs"] + ($q["montobs"]),
-                        "montopeso" => $categorias[$q["cat"]["indice"]]["montopeso"] + ($q["montopeso"]),
-                        "montoeuro" => $categorias[$q["cat"]["indice"]]["montoeuro"] + ($q["montoeuro"]),
+                        "montodolar" => $categorias[$q["cat"]["id"]]["montodolar"] + ($q["montodolar"]),
+                        "montobs" => $categorias[$q["cat"]["id"]]["montobs"] + ($q["montobs"]),
+                        "montopeso" => $categorias[$q["cat"]["id"]]["montopeso"] + ($q["montopeso"]),
+                        "montoeuro" => $categorias[$q["cat"]["id"]]["montoeuro"] + ($q["montoeuro"]),
                     ];
                 }else{
-                    $categorias[$q["cat"]["indice"]] = [
+                    $categorias[$q["cat"]["id"]] = [
                         "categoria" => $q["categoria"],
                         "nombre" => $q["cat"]["nombre"],
                         "montodolar" => $q["montodolar"],

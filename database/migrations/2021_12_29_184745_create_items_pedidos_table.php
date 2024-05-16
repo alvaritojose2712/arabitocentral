@@ -29,6 +29,12 @@ class CreateItemsPedidosTable extends Migration
             $table->decimal("cantidad",10,2);
             $table->decimal("descuento",10,2)->default(0);
             $table->decimal("monto",10,2);
+
+            $table->decimal("ct_real",12,2)->nullable()->default(null);
+            $table->string("barras_real")->nullable()->default(null);
+            $table->string("alterno_real")->nullable()->default(null);
+
+            
             $table->timestamps();
 
             $table->unique(["id_producto","id_pedido"]);

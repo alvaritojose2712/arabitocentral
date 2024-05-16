@@ -19,20 +19,23 @@ class CreateInventarioSucursalsTable extends Migration
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
 
-            $table->integer("idinsucursal");
+            $table->integer("idinsucursal")->nullable(true);
 
 
-            $table->string("codigo_barras");
+            $table->string("codigo_barras")->nullable()->default(null);//->unique();
             $table->string("codigo_proveedor")->nullable()->default(null);
+            $table->string("codigo_proveedor2")->nullable()->default(null);
 
             $table->integer("id_proveedor");
-            $table->integer("id_categoria");
-
+            
+            $table->integer("id_categoria")->nullable(true);
+            $table->integer("id_catgeneral")->nullable(true);
             $table->string("id_marca")->nullable()->default("GENÉRICO");
+            $table->string("id_deposito")->nullable()->default(1);
+
 
             $table->string("unidad")->nullable()->default("UND");
 
-            $table->string("id_deposito")->nullable()->default(1);
 
             
             
@@ -57,7 +60,20 @@ class CreateInventarioSucursalsTable extends Migration
             $table->boolean("push")->nullable()->default(0);
 
             $table->integer('id_vinculacion')->nullable();
-            $table->unique(["id_sucursal","idinsucursal"]);
+            $table->unique(["id_sucursal","idinsucursal"]);   
+            
+
+            $table->string("n1")->nullable(true);
+            $table->foreign('n1')->references('nombre')->on('productonombre1s');
+
+            $table->string("n2")->nullable(true);
+            $table->foreign('n2')->references('nombre')->on('productonombre2s');
+
+            $table->string("n3")->nullable(true);
+            $table->foreign('n3')->references('nombre')->on('productonombre3s');
+
+            $table->string("n4")->nullable(true);
+            $table->foreign('n4')->references('nombre')->on('productonombre4s');
 
             
             $table->timestamps();

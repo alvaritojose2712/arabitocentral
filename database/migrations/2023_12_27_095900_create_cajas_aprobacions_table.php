@@ -36,6 +36,11 @@ class CreateCajasAprobacionsTable extends Migration
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
             
             $table->integer("idinsucursal");
+            
+            $table->integer("id_sucursal_destino")->nullable(true)->default(null);
+            $table->integer("id_sucursal_emisora")->nullable(true)->default(null);
+
+            $table->integer("sucursal_destino_aprobacion")->nullable(true)->default(null);
 
             $table->unique(["id_sucursal","idinsucursal"]);
             $table->timestamps();

@@ -25,17 +25,31 @@ class inventario_sucursal extends Model
 	public function sucursal() { 
         return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
     }
+
+
+   
+    public function catgeneral() { 
+        return $this->hasOne(\App\Models\CatGenerals::class,"id","id_catgeneral"); 
+    }
+
+    public function sucursales() { 
+        return $this->hasMany('App\Models\inventario_sucursal',"id_vinculacion","id"); 
+
+    }
     
     protected $fillable = [
-    	"idinsucursal",
+    	"id",
         "id_sucursal",
+        "idinsucursal",
         "codigo_barras",
         "codigo_proveedor",
+        "codigo_proveedor2",
         "id_proveedor",
         "id_categoria",
+        "id_catgeneral",
         "id_marca",
-        "unidad",
         "id_deposito",
+        "unidad",
         "descripcion",
         "iva",
         "porcentaje_ganancia",
@@ -50,7 +64,9 @@ class inventario_sucursal extends Model
         "cantidad",
         "push",
         "id_vinculacion",
-
-
+        "n1",
+        "n2",
+        "n3",
+        "n4",
     ];
 }

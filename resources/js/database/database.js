@@ -16,6 +16,9 @@ const db = {
   aprobarTransferenciaFun: data=>axios.post(host+"aprobarTransferenciaFun",data),
   sendComprasFats: data=>axios.post(host+"sendComprasFats",data),
   
+  getAlquileres: data=>axios.post(host+"getAlquileres",data),
+  setNewAlquiler: data=>axios.post(host+"setNewAlquiler",data),
+  delAlquiler: data=>axios.post(host+"delAlquiler",data),
   
   getDatinputSelectVinculacion: data=>axios.post(host+"getDatinputSelectVinculacion",data),
   saveCuatroNombres: data=>axios.post(host+"saveCuatroNombres",data),
@@ -46,6 +49,8 @@ const db = {
   sendlistdistribucionselect: data=>axios.post(host+"sendlistdistribucionselect",data),
   
   getGastos: data=>axios.post(host+"getGastos",data),
+  getGastosDistribucion: data=>axios.post(host+"getGastosDistribucion",data),
+  
   delGasto: data=>axios.post(host+"delGasto",data),
   saveNewGasto: data=>axios.post(host+"saveNewGasto",data),
           
@@ -67,6 +72,8 @@ const db = {
   setCtCarrito: data=>axios.post(host+"setCtCarrito",data),
   setDelCarrito: data=>axios.post(host+"setDelCarrito",data),  
   sendPedidoSucursal: data=>axios.post(host+"sendPedidoSucursal",data),
+  aprobarRevisionPedido: data=>axios.post(host+"aprobarRevisionPedido",data),
+  
   
   openReporteFalla: data=>axios.post(host+"openReporteFalla",data),
   getPagoProveedor: data=>axios.post(host+"getPagoProveedor",data),
@@ -124,6 +131,8 @@ const db = {
   delPersonalNomina: data=>axios.post(host+"delPersonalNomina",data),
   getPersonalNomina: data=>axios.post(host+"getPersonalNomina",data),
   setPersonalNomina: data=>axios.post(host+"setPersonalNomina",data),
+  activarPersonal: data=>axios.post(host+"activarPersonal",data),
+  
   
   delPersonalCargos: data=>axios.post(host+"delPersonalCargos",data),
   getPersonalCargos: data=>axios.post(host+"getPersonalCargos",data),

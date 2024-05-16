@@ -24,4 +24,7 @@ class pedidos extends Model
     public function items() { 
         return $this->hasMany('App\Models\items_pedidos',"id_pedido","id"); 
     }
+    public function sucursal() { 
+        return $this->hasOne(\App\Models\sucursal::class,"id","id_destino"); 
+    }
 }

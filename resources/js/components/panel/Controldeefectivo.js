@@ -8,7 +8,7 @@ export default function Controldeefectivo({
     controlefecQDescripcion,
     setcontrolefecQDescripcion,
     moneda,
-    getCatGeneralFun,
+    colorsGastosCat,
     getCatCajas,
     getsucursalDetallesData,
 }){
@@ -47,7 +47,7 @@ export default function Controldeefectivo({
                                 Object.entries(sucursalDetallesData.sum.catgeneral).map((e,i)=>
                                     <tr key={i}>
                                         <th>
-                                            <button className="btn w-100 btn-sm" style={{color:"white",fontWeight:"bold",backgroundColor:getCatGeneralFun(e[1].categoria).color}}>{getCatGeneralFun(e[1].categoria).nombre}</button>
+                                            <button className="btn w-100 btn-sm" style={{color:"white",fontWeight:"bold",backgroundColor:colorsGastosCat(e[1].categoria,"catgeneral","color")}}>{colorsGastosCat(e[1].categoria,"catgeneral","desc")}</button>
                                         </th>
                                         <th></th>
                                         <td className="text-right">{moneda(e[1].montodolar)}</td>
@@ -78,7 +78,7 @@ export default function Controldeefectivo({
                                         <th>
                                         
 
-                                            <button className="btn w-100 btn-sm" onClick={()=>setcontrolefecSelectCat(controlefecSelectCat==e[1].categoria?"": e[1].categoria)} style={{color:"white",fontWeight:"bold",backgroundColor:getCatGeneralFun(e[1].categoria).color}}>{getCatGeneralFun(e[1].categoria).nombre}</button>
+                                            <button className="btn w-100 btn-sm" onClick={()=>setcontrolefecSelectCat(controlefecSelectCat==e[1].categoria?"": e[1].categoria)} style={{color:"white",fontWeight:"bold",backgroundColor:colorsGastosCat(e[1].categoria,"catgeneral","color")}}>{colorsGastosCat(e[1].categoria,"catgeneral","desc")}</button>
                                         </th>
                                         <th>
                                             {e[1].nombre}
@@ -131,8 +131,8 @@ export default function Controldeefectivo({
                                             <td className=""><small className="text-muted">{e.created_at}</small></td>
                                             <td className="">
                                                 <button className="btn w-100 btn-sm" 
-                                                    style={{color:"white",fontWeight:"bold",backgroundColor:getCatGeneralFun(e.categoria).color}}>
-                                                        {getCatGeneralFun(e.categoria).nombre}
+                                                    style={{color:"white",fontWeight:"bold",backgroundColor:colorsGastosCat(e.categoria,"catgeneral","color")}}>
+                                                        {colorsGastosCat(e.categoria,"catgeneral","desc")}
                                                 </button>
                                             </td>
                                             <td className="w-20">{e.cat.nombre}</td>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\bancos_list;
+use App\Models\cajas;
+use App\Models\catcajas;
 use App\Models\puntosybiopagos;
 use App\Models\sucursal;
 use App\Http\Requests\StorepuntosybiopagosRequest;
@@ -111,15 +113,149 @@ class PuntosybiopagosController extends Controller
 
     }
 
-
-    function getGastos(Request $req) {
-        $gastosQ = $req->gastosQ;
-        $gastosQCategoria = $req->gastosQCategoria;
+    function getGastosDistribucion(Request $req) {
         $gastosQFecha = $req->gastosQFecha;
         $gastosQFechaHasta = $req->gastosQFechaHasta;
 
+        $gastosQ = "";
+        $gastosQCategoria = "";
+        $catgeneral = "";
+        $ingreso_egreso = "";
+        $typecaja = "";
+        $gastosorder = "desc";
+        $gastosfieldorder = "montodolar";
+
+        $all = $this->getGastosFun([
+            "gastosQ" => $gastosQ,
+            "gastosQFecha" => $gastosQFecha,
+            "gastosQFechaHasta" => $gastosQFechaHasta,
+            "gastosQCategoria" => $gastosQCategoria,
+            "catgeneral" => $catgeneral,
+            "ingreso_egreso" => $ingreso_egreso,
+            "typecaja" => $typecaja,
+            "gastosorder" => $gastosorder,
+            "gastosfieldorder" => $gastosfieldorder,
+        ]);
+
+        $distribucionGastosCat = collect($all["data"])->groupBy("categoria");
+        $distribucionGastosSucursal = collect($all["data"])->groupBy("id_sucursal");
+
+        $distribucionGastosCatMod = [
+        ];
+        $distribucionGastosSucursalMod = [
+        ];
+
         
-        $p =  puntosybiopagos::with(["sucursal","beneficiario"])->where("origen", 2)
+        foreach ($distribucionGastosCat as $i => $cat) {
+            $sum = $cat->sum("montodolar");
+            $nombre = "";
+            $id = "";
+            if ($cat->count()) {
+                $nombre = $cat[0]["cat"]["nombre"];
+                $id = $cat[0]["cat"]["id"];
+            }
+            if (!array_key_exists($cat[0]["cat"]["ingreso_egreso"],$distribucionGastosCatMod)) {
+                $distribucionGastosCatMod[$cat[0]["cat"]["ingreso_egreso"]] = [
+                    "data"=>[],
+                    "sum"=>0,
+                ];
+            }
+            array_push($distribucionGastosCatMod[$cat[0]["cat"]["ingreso_egreso"]]["data"],[
+                "sum" => ($sum),
+                "nombre" => $nombre,
+                "id" => $id,
+                "por" => 0,
+            ]);
+        }
+        foreach ($distribucionGastosSucursal as $i => $cat) {
+            $sum = $cat->sum("montodolar");
+            $nombre = "";
+            $id = "";
+            if ($cat->count()) {
+                $nombre = $cat[0]["sucursal"]["codigo"];
+                $id = $cat[0]["cat"]["id"];
+            }
+            if (!array_key_exists($cat[0]["cat"]["ingreso_egreso"],$distribucionGastosSucursalMod)) {
+                $distribucionGastosSucursalMod[$cat[0]["cat"]["ingreso_egreso"]] = [
+                    "data"=>[],
+                    "sum"=>0,
+
+                ];
+            }
+            array_push($distribucionGastosSucursalMod[$cat[0]["cat"]["ingreso_egreso"]]["data"],[
+                "sum" => ($sum),
+                "nombre" => $nombre,
+                "id" => $id,
+                "por" => 0,
+            ]);
+        }
+
+        foreach ($distribucionGastosCatMod as $key => $e) {
+            $distribucionGastosCatMod[$key]["sum"] = array_sum(array_column($e["data"],"sum"));
+        }
+        foreach ($distribucionGastosSucursalMod as $key => $e) {
+            $distribucionGastosSucursalMod[$key]["sum"] = array_sum(array_column($e["data"],"sum"));
+        }
+
+        foreach ($distribucionGastosCatMod as $key => $q) {
+            $sumCatMod = $q["sum"];
+            foreach ($q["data"] as $keykey => $qq) {
+                $distribucionGastosCatMod[$key]["data"][$keykey]["por"] = round(($sumCatMod==0||$qq["sum"]==0?0:  (abs($qq["sum"]*100)/$sumCatMod))  ,2);
+            }
+        }
+        foreach ($distribucionGastosSucursalMod as $key => $q) {
+            $sumCatMod = $q["sum"];
+            foreach ($q["data"] as $keykey => $qq) {
+                $distribucionGastosSucursalMod[$key]["data"][$keykey]["por"] = round(($sumCatMod==0||$qq["sum"]==0?0:  (abs($qq["sum"]*100)/$sumCatMod))  ,2);
+            }
+        }
+        
+        return [
+            "distribucionGastosCat" => $distribucionGastosCatMod,
+            "distribucionGastosSucursal" => $distribucionGastosSucursalMod,
+        ];
+    }
+
+    function getGastosFun($arr) {
+
+        $gastosQ = $arr["gastosQ"];
+        $gastosQFecha = $arr["gastosQFecha"];
+        $gastosQFechaHasta = $arr["gastosQFechaHasta"];
+        $gastosQCategoria = $arr["gastosQCategoria"];
+        $catgeneral = $arr["catgeneral"];
+        $ingreso_egreso = $arr["ingreso_egreso"];
+        $typecaja = $arr["typecaja"];
+        $gastosorder = $arr["gastosorder"];
+        $gastosfieldorder = $arr["gastosfieldorder"];
+
+        $gastos =  cajas::with(["sucursal","cat"])
+        ->when($gastosQ,function($q) use ($gastosQ){
+            $q->where("concepto",$gastosQ);
+        })
+        ->when($gastosQFecha,function($q) use ($gastosQFecha,$gastosQFechaHasta) {
+            $q->whereBetween("fecha", [$gastosQFecha, !$gastosQFechaHasta?$gastosQFecha:$gastosQFechaHasta]);
+        })
+        ->when($gastosQCategoria,function($q) use ($gastosQCategoria) {
+            $q->where("categoria",$gastosQCategoria);
+        })
+        ->when($typecaja,function($q) use ($typecaja) {
+            $q->where("tipo",$typecaja);
+        })
+        ->when($catgeneral,function($q) use ($catgeneral) {
+            $q->whereIn("categoria",catcajas::where("catgeneral",$catgeneral)->select("id"));
+        })
+        ->when($ingreso_egreso,function($q) use ($ingreso_egreso) {
+            $q->whereIn("categoria",catcajas::where("ingreso_egreso",$ingreso_egreso)->select("id"));
+        })
+        ->get()
+        ->map(function($q) {
+            $q->ingreso_egreso = $q->cat->ingreso_egreso;
+            $q->catgeneral = $q->cat->catgeneral;
+            return $q;
+        });
+
+        $p =  puntosybiopagos::with(["sucursal","beneficiario","cat"])
+        ->where("origen", 2)
         ->when($gastosQ,function($q) use ($gastosQ){
             $q->where(function($q) use ($gastosQ) {
                 $q->orwhere("loteserial","LIKE","%$gastosQ%")
@@ -128,14 +264,12 @@ class PuntosybiopagosController extends Controller
         })
         ->when($gastosQFecha,function($q) use ($gastosQFecha,$gastosQFechaHasta) {
             $q->whereBetween("fecha_liquidacion", [$gastosQFecha, !$gastosQFechaHasta?$gastosQFecha:$gastosQFechaHasta]);
-            
         })
         ->when($gastosQCategoria,function($q) use ($gastosQCategoria) {
             $q->where("categoria",$gastosQCategoria);
         })
-        ->orderBy("created_at","desc");
-
-        $p_modified = $p->get()->map(function($q) {
+        ->get()
+        ->map(function($q) {
             $tasa = $q->tasa?abs($q->tasa):0;
             $monto_liquidado = $q->monto_liquidado?$q->monto_liquidado:0;
             $monto_dolar = $q->monto_dolar?$q->monto_dolar:0;
@@ -145,14 +279,52 @@ class PuntosybiopagosController extends Controller
                 $bs += $monto_liquidado/($tasa);
             }
             $q->bs = $bs;
-
             $q->sum = $monto_dolar+$bs;
+            
+            $q->montodolar = $monto_dolar+$bs;
+            $q->ingreso_egreso = $q->cat->ingreso_egreso;
+            $q->catgeneral = $q->cat->catgeneral;
             return $q;  
         });
 
+        $alldata = array_merge($gastos->toArray(), $p->toArray());
+        array_multisort(array_column($alldata, $gastosfieldorder), $gastosorder=="desc"? SORT_DESC: SORT_ASC, $alldata);
+
         return [
-            "data" => $p_modified,
-            "sum" => $p_modified->sum("sum"),
+            "data" => $alldata,
+            "sum" => array_sum(array_column($alldata,"montodolar"))
+        ];
+    }
+
+    function getGastos(Request $req) {
+        $gastosQ = $req->gastosQ;
+        $gastosQFecha = $req->gastosQFecha;
+        $gastosQFechaHasta = $req->gastosQFechaHasta;
+        $gastosQCategoria = $req->gastosQCategoria;
+
+        $catgeneral = $req->catgeneral;
+        $ingreso_egreso = $req->ingreso_egreso;
+        $typecaja = $req->typecaja;
+
+        $gastosorder = $req->gastosorder;
+        $gastosfieldorder = $req->gastosfieldorder;
+
+        
+        $alldata = $this->getGastosFun([
+            "gastosQ" => $gastosQ,
+            "gastosQFecha" => $gastosQFecha,
+            "gastosQFechaHasta" => $gastosQFechaHasta,
+            "gastosQCategoria" => $gastosQCategoria,
+            "catgeneral" => $catgeneral,
+            "ingreso_egreso" => $ingreso_egreso,
+            "typecaja" => $typecaja,
+            "gastosorder" => $gastosorder,
+            "gastosfieldorder" => $gastosfieldorder,
+        ]);
+        
+        return [
+            "data" => $alldata["data"],
+            "sum" => $alldata["sum"],
         ];
     }
     function changeBank(Request $req) {

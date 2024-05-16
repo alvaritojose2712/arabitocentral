@@ -154,15 +154,25 @@ class PedidosController extends Controller
                 $q->with(["categoria","proveedor"]);
             }]);
         }])
-        ->where("estado",1)
+        ->whereIn("estado",[1,3,4])
         ->where("id_destino",$id_origen)
         ->orderBy("id","desc")
         ->get()
         ->map(function($q){
+            $estado = $q->estado;
+            $q->items = $q->items->map(function($q) use ($estado){
+                if ($estado==4) {
+                    $q->aprobado=true;
+                }
+                return $q;
+            });
+
+
             $q->base = $q->items->map(function($q){
                 return $q->producto->precio_base*$q->cantidad;
             })->sum();
             $q->venta = $q->items->sum("monto");
+            
             return $q;
 
         });
@@ -411,7 +421,38 @@ class PedidosController extends Controller
             
         }
     }
+    function aprobarRevisionPedido(Request $req) {
+        try {
+            $id = $req->id;
+            if ($id) {
+                $check = true;
+                $items_pedidos = items_pedidos::where("id_pedido",$id)->get();
 
+                foreach ($items_pedidos as $i => $item) {
+                        
+                    $inv = inventario_sucursal::find($item->id_producto);
+                    if (!$inv->codigo_barras) {
+                        if (!$item->barras_real) {
+                           $check = false;
+                        }
+                        $inv->codigo_barras = $item->barras_real;
+                        $inv->save();
+                    }
+                }
+                if ($check) {
+                    $ped = pedidos::find($id);
+                    $ped->estado = 4;
+                    $ped->save();
+                }
+                
+            }
+            return Response::json(["msj"=>"Éxito al Revisar. Pedido #".$id,"estado"=>true]);
+            
+        } catch (\Exception $e) {
+            return Response::json(["msj"=>"Error: ".$e->getMessage(),"estado"=>false]);
+            
+        }
+    }
     public function sendPedidoSucursal(Request $req)
     {
 

@@ -16,6 +16,6 @@ class items_facturas extends Model
     ];
 
     public function producto() { 
-        return $this->hasOne('App\Models\inventario',"id","id_producto"); 
+        return $this->hasOne('App\Models\inventario_sucursals',"id","id_producto"); 
     }
 }

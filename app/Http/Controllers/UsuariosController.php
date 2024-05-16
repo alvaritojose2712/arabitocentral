@@ -16,6 +16,14 @@ class UsuariosController extends Controller
         $qBuscarUsuario = $req->q;
         return usuarios::orwhere("usuario","LIKE",$qBuscarUsuario."%")->orwhere("nombre","LIKE",$qBuscarUsuario."%")->get(["id","nombre","usuario","tipo_usuario","area"]);
     }
+    function importarusers(Request $req) {
+        $codigo_origen = $req->codigo_origen;
+        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
+        $id_sucursal = $id_ruta["id_origen"];
+
+        return usuarios::orwhere("id_sucursal",$id_sucursal)->orWhere("tipo_usuario",1)->get();
+
+    }
     public function setUsuario(Request $req)
     {
         try {
@@ -31,8 +39,7 @@ class UsuariosController extends Controller
                 $arr["clave"] = Hash::make($req->clave);
             }
 
-            usuarios::updateOrCreate(
-                ["id"=>$req->id],$arr);
+            usuarios::updateOrCreate(["id"=>$req->id],$arr);
             return Response::json(["msj"=>"¡Éxito!","estado"=>true]);
         } catch (\Exception $e) {
             return Response::json(["msj"=>"Error: ".$e->getMessage(),"estado"=>false]);

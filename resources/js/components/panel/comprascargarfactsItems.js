@@ -124,6 +124,14 @@ export default function ComprascargarFactsItems({
     setselectFilecxp,
     showFilescxp,
     
+    setinputimportitems,
+    inputimportitems,
+
+    procesarTextitemscompras,
+    subviewcargaritemsfact,
+    setsubviewcargaritemsfact,
+    showtextarea,
+    setshowtextarea,
 
 }){
 
@@ -233,7 +241,6 @@ export default function ComprascargarFactsItems({
         setinputselectvinculacionmarca(marca)
     }
 
-    const [subviewcargaritemsfact, setsubviewcargaritemsfact] = useState("selectfacts")
     let facturaSelectAddItemsSelect = {}
     if (facturaSelectAddItems) {
         if (selectCuentaPorPagarId.detalles) {
@@ -258,7 +265,11 @@ export default function ComprascargarFactsItems({
                     <div className="container-fluid p-0">
                         <div className="row">
                             <div className="col">
-                                {/* <textarea cols="30" rows="10" onChange={event=>setinputimportitems(event.target.value)} value={inputimportitems}></textarea> */}
+                                {showtextarea?
+                                    <textarea rows="5" className="w-100" onChange={event=>setinputimportitems(event.target.value)} value={inputimportitems}></textarea>
+                                :null}
+                                <button className="btn btn-warning" onClick={()=>setshowtextarea(!showtextarea)}>MOSTRAR <i className="fa fa-eyes"></i></button>
+                                <button className="btn btn-success" onClick={()=>procesarTextitemscompras()}>PROCESAR TEXTO <i className="fa fa-cogs"></i></button>
                             </div>
                         </div>
                         {facturaSelectAddItemsSelect.id?
@@ -498,8 +509,8 @@ export default function ComprascargarFactsItems({
                                                             <th className=""></th>
                                                             <th className="bg-base">{e.precio_base}</th>
                                                             <th className="bg-venta">{e.precio}</th>
-                                                            <th className="">{e.categoria.descripcion}</th>
-                                                            <th className="">{e.catgeneral.descripcion}</th>
+                                                            <th className="">{e.categoria?e.categoria.descripcion:null}</th>
+                                                            <th className="">{e.catgeneral?e.catgeneral.descripcion:null}</th>
                                                             <th className="">{e.iva}</th> 
                                                         </>
 

@@ -55,31 +55,36 @@ class CajasController extends Controller
     
                     $catnombre = $e["cat"]["nombre"];
                     $cattipo = $e["cat"]["tipo"];
-                    $catindice = $e["cat"]["indice"];
+                    $catindice = $e["cat"]["id"];
                     $checkcatcajas = catcajas::where("nombre",$catnombre)->where("tipo",$cattipo)->first();
                     if ($checkcatcajas) {
-                        $setcategoria = $checkcatcajas->indice;
+                        $setcategoria = $checkcatcajas->id;
                     }else{
-                        $newcat = catcajas::updateOrCreate([
-                            "nombre" => $catnombre,
-                            "tipo" => $cattipo,
-                        ],[
-                            "indice" => $catindice,
-                            "nombre" => $catnombre,
-                            "tipo" => $cattipo,
-                        ]);
                         $setcategoria = $catindice; 
                     }
     
-                    if (strpos($catnombre,"NOMINA")) {
+                    if (strpos($catnombre,"NOMINA QUINCENA")) {
                         $split = explode("=",$e["concepto"]);
                         if (isset($split[1])) {
                             $ci = $split[1];
                             $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:$e["montopeso"]);
                             (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $e["id"],$e["fecha"]);
                         }
-    
                     }
+
+                    if (strpos($catnombre,"NOMINA ABONO") || strpos($catnombre,"NOMINA PRESTAMO")) {
+                        $split = explode("=",$e["concepto"]);
+                        if (isset($split[1])) {
+                            $ci = $split[1];
+                            $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:$e["montopeso"]);
+
+                            if (strpos($catnombre,"NOMINA ABONO")) {
+                                $monto = abs($monto);
+                            }
+                            (new NominaprestamosController)->setPrestamoNomina($ci, $monto, $id_sucursal, $e["id"],$e["fecha"]);
+                        }
+                    }
+                    
                     if (strpos($catnombre,"PAGO PROVEEDOR")) {
                         $split = explode("=",$e["concepto"]);
                         if (isset($split[2])) {
@@ -104,7 +109,7 @@ class CajasController extends Controller
                             }
                         }
                     }
-                    if (strpos($catnombre,"TODAS SUCURSALES")) {
+                    /* if (strpos($catnombre,"TODAS SUCURSALES")) {
                         $todas_sucursales = sucursal::where("codigo","<>","administracion")->get();
                         $divisor = $todas_sucursales->count(); 
                         foreach ($todas_sucursales as $key => $sucursal) {
@@ -133,7 +138,7 @@ class CajasController extends Controller
                                 "idinsucursal" => $e["id"].$sucursal["id"],
                             ],$arr_insert);
                         }
-                    }else{
+                    }else{ */
                         $arr_insert = [
                             "montoeuro" => $e["montoeuro"],
                             "eurobalance" => $e["eurobalance"],
@@ -156,7 +161,7 @@ class CajasController extends Controller
                             "idinsucursal" => $e["id"],
                             
                         ],$arr_insert);
-                    }
+                    /* } */
     
                     if ($cc) {
                         $counter++;

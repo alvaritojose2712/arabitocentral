@@ -14,18 +14,7 @@ class inventario extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    public function categoria() { 
-        return $this->hasOne(\App\Models\categorias::class,"id","id_categoria"); 
-    }
-   
-    public function catgeneral() { 
-        return $this->hasOne(\App\Models\CatGenerals::class,"id","id_catgeneral"); 
-    }
-
-    public function sucursales() { 
-        return $this->hasMany('App\Models\inventario_sucursal',"id_vinculacion","id"); 
-
-    }
+    
   
 
     protected $fillable = [

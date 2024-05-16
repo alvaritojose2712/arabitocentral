@@ -60,7 +60,7 @@ export default function PanelSucursales({
     setSaldoInicialSelectAuditoria,
     SaldoActualSelectAuditoria,
     setSaldoActualSelectAuditoria,
-    getCatGeneralFun,
+    colorsGastosCat,
     getCatCajas,
     user,
     permiso,
@@ -203,7 +203,7 @@ export default function PanelSucursales({
                                 controlefecSelectGeneral={controlefecSelectGeneral}
                                 setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
                                 moneda={moneda}
-                                getCatGeneralFun={getCatGeneralFun}
+                                colorsGastosCat={colorsGastosCat}
                                 getCatCajas={getCatCajas}
 
                             />

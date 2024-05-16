@@ -24,6 +24,7 @@ class CreateCuentasporpagarFisicasTable extends Migration
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
             $table->string("numfact");
 
+            $table->unique(["numfact","id_proveedor","id_sucursal"]);
 
             $table->timestamps();
         });

@@ -25,6 +25,8 @@ class CreateNominasTable extends Migration
             $table->date("nominafechadeingreso");
             $table->string("nominagradoinstruccion");
 
+            $table->boolean("activo")->nullable(true)->default(0);
+
             $table->integer("nominacargo")->unsigned();
             $table->foreign('nominacargo')->references('id')->on('nominacargos');
 

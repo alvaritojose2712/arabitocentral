@@ -21,7 +21,7 @@ class CreateItemsFacturasTable extends Migration
 
             $table->integer("id_producto")->unsigned();
             $table->foreign('id_producto')->references('id')
-            ->on('inventarios')->onDelete("cascade");
+            ->on('inventario_sucursals')->onDelete("cascade");
 
             $table->decimal("cantidad",8,2);
             $table->string("tipo");

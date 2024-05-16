@@ -19,6 +19,10 @@ class puntosybiopagos extends Model
     public function beneficiario() { 
         return $this->hasOne(\App\Models\nomina::class,"id","id_beneficiario"); 
     }
+
+    public function cat() { 
+        return $this->hasOne('App\Models\catcajas',"id","categoria"); 
+    }
     protected $fillable = [
         "monto",
         "loteserial",

@@ -120,6 +120,9 @@ export default function ComprasDistribuirFacts({
                                 <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer  p-3">
                                     MONTO
                                 </th>
+                                <th>
+                                    ITEMS
+                                </th>
                                     
                             </tr>
                         </thead> 
@@ -151,6 +154,9 @@ export default function ComprasDistribuirFacts({
                                         </td>
                                         <td className=" ">
                                             <span className={(e.monto<0? "text-danger": "text-success")+(" fs-3 fw-bold ")}>{moneda(e.monto)}</span>
+                                        </td>
+                                        <td>
+                                            <span className="fs-3">{e.items.length}</span>
                                         </td>
                                     </>    
                                 </tr>:null}

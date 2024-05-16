@@ -10,6 +10,10 @@ use App\Models\proveedores;
 use App\Models\moneda;
 use App\Models\tareas;
 use App\Models\inventario;
+use App\Models\cuentasporpagar;
+use App\Models\cuentasporpagar_items;
+
+
 
 
 use App\Http\Requests\Storeinventario_sucursalRequest;
@@ -20,6 +24,78 @@ use Response;
 
 class InventarioSucursalController extends Controller
 {
+    public function index(Request $req)
+    {
+        $exacto = false;
+
+        if (isset($req->exacto)) {
+            if ($req->exacto=="si") {
+                $exacto = "si";
+            }
+            if ($req->exacto=="id_only") {
+                $exacto = "id_only";
+            }
+        }
+        $cop = moneda::where("tipo",2)->orderBy("id","desc")->first();
+        $bs = moneda::where("tipo",1)->orderBy("id","desc")->first();
+
+
+        $data = [];
+
+        $q = $req->qProductosMain;
+        $num = $req->num;
+        $itemCero = $req->itemCero;
+
+        $orderColumn = "descripcion";
+        $orderBy = $req->orderBy;
+
+        if ($q=="") {
+            $data = inventario_sucursal::with([
+                "categoria",
+                "catgeneral",
+                "sucursales",
+            ])
+            ->where("id_sucursal",13)
+            ->limit($num)
+            ->orderBy("n1","asc")
+            ->orderBy("n2","asc")
+            ->orderBy("n3","asc")
+            ->orderBy("id_marca","asc")
+            ->get();
+        }else{
+            $data = inventario_sucursal::with([
+                "categoria",
+                "catgeneral",
+                
+            ])
+            ->where("id_sucursal",13)
+            ->where(function($e) use($itemCero,$q,$exacto){
+
+                if ($exacto=="si") {
+                    $e->orWhere("codigo_barras","LIKE","$q")
+                    ->orWhere("codigo_proveedor","LIKE","$q");
+                }elseif($exacto=="id_only"){
+
+                    $e->where("id","$q");
+                }else{
+                    $e->orWhere("descripcion","LIKE","%$q%")
+                    ->orWhere("codigo_proveedor","LIKE","%$q%")
+                    ->orWhere("codigo_barras","LIKE","%$q%");
+
+                }
+
+            })
+            ->limit($num)
+            ->orderBy("n1","asc")
+            ->orderBy("n2","asc")
+            ->orderBy("n3","asc")
+            ->orderBy("id_marca","asc")
+            ->get();
+        }
+    
+        return $data;
+        
+    }
     public function changeEstatusProductoProceced(Request $req)
     {
         $ids = $req->ids;
@@ -382,6 +458,99 @@ class InventarioSucursalController extends Controller
 
     function setEstadisticas(Request $req) {
         return $req->estadisticas;
+    }
+
+    public function guardarNuevoProductoLote(Request $req)
+    {
+        try {
+            $msj = [];
+            foreach ($req->lotes as $i => $ee) {
+                if (isset($ee["type"])) {
+                    if ($ee["type"]==="update"||$ee["type"]==="new") {
+                        $ee["id_factura"] = $req->id_factura;
+
+                        $guardar = $this->guardarProducto($ee);
+                        array_push($msj, $guardar["msj"]);
+
+                        if (!$guardar["estado"]) {
+                            return Response::json(["msj"=>$msj, "estado"=>false]);   
+                        }
+                    }else if ($ee["type"]==="delete") {
+                        $this->delProductoFun($ee["id"]);
+                    }
+                }   
+            }
+            return Response::json(["msj"=>$msj, "estado"=>true]);   
+        } catch (\Exception $e) {
+            return Response::json(["msj"=>"Error: ".$e->getMessage()." LINEA ".$e->getLine(),"estado"=>false]);
+        }  
+    }
+    public function guardarProducto($arr){
+        $id_factura = $arr["id_factura"];
+
+        $cuentasporpagar = cuentasporpagar::find($id_factura);
+        if ($cuentasporpagar->aprobado==1) {
+            return ["msj"=>"Error: Cuenta ya aprobada, no se puede modificar", "estado"=>true];   
+        }else{
+            $sum_subtotal = 0;
+            $fact_monto = 0;
+            $Getfactmonto = cuentasporpagar::find($id_factura);
+            if ($Getfactmonto) {
+                $fact_monto = abs($Getfactmonto->monto);
+            }
+            cuentasporpagar_items::where("id_cuenta",$id_factura)->get()
+            ->map(function($q) use (&$sum_subtotal){
+                $sum_subtotal += $q->basef*$q->cantidad;
+            });
+
+            $sum_subtotal += $arr["cantidad"]*$arr["basef"];
+
+            if ($sum_subtotal<=$fact_monto) {
+                $check = true;
+            }else{
+                $check = false;
+                return ["msj"=>"Valor de Items supera monto de factura [$arr[codigo_barras]]", "estado"=>false];   
+
+            }
+            //return ["msj"=>$sum_subtotal."______".$fact_monto, "estado"=>false];   
+
+            if ($check) {
+                $crearProducto = inventario_sucursal::updateOrCreate([
+                    "id" => $arr["id"]? $arr["id"]:null
+                ],[
+                    "id_sucursal" => 13,
+                    "codigo_barras" => $arr["codigo_barras"],
+                    "codigo_proveedor" => $arr["codigo_proveedor"],
+                    "descripcion" => $arr["descripcion"],
+                    "unidad" => $arr["unidad"],
+                    "id_categoria" => $arr["id_categoria"],
+                    "id_catgeneral" => $arr["id_catgeneral"],
+                    "iva" => $arr["iva"],
+                    "precio" => $arr["precio"],
+                    "precio_base" => $arr["precio_base"],
+                    "cantidad" => 0,
+                ]); 
+                if ($crearProducto) {
+                    $cargarItem = cuentasporpagar_items::updateOrCreate([
+                        "id_cuenta" => $id_factura,
+                        "id_producto" => $crearProducto->id, 
+                    ],[
+                        "id_cuenta" => $id_factura,
+                        "id_producto" => $crearProducto->id,
+                        "cantidad" => $arr["cantidad"],
+                        "basef" => $arr["basef"],
+                        "base" => $arr["precio_base"],
+                        "venta" => $arr["precio"],
+                        "estado" => 0,
+                    ]);
+                    if ($cargarItem) {
+                        return ["msj"=>"OK item ".$arr["codigo_barras"], "estado"=>true];   
+                    }
+                    
+                }
+            }
+            return ["msj"=>"NO item ".$arr["codigo_barras"], "estado"=>false];   
+        }
     }
 
     

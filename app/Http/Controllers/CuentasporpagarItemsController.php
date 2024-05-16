@@ -7,6 +7,7 @@ use App\Models\cuentasporpagar;
 use App\Http\Requests\Storecuentasporpagar_itemsRequest;
 use App\Http\Requests\Updatecuentasporpagar_itemsRequest;
 use App\Models\inventario;
+use App\Models\inventario_sucursal;
 use Illuminate\Http\Request;
 use Response;
 
@@ -25,7 +26,7 @@ class CuentasporpagarItemsController extends Controller
                 return Response::json(["msj"=>"Error: Cuenta ya aprobada, no se puede modificar","estado"=>0]);
             }else{
 
-                $inventario = inventario::find($cxpItem->id_producto);
+                $inventario = inventario_sucursal::find($cxpItem->id_producto);
                 
                 switch ($campo) {
                     case 'cantidad':

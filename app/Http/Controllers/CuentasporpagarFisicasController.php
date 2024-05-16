@@ -86,9 +86,11 @@ class CuentasporpagarFisicasController extends Controller
                     "id_sucursal" => $usuario->id_sucursal,
                     "numfact" => $numfact,
                 ]);
-                $cuentasporpagar_fisicas->save();
+                if ($cuentasporpagar_fisicas->save()) {
+                    
+                    return "LISTO, PANA MÍO";
+                }
         
-                return $numfact;
             }else{
                 return "Su usuario no tiene una sucursal asociada";
             }

@@ -21,7 +21,7 @@ class CreateBancosListsTable extends Migration
         });
 
 
-        $metodos = [
+       /*  $metodos = [
             ["codigo" => "EFECTIVO", "descripcion"=> "EFECTIVO"],
             ["codigo" => "0102", "descripcion"=> "0102 Banco de Venezuela, S.A. Banco Universal"],
             ["codigo" => "0108", "descripcion"=> "0108 Banco Provincial, S.A. Banco Universal"],
@@ -42,7 +42,7 @@ class CreateBancosListsTable extends Migration
                     "descripcion" => $m["descripcion"],
                 ]
             ]);
-        }
+        } */
     }
 
     /**

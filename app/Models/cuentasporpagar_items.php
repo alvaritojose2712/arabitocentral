@@ -14,7 +14,7 @@ class cuentasporpagar_items extends Model
     use HasFactory;
 
     public function producto() { 
-        return $this->hasOne(\App\Models\inventario::class,"id","id_producto"); 
+        return $this->hasOne(\App\Models\inventario_sucursal::class,"id","id_producto"); 
     }
 
     protected $fillable = [

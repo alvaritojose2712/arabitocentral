@@ -19,7 +19,7 @@ class CreateCuentasporpagarItemsTable extends Migration
             $table->foreign('id_cuenta')->references('id')->on('cuentasporpagars');
 
             $table->integer("id_producto")->unsigned();
-            $table->foreign('id_producto')->references('id')->on('inventarios');
+            $table->foreign('id_producto')->references('id')->on('inventario_sucursals');
             
             $table->decimal("cantidad",12,2);
             $table->decimal("basef",12,2);
