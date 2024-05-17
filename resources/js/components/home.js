@@ -1182,22 +1182,10 @@ function Home() {
   }
 
   const buscarInventario = e => {
-
-    let checkempty = productosInventario.filter(e => e.type).filter(e =>
-      e.codigo_barras == "" ||
-      e.descripcion == "" ||
-      e.unidad == "" ||
-      e.cantidad == "" ||
-      e.precio_base == "" ||
-      e.precio == "")
-
-    if (!checkempty.length) {
       setLoading(true)
-
       if (time != 0) {
         clearTimeout(typingTimeout)
       }
-
       let time = window.setTimeout(() => {
         db.getinventario({
           num: Invnum,
@@ -1217,13 +1205,6 @@ function Home() {
         })
       }, 150)
       setTypingTimeout(time)
-
-    } else {
-      alert("Hay productos pendientes en carga de Inventario List!")
-    }
-
-
-
   }
 
   const getFallas = () => {

@@ -68022,38 +68022,29 @@ function Home() {
     setinpInvLotes(inpInvLotes.concat(addObj));
   };
   var buscarInventario = function buscarInventario(e) {
-    var checkempty = productosInventario.filter(function (e) {
-      return e.type;
-    }).filter(function (e) {
-      return e.codigo_barras == "" || e.descripcion == "" || e.unidad == "" || e.cantidad == "" || e.precio_base == "" || e.precio == "";
-    });
-    if (!checkempty.length) {
-      setLoading(true);
-      if (time != 0) {
-        clearTimeout(typingTimeout);
-      }
-      var time = window.setTimeout(function () {
-        _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getinventario({
-          num: Invnum,
-          itemCero: true,
-          qProductosMain: qBuscarInventario,
-          orderColumn: InvorderColumn,
-          orderBy: InvorderBy
-        }).then(function (res) {
-          setProductosInventario(res.data);
-          setLoading(false);
-          setIndexSelectInventario(null);
-          if (res.data.length === 1) {
-            setIndexSelectInventario(0);
-          } else if (res.data.length == 0) {
-            setinpInvbarras(qBuscarInventario);
-          }
-        });
-      }, 150);
-      setTypingTimeout(time);
-    } else {
-      alert("Hay productos pendientes en carga de Inventario List!");
+    setLoading(true);
+    if (time != 0) {
+      clearTimeout(typingTimeout);
     }
+    var time = window.setTimeout(function () {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getinventario({
+        num: Invnum,
+        itemCero: true,
+        qProductosMain: qBuscarInventario,
+        orderColumn: InvorderColumn,
+        orderBy: InvorderBy
+      }).then(function (res) {
+        setProductosInventario(res.data);
+        setLoading(false);
+        setIndexSelectInventario(null);
+        if (res.data.length === 1) {
+          setIndexSelectInventario(0);
+        } else if (res.data.length == 0) {
+          setinpInvbarras(qBuscarInventario);
+        }
+      });
+    }, 150);
+    setTypingTimeout(time);
   };
   var getFallas = function getFallas() {
     setLoading(true);
