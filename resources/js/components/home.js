@@ -2052,12 +2052,15 @@ function formatAmount( number, simbol ) {
   }
 
   const delFilescxp = (id) => {
-    db.delFilescxp({id}).then(res=>{
-      if (res.data.estado) {
-        getFilescxp()
-      }
-      notificar(res)
-    })
+    if (confirm("Confirme ELIMINACIÓN DE "+id)) {
+      db.delFilescxp({id}).then(res=>{
+        if (res.data.estado) {
+          getFilescxp()
+        }
+        notificar(res)
+      })
+      
+    }
   }
   const getFilescxp = (id) => {
     db.getFilescxp({

@@ -69262,14 +69262,16 @@ function Home() {
     setviewmainPanel("cargarfactsdigitales");
   };
   var delFilescxp = function delFilescxp(id) {
-    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delFilescxp({
-      id: id
-    }).then(function (res) {
-      if (res.data.estado) {
-        getFilescxp();
-      }
-      notificar(res);
-    });
+    if (confirm("Confirme ELIMINACIÓN DE " + id)) {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delFilescxp({
+        id: id
+      }).then(function (res) {
+        if (res.data.estado) {
+          getFilescxp();
+        }
+        notificar(res);
+      });
+    }
   };
   var getFilescxp = function getFilescxp(id) {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getFilescxp({
