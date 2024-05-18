@@ -4673,7 +4673,8 @@ function Comprascargarfactsdigitales(_ref) {
     setselectFilecxp = _ref.setselectFilecxp,
     dataFilescxp = _ref.dataFilescxp,
     showFilescxp = _ref.showFilescxp,
-    numfact_select_imagen = _ref.numfact_select_imagen;
+    numfact_select_imagen = _ref.numfact_select_imagen,
+    setfactInpImagen = _ref.setfactInpImagen;
   /* useEffect(()=>{
       setcuentaporpagarAprobado(0)
       setqCampocuentasPorPagarDetalles("id")
@@ -4958,14 +4959,20 @@ function Comprascargarfactsdigitales(_ref) {
                   onChange: function onChange(e) {
                     return handleFacturaxLotes(e.target.value, i, "changeInput", "nota");
                   }
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-                  className: "btn btn-info w-100",
-                  onClick: function onClick() {
-                    return setviewmainPanel("comprascargarfactsfisicas");
-                  },
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-                    className: "fa fa-file"
-                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                  className: "form-group mb-2",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                    htmlFor: "formFile",
+                    className: "form-label",
+                    children: "Adjunte FOTO NITIDA, COMPLETA Y CENTRADA DE LA FACTURA"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                    type: "file",
+                    className: "form-control",
+                    id: "formFile",
+                    onChange: function onChange(event) {
+                      return setfactInpImagen(event.target.files[0]);
+                    }
+                  })]
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
@@ -15514,7 +15521,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _panel_fechasmain__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./panel/fechasmain */ "./resources/js/components/panel/fechasmain.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _panel_creditos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./panel/creditos */ "./resources/js/components/panel/creditos.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -15537,130 +15552,191 @@ function PorCobrar(_ref) {
     setfechasMain1 = _ref.setfechasMain1,
     setfechasMain2 = _ref.setfechasMain2,
     getsucursalDetallesData = _ref.getsucursalDetallesData;
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    getsucursalDetallesData();
-  }, [subviewpanelsucursales, fechasMain1, fechasMain2, sucursalSelect, qestatusaprobaciocaja]);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("aprobacion"),
+    _useState2 = _slicedToArray(_useState, 2),
+    subviewcxc = _useState2[0],
+    setsubviewcxc = _useState2[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setsubviewpanelsucursales("porcobrar");
     getSucursales();
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_panel_fechasmain__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      fechasMain1: fechasMain1,
-      fechasMain2: fechasMain2,
-      setfechasMain1: setfechasMain1,
-      setfechasMain2: setfechasMain2
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "input-group mb-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("select", {
-          className: "form-control",
-          onChange: function onChange(e) {
-            return setsucursalSelect(e.target.value);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getsucursalDetallesData();
+  }, [subviewpanelsucursales, fechasMain1, fechasMain2, sucursalSelect, qestatusaprobaciocaja]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (subviewcxc == "aprobacion") {
+      setsubviewpanelsucursales("porcobrar");
+    }
+    if (subviewcxc == "creditos") {
+      setsubviewpanelsucursales("creditos");
+    }
+  }, [subviewcxc]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "text-center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "btn-group mb-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "fs-4 btn btn" + (subviewcxc == "aprobacion" ? "" : "-outline") + "-sinapsis",
+          onClick: function onClick() {
+            return setsubviewcxc("aprobacion");
           },
-          value: sucursalSelect === null ? "" : sucursalSelect,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
-            value: "",
-            children: "-TODAS SUCURSALES-"
-          }), sucursales.map(function (e) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
-              value: e.id,
-              children: e.codigo
-            }, e.id);
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "input-group-prepend",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-            className: "btn btn-" + (qestatusaprobaciocaja == 0 ? "sinapsis" : ""),
-            onClick: function onClick(e) {
-              return setqestatusaprobaciocaja(0);
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-              className: "fa fa-clock-o"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-            className: "btn btn-" + (qestatusaprobaciocaja == 1 ? "success" : ""),
-            onClick: function onClick(e) {
-              return setqestatusaprobaciocaja(1);
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-              className: "fa fa-check"
-            })
-          })]
+          children: " APROBACI\xD3N"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "fs-2 btn btn" + (subviewcxc == "creditos" ? "" : "-outline") + "-sinapsis",
+          onClick: function onClick() {
+            return setsubviewcxc("creditos");
+          },
+          children: " CR\xC9DITOS"
         })]
-      }), sucursalDetallesData.aprobacioncreditosdata ? sucursalDetallesData.aprobacioncreditosdata.length ? sucursalDetallesData.aprobacioncreditosdata.map(function (e, i) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: (!e.estatus ? "bg-sinapsis-light" : "bg-light") + " text-secondary card mb-3 pointer shadow",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "card-header flex-row justify-content-between",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-              className: "d-flex justify-content-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                className: "w-50",
-                children: ["SOLICITA ", e.sucursal.codigo]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                className: "w-50 text-right",
-                children: e.saldo != 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-                    className: "h6 text-muted font-italic fs-3",
-                    children: ["Monto $ ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("b", {
-                      children: moneda(e.saldo)
-                    })]
-                  })
-                }) : null
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "text-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-              className: "card-title ",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("small", {
-                className: "fst-italic fs-2",
-                children: [e.cliente.nombre, " (", e.cliente.identificacion, ")"]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {})]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "text-center",
-            children: ["DEUDA ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-              className: "text-danger fs-2",
-              children: moneda(e.deuda)
+      })
+    }), subviewcxc == "aprobacion" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_panel_fechasmain__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        fechasMain1: fechasMain1,
+        fechasMain2: fechasMain2,
+        setfechasMain1: setfechasMain1,
+        setfechasMain2: setfechasMain2
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "input-group mb-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+            className: "form-control",
+            onChange: function onChange(e) {
+              return setsucursalSelect(e.target.value);
+            },
+            value: sucursalSelect === null ? "" : sucursalSelect,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+              value: "",
+              children: "-TODAS SUCURSALES-"
+            }), sucursales.map(function (e) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                value: e.id,
+                children: e.codigo
+              }, e.id);
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "text-center",
-            children: ["\xDALTIMO PAGO ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-              className: "text-danger fs-4",
-              children: e.fecha_ultimopago
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "text-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("small", {
-              className: "text-muted",
-              children: e.created_at
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "card-body d-flex justify-content-between",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-              className: "btn btn-sm btn-danger",
-              onClick: function onClick() {
-                return aprobarCreditoFun(e.id, "delete");
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "input-group-prepend",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "btn btn-" + (qestatusaprobaciocaja == 0 ? "sinapsis" : ""),
+              onClick: function onClick(e) {
+                return setqestatusaprobaciocaja(0);
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-                className: "fa fa-times"
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                className: "fa fa-clock-o"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
-              className: "btn btn-sm btn-success",
-              onClick: function onClick() {
-                return aprobarCreditoFun(e.id, "aprobar");
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "btn btn-" + (qestatusaprobaciocaja == 1 ? "success" : ""),
+              onClick: function onClick(e) {
+                return setqestatusaprobaciocaja(1);
               },
-              children: [e.estatus == 0 ? "APROBAR" : "REVERSAR", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
                 className: "fa fa-check"
-              })]
+              })
             })]
           })]
-        }, e.id);
-      }) : null : null]
-    })]
+        }), sucursalDetallesData.aprobacioncreditosdata ? sucursalDetallesData.aprobacioncreditosdata.length ? sucursalDetallesData.aprobacioncreditosdata.map(function (e, i) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: (!e.estatus ? "bg-sinapsis-light" : "bg-light") + " text-secondary card mb-3 pointer shadow",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "card-header flex-row justify-content-between",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "d-flex justify-content-between",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                  className: "w-50",
+                  children: ["SOLICITA ", e.sucursal.codigo]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                  className: "w-50 text-right",
+                  children: e.saldo != 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                      className: "h6 text-muted font-italic fs-3",
+                      children: ["Monto $ ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
+                        children: moneda(e.saldo)
+                      })]
+                    })
+                  }) : null
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "text-center",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                className: "card-title ",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("small", {
+                  className: "fst-italic fs-2",
+                  children: [e.cliente.nombre, " (", e.cliente.identificacion, ")"]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {})]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "text-center",
+              children: ["DEUDA ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-danger fs-2",
+                children: moneda(e.deuda)
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "text-center",
+              children: ["\xDALTIMO PAGO ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-danger fs-4",
+                children: e.fecha_ultimopago
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "text-center",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("small", {
+                className: "text-muted",
+                children: e.created_at
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "card-body d-flex justify-content-between",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                className: "btn btn-sm btn-danger",
+                onClick: function onClick() {
+                  return aprobarCreditoFun(e.id, "delete");
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: "fa fa-times"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                className: "btn btn-sm btn-success",
+                onClick: function onClick() {
+                  return aprobarCreditoFun(e.id, "aprobar");
+                },
+                children: [e.estatus == 0 ? "APROBAR" : "REVERSAR", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: "fa fa-check"
+                })]
+              })]
+            })]
+          }, e.id);
+        }) : null : null]
+      })]
+    }) : null, subviewcxc == "creditos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "row",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "col table-responsive mb-2 pb-2 pt-2 d-flex justify-content-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "btn-group w-100",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "btn btn-" + (null === sucursalSelect ? "success" : "outline-success"),
+              onClick: function onClick() {
+                return setsucursalSelect(null);
+              },
+              children: "RESUMEN"
+            }), sucursales.map(function (e) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                className: "btn btn-" + (e.id == sucursalSelect ? "success" : "outline-success"),
+                onClick: function onClick() {
+                  return setsucursalSelect(e.id);
+                },
+                children: e.codigo
+              }, e.id);
+            })]
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_panel_creditos__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        getsucursalDetallesData: getsucursalDetallesData,
+        sucursalDetallesData: sucursalDetallesData,
+        moneda: moneda
+      })]
+    }) : null]
   });
 }
 
@@ -66493,7 +66569,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Home() {
-  var _jsx2;
+  var _jsx2, _jsx3;
   // ///In Last//////
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState2 = _slicedToArray(_useState, 2),
@@ -69235,15 +69311,18 @@ function Home() {
     });
   };
   var saveFacturaLote = function saveFacturaLote() {
-    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].saveFacturaLote({
-      selectFilecxp: selectFilecxp,
-      facturas: selectCuentaPorPagarId.detalles.filter(function (e) {
-        return e.type;
-      })
-    }).then(function (res) {
-      selectCuentaPorPagarProveedorDetallesFun();
-      setselectFilecxp(null);
-      notificar(res);
+    var formData = new FormData();
+    formData.append("imagen", factInpImagen);
+    formData.append("selectFilecxp", selectFilecxp);
+    formData.append("facturas", JSON.stringify(selectCuentaPorPagarId.detalles.filter(function (e) {
+      return e.type;
+    })));
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].saveFacturaLote(formData).then(function (res) {
+      if (res.data.estado) {
+        selectCuentaPorPagarProveedorDetallesFun();
+        setselectFilecxp(null);
+        notificar(res);
+      }
     });
   };
   var handleFacturaxLotes = function handleFacturaxLotes(val, i, type) {
@@ -71404,29 +71483,19 @@ function Home() {
           sucursales: sucursales,
           usuarioId_sucursal: usuarioId_sucursal,
           setusuarioId_sucursal: setusuarioId_sucursal
-        }), permiso([1, 2]) && viewmainPanel === "creditos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_52__.jsx)(_porCobrar__WEBPACK_IMPORTED_MODULE_45__["default"], {
+        }), permiso([1, 2]) && viewmainPanel === "creditos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_52__.jsx)(_porCobrar__WEBPACK_IMPORTED_MODULE_45__["default"], (_jsx2 = {
+          getsucursalDetallesData: getsucursalDetallesData,
+          sucursalDetallesData: sucursalDetallesData,
+          moneda: moneda,
           fechasMain1: fechasMain1,
           fechasMain2: fechasMain2,
           setfechasMain1: setfechasMain1,
-          setfechasMain2: setfechasMain2,
-          moneda: moneda,
-          getsucursalDetallesData: getsucursalDetallesData,
-          sucursalSelect: sucursalSelect,
-          setsucursalSelect: setsucursalSelect,
-          setsucursalDetallesData: setsucursalDetallesData,
-          sucursalDetallesData: sucursalDetallesData,
-          getSucursales: getSucursales,
-          sucursales: sucursales,
-          qestatusaprobaciocaja: qestatusaprobaciocaja,
-          setqestatusaprobaciocaja: setqestatusaprobaciocaja,
-          aprobarCreditoFun: aprobarCreditoFun,
-          subviewpanelsucursales: subviewpanelsucursales,
-          setsubviewpanelsucursales: setsubviewpanelsucursales
-        }), permiso([1, 9, 10]) && viewmainPanel === "compras" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_52__.jsx)(_compras__WEBPACK_IMPORTED_MODULE_26__["default"], {
+          setfechasMain2: setfechasMain2
+        }, _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_jsx2, "moneda", moneda), "getsucursalDetallesData", getsucursalDetallesData), "sucursalSelect", sucursalSelect), "setsucursalSelect", setsucursalSelect), "setsucursalDetallesData", setsucursalDetallesData), "sucursalDetallesData", sucursalDetallesData), "getSucursales", getSucursales), "sucursales", sucursales), "qestatusaprobaciocaja", qestatusaprobaciocaja), "setqestatusaprobaciocaja", setqestatusaprobaciocaja), _defineProperty(_defineProperty(_defineProperty(_jsx2, "aprobarCreditoFun", aprobarCreditoFun), "subviewpanelsucursales", subviewpanelsucursales), "setsubviewpanelsucursales", setsubviewpanelsucursales))), permiso([1, 9, 10]) && viewmainPanel === "compras" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_52__.jsx)(_compras__WEBPACK_IMPORTED_MODULE_26__["default"], {
           permiso: permiso,
           setviewmainPanel: setviewmainPanel,
           viewmainPanel: viewmainPanel
-        }), permiso([1, 2, 3, 6]) && viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_52__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_33__["default"], (_jsx2 = {
+        }), permiso([1, 2, 3, 6]) && viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_52__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_33__["default"], (_jsx3 = {
           categoriasCajas: categoriasCajas,
           permiso: permiso,
           getBancoName: getBancoName,
@@ -71496,7 +71565,7 @@ function Home() {
           setcuentasPagosTipo: setcuentasPagosTipo,
           cuentasPagosCategoria: cuentasPagosCategoria,
           setcuentasPagosCategoria: setcuentasPagosCategoria
-        }, _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_jsx2, "categoriasCajas", categoriasCajas), "number", number), "moneda", moneda), "movimientoAuditoria", movimientoAuditoria), "setmovimientoAuditoria", setmovimientoAuditoria), "selectTrLiquidar", selectTrLiquidar), "setselectTrLiquidar", setselectTrLiquidar), "inpmontoLiquidar", inpmontoLiquidar), "setinpmontoLiquidar", setinpmontoLiquidar), "inpfechaLiquidar", inpfechaLiquidar), _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_jsx2, "setinpfechaLiquidar", setinpfechaLiquidar), "liquidarMov", liquidarMov), "orderAuditoria", orderAuditoria), "setorderAuditoria", setorderAuditoria), "orderColumnAuditoria", orderColumnAuditoria), "setorderColumnAuditoria", setorderColumnAuditoria), "selectConciliacion", selectConciliacion), "saldoactualbancofecha", saldoactualbancofecha), "setsaldoactualbancofecha", setsaldoactualbancofecha), "sendsaldoactualbancofecha", sendsaldoactualbancofecha), _defineProperty(_defineProperty(_jsx2, "selectConciliacionData", selectConciliacionData), "setselectConciliacionData", setselectConciliacionData))), permiso([1, 2, 4, 8]) && viewmainPanel === "efectivo" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_52__.jsxs)(_efectivo__WEBPACK_IMPORTED_MODULE_44__["default"], {
+        }, _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_jsx3, "categoriasCajas", categoriasCajas), "number", number), "moneda", moneda), "movimientoAuditoria", movimientoAuditoria), "setmovimientoAuditoria", setmovimientoAuditoria), "selectTrLiquidar", selectTrLiquidar), "setselectTrLiquidar", setselectTrLiquidar), "inpmontoLiquidar", inpmontoLiquidar), "setinpmontoLiquidar", setinpmontoLiquidar), "inpfechaLiquidar", inpfechaLiquidar), _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_jsx3, "setinpfechaLiquidar", setinpfechaLiquidar), "liquidarMov", liquidarMov), "orderAuditoria", orderAuditoria), "setorderAuditoria", setorderAuditoria), "orderColumnAuditoria", orderColumnAuditoria), "setorderColumnAuditoria", setorderColumnAuditoria), "selectConciliacion", selectConciliacion), "saldoactualbancofecha", saldoactualbancofecha), "setsaldoactualbancofecha", setsaldoactualbancofecha), "sendsaldoactualbancofecha", sendsaldoactualbancofecha), _defineProperty(_defineProperty(_jsx3, "selectConciliacionData", selectConciliacionData), "setselectConciliacionData", setselectConciliacionData))), permiso([1, 2, 4, 8]) && viewmainPanel === "efectivo" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_52__.jsxs)(_efectivo__WEBPACK_IMPORTED_MODULE_44__["default"], {
           subviewpanelsucursales: subviewpanelsucursales,
           setsubviewpanelsucursales: setsubviewpanelsucursales,
           getsucursalDetallesData: getsucursalDetallesData,
@@ -71794,6 +71863,7 @@ function Home() {
             setviewmainPanel: setviewmainPanel,
             permiso: permiso
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_52__.jsx)(_comprascargarfactsdigitales__WEBPACK_IMPORTED_MODULE_29__["default"], {
+            setfactInpImagen: setfactInpImagen,
             numfact_select_imagen: numfact_select_imagen,
             showFilescxp: showFilescxp,
             dataFilescxp: dataFilescxp,

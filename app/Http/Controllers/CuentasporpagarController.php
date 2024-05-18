@@ -208,13 +208,16 @@ class CuentasporpagarController extends Controller
         return cuentasporpagar::updateOrCreate($search,$arr);
     }
     function negative($num){
-        return -1 * abs($num);
+        return -1 * abs(floatval($num));
     }
     function saveFacturaLote(Request $req){
 
         try {
-            $facturas = $req->facturas;
+            $facturas =   array_values(json_decode($req->facturas, true));
             $selectFilecxp = $req->selectFilecxp;
+            $imagenreq = $req->imagen;
+
+            
             
             $msj = "";
             foreach ($facturas as $i => $factura) {
@@ -230,12 +233,24 @@ class CuentasporpagarController extends Controller
                     $type = $factura["type"];
                     if ($type=="update" || $type=="new") {
                         $imagen = "IMAGEN";
+                        $fileId = (new CuentasporpagarFisicasController)->sendComprasFatsFun([
+                            "id_proveedor" => $factura["id_proveedor"],
+                            "id_sucursal" => $factura["id_sucursal"],
+                            "numfact" => $factura["numfact"],
+                            "imagen" => $imagenreq,
+                        ])["id"];
+
+                        if ($fileId) {
+                            $selectFilecxp = $fileId;
+                        }
                         if ($selectFilecxp) {
                             $fisica = cuentasporpagar_fisicas::find($selectFilecxp);
                             if ($fisica) {
                                 $imagen = $fisica->ruta;
                             }
                         }
+
+
                         $arrinsert = [
                             "tipo" => 1, //COMPRAS
                             "frecuencia" => 0,

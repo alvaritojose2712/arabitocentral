@@ -37,6 +37,7 @@ export default function Comprascargarfactsdigitales({
     dataFilescxp,
     showFilescxp,
     numfact_select_imagen,
+    setfactInpImagen,
     
 }){
     /* useEffect(()=>{
@@ -215,7 +216,11 @@ export default function Comprascargarfactsdigitales({
                                         value={!e.nota?"":e.nota}
                                         onChange={e => handleFacturaxLotes((e.target.value), i, "changeInput", "nota")} 
                                         ></textarea>
-                                        <button className="btn btn-info w-100" onClick={()=>setviewmainPanel("comprascargarfactsfisicas")}><i className="fa fa-file"></i></button>
+
+                                        <div className="form-group mb-2">
+                                            <label htmlFor="formFile" className="form-label">Adjunte FOTO NITIDA, COMPLETA Y CENTRADA DE LA FACTURA</label>
+                                            <input type="file" className="form-control" id="formFile" onChange={event=>setfactInpImagen(event.target.files[0])}/>
+                                        </div>
                                     </td>
                                     <td>
                                         <select disabled={type(e.type)} className="form-control" 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\cuentasporpagar;
+use App\Models\novedad_inventario_aprobacion;
 set_time_limit(300000);
 use App\Models\marcas;
 use App\Models\productonombre1;
@@ -109,6 +110,27 @@ function vincularinventario() {
             $invSucursal->save();
         }
     }
+}
+
+function sendNovedadCentral(Request $req) {
+    $producto = $req->producto;
+    $codigo_origen = $req->codigo_origen;
+    $idinsucursal = $producto["id"];
+    $estado = 0;
+    
+    $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
+    $id_sucursal = $id_ruta["id_origen"];
+
+    novedad_inventario_aprobacion::updateOrCreate([
+        "id_sucursal" => $id_sucursal,
+        "idinsucursal" => $idinsucursal,
+    ],[
+        "id_sucursal" => $id_sucursal,
+        "idinsucursal" => $idinsucursal,
+        "estado" => $estado,
+    ]);
+    
+    
 }
 
 function delInventarioSucursalDuplicado() {

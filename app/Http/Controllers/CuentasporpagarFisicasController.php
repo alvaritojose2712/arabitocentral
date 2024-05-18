@@ -68,6 +68,7 @@ class CuentasporpagarFisicasController extends Controller
     }
     function sendComprasFatsFun($arr) {
         $id_proveedor = $arr["id_proveedor"];
+        $id_sucursal = isset($arr["id_sucursal"])?$arr["id_sucursal"]:null;
         $numfact = $arr["numfact"];
         $imagen = $arr["imagen"];
         $fecha = date("dmY");
@@ -75,7 +76,8 @@ class CuentasporpagarFisicasController extends Controller
     
         if ($id_usuario) {
             $usuario = usuarios::find($id_usuario);
-            $findSucursal = sucursal::find($usuario->id_sucursal);
+            $id_su = $id_sucursal? $id_sucursal: $usuario->id_sucursal;
+            $findSucursal = sucursal::find($id_su);
             if ($findSucursal) {
                 $codigo_sucursal = $findSucursal->codigo;
                 $filename = $fecha."-".$id_proveedor."-$numfact." . $imagen->getClientOriginalExtension();
@@ -85,14 +87,14 @@ class CuentasporpagarFisicasController extends Controller
                 $cuentasporpagar_fisicas = cuentasporpagar_fisicas::updateOrCreate([
                     "ruta" => $path,
                     "id_proveedor" => $id_proveedor,
-                    "id_sucursal" => $usuario->id_sucursal,
+                    "id_sucursal" => $id_su,
                     "numfact" => $numfact,
                 ],[
     
                     "estado" => 0,
                     "ruta" => $path,
                     "id_proveedor" => $id_proveedor,
-                    "id_sucursal" => $usuario->id_sucursal,
+                    "id_sucursal" => $id_su,
                     "numfact" => $numfact,
                 ]);
                 if ($cuentasporpagar_fisicas->save()) {

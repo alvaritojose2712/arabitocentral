@@ -2099,14 +2099,19 @@ function formatAmount( number, simbol ) {
     })
   }
   const saveFacturaLote = () => {
-    db.saveFacturaLote({
-      selectFilecxp,
-      facturas: selectCuentaPorPagarId.detalles.filter(e=>e.type)
-    })
+    const formData = new FormData();
+    formData.append("imagen",factInpImagen);
+    formData.append("selectFilecxp",selectFilecxp);
+    formData.append("facturas",JSON.stringify(selectCuentaPorPagarId.detalles.filter(e=>e.type)));
+
+    db.saveFacturaLote(formData)
     .then(res=>{
-      selectCuentaPorPagarProveedorDetallesFun()
-      setselectFilecxp(null)
-      notificar(res)
+      if (res.data.estado) {
+        selectCuentaPorPagarProveedorDetallesFun()
+        setselectFilecxp(null)
+        notificar(res)
+        
+      }
     })
   }
   const handleFacturaxLotes = (val, i, type, name = null) => {
@@ -4156,6 +4161,9 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2]) && viewmainPanel === "creditos" &&
             <PorCobrar
+              getsucursalDetallesData={getsucursalDetallesData}
+              sucursalDetallesData={sucursalDetallesData}
+              moneda={moneda}
               fechasMain1={fechasMain1}
               fechasMain2={fechasMain2}
               setfechasMain1={setfechasMain1}
@@ -4640,6 +4648,7 @@ function formatAmount( number, simbol ) {
                 permiso={permiso}
               />
               <ComprasCargarFactsDigitales
+                setfactInpImagen={setfactInpImagen}
                 numfact_select_imagen={numfact_select_imagen}
                 showFilescxp={showFilescxp}
                 dataFilescxp={dataFilescxp}

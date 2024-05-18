@@ -220,6 +220,8 @@ Route::get('metodos',  function() {
 });
 
 
+
+
 Route::get('categoriasgastos',  function() {
     
     $data = [["1","CAJA CHICA: EFECTIVO ADICIONAL","0","9","4"],
@@ -370,6 +372,8 @@ Route::post('guardarNuevoProductoLote', [InventarioSucursalController::class,"gu
 Route::post('getinventario', [InventarioSucursalController::class,"index"]);
 
 Route::post('guardarNuevoProducto', [InventarioController::class,"guardarNuevoProducto"]);
+Route::post('sendNovedadCentral', [InventarioController::class,"sendNovedadCentral"]);
+
 Route::post('delProducto', [InventarioController::class,"delProducto"]);
 Route::post('getFallas', [InventarioController::class,"getFallas"]);
 Route::post('setFalla', [InventarioController::class,"setFalla"]);
