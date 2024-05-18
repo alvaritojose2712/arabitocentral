@@ -216,8 +216,7 @@ class CuentasporpagarController extends Controller
             $facturas =   array_values(json_decode($req->facturas, true));
             $selectFilecxp = $req->selectFilecxp;
             $imagenreq = $req->imagen;
-
-            
+            $fileId = null;
             
             $msj = "";
             foreach ($facturas as $i => $factura) {
@@ -233,15 +232,17 @@ class CuentasporpagarController extends Controller
                     $type = $factura["type"];
                     if ($type=="update" || $type=="new") {
                         $imagen = "IMAGEN";
-                        $fileId = (new CuentasporpagarFisicasController)->sendComprasFatsFun([
-                            "id_proveedor" => $factura["id_proveedor"],
-                            "id_sucursal" => $factura["id_sucursal"],
-                            "numfact" => $factura["numfact"],
-                            "imagen" => $imagenreq,
-                        ])["id"];
+                        if ($imagenreq) {
+                            $fileId = (new CuentasporpagarFisicasController)->sendComprasFatsFun([
+                                "id_proveedor" => $factura["id_proveedor"],
+                                "id_sucursal" => $factura["id_sucursal"],
+                                "numfact" => $factura["numfact"],
+                                "imagen" => $imagenreq,
+                            ]);
+                        }
 
-                        if ($fileId) {
-                            $selectFilecxp = $fileId;
+                        if (isset($fileId["id"]) && $imagenreq) {
+                            $selectFilecxp = $fileId["id"];
                         }
                         if ($selectFilecxp) {
                             $fisica = cuentasporpagar_fisicas::find($selectFilecxp);

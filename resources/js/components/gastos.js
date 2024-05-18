@@ -283,7 +283,7 @@ export default function Gastos({
 							onChange={e=>setgastosQCategoria(e.target.value)}>
 								<option value="">-Buscar por Categoría-</option>
 								{categoriasCajas.map(e=>
-									<option value={e.id} key={e.id}>{e.descripcion}</option>
+									<option value={e.id} key={e.id}>{e.nombre}</option>
 								)}
 							</select>
 							

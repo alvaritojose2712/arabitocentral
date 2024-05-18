@@ -8753,7 +8753,7 @@ function Gastos(_ref) {
             }), categoriasCajas.map(function (e) {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
                 value: e.id,
-                children: e.descripcion
+                children: e.nombre
               }, e.id);
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
