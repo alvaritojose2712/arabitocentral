@@ -2112,7 +2112,7 @@ function formatAmount( number, simbol ) {
       if (res.data.estado) {
         selectCuentaPorPagarProveedorDetallesFun()
         setselectFilecxp(null)
-        setselectFilecxp("")
+        setfactInpImagen("")
         notificar(res)
         
       }

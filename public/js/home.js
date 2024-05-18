@@ -5102,7 +5102,8 @@ function Comprascargarfactsdigitales(_ref) {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                     className: "btn-sm btn btn-warning",
                     onClick: function onClick() {
-                      return handleFacturaxLotes(null, i, "update");
+                      setfactInpImagen("");
+                      handleFacturaxLotes(null, i, "update");
                     },
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
                       className: "fa fa-pencil"
@@ -69315,7 +69316,7 @@ function Home() {
       if (res.data.estado) {
         selectCuentaPorPagarProveedorDetallesFun();
         setselectFilecxp(null);
-        setselectFilecxp("");
+        setfactInpImagen("");
         notificar(res);
       }
     });

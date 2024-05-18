@@ -306,7 +306,7 @@ export default function Comprascargarfactsdigitales({
                                     {!e.type ?
                                         <>
                                             <span className="btn-sm btn btn-danger" onClick={() => handleFacturaxLotes(null, i, "delMode")}><i className="fa fa-trash"></i></span>
-                                            <span className="btn-sm btn btn-warning" onClick={() => handleFacturaxLotes(null, i, "update")}><i className="fa fa-pencil"></i></span>
+                                            <span className="btn-sm btn btn-warning" onClick={() => {setfactInpImagen("");handleFacturaxLotes(null, i, "update")}}><i className="fa fa-pencil"></i></span>
                                         </>
                                         : null}
                                     {e.type === "new" ?

@@ -18,6 +18,8 @@ class CreateNovedadInventarioAprobacionsTable extends Migration
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
             $table->integer("idinsucursal");
+
+            
             $table->integer("estado");
             $table->timestamps();
         });
