@@ -69315,6 +69315,7 @@ function Home() {
       if (res.data.estado) {
         selectCuentaPorPagarProveedorDetallesFun();
         setselectFilecxp(null);
+        setselectFilecxp("");
         notificar(res);
       }
     });
