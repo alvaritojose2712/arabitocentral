@@ -5904,15 +5904,7 @@ function ComprasCargarFactsFisica(_ref) {
                   children: e.sucursal ? e.sucursal.codigo : ""
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                className: "text-center",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-                  src: e.ruta,
-                  width: 200,
-                  onClick: function onClick() {
-                    return showFilescxp(e.ruta);
-                  },
-                  className: "pointer"
-                })
+                className: "text-center"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
                   className: "btn btn-danger",

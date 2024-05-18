@@ -87,7 +87,7 @@ export default function ComprasCargarFactsFisica({
                                 </button>
                             </td>
                             <td className="text-center">
-                                <img src={e.ruta} width={200} onClick={()=>showFilescxp(e.ruta)} className="pointer"/>
+                               {/*  <img src={e.ruta} width={200} onClick={()=>showFilescxp(e.ruta)} className="pointer"/> */}
                             </td>
                             <td>
                                 <button className="btn btn-danger" onClick={()=>delFilescxp(e.id)} data-numfact={e.numfact}><i className="fa fa-times"></i></button>
