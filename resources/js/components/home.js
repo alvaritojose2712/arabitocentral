@@ -15,8 +15,6 @@ import Notificacion from '../components/notificacion';
 import Cargando from '../components/cargando';
 import Login from '../components/login';
 
-
-
 import Toplabel from './toplabel';
 
 import Panel from './panel/panel'
@@ -48,10 +46,6 @@ import Comprasmodalselectfactfisicas from './comprasmodalselectfactfisicas';
 import ComprasDistribuirFacts from './comprasdistribuirfacts'
 import ComprascargarFactsItems from './panel/comprascargarfactsItems'
 
-
-
-
-
 import Auditoria from './auditoria';
 import Proveedores from './proveedores';
 
@@ -79,6 +73,7 @@ import CuentasporpagarPago from './cuentasporpagarPagos';
 import EfectivoDisponibleSucursales from './efectivoDisponibleSucursales';
 
 import Gastos from './gastos'
+import Inventario from "./inventario";
 
 
 
@@ -387,6 +382,20 @@ function Home() {
   const [sendalquilersucursal, setsendalquilersucursal] = useState("")
   const [sendalquilerid, setsendalquilerid] = useState(null)
   const [subviewAlquileres, setsubviewAlquileres] = useState("list")
+  
+  const [inventariogeneralData, setinventariogeneralData] = useState("list")
+  
+  
+  const getInventarioGeneral = () => {
+    db.getInventarioGeneral({
+      invsuc_q,
+      invsuc_num,
+      invsuc_orderBy,
+    })
+    .then(res=>{
+      setinventariogeneralData(res.data)
+    })
+  }
 
   
   const delAlquiler = () => {
@@ -653,6 +662,35 @@ function Home() {
     }
 
   }
+
+  ///DICI
+  const [qInventarioNovedades,setqInventarioNovedades] = useState("")
+  const [qFechaInventarioNovedades,setqFechaInventarioNovedades] = useState("")
+  const [qFechaHastaInventarioNovedades,setqFechaHastaInventarioNovedades] = useState("")
+  const [qSucursalInventarioNovedades,setqSucursalInventarioNovedades] = useState("")
+  const [inventarioNovedadesData,setinventarioNovedadesData] = useState([])
+
+  const getInventarioNovedades = () => {
+    db.getInventarioNovedades({
+      qInventarioNovedades,
+      qFechaInventarioNovedades,
+      qFechaHastaInventarioNovedades,
+      qSucursalInventarioNovedades,
+    }).then(res=>{
+      setinventarioNovedadesData(res.data)
+    })
+  }
+
+  const resolveInventarioNovedades = (id) => {
+    db.resolveInventarioNovedades({id}).then(res=>{
+      getInventarioNovedades()
+    })
+  }
+
+
+
+
+  ///END DICI
 
   const getPedidosCentral = () => {
     setLoading(true)
@@ -3272,7 +3310,10 @@ function formatAmount( number, simbol ) {
       route: "comovamos",
       name: "CÓMO VAMOS"
     },
-
+    {
+      route: "dici",
+      name: "DICI"
+    },
     {
       route: "administracion",
       name: "ADMINISTRACIÓN"
@@ -4806,6 +4847,36 @@ function formatAmount( number, simbol ) {
             </Pedidos>
           </>
 
+          }
+
+          {permiso([1,2]) && viewmainPanel === "dici" &&
+          <>
+            <Inventario
+              qInventarioNovedades={qInventarioNovedades}
+              setqInventarioNovedades={setqInventarioNovedades}
+              qFechaInventarioNovedades={qFechaInventarioNovedades}
+              setqFechaInventarioNovedades={setqFechaInventarioNovedades}
+              qFechaHastaInventarioNovedades={qFechaHastaInventarioNovedades}
+              setqFechaHastaInventarioNovedades={setqFechaHastaInventarioNovedades}
+              qSucursalInventarioNovedades={qSucursalInventarioNovedades}
+              setqSucursalInventarioNovedades={setqSucursalInventarioNovedades}
+              inventarioNovedadesData={inventarioNovedadesData}
+              setinventarioNovedadesData={setinventarioNovedadesData}
+              getInventarioNovedades={getInventarioNovedades}
+              resolveInventarioNovedades={resolveInventarioNovedades}
+              sucursales={sucursales}
+
+              setinvsuc_q={setinvsuc_q}
+              invsuc_q={invsuc_q}
+              invsuc_num={invsuc_num}
+              setinvsuc_num={setinvsuc_num}
+              invsuc_orderBy={invsuc_orderBy}
+              setinvsuc_orderBy={setinvsuc_orderBy}
+              setinvsuc_orderColumn={setinvsuc_orderColumn}
+              inventariogeneralData={inventariogeneralData}
+              getInventarioGeneral={getInventarioGeneral}
+            />
+          </>
           }
           {permiso([1,10]) && viewmainPanel === "cargarfactsitems" &&
             <>

@@ -68,5 +68,6 @@ class inventario_sucursal extends Model
         "n2",
         "n3",
         "n4",
+        "n5",
     ];
 }

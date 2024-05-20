@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+set_time_limit(300000);
+
 use Illuminate\Http\Request;
 use App\Models\inventario_sucursal;
 use App\Models\sucursal;
@@ -551,6 +553,69 @@ class InventarioSucursalController extends Controller
             }
             return ["msj"=>"NO item ".$arr["codigo_barras"], "estado"=>false];   
         }
+    }
+
+    function getInventarioGeneral(Request $req) {
+        $invsuc_q = $req->invsuc_q;
+        $invsuc_num = $req->invsuc_num;
+        $invsuc_orderBy = $req->invsuc_orderBy;
+
+        $i = inventario_sucursal::with(["sucursal"])
+        ->whereNotNull("n1")
+        ->groupBy("n1")
+        ->groupBy("n2")
+        ->groupBy("n3")
+        ->groupBy("n4")
+        ->groupBy("n5")
+        ->limit(25)
+        ->orderBy("n1","asc")
+        ->get();
+
+        return [
+            "data" => $i
+        ];
+
+
+    }
+    function importnagazaki() {
+        $file_path = storage_path("app/public/nagazaki.tsv");
+
+        $delimiter = "\t";
+
+        $fp = fopen($file_path, 'r');
+
+        while ( !feof($fp) )
+        {
+            $line = fgets($fp, 2048);
+
+            $data = str_getcsv($line, $delimiter);
+
+            $n1 = $data[0]?$data[0]:"";
+            $n2 = $data[1]?$data[1]:"";
+            $n3 = $data[2]?$data[2]:"";
+            $n4 = $data[3]?$data[3]:"";
+            $n5 = $data[4]?$data[4]:"";
+            $marca = $data[5]?$data[5]:"";
+            $id_central = $data[6];
+
+            $i = inventario_sucursal::find($id_central);
+            if ($i) {
+                $i->n1 = $n1;
+                $i->n2 = $n2;
+                $i->n3 = $n3;
+                $i->n4 = $n4;
+                $i->n5 = $n5;
+                $i->id_marca = $marca;
+                $i->save();
+            }else{
+                echo "No se encontró ".$id_central;
+            }
+        }                              
+
+        fclose($fp);
+
+
+
     }
 
     

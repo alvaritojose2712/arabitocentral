@@ -3,84 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Models\novedad_inventario_aprobacion;
-use App\Http\Requests\Storenovedad_inventario_aprobacionRequest;
-use App\Http\Requests\Updatenovedad_inventario_aprobacionRequest;
+use Illuminate\Http\Request;
+use Response;
+
 
 class NovedadInventarioAprobacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    function resolveNovedadCentralCheck(Request $req) {
+        $id = $req->resolveNovedadId;
+        $n = novedad_inventario_aprobacion::where("idinsucursal",$id)->first();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storenovedad_inventario_aprobacionRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Storenovedad_inventario_aprobacionRequest $request)
-    {
-        //
-    }
+        if ($n) {
+            if ($n->estado) {
+                return [
+                    "estado"=>true,
+                    "msj"=>"Novedad aprobada!",
+                    "idinsucursal"=>$id,
+                    "productoAprobado" => $n
+                ];
+            }
+        }
+        return ["estado"=>false,"msj"=>"Rechazado!"];
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\novedad_inventario_aprobacion  $novedad_inventario_aprobacion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(novedad_inventario_aprobacion $novedad_inventario_aprobacion)
-    {
-        //
     }
+    function getInventarioNovedades(Request $req) {
+        $qInventarioNovedades = $req->qInventarioNovedades;
+        $qFechaInventarioNovedades = $req->qFechaInventarioNovedades;
+        $qFechaHastaInventarioNovedades = $req->qFechaHastaInventarioNovedades;
+        $qSucursalInventarioNovedades = $req->qSucursalInventarioNovedades;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\novedad_inventario_aprobacion  $novedad_inventario_aprobacion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(novedad_inventario_aprobacion $novedad_inventario_aprobacion)
-    {
-        //
+        $n = novedad_inventario_aprobacion::with("sucursal")
+        ->when($qInventarioNovedades, function($q) use ($qInventarioNovedades){
+            $q->orwhere("responsable","LIKE","%$qInventarioNovedades%")
+            ->orwhere("responsable","LIKE","%$qInventarioNovedades%");
+        })
+        ->when($qFechaInventarioNovedades, function($q) use ($qFechaHastaInventarioNovedades,$qFechaInventarioNovedades){
+            $q->whereBetween("created_at",[$qFechaInventarioNovedades." 00:00:00",(!$qFechaHastaInventarioNovedades?$qFechaInventarioNovedades:$qFechaHastaInventarioNovedades)." 23:59:59"]);
+        })
+        ->when($qSucursalInventarioNovedades, function($q) use ($qSucursalInventarioNovedades) {
+            $q->when("id_sucursal",$qSucursalInventarioNovedades);
+        })
+        ->orderBy("updated_at","desc")
+        ->get();
+
+        return [
+            "data" => $n
+        ];
     }
+    function resolveInventarioNovedades(Request $req) {
+        $id = $req->id;
+        $n = novedad_inventario_aprobacion::find($id);
+        if (!$n->estado) {
+            $n->estado = 1;
+        }else{
+            $n->estado = 0;
+        }
+        $n->save();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatenovedad_inventario_aprobacionRequest  $request
-     * @param  \App\Models\novedad_inventario_aprobacion  $novedad_inventario_aprobacion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatenovedad_inventario_aprobacionRequest $request, novedad_inventario_aprobacion $novedad_inventario_aprobacion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\novedad_inventario_aprobacion  $novedad_inventario_aprobacion
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(novedad_inventario_aprobacion $novedad_inventario_aprobacion)
-    {
-        //
     }
 }

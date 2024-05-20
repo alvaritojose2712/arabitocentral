@@ -15,12 +15,31 @@ class CreateNovedadInventarioAprobacionsTable extends Migration
     {
         Schema::create('novedad_inventario_aprobacions', function (Blueprint $table) {
             $table->increments("id");
+            
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
-            $table->integer("idinsucursal");
-
             
+            $table->integer("idinsucursal");
+            $table->string("responsable");
+            $table->text("motivo");
             $table->integer("estado");
+
+            $table->string("codigo_barras_old")->nullable()->default(null);
+            $table->string("codigo_proveedor_old")->nullable()->default(null);
+            $table->string("descripcion_old")->nullable()->default(null);
+            $table->decimal("precio_base_old",8,3)->nullable()->default(0);
+            $table->decimal("precio_old",8,3)->nullable()->default(0);
+            $table->decimal("cantidad_old",9,2)->nullable()->default(0);
+
+            $table->string("codigo_barras")->nullable()->default(null);
+            $table->string("codigo_proveedor")->nullable()->default(null);
+            $table->string("descripcion")->nullable()->default(null);
+            $table->decimal("precio_base",8,3)->nullable()->default(0);
+            $table->decimal("precio",8,3)->nullable()->default(0);
+            $table->decimal("cantidad",9,2)->nullable()->default(0);
+            
+            $table->unique(["id_sucursal","idinsucursal"]);
+            
             $table->timestamps();
         });
     }

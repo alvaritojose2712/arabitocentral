@@ -10,6 +10,7 @@ use App\Http\Controllers\CreditoAprobacionController;
 use App\Http\Controllers\CuentasporpagarController;
 use App\Http\Controllers\CuentasporpagarFisicasController;
 use App\Http\Controllers\CuentasporpagarItemsController;
+use App\Http\Controllers\NovedadInventarioAprobacionController;
 use App\Http\Controllers\PuntosybiopagosController;
 use App\Http\Controllers\TransferenciaAprobacionController;
 use App\Http\Controllers\UltimainformacioncargadaController;
@@ -221,6 +222,7 @@ Route::get('metodos',  function() {
 
 
 
+Route::get('importnagazaki',  [InventarioSucursalController::class,"importnagazaki"]);
 
 Route::get('categoriasgastos',  function() {
     
@@ -342,7 +344,6 @@ Route::post('changeAprobarFact', [CuentasporpagarController::class,"changeAproba
 Route::post('selectPrecioxProveedorSave', [ProductoxproveedorController::class,"selectPrecioxProveedorSave"]);
 Route::post('getPrecioxProveedor', [ProductoxproveedorController::class,"getPrecioxProveedor"]);
 
-Route::post('getinventario', [InventarioController::class,"index"]);
 
 Route::post('setCarrito', [PedidosController::class,"setCarrito"]);
 
@@ -370,6 +371,14 @@ Route::post('sendItemsPedidosChecked', [ItemsPedidosController::class,"sendItems
 
 Route::post('guardarNuevoProductoLote', [InventarioSucursalController::class,"guardarNuevoProductoLote"]);
 Route::post('getinventario', [InventarioSucursalController::class,"index"]);
+Route::post('getInventarioGeneral',  [InventarioSucursalController::class,"getInventarioGeneral"]);
+
+
+Route::post('getInventarioNovedades', [NovedadInventarioAprobacionController::class,"getInventarioNovedades"]);
+Route::post('resolveInventarioNovedades', [NovedadInventarioAprobacionController::class,"resolveInventarioNovedades"]);
+Route::post('resolveNovedadCentralCheck', [NovedadInventarioAprobacionController::class,"resolveNovedadCentralCheck"]);
+
+
 
 Route::post('guardarNuevoProducto', [InventarioController::class,"guardarNuevoProducto"]);
 Route::post('sendNovedadCentral', [InventarioController::class,"sendNovedadCentral"]);

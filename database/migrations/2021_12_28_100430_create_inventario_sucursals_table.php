@@ -63,17 +63,12 @@ class CreateInventarioSucursalsTable extends Migration
             $table->unique(["id_sucursal","idinsucursal"]);   
             
 
-            $table->string("n1")->nullable(true);
-            $table->foreign('n1')->references('nombre')->on('productonombre1s');
-
-            $table->string("n2")->nullable(true);
-            $table->foreign('n2')->references('nombre')->on('productonombre2s');
-
-            $table->string("n3")->nullable(true);
-            $table->foreign('n3')->references('nombre')->on('productonombre3s');
-
-            $table->string("n4")->nullable(true);
-            $table->foreign('n4')->references('nombre')->on('productonombre4s');
+            $table->string("n1")->nullable(true)->default(null);
+            $table->string("n2")->nullable(true)->default(null);
+            $table->string("n3")->nullable(true)->default(null);
+            $table->string("n4")->nullable(true)->default(null);
+            $table->string("n5")->nullable(true)->default(null);
+            $table->string("id_marca")->nullable()->default("GENÉRICO");
 
             
             $table->timestamps();

@@ -113,22 +113,55 @@ function vincularinventario() {
 }
 
 function sendNovedadCentral(Request $req) {
-    $producto = $req->producto;
+    $novedad = $req->novedad;
     $codigo_origen = $req->codigo_origen;
-    $idinsucursal = $producto["id"];
+
+    $old = $novedad["producto"];
+    $idinsucursal = $novedad["id"];
     $estado = 0;
     
     $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
     $id_sucursal = $id_ruta["id_origen"];
 
-    novedad_inventario_aprobacion::updateOrCreate([
+
+    $n = novedad_inventario_aprobacion::updateOrCreate([
         "id_sucursal" => $id_sucursal,
         "idinsucursal" => $idinsucursal,
     ],[
         "id_sucursal" => $id_sucursal,
         "idinsucursal" => $idinsucursal,
-        "estado" => $estado,
+
+        "responsable"=>$novedad["responsable"],
+        "motivo"=>$novedad["motivo"],
+        "estado"=>$estado,
+        
+        "codigo_barras_old" => isset($old["codigo_barras"])?$old["codigo_barras"]:null,
+        "codigo_proveedor_old" => isset($old["codigo_proveedor"])?$old["codigo_proveedor"]:null,
+        "descripcion_old" => isset($old["descripcion"])?$old["descripcion"]:null,
+        "precio_base_old" => isset($old["precio_base"])?$old["precio_base"]:null,
+        "precio_old" => isset($old["precio"])?$old["precio"]:null,
+        "cantidad_old" => isset($old["cantidad"])?$old["cantidad"]:null,
+
+        "id_proveedor_old" => isset($old["id_proveedor"])?$old["id_proveedor"]:null,
+        "id_categoria_old" => isset($old["id_categoria"])?$old["id_categoria"]:null,
+        
+        "codigo_barras" => $novedad["codigo_barras"],
+        "codigo_proveedor" => $novedad["codigo_proveedor"],
+        "descripcion" => $novedad["descripcion"],
+        "precio_base" => $novedad["precio_base"],
+        "precio" => $novedad["precio"],
+        "cantidad" => $novedad["cantidad"],
+        
+        "id_proveedor" => $novedad["id_proveedor"],
+        "id_categoria" => $novedad["id_categoria"],
+
+        
+        
     ]);
+
+    if ($n) {
+        return Response::json(["estado"=>true, "msj"=>"Central: Éxito al Registrar novedad #".$n->id]);
+    }
     
     
 }

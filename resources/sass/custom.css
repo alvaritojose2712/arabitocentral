@@ -60,6 +60,11 @@
   border-left:   4px solid  black !important;
 
 }
+
+.trpaddingbottom td{
+  
+  padding-bottom: 10px;
+}
  .th{
   background-color: white !important;
   color: black !important;
