@@ -68,7 +68,6 @@ class CreateInventarioSucursalsTable extends Migration
             $table->string("n3")->nullable(true)->default(null);
             $table->string("n4")->nullable(true)->default(null);
             $table->string("n5")->nullable(true)->default(null);
-            $table->string("id_marca")->nullable()->default("GENÉRICO");
 
             
             $table->timestamps();
