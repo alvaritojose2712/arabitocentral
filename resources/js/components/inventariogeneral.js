@@ -59,31 +59,38 @@ export default function Inventariogeneral({
 
                     </tr>
                 </thead>
-                <tbody>
 
                     {inventariogeneralData?
                         inventariogeneralData.data?
-                            inventariogeneralData.data.map(e=>
-                                
-                                <tr key={e.id}>
-                                    <td className="">{e.sucursal.codigo}</td>
-                                    <td className="">{e.idinsucursal}</td>
-                                    <td className="">{e.codigo_proveedor}</td>
-                                    <td className="">{e.codigo_barras}</td>
-                                    <td className="">{e.unidad}</td>
-                                    <td className="">{e.descripcion}</td>
-                                    <th className="">{e.cantidad}</th>
-                                    <td className="">{e.precio_base}</td>
-                                    <td className="text-success">{e.precio}</td>
-                                    <td className=""></td>
-                                    <td className="">{e.iva}</td>
-                                    <td className="">{e.updated_at}</td>
-                                </tr>
-                                
+                            Object.entries(inventariogeneralData.data).map(e=>
+                                <tbody key={e.id}>
+                                    <tr>
+                                        <th colSpan={13}>
+                                            {e[0]}
+                                        </th>
+                                    </tr>
+                                    {e[1].map(ee=>
+                                        <tr key={ee.id}>
+                                            <td></td>
+                                            <td className="">{ee.sucursal.codigo}</td>
+                                            <td className="">{ee.idinsucursal}</td>
+                                            <td className="">{ee.codigo_proveedor}</td>
+                                            <td className="">{ee.codigo_barras}</td>
+                                            <td className="">{ee.unidad}</td>
+                                            <td className="">{ee.descripcion}</td>
+                                            <th className="">{ee.cantidad}</th>
+                                            <td className="">{ee.precio_base}</td>
+                                            <td className="text-success">{ee.precio}</td>
+                                            <td className=""></td>
+                                            <td className="">{ee.iva}</td>
+                                            <td className="">{ee.updated_at}</td>
+                                        </tr>
+
+                                    )}
+                                </tbody>
                             )
                         :null
                     :null}
-                </tbody>
             </table>
         </div>
     )

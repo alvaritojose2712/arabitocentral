@@ -31,7 +31,7 @@ export default function Inventario({
     const [subviewdici, setsubviewdici] = useState("novedades")
 
     return(
-    <div className="container">
+    <div className="container-fluid">
         <div className="text-center">
             <div className="btn-group mb-2">
                 <button className={("fs-4 btn btn")+(subviewdici=="novedades"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("novedades")}> NOVEDADES</button>

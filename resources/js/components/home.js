@@ -2329,7 +2329,7 @@ function formatAmount( number, simbol ) {
     }
   }
   const showImageFact = (id) => {
-    db.showImageFact(id)
+    db.showImageFact(((id.indexOf("/")===-1)? ("facturas/"+id): id))
   }
 
   const delItemSelectAbonoFact = id => {

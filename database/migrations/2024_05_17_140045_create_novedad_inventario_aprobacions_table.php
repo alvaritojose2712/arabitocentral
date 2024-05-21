@@ -31,6 +31,11 @@ class CreateNovedadInventarioAprobacionsTable extends Migration
             $table->decimal("precio_old",8,3)->nullable()->default(0);
             $table->decimal("cantidad_old",9,2)->nullable()->default(0);
 
+            $table->integer("id_categoria_old")->nullable(true);
+            $table->integer("id_proveedor_old")->nullable(true);
+            $table->integer("id_categoria")->nullable(true);
+            $table->integer("id_proveedor")->nullable(true);
+
             $table->string("codigo_barras")->nullable()->default(null);
             $table->string("codigo_proveedor")->nullable()->default(null);
             $table->string("descripcion")->nullable()->default(null);

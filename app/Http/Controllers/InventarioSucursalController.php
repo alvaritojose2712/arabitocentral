@@ -561,15 +561,22 @@ class InventarioSucursalController extends Controller
         $invsuc_orderBy = $req->invsuc_orderBy;
 
         $i = inventario_sucursal::with(["sucursal"])
-        ->whereNotNull("n1")
-        ->groupBy("n1")
-        ->groupBy("n2")
-        ->groupBy("n3")
-        ->groupBy("n4")
-        ->groupBy("n5")
-        ->limit(25)
+        ->when($invsuc_q,function($q) use($invsuc_q) {
+            $q->where("n1", "LIKE", $invsuc_q."%");
+        })
+        ->limit($invsuc_num)
         ->orderBy("n1","asc")
-        ->get();
+        ->orderBy("id_sucursal","asc")
+        ->orderBy("descripcion","asc")
+        ->get()
+        ->map(function($q){
+            $nombrefull = ($q->n1?($q->n1." "):"").($q->n2?$q->n2:"");
+            
+            $q->nombrefull = $nombrefull? $nombrefull: "SIN ESPECIFICAR"; 
+            
+            return $q;
+        })
+        ->groupBy(["nombrefull"]);
 
         return [
             "data" => $i
@@ -590,12 +597,12 @@ class InventarioSucursalController extends Controller
 
             $data = str_getcsv($line, $delimiter);
 
-            $n1 = $data[0]?$data[0]:"";
-            $n2 = $data[1]?$data[1]:"";
-            $n3 = $data[2]?$data[2]:"";
-            $n4 = $data[3]?$data[3]:"";
-            $n5 = $data[4]?$data[4]:"";
-            $marca = $data[5]?$data[5]:"";
+            $n1 = $data[0]?trim($data[0]):"";
+            $n2 = $data[1]?trim($data[1]):"";
+            $n3 = $data[2]?trim($data[2]):"";
+            $n4 = $data[3]?trim($data[3]):"";
+            $n5 = $data[4]?trim($data[4]):"";
+            $marca = $data[5]?trim($data[5]):"";
             $id_central = $data[6];
 
             $i = inventario_sucursal::find($id_central);
