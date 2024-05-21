@@ -588,7 +588,7 @@ class InventarioSucursalController extends Controller
 
     }
     function importnagazaki() {
-        $file_path = storage_path("app/public/nagazaki.tsv");
+        $file_path = public_path("n.tsv");
 
         $delimiter = "\t";
 
