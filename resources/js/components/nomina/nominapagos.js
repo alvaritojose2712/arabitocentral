@@ -75,6 +75,8 @@ export default function Nominapagos({
                             <th>MES ANTEPASADO</th>
                             <th>MES PASADO</th>
                             <th>MES ACTUAL</th>
+                            <th>PRÉSTAMOS</th>
+
                             <th>PAGOS TOT.</th>
                             <th>CRÉDITOS TOT.</th>
                         </tr>
@@ -95,6 +97,7 @@ export default function Nominapagos({
                                                     <td>{moneda(e.mesantepasado)}</td>
                                                     <td>{moneda(e.mespasado)}</td>
                                                     <td>{moneda(e.mes)}</td>
+                                                    <td>{moneda(e.sumPrestamos)}</td>
                                                     <td className={(e.id==selectIdPersonal?"bg-success-light":"text-success")}>{moneda(e.sumPagos)}</td>
                                                     <td className={(e.id==selectIdPersonal?"bg-danger-light":"text-danger")}>{moneda(e.sumCreditos)}</td>
                                                 </tr>
@@ -126,6 +129,22 @@ export default function Nominapagos({
                                                             <td></td>
                                                             <td></td>
                                                             <td>{moneda(credito.saldo)}</td>
+                                                        </tr>
+                                                    )
+                                                :null}
+
+                                                {selectIdPersonal==e.id?
+                                                    e.prestamos.map(prestamo=>
+                                                        <tr key={prestamo.id} className={(e.id==selectIdPersonal?"bg-info":"")}>
+                                                            <td></td>
+                                                            <td>CRÉDITO</td>
+                                                            <td>{prestamo.created_at?prestamo.created_at.replace("00:00:00",""):null}</td>
+                                                            <td>{prestamo.sucursal.codigo}</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>{moneda(prestamo.monto)}</td>
                                                         </tr>
                                                     )
                                                 :null}

@@ -26,6 +26,7 @@ export default function Inventario({
     setinvsuc_orderColumn,
     inventariogeneralData,
     getInventarioGeneral,
+    colorSucursal,
 }){
 
     const [subviewdici, setsubviewdici] = useState("novedades")
@@ -123,6 +124,7 @@ export default function Inventario({
         {subviewdici=="inventariogeneral"?
             <>
                 <Inventariogeneral
+                    colorSucursal={colorSucursal}
                     setinvsuc_q={setinvsuc_q}
                     invsuc_q={invsuc_q}
                     invsuc_num={invsuc_num}

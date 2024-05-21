@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\clientes;
 use App\Models\creditos;
+use App\Models\nominaprestamos;
 use App\Models\nominavariassucursales;
 
 use Illuminate\Http\Request;
@@ -158,7 +159,7 @@ class NominaController extends Controller
         $mespasado = $mespasadoDate;
         $mesantepasado = $mesantepasadoDate;
 
-        $personal = nomina::with(["sucursal", "cargo"])->where(function ($q) use ($qNomina) {
+        $personal = nomina::with(["sucursal", "cargo","prestamos"])->where(function ($q) use ($qNomina) {
             $q
             ->orWhere("nominanombre", "LIKE", "%$qNomina%")
             ->orWhere("nominacedula", "LIKE", "%$qNomina%");
@@ -179,7 +180,7 @@ class NominaController extends Controller
         ->map(function($q) use ($mes,$mespasado,$mesantepasado) {
             $cedula = $q->nominacedula;
             $ids = clientes::where("identificacion", "=",  $cedula)->select("id");
-            $creditos = creditos::with("sucursal")->whereIn("id_cliente",$ids);
+            $creditos = creditos::with("sucursal")->whereIn("id_cliente",$ids); 
 
             $q->pagos = $q->pagos->map(function($q) {
                 $q->created_at = date("d-m-Y", strtotime($q->created_at));
@@ -209,6 +210,7 @@ class NominaController extends Controller
             $q->mesantepasado = $mesantepasadoSum;
 
             $q->sumPagos = $pagos->sum("monto");
+            $q->sumPrestamos = $q->prestamos->sum("monto");
             
             $q->creditos = $creditos->get()->map(function($q) {
                 $q->created_at = date("d-m-Y", strtotime($q->created_at));

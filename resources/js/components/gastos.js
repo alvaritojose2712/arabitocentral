@@ -277,7 +277,7 @@ export default function Gastos({
 						getGastos()
 					}}>
 						<div className="input-group">
-							<input type="text" className="form-control fs-3" value={gastosQ} onChange={e=>setgastosQ(e.target.value)} placeholder="Buscar..."/>
+							<input type="text" className="form-control fs-6" value={gastosQ} onChange={e=>setgastosQ(e.target.value)} placeholder="Buscar..."/>
 							<select className="form-control" 
 							value={gastosQCategoria} 
 							onChange={e=>setgastosQCategoria(e.target.value)}>
@@ -287,8 +287,8 @@ export default function Gastos({
 								)}
 							</select>
 							
-							<input type="date" className="form-control fs-3" value={gastosQFecha} onChange={e=>setgastosQFecha(e.target.value)} />
-							<input type="date" className="form-control fs-3" value={gastosQFechaHasta} onChange={e=>setgastosQFechaHasta(e.target.value)} />
+							<input type="date" className="form-control fs-6" value={gastosQFecha} onChange={e=>setgastosQFecha(e.target.value)} />
+							<input type="date" className="form-control fs-6" value={gastosQFechaHasta} onChange={e=>setgastosQFechaHasta(e.target.value)} />
 
 							<button className="btn btn-success"><i className="fa fa-search"></i></button>
 						</div>
@@ -299,7 +299,7 @@ export default function Gastos({
 								<th className="pointer" onClick={()=>{setgastosfieldorder("created_at");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>FECHA</th>
 								<th className="pointer" onClick={()=>{setgastosfieldorder("id_sucursal");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>SUCURSAL / PERSONA</th>
 								<th className="pointer">DESCRIPCIÓN</th>
-								{/* <th className="bg-warning text-danger fs-3 text-right">
+								{/* <th className="bg-warning text-danger fs-6 text-right">
 									{gastosData?gastosData.sum?(
 										<span>
 											{moneda(gastosData.sum)}
@@ -319,7 +319,7 @@ export default function Gastos({
 									<td className="text-center">
 										{e.sucursal?
 											<>
-												<button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
+												<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
 													{e.sucursal.codigo}
 												</button>
 												{e.origen? <b>CARGA ADMINISTRACIÓN</b> :null}
@@ -331,27 +331,27 @@ export default function Gastos({
 									<td>{e.concepto?e.concepto:(e.loteserial?e.loteserial:null)}</td>
 									<td> 
 										{e.cat?
-											<button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorsGastosCat(e.cat.id,"cat","color")}}>
+											<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.id,"cat","color")}}>
 												{colorsGastosCat(e.cat.id,"cat","desc")}
 											</button>
 										:null}
 									</td>
 									<td> 
 										{e.cat?
-											<button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorsGastosCat(e.cat.catgeneral,"catgeneral","color")}}>
+											<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.catgeneral,"catgeneral","color")}}>
 												{colorsGastosCat(e.cat.catgeneral,"catgeneral","desc")}
 											</button>
 										:null}
 									</td>
 									<td> 
 										{e.cat?
-											<button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorsGastosCat(e.cat.ingreso_egreso,"ingreso_egreso","color")}}>
+											<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.ingreso_egreso,"ingreso_egreso","color")}}>
 												{colorsGastosCat(e.cat.ingreso_egreso,"ingreso_egreso","desc")}
 											</button>
 										:null}
 									</td>
 									
-									<td className={("fs-3 text-right ")+(e.montodolar<0?"text-danger":"text-success")}>{moneda(e.montodolar)}</td>
+									<td className={("fs-6 text-right ")+(e.montodolar<0?"text-danger":"text-success")}>{moneda(e.montodolar)}</td>
 								</tr>
 							):null:null}
 						</tbody>
@@ -366,8 +366,8 @@ export default function Gastos({
 						getGastosDistribucion()
 					}}>
 						<div className="input-group">
-							<input type="date" className="form-control fs-3" value={gastosQFecha} onChange={e=>setgastosQFecha(e.target.value)} />
-							<input type="date" className="form-control fs-3" value={gastosQFechaHasta} onChange={e=>setgastosQFechaHasta(e.target.value)} />
+							<input type="date" className="form-control fs-6" value={gastosQFecha} onChange={e=>setgastosQFecha(e.target.value)} />
+							<input type="date" className="form-control fs-6" value={gastosQFechaHasta} onChange={e=>setgastosQFechaHasta(e.target.value)} />
 
 							<button className="btn btn-success"><i className="fa fa-search"></i></button>
 						</div>
@@ -394,14 +394,14 @@ export default function Gastos({
 																	{e.nombre}
 																</button>
 															</td>
-															<td className="fs-3 text-right text-danger cell1">{moneda(e.sum)}</td>
+															<td className="fs-6 text-right text-danger cell1">{moneda(e.sum)}</td>
 															<td className="text-muted fst-italic text-right cell1">{(e.por)}%</td>
 														</tr>
 													)}
 													<tr>
 														<td></td>
 														<td></td>
-														<td colSpan={2} className="bg-warning fs-3 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
+														<td colSpan={2} className="bg-warning fs-6 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
 													</tr>
 												</tbody>
 											</table>
@@ -431,14 +431,14 @@ export default function Gastos({
 																	{e.nombre}
 																</button>
 															</td>
-															<td className="fs-3 text-right text-danger cell1">{moneda(e.sum)}</td>
+															<td className="fs-6 text-right text-danger cell1">{moneda(e.sum)}</td>
 															<td className="text-muted fst-italic text-right cell1">{(e.por)}%</td>
 														</tr>
 													)}
 													<tr>
 														<td></td>
 														<td></td>
-														<td colSpan={2} className="bg-warning fs-3 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
+														<td colSpan={2} className="bg-warning fs-6 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
 													</tr>
 												</tbody>
 											</table>

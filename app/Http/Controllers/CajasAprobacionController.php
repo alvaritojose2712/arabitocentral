@@ -110,13 +110,13 @@ class CajasAprobacionController extends Controller
             $mov = cajas_aprobacion::find($id);
             $usuario = session("usuario");
             $cat = catcajas::find($mov->categoria);
-            if ($cat) {
+            /* if ($cat) {
                 if (str_contains($cat->nombre,"TRASPASO A CAJA MATRIZ")) {
                     if ($usuario!=="raidh") {
                         return "CAJA MATRIZ SOLO APRUEBA RAID";
                     }
                 }
-            }
+            } */
 
             $mov->estatus = $mov->estatus==0?1:0;
             $mov->save();

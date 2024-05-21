@@ -4852,6 +4852,7 @@ function formatAmount( number, simbol ) {
           {permiso([1,2]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              colorSucursal={colorSucursal}
               qInventarioNovedades={qInventarioNovedades}
               setqInventarioNovedades={setqInventarioNovedades}
               qFechaInventarioNovedades={qFechaInventarioNovedades}

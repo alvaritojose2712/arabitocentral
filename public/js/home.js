@@ -8728,7 +8728,7 @@ function Gastos(_ref) {
           className: "input-group",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
             type: "text",
-            className: "form-control fs-3",
+            className: "form-control fs-6",
             value: gastosQ,
             onChange: function onChange(e) {
               return setgastosQ(e.target.value);
@@ -8751,14 +8751,14 @@ function Gastos(_ref) {
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
             type: "date",
-            className: "form-control fs-3",
+            className: "form-control fs-6",
             value: gastosQFecha,
             onChange: function onChange(e) {
               return setgastosQFecha(e.target.value);
             }
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
             type: "date",
-            className: "form-control fs-3",
+            className: "form-control fs-6",
             value: gastosQFechaHasta,
             onChange: function onChange(e) {
               return setgastosQFechaHasta(e.target.value);
@@ -8830,7 +8830,7 @@ function Gastos(_ref) {
                 className: "text-center",
                 children: [e.sucursal ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                    className: "btn w-100 fw-bolder fs-3",
+                    className: "btn w-100 fw-bolder fs-6",
                     style: {
                       backgroundColor: colorSucursal(e.sucursal.codigo)
                     },
@@ -8843,7 +8843,7 @@ function Gastos(_ref) {
                 children: e.concepto ? e.concepto : e.loteserial ? e.loteserial : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 children: e.cat ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                  className: "btn w-100 fw-bolder fs-3",
+                  className: "btn w-100 fw-bolder fs-6",
                   style: {
                     backgroundColor: colorsGastosCat(e.cat.id, "cat", "color")
                   },
@@ -8851,7 +8851,7 @@ function Gastos(_ref) {
                 }) : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 children: e.cat ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                  className: "btn w-100 fw-bolder fs-3",
+                  className: "btn w-100 fw-bolder fs-6",
                   style: {
                     backgroundColor: colorsGastosCat(e.cat.catgeneral, "catgeneral", "color")
                   },
@@ -8859,14 +8859,14 @@ function Gastos(_ref) {
                 }) : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 children: e.cat ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                  className: "btn w-100 fw-bolder fs-3",
+                  className: "btn w-100 fw-bolder fs-6",
                   style: {
                     backgroundColor: colorsGastosCat(e.cat.ingreso_egreso, "ingreso_egreso", "color")
                   },
                   children: colorsGastosCat(e.cat.ingreso_egreso, "ingreso_egreso", "desc")
                 }) : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                className: "fs-3 text-right " + (e.montodolar < 0 ? "text-danger" : "text-success"),
+                className: "fs-6 text-right " + (e.montodolar < 0 ? "text-danger" : "text-success"),
                 children: moneda(e.montodolar)
               })]
             }, e.id);
@@ -8883,14 +8883,14 @@ function Gastos(_ref) {
           className: "input-group",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
             type: "date",
-            className: "form-control fs-3",
+            className: "form-control fs-6",
             value: gastosQFecha,
             onChange: function onChange(e) {
               return setgastosQFecha(e.target.value);
             }
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
             type: "date",
-            className: "form-control fs-3",
+            className: "form-control fs-6",
             value: gastosQFechaHasta,
             onChange: function onChange(e) {
               return setgastosQFechaHasta(e.target.value);
@@ -8937,7 +8937,7 @@ function Gastos(_ref) {
                               children: e.nombre
                             })
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                            className: "fs-3 text-right text-danger cell1",
+                            className: "fs-6 text-right text-danger cell1",
                             children: moneda(e.sum)
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
                             className: "text-muted fst-italic text-right cell1",
@@ -8947,7 +8947,7 @@ function Gastos(_ref) {
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                           colSpan: 2,
-                          className: "bg-warning fs-3 text-danger text-right",
+                          className: "bg-warning fs-6 text-danger text-right",
                           children: ingregre[1]["sum"] ? moneda(ingregre[1]["sum"]) : 0
                         })]
                       })]
@@ -8988,7 +8988,7 @@ function Gastos(_ref) {
                             children: e.nombre
                           })
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                          className: "fs-3 text-right text-danger cell1",
+                          className: "fs-6 text-right text-danger cell1",
                           children: moneda(e.sum)
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
                           className: "text-muted fst-italic text-right cell1",
@@ -8998,7 +8998,7 @@ function Gastos(_ref) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                         colSpan: 2,
-                        className: "bg-warning fs-3 text-danger text-right",
+                        className: "bg-warning fs-6 text-danger text-right",
                         children: ingregre[1]["sum"] ? moneda(ingregre[1]["sum"]) : 0
                       })]
                     })]
@@ -9127,7 +9127,8 @@ function Inventario(_ref) {
     setinvsuc_orderBy = _ref.setinvsuc_orderBy,
     setinvsuc_orderColumn = _ref.setinvsuc_orderColumn,
     inventariogeneralData = _ref.inventariogeneralData,
-    getInventarioGeneral = _ref.getInventarioGeneral;
+    getInventarioGeneral = _ref.getInventarioGeneral,
+    colorSucursal = _ref.colorSucursal;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("novedades"),
     _useState2 = _slicedToArray(_useState, 2),
     subviewdici = _useState2[0],
@@ -9343,6 +9344,7 @@ function Inventario(_ref) {
       })]
     }) : null, subviewdici == "inventariogeneral" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inventariogeneral__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        colorSucursal: colorSucursal,
         setinvsuc_q: setinvsuc_q,
         invsuc_q: invsuc_q,
         invsuc_num: invsuc_num,
@@ -9384,7 +9386,8 @@ function Inventariogeneral(_ref) {
     setinvsuc_orderColumn = _ref.setinvsuc_orderColumn,
     inventariogeneralData = _ref.inventariogeneralData,
     getInventarioGeneral = _ref.getInventarioGeneral,
-    sucursales = _ref.sucursales;
+    sucursales = _ref.sucursales,
+    colorSucursal = _ref.colorSucursal;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "container-fluid",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -9451,7 +9454,7 @@ function Inventariogeneral(_ref) {
       className: "table",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "pointer",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
               children: "SUCURSAL"
@@ -9562,7 +9565,13 @@ function Inventariogeneral(_ref) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 className: "",
-                children: ee.sucursal.codigo
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                  className: "btn w-100 fw-bolder fs-3",
+                  style: {
+                    backgroundColor: colorSucursal(ee.sucursal.codigo)
+                  },
+                  children: ee.sucursal.codigo
+                })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 className: "",
                 children: ee.idinsucursal
@@ -10248,6 +10257,8 @@ function Nominapagos(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "MES ACTUAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "PR\xC9STAMOS"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "PAGOS TOT."
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "CR\xC9DITOS TOT."
@@ -10275,6 +10286,8 @@ function Nominapagos(_ref) {
                 children: moneda(e.mespasado)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 children: moneda(e.mes)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                children: moneda(e.sumPrestamos)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 className: e.id == selectIdPersonal ? "bg-success-light" : "text-success",
                 children: moneda(e.sumPagos)
@@ -10308,6 +10321,19 @@ function Nominapagos(_ref) {
                   children: moneda(credito.saldo)
                 })]
               }, credito.id);
+            }) : null, selectIdPersonal == e.id ? e.prestamos.map(function (prestamo) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                className: e.id == selectIdPersonal ? "bg-info" : "",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  children: "CR\xC9DITO"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  children: prestamo.created_at ? prestamo.created_at.replace("00:00:00", "") : null
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  children: prestamo.sucursal.codigo
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  children: moneda(prestamo.monto)
+                })]
+              }, prestamo.id);
             }) : null]
           });
         }) : null : null
@@ -72591,6 +72617,7 @@ function Home() {
           })]
         }), permiso([1, 2]) && viewmainPanel === "dici" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.Fragment, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsx)(_inventario__WEBPACK_IMPORTED_MODULE_52__["default"], {
+            colorSucursal: colorSucursal,
             qInventarioNovedades: qInventarioNovedades,
             setqInventarioNovedades: setqInventarioNovedades,
             qFechaInventarioNovedades: qFechaInventarioNovedades,

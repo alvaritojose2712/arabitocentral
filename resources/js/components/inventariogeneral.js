@@ -11,6 +11,7 @@ export default function Inventariogeneral({
     getInventarioGeneral,
 
     sucursales,
+    colorSucursal,
 }){
     return (
         <div className="container-fluid">
@@ -36,6 +37,7 @@ export default function Inventariogeneral({
             <table className="table">
                 <thead>
                     <tr>
+                        <td></td>
                         <th className="pointer"><span>SUCURSAL</span></th>
                         <th className="pointer"><span onClick={() => setinvsuc_orderColumn("id")}>ID in SUCURSAL</span></th>
                         <th className="pointer"><span onClick={() => setinvsuc_orderColumn("codigo_proveedor")}>C. Alterno</span></th>
@@ -72,7 +74,11 @@ export default function Inventariogeneral({
                                     {e[1].map(ee=>
                                         <tr key={ee.id}>
                                             <td></td>
-                                            <td className="">{ee.sucursal.codigo}</td>
+                                            <td className="">
+                                                <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(ee.sucursal.codigo)}}>
+                                                    {ee.sucursal.codigo}
+                                                </button>
+                                            </td>
                                             <td className="">{ee.idinsucursal}</td>
                                             <td className="">{ee.codigo_proveedor}</td>
                                             <td className="">{ee.codigo_barras}</td>

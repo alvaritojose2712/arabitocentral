@@ -533,6 +533,9 @@ class InventarioSucursalController extends Controller
                     "cantidad" => 0,
                 ]); 
                 if ($crearProducto) {
+                    $i = inventario_sucursal::find($crearProducto->id);
+                    $i->idinsucursal = $crearProducto->id;
+                    $i->save();
                     $cargarItem = cuentasporpagar_items::updateOrCreate([
                         "id_cuenta" => $id_factura,
                         "id_producto" => $crearProducto->id, 
@@ -562,7 +565,7 @@ class InventarioSucursalController extends Controller
 
         $i = inventario_sucursal::with(["sucursal"])
         ->when($invsuc_q,function($q) use($invsuc_q) {
-            $q->where("n1", "LIKE", $invsuc_q."%");
+            $q->where("descripcion", "LIKE", "%".$invsuc_q."%");
         })
         ->limit($invsuc_num)
         ->orderBy("n1","asc")
@@ -570,7 +573,7 @@ class InventarioSucursalController extends Controller
         ->orderBy("descripcion","asc")
         ->get()
         ->map(function($q){
-            $nombrefull = ($q->n1?($q->n1." "):"").($q->n2?$q->n2:"");
+            $nombrefull = ($q->n1?($q->n1." "):"").($q->n2?$q->n2." ":"").($q->n3?$q->n3." ":"").($q->n4?$q->n4." ":"").($q->n5?$q->n5." ":"");
             
             $q->nombrefull = $nombrefull? $nombrefull: "SIN ESPECIFICAR"; 
             
