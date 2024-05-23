@@ -465,14 +465,18 @@ class InventarioSucursalController extends Controller
     public function guardarNuevoProductoLote(Request $req)
     {
         try {
-            $msj = [];
+            $msj = "";
+            $num = 0;
             foreach ($req->lotes as $i => $ee) {
                 if (isset($ee["type"])) {
                     if ($ee["type"]==="update"||$ee["type"]==="new") {
                         $ee["id_factura"] = $req->id_factura;
 
                         $guardar = $this->guardarProducto($ee);
-                        array_push($msj, $guardar["msj"]);
+                        if ($guardar["estado"]) {
+                            $num++;
+                        }
+                        //array_push($msj, $guardar["msj"]);
 
                         if (!$guardar["estado"]) {
                             return Response::json(["msj"=>$msj, "estado"=>false]);   
@@ -482,7 +486,7 @@ class InventarioSucursalController extends Controller
                     }
                 }   
             }
-            return Response::json(["msj"=>$msj, "estado"=>true]);   
+            return Response::json(["msj"=> "PROCESADOS: ".count($req->lotes)." / ".$num, "estado"=>true]);   
         } catch (\Exception $e) {
             return Response::json(["msj"=>"Error: ".$e->getMessage()." LINEA ".$e->getLine(),"estado"=>false]);
         }  

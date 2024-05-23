@@ -319,6 +319,7 @@ export default function ComprascargarFactsItems({
                                         <thead>
                                             <tr>
                                                 <th></th>
+                                                <th></th>
                                                 <th>BARRAS</th>
                                                 <th>DESCRIPCION</th>
                                                 <th className="bg-ct">CT</th>
@@ -330,10 +331,11 @@ export default function ComprascargarFactsItems({
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {facturaSelectAddItemsSelect.items.map(item=>
+                                            {facturaSelectAddItemsSelect.items.map((item,i)=>
                                                 <tr key={item.id}>
                                                     {item.producto?
                                                         <>
+                                                            <td>{i+1}</td>
                                                             <td><i className="fa fa-times" onClick={()=>delItemFact(item.id)}></i></td>
                                                             <td>{item.producto.codigo_barras}</td>
                                                             <td>{item.producto.descripcion}</td>
@@ -433,6 +435,7 @@ export default function ComprascargarFactsItems({
                                     <table className="table mb-5 table-borderless">
                                         <thead>
                                             <tr>
+                                                <th>NUM</th>
                                                 <th className=" pointer"><span onClick={() => setInvorderColumn("id")}>ID</span></th>
                                                 <th className=" pointer"><span onClick={() => setInvorderColumn("codigo_proveedor")}>ALTERNO</span></th>
                                                 <th className=" pointer"><span onClick={() => setInvorderColumn("codigo_barras")}>BARRAS</span></th>
@@ -548,6 +551,7 @@ export default function ComprascargarFactsItems({
                                             {productosInventario.length?productosInventario.map((e,i)=>
                                                 <tbody key={i}>
                                                     <tr className={" align-bottom border-top border-top-1 border-dark pointer "} /* onClick={()=>funIdVinc(e.id,e.n1,e.n2,e.n3,e.n4,e.marca)} */ onDoubleClick={() => changeInventario(null, i, "update")}>
+                                                        <td>{i+1}</td>
                                                         <td className="">
                                                             {e.id}
                                                         </td>

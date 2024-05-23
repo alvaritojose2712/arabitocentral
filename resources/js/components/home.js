@@ -1072,6 +1072,7 @@ function Home() {
 
       setLoading(true)
       db.guardarNuevoProductoLote({ lotes: lotesFil, id_factura }).then(res => {
+        selectCuentaPorPagarProveedorDetallesFun()
         if (typeof res.data === "string") {
           notificar(res.data, false);
         }else{
@@ -1080,7 +1081,6 @@ function Home() {
         setLoading(false)
         if (res.data.estado) {
           buscarInventario()
-          selectCuentaPorPagarProveedorDetallesFun()
         }
       })
     } else {
