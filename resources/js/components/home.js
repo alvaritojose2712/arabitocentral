@@ -4785,7 +4785,7 @@ function formatAmount( number, simbol ) {
             </>
           }
           
-          {permiso([1]) && viewmainPanel === "pedidos" &&
+          {permiso([1,10]) && viewmainPanel === "pedidos" &&
           <>
             <Comprasmenufactsdigital 
               viewmainPanel={viewmainPanel}
@@ -4849,7 +4849,7 @@ function formatAmount( number, simbol ) {
 
           }
 
-          {permiso([1,2]) && viewmainPanel === "dici" &&
+          {permiso([1,2,10]) && viewmainPanel === "dici" &&
           <>
             <Inventario
               colorSucursal={colorSucursal}

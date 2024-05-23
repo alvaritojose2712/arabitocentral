@@ -72559,7 +72559,7 @@ function Home() {
             setviewmainPanel: setviewmainPanel,
             permiso: permiso
           })
-        }), permiso([1]) && viewmainPanel === "pedidos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.Fragment, {
+        }), permiso([1, 10]) && viewmainPanel === "pedidos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsx)(_Comprasmenufactsdigital__WEBPACK_IMPORTED_MODULE_27__["default"], {
             viewmainPanel: viewmainPanel,
             setviewmainPanel: setviewmainPanel,
@@ -72615,7 +72615,7 @@ function Home() {
             showPedidoBarras: showPedidoBarras,
             aprobarRevisionPedido: aprobarRevisionPedido
           })]
-        }), permiso([1, 2]) && viewmainPanel === "dici" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.Fragment, {
+        }), permiso([1, 2, 10]) && viewmainPanel === "dici" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.Fragment, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsx)(_inventario__WEBPACK_IMPORTED_MODULE_52__["default"], {
             colorSucursal: colorSucursal,
             qInventarioNovedades: qInventarioNovedades,
