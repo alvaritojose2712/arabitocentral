@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
+import { cloneDeep } from "lodash";
+
 import  SearchBarFacturas  from "../searchBarFacturas";
 import Modalselectfile from "../modalselectfile";
 
 
 export default function ComprascargarFactsItems({
+    setProductosInventario,
+
     facturaSelectAddItems,
     setfacturaSelectAddItems,
     selectCuentaPorPagarProveedorDetallesFun,
@@ -231,6 +235,32 @@ export default function ComprascargarFactsItems({
         
     },[qvinculacionmarcaGeneral])
 
+    const [sameCatValue, setsameCatValue] = useState("");
+    const [sameCateGenValue, setsameCateGenValue] = useState("");
+
+    const setSameCat = (val,type) => {
+        if (confirm("¿Confirma Generalizar?")) {
+            let obj = cloneDeep(productosInventario);
+            obj.map((e) => {
+                if (e.type) {
+                    if (type=="cat") {
+                        e.id_categoria = val;
+                        setsameCatValue(val);
+                    }
+                    
+                    if (type=="catgeneral") {
+                        e.id_catgeneral = val;
+                        setsameCateGenValue(val);
+                    }
+
+                }
+                return e;
+            });
+            setProductosInventario(obj);
+        }
+    };
+
+
     const funIdVinc = (id,n1,n2,n3,n4,marca) => {
         setselectIdVinculacion([id])
         
@@ -413,8 +443,30 @@ export default function ComprascargarFactsItems({
                                                 <th className=" pointer bg-base"><span onClick={() => setInvorderColumn("precio_base")}>BASE</span></th>
                                                 <th className=" pointer bg-venta" onClick={() => setInvorderColumn("precio")}>VENTA</th>
                                                     {/* <button className="btn btn-success" onClick={()=>setshowInputGeneral(!showInputGeneral)}>SHOW GENERAL</button> */}
-                                                <th className=" pointer" onClick={() => setInvorderColumn("id_categoria")}>DEPARTAMENTO</th>
-                                                <th className=" pointer" onClick={() => setInvorderColumn("id_catgeneral")}>CAT GENERAL</th>
+                                                <th className=" pointer" onClick={() => setInvorderColumn("id_categoria")}>
+                                                    
+                                                    <select
+                                                        className=""
+                                                        value={sameCatValue}
+                                                        onChange={e=>setSameCat(e.target.value,"cat")}
+                                                    >
+                                                        <option value="">--Select--</option>
+                                                        {categorias.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
+                                                    </select> 
+                                                    DEPARTAMENTO
+                                                </th>
+                                                <th className=" pointer" onClick={() => setInvorderColumn("id_catgeneral")}>
+                                                    <select
+                                                        className=""
+                                                        value={sameCateGenValue}
+                                                        onChange={e=>setSameCat(e.target.value,"catgeneral")}
+                                                    >
+                                                        <option value="">--Select--</option>
+                                                        {catGenerals.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
+                                                    </select>
+
+                                                    CAT GENERAL
+                                                </th>
                                                 <th className=" pointer"><span onClick={() => setInvorderColumn("iva")}>IVA</span></th> 
                                                 <th className=""></th>
                                             </tr>
@@ -609,7 +661,7 @@ export default function ComprascargarFactsItems({
                                                                     <option value="">--Select--</option>
                                                                     {categorias.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
                                                                     
-                                                                </select>
+                                                                    </select>
                                                             
                                                             </td>
                                                             <td className="">

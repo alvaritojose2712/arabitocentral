@@ -4907,6 +4907,7 @@ function formatAmount( number, simbol ) {
               />
               {subViewInventario == "gestion" ?
                 <ComprascargarFactsItems
+                  setProductosInventario={setProductosInventario}
                   procesarTextitemscompras={procesarTextitemscompras}
                   subviewcargaritemsfact={subviewcargaritemsfact}
                   setsubviewcargaritemsfact={setsubviewcargaritemsfact}
