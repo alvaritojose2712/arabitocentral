@@ -154,7 +154,7 @@ export default function PanelSucursales({
                             />
                         : null}
 
-                        {permiso([1,2,3,7,8]) && subviewpanelsucursales == "inventario" ?
+                        {permiso([1,2,3,7,8,10]) && subviewpanelsucursales == "inventario" ?
                             <SucursalDetallesinvetario
                                 getsucursalDetallesData={getsucursalDetallesData}
                                 sucursalDetallesData={sucursalDetallesData}

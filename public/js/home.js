@@ -11120,7 +11120,7 @@ function PanelSucursales(_ref) {
             moneda: moneda
           }) : null, permiso([1, 2, 3]) && subviewpanelsucursales == "cierres" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallescierres__WEBPACK_IMPORTED_MODULE_1__["default"], {
             sucursalDetallesData: sucursalDetallesData
-          }) : null, permiso([1, 2, 3, 7, 8]) && subviewpanelsucursales == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallesinvetario__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          }) : null, permiso([1, 2, 3, 7, 8, 10]) && subviewpanelsucursales == "inventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_sucursaldetallesinvetario__WEBPACK_IMPORTED_MODULE_3__["default"], {
             getsucursalDetallesData: getsucursalDetallesData,
             sucursalDetallesData: sucursalDetallesData,
             invsuc_itemCero: invsuc_itemCero,
@@ -72923,7 +72923,7 @@ function Home() {
           setQBuscarProveedor: setQBuscarProveedor,
           proveedoresList: proveedoresList,
           delProveedor: delProveedor
-        }), permiso([1, 2, 3, 5, 7, 8]) && viewmainPanel === "sucursales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsx)(_panelSucursales__WEBPACK_IMPORTED_MODULE_35__["default"], {
+        }), permiso([1, 2, 3, 5, 7, 8, 10]) && viewmainPanel === "sucursales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsx)(_panelSucursales__WEBPACK_IMPORTED_MODULE_35__["default"], {
           controlefecQDescripcion: controlefecQDescripcion,
           setcontrolefecQDescripcion: setcontrolefecQDescripcion,
           controlefecSelectCat: controlefecSelectCat,

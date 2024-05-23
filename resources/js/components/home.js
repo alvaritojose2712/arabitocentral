@@ -5209,7 +5209,7 @@ function formatAmount( number, simbol ) {
           
 
 
-          {permiso([1,2,3,5,7,8]) && viewmainPanel === "sucursales" &&
+          {permiso([1,2,3,5,7,8,10]) && viewmainPanel === "sucursales" &&
             <PanelSucursales
               controlefecQDescripcion={controlefecQDescripcion}
               setcontrolefecQDescripcion={setcontrolefecQDescripcion}
