@@ -3764,6 +3764,15 @@ function formatAmount( number, simbol ) {
   const [subviewcargaritemsfact, setsubviewcargaritemsfact] = useState("selectfacts")
   const [showtextarea, setshowtextarea] = useState(true)
 
+  const removeMoneyFormat = num => {
+    let n = num.toString()
+    if (n.indexOf(",")===-1) {
+      return num
+    }
+    if (n.indexOf(",")!==-1){
+      return n.replace(".","").replace(",",".")
+    }
+  }
   const procesarTextitemscompras = () => {
     
     let obj = cloneDeep(productosInventario)
@@ -3801,6 +3810,8 @@ function formatAmount( number, simbol ) {
         departamento = cols[8]?cols[8]:""
         catgeneral = cols[9]?cols[9]:""
         iva = cols[10]?cols[10]:""
+
+
   
         let newObj = [{
           id: null,
@@ -3808,10 +3819,10 @@ function formatAmount( number, simbol ) {
           codigo_barras: barras,
           unidad: unidad,
           descripcion: descripcion,
-          cantidad: ct,
-          basef: basef,
-          precio_base: base,
-          precio: venta,
+          cantidad: removeMoneyFormat(ct),
+          basef: removeMoneyFormat(basef),
+          precio_base: removeMoneyFormat(base),
+          precio: removeMoneyFormat(venta),
           id_categoria: departamento,
           id_catgeneral: catgeneral,
           iva: "0",

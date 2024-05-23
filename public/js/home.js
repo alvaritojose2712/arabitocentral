@@ -71767,6 +71767,15 @@ function Home() {
     _useState702 = _slicedToArray(_useState701, 2),
     showtextarea = _useState702[0],
     setshowtextarea = _useState702[1];
+  var removeMoneyFormat = function removeMoneyFormat(num) {
+    var n = num.toString();
+    if (n.indexOf(",") === -1) {
+      return num;
+    }
+    if (n.indexOf(",") !== -1) {
+      return n.replace(".", "").replace(",", ".");
+    }
+  };
   var procesarTextitemscompras = function procesarTextitemscompras() {
     var obj = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.cloneDeep)(productosInventario);
     var rows = inputimportitems.split("\n");
@@ -71795,10 +71804,10 @@ function Home() {
           codigo_barras: barras,
           unidad: unidad,
           descripcion: descripcion,
-          cantidad: ct,
-          basef: basef,
-          precio_base: base,
-          precio: venta,
+          cantidad: removeMoneyFormat(ct),
+          basef: removeMoneyFormat(basef),
+          precio_base: removeMoneyFormat(base),
+          precio: removeMoneyFormat(venta),
           id_categoria: departamento,
           id_catgeneral: catgeneral,
           iva: "0",
