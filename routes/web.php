@@ -377,6 +377,7 @@ Route::post('getInventarioGeneral',  [InventarioSucursalController::class,"getIn
 Route::post('getInventarioNovedades', [NovedadInventarioAprobacionController::class,"getInventarioNovedades"]);
 Route::post('resolveInventarioNovedades', [NovedadInventarioAprobacionController::class,"resolveInventarioNovedades"]);
 Route::post('resolveNovedadCentralCheck', [NovedadInventarioAprobacionController::class,"resolveNovedadCentralCheck"]);
+Route::post('delInventarioNovedades', [NovedadInventarioAprobacionController::class,"delInventarioNovedades"]);
 
 
 

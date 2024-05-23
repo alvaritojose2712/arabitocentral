@@ -9118,6 +9118,7 @@ function Inventario(_ref) {
     resolveInventarioNovedades = _ref.resolveInventarioNovedades,
     inventarioNovedadesData = _ref.inventarioNovedadesData,
     getInventarioNovedades = _ref.getInventarioNovedades,
+    delInventarioNovedades = _ref.delInventarioNovedades,
     sucursales = _ref.sucursales,
     setinvsuc_q = _ref.setinvsuc_q,
     invsuc_q = _ref.invsuc_q,
@@ -9255,7 +9256,13 @@ function Inventario(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 rowSpan: 2,
-                children: e.sucursal.codigo
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                  className: "btn w-100 fw-bolder fs-3",
+                  style: {
+                    backgroundColor: colorSucursal(e.sucursal.codigo)
+                  },
+                  children: e.sucursal.codigo
+                })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 rowSpan: 2,
                 className: "align-middle",
@@ -9315,6 +9322,17 @@ function Inventario(_ref) {
                   className: "fa fa-2x fa-check text-success"
                 }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
                   className: "fa fa-2x fa-times text-danger"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                rowSpan: 2,
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                  className: "btn btn-danger",
+                  onClick: function onClick() {
+                    return delInventarioNovedades(e.id);
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+                    className: "fa fa-trash"
+                  })
                 })
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
@@ -17762,6 +17780,9 @@ var db = (_db = {
   },
   resolveInventarioNovedades: function resolveInventarioNovedades(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "resolveInventarioNovedades", data);
+  },
+  delInventarioNovedades: function delInventarioNovedades(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "delInventarioNovedades", data);
   },
   getInventarioGeneral: function getInventarioGeneral(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getInventarioGeneral", data);
@@ -68218,6 +68239,15 @@ function Home() {
       getInventarioNovedades();
     });
   };
+  var delInventarioNovedades = function delInventarioNovedades(id) {
+    if (confirm("Confirme")) {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delInventarioNovedades({
+        id: id
+      }).then(function (res) {
+        notificar(res);
+      });
+    }
+  };
 
   ///END DICI
 
@@ -72617,6 +72647,7 @@ function Home() {
           })]
         }), permiso([1, 2, 10]) && viewmainPanel === "dici" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.Fragment, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_53__.jsx)(_inventario__WEBPACK_IMPORTED_MODULE_52__["default"], {
+            delInventarioNovedades: delInventarioNovedades,
             colorSucursal: colorSucursal,
             qInventarioNovedades: qInventarioNovedades,
             setqInventarioNovedades: setqInventarioNovedades,

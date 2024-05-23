@@ -27,6 +27,13 @@ class NovedadInventarioAprobacionController extends Controller
         return ["estado"=>false,"msj"=>"Rechazado!"];
 
     }
+    function delInventarioNovedades(Request $req) {
+        $id = $req->id;
+        $n = novedad_inventario_aprobacion::find($id);   
+        if ($n->delete()) {
+            return Response::json(["msj"=>"Eliminado","estado"=>true]);
+        }     
+    }
     function getInventarioNovedades(Request $req) {
         $qInventarioNovedades = $req->qInventarioNovedades;
         $qFechaInventarioNovedades = $req->qFechaInventarioNovedades;

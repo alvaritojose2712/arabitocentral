@@ -14,6 +14,7 @@ export default function Inventario({
     resolveInventarioNovedades,
     inventarioNovedadesData,
     getInventarioNovedades,
+    delInventarioNovedades,
 
     sucursales,
 
@@ -78,7 +79,11 @@ export default function Inventario({
                                     inventarioNovedadesData.data.map(e=>
                                         <tbody key={e.id}>
                                             <tr>
-                                                <td rowSpan={2}>{e.sucursal.codigo}</td>
+                                                <td rowSpan={2}>
+                                                    <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
+                                                        {e.sucursal.codigo}
+                                                    </button>    
+                                                </td>
                                                 <td rowSpan={2} className="align-middle">
                                                     <div className="btn-group">
                                                         {!e.estado?
@@ -98,6 +103,7 @@ export default function Inventario({
                                                 <td className="bg-warning-light align-middle text-center" rowSpan={2}>{e.responsable}</td>
                                                 <td className="bg-warning-light align-middle text-center" rowSpan={2}>{e.motivo}</td>
                                                 <td className="bg-warning-light align-middle text-center" rowSpan={2}>{e.estado? <i className="fa fa-2x fa-check text-success"></i>: <i className="fa fa-2x fa-times text-danger"></i> }</td>
+                                                <td rowSpan={2}><button className="btn btn-danger" onClick={()=>delInventarioNovedades(e.id)}><i className="fa fa-trash"></i></button></td>
                                                 
                                             </tr>
 

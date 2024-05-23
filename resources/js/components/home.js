@@ -686,6 +686,13 @@ function Home() {
       getInventarioNovedades()
     })
   }
+  const delInventarioNovedades = id => {
+    if (confirm("Confirme")) {
+      db.delInventarioNovedades({id}).then(res=>{
+        notificar(res)
+      })
+    }
+  }
 
 
 
@@ -4852,6 +4859,7 @@ function formatAmount( number, simbol ) {
           {permiso([1,2,10]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              delInventarioNovedades={delInventarioNovedades}
               colorSucursal={colorSucursal}
               qInventarioNovedades={qInventarioNovedades}
               setqInventarioNovedades={setqInventarioNovedades}

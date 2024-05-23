@@ -887,6 +887,7 @@ class CuentasporpagarController extends Controller
             
             }else if($q->estatus==2 && $monto< 0){
                 $q->condicion = "pagadas";
+                $q->balance = $q->monto;
             
             }else if ($fechavencimiento<=$today && $q->estatus==0 && $monto<0){
                 $q->condicion = "vencidas";
