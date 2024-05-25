@@ -72820,7 +72820,7 @@ function Home() {
           setqfechaFilescxp: setqfechaFilescxp,
           proveedoresList: proveedoresList,
           sucursales: sucursales
-        }), permiso([1, 10]) && viewmainPanel === "cargarfactsdigitales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
+        }), permiso([1, 2, 10]) && viewmainPanel === "cargarfactsdigitales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_Comprasmenufactsdigital__WEBPACK_IMPORTED_MODULE_27__["default"], {
             viewmainPanel: viewmainPanel,
             setviewmainPanel: setviewmainPanel,
@@ -72861,7 +72861,7 @@ function Home() {
             colorSucursal: colorSucursal,
             moneda: moneda
           })]
-        }), permiso([1, 10]) && viewmainPanel === "distribuirfacts" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
+        }), permiso([1, 2, 10]) && viewmainPanel === "distribuirfacts" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_Comprasmenufactsdigital__WEBPACK_IMPORTED_MODULE_27__["default"], {
             viewmainPanel: viewmainPanel,
             setviewmainPanel: setviewmainPanel,
@@ -72904,13 +72904,13 @@ function Home() {
             colorSucursal: colorSucursal,
             moneda: moneda
           })]
-        }), permiso([1, 10]) && viewmainPanel === "procesarfactsdigitales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
+        }), permiso([1, 2, 10]) && viewmainPanel === "procesarfactsdigitales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_Comprasmenufactsdigital__WEBPACK_IMPORTED_MODULE_27__["default"], {
             viewmainPanel: viewmainPanel,
             setviewmainPanel: setviewmainPanel,
             permiso: permiso
           })
-        }), permiso([1, 10]) && viewmainPanel === "pedidos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
+        }), permiso([1, 2, 10]) && viewmainPanel === "pedidos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_Comprasmenufactsdigital__WEBPACK_IMPORTED_MODULE_27__["default"], {
             viewmainPanel: viewmainPanel,
             setviewmainPanel: setviewmainPanel,
@@ -73066,7 +73066,7 @@ function Home() {
             subViewCuentasxPagar: subViewCuentasxPagar,
             setsubViewCuentasxPagar: setsubViewCuentasxPagar
           })]
-        }), permiso([1, 10]) && viewmainPanel === "cargarfactsitems" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
+        }), permiso([1, 2, 10]) && viewmainPanel === "cargarfactsitems" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_Comprasmenufactsdigital__WEBPACK_IMPORTED_MODULE_27__["default"], {
             viewmainPanel: viewmainPanel,
             setviewmainPanel: setviewmainPanel,
