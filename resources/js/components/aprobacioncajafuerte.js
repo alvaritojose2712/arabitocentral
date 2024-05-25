@@ -47,7 +47,7 @@ export default function AprobacionCajaFuerte({
                             <div className="w-50">
                                 SOLICITA {e.sucursal.codigo}
                                 <small className="fst-italic"><h5>{e.tipo==1?"CAJA FUERTE":"CAJA CHICA"}</h5></small><br/>
-                                <small className="fst-italic">{e.cat.nombre}</small><br/>
+                                <small className="fst-italic">{e.cat?e.cat.nombre:null}</small><br/>
 
                                 
                             </div>
