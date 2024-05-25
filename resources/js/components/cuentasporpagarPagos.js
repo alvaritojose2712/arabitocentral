@@ -144,6 +144,9 @@ export default function CuentasporpagarPagos({
     refbs5PagoFact,                        
     setrefbs5PagoFact,
     returnCondicion,
+
+    numcuentasPorPagarDetalles,
+    setnumcuentasPorPagarDetalles,
 }){
     const [viewMultiplesPagos, setviewMultiplesPagos] = useState(0)
     /* useEffect(()=>{
@@ -460,6 +463,8 @@ export default function CuentasporpagarPagos({
                                     sucursales={sucursales}
                                     categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
                                     setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                                    numcuentasPorPagarDetalles={numcuentasPorPagarDetalles}
+                                    setnumcuentasPorPagarDetalles={setnumcuentasPorPagarDetalles}
                                 />
 
                                 </th>

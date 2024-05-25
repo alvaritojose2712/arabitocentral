@@ -137,14 +137,14 @@ export default function ComprascargarFactsItems({
     showtextarea,
     setshowtextarea,
 
+    numcuentasPorPagarDetalles,
+    setnumcuentasPorPagarDetalles,
+
 }){
 
-    useEffect(()=>{
-        getMarcas()
-        getCatGenerals()
-        getCategorias()
-        getDatinputSelectVinculacion()
-    },[])
+   /*  useEffect(()=>{
+       
+    },[]) */
 
     const [showInputGeneral, setshowInputGeneral] = useState(false)
 
@@ -868,6 +868,9 @@ export default function ComprascargarFactsItems({
                         sucursales={sucursales}
                         categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
                         setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                        numcuentasPorPagarDetalles={numcuentasPorPagarDetalles}
+                        setnumcuentasPorPagarDetalles={setnumcuentasPorPagarDetalles}
+                        isonlyestatus={0}
                     />
 
                     <table className="table table-borderless table-striped mb-500">

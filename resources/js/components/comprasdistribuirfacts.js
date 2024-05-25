@@ -36,6 +36,8 @@ export default function ComprasDistribuirFacts({
     changeInputDistribuirpedido,
     number,
     autorepartircantidades,
+    numcuentasPorPagarDetalles,
+    setnumcuentasPorPagarDetalles,
 }){
     
 
@@ -78,6 +80,10 @@ export default function ComprasDistribuirFacts({
                     sucursales={sucursales}
                     categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
                     setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                    numcuentasPorPagarDetalles={numcuentasPorPagarDetalles}
+                    setnumcuentasPorPagarDetalles={setnumcuentasPorPagarDetalles}
+                    isonlyestatus={1}
+
                 />
 
                 <table className="table table-borderless table-striped mb-500">

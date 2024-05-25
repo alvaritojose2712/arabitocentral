@@ -14,6 +14,10 @@ export default function serarchBar({
     sucursales,
     categoriacuentasPorPagarDetalles,
     setcategoriacuentasPorPagarDetalles,
+
+    numcuentasPorPagarDetalles,
+    setnumcuentasPorPagarDetalles,
+    isonlyestatus=false
 }){
     const [buscadorProveedor, setbuscadorProveedor] = useState("")
 
@@ -27,11 +31,24 @@ export default function serarchBar({
             }
         }
     },[buscadorProveedor])
+
+    useEffect(()=>{
+        if (isonlyestatus!==false) {
+            if (isonlyestatus===1) {
+                setcuentaporpagarAprobado(1)
+            }
+            if (isonlyestatus===0) {
+                setcuentaporpagarAprobado(0)
+            }
+        }
+    },[])
+
+
     return(
     <form onSubmit={e=>{e.preventDefault();selectCuentaPorPagarProveedorDetallesFun()}} className="mb-3 card p-3 shadow">
         <div className="input-group">
-            <button className={("btn btn-lg btn-"+(cuentaporpagarAprobado==0?"sinapsis":""))} type="button" onClick={e=>setcuentaporpagarAprobado(0)}><i className="fa fa-clock-o"></i></button>
-            <button className={("btn btn-lg btn-"+(cuentaporpagarAprobado==1?"success":""))} type="button" onClick={e=>setcuentaporpagarAprobado(1)}><i className="fa fa-check"></i></button>
+            {isonlyestatus===false||isonlyestatus===0?<button className={("btn btn-lg btn-"+(cuentaporpagarAprobado==0?"sinapsis":""))} type="button" onClick={e=>setcuentaporpagarAprobado(0)}><i className="fa fa-clock-o"></i></button>:null}
+            {isonlyestatus===false||isonlyestatus===1?<button className={("btn btn-lg btn-"+(cuentaporpagarAprobado==1?"success":""))} type="button" onClick={e=>setcuentaporpagarAprobado(1)}><i className="fa fa-check"></i></button>:null}
             
             <input type="text" className="form-control form-control-lg fs-3" placeholder={"Buscar factura..."} onChange={e=>setqcuentasPorPagarDetalles(e.target.value)} value={qcuentasPorPagarDetalles} />
             <input type="text" value={buscadorProveedor} onChange={e=>setbuscadorProveedor(e.target.value)} className="form-control" placeholder="Buscar proveedor..." />
@@ -46,6 +63,12 @@ export default function serarchBar({
                 {sucursales.map(e=>
                     <option key={e.id} value={e.id}>{e.codigo}</option>
                 )}
+            </select>
+            <select className="form-control" value={numcuentasPorPagarDetalles} onChange={e=>setnumcuentasPorPagarDetalles(e.target.value)}>
+                <option value="20">Resultados: 20 (Carga Rápida)</option>
+                <option value="50">Resultados: 50</option>
+                <option value="100">Resultados: 100</option>
+                <option value="">Resultados: Todos (Carga Lenta)</option>
             </select>
             <button type="button" className="btn btn-warning btn-lg" onClick={()=>selectCuentaPorPagarProveedorDetallesFun("reporte")}><i className="fa fa-print"></i></button>
             <button type="submit" className="btn btn-success btn-lg"><i className="fa fa-search"></i></button>

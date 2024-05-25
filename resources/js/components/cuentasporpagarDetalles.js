@@ -76,6 +76,8 @@ export default function CuentasporpagarDetalles({
     colorSucursal,
     dateFormat,
     setdataselectFacts,
+    numcuentasPorPagarDetalles,
+    setnumcuentasPorPagarDetalles,
 
 }){
     
@@ -346,6 +348,8 @@ export default function CuentasporpagarDetalles({
                         sucursales={sucursales}
                         categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
                         setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                        numcuentasPorPagarDetalles={numcuentasPorPagarDetalles}
+                        setnumcuentasPorPagarDetalles={setnumcuentasPorPagarDetalles}
                     />
 
                     <table className="table table-borderless table-striped mb-500">

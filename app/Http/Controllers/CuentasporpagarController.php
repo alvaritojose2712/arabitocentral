@@ -694,6 +694,8 @@ class CuentasporpagarController extends Controller
         $qcuentasPorPagarDetalles = $req->qcuentasPorPagarDetalles;
         $OrdercuentasPorPagarDetalles = $req->OrdercuentasPorPagarDetalles;
         $sucursalcuentasPorPagarDetalles = $req->sucursalcuentasPorPagarDetalles;
+        $numcuentasPorPagarDetalles = $req->numcuentasPorPagarDetalles;
+        
         $type = $req->type;
         $id_facts_force = $req->id_facts_force;
         
@@ -714,7 +716,10 @@ class CuentasporpagarController extends Controller
         ->selectRaw("*, @monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado, 
         @monto_descuento := (COALESCE(monto,0)*(COALESCE(descuento,0)/100)) as monto_descuento,
         (COALESCE(@monto_abonado,0)+COALESCE(monto,0)-COALESCE(@monto_descuento,0)) as balance
-        ");
+        ")
+        ->when($numcuentasPorPagarDetalles,function($q) use ($numcuentasPorPagarDetalles) {
+            $q->limit($numcuentasPorPagarDetalles);
+        });
         if ($id_facts_force) {
             $detalles = $detalles->whereIn("id",$id_facts_force);
             

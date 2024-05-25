@@ -45,6 +45,8 @@ import ComprasCargarFactsDigitales from './comprascargarfactsdigitales';
 import Comprasmodalselectfactfisicas from './comprasmodalselectfactfisicas';
 import ComprasDistribuirFacts from './comprasdistribuirfacts'
 import ComprascargarFactsItems from './panel/comprascargarfactsItems'
+import ComprasRevision from './comprasrevision'
+
 
 import Auditoria from './auditoria';
 import Proveedores from './proveedores';
@@ -1910,6 +1912,11 @@ function formatAmount( number, simbol ) {
     getMetodosPago()
     getCatCajas()
 
+    getMarcas()
+    getCatGenerals()
+    getCategorias()
+    getDatinputSelectVinculacion()
+
 
   }, [])
 
@@ -2010,6 +2017,8 @@ function formatAmount( number, simbol ) {
   
   const [qcuentasPorPagarTipoFact, setqcuentasPorPagarTipoFact] = useState("")
   const [qCampocuentasPorPagarDetalles, setqCampocuentasPorPagarDetalles] = useState("updated_at")
+  const [numcuentasPorPagarDetalles, setnumcuentasPorPagarDetalles] = useState("20")
+  
   const [OrdercuentasPorPagarDetalles, setOrdercuentasPorPagarDetalles] = useState("desc")
   const [qFechaCampocuentasPorPagarDetalles, setqFechaCampocuentasPorPagarDetalles] = useState("")
   const [fechacuentasPorPagarDetalles, setfechacuentasPorPagarDetalles] = useState("")
@@ -2546,7 +2555,7 @@ function formatAmount( number, simbol ) {
       categoriacuentasPorPagarDetalles,
       tipocuentasPorPagarDetalles,
       qcuentasPorPagarTipoFact,
-      
+      numcuentasPorPagarDetalles,
       OrdercuentasPorPagarDetalles,
       cuentaporpagarAprobado,
       sucursalcuentasPorPagarDetalles,
@@ -2560,7 +2569,7 @@ function formatAmount( number, simbol ) {
       categoriacuentasPorPagarDetalles,
       tipocuentasPorPagarDetalles,
       qcuentasPorPagarTipoFact,
-      
+      numcuentasPorPagarDetalles,
       qCampocuentasPorPagarDetalles,
       qcuentasPorPagarDetalles,
       OrdercuentasPorPagarDetalles,
@@ -4012,6 +4021,9 @@ function formatAmount( number, simbol ) {
       case "abonos":
         return "btn-success";  
       break;
+      default:
+        return "btn-secondary"
+      break;
     }
 
   }
@@ -4329,7 +4341,6 @@ function formatAmount( number, simbol ) {
               setcuentasPagosTipo={setcuentasPagosTipo}
               cuentasPagosCategoria={cuentasPagosCategoria}
               setcuentasPagosCategoria={setcuentasPagosCategoria}
-              categoriasCajas={categoriasCajas}
               number={number}
               moneda={moneda}
               movimientoAuditoria={movimientoAuditoria}
@@ -4439,6 +4450,8 @@ function formatAmount( number, simbol ) {
                         qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
                         qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
                         setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+                        numcuentasPorPagarDetalles={numcuentasPorPagarDetalles}
+                        setnumcuentasPorPagarDetalles={setnumcuentasPorPagarDetalles}
                         qFechaCampocuentasPorPagarDetalles={qFechaCampocuentasPorPagarDetalles}
                         setqFechaCampocuentasPorPagarDetalles={setqFechaCampocuentasPorPagarDetalles}
                         setfechacuentasPorPagarDetalles={setfechacuentasPorPagarDetalles}
@@ -4553,6 +4566,8 @@ function formatAmount( number, simbol ) {
                         OrdercuentasPorPagarDetalles={OrdercuentasPorPagarDetalles}
                         setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
                         qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
+                        numcuentasPorPagarDetalles={numcuentasPorPagarDetalles}
+                        setnumcuentasPorPagarDetalles={setnumcuentasPorPagarDetalles}
                         qFechaCampocuentasPorPagarDetalles={qFechaCampocuentasPorPagarDetalles}
                         setqFechaCampocuentasPorPagarDetalles={setqFechaCampocuentasPorPagarDetalles}
                         OrderFechacuentasPorPagarDetalles={OrderFechacuentasPorPagarDetalles}
@@ -4737,6 +4752,8 @@ function formatAmount( number, simbol ) {
                 qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
                 setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
                 setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+                numcuentasPorPagarDetalles={numcuentasPorPagarDetalles}
+                setnumcuentasPorPagarDetalles={setnumcuentasPorPagarDetalles}
                 selectCuentaPorPagarId={selectCuentaPorPagarId}
                 qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
                 dateFormat={dateFormat}
@@ -4785,6 +4802,8 @@ function formatAmount( number, simbol ) {
               qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
               setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
               setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+              numcuentasPorPagarDetalles={numcuentasPorPagarDetalles}
+              setnumcuentasPorPagarDetalles={setnumcuentasPorPagarDetalles}
               selectCuentaPorPagarId={selectCuentaPorPagarId}
               returnCondicion={returnCondicion}
               colorSucursal={colorSucursal}
@@ -4864,7 +4883,6 @@ function formatAmount( number, simbol ) {
               
             </Pedidos>
           </>
-
           }
 
           {permiso([1,2,10]) && viewmainPanel === "dici" &&
@@ -4897,6 +4915,88 @@ function formatAmount( number, simbol ) {
               getInventarioGeneral={getInventarioGeneral}
             />
           </>
+          }
+
+          {permiso([1,2]) && viewmainPanel === "comprasrevision" &&
+            <>
+              <Comprasmenufactsdigital 
+                viewmainPanel={viewmainPanel}
+                setviewmainPanel={setviewmainPanel}
+                permiso={permiso}
+              />
+              <CuentasporpagarDetalles
+                setdataselectFacts={setdataselectFacts}
+                dateFormat={dateFormat}
+                colorSucursal={colorSucursal}
+                returnCondicion={returnCondicion}
+                changeSucursal={changeSucursal}
+                abonarFactLote={abonarFactLote}
+                setsubviewAgregarFactPago={setsubviewAgregarFactPago}
+                abonarFact={abonarFact}
+                descuentoGeneralFats={descuentoGeneralFats}
+                setdescuentoGeneralFats={setdescuentoGeneralFats}
+                sendDescuentoGeneralFats={sendDescuentoGeneralFats}
+                dataselectFacts={dataselectFacts}
+                selectFacts={selectFacts}
+                sucursalcuentasPorPagarDetalles={sucursalcuentasPorPagarDetalles}
+                setsucursalcuentasPorPagarDetalles={setsucursalcuentasPorPagarDetalles}
+
+                getSucursales={getSucursales}
+                sucursales={sucursales}
+                delCuentaPorPagar={delCuentaPorPagar}
+                changeAprobarFact={changeAprobarFact}
+                cuentaporpagarAprobado={cuentaporpagarAprobado}
+                setcuentaporpagarAprobado={setcuentaporpagarAprobado}
+                showImageFact={showImageFact}
+                cuentasporpagarDetallesView={cuentasporpagarDetallesView}
+                setcuentasporpagarDetallesView={setcuentasporpagarDetallesView}
+                setviewmainPanel={setviewmainPanel}
+                selectCuentaPorPagarId={selectCuentaPorPagarId}
+                setSelectCuentaPorPagarId={setSelectCuentaPorPagarId}
+                setqcuentasPorPagarDetalles={setqcuentasPorPagarDetalles}
+                qcuentasPorPagarDetalles={qcuentasPorPagarDetalles}
+                selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
+                proveedoresList={proveedoresList}
+                factSelectIndex={factSelectIndex}
+                moneda={moneda}
+
+                setqcuentasPorPagarTipoFact={setqcuentasPorPagarTipoFact}
+                qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
+                qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
+                setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+                numcuentasPorPagarDetalles={numcuentasPorPagarDetalles}
+                setnumcuentasPorPagarDetalles={setnumcuentasPorPagarDetalles}
+                qFechaCampocuentasPorPagarDetalles={qFechaCampocuentasPorPagarDetalles}
+                setqFechaCampocuentasPorPagarDetalles={setqFechaCampocuentasPorPagarDetalles}
+                setfechacuentasPorPagarDetalles={setfechacuentasPorPagarDetalles}
+                fechacuentasPorPagarDetalles={fechacuentasPorPagarDetalles}
+                categoriacuentasPorPagarDetalles={categoriacuentasPorPagarDetalles}
+                setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
+                tipocuentasPorPagarDetalles={tipocuentasPorPagarDetalles}
+                settipocuentasPorPagarDetalles={settipocuentasPorPagarDetalles}
+                OrdercuentasPorPagarDetalles={OrdercuentasPorPagarDetalles}
+                setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
+
+                OrderFechacuentasPorPagarDetalles={OrderFechacuentasPorPagarDetalles}
+                setOrderFechacuentasPorPagarDetalles={setOrderFechacuentasPorPagarDetalles}
+                setSelectCuentaPorPagarDetalle={setSelectCuentaPorPagarDetalle}
+                SelectCuentaPorPagarDetalle={SelectCuentaPorPagarDetalle}
+                modeEditarFact={modeEditarFact}
+                setselectFactEdit={setselectFactEdit}
+                selectProveedorCxp={selectProveedorCxp}
+                setselectProveedorCxp={setselectProveedorCxp}
+                setcuentasPagosDescripcion={setcuentasPagosDescripcion}
+                setcuentasPagosMonto={setcuentasPagosMonto}
+                setselectFactPagoid={setselectFactPagoid}
+                setselectFactPagoid_sucursal={setselectFactPagoid_sucursal}
+                setcuentasPagosMetodo={setcuentasPagosMetodo}
+                setcuentasPagosFecha={setcuentasPagosFecha}
+                setselectAbonoFact={setselectAbonoFact}
+                subViewCuentasxPagar={subViewCuentasxPagar}
+                setsubViewCuentasxPagar={setsubViewCuentasxPagar}
+              />
+              
+            </>
           }
           {permiso([1,10]) && viewmainPanel === "cargarfactsitems" &&
             <>
@@ -4939,6 +5039,8 @@ function formatAmount( number, simbol ) {
                   qCampocuentasPorPagarDetalles={qCampocuentasPorPagarDetalles}
                   setOrdercuentasPorPagarDetalles={setOrdercuentasPorPagarDetalles}
                   setqCampocuentasPorPagarDetalles={setqCampocuentasPorPagarDetalles}
+                  numcuentasPorPagarDetalles={numcuentasPorPagarDetalles}
+                  setnumcuentasPorPagarDetalles={setnumcuentasPorPagarDetalles}
                   selectCuentaPorPagarId={selectCuentaPorPagarId}
                   qcuentasPorPagarTipoFact={qcuentasPorPagarTipoFact}
                   dateFormat={dateFormat}
