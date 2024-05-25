@@ -10,7 +10,7 @@ export default function Compras({
         <>
 
             <div className="row">
-                {permiso([1]) && <>
+                {permiso([1,2]) && <>
                     {/* <div className="col d-flex justify-content-center">
                         <div className="circle" onClick={()=>setviewmainPanel("pedir")}>
                             <div className="circle_title">
@@ -48,7 +48,7 @@ export default function Compras({
                         </div>
                     </div> 
                 </>}
-                {permiso([1,10]) && <>
+                {permiso([1,2,10]) && <>
                     <div className="col d-flex justify-content-center">
                         <div className="circle" onClick={()=>setviewmainPanel("cargarfactsdigitales")}>
                             <div className="circle_title">
@@ -63,7 +63,7 @@ export default function Compras({
                     </div> 
                 </>}
 
-                {permiso([1,9,10]) && <>
+                {permiso([1,2,9,10]) && <>
                     <div className="col d-flex justify-content-center">
                         <div className="circle" onClick={()=>setviewmainPanel("comprascargarfactsfisicas")}>
                             <div className="circle_title">

@@ -4557,7 +4557,7 @@ function Compras(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "row",
-      children: [permiso([1]) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+      children: [permiso([1, 2]) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "col d-flex justify-content-center",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -4580,7 +4580,7 @@ function Compras(_ref) {
             })]
           })
         })
-      }), permiso([1, 10]) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+      }), permiso([1, 2, 10]) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "col d-flex justify-content-center",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -4603,7 +4603,7 @@ function Compras(_ref) {
             })]
           })
         })
-      }), permiso([1, 9, 10]) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+      }), permiso([1, 2, 9, 10]) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "col d-flex justify-content-center",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -72429,7 +72429,7 @@ function Home() {
           fechasMain2: fechasMain2,
           setfechasMain1: setfechasMain1,
           setfechasMain2: setfechasMain2
-        }, _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_jsx2, "moneda", moneda), "getsucursalDetallesData", getsucursalDetallesData), "sucursalSelect", sucursalSelect), "setsucursalSelect", setsucursalSelect), "setsucursalDetallesData", setsucursalDetallesData), "sucursalDetallesData", sucursalDetallesData), "getSucursales", getSucursales), "sucursales", sucursales), "qestatusaprobaciocaja", qestatusaprobaciocaja), "setqestatusaprobaciocaja", setqestatusaprobaciocaja), _defineProperty(_defineProperty(_defineProperty(_jsx2, "aprobarCreditoFun", aprobarCreditoFun), "subviewpanelsucursales", subviewpanelsucursales), "setsubviewpanelsucursales", setsubviewpanelsucursales))), permiso([1, 9, 10]) && viewmainPanel === "compras" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_compras__WEBPACK_IMPORTED_MODULE_26__["default"], {
+        }, _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_jsx2, "moneda", moneda), "getsucursalDetallesData", getsucursalDetallesData), "sucursalSelect", sucursalSelect), "setsucursalSelect", setsucursalSelect), "setsucursalDetallesData", setsucursalDetallesData), "sucursalDetallesData", sucursalDetallesData), "getSucursales", getSucursales), "sucursales", sucursales), "qestatusaprobaciocaja", qestatusaprobaciocaja), "setqestatusaprobaciocaja", setqestatusaprobaciocaja), _defineProperty(_defineProperty(_defineProperty(_jsx2, "aprobarCreditoFun", aprobarCreditoFun), "subviewpanelsucursales", subviewpanelsucursales), "setsubviewpanelsucursales", setsubviewpanelsucursales))), permiso([1, 2, 9, 10]) && viewmainPanel === "compras" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_compras__WEBPACK_IMPORTED_MODULE_26__["default"], {
           permiso: permiso,
           setviewmainPanel: setviewmainPanel,
           viewmainPanel: viewmainPanel
