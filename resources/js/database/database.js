@@ -105,7 +105,9 @@ const db = {
   delInventarioNovedades: data=>axios.post(host+"delInventarioNovedades",data),
   
   
+  
   getInventarioGeneral: data=>axios.post(host+"getInventarioGeneral",data),
+  getBarrasCargaItems: data=>axios.post(host+"getBarrasCargaItems",data),
   
   
 

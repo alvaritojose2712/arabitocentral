@@ -12532,7 +12532,8 @@ function ComprascargarFactsItems(_ref) {
     showtextarea = _ref.showtextarea,
     setshowtextarea = _ref.setshowtextarea,
     numcuentasPorPagarDetalles = _ref.numcuentasPorPagarDetalles,
-    setnumcuentasPorPagarDetalles = _ref.setnumcuentasPorPagarDetalles;
+    setnumcuentasPorPagarDetalles = _ref.setnumcuentasPorPagarDetalles,
+    getBarrasCargaItems = _ref.getBarrasCargaItems;
   /*  useEffect(()=>{
       
    },[]) */
@@ -12769,32 +12770,69 @@ function ComprascargarFactsItems(_ref) {
         className: "container-fluid p-0",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "row",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "col",
-            children: [showtextarea ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("textarea", {
-              rows: "5",
-              className: "w-100",
-              onChange: function onChange(event) {
-                return setinputimportitems(event.target.value);
-              },
-              value: inputimportitems
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-              className: "btn btn-warning",
-              onClick: function onClick() {
-                return setshowtextarea(!showtextarea);
-              },
-              children: ["MOSTRAR ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                className: "fa fa-eyes"
+            children: showtextarea ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("section", {
+                className: "modal-custom",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "text-danger",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                    className: "btn btn-danger",
+                    onClick: function onClick() {
+                      return setshowtextarea(!showtextarea);
+                    },
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                      className: "fa fa-times fa-2x"
+                    })
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "modal-content-sm modal-cantidad",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("table", {
+                    className: "table mb-2",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                          children: "ALTERNO"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                          children: "UNIDAD"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                          children: "DESCRIPCION"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                          children: "CANTIDAD"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                          children: "BASE F (CXP)"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                          children: "BASE"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                          children: "VENTA"
+                        })]
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("textarea", {
+                    rows: "5",
+                    className: "w-100",
+                    onChange: function onChange(event) {
+                      return setinputimportitems(event.target.value);
+                    },
+                    value: inputimportitems
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    className: "text-center",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                      className: "btn btn-success m-3",
+                      onClick: function onClick() {
+                        return procesarTextitemscompras();
+                      },
+                      children: ["PROCESAR TEXTO ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                        className: "fa fa-cogs"
+                      })]
+                    })
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "overlay"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-              className: "btn btn-success",
-              onClick: function onClick() {
-                return procesarTextitemscompras();
-              },
-              children: ["PROCESAR TEXTO ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                className: "fa fa-cogs"
-              })]
-            })]
+            }) : null
           })
         }), facturaSelectAddItemsSelect.id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -12802,13 +12840,16 @@ function ComprascargarFactsItems(_ref) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
               className: "col",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                className: "d-flex justify-content-between",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: "fa fa-arrow-left text-danger fa-2x",
+                className: "d-flex justify-content-center",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                  className: "btn btn-danger text-light m-3",
                   onClick: function onClick() {
                     setfacturaSelectAddItems({});
                     setsubviewcargaritemsfact("selectfacts");
-                  }
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                    className: "fa fa-arrow-left"
+                  }), " SELECCIONAR FACTURA"]
                 })
               })
             })
@@ -12848,7 +12889,7 @@ function ComprascargarFactsItems(_ref) {
                           children: i + 1
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                            className: "fa fa-times",
+                            className: "fa fa-times text-danger",
                             onClick: function onClick() {
                               return delItemFact(item.id);
                             }
@@ -12901,37 +12942,19 @@ function ComprascargarFactsItems(_ref) {
                 })]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "col-2",
+              className: "col-3",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "h-100 d-flex justify-content-center align-items-end ",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "text-center",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                      className: "text-muted fst-italic",
-                      children: facturaSelectAddItemsSelect.created_at
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                      className: "fs-3 fw-bolder",
-                      children: facturaSelectAddItemsSelect.proveedor ? facturaSelectAddItemsSelect.proveedor.descripcion : null
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                      className: returnCondicion(facturaSelectAddItemsSelect.condicion) + " btn fs-2 pointer fw-bolder text-light me-1 ",
-                      children: facturaSelectAddItemsSelect.numfact
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-                      className: "btn fw-bolder fs-2",
+                    className: "mb-2",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                      className: "btn fw-bolder ",
                       style: {
                         backgroundColor: colorSucursal(facturaSelectAddItemsSelect.sucursal ? facturaSelectAddItemsSelect.sucursal.codigo : "")
                       },
                       children: facturaSelectAddItemsSelect.sucursal ? facturaSelectAddItemsSelect.sucursal.codigo : null
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                    className: "p-3",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                      className: "fs-1 fw-bolder text-danger mt-2",
-                      children: moneda(facturaSelectAddItemsSelect.monto)
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
                     src: facturaSelectAddItemsSelect.descripcion,
@@ -12939,7 +12962,26 @@ function ComprascargarFactsItems(_ref) {
                     onClick: function onClick() {
                       return showFilescxp(facturaSelectAddItemsSelect.descripcion);
                     },
-                    className: "pointer"
+                    className: "pointer mb-2"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                      className: "text-muted fst-italic",
+                      children: facturaSelectAddItemsSelect.created_at
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                      className: " fw-bolder",
+                      children: facturaSelectAddItemsSelect.proveedor ? facturaSelectAddItemsSelect.proveedor.descripcion : null
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                      className: returnCondicion(facturaSelectAddItemsSelect.condicion) + " btn  pointer fw-bolder text-light ms-1 ",
+                      children: facturaSelectAddItemsSelect.numfact
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    className: "p-3",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                      className: "fs-1 fw-bolder text-danger mt-2",
+                      children: moneda(facturaSelectAddItemsSelect.monto)
+                    })
                   })]
                 })
               })
@@ -13025,6 +13067,12 @@ function ComprascargarFactsItems(_ref) {
                 buscarInventario();
               },
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "btn btn-warning",
+                onClick: function onClick() {
+                  return setshowtextarea(!showtextarea);
+                },
+                children: "POR LOTES"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "btn btn-success text-light",
                 onClick: function onClick() {
                   return changeInventario(null, null, "add");
@@ -13179,7 +13227,7 @@ function ComprascargarFactsItems(_ref) {
                             children: e.descripcion
                           }, e.id);
                         })]
-                      }), "DEPARTAMENTO"]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "DEPARTAMENTO"]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("th", {
                       className: " pointer",
                       onClick: function onClick() {
@@ -13200,7 +13248,7 @@ function ComprascargarFactsItems(_ref) {
                             children: e.descripcion
                           }, e.id);
                         })]
-                      }), "CAT GENERAL"]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "CAT GENERAL"]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                       className: " pointer",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
@@ -13259,9 +13307,9 @@ function ComprascargarFactsItems(_ref) {
                           children: e.iva
                         })]
                       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          className: "",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                          className: "align-top",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                             type: "text",
                             disabled: type(e.type),
                             className: "form-control form-control-sm",
@@ -13270,10 +13318,16 @@ function ComprascargarFactsItems(_ref) {
                               return changeInventario(e.target.value, i, "changeInput", "codigo_proveedor");
                             },
                             placeholder: "codigo_proveedor..."
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          className: "",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                            className: "btn btn-success mt-2",
+                            onClick: function onClick() {
+                              return getBarrasCargaItems(i);
+                            },
+                            children: "Obtener Barras"
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                          className: "align-top",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                             type: "text",
                             disabled: type(e.type),
                             className: "form-control form-control-sm",
@@ -13282,9 +13336,12 @@ function ComprascargarFactsItems(_ref) {
                               return changeInventario(e.target.value, i, "changeInput", "codigo_barras");
                             },
                             placeholder: "codigo_barras..."
-                          })
+                          }), !e.codigo_barras_antes ? "" : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                            className: "text-muted fst-italic",
+                            children: e.codigo_barras_antes
+                          })]
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          className: "",
+                          className: "align-top",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
                             disabled: type(e.type),
                             className: "form-control form-control-sm",
@@ -13324,10 +13381,12 @@ function ComprascargarFactsItems(_ref) {
                               children: "ML"
                             })]
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          className: "",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("textarea", {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                          className: "align-top",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("textarea", {
                             type: "text",
+                            cols: 100,
+                            rows: 5,
                             disabled: type(e.type),
                             className: "form-control form-control-sm",
                             value: !e.descripcion ? "" : e.descripcion,
@@ -13335,9 +13394,12 @@ function ComprascargarFactsItems(_ref) {
                               return changeInventario(e.target.value, i, "changeInput", "descripcion");
                             },
                             placeholder: "descripcion..."
-                          })
+                          }), !e.descripcion_antes ? "" : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                            className: "text-muted fst-italic",
+                            children: e.descripcion_antes
+                          })]
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          className: "",
+                          className: "align-top",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                             type: "text",
                             disabled: type(e.type),
@@ -13349,7 +13411,7 @@ function ComprascargarFactsItems(_ref) {
                             placeholder: "Cantidad..."
                           })
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          className: "",
+                          className: "align-top",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                             type: "text",
                             disabled: type(e.type),
@@ -13361,7 +13423,7 @@ function ComprascargarFactsItems(_ref) {
                             placeholder: "Base F..."
                           })
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          className: "bg-base",
+                          className: "align-top bg-base",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                             type: "text",
                             disabled: type(e.type),
@@ -13373,7 +13435,7 @@ function ComprascargarFactsItems(_ref) {
                             placeholder: "Costo..."
                           })
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          className: "bg-venta",
+                          className: "align-top bg-venta",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                             type: "text",
                             disabled: type(e.type),
@@ -13385,7 +13447,7 @@ function ComprascargarFactsItems(_ref) {
                             placeholder: "Venta..."
                           })
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          className: "",
+                          className: "align-top",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
                             disabled: type(e.type),
                             className: "form-control form-control-sm",
@@ -13404,7 +13466,7 @@ function ComprascargarFactsItems(_ref) {
                             })]
                           })
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          className: "",
+                          className: "align-top",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
                             disabled: type(e.type),
                             className: "form-control form-control-sm",
@@ -13423,7 +13485,7 @@ function ComprascargarFactsItems(_ref) {
                             })]
                           })
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          className: "",
+                          className: "align-top",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                             type: "text",
                             disabled: type(e.type),
@@ -13436,7 +13498,7 @@ function ComprascargarFactsItems(_ref) {
                           })
                         })]
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                        className: "",
+                        className: "align-top",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                           className: "d-flex justify-content-between",
                           children: [!e.type ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
@@ -17944,6 +18006,9 @@ var db = (_db = {
   },
   getInventarioGeneral: function getInventarioGeneral(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getInventarioGeneral", data);
+  },
+  getBarrasCargaItems: function getBarrasCargaItems(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getBarrasCargaItems", data);
   },
   getProveedores: function getProveedores(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getProveedores", data);
@@ -68733,14 +68798,16 @@ function Home() {
     }
   };
   var delItemFact = function delItemFact(id) {
-    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delItemFact({
-      id: id
-    }).then(function (res) {
-      notificar(res);
-      if (res.data.estado) {
-        selectCuentaPorPagarProveedorDetallesFun();
-      }
-    });
+    if (confirm("Confirme")) {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delItemFact({
+        id: id
+      }).then(function (res) {
+        notificar(res);
+        if (res.data.estado) {
+          selectCuentaPorPagarProveedorDetallesFun();
+        }
+      });
+    }
   };
   var guardarNuevoProductoLote = function guardarNuevoProductoLote() {
     var id_factura = null;
@@ -68751,7 +68818,6 @@ function Home() {
       return e.type;
     });
     if (lotesFil.length) {
-      setLoading(true);
       _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].guardarNuevoProductoLote({
         lotes: lotesFil,
         id_factura: id_factura
@@ -68762,7 +68828,6 @@ function Home() {
         } else {
           notificar(res.data.msj.join("\n"), false);
         }
-        setLoading(false);
         if (res.data.estado) {
           buscarInventario();
         }
@@ -68821,6 +68886,25 @@ function Home() {
         break;
     }
     setProductosInventario(obj);
+  };
+  var getBarrasCargaItems = function getBarrasCargaItems(id) {
+    var obj = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.cloneDeep)(productosInventario);
+    setLoading(true);
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getBarrasCargaItems({
+      codigo_proveedor: obj[id]["codigo_proveedor"]
+    }).then(function (res) {
+      setLoading(false);
+      if (res.data) {
+        if (res.data.estado) {
+          var data = res.data.data;
+          obj[id]["codigo_barras_antes"] = obj[id]["codigo_barras"];
+          obj[id]["codigo_barras"] = data["codigo_barras"];
+          obj[id]["descripcion_antes"] = obj[id]["descripcion"];
+          obj[id]["descripcion"] = data["descripcion"];
+          setProductosInventario(obj);
+        }
+      }
+    });
   };
   var getEstaInventario = function getEstaInventario() {
     if (time != 0) {
@@ -71932,7 +72016,7 @@ function Home() {
     _useState702 = _slicedToArray(_useState701, 2),
     subviewcargaritemsfact = _useState702[0],
     setsubviewcargaritemsfact = _useState702[1];
-  var _useState703 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(true),
+  var _useState703 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
     _useState704 = _slicedToArray(_useState703, 2),
     showtextarea = _useState704[0],
     setshowtextarea = _useState704[1];
@@ -71946,39 +72030,65 @@ function Home() {
     }
   };
   var procesarTextitemscompras = function procesarTextitemscompras() {
+    {/* 
+      <th>ALTERNO</th>
+      <th>UNIDAD</th>
+      <th>DESCRIPCION</th>
+      <th>CANTIDAD</th>
+      <th>BASE F (CXP)</th> 
+      <th>BASE</th> 
+      <th>VENTA</th> 
+     */}
     var obj = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.cloneDeep)(productosInventario);
-    var rows = inputimportitems.split("\n");
-    var cols, row, alterno, barras, unidad, descripcion, ct, basef, base, venta, departamento, catgeneral, iva;
+    var rows = inputimportitems.replace("\"", "").replace("\'", "").split("\n");
+    var cols, row, alterno, unidad, descripcion, ct, basef, base, venta;
     if (inputimportitems) {
       for (var i in rows) {
         row = rows[i];
         cols = row.split("\t");
-        if (typeof cols[0] === "undefined" || typeof cols[1] === "undefined" || typeof cols[2] === "undefined" || typeof cols[3] === "undefined" || typeof cols[4] === "undefined" || typeof cols[5] === "undefined" || typeof cols[6] === "undefined" || typeof cols[7] === "undefined" || typeof cols[8] === "undefined" || typeof cols[9] === "undefined" || typeof cols[10] === "undefined") {
+        if (typeof cols[0] === "undefined") {
+          alert("Col [1] no está definida");
+        }
+        if (typeof cols[1] === "undefined") {
+          alert("Col [2] no está definida");
+        }
+        if (typeof cols[2] === "undefined") {
+          alert("Col [3] no está definida");
+        }
+        if (typeof cols[3] === "undefined") {
+          alert("Col [4] no está definida");
+        }
+        if (typeof cols[4] === "undefined") {
+          alert("Col [5] no está definida");
+        }
+        if (typeof cols[5] === "undefined") {
+          alert("Col [6] no está definida");
+        }
+        if (typeof cols[6] === "undefined") {
+          alert("Col [7] no está definida");
+        }
+        if (typeof cols[0] === "undefined" || typeof cols[1] === "undefined" || typeof cols[2] === "undefined" || typeof cols[3] === "undefined" || typeof cols[4] === "undefined" || typeof cols[5] === "undefined" || typeof cols[6] === "undefined") {
           break;
         }
         alterno = cols[0] ? cols[0] : "";
-        barras = cols[1] ? cols[1] : "";
-        unidad = cols[2] ? cols[2] : "";
-        descripcion = cols[3] ? cols[3] : "";
-        ct = cols[4] ? cols[4] : "";
-        basef = cols[5] ? cols[5] : "";
-        base = cols[6] ? cols[6] : "";
-        venta = cols[7] ? cols[7] : "";
-        departamento = cols[8] ? cols[8] : "";
-        catgeneral = cols[9] ? cols[9] : "";
-        iva = cols[10] ? cols[10] : "";
+        unidad = cols[1] ? cols[1] : "";
+        descripcion = cols[2] ? cols[2] : "";
+        ct = cols[3] ? cols[3] : "";
+        basef = cols[4] ? cols[4] : "";
+        base = cols[5] ? cols[5] : "";
+        venta = cols[6] ? cols[6] : "";
         var newObj = [{
           id: null,
           codigo_proveedor: alterno,
-          codigo_barras: barras,
+          codigo_barras: "",
           unidad: unidad,
           descripcion: descripcion,
           cantidad: removeMoneyFormat(ct),
           basef: removeMoneyFormat(basef),
           precio_base: removeMoneyFormat(base),
           precio: removeMoneyFormat(venta),
-          id_categoria: departamento,
-          id_catgeneral: catgeneral,
+          id_categoria: "",
+          id_catgeneral: "",
           iva: "0",
           type: "new",
           id_marca: ""
@@ -71986,6 +72096,7 @@ function Home() {
         obj = newObj.concat(obj);
       }
       setProductosInventario(obj);
+      setshowtextarea(false);
     }
   };
   var autorepartircantidades = function autorepartircantidades(type, id_item) {
@@ -72961,6 +73072,7 @@ function Home() {
             setviewmainPanel: setviewmainPanel,
             permiso: permiso
           }), subViewInventario == "gestion" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_panel_comprascargarfactsItems__WEBPACK_IMPORTED_MODULE_32__["default"], {
+            getBarrasCargaItems: getBarrasCargaItems,
             setProductosInventario: setProductosInventario,
             procesarTextitemscompras: procesarTextitemscompras,
             subviewcargaritemsfact: subviewcargaritemsfact,

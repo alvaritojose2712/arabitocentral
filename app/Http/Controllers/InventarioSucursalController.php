@@ -462,6 +462,16 @@ class InventarioSucursalController extends Controller
         return $req->estadisticas;
     }
 
+    function getBarrasCargaItems(Request $req) {
+        $codigo_proveedor = $req->codigo_proveedor;
+        $i = inventario_sucursal::where("codigo_proveedor",$codigo_proveedor)->first();
+        if ($i) {
+            return Response::json(["estado"=>true,"data"=>$i]);
+        }else{
+            return Response::json(["estado"=>false]);
+        }
+    }
+
     public function guardarNuevoProductoLote(Request $req)
     {
         try {

@@ -140,6 +140,8 @@ export default function ComprascargarFactsItems({
     numcuentasPorPagarDetalles,
     setnumcuentasPorPagarDetalles,
 
+    getBarrasCargaItems,
+
 }){
 
    /*  useEffect(()=>{
@@ -296,18 +298,46 @@ export default function ComprascargarFactsItems({
                         <div className="row">
                             <div className="col">
                                 {showtextarea?
-                                    <textarea rows="5" className="w-100" onChange={event=>setinputimportitems(event.target.value)} value={inputimportitems}></textarea>
+                                    <>
+
+                                        <section className="modal-custom"> 
+                                            <div className="text-danger" >
+                                                <button className="btn btn-danger" onClick={()=>setshowtextarea(!showtextarea)}><i className="fa fa-times fa-2x"></i></button>
+                                            </div>
+                                            <div className="modal-content-sm modal-cantidad">
+                                                <table className="table mb-2">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ALTERNO</th>
+                                                            <th>UNIDAD</th>
+                                                            <th>DESCRIPCION</th>
+                                                            <th>CANTIDAD</th>
+                                                            <th>BASE F (CXP)</th> 
+                                                            <th>BASE</th> 
+                                                            <th>VENTA</th> 
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                                <textarea rows="5" className="w-100" onChange={event=>setinputimportitems(event.target.value)} value={inputimportitems}></textarea>
+                                                <div className="text-center">
+                                                    <button className="btn btn-success m-3" onClick={()=>procesarTextitemscompras()}>PROCESAR TEXTO <i className="fa fa-cogs"></i></button>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <div className="overlay"></div>
+                                    </>
                                 :null}
-                                <button className="btn btn-warning" onClick={()=>setshowtextarea(!showtextarea)}>MOSTRAR <i className="fa fa-eyes"></i></button>
-                                <button className="btn btn-success" onClick={()=>procesarTextitemscompras()}>PROCESAR TEXTO <i className="fa fa-cogs"></i></button>
                             </div>
                         </div>
+
                         {facturaSelectAddItemsSelect.id?
                         <>
                             <div className="row">
                                 <div className="col">
-                                    <div className="d-flex justify-content-between">
-                                        <i className="fa fa-arrow-left text-danger fa-2x" onClick={()=>{setfacturaSelectAddItems({});setsubviewcargaritemsfact("selectfacts")}}></i>
+                                    <div className="d-flex justify-content-center">
+                                        <button className="btn btn-danger text-light m-3" onClick={()=>{setfacturaSelectAddItems({});setsubviewcargaritemsfact("selectfacts")}}>
+                                            <i className="fa fa-arrow-left"></i> SELECCIONAR FACTURA 
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -336,7 +366,7 @@ export default function ComprascargarFactsItems({
                                                     {item.producto?
                                                         <>
                                                             <td>{i+1}</td>
-                                                            <td><i className="fa fa-times" onClick={()=>delItemFact(item.id)}></i></td>
+                                                            <td><i className="fa fa-times text-danger" onClick={()=>delItemFact(item.id)}></i></td>
                                                             <td>{item.producto.codigo_barras}</td>
                                                             <td>{item.producto.descripcion}</td>
                                                             <td onClick={()=>modItemFact(item.id, "cantidad")} className="bg-ct">{item.cantidad}</td>
@@ -361,27 +391,28 @@ export default function ComprascargarFactsItems({
 
                                 
 
-                                <div className="col-2">
+                                <div className="col-3">
                                     <div className="h-100 d-flex justify-content-center align-items-end ">
                                         <div className="text-center">
+                                            <div className="mb-2">
+                                                <button className={"btn fw-bolder "} style={{backgroundColor:colorSucursal(facturaSelectAddItemsSelect.sucursal? facturaSelectAddItemsSelect.sucursal.codigo:"")}}>
+                                                    {facturaSelectAddItemsSelect.sucursal?facturaSelectAddItemsSelect.sucursal.codigo:null}
+                                                </button>
+                                            </div>
+                                            <img src={facturaSelectAddItemsSelect.descripcion} width={200} onClick={()=>showFilescxp(facturaSelectAddItemsSelect.descripcion)} className="pointer mb-2"/>
                                             <div>
                                                 <span className="text-muted fst-italic">{facturaSelectAddItemsSelect.created_at}</span>
                                             </div>
                                             <div>
-                                                <span className="fs-3 fw-bolder">{facturaSelectAddItemsSelect.proveedor?facturaSelectAddItemsSelect.proveedor.descripcion:null}</span>
-                                            </div>
-                                            <div>
-                                                <span className={(returnCondicion(facturaSelectAddItemsSelect.condicion))+(" btn fs-2 pointer fw-bolder text-light me-1 ")}> 
+                                                <span className=" fw-bolder">{facturaSelectAddItemsSelect.proveedor?facturaSelectAddItemsSelect.proveedor.descripcion:null}</span>
+                                                <br />
+                                                <span className={(returnCondicion(facturaSelectAddItemsSelect.condicion))+(" btn  pointer fw-bolder text-light ms-1 ")}> 
                                                     {facturaSelectAddItemsSelect.numfact}
                                                 </span>
-                                                <button className={"btn fw-bolder fs-2"} style={{backgroundColor:colorSucursal(facturaSelectAddItemsSelect.sucursal? facturaSelectAddItemsSelect.sucursal.codigo:"")}}>
-                                                    {facturaSelectAddItemsSelect.sucursal?facturaSelectAddItemsSelect.sucursal.codigo:null}
-                                                </button>
                                             </div>
                                             <div className="p-3">
                                                 <span className="fs-1 fw-bolder text-danger mt-2">{moneda(facturaSelectAddItemsSelect.monto)}</span>
                                             </div>
-                                            <img src={facturaSelectAddItemsSelect.descripcion} width={200} onClick={()=>showFilescxp(facturaSelectAddItemsSelect.descripcion)} className="pointer"/>
 
                                         </div>
                                     </div>
@@ -413,21 +444,23 @@ export default function ComprascargarFactsItems({
                                     </div>
                                 </div>:null}
                                 <form className="input-group" onSubmit={e=>{e.preventDefault();buscarInventario()}}>
-                                    <div className="btn btn-success text-light" onClick={() => changeInventario(null, null, "add")}><i className="fa fa-plus"></i></div>
-                                        <input type="text" ref={inputBuscarInventario} className="form-control" placeholder="Buscar...(esc)" onChange={e => setQBuscarInventario(e.target.value)} value={qBuscarInventario} />
+                                    <div className="btn btn-warning" onClick={()=>setshowtextarea(!showtextarea)}>POR LOTES</div>
 
-                                        <select value={Invnum} onChange={e => setInvnum(e.target.value)}>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                            <option value="500">500</option>
-                                            <option value="2000">2000</option>
-                                        </select>
-                                        <select value={InvorderBy} onChange={e => setInvorderBy(e.target.value)}>
-                                            <option value="asc">Asc</option>
-                                            <option value="desc">Desc</option>
-                                        </select>
-                                        
+                                    <div className="btn btn-success text-light" onClick={() => changeInventario(null, null, "add")}><i className="fa fa-plus"></i></div>
+                                    <input type="text" ref={inputBuscarInventario} className="form-control" placeholder="Buscar...(esc)" onChange={e => setQBuscarInventario(e.target.value)} value={qBuscarInventario} />
+
+                                    <select value={Invnum} onChange={e => setInvnum(e.target.value)}>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="500">500</option>
+                                        <option value="2000">2000</option>
+                                    </select>
+                                    <select value={InvorderBy} onChange={e => setInvorderBy(e.target.value)}>
+                                        <option value="asc">Asc</option>
+                                        <option value="desc">Desc</option>
+                                    </select>
+                                    
                                     <div className="btn btn-success text-light" onClick={guardarNuevoProductoLote}><i className="fa fa-send"></i> ASIGNAR</div>
                                 </form>
                                 
@@ -456,6 +489,7 @@ export default function ComprascargarFactsItems({
                                                         <option value="">--Select--</option>
                                                         {categorias.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
                                                     </select> 
+                                                    <br />  
                                                     DEPARTAMENTO
                                                 </th>
                                                 <th className=" pointer" onClick={() => setInvorderColumn("id_catgeneral")}>
@@ -467,7 +501,7 @@ export default function ComprascargarFactsItems({
                                                         <option value="">--Select--</option>
                                                         {catGenerals.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
                                                     </select>
-
+                                                    <br />  
                                                     CAT GENERAL
                                                 </th>
                                                 <th className=" pointer"><span onClick={() => setInvorderColumn("iva")}>IVA</span></th> 
@@ -572,23 +606,24 @@ export default function ComprascargarFactsItems({
 
                                                         :
                                                         <>
-                                                            <td className="">
+                                                            <td className="align-top">
                                                                 <input type="text"
                                                                     disabled={type(e.type)} className="form-control form-control-sm"
                                                                     value={!e.codigo_proveedor?"":e.codigo_proveedor}
                                                                     onChange={e => changeInventario((e.target.value), i, "changeInput", "codigo_proveedor")}
                                                                     placeholder="codigo_proveedor..." />
-
+                                                                    <button className="btn btn-success mt-2" onClick={()=>getBarrasCargaItems(i)}>Obtener Barras</button>
                                                             </td>
-                                                            <td className="">
+                                                            <td className="align-top">
                                                                 <input type="text"
                                                                     disabled={type(e.type)} className="form-control form-control-sm"
                                                                     value={!e.codigo_barras?"":e.codigo_barras}
                                                                     onChange={e => changeInventario((e.target.value), i, "changeInput", "codigo_barras")}
                                                                     placeholder="codigo_barras..." />
+                                                                    {!e.codigo_barras_antes?"": <span className="text-muted fst-italic">{e.codigo_barras_antes}</span> }
 
                                                             </td>
-                                                            <td className="">
+                                                            <td className="align-top">
                                                                 <select
                                                                     disabled={type(e.type)}
                                                                     className="form-control form-control-sm"
@@ -607,42 +642,46 @@ export default function ComprascargarFactsItems({
                                                                     <option value="ML">ML</option>
                                                                 </select>
                                                             </td>
-                                                            <td className="">
+                                                            <td className="align-top">
                                                                 <textarea type="text"
+                                                                    cols={100}
+                                                                    rows={5}
                                                                     disabled={type(e.type)} className="form-control form-control-sm"
                                                                     value={!e.descripcion?"":e.descripcion}
                                                                     onChange={e => changeInventario((e.target.value), i, "changeInput", "descripcion")}
                                                                     placeholder="descripcion..."></textarea>
+                                                                    {!e.descripcion_antes?"": <span className="text-muted fst-italic">{e.descripcion_antes}</span> }
+
                                                             </td>
-                                                            <td className="">
+                                                            <td className="align-top">
                                                                 <input type="text"
                                                                     disabled={type(e.type)} className="form-control form-control-sm"
                                                                     value={!e.cantidad?"":e.cantidad}
                                                                     onChange={e => changeInventario((e.target.value), i, "changeInput", "cantidad")}
                                                                     placeholder="Cantidad..."/>
                                                             </td>
-                                                            <td className="">
+                                                            <td className="align-top">
                                                                 <input type="text"
                                                                     disabled={type(e.type)} className="form-control form-control-sm"
                                                                     value={!e.basef?"":e.basef}
                                                                     onChange={e => changeInventario((e.target.value), i, "changeInput", "basef")}
                                                                     placeholder="Base F..."/>
                                                             </td>
-                                                            <td className="bg-base">
+                                                            <td className="align-top bg-base">
                                                                 <input type="text"
                                                                     disabled={type(e.type)} className="form-control form-control-sm"
                                                                     value={!e.precio_base?"":e.precio_base}
                                                                     onChange={e => changeInventario(number(e.target.value), i, "changeInput", "precio_base")}
                                                                     placeholder="Costo..." />
                                                             </td>
-                                                            <td className="bg-venta"> 
+                                                            <td className="align-top bg-venta"> 
                                                                 <input type="text"
                                                                     disabled={type(e.type)} className="form-control form-control-sm"
                                                                     value={!e.precio?"":e.precio}
                                                                     onChange={e => changeInventario(number(e.target.value), i, "changeInput", "precio")}
                                                                     placeholder="Venta..." />
                                                             </td>
-                                                            {/* <td className="">
+                                                            {/* <td className="align-top">
                                                                 <select
                                                                     disabled={type(e.type)} 
                                                                     className="form-control form-control-sm"
@@ -655,7 +694,7 @@ export default function ComprascargarFactsItems({
                                                                 </select>
                                                             </td> */}
 
-                                                            <td className="">
+                                                            <td className="align-top">
                                                                 <select
                                                                     disabled={type(e.type)} 
                                                                     className="form-control form-control-sm"
@@ -668,7 +707,7 @@ export default function ComprascargarFactsItems({
                                                                     </select>
                                                             
                                                             </td>
-                                                            <td className="">
+                                                            <td className="align-top">
                                                                 <select
                                                                     disabled={type(e.type)} 
                                                                     className="form-control form-control-sm"
@@ -680,7 +719,7 @@ export default function ComprascargarFactsItems({
                                                                     
                                                                 </select>
                                                             </td>
-                                                            <td className="">
+                                                            <td className="align-top">
                                                                 <input type="text"
                                                                     disabled={type(e.type)} className="form-control form-control-sm"
                                                                     value={!e.iva?"":e.iva}
@@ -689,7 +728,7 @@ export default function ComprascargarFactsItems({
                                                             </td> 
                                                         </>
                                                         }
-                                                            <td className="">
+                                                            <td className="align-top">
                                                                 <div className='d-flex justify-content-between'>
                                                                     {!e.type ?
                                                                         <>

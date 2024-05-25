@@ -1054,12 +1054,14 @@ function Home() {
     }
   }
   const delItemFact = (id) => {
-    db.delItemFact({id}).then(res=>{
-      notificar(res)
-      if (res.data.estado) {
-        selectCuentaPorPagarProveedorDetallesFun()
-      }
-    })
+    if (confirm("Confirme")) {
+      db.delItemFact({id}).then(res=>{
+        notificar(res)
+        if (res.data.estado) {
+          selectCuentaPorPagarProveedorDetallesFun()
+        }
+      })
+    }
   }
   const guardarNuevoProductoLote = () => {
     let id_factura = null
@@ -1072,7 +1074,6 @@ function Home() {
 
     if (lotesFil.length) {
 
-      setLoading(true)
       db.guardarNuevoProductoLote({ lotes: lotesFil, id_factura }).then(res => {
         selectCuentaPorPagarProveedorDetallesFun()
         if (typeof res.data === "string") {
@@ -1080,7 +1081,6 @@ function Home() {
         }else{
           notificar(res.data.msj.join("\n"), false);
         }
-        setLoading(false)
         if (res.data.estado) {
           buscarInventario()
         }
@@ -1143,6 +1143,32 @@ function Home() {
         break;
     }
     setProductosInventario(obj)
+  }
+  const getBarrasCargaItems = id => {
+
+    let obj = cloneDeep(productosInventario)
+    setLoading(true)
+    db.getBarrasCargaItems({
+      codigo_proveedor: obj[id]["codigo_proveedor"],
+    })
+    .then(res=>{
+      setLoading(false)
+      if (res.data) {
+        if (res.data.estado) {
+
+          let data = res.data.data
+          obj[id]["codigo_barras_antes"] = obj[id]["codigo_barras"]
+          obj[id]["codigo_barras"] = data["codigo_barras"]
+
+          obj[id]["descripcion_antes"] = obj[id]["descripcion"]
+          obj[id]["descripcion"] = data["descripcion"]
+          setProductosInventario(obj)
+        }
+      }
+    })
+
+
+
   }
   const getEstaInventario = () => {
 
@@ -3771,7 +3797,7 @@ function formatAmount( number, simbol ) {
   const [distribucionSelectSucursal, setdistribucionSelectSucursal] = useState("") 
 
   const [subviewcargaritemsfact, setsubviewcargaritemsfact] = useState("selectfacts")
-  const [showtextarea, setshowtextarea] = useState(true)
+  const [showtextarea, setshowtextarea] = useState(false)
 
   const removeMoneyFormat = num => {
     let n = num.toString()
@@ -3784,14 +3810,31 @@ function formatAmount( number, simbol ) {
   }
   const procesarTextitemscompras = () => {
     
+    {/* 
+      <th>ALTERNO</th>
+      <th>UNIDAD</th>
+      <th>DESCRIPCION</th>
+      <th>CANTIDAD</th>
+      <th>BASE F (CXP)</th> 
+      <th>BASE</th> 
+      <th>VENTA</th> 
+    */}
     let obj = cloneDeep(productosInventario)
-    let rows = inputimportitems.split("\n")
-    let cols,row, alterno,barras,unidad,descripcion,ct,basef,base,venta,departamento,catgeneral,iva;
+    let rows = inputimportitems.replace("\"","").replace("\'","").split("\n")
+    let cols,row, alterno,unidad,descripcion,ct,basef,base,venta;
     if (inputimportitems) {
       for(let i in rows){
         row = rows[i]
         cols = row.split("\t")
-  
+        
+        if (typeof cols[0]==="undefined") {alert("Col [1] no está definida")}
+        if (typeof cols[1]==="undefined") {alert("Col [2] no está definida")}
+        if (typeof cols[2]==="undefined") {alert("Col [3] no está definida")}
+        if (typeof cols[3]==="undefined") {alert("Col [4] no está definida")}
+        if (typeof cols[4]==="undefined") {alert("Col [5] no está definida")}
+        if (typeof cols[5]==="undefined") {alert("Col [6] no está definida")}
+        if (typeof cols[6]==="undefined") {alert("Col [7] no está definida")}
+
         if (
           typeof cols[0]==="undefined"
           ||typeof cols[1]==="undefined"
@@ -3800,40 +3843,32 @@ function formatAmount( number, simbol ) {
           ||typeof cols[4]==="undefined"
           ||typeof cols[5]==="undefined"
           ||typeof cols[6]==="undefined"
-          ||typeof cols[7]==="undefined"
-          ||typeof cols[8]==="undefined"
-          ||typeof cols[9]==="undefined"
-          ||typeof cols[10]==="undefined"
         ) {
           break
         }
   
         alterno = cols[0]?cols[0]:""
-        barras = cols[1]?cols[1]:""
-        unidad = cols[2]?cols[2]:""
-        descripcion = cols[3]?cols[3]:""
-        ct = cols[4]?cols[4]:""
-        basef = cols[5]?cols[5]:""
-        base = cols[6]?cols[6]:""
-        venta = cols[7]?cols[7]:""
-        departamento = cols[8]?cols[8]:""
-        catgeneral = cols[9]?cols[9]:""
-        iva = cols[10]?cols[10]:""
+        unidad = cols[1]?cols[1]:""
+        descripcion = cols[2]?cols[2]:""
+        ct = cols[3]?cols[3]:""
+        basef = cols[4]?cols[4]:""
+        base = cols[5]?cols[5]:""
+        venta = cols[6]?cols[6]:""
 
 
   
         let newObj = [{
           id: null,
           codigo_proveedor: alterno,
-          codigo_barras: barras,
+          codigo_barras: "",
           unidad: unidad,
           descripcion: descripcion,
           cantidad: removeMoneyFormat(ct),
           basef: removeMoneyFormat(basef),
           precio_base: removeMoneyFormat(base),
           precio: removeMoneyFormat(venta),
-          id_categoria: departamento,
-          id_catgeneral: catgeneral,
+          id_categoria: "",
+          id_catgeneral: "",
           iva: "0",
           type: "new",
           id_marca: "",
@@ -3843,6 +3878,7 @@ function formatAmount( number, simbol ) {
         obj = newObj.concat(obj)
       }
       setProductosInventario(obj)
+      setshowtextarea(false)
     }
   }
   const autorepartircantidades = (type,id_item) => {
@@ -5007,6 +5043,7 @@ function formatAmount( number, simbol ) {
               />
               {subViewInventario == "gestion" ?
                 <ComprascargarFactsItems
+                  getBarrasCargaItems={getBarrasCargaItems}
                   setProductosInventario={setProductosInventario}
                   procesarTextitemscompras={procesarTextitemscompras}
                   subviewcargaritemsfact={subviewcargaritemsfact}
