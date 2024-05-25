@@ -615,7 +615,13 @@ export default function Auditoria({
                                     </thead>
                                     <tbody>
                                         {bancosdata.xliquidar.map((e,i)=>
-                                            <tr key={e.id} onClick={()=>setselectTrLiquidar(i)}>
+                                            <tr key={e.id} onClick={()=>{
+                                                setselectTrLiquidar(i)
+                                                if (e.tipo=="Transferencia") {
+                                                    setinpmontoLiquidar(e.monto)
+                                                    setinpfechaLiquidar(e.fecha)
+                                                }
+                                            }}>
                                                 <th>
                                                     <button onDoubleClick={()=>changeBank(e.id,"banco")} className="btn w-100 fw-bolder" 
                                                     style={{
@@ -648,8 +654,8 @@ export default function Auditoria({
                                                 <th>
                                                     {selectTrLiquidar===i?
                                                         <div className="input-group-vertical">
-                                                            <input type="text" className="form-control" value={inpmontoLiquidar} placeholder="Monto Liquidado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
-                                                            <input type="date" className="form-control" value={inpfechaLiquidar} onChange={event=>setinpfechaLiquidar(event.target.value)}/>
+                                                            <input type="text" className="form-control" value={inpmontoLiquidar} disabled={e.tipo=="Transferencia"?true:false} placeholder="Monto Liquidado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
+                                                            <input type="date" className="form-control" value={inpfechaLiquidar} disabled={e.tipo=="Transferencia"?true:false} onChange={event=>setinpfechaLiquidar(event.target.value)}/>
                                                             <button className="btn btn-warning w-100" onClick={()=>liquidarMov(e.id)}>LIQUIDAR <i className="fa fa-send"></i></button>
                                                         </div>
                                                     :null}
@@ -769,6 +775,14 @@ export default function Auditoria({
                                         e.saldo!=0?
                                             <>
                                                 <span className="h6 text-muted font-italic fs-3">Monto <b>{moneda(e.saldo)}</b></span>
+                                                <br />
+                                                {e.montoretencion?
+                                                    <span className="h6 text-muted font-italic fs-3">Retención <b>{moneda(e.montoretencion)}</b></span>
+                                                :null}
+                                                <br />
+                                                {e.montoretencion?
+                                                    <span className="h6 text-muted font-italic fs-3">Total Transferido <b>{moneda(parseFloat(e.montoretencion)+parseFloat(e.saldo))}</b></span>
+                                                :null}
                                             </>
                                         :null
                                     }

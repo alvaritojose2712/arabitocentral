@@ -24,6 +24,9 @@ class CreateTransferenciaAprobacionsTable extends Migration
 
             
             $table->decimal("saldo",10,2);
+
+            $table->decimal("montoretencion",10,2)->nullable(true)->default(null);
+            $table->integer("estadoretencion")->nullable(true)->default(null);
             
             $table->integer("estatus");
             $table->integer("idinsucursal");

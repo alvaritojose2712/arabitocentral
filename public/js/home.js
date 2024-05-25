@@ -3562,7 +3562,11 @@ function Auditoria(_ref) {
             children: bancosdata.xliquidar.map(function (e, i) {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
                 onClick: function onClick() {
-                  return setselectTrLiquidar(i);
+                  setselectTrLiquidar(i);
+                  if (e.tipo == "Transferencia") {
+                    setinpmontoLiquidar(e.monto);
+                    setinpfechaLiquidar(e.fecha);
+                  }
                 },
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
@@ -3630,6 +3634,7 @@ function Auditoria(_ref) {
                       type: "text",
                       className: "form-control",
                       value: inpmontoLiquidar,
+                      disabled: e.tipo == "Transferencia" ? true : false,
                       placeholder: "Monto Liquidado",
                       onChange: function onChange(event) {
                         return setinpmontoLiquidar(event.target.value);
@@ -3638,6 +3643,7 @@ function Auditoria(_ref) {
                       type: "date",
                       className: "form-control",
                       value: inpfechaLiquidar,
+                      disabled: e.tipo == "Transferencia" ? true : false,
                       onChange: function onChange(event) {
                         return setinpfechaLiquidar(event.target.value);
                       }
@@ -3845,13 +3851,23 @@ function Auditoria(_ref) {
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "w-50 text-right",
-                    children: e.saldo != 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                    children: e.saldo != 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
                         className: "h6 text-muted font-italic fs-3",
                         children: ["Monto ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
                           children: moneda(e.saldo)
                         })]
-                      })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), e.montoretencion ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                        className: "h6 text-muted font-italic fs-3",
+                        children: ["Retenci\xF3n ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
+                          children: moneda(e.montoretencion)
+                        })]
+                      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), e.montoretencion ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                        className: "h6 text-muted font-italic fs-3",
+                        children: ["Total Transferido ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
+                          children: moneda(parseFloat(e.montoretencion) + parseFloat(e.saldo))
+                        })]
+                      }) : null]
                     }) : null
                   })]
                 })
@@ -13750,7 +13766,7 @@ function ComprascargarFactsItems(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
                     className: "fs-3",
-                    children: e.items.length
+                    children: e.items ? e.items.length : null
                   })
                 })]
               })

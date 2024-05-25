@@ -946,7 +946,7 @@ export default function ComprascargarFactsItems({
                                                 <span className={(e.monto<0? "text-danger": "text-success")+(" fs-3 fw-bold ")}>{moneda(e.monto)}</span>
                                             </td>
                                             <td>
-                                                <span className="fs-3">{e.items.length}</span>
+                                                <span className="fs-3">{e.items?e.items.length:null}</span>
                                             </td>
                                         </>    
                                     </tr>:null}

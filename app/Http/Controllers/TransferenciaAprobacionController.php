@@ -32,10 +32,19 @@ class TransferenciaAprobacionController extends Controller
             }
 
             if ($count_refs==$count_apro) {
-                return ["estado" =>true, "msj" => "APROBADO"];
+                return ["estado" =>false, "msj" => "APROBADO", "count_refs"=>$count_refs, "count_apro"=>$count_apro];
             }
 
             $count_createTrans = 0;
+
+
+            $retenciones = $data["retenciones"];
+            $sumRetenciones = 0;
+            
+            foreach ($retenciones as $i => $retencion) {
+                $sumRetenciones += $retencion["monto"];
+            }
+
             foreach ($data["refs"] as $ref) {
                 $transferencia_aprobacion = transferencia_aprobacion::updateOrCreate([
                     "id_sucursal" => $id_sucursal,
@@ -47,6 +56,8 @@ class TransferenciaAprobacionController extends Controller
                     "saldo" => $ref["monto"],
                     "loteserial"=>$ref["descripcion"],
                     "banco"=>$ref["banco"],
+                    "montoretencion" => ($sumRetenciones/$count_refs),
+                    "estadoretencion" => 0,
                 ]);
                 if ($transferencia_aprobacion) {
                     $count_createTrans++;

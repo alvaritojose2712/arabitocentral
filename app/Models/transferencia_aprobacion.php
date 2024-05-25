@@ -24,5 +24,7 @@ class transferencia_aprobacion extends Model
         "saldo",
         "estatus",
         "idinsucursal",
+        "montoretencion",
+        "estadoretencion",
     ];
 }
