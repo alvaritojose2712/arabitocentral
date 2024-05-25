@@ -183,7 +183,7 @@ function Home() {
   const [qpedidoOrderByDescAsc, setqpedidoOrderByDescAsc] = useState("desc")
   const [pedidos, setpedidos] = useState([])
   const [pedidoData, setpedidoData] = useState(null)
-  const [qestadopedido, setqestadopedido] = useState(0)
+  const [qestadopedido, setqestadopedido] = useState(3)
 
   ////IMPORT VENTAS
   const [num, setNum] = useState(50)

@@ -17066,9 +17066,9 @@ function Trmaincuentasporpagar(_ref) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
           className: "btn w-100 fw-bolder fs-3",
           style: {
-            backgroundColor: colorSucursal(e.sucursal.codigo)
+            backgroundColor: colorSucursal(e.sucursal ? e.sucursal.codigo : "")
           },
-          children: e.sucursal.codigo
+          children: e.sucursal ? e.sucursal.codigo : ""
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
         className: " text-right",
@@ -17146,7 +17146,7 @@ function Trmaincuentasporpagar(_ref) {
               onDoubleClick: function onDoubleClick() {
                 return changeSucursal(e.id);
               },
-              children: [" ", e.sucursal.codigo, " "]
+              children: [" ", e.sucursal ? e.sucursal.codigo : "", " "]
             })]
           })
         })
@@ -67446,7 +67446,7 @@ function Home() {
     _useState40 = _slicedToArray(_useState39, 2),
     pedidoData = _useState40[0],
     setpedidoData = _useState40[1];
-  var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+  var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(3),
     _useState42 = _slicedToArray(_useState41, 2),
     qestadopedido = _useState42[0],
     setqestadopedido = _useState42[1];

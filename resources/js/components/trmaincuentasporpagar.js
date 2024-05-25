@@ -58,8 +58,8 @@ selectFacts,
                     </span>
                 </td>  
                 <td className=" text-right">
-                    <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
-                        {e.sucursal.codigo}
+                    <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal?e.sucursal.codigo:"")}}>
+                        {e.sucursal?e.sucursal.codigo:""}
                     </button>
                 </td>
                 <td className=" text-right">
@@ -117,7 +117,7 @@ selectFacts,
                             <button className="btn btn-outline-info" onClick={()=>showImageFact(e.descripcion)}> <i className="fa fa-eye"></i> VER </button>
                             <button className="btn btn-outline-sinapsis" onClick={()=>setSelectCuentaPorPagarDetalle(e.id)}> <i className="fa fa-pencil"></i> EDITAR </button>
                             
-                            <button className="btn" onDoubleClick={()=>changeSucursal(e.id)}> {e.sucursal.codigo} </button>
+                            <button className="btn" onDoubleClick={()=>changeSucursal(e.id)}> {e.sucursal?e.sucursal.codigo:""} </button>
                             
                         </div>
                     </th>

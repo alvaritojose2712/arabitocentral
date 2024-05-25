@@ -198,13 +198,14 @@ td,th{
 
 .card-pedidos{
   width: 100%;
-  box-shadow: 5px 5px 3px -1px #e3e3e2;
+  box-shadow: 8px 8px 8px 0px #c6c6c6;
   padding: 10px;
   border-radius: 5px;
-  /*border-top: solid darkgray 2px;*/
+  border-top: solid darkgray 2px;
   border-bottom: solid darkgray 2px;
   margin-bottom: 12px;
   display: flex;
+  background-color: #e8e8e8;
 }
 
 .btn-options{
