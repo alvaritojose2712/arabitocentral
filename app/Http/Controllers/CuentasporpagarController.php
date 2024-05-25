@@ -231,7 +231,27 @@ class CuentasporpagarController extends Controller
                 if (isset($factura["type"])) {
                     $type = $factura["type"];
                     if ($type=="update" || $type=="new") {
-                        $imagen = "IMAGEN";
+                        $arrinsert = [
+                            "tipo" => 1, //COMPRAS
+                            "frecuencia" => 0,
+                            "idinsucursal" => null,
+                            "id_proveedor" =>  $factura["id_proveedor"],
+                            "id_sucursal" =>  $factura["id_sucursal"],
+                            "numfact" => $factura["numfact"],
+                            "numnota" => $factura["numnota"],
+                            
+                            "descuento" => $factura["descuento"],
+                            "subtotal" => $this->negative($factura["subtotal"]),
+                            "monto_exento" => $this->negative($factura["monto_exento"]),
+                            "monto_gravable" => $this->negative($factura["monto_gravable"]),
+                            "iva" => $this->negative($factura["iva"]),
+                            "monto" => $this->negative($factura["monto"]),
+                            "fechaemision" => $factura["fechaemision"],
+                            "fechavencimiento" => $factura["fechavencimiento"],
+                            "fecharecepcion" => $factura["fecharecepcion"],
+                            "nota" => $factura["nota"],
+                        ];
+                        
                         if ($imagenreq) {
                             $fileId = (new CuentasporpagarFisicasController)->sendComprasFatsFun([
                                 "id_proveedor" => $factura["id_proveedor"],
@@ -247,36 +267,14 @@ class CuentasporpagarController extends Controller
                         if ($selectFilecxp) {
                             $fisica = cuentasporpagar_fisicas::find($selectFilecxp);
                             if ($fisica) {
-                                $imagen = $fisica->ruta;
+                                $arrinsert["descripcion"] = $fisica->ruta;
                             }
                         }
-
-
-                        $arrinsert = [
-                            "tipo" => 1, //COMPRAS
-                            "frecuencia" => 0,
-                            "idinsucursal" => null,
-                            "id_proveedor" =>  $factura["id_proveedor"],
-                            "id_sucursal" =>  $factura["id_sucursal"],
-                            "numfact" => $factura["numfact"],
-                            "numnota" => $factura["numnota"],
-                            "descripcion" => $imagen,
-                            "descuento" => $factura["descuento"],
-                            "subtotal" => $this->negative($factura["subtotal"]),
-                            "monto_exento" => $this->negative($factura["monto_exento"]),
-                            "monto_gravable" => $this->negative($factura["monto_gravable"]),
-                            "iva" => $this->negative($factura["iva"]),
-                            "monto" => $this->negative($factura["monto"]),
-                            "fechaemision" => $factura["fechaemision"],
-                            "fechavencimiento" => $factura["fechavencimiento"],
-                            "fecharecepcion" => $factura["fecharecepcion"],
-                            "nota" => $factura["nota"],
-                        ];
+                        
+                        
                         $search = [
                             "id" => $factura["id"]
                         ];
-
-                        
                         $this->setCuentaPorPagar($arrinsert,$search);
                         
                     }else if($type=="delete"){
