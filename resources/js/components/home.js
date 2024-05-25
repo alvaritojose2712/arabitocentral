@@ -4754,7 +4754,7 @@ function formatAmount( number, simbol ) {
               />
           }
           
-          {permiso([1,10]) && viewmainPanel === "cargarfactsdigitales" &&
+          {permiso([1,2,10]) && viewmainPanel === "cargarfactsdigitales" &&
           <>
               <Comprasmenufactsdigital 
                 viewmainPanel={viewmainPanel}
@@ -4800,7 +4800,7 @@ function formatAmount( number, simbol ) {
           </>
           }
 
-          {permiso([1,10]) && viewmainPanel === "distribuirfacts" &&
+          {permiso([1,2,10]) && viewmainPanel === "distribuirfacts" &&
           <>
             <Comprasmenufactsdigital 
               viewmainPanel={viewmainPanel}
@@ -4848,7 +4848,7 @@ function formatAmount( number, simbol ) {
           </>
           }
           
-           {permiso([1,10]) && viewmainPanel === "procesarfactsdigitales" &&
+           {permiso([1,2,10]) && viewmainPanel === "procesarfactsdigitales" &&
             <>
               <Comprasmenufactsdigital 
                 viewmainPanel={viewmainPanel}
@@ -4858,7 +4858,7 @@ function formatAmount( number, simbol ) {
             </>
           }
           
-          {permiso([1,10]) && viewmainPanel === "pedidos" &&
+          {permiso([1,2,10]) && viewmainPanel === "pedidos" &&
           <>
             <Comprasmenufactsdigital 
               viewmainPanel={viewmainPanel}
@@ -5034,7 +5034,7 @@ function formatAmount( number, simbol ) {
               
             </>
           }
-          {permiso([1,10]) && viewmainPanel === "cargarfactsitems" &&
+          {permiso([1,2,10]) && viewmainPanel === "cargarfactsitems" &&
             <>
               <Comprasmenufactsdigital 
                 viewmainPanel={viewmainPanel}
