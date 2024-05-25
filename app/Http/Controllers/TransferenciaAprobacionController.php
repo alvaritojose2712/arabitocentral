@@ -38,7 +38,7 @@ class TransferenciaAprobacionController extends Controller
             $count_createTrans = 0;
 
 
-            $retenciones = $data["retenciones"];
+            $retenciones = isset($data["retenciones"])?$data["retenciones"]:[];
             $sumRetenciones = 0;
             
             foreach ($retenciones as $i => $retencion) {
