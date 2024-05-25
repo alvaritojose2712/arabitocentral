@@ -2328,36 +2328,51 @@ function Comprasmenufactsdigital(_ref) {
         children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
           className: "fa fa-arrow-left"
         }), " "]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
         className: "fs-2 btn btn" + (viewmainPanel == "cargarfactsdigitales" ? "" : "-outline") + "-sinapsis",
         onClick: function onClick() {
           return setviewmainPanel("cargarfactsdigitales");
         },
-        children: "FACTURAS 1"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+        children: ["FACTURAS ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+          className: "badge bg-secondary",
+          children: "1"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
         className: "fs-2 btn btn" + (viewmainPanel == "cargarfactsitems" ? "" : "-outline") + "-sinapsis",
         onClick: function onClick() {
           return setviewmainPanel("cargarfactsitems");
         },
-        children: "ITEMS 2"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+        children: ["ITEMS ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+          className: "badge bg-secondary",
+          children: "2"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
         className: "fs-2 btn btn" + (viewmainPanel == "comprasrevision" ? "" : "-outline") + "-sinapsis",
         onClick: function onClick() {
           return setviewmainPanel("comprasrevision");
         },
-        children: "REVISI\xD3N 3"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+        children: ["REVISI\xD3N ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+          className: "badge bg-secondary",
+          children: "3"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
         className: "fs-2 btn btn" + (viewmainPanel == "distribuirfacts" ? "" : "-outline") + "-sinapsis",
         onClick: function onClick() {
           return setviewmainPanel("distribuirfacts");
         },
-        children: "DISTRIBUIR 4"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+        children: ["DISTRIBUIR ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+          className: "badge bg-secondary",
+          children: "4"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
         className: "fs-2 btn btn" + (viewmainPanel == "pedidos" ? "" : "-outline") + "-sinapsis",
         onClick: function onClick() {
           return setviewmainPanel("pedidos");
         },
-        children: "PEDIDOS 5"
+        children: ["PEDIDOS ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+          className: "badge bg-secondary",
+          children: "5"
+        })]
       })]
     })
   });
