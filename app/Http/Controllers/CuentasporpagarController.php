@@ -418,9 +418,7 @@ class CuentasporpagarController extends Controller
             $factura = json_decode($req->factura,2);
             $imagen = $req->imagen;
 
-            if ($id_sucursal==14) {
-                return "No puede cargar Facturas. Debe hacerlo por la APP";
-            }
+           
 
             
 
