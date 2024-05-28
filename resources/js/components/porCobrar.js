@@ -129,23 +129,29 @@ export default function PorCobrar({
                                             <thead>
                                                 <tr>
                                                     <th>CARGO</th>
-                                                    <th>MÁXIMO A COBRAR ESTE MES</th>
-                                                    <th>PRESTAMOS TOTALES</th>
-                                                    <th>CRÉDITOS TOTALES</th>
-                                                    <th>PAGOS QUINCENA (MES ACTUAL)</th>
-                                                    <th>PAGOS QUINCENA (MES PASADO)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
                                                     <td>{e.trabajador.cargo.cargodescripcion}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>MÁXIMO A COBRAR ESTE MES</th>
                                                     <td className="text-success">{e.trabajador.maxpagopersona}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>PRESTAMOS TOTALES</th>
                                                     <td className="text-danger fs-5">{moneda(e.trabajador.sumprestamos)}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>CRÉDITOS TOTALES</th>
                                                     <td className="text-sinapsis fs-5">{moneda(e.trabajador.sumCreditos)}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>PAGOS QUINCENA (MES ACTUAL)</th>
                                                     <td>{moneda(e.trabajador.mes)}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>PAGOS QUINCENA (MES PASADO)</th>
                                                     <td>{moneda(e.trabajador.mespasado)}</td>
                                                 </tr>
-                                            </tbody>
+                                            </thead>
                                         </table>
                                     </div>:null}
                                     <div className="card-body d-flex justify-content-between">
