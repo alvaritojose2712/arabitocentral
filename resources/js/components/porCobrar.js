@@ -129,7 +129,7 @@ export default function PorCobrar({
                                             <thead>
                                                 <tr>
                                                     <th>CARGO</th>
-                                                    <td>{e.trabajador.cargo.cargodescripcion}</td>
+                                                    <td>{e.trabajador.cargo.cargosdescripcion}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>MÁXIMO A COBRAR ESTE MES</th>
