@@ -294,6 +294,9 @@ class CierresController extends Controller
             "inventariobase" => moneda($array->sum("inventariobase")),
             "inventarioventa" => moneda($array->sum("inventarioventa")),
 
+            "inventariobase_clean" => $array->sum("inventariobase"),
+            "inventarioventa_clean" => $array->sum("inventarioventa"),
+
             
 
         ];
@@ -727,7 +730,8 @@ class CierresController extends Controller
             ],
             "subviewpanelsucursales" => "cierres",
         ]);
-        $inventario = $inventarioData["sum"]["inventariobase"];
+        
+        $inventario = $inventarioData["sum"]["inventariobase_clean"];
         
         $cxcData = $this->getsucursalDetallesDataFun([
             "id_sucursal" => $sucursalBalanceGeneral,
