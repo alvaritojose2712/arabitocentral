@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\credito_aprobacion;
 use App\Models\clientes;
+use App\Models\nomina;
+use App\Models\creditos;
+
+
 
 use App\Http\Requests\Storecredito_aprobacionRequest;
 use App\Http\Requests\Updatecredito_aprobacionRequest;
@@ -74,6 +78,21 @@ class CreditoAprobacionController extends Controller
     function getCreditoAprobacion($fechasMain1, $fechasMain2, $id_sucursal, $filtros) {
         $qestatus = $filtros["qestatusaprobaciocaja"];
         
+
+        $today = (new NominaController)->today();
+        $mesDate = strtotime($today);
+        $mesDate = date('Y-m' , $mesDate);
+
+        $mespasadoDate = strtotime('-1 months', strtotime($today));
+        $mespasadoDate = date('Y-m' , $mespasadoDate);
+
+        $mesantepasadoDate = strtotime('-2 months', strtotime($today));
+        $mesantepasadoDate = date('Y-m' , $mesantepasadoDate);
+
+        $mes = $mesDate;
+        $mespasado = $mespasadoDate;
+        $mesantepasado = $mesantepasadoDate;
+
         $data = credito_aprobacion::with(["sucursal","cliente"])
         ->when($id_sucursal, function ($q) use ($id_sucursal) {
             $q->where("id_sucursal", $id_sucursal);
@@ -81,7 +100,61 @@ class CreditoAprobacionController extends Controller
         ->where("estatus", $qestatus)
         ->whereBetween("created_at", [$fechasMain1." 00:00:00", $fechasMain2." 23:59:59"])
         ->orderBy("created_at", "desc")
-        ->get();
+        ->get()
+        ->map(function($q) use ($mes,$mespasado,$mesantepasado) {
+            $cedula = $q->cliente->identificacion;
+            $n = nomina::with(["cargo","prestamos", "pagos"=>function ($q) {
+                $q->with("sucursal")->orderBy("created_at","asc");
+            }])
+            ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
+            ->where("nominacedula",$cedula)
+            ->first();
+
+            if ($n) {
+                $creditos = creditos::with("sucursal")->where("id",$q->id_cliente);
+                $n->pagos = $n->pagos->map(function($q) {
+                    $q->created_at = date("d-m-Y", strtotime($q->created_at));
+                    return $q;
+                });
+    
+                $pagos = $n->pagos;
+                $mesSum = 0;
+                $mespasadoSum = 0;
+                $mesantepasadoSum = 0;
+                foreach ($pagos as $pago) {
+                    if (str_contains($pago["created_at"],$mes)) {
+                        $mesSum += $pago["monto"];
+                    }
+                    if (str_contains($pago["created_at"],$mespasado)) {
+                        $mespasadoSum += $pago["monto"];
+                    }
+                    if (str_contains($pago["created_at"],$mesantepasado)) {
+                        $mesantepasadoSum += $pago["monto"];
+                    }
+                }
+                $bono = $n["cargo"]["cargossueldo"];
+                
+                $n->mes = $mesSum;
+                $n->mespasado = $mespasadoSum;
+                $n->mesantepasado = $mesantepasadoSum;
+                $n->bono = $bono;
+                $n->quincena = $bono;
+                $n->sumprestamos = $n->prestamos->sum("monto");
+                $n->sumPagos = $pagos->sum("monto");
+                $n->maxpagopersona = ($bono*2)-abs($mesSum)>0?($bono*2)-abs($mesSum):0;
+                
+                $n->creditos = $creditos
+                ->get()
+                ->map(function($q) {
+                    $q->created_at = date("d-m-Y", strtotime($q->created_at));
+                    return $q;
+                }); 
+                $n->sumCreditos = $creditos->get()->sum("saldo");
+            }
+
+            $q->trabajador = $n;
+            return $q;
+        });
 
         return [
             "aprobacioncreditosdata" => $data,

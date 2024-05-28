@@ -123,6 +123,31 @@ export default function PorCobrar({
                                     <div className="text-center">
                                         <small className="text-muted">{e.created_at}</small>
                                     </div>
+                                    {e.trabajador?
+                                    <div>
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>CARGO</th>
+                                                    <th>MÁXIMO A COBRAR ESTE MES</th>
+                                                    <th>PRESTAMOS TOTALES</th>
+                                                    <th>CRÉDITOS TOTALES</th>
+                                                    <th>PAGOS QUINCENA (MES ACTUAL)</th>
+                                                    <th>PAGOS QUINCENA (MES PASADO)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{e.trabajador.cargo.cargodescripcion}</td>
+                                                    <td className="text-success">{e.trabajador.maxpagopersona}</td>
+                                                    <td className="text-danger fs-5">{moneda(e.trabajador.sumprestamos)}</td>
+                                                    <td className="text-sinapsis fs-5">{moneda(e.trabajador.sumCreditos)}</td>
+                                                    <td>{moneda(e.trabajador.mes)}</td>
+                                                    <td>{moneda(e.trabajador.mespasado)}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>:null}
                                     <div className="card-body d-flex justify-content-between">
                                         <button className="btn btn-sm btn-danger" onClick={()=>aprobarCreditoFun(e.id,"delete")}><i className="fa fa-times"></i></button>
                                         <button className="btn btn-sm btn-success" onClick={()=>aprobarCreditoFun(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></button>
