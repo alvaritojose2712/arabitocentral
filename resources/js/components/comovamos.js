@@ -18,6 +18,12 @@ export default function ComoVamos({
 
 }) {
     const [subviewcomovamos, setsubviewcomovamos] = useState("comovamos")
+    
+    const [showmoreefectivo, setshowmoreefectivo] = useState(false)
+    const [showmorebanco, setshowmorebanco] = useState(false)
+    const [showmoreinventario, setshowmoreinventario] = useState(false)
+    const [showmorecxc, setshowmorecxc] = useState(false)
+    const [showmorecxp, setshowmorecxp] = useState(false)
     useEffect(() => {
         getsucursalDetallesData(null, "comovamos")
     }, [])
@@ -25,7 +31,7 @@ export default function ComoVamos({
 
     return (
         <div className="container">
-            <div className="p-3">
+            <div className="p-3 text-center">
                 <div className="btn-group">
                     <button className="btn btn-success" onClick={()=>setsubviewcomovamos("comovamos")}>Cómo Vamos</button>
                     <button className="btn btn-sinapsis" onClick={()=>setsubviewcomovamos("balancegeneral")}>BALANCE GENERAL</button>
@@ -135,7 +141,96 @@ export default function ComoVamos({
 
                     <table className="table">
                         <tbody>
+                            <tr>
+                                <th colSpan={2} className="text-center fs-4">ACTIVOS</th>
+                                <th colSpan={2} className="text-center fs-4">PASIVOS</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table className="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>EFECTIVO DÓLAR</td>
+                                                <th>{moneda(balanceGeneralData.efectivodolar)}</th>
+                                            </tr>
+                                            
+                                            {
+                                                showmoreefectivo?
+                                                    balanceGeneralData.efectivoData.map((e,i)=>
+                                                        <tr key={i}>
+                                                            <td></td>
+                                                        </tr>
+                                                    )
+                                                :null
+                                            }
 
+                                            <tr>
+                                                <td>BANCO</td>
+                                                <th>{moneda(balanceGeneralData.banco)}</th>
+                                            </tr>
+
+                                            {
+                                                showmorebanco?
+                                                    balanceGeneralData.bancoData.map((e,i)=>
+                                                        <tr key={i}>
+                                                            <td></td>
+                                                        </tr>
+                                                    )
+                                                :null
+                                            }
+
+                                            <tr>
+                                                <td>INVENTARIO</td>
+                                                <th>{moneda(balanceGeneralData.inventario)}</th>
+                                            </tr>
+
+                                            {
+                                                showmoreinventario?
+                                                    balanceGeneralData.inventarioData.map((e,i)=>
+                                                        <tr key={i}>
+                                                            <td></td>
+                                                        </tr>
+                                                    )
+                                                :null
+                                            }
+
+                                            <tr>
+                                                <td>CxC</td>
+                                                <th>{moneda(balanceGeneralData.cxc)}</th>
+                                            </tr>
+
+                                            {
+                                                showmorecxc?
+                                                    balanceGeneralData.cxcData.map((e,i)=>
+                                                        <tr key={i}>
+                                                            <td></td>
+                                                        </tr>
+                                                    )
+                                                :null
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table className="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>CxP</td>
+                                                <th>{moneda(balanceGeneralData.cxp)}</th>
+                                            </tr>
+                                            {
+                                                showmorecxp?
+                                                    balanceGeneralData.cxpData.map((e,i)=>
+                                                        <tr key={i}>
+                                                            <td></td>
+                                                        </tr>
+                                                    )
+                                                :null
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </>

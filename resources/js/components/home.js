@@ -1981,6 +1981,8 @@ function formatAmount( number, simbol ) {
       setgastosFecha(today)
       setgastosQFecha(today)
       setgastosQFechaHasta(today)
+
+      
       
     })
   }
@@ -3977,6 +3979,7 @@ function formatAmount( number, simbol ) {
         listdistribucionselect
       }).then(res=>{
         notificar(res)
+        setlistdistribucionselect([])
       })
     }
   }

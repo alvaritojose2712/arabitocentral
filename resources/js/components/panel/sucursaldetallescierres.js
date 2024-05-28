@@ -11,7 +11,7 @@ export default function SucursalDetallesCierres({
                                 <th></th>
                                 <th></th>
                                 <th colSpan={2} className="borderleft text-center fw-bold">TASA DÍA</th>
-                                <th colSpan={6} className="borderleft text-center fw-bold">VENTAS</th>
+                                <th colSpan={7} className="borderleft text-center fw-bold">VENTAS</th>
                                 <th colSpan={6} className="borderleft text-center fw-bold">CONTABILIDAD</th>
                                 <th colSpan={2} className="borderleft text-center fw-bold">INVENTARIO</th>
                                 <th colSpan={4} className="borderleft text-center fw-bold">CUENTAS</th>
@@ -126,6 +126,50 @@ export default function SucursalDetallesCierres({
                                         </tbody>
                                     )}
                                     <tbody>
+                                        <tr>
+                                            <th className="bg-sinapsis text-light">SUCURSAL</th>
+                                            <th className="bg-sinapsis text-light">Fecha</th>
+
+                                            <th className="bg-sinapsis text-light borderleft">DOLAR</th>
+                                            <th className="bg-sinapsis text-light">PESO</th>
+                                            
+                                            <th className="bg-sinapsis text-light borderleft">CT. VENTAS</th>
+                                            <th className="bg-sinapsis text-light">DEBITO</th>
+                                            <th className="bg-sinapsis text-light">EFECTIVO</th>
+                                            <th className="bg-sinapsis text-light">TRANSFERENCIA</th>
+                                            <th className="bg-sinapsis text-light">BIOPAGO</th>
+                                            <th className="bg-light text-sinapsis">VENTA TOTAL</th>
+                                            <th className="bg-light text-sinapsis">GANANCIAS APROXIMADAS</th>
+
+                                            <th className="bg-sinapsis text-light borderleft"># DE REPORTE Z</th>
+                                            <th className="bg-sinapsis text-light">VENTA EXENTO</th>
+                                            <th className="bg-sinapsis text-light">VENTA GRAVADA (16%)</th>
+                                            <th className="bg-light text-sinapsis">IVA VENTAS</th>
+                                            <th className="bg-light text-sinapsis">TOTAL VENTAS</th>
+                                            <th className="bg-sinapsis text-light">ÚLTIMA FACTURA</th>
+
+                                            <th className="bg-sinapsis text-light borderleft">BASE</th>
+                                            <th className="bg-sinapsis text-light">VENTA</th>
+
+                                            <th className="bg-sinapsis text-light borderleft">CRÉDITO</th>
+                                            <th className="bg-sinapsis text-light">CRÉDITO POR COBRAR TOTAL</th>
+                                            <th className="bg-sinapsis text-light">VUELTOS TOTALES</th>
+                                            <th className="bg-sinapsis text-light">ABONOS DEL DIA</th>
+
+                                            <th className="bg-sinapsis text-light borderleft">BOLIVARES</th>
+                                            <th className="bg-sinapsis text-light">PESOS</th>
+                                            <th className="bg-sinapsis text-light">DOLARES</th>
+                                            <th className="bg-sinapsis text-light">EUROS</th>
+
+                                            <th className="bg-sinapsis text-light borderleft">BOLIVARES</th>
+                                            <th className="bg-sinapsis text-light">PESOS</th>
+                                            <th className="bg-sinapsis text-light">DOLARES</th>
+                                            <th className="bg-sinapsis text-light">EUROS</th>
+
+
+                                            <th className="bg-sinapsis text-light borderleft">OBSERVACIONES</th>
+
+                                        </tr>
                                         <tr>
                                             <td>{sucursalDetallesData.sum?sucursalDetallesData.sum.numero:""}</td>
                                                 <td></td>

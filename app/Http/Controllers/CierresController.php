@@ -443,12 +443,24 @@ class CierresController extends Controller
         $fechasMain1 = $req->fechasMain1;
         $fechasMain2 = $req->fechasMain2;
         $filtros = $req->filtros;
-
-        $tipo_usuario = session("tipo_usuario");
-
-
         $subviewpanelsucursales = $req->subviewpanelsucursales;
-
+        return $this->getsucursalDetallesDataFun([
+            "id_sucursal" => $id_sucursal,
+            "fechasMain1" => $fechasMain1,
+            "fechasMain2" => $fechasMain2,
+            "filtros" => $filtros,
+            "subviewpanelsucursales" => $subviewpanelsucursales,
+        ]);
+    }
+    
+    function getsucursalDetallesDataFun($arr) {
+        $tipo_usuario = session("tipo_usuario");
+        $id_sucursal = $arr["id_sucursal"];
+        $fechasMain1 = $arr["fechasMain1"];
+        $fechasMain2 = $arr["fechasMain2"];
+        $filtros = $arr["filtros"];
+        $subviewpanelsucursales = $arr["subviewpanelsucursales"];
+    
         switch ($subviewpanelsucursales) {
             case 'inventario':
                 return $this->getInvSucursal($id_sucursal, $filtros);
@@ -499,47 +511,49 @@ class CierresController extends Controller
                     return $this->getCreditos($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
                  break;
-
+    
             case 'aprobacioncajafuerte':
             if (true) {
                 
                 return (new CajasAprobacionController)->getAprobacionCajas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
             }
                 break;
-
+    
             case 'porcobrar':
                 if (true) {
                     
                     return (new CreditoAprobacionController)->getCreditoAprobacion($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
             break;
-
+    
             case 'cuentasporpagar':
                 if (true) {
                     
                     return (new CuentasporpagarController)->getCuentas($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
             break;
-
+    
             case 'cuentasporpagardetalles':
                 if (true) {
                     
                     return (new CuentasporpagarController)->selectCuentaPorPagarProveedorDetalles($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
             break;
-
+    
             case 'aprobtransferencia':
                 if (true) {
                     
                     return (new TransferenciaAprobacionController)->gettransferenciaAprobacion($fechasMain1, $fechasMain2, $id_sucursal, $filtros);
                 }
             break;
-
+    
                     
-
-
+    
+    
         }
     }
+
+
 
     function getCreditos($fechasMain1, $fechasMain2, $id_sucursal, $filtros) {
         $data = creditos::with(["sucursal","cliente"]) 
@@ -624,6 +638,15 @@ class CierresController extends Controller
         $sucursalBalanceGeneral = $req->sucursalBalanceGeneral;
         $fechaBalanceGeneral = $req->fechaBalanceGeneral;
         $fechaHastaBalanceGeneral = $req->fechaHastaBalanceGeneral;
+
+        if (!$fechaBalanceGeneral || !$fechaHastaBalanceGeneral) {
+            return ["Seleccione ambas Fechas"];
+        }
+        $bsq = cierres::orderBy("id","desc")->first("tasa");
+        $bs = 1;
+        if ($bsq) {
+            $bs = $bsq->tasa;
+        }
         $gastos = (new PuntosybiopagosController)->getGastosFun([
             "gastosQ"=>"",
             "gastosQFecha"=>$fechaBalanceGeneral,
@@ -632,12 +655,140 @@ class CierresController extends Controller
             "catgeneral"=>"",
             "ingreso_egreso"=>"",
             "typecaja"=>"",
-            "gastosorder"=>"",
-            "gastosfieldorder"=>"",
+            "gastosorder"=>"desc",
+            "gastosfieldorder"=>"id",
         ]);
+
+        $arr = [];
+        $dolarbalance = 0;
+        $bsbalance = 0;
+        $pesobalance = 0;
+        $eurobalance = 0;
+        $su = sucursal::orderByRaw("FIELD(id,1,2,5,4,3,6,7,15,8,9,10,11,12,14)")->get();
+
+        foreach ($su as $sucursal) {
+            $c = cajas::with("sucursal")->where("id_sucursal",$sucursal->id)->where("concepto","LIKE","%INGRESO DESDE CIERRE%")
+            ->whereBetween("fecha", [$fechaBalanceGeneral, !$fechaHastaBalanceGeneral?$fechaBalanceGeneral:$fechaHastaBalanceGeneral])
+            ->orderBy("fecha","desc")
+            ->first();
+            if ($c) {
+                array_push($arr, $c);
+                $dolarbalance += $c->dolarbalance;
+                $bsbalance += $c->bsbalance;
+                $pesobalance += $c->pesobalance;
+                $eurobalance += $c->eurobalance;
+            }
+        }
+        //array_multisort(array_column($arr,"id_sucursal"), SORT_ASC, $arr);
+        $efectivoData  = [
+            "data" => $arr,
+            "dolarbalance" => $dolarbalance,
+            "bsbalance" => $bsbalance,
+            "pesobalance" => $pesobalance,
+            "eurobalance" => $eurobalance,
+        ];
+
+
+
+        $efectivodolar = $dolarbalance;
+        $efectivobs = $bsbalance;
+        
+        
+        $bancoData = (new BancosController)->bancosDataFun([
+            "qdescripcionbancosdata" => "",
+            "qbancobancosdata" => "",
+            "qfechabancosdata" => $fechaBalanceGeneral,
+            "fechaHastaSelectAuditoria" => $fechaHastaBalanceGeneral,
+            "sucursalSelectAuditoria" => $sucursalBalanceGeneral,
+            "subviewAuditoria" => "conciliacion",
+            "columnOrder" => "tipo",
+            "order" => "desc",
+        ]);
+        $banco = array_sum(array_column($bancoData["xfechaCuadre"],"saldoactual"));
+
+        $inventarioData = $this->getsucursalDetallesDataFun([
+            "id_sucursal" => $sucursalBalanceGeneral,
+            "fechasMain1" => $fechaBalanceGeneral,
+            "fechasMain2" => $fechaHastaBalanceGeneral,
+            "filtros" => [
+                "controlefecQDescripcion"=>"",
+                "controlefecSelectCat"=>"",
+                "controlefecSelectGeneral"=>1,
+                "exacto"=>"",
+                "filtronominacargo"=>"",
+                "filtronominaq"=>"",
+                "itemCero"=>"",
+                "num"=>"25",
+                "orderBy"=>"desc",
+                "orderColumn"=>"descripcion",
+                "q"=>"",
+                "qcuentasPorPagar"=>"",
+                "qestatusaprobaciocaja"=>0,
+            ],
+            "subviewpanelsucursales" => "cierres",
+        ]);
+        $inventario = $inventarioData["sum"]["inventariobase"];
+        
+        $cxcData = $this->getsucursalDetallesDataFun([
+            "id_sucursal" => $sucursalBalanceGeneral,
+            "fechasMain1" => $fechaBalanceGeneral,
+            "fechasMain2" => $fechaHastaBalanceGeneral,
+            "filtros" => [
+                "controlefecQDescripcion"=>"",
+                "controlefecSelectCat"=>"",
+                "controlefecSelectGeneral"=>1,
+                "exacto"=>"",
+                "filtronominacargo"=>"",
+                "filtronominaq"=>"",
+                "itemCero"=>"",
+                "num"=>"25",
+                "orderBy"=>"desc",
+                "orderColumn"=>"descripcion",
+                "q"=>"",
+                "qcuentasPorPagar"=>"",
+                "qestatusaprobaciocaja"=>0,
+            ],
+            "subviewpanelsucursales" => "creditos",
+        ]);
+        $cxc = $cxcData["num"];
+
+        $cxpData = $this->getsucursalDetallesDataFun([
+            "id_sucursal" => $sucursalBalanceGeneral,
+            "fechasMain1" => $fechaBalanceGeneral,
+            "fechasMain2" => $fechaHastaBalanceGeneral,
+            "filtros" => [
+                "controlefecQDescripcion"=>"",
+                "controlefecSelectCat"=>"",
+                "controlefecSelectGeneral"=>1,
+                "exacto"=>"",
+                "filtronominacargo"=>"",
+                "filtronominaq"=>"",
+                "itemCero"=>"",
+                "num"=>"25",
+                "orderBy"=>"desc",
+                "orderColumn"=>"descripcion",
+                "q"=>"",
+                "qcuentasPorPagar"=>"",
+                "qestatusaprobaciocaja"=>0,
+            ],
+            "subviewpanelsucursales" => "cuentasporpagar",
+        ]);
+        $cxp = $cxpData["sum"];
         
         return [
             "gastos"=>$gastos,
+
+            "efectivodolar" =>$efectivodolar+($efectivobs/$bs),
+            "efectivobs" =>$efectivobs,
+            "efectivoData" =>$efectivoData,
+            "banco" =>$banco,
+            "bancoData" =>$bancoData,
+            "inventario" =>$inventario,
+            "inventarioData" =>$inventarioData,
+            "cxc" =>$cxc,
+            "cxcData" =>$cxcData,
+            "cxp" =>$cxp,
+            "cxpData" =>$cxpData,
         ];
     }
     function getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
