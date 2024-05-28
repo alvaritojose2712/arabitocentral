@@ -176,6 +176,7 @@ function Home() {
   const [id_pedido, setid_pedido] = useState("nuevo")
   const [pedidoList, setpedidoList] = useState([])
 
+  const [qpedidosucursal, setqpedidosucursal] = useState("")
   const [qpedido, setqpedido] = useState("")
   const [qpedidoDateFrom, setqpedidoDateFrom] = useState("")
   const [qpedidoDateTo, setqpedidoDateTo] = useState("")
@@ -1466,7 +1467,8 @@ function Home() {
     qpedidoDateTo,
     qpedidoOrderBy,
     qpedidoOrderByDescAsc,
-    qestadopedido
+    qestadopedido,
+    qpedidosucursal,
   ])
 
 
@@ -1714,7 +1716,16 @@ function formatAmount( number, simbol ) {
 
   const getPedidos = e => {
     setLoading(true)
-    db.getPedidos({ qpedido, qpedidoDateFrom, qpedidoDateTo, qpedidoOrderBy, qpedidoOrderByDescAsc, qestadopedido }).then(res => {
+    db.getPedidos({ 
+      
+      qpedido, 
+      qpedidoDateFrom, 
+      qpedidoDateTo, 
+      qpedidoOrderBy, 
+      qpedidoOrderByDescAsc, 
+      qestadopedido,
+      qpedidosucursal,
+     }).then(res => {
       setpedidos(res.data)
       setLoading(false)
     })
@@ -3434,6 +3445,18 @@ function formatAmount( number, simbol ) {
       })
     }
   }
+  const autoliquidarTransferencia = type => {
+    if (confirm("Confirme")) {
+      db.autoliquidarTransferencia({
+        type,
+        fechaSelectAuditoria,
+        fechaHastaSelectAuditoria,
+      }).then(res=>{
+        getBancosData()
+
+      })
+    }
+  }
 
   const changeBank = (id,type) => {
     let codigos = opcionesMetodosPago.map(e=>e.codigo)
@@ -4064,6 +4087,31 @@ function formatAmount( number, simbol ) {
 
   }
 
+
+  
+  const [sucursalBalanceGeneral, setsucursalBalanceGeneral] = useState("")
+  const [fechaBalanceGeneral, setfechaBalanceGeneral] = useState("")
+  const [fechaHastaBalanceGeneral, setfechaHastaBalanceGeneral] = useState("")
+  const [balanceGeneralData, setbalanceGeneralData] = useState([])
+
+  const getBalanceGeneral = () => {
+    db.getBalanceGeneral({
+      sucursalBalanceGeneral,
+      fechaBalanceGeneral,
+      fechaHastaBalanceGeneral,
+    })
+    .then(res=>{
+      setbalanceGeneralData(res.data)
+    })
+  }
+
+  useState(()=>{
+    getBalanceGeneral()
+  },[
+    sucursalBalanceGeneral,
+    fechaBalanceGeneral,
+    fechaHastaBalanceGeneral,
+  ])
   
 
   let numfact_select_imagen = null
@@ -4218,7 +4266,7 @@ function formatAmount( number, simbol ) {
             </NominaHome>
           }
 
-          {permiso([1]) && viewmainPanel === "alquileres" &&
+          {permiso([1,2,5]) && viewmainPanel === "alquileres" &&
             <Alquileres
               alquileresData={alquileresData}
               alquileresq={alquileresq}
@@ -4306,6 +4354,7 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
             <Auditoria
+              autoliquidarTransferencia={autoliquidarTransferencia}
               categoriasCajas={categoriasCajas }
               permiso={permiso}
               getBancoName={getBancoName}
@@ -4891,6 +4940,8 @@ function formatAmount( number, simbol ) {
               setid_pedido={setid_pedido}
               qpedido={qpedido}
               setqpedido={setqpedido}
+              qpedidosucursal={qpedidosucursal}
+              setqpedidosucursal={setqpedidosucursal}
               qpedidoDateFrom={qpedidoDateFrom}
               setqpedidoDateFrom={setqpedidoDateFrom}
               qpedidoDateTo={qpedidoDateTo}
@@ -5439,11 +5490,20 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2]) && viewmainPanel === "comovamos" &&
             <ComoVamos
+              balanceGeneralData={balanceGeneralData}
+              getBalanceGeneral={getBalanceGeneral}
+              sucursalBalanceGeneral={sucursalBalanceGeneral}
+              setsucursalBalanceGeneral={setsucursalBalanceGeneral}
+              setfechaBalanceGeneral={setfechaBalanceGeneral}
+              fechaBalanceGeneral={fechaBalanceGeneral}
+              setfechaHastaBalanceGeneral={setfechaHastaBalanceGeneral}
+              fechaHastaBalanceGeneral={fechaHastaBalanceGeneral}
               getsucursalDetallesData={getsucursalDetallesData}
               sucursalDetallesData={sucursalDetallesData}
               subviewpanelsucursales={subviewpanelsucursales}
               setsubviewpanelsucursales={setsubviewpanelsucursales}
               moneda={moneda}
+              sucursales={sucursales}
 
             />
           }

@@ -39,6 +39,11 @@ const db = {
   
   sendDescuentoGeneralFats: data=>axios.post(host+"sendDescuentoGeneralFats",data),
   liquidarMov: data=>axios.post(host+"liquidarMov",data),
+  autoliquidarTransferencia: data=>axios.post(host+"autoliquidarTransferencia",data),
+  getBalanceGeneral: data=>axios.post(host+"getBalanceGeneral",data),
+  
+  
+
   changeBank: data=>axios.post(host+"changeBank",data),
   changeSucursal: data=>axios.post(host+"changeSucursal",data),
   

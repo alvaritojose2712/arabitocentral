@@ -66,6 +66,9 @@ export default function Pedidos({
 	aprobarRevisionPedido,
 	showPedidoBarras,
 
+	qpedidosucursal,
+	setqpedidosucursal,
+
 }){
 	return (
 		<>
@@ -120,6 +123,9 @@ export default function Pedidos({
 			</div>
 			{showCantidadCarrito=="procesar"?
 				<PedidosList
+					sucursales={sucursales}
+					qpedidosucursal={qpedidosucursal}
+					setqpedidosucursal={setqpedidosucursal}
 					qpedido={qpedido}
 					setqpedido={setqpedido}
 					qpedidoDateFrom={qpedidoDateFrom}

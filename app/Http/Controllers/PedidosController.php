@@ -353,6 +353,8 @@ class PedidosController extends Controller
         $qpedidoOrderBy = $req->qpedidoOrderBy;
         $qpedidoOrderByDescAsc = $req->qpedidoOrderByDescAsc;
         $qestadopedido = $req->qestadopedido;
+        $qpedidosucursal = $req->qpedidosucursal;
+        
 
         $limit = 500;
         if ($qpedidoDateFrom=="" AND $qpedidoDateTo=="") {
@@ -373,6 +375,9 @@ class PedidosController extends Controller
             $q->with("producto");
         }])->where("id","LIKE","$qpedido%")
         ->where("estado",$qestadopedido)
+        ->when($qpedidosucursal,function($q) use ($qpedidosucursal) {
+            $q->where("id_destino",$qpedidosucursal);
+        })
         ->whereBetween("created_at",["$qpedidoDateFrom 00:00:01","$qpedidoDateTo 23:59:59"])
         ->orderBy("id","desc")
         ->limit($limit)
@@ -383,7 +388,6 @@ class PedidosController extends Controller
             })->sum();
             $q->venta = $q->items->sum("monto");
             return $q;
-
         });
     }
 

@@ -310,6 +310,8 @@ Route::post('sendComprasFats', [CuentasporpagarFisicasController::class,"sendCom
 Route::post('sendMovimientoBanco', [PuntosybiopagosController::class,"sendMovimientoBanco"]);
 Route::post('sendDescuentoGeneralFats', [CuentasporpagarController::class,"sendDescuentoGeneralFats"]);
 Route::post('liquidarMov', [PuntosybiopagosController::class,"liquidarMov"]);
+Route::post('autoliquidarTransferencia', [PuntosybiopagosController::class,"autoliquidarTransferencia"]);
+
 Route::post('changeBank', [PuntosybiopagosController::class,"changeBank"]);
 Route::post('changeSucursal', [CuentasporpagarController::class,"changeSucursal"]);
 Route::post('saveFacturaLote', [CuentasporpagarController::class,"saveFacturaLote"]);
@@ -478,6 +480,8 @@ Route::post('resolveTareaCentral', [TareasController::class,"resolveTareaCentral
 
 Route::post('getsucursalListData', [CierresController::class,"getsucursalListData"]);
 Route::post('getsucursalDetallesData', [CierresController::class,"getsucursalDetallesData"]);
+Route::post('getBalanceGeneral', [CierresController::class,"getBalanceGeneral"]);
+
 
 
 Route::post('delPersonalNomina', [NominaController::class,"delPersonalNomina"]);

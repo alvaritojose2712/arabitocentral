@@ -620,7 +620,26 @@ class CierresController extends Controller
             ->orderBy("cantidad", "desc")
             ->get();
     }
-
+    function getBalanceGeneral(Request $req) {
+        $sucursalBalanceGeneral = $req->sucursalBalanceGeneral;
+        $fechaBalanceGeneral = $req->fechaBalanceGeneral;
+        $fechaHastaBalanceGeneral = $req->fechaHastaBalanceGeneral;
+        $gastos = (new PuntosybiopagosController)->getGastosFun([
+            "gastosQ"=>"",
+            "gastosQFecha"=>$fechaBalanceGeneral,
+            "gastosQFechaHasta"=>$fechaHastaBalanceGeneral,
+            "gastosQCategoria"=>"",
+            "catgeneral"=>"",
+            "ingreso_egreso"=>"",
+            "typecaja"=>"",
+            "gastosorder"=>"",
+            "gastosfieldorder"=>"",
+        ]);
+        
+        return [
+            "gastos"=>$gastos,
+        ];
+    }
     function getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
     {
         $controlefecQ = $filtros["controlefecQDescripcion"];
@@ -657,6 +676,7 @@ class CierresController extends Controller
                 if (isset($categorias[$q["cat"]["id"]])) {
                     $categorias[$q["cat"]["id"]] = [
                         "categoria" => $q["categoria"],
+                        "catgeneral" => $q["cat"]["catgeneral"],
                         "nombre" => $q["cat"]["nombre"],
                         "montodolar" => $categorias[$q["cat"]["id"]]["montodolar"] + ($q["montodolar"]),
                         "montobs" => $categorias[$q["cat"]["id"]]["montobs"] + ($q["montobs"]),
@@ -666,6 +686,7 @@ class CierresController extends Controller
                 }else{
                     $categorias[$q["cat"]["id"]] = [
                         "categoria" => $q["categoria"],
+                        "catgeneral" => $q["cat"]["catgeneral"],
                         "nombre" => $q["cat"]["nombre"],
                         "montodolar" => $q["montodolar"],
                         "montobs" => $q["montobs"],
@@ -677,6 +698,7 @@ class CierresController extends Controller
                 if (isset($catGeneral[$q["cat"]["catgeneral"]])) {
                     $catGeneral[$q["cat"]["catgeneral"]] = [
                         "categoria" => $q["categoria"],
+                        "catgeneral" => $q["cat"]["catgeneral"],
                         "nombre" => $q["cat"]["catgeneral"],
                         "montodolar" => $catGeneral[$q["cat"]["catgeneral"]]["montodolar"] + ($q["montodolar"]),
                         "montobs" => $catGeneral[$q["cat"]["catgeneral"]]["montobs"] + ($q["montobs"]),
@@ -686,6 +708,7 @@ class CierresController extends Controller
                 }else{
                     $catGeneral[$q["cat"]["catgeneral"]] = [
                         "categoria" => $q["categoria"],
+                        "catgeneral" => $q["cat"]["catgeneral"],
                         "nombre" => $q["cat"]["catgeneral"],
                         "montodolar" => $q["montodolar"],
                         "montobs" => $q["montobs"],

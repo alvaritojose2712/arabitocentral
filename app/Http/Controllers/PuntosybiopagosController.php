@@ -216,6 +216,31 @@ class PuntosybiopagosController extends Controller
         ];
     }
 
+    function autoliquidarTransferencia(Request $req) {
+        $type = $req->type;
+        $fechaSelectAuditoria = $req->fechaSelectAuditoria;
+        $fechaHastaSelectAuditoria = $req->fechaHastaSelectAuditoria;
+
+        $p = puntosybiopagos::whereBetween("fecha", [$fechaSelectAuditoria, !$fechaHastaSelectAuditoria?$fechaSelectAuditoria:$fechaHastaSelectAuditoria])
+        ->where("tipo","Transferencia")
+        ->get();
+        if ($type=="auto") {
+            foreach ($p as $i => $e) {
+                $pp = puntosybiopagos::find($e->id);
+                $pp->fecha_liquidacion = $pp->fecha;
+                $pp->monto_liquidado = $pp->monto;
+                $pp->save() ;
+            }
+        }else if ($type=="reversar"){
+            foreach ($p as $i => $e) {
+                $pp = puntosybiopagos::find($e->id);
+                $pp->fecha_liquidacion = null;
+                $pp->monto_liquidado = null;
+                $pp->save() ;
+            }
+        }
+    }
+
     function getGastosFun($arr) {
 
         $gastosQ = $arr["gastosQ"];

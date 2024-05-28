@@ -96,6 +96,7 @@ export default function Auditoria({
     cuentasPagosSucursal,
     setcuentasPagosSucursal,
     categoriasCajas,
+    autoliquidarTransferencia,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -587,13 +588,16 @@ export default function Auditoria({
                     {
                         subviewAuditoria=="liquidar" && bancosdata.view=="liquidar"? 
                             <>
-                            <div className="form-group">
+                                <div className="form-group">
                                     <div className="input-group">
                                         <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
                                         <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
                                         <button className="btn btn-success" onClick={()=>getBancosData()}><i className="fa fa-search"></i></button>
                                     
                                     </div>
+
+                                    <button className="btn btn-success m-2" onClick={()=>autoliquidarTransferencia("auto")}>AUTOLIQUIDAR TRANSFERENCIAS</button>
+                                    <button className="btn btn-sinapsis m-2" onClick={()=>autoliquidarTransferencia("reversar")}>REVERSAR LIQUIDACIÓN DE TRANSFERENCIAS</button>
                                 </div> 
 
                                 <table className="table">

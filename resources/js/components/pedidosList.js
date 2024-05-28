@@ -1,34 +1,39 @@
 export default function PedidosList({
 	qpedido,
-  setqpedido,
-  qpedidoDateFrom,
-  setqpedidoDateFrom,
-  qpedidoDateTo,
-  setqpedidoDateTo,
-  qpedidoOrderBy,
-  setqpedidoOrderBy,
-  qpedidoOrderByDescAsc,
-  setqpedidoOrderByDescAsc,
-  pedidos,
-  setpedidos,
-
-  qestadopedido,
+	setqpedido,
+	qpedidoDateFrom,
+	setqpedidoDateFrom,
+	qpedidoDateTo,
+	setqpedidoDateTo,
+	qpedidoOrderBy,
+	setqpedidoOrderBy,
+	qpedidoOrderByDescAsc,
+	setqpedidoOrderByDescAsc,
+	pedidos,
+	setpedidos,
+	qpedidosucursal,
+	setqpedidosucursal,
+	qestadopedido,
 	setqestadopedido,
-
 	getPedidos,
 	delPedido,
 	selectPedido,
-
 	moneda,
-
 	setshowCantidadCarrito,
-
+	sucursales,
 }) {
 	return(
 		<>
 			<div className="form-group mb-3">
 				<div className="input-group">
         			<input className="form-control" placeholder="Buscar... #Pedido" value={qpedido} onChange={e=>setqpedido(e.target.value)} autoComplete="off" />
+					<select className="form-control form-control-lg" value={qpedidosucursal} onChange={e=>setqpedidosucursal(e.target.value)}>
+						<option value="">-SUCURSAL-</option>
+						{sucursales.map(e=>
+							<option key={e.id} value={e.id}>{e.codigo}</option>
+						)}
+					</select>
+					
 					<input type="date" value={qpedidoDateFrom} onChange={e=>setqpedidoDateFrom(e.target.value)} className="form-control" />
 					<input type="date" value={qpedidoDateTo} onChange={e=>setqpedidoDateTo(e.target.value)} className="form-control" />
 					<div className="radios d-flex">
@@ -75,9 +80,8 @@ export default function PedidosList({
 								Prods. {e.items.length}
 							</small>
 							<div>
-										<button className={"btn btn-outline-arabito"}>{moneda(e.base)}</button>
-										<button className={"btn btn-outline-success"}>{moneda(e.venta)}</button>
-								
+								<button className={"btn btn-outline-arabito"}>{moneda(e.base)}</button>
+								<button className={"btn btn-outline-success"}>{moneda(e.venta)}</button>
 							</div>
 						</div>
 					</div>
