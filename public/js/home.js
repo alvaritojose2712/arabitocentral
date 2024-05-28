@@ -4831,8 +4831,7 @@ function Comprascargarfactsdigitales(_ref) {
       categoriacuentasPorPagarDetalles: categoriacuentasPorPagarDetalles,
       setcategoriacuentasPorPagarDetalles: setcategoriacuentasPorPagarDetalles,
       numcuentasPorPagarDetalles: numcuentasPorPagarDetalles,
-      setnumcuentasPorPagarDetalles: setnumcuentasPorPagarDetalles,
-      isonlyestatus: 0
+      setnumcuentasPorPagarDetalles: setnumcuentasPorPagarDetalles
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
       className: "table table-borderless table-striped mb-500",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("thead", {

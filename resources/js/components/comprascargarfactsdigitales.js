@@ -77,7 +77,7 @@ export default function Comprascargarfactsdigitales({
             setcategoriacuentasPorPagarDetalles={setcategoriacuentasPorPagarDetalles}
             numcuentasPorPagarDetalles={numcuentasPorPagarDetalles}
             setnumcuentasPorPagarDetalles={setnumcuentasPorPagarDetalles}
-            isonlyestatus={0}
+            
         />
 
         <table className="table table-borderless table-striped mb-500">
