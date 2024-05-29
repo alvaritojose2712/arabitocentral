@@ -36,7 +36,8 @@ class PedidosController extends Controller
                     $ped = new pedidos;
 
                     $ped->idinsucursal = $e["id"];
-                    $ped->estado = 1;
+                    $ped->estado = 4;
+                    // EL CORRECTO, MUTEADO PROVISIONALMENTE MIENTRAS COMPRAS CAMINA          $ped->estado = 1;
                     $ped->id_origen = $id_origen;
                     $ped->id_destino = $id_destino;//id Destino
                     if ($ped->save()) {
