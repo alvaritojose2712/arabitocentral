@@ -121,7 +121,7 @@ class NominaController extends Controller
             $q->sumprestamos = $q->prestamos->sum("monto");
             
             $q->sumPagos = $pagos->sum("monto");
-            $maxpagopersona = ($bono*2)-abs($mesSum)>0?($bono*2)-abs($mesSum):0;
+            $maxpagopersona = ($bono*2)-abs($mesSum?$mesSum:0)>0?($bono*2)-abs($mesSum?$mesSum:0):0;
 
             $q->maxpagopersona = $maxpagopersona;
             
