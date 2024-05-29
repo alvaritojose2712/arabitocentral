@@ -33,8 +33,9 @@ export default function ComoVamos({
         <div className="container">
             <div className="p-3 text-center">
                 <div className="btn-group">
-                    <button className="btn btn-success" onClick={()=>setsubviewcomovamos("comovamos")}>Cómo Vamos</button>
-                    <button className="btn btn-sinapsis" onClick={()=>setsubviewcomovamos("balancegeneral")}>BALANCE GENERAL</button>
+                    <button className="btn btn-outline-success" onClick={()=>setsubviewcomovamos("comovamos")}>Cómo Vamos</button>
+                    <button className="btn btn-outline-sinapsis" onClick={()=>setsubviewcomovamos("balancegeneral")}>BALANCE GENERAL</button>
+                    <button className="btn btn-outline-info" onClick={()=>setsubviewcomovamos("balanceresultados")}>BALANCE DE RESULTADOS</button>
                 </div>
             </div>
             {subviewcomovamos=="comovamos"?
@@ -238,6 +239,12 @@ export default function ComoVamos({
                             </tr>
                         </tbody>
                     </table>
+                </>
+            :null}
+
+            {subviewcomovamos=="balanceresultados"?
+                <>
+                
                 </>
             :null}
 

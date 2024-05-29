@@ -4483,17 +4483,23 @@ function ComoVamos(_ref) {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "btn-group",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-          className: "btn btn-success",
+          className: "btn btn-outline-success",
           onClick: function onClick() {
             return setsubviewcomovamos("comovamos");
           },
           children: "C\xF3mo Vamos"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-          className: "btn btn-sinapsis",
+          className: "btn btn-outline-sinapsis",
           onClick: function onClick() {
             return setsubviewcomovamos("balancegeneral");
           },
           children: "BALANCE GENERAL"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          className: "btn btn-outline-info",
+          onClick: function onClick() {
+            return setsubviewcomovamos("balanceresultados");
+          },
+          children: "BALANCE DE RESULTADOS"
         })]
       })
     }), subviewcomovamos == "comovamos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
@@ -4741,7 +4747,7 @@ function ComoVamos(_ref) {
           })]
         })
       })]
-    }) : null]
+    }) : null, subviewcomovamos == "balanceresultados" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {}) : null]
   });
 }
 

@@ -929,6 +929,7 @@ class CuentasporpagarController extends Controller
     }
 
     function sendlistdistribucionselect(Request $req) {
+        return;
         $listdistribucionselect = $req->listdistribucionselect;
         $groupListbyIdItem = [];
         foreach ($listdistribucionselect as $i => $item_su) {
