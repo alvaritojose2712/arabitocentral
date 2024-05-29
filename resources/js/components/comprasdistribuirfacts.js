@@ -162,7 +162,7 @@ export default function ComprasDistribuirFacts({
                                             <span className={(e.monto<0? "text-danger": "text-success")+(" fs-3 fw-bold ")}>{moneda(e.monto)}</span>
                                         </td>
                                         <td>
-                                            <span className="fs-3">{e.items.length}</span>
+                                            <span className="fs-3">{e.items?e.items.length:null}</span>
                                         </td>
                                     </>    
                                 </tr>:null}
@@ -212,47 +212,49 @@ export default function ComprasDistribuirFacts({
 
                                 </tr>
                             </thead>
-                            {facturaSelectAddItemsSelect.items.map(item=>
-                                <tbody key={item.id}>
-                                        <tr>
-                                            {item.producto?
-                                                <>
-                                                    <td></td>
-                                                    <td>{item.producto.codigo_barras}</td>
-                                                    <td>{item.producto.descripcion}</td>
-                                                    <td onClick={()=>modItemFact(item.id, "basef")} >{moneda(item.basef)}</td>
-                                                    <td onClick={()=>modItemFact(item.id, "base")} className="bg-base">{moneda(item.base)}</td>
-                                                    <td onClick={()=>modItemFact(item.id, "venta")} className="bg-venta">{moneda(item.venta)}</td>
-                                                    <td className="text-right">{moneda(item.basef*item.cantidad)}</td>
-                                                </>
-                                            :null}
-                                        </tr>
-                                        <tr>
-                                            <td onClick={()=>modItemFact(item.id, "cantidad")} className="bg-ct fs-2 text-center align-middle">{item.cantidad}</td>
-                                            <td colSpan={(6)}>
-                                                <table className="">
-                                                    <tbody>
-                                                        <tr>
-                                                            {listdistribucionselect.filter(e=>e.id_item==item.id).map(sucursalid=>
-                                                                <th>
-                                                                    <button onClick={()=>dellistdistribucionselect(sucursalid.id_sucursal)} className={"btn w-100 fw-bolder"} style={{backgroundColor:colorSucursal(sucursalid.id_sucursal? getSucursalById(sucursalid.id_sucursal):"")}}>
-                                                                        {getSucursalById(sucursalid.id_sucursal)}
-                                                                    </button>
-                                                                    
-                                                                </th>
-                                                            )}
-                                                        </tr>
-                                                        <tr>
-                                                            {listdistribucionselect.filter(e=>e.id_item==item.id).map(sucursalid=>
-                                                                <th> <input type="text" className="form-control fs-3 text-success" placeholder={"Ct. "+getSucursalById(sucursalid.id_sucursal)} value={sucursalid.cantidad} onChange={event=>changeInputDistribuirpedido(item.id,sucursalid.id_sucursal,number(event.target.value,7))} /> </th>
-                                                            )}
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                </tbody>
-                            )}
+                            {facturaSelectAddItemsSelect.items?
+                                facturaSelectAddItemsSelect.items.map(item=>
+                                    <tbody key={item.id}>
+                                            <tr>
+                                                {item.producto?
+                                                    <>
+                                                        <td></td>
+                                                        <td>{item.producto.codigo_barras}</td>
+                                                        <td>{item.producto.descripcion}</td>
+                                                        <td onClick={()=>modItemFact(item.id, "basef")} >{moneda(item.basef)}</td>
+                                                        <td onClick={()=>modItemFact(item.id, "base")} className="bg-base">{moneda(item.base)}</td>
+                                                        <td onClick={()=>modItemFact(item.id, "venta")} className="bg-venta">{moneda(item.venta)}</td>
+                                                        <td className="text-right">{moneda(item.basef*item.cantidad)}</td>
+                                                    </>
+                                                :null}
+                                            </tr>
+                                            <tr>
+                                                <td onClick={()=>modItemFact(item.id, "cantidad")} className="bg-ct fs-2 text-center align-middle">{item.cantidad}</td>
+                                                <td colSpan={(6)}>
+                                                    <table className="">
+                                                        <tbody>
+                                                            <tr>
+                                                                {listdistribucionselect.filter(e=>e.id_item==item.id).map(sucursalid=>
+                                                                    <th>
+                                                                        <button onClick={()=>dellistdistribucionselect(sucursalid.id_sucursal)} className={"btn w-100 fw-bolder"} style={{backgroundColor:colorSucursal(sucursalid.id_sucursal? getSucursalById(sucursalid.id_sucursal):"")}}>
+                                                                            {getSucursalById(sucursalid.id_sucursal)}
+                                                                        </button>
+                                                                        
+                                                                    </th>
+                                                                )}
+                                                            </tr>
+                                                            <tr>
+                                                                {listdistribucionselect.filter(e=>e.id_item==item.id).map(sucursalid=>
+                                                                    <th> <input type="text" className="form-control fs-3 text-success" placeholder={"Ct. "+getSucursalById(sucursalid.id_sucursal)} value={sucursalid.cantidad} onChange={event=>changeInputDistribuirpedido(item.id,sucursalid.id_sucursal,number(event.target.value,7))} /> </th>
+                                                                )}
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                                ):null
+                            }
                             <tbody>
                                 <tr>
                                     <td colSpan={6} className="p-0 text-right">

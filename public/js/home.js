@@ -5745,7 +5745,7 @@ function ComprasDistribuirFacts(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
                     className: "fs-3",
-                    children: e.items.length
+                    children: e.items ? e.items.length : null
                   })
                 })]
               })
@@ -5830,7 +5830,7 @@ function ComprasDistribuirFacts(_ref) {
                   children: "SUBTOTAL BASE F"
                 })]
               })]
-            }), facturaSelectAddItemsSelect.items.map(function (item) {
+            }), facturaSelectAddItemsSelect.items ? facturaSelectAddItemsSelect.items.map(function (item) {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tr", {
                   children: item.producto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
@@ -5911,7 +5911,7 @@ function ComprasDistribuirFacts(_ref) {
                   })]
                 })]
               }, item.id);
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                   colSpan: 6,
