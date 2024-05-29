@@ -4665,11 +4665,11 @@ function ComoVamos(_ref) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
               colSpan: 2,
-              className: "text-center fs-4",
+              className: "fs-4",
               children: "ACTIVOS"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
               colSpan: 2,
-              className: "text-center fs-4",
+              className: "fs-4",
               children: "PASIVOS"
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
@@ -4678,8 +4678,8 @@ function ComoVamos(_ref) {
                 className: "table",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tbody", {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: "EFECTIVO D\xD3LAR"
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                      children: "EFECTIVO"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                       children: moneda(balanceGeneralData.efectivodolar)
                     })]
@@ -4688,7 +4688,7 @@ function ComoVamos(_ref) {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {})
                     }, i);
                   }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                       children: "BANCO"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                       children: moneda(balanceGeneralData.banco)
@@ -4698,7 +4698,7 @@ function ComoVamos(_ref) {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {})
                     }, i);
                   }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                       children: "INVENTARIO"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                       children: moneda(balanceGeneralData.inventario)
@@ -4708,8 +4708,8 @@ function ComoVamos(_ref) {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {})
                     }, i);
                   }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: "CxC"
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                      children: "CUENTAS POR COBRAR"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                       children: moneda(balanceGeneralData.cxc)
                     })]
@@ -4725,8 +4725,8 @@ function ComoVamos(_ref) {
                 className: "table",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tbody", {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: "CxP"
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                      children: "CUENTAS POR PAGAR"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                       children: moneda(balanceGeneralData.cxp)
                     })]
@@ -6336,7 +6336,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function CuentasporpagarDetalles(_ref) {
-  var modeEditarFact = _ref.modeEditarFact,
+  var conciliarCuenta = _ref.conciliarCuenta,
+    modeEditarFact = _ref.modeEditarFact,
     selectCuentaPorPagarId = _ref.selectCuentaPorPagarId,
     setSelectCuentaPorPagarId = _ref.setSelectCuentaPorPagarId,
     setqcuentasPorPagarDetalles = _ref.setqcuentasPorPagarDetalles,
@@ -6967,6 +6968,7 @@ function CuentasporpagarDetalles(_ref) {
                 })]
               }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_trmaincuentasporpagar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  conciliarCuenta: conciliarCuenta,
                   e: e,
                   i: ii,
                   selectFactViewDetalles: selectFactViewDetalles,
@@ -6988,6 +6990,7 @@ function CuentasporpagarDetalles(_ref) {
           }) : null, selectCuentaPorPagarId ? selectCuentaPorPagarId.detalles ? selectCuentaPorPagarId.detalles.map(function (e, i) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
               children: !selectCuentaPorPagarId.fasts_no.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_trmaincuentasporpagar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                conciliarCuenta: conciliarCuenta,
                 e: e,
                 i: i,
                 selectFactViewDetalles: selectFactViewDetalles,
@@ -17432,6 +17435,7 @@ function Trmaincuentasporpagar(_ref) {
     moneda = _ref.moneda,
     abonarFact = _ref.abonarFact,
     showImageFact = _ref.showImageFact,
+    conciliarCuenta = _ref.conciliarCuenta,
     setSelectCuentaPorPagarDetalle = _ref.setSelectCuentaPorPagarDetalle,
     changeSucursal = _ref.changeSucursal,
     viewAvanzatedShow = _ref.viewAvanzatedShow,
@@ -17462,8 +17466,12 @@ function Trmaincuentasporpagar(_ref) {
             children: e.updated_at
           })
         })]
-      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-        children: i + 1
+      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
+        children: [i + 1, e.conciliada == 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+          className: "fa fa-check text-success"
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+          className: "fa fa-times text-danger"
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
         className: "text-right fs-4",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
@@ -17558,7 +17566,13 @@ function Trmaincuentasporpagar(_ref) {
           className: "text-center",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
             className: "btn-group",
-            children: [e.condicion != "pagadas" && e.condicion != "abonos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+              className: "btn btn-outline-success btn-sm",
+              onClick: function onClick() {
+                return conciliarCuenta(e.id);
+              },
+              children: " CONCILIAR "
+            }), e.condicion != "pagadas" && e.condicion != "abonos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
               className: "btn btn-outline-success",
               onClick: function onClick() {
                 return abonarFact(e.id_proveedor, e.id);
@@ -17930,6 +17944,9 @@ function Usuarios(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "4",
                   children: "ADMINISTRADOR"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "13",
+                  children: "ADMINISTRADOR ASISTENTE"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "5",
                   children: "GASTOS"
@@ -18331,6 +18348,9 @@ var db = (_db = {
   },
   modItemFact: function modItemFact(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "modItemFact", data);
+  },
+  conciliarCuenta: function conciliarCuenta(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "conciliarCuenta", data);
   },
   delFilescxp: function delFilescxp(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "delFilescxp", data);
@@ -70539,6 +70559,15 @@ function Home() {
     _useState512 = _slicedToArray(_useState511, 2),
     inputimportitems = _useState512[0],
     setinputimportitems = _useState512[1];
+  var conciliarCuenta = function conciliarCuenta(id) {
+    if (confirm("Confirme")) {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].conciliarCuenta({
+        id: id
+      }).then(function (res) {
+        selectCuentaPorPagarProveedorDetallesFun();
+      });
+    }
+  };
   var seleccionarFilecxpFun = function seleccionarFilecxpFun(id) {
     setselectFilecxp(id);
     setviewmainPanel("cargarfactsdigitales");
@@ -72955,7 +72984,7 @@ function Home() {
           sendsaldoactualbancofecha: sendsaldoactualbancofecha,
           selectConciliacionData: selectConciliacionData,
           setselectConciliacionData: setselectConciliacionData
-        }), permiso([1, 2, 4, 8]) && viewmainPanel === "efectivo" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(_efectivo__WEBPACK_IMPORTED_MODULE_45__["default"], {
+        }), permiso([1, 2, 4, 8, 13]) && viewmainPanel === "efectivo" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(_efectivo__WEBPACK_IMPORTED_MODULE_45__["default"], {
           subviewpanelsucursales: subviewpanelsucursales,
           setsubviewpanelsucursales: setsubviewpanelsucursales,
           getsucursalDetallesData: getsucursalDetallesData,
@@ -72987,6 +73016,7 @@ function Home() {
           }), subviewpanelsucursales === "cuentasporpagar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
             children: [subViewCuentasxPagar === "detallado" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
               children: [cuentasporpagarDetallesView == "cuentas" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_cuentasporpagarDetalles__WEBPACK_IMPORTED_MODULE_49__["default"], {
+                conciliarCuenta: conciliarCuenta,
                 setdataselectFacts: setdataselectFacts,
                 dateFormat: dateFormat,
                 colorSucursal: colorSucursal,

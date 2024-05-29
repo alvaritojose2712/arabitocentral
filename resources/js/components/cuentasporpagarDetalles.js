@@ -4,6 +4,7 @@ import  Trmaincuentasporpagar  from "./trmaincuentasporpagar";
 
 
 export default function CuentasporpagarDetalles({
+    conciliarCuenta,
     modeEditarFact,
     selectCuentaPorPagarId,
     setSelectCuentaPorPagarId,
@@ -473,6 +474,7 @@ export default function CuentasporpagarDetalles({
                                                 
                                                 <>
                                                     <Trmaincuentasporpagar
+                                                        conciliarCuenta={conciliarCuenta}
                                                         e={e}
                                                         i={ii}
                                                         selectFactViewDetalles={selectFactViewDetalles}
@@ -502,6 +504,7 @@ export default function CuentasporpagarDetalles({
 
                                     {!selectCuentaPorPagarId.fasts_no.length?
                                         <Trmaincuentasporpagar
+                                            conciliarCuenta={conciliarCuenta}
                                             e={e}
                                             i={i}
                                             selectFactViewDetalles={selectFactViewDetalles}

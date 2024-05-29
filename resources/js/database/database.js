@@ -86,9 +86,12 @@ const db = {
   delItemFact: data=>axios.post(host+"delItemFact",data),
   modItemFact: data=>axios.post(host+"modItemFact",data),
   
+  
+  conciliarCuenta: data=>axios.post(host+"conciliarCuenta",data),
   delFilescxp: data=>axios.post(host+"delFilescxp",data),
   getFilescxp: data=>axios.post(host+"getFilescxp",data),
   showFilescxp: (id) => window.open(host + id, "targed=blank"),
+
 
   
   delFalla: data=>axios.post(host+"delFalla",data),

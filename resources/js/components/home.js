@@ -2138,7 +2138,15 @@ function formatAmount( number, simbol ) {
   const [inputimportitems, setinputimportitems] = useState("")
   
   
+  const conciliarCuenta = id => {
+    if (confirm("Confirme")) {
+      db.conciliarCuenta({id}).then(res=>{
+        selectCuentaPorPagarProveedorDetallesFun()
 
+
+      })
+    }
+  }
   const seleccionarFilecxpFun = (id) => {
     setselectFilecxp(id)
     setviewmainPanel("cargarfactsdigitales")
@@ -4454,7 +4462,7 @@ function formatAmount( number, simbol ) {
             />
           }
 
-          {permiso([1,2,4,8]) && viewmainPanel === "efectivo" &&
+          {permiso([1,2,4,8,13]) && viewmainPanel === "efectivo" &&
             <Efectivo
               subviewpanelsucursales={subviewpanelsucursales}
               setsubviewpanelsucursales={setsubviewpanelsucursales}
@@ -4499,6 +4507,7 @@ function formatAmount( number, simbol ) {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        conciliarCuenta={conciliarCuenta}
                         setdataselectFacts={setdataselectFacts}
                         dateFormat={dateFormat}
                         colorSucursal={colorSucursal}

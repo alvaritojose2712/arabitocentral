@@ -87,5 +87,6 @@ class cuentasporpagar extends Model
         "tasabs5",
         "metodobs5",
         "refbs5",
+        "conciliada",
     ];
 }

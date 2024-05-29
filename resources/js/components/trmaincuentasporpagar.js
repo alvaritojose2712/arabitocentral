@@ -7,6 +7,7 @@ colorSucursal,
 moneda,
 abonarFact,
 showImageFact,
+conciliarCuenta,
 setSelectCuentaPorPagarDetalle,
 changeSucursal,
 viewAvanzatedShow,
@@ -30,6 +31,7 @@ selectFacts,
                 
                 <td>
                     {i+1}
+                    {e.conciliada==1? <i className="fa fa-check text-success"></i>: <i className="fa fa-times text-danger"></i>  }
                 </td>
                 <td className="text-right fs-4">
                     <span className="text-successfuerte">{dateFormat(e.fechaemision,"dd-MM-yyyy")}</span>
@@ -110,6 +112,7 @@ selectFacts,
                 <tr className={(selectFactViewDetalles==e.id?"bg-success-superlight":null)+" border-bottom-5"}>
                     <th colSpan={10} className="text-center">
                         <div className="btn-group">
+                            <button className="btn btn-outline-success btn-sm" onClick={()=>conciliarCuenta(e.id)}> CONCILIAR </button>
                             {e.condicion!="pagadas" && e.condicion!="abonos"?<button className="btn btn-outline-success" onClick={()=>abonarFact(e.id_proveedor,e.id)}>
                                 <i className=" fa fa-credit-card"></i>
                                 PAGAR 

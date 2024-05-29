@@ -142,15 +142,16 @@ export default function ComoVamos({
                     <table className="table">
                         <tbody>
                             <tr>
-                                <th colSpan={2} className="text-center fs-4">ACTIVOS</th>
-                                <th colSpan={2} className="text-center fs-4">PASIVOS</th>
+                                <th colSpan={2} className="fs-4">ACTIVOS</th>
+                                <th colSpan={2} className="fs-4">PASIVOS</th>
                             </tr>
                             <tr>
                                 <td>
                                     <table className="table">
                                         <tbody>
                                             <tr>
-                                                <td>EFECTIVO DÓLAR</td>
+                                                <td></td>
+                                                <td>EFECTIVO</td>
                                                 <th>{moneda(balanceGeneralData.efectivodolar)}</th>
                                             </tr>
                                             
@@ -165,6 +166,7 @@ export default function ComoVamos({
                                             }
 
                                             <tr>
+                                                <td></td>
                                                 <td>BANCO</td>
                                                 <th>{moneda(balanceGeneralData.banco)}</th>
                                             </tr>
@@ -180,6 +182,7 @@ export default function ComoVamos({
                                             }
 
                                             <tr>
+                                                <td></td>
                                                 <td>INVENTARIO</td>
                                                 <th>{moneda(balanceGeneralData.inventario)}</th>
                                             </tr>
@@ -195,7 +198,8 @@ export default function ComoVamos({
                                             }
 
                                             <tr>
-                                                <td>CxC</td>
+                                                <td></td>
+                                                <td>CUENTAS POR COBRAR</td>
                                                 <th>{moneda(balanceGeneralData.cxc)}</th>
                                             </tr>
 
@@ -215,7 +219,8 @@ export default function ComoVamos({
                                     <table className="table">
                                         <tbody>
                                             <tr>
-                                                <td>CxP</td>
+                                                <td></td>
+                                                <td>CUENTAS POR PAGAR</td>
                                                 <th>{moneda(balanceGeneralData.cxp)}</th>
                                             </tr>
                                             {

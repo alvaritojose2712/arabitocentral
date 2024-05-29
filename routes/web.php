@@ -301,6 +301,8 @@ Route::post('aprobarRecepcionCaja', [CajasAprobacionController::class,"aprobarRe
 
 Route::post('delCuentaPorPagar', [CuentasporpagarController::class,"delCuentaPorPagar"]);
 
+
+Route::post('conciliarCuenta', [CuentasporpagarController::class,"conciliarCuenta"]);
 Route::post('delFilescxp', [CuentasporpagarFisicasController::class,"delFilescxp"]);
 Route::post('getFilescxp', [CuentasporpagarFisicasController::class,"getFilescxp"]);
 Route::post('showFilescxp', [CuentasporpagarFisicasController::class,"showFilescxp"]);

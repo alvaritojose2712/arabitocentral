@@ -210,6 +210,21 @@ class CuentasporpagarController extends Controller
     function negative($num){
         return -1 * abs(floatval($num));
     }
+
+    function conciliarCuenta(Request $req) {
+        $id = $req->id;
+
+        $c = cuentasporpagar::find($id);
+        if ($c) {
+            if ($c->conciliada==0) {
+                $c->conciliada = 1;
+            }else{
+                $c->conciliada = 0;
+            }
+            $c->save();
+            return Response::json(["msj"=>"Conciliado", "estado"=>true]);
+        }
+    }
     function saveFacturaLote(Request $req){
 
         try {
