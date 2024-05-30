@@ -447,6 +447,19 @@ body{
   border-style: groove !important;
 
 }
+
+.bg-success-1{
+  background-color: #3cff33;
+}
+.bg-success-2{
+  background-color: #3dff33c9;
+}
+.bg-success-3{
+  background-color: #3dff338a;
+}
+.bg-success-4{
+  background-color: #3dff335d;
+}
 .text-successfuerte{
   font-weight: bolder !important;
   color: #34751d !important;

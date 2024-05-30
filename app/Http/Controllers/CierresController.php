@@ -265,6 +265,17 @@ class CierresController extends Controller
             "efectivo" => moneda($sumefectivo),
             "transferencia" => moneda($sumtransferencia),
             "biopago" => moneda($sumbiopago),
+
+            "debito_clean" => ($sumdebito),
+            "efectivo_clean" => ($sumefectivo),
+            "transferencia_clean" => ($sumtransferencia),
+            "biopago_clean" => ($sumbiopago),
+            "total_clean" => ($sumdebito + $sumefectivo + $sumtransferencia + $sumbiopago),
+            "ganancia_clean" => ($array->sum("ganancia")),
+
+
+
+
             "efectivo_guardado" => moneda($array->sum("efectivo_guardado")),
             "efectivo_guardado_cop" => moneda($array->sum("efectivo_guardado_cop")),
             "efectivo_guardado_bs" => moneda($array->sum("efectivo_guardado_bs")),
@@ -645,12 +656,19 @@ class CierresController extends Controller
         if (!$fechaBalanceGeneral || !$fechaHastaBalanceGeneral) {
             return ["Seleccione ambas Fechas"];
         }
-        $bsq = cierres::orderBy("id","desc")->first("tasa");
+        $bsq = cierres::orderBy("id","desc")->first(["tasa","tasacop"]);
         $bs = 1;
+        $cop = 1;
         if ($bsq) {
             $bs = $bsq->tasa;
+            $cop = $bsq->tasacop;
         }
-        $gastos = (new PuntosybiopagosController)->getGastosFun([
+
+        $sumArrcat = [];
+        $sumArrcatgeneral = [];
+        $sumArringresoegreso = [];
+        $gastosFun = (new PuntosybiopagosController)
+        ->getGastosFun([
             "gastosQ"=>"",
             "gastosQFecha"=>$fechaBalanceGeneral,
             "gastosQFechaHasta"=>$fechaHastaBalanceGeneral,
@@ -660,15 +678,45 @@ class CierresController extends Controller
             "typecaja"=>"",
             "gastosorder"=>"desc",
             "gastosfieldorder"=>"id",
-        ]);
+        ])["data"];
+        foreach ($gastosFun as $gastoi => $gasto) {
+            $ingresoegreso_key = $gasto["ingreso_egreso"];
+            $cat_key = $gasto["categoria"];
+            $catgeneral_key = $gasto["catgeneral"];
+
+            $monto =  $gasto["montodolar"]+($gasto["montobs"]/$bs)+($gasto["montopeso"]/$cop);
+            if (array_key_exists($catgeneral_key, $sumArrcatgeneral)) {
+                $sumArrcatgeneral[$catgeneral_key]["sumdolar"] = $sumArrcatgeneral[$catgeneral_key]["sumdolar"] + $monto;  
+            }else{
+                $sumArrcatgeneral[$catgeneral_key] = [
+                    "sumdolar" => $monto,
+                ];
+            }
+
+            if (array_key_exists($cat_key, $sumArrcat)) {
+                $sumArrcat[$cat_key]["sumdolar"] = $sumArrcat[$cat_key]["sumdolar"] + $monto;  
+            }else{
+                $sumArrcat[$cat_key] = [
+                    "sumdolar" => $monto,
+                ];
+            }
+
+            if (array_key_exists($ingresoegreso_key, $sumArringresoegreso)) {
+                $sumArringresoegreso[$ingresoegreso_key]["sumdolar"] = $sumArringresoegreso[$ingresoegreso_key]["sumdolar"] + $monto;  
+            }else{
+                $sumArringresoegreso[$ingresoegreso_key] = [
+                    "sumdolar" => $monto,
+                ];
+            }
+            $gastosFun[$gastoi]["montofull"] = $monto;
+        }
+        $gastos = collect($gastosFun)->groupBy(["ingreso_egreso","catgeneral","categoria"]);
+
+
 
         $arr = [];
         $dolarbalance = 0;
-        $bsbalance = 0;
-        $pesobalance = 0;
-        $eurobalance = 0;
-        $su = sucursal::orderByRaw("FIELD(id,1,2,5,4,3,6,7,15,8,9,10,11,12,14)")->get();
-
+        $su = sucursal::all();
         foreach ($su as $sucursal) {
             $c = cajas::with("sucursal")->where("id_sucursal",$sucursal->id)->where("concepto","LIKE","%INGRESO DESDE CIERRE%")
             ->whereBetween("fecha", [$fechaBalanceGeneral, !$fechaHastaBalanceGeneral?$fechaBalanceGeneral:$fechaHastaBalanceGeneral])
@@ -676,25 +724,14 @@ class CierresController extends Controller
             ->first();
             if ($c) {
                 array_push($arr, $c);
-                $dolarbalance += $c->dolarbalance;
-                $bsbalance += $c->bsbalance;
-                $pesobalance += $c->pesobalance;
-                $eurobalance += $c->eurobalance;
+                $dolarbalance += $c->dolarbalance+($c->bsbalance/$bs)+($c->pesobalance/$cop)+($c->eurobalance);
             }
         }
-        //array_multisort(array_column($arr,"id_sucursal"), SORT_ASC, $arr);
         $efectivoData  = [
             "data" => $arr,
             "dolarbalance" => $dolarbalance,
-            "bsbalance" => $bsbalance,
-            "pesobalance" => $pesobalance,
-            "eurobalance" => $eurobalance,
         ];
 
-
-
-        $efectivodolar = $dolarbalance;
-        $efectivobs = $bsbalance;
         
         
         $bancoData = (new BancosController)->bancosDataFun([
@@ -707,9 +744,9 @@ class CierresController extends Controller
             "columnOrder" => "tipo",
             "order" => "desc",
         ]);
-        $banco = array_sum(array_column($bancoData["xfechaCuadre"],"saldoactual"));
+        $banco = array_sum(array_column($bancoData["xfechaCuadre"],"saldoactual"))/$bs;
 
-        $inventarioData = $this->getsucursalDetallesDataFun([
+        $cierreData = $this->getsucursalDetallesDataFun([
             "id_sucursal" => $sucursalBalanceGeneral,
             "fechasMain1" => $fechaBalanceGeneral,
             "fechasMain2" => $fechaHastaBalanceGeneral,
@@ -731,7 +768,14 @@ class CierresController extends Controller
             "subviewpanelsucursales" => "cierres",
         ]);
         
-        $inventario = $inventarioData["sum"]["inventariobase_clean"];
+        $inventario = $cierreData["sum"]["inventariobase_clean"];
+        $efectivo = $cierreData["sum"]["efectivo_clean"];
+        $debito = ($cierreData["sum"]["debito_clean"]);
+        $transferencia = $cierreData["sum"]["transferencia_clean"];
+        $biopago = $cierreData["sum"]["biopago_clean"];
+        $total = $cierreData["sum"]["total_clean"];
+        $ganancia = $cierreData["sum"]["ganancia_clean"];
+        
         
         $cxcData = $this->getsucursalDetallesDataFun([
             "id_sucursal" => $sucursalBalanceGeneral,
@@ -782,13 +826,24 @@ class CierresController extends Controller
         return [
             "gastos"=>$gastos,
 
-            "efectivodolar" =>$efectivodolar+($efectivobs/$bs),
-            "efectivobs" =>$efectivobs,
+            "sumArrcat" =>$sumArrcat,
+            "sumArrcatgeneral" =>$sumArrcatgeneral,
+            "sumArringresoegreso" =>$sumArringresoegreso,
+
+            "efectivodolar" =>$dolarbalance,
             "efectivoData" =>$efectivoData,
             "banco" =>$banco,
             "bancoData" =>$bancoData,
             "inventario" =>$inventario,
-            "inventarioData" =>$inventarioData,
+
+            "debito" => $debito,
+            "efectivo" => $efectivo,
+            "transferencia" => $transferencia,
+            "biopago" => $biopago,
+            "total" => $total,
+            "ganancia" =>$ganancia,
+
+            "cierresData" =>$cierreData,
             "cxc" =>$cxc,
             "cxcData" =>$cxcData,
             "cxp" =>$cxp,

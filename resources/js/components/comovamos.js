@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Cajascatdesplegable  from "./cajascatdesplegable";
 export default function ComoVamos({
     getsucursalDetallesData,
     sucursalDetallesData,
@@ -14,6 +15,7 @@ export default function ComoVamos({
     setfechaHastaBalanceGeneral,
     fechaHastaBalanceGeneral,
     sucursales,
+    colorsGastosCat,
 
 
 }) {
@@ -30,7 +32,7 @@ export default function ComoVamos({
 
 
     return (
-        <div className="container">
+        <div className="container-fluid">
             <div className="p-3 text-center">
                 <div className="btn-group">
                     <button className="btn btn-outline-success" onClick={()=>setsubviewcomovamos("comovamos")}>Cómo Vamos</button>
@@ -123,22 +125,22 @@ export default function ComoVamos({
                 </table>
             :null}
             
+            {subviewcomovamos=="balancegeneral"||subviewcomovamos=="balanceresultados"?<form className="form-group" onSubmit={event=>{event.preventDefault();getBalanceGeneral()}}>
+                <div className="input-group">
+                    
+                    <select className="form-control form-control-lg" value={sucursalBalanceGeneral} onChange={e=>setsucursalBalanceGeneral(e.target.value)}>
+                        <option value="">-SUCURSAL-</option>
+                        {sucursales.map(e=>
+                            <option key={e.id} value={e.id}>{e.codigo}</option>
+                        )}
+                    </select>
+                    <input type="date" className="form-control" onChange={event=>setfechaBalanceGeneral(event.target.value)} value={fechaBalanceGeneral} />
+                    <input type="date" className="form-control" onChange={event=>setfechaHastaBalanceGeneral(event.target.value)} value={fechaHastaBalanceGeneral} />
+                    <button type="submit" className="btn btn-success btn-lg"><i className="fa fa-search"></i></button>
+                </div>
+            </form>:null}
             {subviewcomovamos=="balancegeneral"?
                 <>
-                    <form className="form-group" onSubmit={event=>{event.preventDefault();getBalanceGeneral()}}>
-                        <div className="input-group">
-                            
-                            <select className="form-control form-control-lg" value={sucursalBalanceGeneral} onChange={e=>setsucursalBalanceGeneral(e.target.value)}>
-                                <option value="">-SUCURSAL-</option>
-                                {sucursales.map(e=>
-                                    <option key={e.id} value={e.id}>{e.codigo}</option>
-                                )}
-                            </select>
-                            <input type="date" className="form-control" onChange={event=>setfechaBalanceGeneral(event.target.value)} value={fechaBalanceGeneral} />
-                            <input type="date" className="form-control" onChange={event=>setfechaHastaBalanceGeneral(event.target.value)} value={fechaHastaBalanceGeneral} />
-                            <button type="submit" className="btn btn-success btn-lg"><i className="fa fa-search"></i></button>
-                        </div>
-                    </form>
 
                     <table className="table">
                         <tbody>
@@ -246,15 +248,80 @@ export default function ComoVamos({
                 <>
                     <table className="table">
                         <tbody>
+                           {/*  <tr>
+                                <td className="fs-2 bg-success w-50">INGRESOS</td>
+                                <td className="fs-2 bg-danger w-50">EGRESOS</td>
+                            </tr> */}
                             <tr>
-                                <td className="bg-success">INGRESOS</td>
-                                <td className="bg-danger">EGRESOS</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table className="table"></table>
+                                <td className="w-50">
+                                    
+
+                                    <table className="table">
+                                        <tbody>
+                                            <tr>
+                                                <td className="p-0">
+                                                    <button className={"btn fw-bolder fs-4"} style={{backgroundColor:colorsGastosCat(1,"ingreso_egreso","color")}}>
+                                                        {colorsGastosCat(1,"ingreso_egreso","desc")}
+                                                    </button>
+                                                </td>
+                                                <th className="fs-3">{moneda(balanceGeneralData.total)}</th>
+                                            </tr>
+                                            <tr className="bg-success-1 fs-4">
+                                                <th className="fs-5">
+                                                    INGRESO EFECTIVO
+                                                </th>
+                                                <th className="fs-5">
+                                                    {moneda(balanceGeneralData.efectivo)}
+                                                </th>
+                                            </tr>
+                                            <tr className="bg-success-2 fs-4">
+                                                <th className="fs-5">
+                                                    INGRESO DÉBITO
+                                                </th>
+                                                <th className="fs-5">
+                                                    {moneda(balanceGeneralData.debito)}
+                                                </th>
+                                            </tr>
+                                            <tr className="bg-success-3 fs-4">
+                                                <th className="fs-5">
+                                                    INGRESO TRANSFERENCIA
+                                                </th>
+                                                <th className="fs-5">
+                                                    {moneda(balanceGeneralData.transferencia)}
+                                                </th>
+                                            </tr>
+                                            <tr className="bg-success-4 fs-4">
+                                                <th className="fs-5">
+                                                    INGRESO BIOPAGO
+                                                </th>
+                                                <th className="fs-5">
+                                                    {moneda(balanceGeneralData.biopago)}
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td className="p-0">
+                                                    <button className={"btn fw-bolder fs-4 btn-sinapsis"}>
+                                                        UTILIDAD BRUTA
+                                                    </button>
+                                                </td>
+                                                <th className="fs-3">{moneda(balanceGeneralData.ganancia)}</th>
+                                            </tr>
+
+                                            
+
+
+
+                                        </tbody>
+                                    </table>
                                 </td>
-                                <td></td>
+                                <td className="w-50">
+                                    <Cajascatdesplegable
+                                        filter={0}
+                                        moneda={moneda}
+                                        balanceGeneralData={balanceGeneralData}
+                                        colorsGastosCat={colorsGastosCat}
+                                    />
+                                </td>
                             </tr>
                         </tbody>
                     </table>

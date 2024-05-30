@@ -5516,6 +5516,7 @@ function formatAmount( number, simbol ) {
               setsubviewpanelsucursales={setsubviewpanelsucursales}
               moneda={moneda}
               sucursales={sucursales}
+              colorsGastosCat={colorsGastosCat}
 
             />
           }
