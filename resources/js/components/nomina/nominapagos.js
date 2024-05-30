@@ -123,7 +123,7 @@ export default function Nominapagos({
                                                             <td>PRÉSTAMO</td>
                                                             <td>{prestamo.created_at?prestamo.created_at.replace("00:00:00",""):null}</td>
                                                             <td>{prestamo.sucursal?prestamo.sucursal.codigo:null}</td>
-                                                            <td></td>
+                                                            <td>{prestamo.descripcion}</td>
                                                             <td></td>
                                                             <td></td>
                                                             <td></td>

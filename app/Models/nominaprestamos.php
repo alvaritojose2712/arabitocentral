@@ -11,6 +11,9 @@ class nominaprestamos extends Model
     {
         return $date->format('Y-m-d H:i:s');
     }
+    public function sucursal() { 
+        return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
+    }
     use HasFactory;
 
     protected $fillable = [
