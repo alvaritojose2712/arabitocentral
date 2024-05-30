@@ -10602,13 +10602,13 @@ function Nominapagos(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 children: moneda(e.mes)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                className: e.id == selectIdPersonal ? "bg-success-light" : "text-success",
+                className: "bg-success-light " + (e.id == selectIdPersonal ? "fs-3" : "fs-4"),
                 children: moneda(e.sumPagos)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                className: "fs-4" + (e.id == selectIdPersonal ? "bg-warning-light" : "text-warning"),
+                className: "bg-warning-light " + (e.id == selectIdPersonal ? "fs-3" : "fs-4"),
                 children: moneda(e.sumPrestamos)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                className: "fs-4" + (e.id == selectIdPersonal ? "bg-danger-light" : "text-danger"),
+                className: "bg-danger-light " + (e.id == selectIdPersonal ? "fs-3" : "fs-4"),
                 children: moneda(e.sumCreditos)
               })]
             }, e.id), selectIdPersonal == e.id ? e.pagos.map(function (pago) {

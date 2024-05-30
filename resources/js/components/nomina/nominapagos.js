@@ -96,9 +96,9 @@ export default function Nominapagos({
                                                     <td>{moneda(e.mesantepasado)}</td>
                                                     <td>{moneda(e.mespasado)}</td>
                                                     <td>{moneda(e.mes)}</td>
-                                                    <td className={(e.id==selectIdPersonal?"bg-success-light":"text-success")}>{moneda(e.sumPagos)}</td>
-                                                    <td className={("fs-4")+(e.id==selectIdPersonal?"bg-warning-light":"text-warning")}>{moneda(e.sumPrestamos)}</td>
-                                                    <td className={("fs-4")+(e.id==selectIdPersonal?"bg-danger-light":"text-danger")}>{moneda(e.sumCreditos)}</td>
+                                                    <td className={("bg-success-light ")+(e.id==selectIdPersonal?"fs-3":"fs-4")}>{moneda(e.sumPagos)}</td>
+                                                    <td className={("bg-warning-light ")+(e.id==selectIdPersonal?"fs-3":"fs-4")}>{moneda(e.sumPrestamos)}</td>
+                                                    <td className={("bg-danger-light ")+(e.id==selectIdPersonal?"fs-3":"fs-4")}>{moneda(e.sumCreditos)}</td>
                                                 </tr>
                                                 {selectIdPersonal==e.id?
                                                     e.pagos.map(pago=>
