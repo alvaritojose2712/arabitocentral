@@ -102,6 +102,22 @@ export default function Nominapagos({
                                                     <td className={(e.id==selectIdPersonal?"bg-danger-light":"text-danger")}>{moneda(e.sumCreditos)}</td>
                                                 </tr>
                                                 {selectIdPersonal==e.id?
+                                                    e.prestamos.map(prestamo=>
+                                                        <tr key={prestamo.id} className={(e.id==selectIdPersonal?"bg-info":"")}>
+                                                            <td></td>
+                                                            <td>PRÉSTAMO</td>
+                                                            <td>{prestamo.created_at?prestamo.created_at.replace("00:00:00",""):null}</td>
+                                                            <td>{prestamo.sucursal?prestamo.sucursal.codigo:null}</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>{moneda(prestamo.monto)}</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    )
+                                                :null}
+                                                {selectIdPersonal==e.id?
                                                     e.pagos.map(pago=>
                                                         <tr key={pago.id} className={(e.id==selectIdPersonal?"bg-success-superlight":"")}>
                                                             <td></td>
@@ -135,22 +151,6 @@ export default function Nominapagos({
                                                     )
                                                 :null}
 
-                                                {selectIdPersonal==e.id?
-                                                    e.prestamos.map(prestamo=>
-                                                        <tr key={prestamo.id} className={(e.id==selectIdPersonal?"bg-info":"")}>
-                                                            <td></td>
-                                                            <td>CRÉDITO</td>
-                                                            <td>{prestamo.created_at?prestamo.created_at.replace("00:00:00",""):null}</td>
-                                                            <td>{prestamo.sucursal?prestamo.sucursal.codigo:null}</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>{moneda(prestamo.monto)}</td>
-                                                        </tr>
-                                                    )
-                                                :null}
                                             </>
                                         )
                                     : null
