@@ -10588,7 +10588,7 @@ function Nominapagos(_ref) {
                 return setselectIdPersonal(selectIdPersonal == e.id ? null : e.id);
               },
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                children: e.sucursal.nombre
+                children: e.sucursal ? e.sucursal.nombre : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 children: e.nominacedula
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
@@ -10785,7 +10785,7 @@ function Nominapagos(_ref) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                       children: e.descripcion
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: e.sucursal.nombre
+                      children: e.sucursal ? e.sucursal.nombre : null
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                       children: e.monto
                     })]

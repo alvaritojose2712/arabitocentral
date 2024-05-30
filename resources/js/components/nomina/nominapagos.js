@@ -90,7 +90,7 @@ export default function Nominapagos({
                                         nominaData.personal.map((e, i) =>
                                             <>
                                                 <tr key={e.id} className={('pointer ')+(e.id==selectIdPersonal?"bg-success-light":"")} onClick={()=>setselectIdPersonal(selectIdPersonal==e.id? null: e.id)}>
-                                                    <td>{e.sucursal.nombre}</td>
+                                                    <td>{e.sucursal?e.sucursal.nombre:null}</td>
                                                     <td>{e.nominacedula}</td>
                                                     <td>{e.nominanombre}</td>
                                                     <td>{e.cargo.cargosdescripcion}</td>
@@ -239,7 +239,7 @@ export default function Nominapagos({
                                                 <tr key={e.id}>
                                                     <td>{e.created_at}</td>
                                                     <td>{e.descripcion}</td>
-                                                    <td>{e.sucursal.nombre}</td>
+                                                    <td>{e.sucursal?e.sucursal.nombre:null}</td>
                                                     <td>{e.monto}</td>
                                                 </tr>
                                             )
