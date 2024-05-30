@@ -97,7 +97,7 @@ export default function Nominapagos({
                                                     <td>{moneda(e.mesantepasado)}</td>
                                                     <td>{moneda(e.mespasado)}</td>
                                                     <td>{moneda(e.mes)}</td>
-                                                    <td>{moneda(e.sumPrestamos)}</td>
+                                                    <td className='fs-4 text-danger'>{moneda(e.sumPrestamos)}</td>
                                                     <td className={(e.id==selectIdPersonal?"bg-success-light":"text-success")}>{moneda(e.sumPagos)}</td>
                                                     <td className={(e.id==selectIdPersonal?"bg-danger-light":"text-danger")}>{moneda(e.sumCreditos)}</td>
                                                 </tr>
