@@ -20,7 +20,7 @@ class CajasController extends Controller
         $bsbalance = 0;
         $pesobalance = 0;
         $eurobalance = 0;
-        $su = sucursal::orderByRaw("FIELD(id,1,2,5,4,3,6,7,15,8,9,10,11,12,14)")->get();
+        $su = sucursal::orderByRaw("FIELD(id,1,2,5,4,3,6,7,15,8,9,10,11,16,12,14)")->get();
 
         foreach ($su as $sucursal) {
             $c = cajas::with("sucursal")->where("id_sucursal",$sucursal->id)->where("concepto","LIKE","%INGRESO DESDE CIERRE%")->orderBy("fecha","desc")->first();
