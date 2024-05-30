@@ -226,7 +226,7 @@ class NominaController extends Controller
         })
         ->toArray();
         
-        array_multisort(array_column($personal,"sumPagos"), SORT_ASC, $personal);
+        array_multisort(array_column($personal,"sumPrestamos"), SORT_ASC, $personal);
 
         $estadisticas = [];
 

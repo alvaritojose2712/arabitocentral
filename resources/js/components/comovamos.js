@@ -244,7 +244,20 @@ export default function ComoVamos({
 
             {subviewcomovamos=="balanceresultados"?
                 <>
-                
+                    <table className="table">
+                        <tbody>
+                            <tr>
+                                <td className="bg-success">INGRESOS</td>
+                                <td className="bg-danger">EGRESOS</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table className="table"></table>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </>
             :null}
 
