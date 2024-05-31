@@ -248,10 +248,7 @@ export default function ComoVamos({
                 <>
                     <table className="table">
                         <tbody>
-                           {/*  <tr>
-                                <td className="fs-2 bg-success w-50">INGRESOS</td>
-                                <td className="fs-2 bg-danger w-50">EGRESOS</td>
-                            </tr> */}
+                           
                             <tr>
                                 <td className="w-50">
                                     
@@ -264,7 +261,7 @@ export default function ComoVamos({
                                                         {colorsGastosCat(1,"ingreso_egreso","desc")}
                                                     </button>
                                                 </td>
-                                                <th className="fs-3">{moneda(balanceGeneralData.total)}</th>
+                                                <th className="fs-3 p-0">{moneda(balanceGeneralData.total)}</th>
                                             </tr>
                                             <tr className="bg-success-1 fs-4">
                                                 <th className="fs-5">
@@ -299,31 +296,35 @@ export default function ComoVamos({
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <td className="p-0">
+                                                <td className="p-0 w-50">
                                                     <button className={"btn fw-bolder fs-4 btn-sinapsis"}>
                                                         UTILIDAD BRUTA
                                                     </button>
                                                 </td>
                                                 <th className="fs-3">{moneda(balanceGeneralData.ganancia)}</th>
                                             </tr>
-                                          
-
-                                            
-
-
-
                                         </tbody>
                                     </table>
-                                </td>
-                                <td className="w-50">
-                                    
                                     <Cajascatdesplegable
                                         filter={0}
                                         moneda={moneda}
                                         balanceGeneralData={balanceGeneralData}
                                         colorsGastosCat={colorsGastosCat}
                                     />
+                                    <table className="table">
+                                        <tbody>
+                                            <tr>
+                                                <td className="p-0 w-50">
+                                                    <button className={"btn fw-bolder fs-4 bg-sinapsis-light"}>
+                                                        UTILIDAD NETA
+                                                    </button>
+                                                </td>
+                                                <th className="p-0 fs-3">{moneda(balanceGeneralData.gananciaNeta)}</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </td>
+                                
                             </tr>
                         </tbody>
                     </table>

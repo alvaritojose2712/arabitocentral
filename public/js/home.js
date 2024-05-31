@@ -4272,72 +4272,28 @@ function Cajascatdesplegable(_ref) {
               children: [colorsGastosCat(ingreso_egreso[0], "ingreso_egreso", "desc"), " ", filter == 1 ? " EFECTIVO" : null]
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-          className: "pointer",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            colSpan: 3,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              className: "fs-5 btn ms-2",
-              style: {
-                backgroundColor: colorsGastosCat(0, "catgeneral", "color")
-              },
-              onClick: function onClick() {
-                setviewpagoproveedor(!viewpagoproveedor);
-              },
-              children: colorsGastosCat(0, "catgeneral", "desc")
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              className: "btn",
-              style: {
-                backgroundColor: colorsGastosCat(0, "catgeneral", "color")
-              },
-              children: moneda(balanceGeneralData["pagoproveedor"] ? balanceGeneralData["pagoproveedor"]["balance"] : null)
-            })
-          })]
-        }), viewpagoproveedor ? balanceGeneralData["pagoproveedor"] ? balanceGeneralData["pagoproveedor"]["detalles"].map(function (pagosproveedor) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              colSpan: 3,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-                className: "ms-3",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                  className: "fw-bolder",
-                  children: pagosproveedor.proveedor.descripcion
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                  className: "text-muted",
-                  children: pagosproveedor.created_at
-                })]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                className: "btn btn-success",
-                children: moneda(pagosproveedor.monto)
-              })
-            })]
-          }, pagosproveedor.id);
-        }) : null : null, Object.entries(ingreso_egreso[1]).map(function (catgeneral, ii) {
+        }), Object.entries(ingreso_egreso[1]).map(function (catgeneral, ii) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
               className: "pointer",
+              style: {
+                backgroundColor: colorsGastosCat(catgeneral[0], "catgeneral", "color")
+              },
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                colSpan: 3,
+                colSpan: 2,
+                className: "w-50",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                   className: "fs-5 btn ms-2",
-                  style: {
-                    backgroundColor: colorsGastosCat(catgeneral[0], "catgeneral", "color")
-                  },
                   onClick: function onClick() {
                     setindexviewvariable_fijo(indexviewvariable_fijo == ii ? null : ii);
                   },
                   children: colorsGastosCat(catgeneral[0], "catgeneral", "desc")
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                colSpan: 2,
+                className: "w-50",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                  className: "btn",
-                  style: {
-                    backgroundColor: colorsGastosCat(catgeneral[0], "catgeneral", "color")
-                  },
+                  className: "fs-3",
                   children: moneda(balanceGeneralData["sumArrcatgeneral"][catgeneral[0]]["sumdolar"])
                 })
               })]
@@ -4418,7 +4374,51 @@ function Cajascatdesplegable(_ref) {
               });
             }) : null]
           });
-        })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+          className: "pointer",
+          style: {
+            backgroundColor: colorsGastosCat(0, "catgeneral", "color")
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            colSpan: 2,
+            className: "w-50",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              className: "fs-5 btn ms-2",
+              onClick: function onClick() {
+                setviewpagoproveedor(!viewpagoproveedor);
+              },
+              children: colorsGastosCat(0, "catgeneral", "desc")
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            colSpan: 2,
+            className: "w-50",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              className: "fs-3",
+              children: moneda(balanceGeneralData["pagoproveedor"] ? balanceGeneralData["pagoproveedor"]["balance"] : null)
+            })
+          })]
+        }), viewpagoproveedor ? balanceGeneralData["pagoproveedor"] ? balanceGeneralData["pagoproveedor"]["detalles"].map(function (pagosproveedor) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              colSpan: 3,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                className: "ms-3",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                  className: "fw-bolder",
+                  children: pagosproveedor.proveedor.descripcion
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                  className: "text-muted",
+                  children: pagosproveedor.created_at
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                className: "btn btn-success",
+                children: moneda(pagosproveedor.monto)
+              })
+            })]
+          }, pagosproveedor.id);
+        }) : null : null]
       }, i);
     }) : null
   });
@@ -5026,10 +5026,10 @@ function ComoVamos(_ref) {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
         className: "table",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tr", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
               className: "w-50",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
                 className: "table",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
@@ -5043,7 +5043,7 @@ function ComoVamos(_ref) {
                         children: colorsGastosCat(1, "ingreso_egreso", "desc")
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                      className: "fs-3",
+                      className: "fs-3 p-0",
                       children: moneda(balanceGeneralData.total)
                     })]
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
@@ -5084,7 +5084,7 @@ function ComoVamos(_ref) {
                     })]
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      className: "p-0",
+                      className: "p-0 w-50",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
                         className: "btn fw-bolder fs-4 btn-sinapsis",
                         children: "UTILIDAD BRUTA"
@@ -5095,16 +5095,29 @@ function ComoVamos(_ref) {
                     })]
                   })]
                 })
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-              className: "w-50",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_cajascatdesplegable__WEBPACK_IMPORTED_MODULE_1__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_cajascatdesplegable__WEBPACK_IMPORTED_MODULE_1__["default"], {
                 filter: 0,
                 moneda: moneda,
                 balanceGeneralData: balanceGeneralData,
                 colorsGastosCat: colorsGastosCat
-              })
-            })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
+                className: "table",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                      className: "p-0 w-50",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                        className: "btn fw-bolder fs-4 bg-sinapsis-light",
+                        children: "UTILIDAD NETA"
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+                      className: "p-0 fs-3",
+                      children: moneda(balanceGeneralData.gananciaNeta)
+                    })]
+                  })
+                })
+              })]
+            })
           })
         })
       })

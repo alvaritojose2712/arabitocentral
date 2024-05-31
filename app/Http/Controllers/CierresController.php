@@ -870,6 +870,8 @@ class CierresController extends Controller
         $gastosfijosSum = $sumArrvariablefijo[2][1]["sumdolar"];
         $gastosvariablesSum = $sumArrvariablefijo[2][0]["sumdolar"];
 
+        $sumGastos = $gastosfijosSum + $gastosvariablesSum;
+        $gananciaNeta = $ganancia+$sumGastos;
         
         return [
             "gastos"=>$gastos,
@@ -882,6 +884,8 @@ class CierresController extends Controller
 
             "gastosfijosSum"=>$gastosfijosSum,
             "gastosvariablesSum"=>$gastosvariablesSum,
+
+            "gananciaNeta" => $gananciaNeta,
 
 
             "efectivodolar" =>$dolarbalance,

@@ -27,61 +27,21 @@ export default function Cajascatdesplegable({
                                 </button>
                             </td>
                         </tr>
-
-
-                        <tr className="pointer">
-                            <th colSpan={3}>
-                                <span className="fs-5 btn ms-2" style={{backgroundColor:colorsGastosCat(0,"catgeneral","color")}} onClick={()=>{setviewpagoproveedor(!viewpagoproveedor)}}>
-                                    {colorsGastosCat(0,"catgeneral","desc")}    
-                                </span>
-                            </th>
-
-                            <th>
-                                <span className="btn" style={{backgroundColor:colorsGastosCat(0,"catgeneral","color")}}>
-                                    {moneda(balanceGeneralData["pagoproveedor"]?balanceGeneralData["pagoproveedor"]["balance"]:null)}
-                                </span>
-                            </th>
-                        </tr>
-                        {viewpagoproveedor?
-                            balanceGeneralData["pagoproveedor"]?
-                                balanceGeneralData["pagoproveedor"]["detalles"].map(pagosproveedor=>
-                                    <tr key={pagosproveedor.id}>
-                                        <td colSpan={3}>
-                                            <div className="ms-3">
-
-                                                <span className="fw-bolder">
-                                                    {pagosproveedor.proveedor.descripcion}
-                                                </span>
-                                                <br />
-                                                <span className="text-muted">
-                                                    {pagosproveedor.created_at}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button className="btn btn-success">{moneda(pagosproveedor.monto)}</button>
-                                        </td>
-                                    </tr>
-                                )
-                            :null
-                        :null}
                         {Object.entries(ingreso_egreso[1]).map((catgeneral,ii)=>
                             <>
-                                <tr className="pointer">
-                                    <th colSpan={3}>
-                                        <span className="fs-5 btn ms-2" style={{backgroundColor:colorsGastosCat(catgeneral[0],"catgeneral","color")}} onClick={()=>{setindexviewvariable_fijo(indexviewvariable_fijo==ii?null:ii);}}>
+                                <tr className="pointer" style={{backgroundColor:colorsGastosCat(catgeneral[0],"catgeneral","color")}}>
+                                    <th colSpan={2} className="w-50">
+                                        <span className="fs-5 btn ms-2"  onClick={()=>{setindexviewvariable_fijo(indexviewvariable_fijo==ii?null:ii);}}>
                                             {colorsGastosCat(catgeneral[0],"catgeneral","desc")}    
                                         </span>
                                     </th>
 
-                                    <th>
-                                        <span className="btn" style={{backgroundColor:colorsGastosCat(catgeneral[0],"catgeneral","color")}}>
+                                    <th colSpan={2} className="w-50">
+                                        <span className="fs-3">
                                             {moneda(balanceGeneralData["sumArrcatgeneral"][catgeneral[0]]["sumdolar"])}
                                         </span>
                                     </th>
-
                                 </tr>
-
 
                                 {indexviewvariable_fijo==ii&&viewvariable_fijo?
                                     Object.entries(catgeneral[1]).map((variable_fijo,iii)=>
@@ -138,10 +98,45 @@ export default function Cajascatdesplegable({
                                             ):null}
                                         </>
                                 ):null}
-
                             </>   
 
                         )}
+
+                        <tr className="pointer" style={{backgroundColor:colorsGastosCat(0,"catgeneral","color")}}>
+                            <th colSpan={2}  className="w-50">
+                                <span className="fs-5 btn ms-2" onClick={()=>{setviewpagoproveedor(!viewpagoproveedor)}}>
+                                    {colorsGastosCat(0,"catgeneral","desc")}    
+                                </span>
+                            </th>
+                            <th colSpan={2} className="w-50">
+                                <span className="fs-3">
+                                    {moneda(balanceGeneralData["pagoproveedor"]?balanceGeneralData["pagoproveedor"]["balance"]:null)}
+                                </span>
+                            </th>
+                        </tr>
+                        {viewpagoproveedor?
+                            balanceGeneralData["pagoproveedor"]?
+                                balanceGeneralData["pagoproveedor"]["detalles"].map(pagosproveedor=>
+                                    <tr key={pagosproveedor.id}>
+                                        <td colSpan={3}>
+                                            <div className="ms-3">
+
+                                                <span className="fw-bolder">
+                                                    {pagosproveedor.proveedor.descripcion}
+                                                </span>
+                                                <br />
+                                                <span className="text-muted">
+                                                    {pagosproveedor.created_at}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button className="btn btn-success">{moneda(pagosproveedor.monto)}</button>
+                                        </td>
+                                    </tr>
+                                )
+                            :null
+                        :null}
                     </tbody>
                 )
             :null}
