@@ -610,6 +610,14 @@ function Home() {
     3:	{color:"#ffd966", desc:"TRASPASO EXTERNO"}, 
     4:	{color:"#93c47d", desc:"INGRESO NULO"}, 
   }
+
+  const colorvariable_fijo = {
+    0:	{color:"#f4cccc", desc:"VARIABLES"}, 
+    1:	{color:"#d9ead3", desc:"FIJOS"}, 
+    2:	{color:"#fff2cc", desc:"OTROS"}, 
+    3:	{color:"#ffd966", desc:"OTROS"}, 
+    4:	{color:"#93c47d", desc:"OTROS"}, 
+  }
   const colorsGastosCat = (id,cat,tipo) => {
     try {
       switch (cat) {
@@ -621,6 +629,9 @@ function Home() {
         break;
         case "ingreso_egreso":
           return colorIngresoegre[id][tipo]  
+        break;
+        case "variable_fijo":
+          return colorvariable_fijo[id][tipo]  
         break;
       }
       

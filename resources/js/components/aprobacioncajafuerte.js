@@ -105,6 +105,36 @@ export default function AprobacionCajaFuerte({
                             <b>{e.concepto}</b>
                         </span>
                     </div> 
+                    {e.trabajador?
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>CARGO</th>
+                                    <td>{e.trabajador.cargo.cargosdescripcion}</td>
+                                </tr>
+                                <tr>
+                                    <th>MÁXIMO A COBRAR ESTE MES</th>
+                                    <td className="text-success">{e.trabajador.maxpagopersona}</td>
+                                </tr>
+                                <tr>
+                                    <th>PRESTAMOS TOTALES</th>
+                                    <td className="text-danger fs-5">{moneda(e.trabajador.sumprestamos)}</td>
+                                </tr>
+                                <tr>
+                                    <th>CRÉDITOS TOTALES</th>
+                                    <td className="text-sinapsis fs-5">{moneda(e.trabajador.sumCreditos)}</td>
+                                </tr>
+                                <tr>
+                                    <th>PAGOS QUINCENA (MES ACTUAL)</th>
+                                    <td>{moneda(e.trabajador.mes)}</td>
+                                </tr>
+                                <tr>
+                                    <th>PAGOS QUINCENA (MES PASADO)</th>
+                                    <td>{moneda(e.trabajador.mespasado)}</td>
+                                </tr>
+                            </thead>
+                        </table>
+                    :null}
                     <div className="card-body d-flex justify-content-between">
                         <button className="btn btn-sm btn-danger" onClick={()=>aprobarMovCajaFuerte(e.id,"delete")}><i className="fa fa-times"></i></button>
                         {e.id_sucursal_destino?

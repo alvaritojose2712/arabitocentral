@@ -694,25 +694,25 @@ class CuentasporpagarController extends Controller
             $c->save();
         }
     }
-    function selectCuentaPorPagarProveedorDetalles(Request $req) {
-        /* if (session("usuario")!="ao"&&session("usuario")!="omarE") {
-            return;
-        } */
-        
-        $id_proveedor = $req->id_proveedor=="null"?null:$req->id_proveedor;
-        $cuentaporpagarAprobado = $req->cuentaporpagarAprobado;
-        $categoriacuentasPorPagarDetalles = $req->categoriacuentasPorPagarDetalles;
-        $tipocuentasPorPagarDetalles = $req->tipocuentasPorPagarDetalles;
-        $qcuentasPorPagarTipoFact = $req->qcuentasPorPagarTipoFact;
-        $qCampocuentasPorPagarDetalles = $req->qCampocuentasPorPagarDetalles;
-        $qcuentasPorPagarDetalles = $req->qcuentasPorPagarDetalles;
-        $OrdercuentasPorPagarDetalles = $req->OrdercuentasPorPagarDetalles;
-        $sucursalcuentasPorPagarDetalles = $req->sucursalcuentasPorPagarDetalles;
-        $numcuentasPorPagarDetalles = $req->numcuentasPorPagarDetalles;
-        
-        $type = $req->type;
-        $id_facts_force = $req->id_facts_force;
-        
+
+    function selectCuentaPorPagarProveedorDetallesFun($arr) {
+        $id_proveedor = $arr["id_proveedor"];
+        $cuentaporpagarAprobado = $arr["cuentaporpagarAprobado"];
+        $categoriacuentasPorPagarDetalles = $arr["categoriacuentasPorPagarDetalles"];
+        $tipocuentasPorPagarDetalles = $arr["tipocuentasPorPagarDetalles"];
+        $qcuentasPorPagarTipoFact = $arr["qcuentasPorPagarTipoFact"];
+        $qCampocuentasPorPagarDetalles = $arr["qCampocuentasPorPagarDetalles"];
+        $qcuentasPorPagarDetalles = $arr["qcuentasPorPagarDetalles"];
+        $OrdercuentasPorPagarDetalles = $arr["OrdercuentasPorPagarDetalles"];
+        $sucursalcuentasPorPagarDetalles = $arr["sucursalcuentasPorPagarDetalles"];
+        $numcuentasPorPagarDetalles = $arr["numcuentasPorPagarDetalles"];
+        $type = $arr["type"];
+        $id_facts_force = $arr["id_facts_force"];
+
+
+        $fechasMain1 = isset($arr["fechasMain1"])?$arr["fechasMain1"]:null;
+        $fechasMain2 = isset($arr["fechasMain2"])?$arr["fechasMain2"]:null;
+
         $fasts_no = [];
         
         
@@ -724,13 +724,16 @@ class CuentasporpagarController extends Controller
             
             $q->orderBy("id","desc");
         },"facturas"=>function($q) {
-
+    
             $q->with(["sucursal","proveedor"])->orderBy("id","desc");
         }])
         ->selectRaw("*, @monto_abonado := ( SELECT sum(`cuentasporpagar_pagos`.`monto`) FROM cuentasporpagar_pagos WHERE `cuentasporpagar_pagos`.`id_factura` =`cuentasporpagars`.`id` ) as monto_abonado, 
         @monto_descuento := (COALESCE(monto,0)*(COALESCE(descuento,0)/100)) as monto_descuento,
         (COALESCE(@monto_abonado,0)+COALESCE(monto,0)-COALESCE(@monto_descuento,0)) as balance
         ")
+        ->when($fechasMain1,function($q) use ($fechasMain1,$fechasMain2) {
+            $q->whereBetween("fechaemision",[$fechasMain1,(!$fechasMain2?$fechasMain1:$fechasMain2)]);
+        })
         ->when($numcuentasPorPagarDetalles,function($q) use ($numcuentasPorPagarDetalles) {
             $q->limit($numcuentasPorPagarDetalles);
         });
@@ -739,7 +742,7 @@ class CuentasporpagarController extends Controller
             
         }elseif(str_contains($qcuentasPorPagarDetalles,",")){
             $keys = explode(",",$qcuentasPorPagarDetalles);
-
+    
             $detalles = $detalles
             ->when( ($id_proveedor != "" && $id_proveedor != null),function($q) use ($id_proveedor){
                 $q->where("id_proveedor",$id_proveedor);
@@ -804,7 +807,7 @@ class CuentasporpagarController extends Controller
             }
             $idsOrden = rtrim($idsOrden, ",");
             $detalles = $detalles->orderByRaw("FIELD(id,$idsOrden)");
-
+    
             foreach ($keys as $key => $split) {
                 $esta = false;
                 $id = "";
@@ -877,11 +880,11 @@ class CuentasporpagarController extends Controller
             })
             ->orderBy($qCampocuentasPorPagarDetalles,$OrdercuentasPorPagarDetalles);
         }
-
+    
         $detalles_modified = $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact, $todayWithoutDateTime) {
             $q->monto_bruto = $q->monto;
             $q->monto = $q->monto-$q->monto_descuento;
-
+    
             $fechavencimiento = new \DateTime($q->fechavencimiento);
             $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
             $monto = $q->monto;
@@ -897,7 +900,7 @@ class CuentasporpagarController extends Controller
                 $subtotal += $item->cantidad * $item->basef;
             });
             $q->sumitems = $subtotal;
-
+    
             if ($monto>0){
                 $q->condicion = "abonos";
             
@@ -923,12 +926,46 @@ class CuentasporpagarController extends Controller
             "proveedor" => $id_proveedor?proveedores::find($id_proveedor):null,
             "fasts_no" => $fasts_no
         ];
-
+    
         if ($type=="buscar") {
             return $ret;
         }else{
             return view("reportes.conciliacionCuentasxPagar",$ret);
         }
+    }
+    function selectCuentaPorPagarProveedorDetalles(Request $req) {
+        /* if (session("usuario")!="ao"&&session("usuario")!="omarE") {
+            return;
+        } */
+        
+        $id_proveedor = $req->id_proveedor=="null"?null:$req->id_proveedor;
+        $cuentaporpagarAprobado = $req->cuentaporpagarAprobado;
+        $categoriacuentasPorPagarDetalles = $req->categoriacuentasPorPagarDetalles;
+        $tipocuentasPorPagarDetalles = $req->tipocuentasPorPagarDetalles;
+        $qcuentasPorPagarTipoFact = $req->qcuentasPorPagarTipoFact;
+        $qCampocuentasPorPagarDetalles = $req->qCampocuentasPorPagarDetalles;
+        $qcuentasPorPagarDetalles = $req->qcuentasPorPagarDetalles;
+        $OrdercuentasPorPagarDetalles = $req->OrdercuentasPorPagarDetalles;
+        $sucursalcuentasPorPagarDetalles = $req->sucursalcuentasPorPagarDetalles;
+        $numcuentasPorPagarDetalles = $req->numcuentasPorPagarDetalles;
+        $type = $req->type;
+        $id_facts_force = $req->id_facts_force;
+
+        return $this->selectCuentaPorPagarProveedorDetallesFun([
+            "id_proveedor" => $id_proveedor,
+            "cuentaporpagarAprobado" => $cuentaporpagarAprobado,
+            "categoriacuentasPorPagarDetalles" => $categoriacuentasPorPagarDetalles,
+            "tipocuentasPorPagarDetalles" => $tipocuentasPorPagarDetalles,
+            "qcuentasPorPagarTipoFact" => $qcuentasPorPagarTipoFact,
+            "qCampocuentasPorPagarDetalles" => $qCampocuentasPorPagarDetalles,
+            "qcuentasPorPagarDetalles" => $qcuentasPorPagarDetalles,
+            "OrdercuentasPorPagarDetalles" => $OrdercuentasPorPagarDetalles,
+            "sucursalcuentasPorPagarDetalles" => $sucursalcuentasPorPagarDetalles,
+            "numcuentasPorPagarDetalles" => $numcuentasPorPagarDetalles,
+            "type" => $type,
+            "id_facts_force" => $id_facts_force,
+        ]);
+        
     }
 
     function sendlistdistribucionselect(Request $req) {

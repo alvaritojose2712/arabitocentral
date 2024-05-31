@@ -668,7 +668,7 @@ class CierresController extends Controller
         $sumArrcatgeneral = [];
         $sumArringresoegreso = [];
         $sumArrvariablefijo = [];
-        $gastosFun = (new PuntosybiopagosController)
+        $gastosFun = array_filter((new PuntosybiopagosController)
         ->getGastosFun([
             "gastosQ"=>"",
             "gastosQFecha"=>$fechaBalanceGeneral,
@@ -679,7 +679,9 @@ class CierresController extends Controller
             "typecaja"=>"",
             "gastosorder"=>"desc",
             "gastosfieldorder"=>"variable_fijo",
-        ])["data"];
+        ])["data"],function($filter) {
+            return $filter["cat"]["id"]!=40; //No es PAGO A PROVEEDOR
+        });
         foreach ($gastosFun as $gastoi => $gasto) {
             $ingresoegreso_key = $gasto["ingreso_egreso"];
             $cat_key = $gasto["categoria"];
@@ -687,6 +689,7 @@ class CierresController extends Controller
             $variablefijo_key = $gasto["variable_fijo"];
 
             $monto =  $gasto["montodolar"]+($gasto["montobs"]/$bs)+($gasto["montopeso"]/$cop);
+
             if (array_key_exists($catgeneral_key, $sumArrcatgeneral)) {
                 $sumArrcatgeneral[$catgeneral_key]["sumdolar"] = $sumArrcatgeneral[$catgeneral_key]["sumdolar"] + $monto;  
             }else{
@@ -695,14 +698,7 @@ class CierresController extends Controller
                 ];
             }
 
-            if (array_key_exists($variablefijo_key, $sumArrvariablefijo)) {
-                $sumArrvariablefijo[$variablefijo_key]["sumdolar"] = $sumArrvariablefijo[$variablefijo_key]["sumdolar"] + $monto;  
-            }else{
-                $sumArrvariablefijo[$variablefijo_key] = [
-                    "sumdolar" => $monto,
-                ];
-            }
-
+            
             if (array_key_exists($cat_key, $sumArrcat)) {
                 $sumArrcat[$cat_key]["sumdolar"] = $sumArrcat[$cat_key]["sumdolar"] + $monto;  
             }else{
@@ -710,7 +706,7 @@ class CierresController extends Controller
                     "sumdolar" => $monto,
                 ];
             }
-
+            
             if (array_key_exists($ingresoegreso_key, $sumArringresoegreso)) {
                 $sumArringresoegreso[$ingresoegreso_key]["sumdolar"] = $sumArringresoegreso[$ingresoegreso_key]["sumdolar"] + $monto;  
             }else{
@@ -718,9 +714,23 @@ class CierresController extends Controller
                     "sumdolar" => $monto,
                 ];
             }
+
+            if (array_key_exists($catgeneral_key, $sumArrvariablefijo)) {
+                if (array_key_exists($variablefijo_key, $sumArrvariablefijo[$catgeneral_key])) {
+                    $sumArrvariablefijo[$catgeneral_key][$variablefijo_key]["sumdolar"] = $sumArrvariablefijo[$catgeneral_key][$variablefijo_key]["sumdolar"] + $monto;  
+                }else{
+                    $sumArrvariablefijo[$catgeneral_key][$variablefijo_key] = [
+                        "sumdolar" => $monto,
+                    ];    
+                }
+            }else{
+                $sumArrvariablefijo[$catgeneral_key][$variablefijo_key] = [
+                    "sumdolar" => $monto,
+                ];
+            }
             $gastosFun[$gastoi]["montofull"] = $monto;
         }
-        $gastos = collect($gastosFun)->groupBy(["ingreso_egreso","catgeneral","categoria"]);
+        $gastos = collect($gastosFun)->groupBy(["ingreso_egreso","catgeneral","variable_fijo","categoria"]);
 
 
 
@@ -832,6 +842,25 @@ class CierresController extends Controller
             "subviewpanelsucursales" => "cuentasporpagar",
         ]);
         $cxp = $cxpData["sum"];
+
+        $pagoproveedor = (new CuentasporpagarController)->selectCuentaPorPagarProveedorDetallesFun([
+            "fechasMain1" => $fechaBalanceGeneral,
+            "fechasMain2" => $fechaHastaBalanceGeneral,
+
+            "categoriacuentasPorPagarDetalles" => "",
+            "cuentaporpagarAprobado" => 1,
+            "id_facts_force" => null,
+            "id_proveedor" => "",
+            "numcuentasPorPagarDetalles" => "",
+            "OrdercuentasPorPagarDetalles" => "desc",
+            "qCampocuentasPorPagarDetalles" => "updated_at",
+            "qcuentasPorPagarDetalles" => "",
+            "qcuentasPorPagarTipoFact" => "abonos",
+            "sucursalcuentasPorPagarDetalles" => "",
+            "tipocuentasPorPagarDetalles" => "",
+            "type" => "buscar",
+        ]);
+
         
         return [
             "gastos"=>$gastos,
@@ -840,10 +869,8 @@ class CierresController extends Controller
             "sumArrcatgeneral" =>$sumArrcatgeneral,
             "sumArringresoegreso" =>$sumArringresoegreso,
             "sumArrvariablefijo" =>$sumArrvariablefijo,
-            "fijomasvariables" =>$sumArrvariablefijo[0]["sumdolar"]+$sumArrvariablefijo[1]["sumdolar"],
-            "gastosfijos" => $sumArrvariablefijo[1]["sumdolar"],
-            "gastosvariables" => $sumArrvariablefijo[0]["sumdolar"],
-            
+            "pagoproveedor" => $pagoproveedor,
+
 
             "efectivodolar" =>$dolarbalance,
             "efectivoData" =>$efectivoData,

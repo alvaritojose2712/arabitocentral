@@ -6,6 +6,10 @@ use App\Models\cajas_aprobacion;
 use App\Http\Requests\Storecajas_aprobacionRequest;
 use App\Http\Requests\Updatecajas_aprobacionRequest;
 use App\Models\catcajas;
+use App\Models\nomina;
+use App\Models\creditos;
+
+
 use Illuminate\Http\Request;
 
 
@@ -87,7 +91,19 @@ class CajasAprobacionController extends Controller
         ->where("estatus", $qestatusaprobaciocaja)
         ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
         ->orderBy("created_at", "desc")
-        ->get();
+        ->get()
+        ->map(function($q) {
+            if ($q["cat"]) {
+                if (strpos($q["cat"]["nombre"],"NOMINA")) {
+                    $split = explode("=",$q["concepto"]);
+                    if (isset($split[1])) {
+                        $ci = $split[1];
+                        $q->trabajador = (new NominapagosController)->getHistoricoNomina($ci);
+                    }
+                }
+            }
+            return $q;    
+        });
 
         return [
             "aprobacionfuertedata" => $data,

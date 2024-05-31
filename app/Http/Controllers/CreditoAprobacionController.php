@@ -79,20 +79,7 @@ class CreditoAprobacionController extends Controller
         $qestatus = $filtros["qestatusaprobaciocaja"];
         
 
-        $today = (new NominaController)->today();
-        $mesDate = strtotime($today);
-        $mesDate = date('Y-m' , $mesDate);
-
-        $mespasadoDate = strtotime('-1 months', strtotime($today));
-        $mespasadoDate = date('Y-m' , $mespasadoDate);
-
-        $mesantepasadoDate = strtotime('-2 months', strtotime($today));
-        $mesantepasadoDate = date('Y-m' , $mesantepasadoDate);
-
-        $mes = $mesDate;
-        $mespasado = $mespasadoDate;
-        $mesantepasado = $mesantepasadoDate;
-
+        
         $data = credito_aprobacion::with(["sucursal","cliente"])
         ->when($id_sucursal, function ($q) use ($id_sucursal) {
             $q->where("id_sucursal", $id_sucursal);
@@ -101,8 +88,22 @@ class CreditoAprobacionController extends Controller
         ->whereBetween("created_at", [$fechasMain1." 00:00:00", $fechasMain2." 23:59:59"])
         ->orderBy("created_at", "desc")
         ->get()
-        ->map(function($q) use ($mes,$mespasado,$mesantepasado) {
+        ->map(function($q) {
+            
             $cedula = $q->cliente->identificacion;
+            /* $today = (new NominaController)->today();
+            $mesDate = strtotime($today);
+            $mesDate = date('Y-m' , $mesDate);
+    
+            $mespasadoDate = strtotime('-1 months', strtotime($today));
+            $mespasadoDate = date('Y-m' , $mespasadoDate);
+    
+            $mesantepasadoDate = strtotime('-2 months', strtotime($today));
+            $mesantepasadoDate = date('Y-m' , $mesantepasadoDate);
+    
+            $mes = $mesDate;
+            $mespasado = $mespasadoDate;
+            $mesantepasado = $mesantepasadoDate;
             $n = nomina::with(["cargo","prestamos", "pagos"=>function ($q) {
                 $q->with("sucursal")->orderBy("created_at","asc");
             }])
@@ -150,9 +151,9 @@ class CreditoAprobacionController extends Controller
                     return $q;
                 }); 
                 $n->sumCreditos = $creditos->get()->sum("saldo");
-            }
+            } */
 
-            $q->trabajador = $n;
+            $q->trabajador = (new NominapagosController)->getHistoricoNomina($cedula);
             return $q;
         });
 
