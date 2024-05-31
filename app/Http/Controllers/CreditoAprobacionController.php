@@ -141,7 +141,7 @@ class CreditoAprobacionController extends Controller
                 $n->quincena = $bono;
                 $n->sumprestamos = $n->prestamos->sum("monto");
                 $n->sumPagos = $pagos->sum("monto");
-                $n->maxpagopersona = ($bono*2)-(abs(floatval($mesSum)))>0?($bono*2)-(abs(floatval($mesSum))):0;
+                $n->maxpagopersona = (floatval($bono)*2)-(abs(floatval($mesSum)))>0?(floatval($bono)*2)-(abs(floatval($mesSum))):0;
                 
                 $n->creditos = $creditos
                 ->get()
