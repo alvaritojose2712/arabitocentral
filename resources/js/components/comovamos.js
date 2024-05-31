@@ -306,6 +306,30 @@ export default function ComoVamos({
                                                 </td>
                                                 <th className="fs-3">{moneda(balanceGeneralData.ganancia)}</th>
                                             </tr>
+                                            <tr>
+                                                <td className="p-0">
+                                                    <button className={"btn fw-bolder fs-4 btn-warning"}>
+                                                        GASTOS
+                                                    </button>
+                                                </td>
+                                                <th className="fs-3">{moneda(balanceGeneralData["fijomasvariables"])}</th>
+                                            </tr>
+                                            <tr className="bg-gastosfijos fs-4">
+                                                <th className="fs-5">
+                                                    GASTOS FIJOS
+                                                </th>
+                                                <th className="fs-5">
+                                                    {moneda(balanceGeneralData.gastosfijos)}
+                                                </th>
+                                            </tr>
+                                            <tr className="bg-gastosvariables fs-4">
+                                                <th className="fs-5">
+                                                    GASTOS VARIABLES
+                                                </th>
+                                                <th className="fs-5">
+                                                    {moneda(balanceGeneralData.gastosvariables)}
+                                                </th>
+                                            </tr>
 
                                             
 

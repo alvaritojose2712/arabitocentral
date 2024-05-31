@@ -447,6 +447,12 @@ body{
   border-style: groove !important;
 
 }
+.bg-gastosfijos{
+  background-color: #d89494;
+}
+.bg-gastosvariables{
+  background-color: #d8bfbf;
+}
 
 .bg-success-1{
   background-color: #3cff33;

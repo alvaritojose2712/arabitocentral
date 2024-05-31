@@ -276,6 +276,7 @@ class PuntosybiopagosController extends Controller
         ->map(function($q) {
             $q->ingreso_egreso = $q->cat->ingreso_egreso;
             $q->catgeneral = $q->cat->catgeneral;
+            $q->variable_fijo = $q->cat->variable_fijo;
             return $q;
         });
 
@@ -309,6 +310,7 @@ class PuntosybiopagosController extends Controller
             $q->montodolar = $monto_dolar+$bs;
             $q->ingreso_egreso = $q->cat->ingreso_egreso;
             $q->catgeneral = $q->cat->catgeneral;
+            $q->variable_fijo = $q->cat->variable_fijo;
             return $q;  
         });
 

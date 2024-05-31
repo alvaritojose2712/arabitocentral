@@ -19,6 +19,7 @@ class CreateCatcajasTable extends Migration
             $table->integer("tipo");
             $table->integer("catgeneral")->nullable(true);
             $table->integer("ingreso_egreso")->nullable(true);
+            $table->integer("variable_fijo")->nullable(true)->default(0);
 
             $table->timestamps();
 

@@ -667,6 +667,7 @@ class CierresController extends Controller
         $sumArrcat = [];
         $sumArrcatgeneral = [];
         $sumArringresoegreso = [];
+        $sumArrvariablefijo = [];
         $gastosFun = (new PuntosybiopagosController)
         ->getGastosFun([
             "gastosQ"=>"",
@@ -677,18 +678,27 @@ class CierresController extends Controller
             "ingreso_egreso"=>"",
             "typecaja"=>"",
             "gastosorder"=>"desc",
-            "gastosfieldorder"=>"id",
+            "gastosfieldorder"=>"variable_fijo",
         ])["data"];
         foreach ($gastosFun as $gastoi => $gasto) {
             $ingresoegreso_key = $gasto["ingreso_egreso"];
             $cat_key = $gasto["categoria"];
             $catgeneral_key = $gasto["catgeneral"];
+            $variablefijo_key = $gasto["variable_fijo"];
 
             $monto =  $gasto["montodolar"]+($gasto["montobs"]/$bs)+($gasto["montopeso"]/$cop);
             if (array_key_exists($catgeneral_key, $sumArrcatgeneral)) {
                 $sumArrcatgeneral[$catgeneral_key]["sumdolar"] = $sumArrcatgeneral[$catgeneral_key]["sumdolar"] + $monto;  
             }else{
                 $sumArrcatgeneral[$catgeneral_key] = [
+                    "sumdolar" => $monto,
+                ];
+            }
+
+            if (array_key_exists($variablefijo_key, $sumArrvariablefijo)) {
+                $sumArrvariablefijo[$variablefijo_key]["sumdolar"] = $sumArrvariablefijo[$variablefijo_key]["sumdolar"] + $monto;  
+            }else{
+                $sumArrvariablefijo[$variablefijo_key] = [
                     "sumdolar" => $monto,
                 ];
             }
@@ -829,6 +839,11 @@ class CierresController extends Controller
             "sumArrcat" =>$sumArrcat,
             "sumArrcatgeneral" =>$sumArrcatgeneral,
             "sumArringresoegreso" =>$sumArringresoegreso,
+            "sumArrvariablefijo" =>$sumArrvariablefijo,
+            "fijomasvariables" =>$sumArrvariablefijo[0]["sumdolar"]+$sumArrvariablefijo[1]["sumdolar"],
+            "gastosfijos" => $sumArrvariablefijo[1]["sumdolar"],
+            "gastosvariables" => $sumArrvariablefijo[0]["sumdolar"],
+            
 
             "efectivodolar" =>$dolarbalance,
             "efectivoData" =>$efectivoData,
