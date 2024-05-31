@@ -867,6 +867,9 @@ class CierresController extends Controller
             "type" => "buscar",
         ]);
 
+        $gastosfijosSum = $sumArrvariablefijo[2][1]["sumdolar"];
+        $gastosvariablesSum = $sumArrvariablefijo[2][0]["sumdolar"];
+
         
         return [
             "gastos"=>$gastos,
@@ -876,6 +879,9 @@ class CierresController extends Controller
             "sumArringresoegreso" =>$sumArringresoegreso,
             "sumArrvariablefijo" =>$sumArrvariablefijo,
             "pagoproveedor" => $pagoproveedor,
+
+            "gastosfijosSum"=>$gastosfijosSum,
+            "gastosvariablesSum"=>$gastosvariablesSum,
 
 
             "efectivodolar" =>$dolarbalance,
