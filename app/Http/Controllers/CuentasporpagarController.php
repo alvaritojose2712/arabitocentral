@@ -695,6 +695,9 @@ class CuentasporpagarController extends Controller
         }
     }
     function selectCuentaPorPagarProveedorDetalles(Request $req) {
+        /* if (session("usuario")!="ao"&&session("usuario")!="omarE") {
+            return;
+        } */
         
         $id_proveedor = $req->id_proveedor=="null"?null:$req->id_proveedor;
         $cuentaporpagarAprobado = $req->cuentaporpagarAprobado;
