@@ -649,6 +649,12 @@ class CierresController extends Controller
             ->get();
     }
     function getBalanceGeneral(Request $req) {
+        $usuario = session("usuario");
+
+        if ($usuario!="ao"&&$usuario!="omarelh") {
+           return ;
+        }
+
         $sucursalBalanceGeneral = $req->sucursalBalanceGeneral;
         $fechaBalanceGeneral = $req->fechaBalanceGeneral;
         $fechaHastaBalanceGeneral = $req->fechaHastaBalanceGeneral;
