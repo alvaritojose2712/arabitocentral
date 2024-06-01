@@ -174,7 +174,7 @@ class CajasAprobacionController extends Controller
         }
     }
     if (count($transSucursal)) {
-        return ["pendientesTransferencia"=>true,"data"=>$transSucursal];
+        //return ["pendientesTransferencia"=>true,"data"=>$transSucursal];
     }
     return $c->merge($aprotrans);
 
