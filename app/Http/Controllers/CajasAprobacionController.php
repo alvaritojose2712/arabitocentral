@@ -11,7 +11,7 @@ use App\Models\creditos;
 
 
 use Illuminate\Http\Request;
-
+use Response;
 
 class CajasAprobacionController extends Controller
 {
@@ -64,8 +64,10 @@ class CajasAprobacionController extends Controller
     ]);
 
     if ($cajas_aprobacion) {
-        return ["msj"=>"Solicitud enviada. Esperar aprobación...", "idincentralrecepcion"=>$cajas_aprobacion->id];
+        return ["estado"=>true, "msj"=>"Solicitud enviada. Esperar aprobación...", "idincentralrecepcion"=>$cajas_aprobacion->id];
     }
+    return ["estado"=>false, "msj"=>"Error", "idincentralrecepcion"=>null];
+    
    }
    function checkDelMovCajaCentral(Request $req) {
         $idincentral = $req->idincentral;
@@ -144,6 +146,40 @@ class CajasAprobacionController extends Controller
     }
    }
 
+   function verificarMovPenControlEfecTRANFTRABAJADOR(Request $req) {
+        $codigo_origen = $req->codigo_origen;
+        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
+        $id_sucursal = $id_ruta["id_origen"];
+        $today = (new NominaController)->today();
+
+        $c = cajas_aprobacion::with(["destino","sucursal"])
+        ->where("id_sucursal",$id_sucursal)
+        ->where("estatus",1)
+        ->where("fecha",$today)
+        ->get();
+
+        $aprotrans = cajas_aprobacion::with(["destino","sucursal"])
+        ->where("id_sucursal_destino",$id_sucursal)
+        ->where("estatus",1)
+        ->where("fecha",$today)
+        ->get();
+
+        $pen = cajas_aprobacion::where("id_sucursal_destino",$id_sucursal)
+        ->where("estatus",0)
+        ->where("fecha",$today)
+        ->get();
+        
+        $transSucursal = [];
+        foreach ($pen as $i => $e) {
+            if ($e->id_sucursal_destino && !$e->sucursal_destino_aprobacion) {
+                array_push($transSucursal,$e);
+            }
+        }
+        if (count($transSucursal)) {
+            return ["pendientesTransferencia"=>true,"data"=>$transSucursal];
+        }
+        return $c->merge($aprotrans);
+   }
    function verificarMovPenControlEfec(Request $req) {
     $codigo_origen = $req->codigo_origen;
     $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
@@ -162,20 +198,24 @@ class CajasAprobacionController extends Controller
     ->where("fecha",$today)
     ->get();
 
-    $pen = cajas_aprobacion::where("id_sucursal_destino",$id_sucursal)
+    $notaprotransrecepcion = cajas_aprobacion::with(["destino","sucursal"])
+    ->where("id_sucursal_destino",$id_sucursal)
     ->where("estatus",0)
     ->where("fecha",$today)
     ->get();
-    
-    $transSucursal = [];
-    foreach ($pen as $i => $e) {
-        if ($e->id_sucursal_destino && !$e->sucursal_destino_aprobacion) {
-            array_push($transSucursal,$e);
-        }
+
+    $notaprotransenvio = cajas_aprobacion::with(["destino","sucursal"])
+    ->where("id_sucursal",$id_sucursal)
+    ->whereNotNull("id_sucursal_destino")
+    ->where("estatus",0)
+    ->where("fecha",$today)
+    ->get();
+
+
+    if (count($notaprotransrecepcion) || count($notaprotransenvio)) {
+        return Response::json(["estado"=>false,"msj"=>"Antes de Aprobar, debe resolver las transferencia de Efectivo entre sucursales. ".(count($notaprotransrecepcion)+count($notaprotransenvio))." PENDIENTES"]);
     }
-    if (count($transSucursal)) {
-        //return ["pendientesTransferencia"=>true,"data"=>$transSucursal];
-    }
+
     return $c->merge($aprotrans);
 
    }

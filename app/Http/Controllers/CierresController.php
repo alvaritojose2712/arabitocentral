@@ -648,6 +648,20 @@ class CierresController extends Controller
             ->orderBy("cantidad", "desc")
             ->get();
     }
+
+    function getTasa() {
+        $bsq = cierres::orderBy("id","desc")->first(["tasa","tasacop"]);
+        $bs = 1;
+        $cop = 1;
+        if ($bsq) {
+            $bs = $bsq->tasa;
+            $cop = $bsq->tasacop;
+        }
+        return [
+            "bs" => $bs,
+            "cop" => $cop,
+        ];
+    }
     function getBalanceGeneral(Request $req) {
         $usuario = session("usuario");
 
@@ -662,13 +676,8 @@ class CierresController extends Controller
         if (!$fechaBalanceGeneral || !$fechaHastaBalanceGeneral) {
             return ["Seleccione ambas Fechas"];
         }
-        $bsq = cierres::orderBy("id","desc")->first(["tasa","tasacop"]);
-        $bs = 1;
-        $cop = 1;
-        if ($bsq) {
-            $bs = $bsq->tasa;
-            $cop = $bsq->tasacop;
-        }
+        $bs = $this->getTasa()["bs"];
+        $cop = $this->getTasa()["cop"];
 
         $sumArrcat = [];
         $sumArrcatgeneral = [];

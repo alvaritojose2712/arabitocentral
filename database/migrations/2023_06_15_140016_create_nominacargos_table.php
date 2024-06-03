@@ -16,7 +16,7 @@ class CreateNominacargosTable extends Migration
         Schema::create('nominacargos', function (Blueprint $table) {
             $table->increments("id");
             $table->string("cargosdescripcion")->unique();
-            $table->string("cargossueldo");
+            $table->float("cargossueldo",10,2);
             $table->timestamps();
         });
 

@@ -60,31 +60,31 @@ class NominaController extends Controller
         $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
         $id_origen = $id_ruta["id_origen"];
 
-        $today = (new NominaController)->today();
-        $mesDate = strtotime($today);
-        $mesDate = date('Y-m' , $mesDate);
-
-        $mespasadoDate = strtotime('-1 months', strtotime($today));
-        $mespasadoDate = date('Y-m' , $mespasadoDate);
-
-        $mesantepasadoDate = strtotime('-2 months', strtotime($today));
-        $mesantepasadoDate = date('Y-m' , $mesantepasadoDate);
-
-        $mes = $mesDate;
-        $mespasado = $mespasadoDate;
-        $mesantepasado = $mesantepasadoDate;
-
+        
         return nomina::with(["cargo","prestamos", "pagos"=>function ($q) {
             $q->with("sucursal")->orderBy("created_at","asc");
         }])
         ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
         ->where("activo",1)
         ->where("nominasucursal", $id_origen)
-        //->whereIn("id", nominavariassucursales::where("id_sucursal", $id_origen)->select("id_nomina"))
         ->orderBy("nominanombre", "asc")
         ->get()
-        ->map(function($q) use ($mes,$mespasado,$mesantepasado) {
+        ->map(function($q) {
             $cedula = $q->nominacedula;
+            
+            $today = (new NominaController)->today();
+            $mesDate = strtotime($today);
+            $mesDate = date('Y-m' , $mesDate);
+    
+            $mespasadoDate = strtotime('-1 months', strtotime($today));
+            $mespasadoDate = date('Y-m' , $mespasadoDate);
+    
+            $mesantepasadoDate = strtotime('-2 months', strtotime($today));
+            $mesantepasadoDate = date('Y-m' , $mesantepasadoDate);
+    
+            $mes = $mesDate;
+            $mespasado = $mespasadoDate;
+            $mesantepasado = $mesantepasadoDate;
             $ids = clientes::where("identificacion", "=",  $cedula)->select("id");
             $creditos = creditos::with("sucursal")->whereIn("id_cliente",$ids);
 

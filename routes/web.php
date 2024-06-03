@@ -297,6 +297,8 @@ Route::post('checkDelMovCajaCentral', [CajasAprobacionController::class,"checkDe
 
 Route::post('aprobarMovCajaFuerte', [CajasAprobacionController::class,"aprobarMovCajaFuerte"]);
 Route::post('verificarMovPenControlEfec', [CajasAprobacionController::class,"verificarMovPenControlEfec"]);
+Route::post('verificarMovPenControlEfecTRANFTRABAJADOR', [CajasAprobacionController::class,"verificarMovPenControlEfecTRANFTRABAJADOR"]);
+
 Route::post('aprobarRecepcionCaja', [CajasAprobacionController::class,"aprobarRecepcionCaja"]);
 
 Route::post('delCuentaPorPagar', [CuentasporpagarController::class,"delCuentaPorPagar"]);

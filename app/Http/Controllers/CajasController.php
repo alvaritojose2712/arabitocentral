@@ -43,6 +43,8 @@ class CajasController extends Controller
     }
     function setEfecFromSucursalToCentral($movs, $id_sucursal) {
 
+            $bs = (new CierresController)->getTasa()["bs"];
+            $cop = (new CierresController)->getTasa()["cop"];
         
             $count_movs = count($movs);
             $counter =0;
@@ -67,7 +69,10 @@ class CajasController extends Controller
                         $split = explode("=",$e["concepto"]);
                         if (isset($split[1])) {
                             $ci = $split[1];
-                            $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:$e["montopeso"]);
+                            $monto = $e["montodolar"];
+                            $monto += $e["montobs"]/$bs;
+                            $monto += $e["montopeso"]/$cop;
+                            $monto += $e["montoeuro"];
                             (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $e["id"],$e["fecha"]);
                         }
                     }
@@ -76,7 +81,10 @@ class CajasController extends Controller
                         $split = explode("=",$e["concepto"]);
                         if (isset($split[1])) {
                             $ci = $split[1];
-                            $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:$e["montopeso"]);
+                            $monto = $e["montodolar"];
+                            $monto += round($e["montobs"]/$bs,2);
+                            $monto += round($e["montopeso"]/$cop,2);
+                            $monto += $e["montoeuro"];
 
                             if (strpos($catnombre,"NOMINA ABONO")) {
                                 $monto = abs($monto);
