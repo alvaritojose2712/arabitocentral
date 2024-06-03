@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Cajascatdesplegable  from "./cajascatdesplegable";
+import {ReactApexChart} from 'apexcharts'
 export default function ComoVamos({
     getsucursalDetallesData,
     sucursalDetallesData,
@@ -29,6 +30,26 @@ export default function ComoVamos({
     useEffect(() => {
         getsucursalDetallesData(null, "comovamos")
     }, [])
+
+    let series = [44, 55, 13, 43, 22]
+    let options = {
+        chart: {
+        width: 380,
+        type: 'pie',
+        },
+        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+        responsive: [{
+        breakpoint: 480,
+        options: {
+            chart: {
+            width: 200
+            },
+            legend: {
+            position: 'bottom'
+            }
+        }
+        }]
+    }
 
 
     return (
@@ -328,6 +349,34 @@ export default function ComoVamos({
                             </tr>
                         </tbody>
                     </table>
+
+                    <h2>% GASTOS / VENTAS</h2>
+
+                    <table className="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                   <table className="table">
+                                        <tbody>
+                                            <tr>
+                                                <th>VENTA BRUTA</th>
+                                                <th>{moneda(balanceGeneralData.total)}</th>
+                                            </tr>
+                                            <tr>
+                                                <th>GASTOS</th>
+                                                <th>{moneda(balanceGeneralData.sumGastos)}</th>
+                                            </tr>
+                                        </tbody>
+                                    </table> 
+                                </td>
+                                <td>
+                                    <ReactApexChart options={options} series={series} type="pie" width={380} />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h2>% GASTOS / U.BRUTA</h2>
+                    <h2>% GASTOS / U.NETA</h2>
                 </>
             :null}
 

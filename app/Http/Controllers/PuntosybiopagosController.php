@@ -218,11 +218,12 @@ class PuntosybiopagosController extends Controller
 
     function autoliquidarTransferencia(Request $req) {
         $type = $req->type;
-        $fechaSelectAuditoria = $req->fechaSelectAuditoria;
-        $fechaHastaSelectAuditoria = $req->fechaHastaSelectAuditoria;
+        $fechaAutoLiquidarTransferencia = $req->fechaAutoLiquidarTransferencia;
+        $bancoAutoLiquidarTransferencia = $req->bancoAutoLiquidarTransferencia;
 
-        $p = puntosybiopagos::whereBetween("fecha", [$fechaSelectAuditoria, !$fechaHastaSelectAuditoria?$fechaSelectAuditoria:$fechaHastaSelectAuditoria])
+        $p = puntosybiopagos::whereBetween("fecha", [$fechaAutoLiquidarTransferencia, $fechaAutoLiquidarTransferencia])
         ->where("tipo","Transferencia")
+        ->where("banco",$bancoAutoLiquidarTransferencia)
         ->get();
         if ($type=="auto") {
             foreach ($p as $i => $e) {

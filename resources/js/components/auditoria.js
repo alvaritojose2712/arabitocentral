@@ -97,6 +97,10 @@ export default function Auditoria({
     setcuentasPagosSucursal,
     categoriasCajas,
     autoliquidarTransferencia,
+    fechaAutoLiquidarTransferencia,
+    setfechaAutoLiquidarTransferencia,
+    bancoAutoLiquidarTransferencia,
+    setbancoAutoLiquidarTransferencia,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -595,11 +599,22 @@ export default function Auditoria({
                                         <button className="btn btn-success" onClick={()=>getBancosData()}><i className="fa fa-search"></i></button>
                                     
                                     </div>
-
-                                    <button className="btn btn-success m-2" onClick={()=>autoliquidarTransferencia("auto")}>AUTOLIQUIDAR TRANSFERENCIAS</button>
-                                    <button className="btn btn-sinapsis m-2" onClick={()=>autoliquidarTransferencia("reversar")}>REVERSAR LIQUIDACIÓN DE TRANSFERENCIAS</button>
+                                    <hr />
+                                    <div className="input-group">
+                                        <input type="date" value={fechaAutoLiquidarTransferencia} onChange={event=>setfechaAutoLiquidarTransferencia(event.target.value)} className="form-control" />
+                                        <select className="form-control" 
+                                        value={bancoAutoLiquidarTransferencia} 
+                                        onChange={e=>setbancoAutoLiquidarTransferencia(e.target.value)}>
+                                            <option value="">-Banco-</option>
+                                            {opcionesMetodosPago.filter(e=>e.codigo!="EFECTIVO").map(e=>
+                                                <option value={e.codigo} key={e.id}>{e.descripcion}</option>
+                                            )}
+                                        </select>
+                                        <button className="btn btn-success m-2" onClick={()=>autoliquidarTransferencia("auto")}>AUTOLIQUIDAR TRANSFERENCIAS</button>
+                                        <button className="btn btn-sinapsis m-2" onClick={()=>autoliquidarTransferencia("reversar")}>REVERSAR LIQUIDACIÓN DE TRANSFERENCIAS</button>
+                                    </div>
                                 </div> 
-
+                                    <hr />
                                 <table className="table">
                                     <thead>
                                         <tr>
@@ -658,8 +673,8 @@ export default function Auditoria({
                                                 <th>
                                                     {selectTrLiquidar===i?
                                                         <div className="input-group-vertical">
-                                                            <input type="text" className="form-control" value={inpmontoLiquidar} disabled={e.tipo=="Transferencia"?true:false} placeholder="Monto Liquidado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
-                                                            <input type="date" className="form-control" value={inpfechaLiquidar} disabled={e.tipo=="Transferencia"?true:false} onChange={event=>setinpfechaLiquidar(event.target.value)}/>
+                                                            <input type="text" className="form-control" value={inpmontoLiquidar} placeholder="Monto Liquidado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
+                                                            <input type="date" className="form-control" value={inpfechaLiquidar} onChange={event=>setinpfechaLiquidar(event.target.value)}/>
                                                             <button className="btn btn-warning w-100" onClick={()=>liquidarMov(e.id)}>LIQUIDAR <i className="fa fa-send"></i></button>
                                                         </div>
                                                     :null}

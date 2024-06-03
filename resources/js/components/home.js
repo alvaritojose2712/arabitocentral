@@ -3466,12 +3466,15 @@ function formatAmount( number, simbol ) {
       })
     }
   }
+
+  const [fechaAutoLiquidarTransferencia, setfechaAutoLiquidarTransferencia] = useState("")
+  const [bancoAutoLiquidarTransferencia, setbancoAutoLiquidarTransferencia] = useState("")
   const autoliquidarTransferencia = type => {
-    if (confirm("Confirme")) {
+    if (confirm("Confirme") && fechaAutoLiquidarTransferencia && bancoAutoLiquidarTransferencia) {
       db.autoliquidarTransferencia({
         type,
-        fechaSelectAuditoria,
-        fechaHastaSelectAuditoria,
+        fechaAutoLiquidarTransferencia,
+        bancoAutoLiquidarTransferencia,
       }).then(res=>{
         getBancosData()
 
@@ -4376,6 +4379,11 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
             <Auditoria
+              fechaAutoLiquidarTransferencia={fechaAutoLiquidarTransferencia}
+              setfechaAutoLiquidarTransferencia={setfechaAutoLiquidarTransferencia}   
+              bancoAutoLiquidarTransferencia={bancoAutoLiquidarTransferencia}
+              setbancoAutoLiquidarTransferencia={setbancoAutoLiquidarTransferencia}
+
               autoliquidarTransferencia={autoliquidarTransferencia}
               categoriasCajas={categoriasCajas }
               permiso={permiso}

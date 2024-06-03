@@ -25,9 +25,11 @@
     },
     "dependencies": {
         "@babel/preset-react": "^7.14.5",
+        "apexcharts": "^3.49.1",
         "bootstrap": "^5.1.0",
         "font-awesome": "^4.7.0",
         "react": "^17.0.2",
+        "react-charts": "^3.0.0-beta.57",
         "react-dom": "^17.0.2",
         "react-hotkeys-hook": "^3.4.3",
         "remove": "^0.1.5"

@@ -886,6 +886,7 @@ class CierresController extends Controller
             "gastosvariablesSum"=>$gastosvariablesSum,
 
             "gananciaNeta" => $gananciaNeta,
+            "sumGastos"=>$sumGastos,
 
 
             "efectivodolar" =>$dolarbalance,
