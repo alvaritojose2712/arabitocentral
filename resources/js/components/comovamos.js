@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Cajascatdesplegable  from "./cajascatdesplegable";
-import {ReactApexChart} from 'apexcharts'
+import Chart from "react-apexcharts";
 export default function ComoVamos({
     getsucursalDetallesData,
     sucursalDetallesData,
@@ -31,25 +31,7 @@ export default function ComoVamos({
         getsucursalDetallesData(null, "comovamos")
     }, [])
 
-    let series = [44, 55, 13, 43, 22]
-    let options = {
-        chart: {
-        width: 380,
-        type: 'pie',
-        },
-        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-        responsive: [{
-        breakpoint: 480,
-        options: {
-            chart: {
-            width: 200
-            },
-            legend: {
-            position: 'bottom'
-            }
-        }
-        }]
-    }
+   
 
 
     return (
@@ -359,24 +341,154 @@ export default function ComoVamos({
                                    <table className="table">
                                         <tbody>
                                             <tr>
-                                                <th>VENTA BRUTA</th>
+                                                <td>VENTA BRUTA</td>
                                                 <th>{moneda(balanceGeneralData.total)}</th>
                                             </tr>
                                             <tr>
-                                                <th>GASTOS</th>
+                                                <td>GASTOS</td>
                                                 <th>{moneda(balanceGeneralData.sumGastos)}</th>
+                                                <th>{balanceGeneralData.porcevbrutanum} %</th>
                                             </tr>
                                         </tbody>
                                     </table> 
                                 </td>
                                 <td>
-                                    <ReactApexChart options={options} series={series} type="pie" width={380} />
+
+                                    <Chart
+                                        options={
+                                            {
+                                                chart: {
+                                                width: 380,
+                                                type: 'pie',
+                                                },
+                                                labels: balanceGeneralData.porcevbruta?balanceGeneralData.porcevbruta.labels:[],
+                                                responsive: [{
+                                                breakpoint: 480,
+                                                options: {
+                                                    chart: {
+                                                    width: 200
+                                                    },
+                                                    legend: {
+                                                    position: 'bottom'
+                                                    }
+                                                }
+                                                }]
+                                            }
+                                        }
+                                        series={
+                                            balanceGeneralData.porcevbruta?balanceGeneralData.porcevbruta.series:[]
+                                        }
+                                        type="pie"
+                                        width="500"
+                                    />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <h2>% GASTOS / U.BRUTA</h2>
-                    <h2>% GASTOS / U.NETA</h2>
+                    <h2>% GASTOS / G.BRUTA</h2>
+                    <table className="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                   <table className="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>GANANCIA BRUTA</td>
+                                                <th>{moneda(balanceGeneralData.ganancia)}</th>
+                                            </tr>
+                                            <tr>
+                                                <td>GASTOS</td>
+                                                <th>{moneda(balanceGeneralData.sumGastos)}</th>
+                                                <th>{balanceGeneralData.porcegbrutanum} %</th>
+                                            </tr>
+                                        </tbody>
+                                    </table> 
+                                </td>
+                                <td>
+
+                                    <Chart
+                                        options={
+                                            {
+                                                chart: {
+                                                width: 380,
+                                                type: 'pie',
+                                                },
+                                                labels: balanceGeneralData.porcegbruta?balanceGeneralData.porcegbruta.labels:[],
+                                                responsive: [{
+                                                breakpoint: 480,
+                                                options: {
+                                                    chart: {
+                                                    width: 200
+                                                    },
+                                                    legend: {
+                                                    position: 'bottom'
+                                                    }
+                                                }
+                                                }]
+                                            }
+                                        }
+                                        series={
+                                            balanceGeneralData.porcegbruta?balanceGeneralData.porcegbruta.series:[]
+                                        }
+                                        type="pie"
+                                        width="500"
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h2>% GASTOS / G.NETA</h2>
+                    <table className="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                   <table className="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>GANANCIA NETA</td>
+                                                <th>{moneda(balanceGeneralData.gananciaNeta)}</th>
+                                            </tr>
+                                            <tr>
+                                                <td>GASTOS</td>
+                                                <th>{moneda(balanceGeneralData.sumGastos)}</th>
+                                                <th>{balanceGeneralData.porcegnetanum} %</th>
+                                            </tr>
+                                        </tbody>
+                                    </table> 
+                                </td>
+                                <td>
+
+                                    <Chart
+                                        options={
+                                            {
+                                                chart: {
+                                                width: 380,
+                                                type: 'pie',
+                                                },
+                                                labels: balanceGeneralData.porcegneta?balanceGeneralData.porcegneta.labels:[],
+                                                responsive: [{
+                                                breakpoint: 480,
+                                                options: {
+                                                    chart: {
+                                                    width: 200
+                                                    },
+                                                    legend: {
+                                                    position: 'bottom'
+                                                    }
+                                                }
+                                                }]
+                                            }
+                                        }
+                                        series={
+                                            balanceGeneralData.porcegneta?balanceGeneralData.porcegneta.series:[]
+                                        }
+                                        type="pie"
+                                        width="500"
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </>
             :null}
 

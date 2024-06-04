@@ -882,6 +882,9 @@ class CierresController extends Controller
         $sumGastos = $gastosfijosSum + $gastosvariablesSum;
         $gananciaNeta = $ganancia+$sumGastos;
         
+        $porcevbrutanum = round((abs($sumGastos)*100)/$total,2);
+        $porcegbrutanum = round((abs($sumGastos)*100)/$ganancia,2);
+        $porcegnetanum = round((abs($sumGastos)*100)/$gananciaNeta,2);
         return [
             "gastos"=>$gastos,
 
@@ -896,6 +899,24 @@ class CierresController extends Controller
 
             "gananciaNeta" => $gananciaNeta,
             "sumGastos"=>$sumGastos,
+
+            "porcevbruta" => [
+                "labels"=>["VENTA BRUTA","GASTOS"],
+                "series"=>[$total,abs($sumGastos)],
+            ],
+            "porcevbrutanum" => $porcevbrutanum,
+
+            "porcegbruta" => [
+                "labels"=>["GANANCIA BRUTA","GASTOS"],
+                "series"=>[$ganancia,abs($sumGastos)],
+            ],
+            "porcegbrutanum" => $porcegbrutanum,
+
+            "porcegneta" => [
+                "labels"=>["GANANCIA NETA","GASTOS"],
+                "series"=>[$gananciaNeta,abs($sumGastos)],
+            ],
+            "porcegnetanum" => $porcegnetanum,
 
 
             "efectivodolar" =>$dolarbalance,

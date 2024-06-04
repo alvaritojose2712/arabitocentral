@@ -47,7 +47,7 @@ export default function Controldeefectivo({
                                 Object.entries(sucursalDetallesData.sum.catgeneral).map((e,i)=>
                                     <tr key={i}>
                                         <th>
-                                            <button className="btn w-100 btn-sm" style={{color:"white",fontWeight:"bold",backgroundColor:colorsGastosCat(e[1].catgeneral,"catgeneral","color")}}>{colorsGastosCat(e[1].catgeneral,"catgeneral","desc")}</button>
+                                            <button className="btn w-100 btn-sm" style={{color:"black",fontWeight:"bold",backgroundColor:colorsGastosCat(e[1].catgeneral,"catgeneral","color")}}>{colorsGastosCat(e[1].catgeneral,"catgeneral","desc")}</button>
                                         </th>
                                         <th></th>
                                         <td className="text-right">{moneda(e[1].montodolar)}</td>
@@ -131,7 +131,7 @@ export default function Controldeefectivo({
                                             <td className=""><small className="text-muted">{e.created_at}</small></td>
                                             <td className="">
                                                 <button className="btn w-100 btn-sm" 
-                                                    style={{color:"white",fontWeight:"bold",backgroundColor:colorsGastosCat(e.categoria,"cat","color")}}>
+                                                    style={{color:"black",fontWeight:"bold",backgroundColor:colorsGastosCat(e.categoria,"cat","color")}}>
                                                         {colorsGastosCat(e.categoria,"cat","desc")}
                                                 </button>
                                             </td>
