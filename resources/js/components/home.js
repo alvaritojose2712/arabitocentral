@@ -4834,7 +4834,7 @@ function formatAmount( number, simbol ) {
               />
           }
           
-          {permiso([1,2,10]) && viewmainPanel === "cargarfactsdigitales" &&
+          {permiso([1,2,10,13]) && viewmainPanel === "cargarfactsdigitales" &&
           <>
               <Comprasmenufactsdigital 
                 viewmainPanel={viewmainPanel}

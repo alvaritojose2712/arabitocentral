@@ -74965,7 +74965,7 @@ function Home() {
           setqfechaFilescxp: setqfechaFilescxp,
           proveedoresList: proveedoresList,
           sucursales: sucursales
-        }), permiso([1, 2, 10]) && viewmainPanel === "cargarfactsdigitales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
+        }), permiso([1, 2, 10, 13]) && viewmainPanel === "cargarfactsdigitales" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_Comprasmenufactsdigital__WEBPACK_IMPORTED_MODULE_27__["default"], {
             viewmainPanel: viewmainPanel,
             setviewmainPanel: setviewmainPanel,
