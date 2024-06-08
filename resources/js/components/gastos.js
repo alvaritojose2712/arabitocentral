@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Chart from "react-apexcharts";
+
 export default function Gastos({
 	categoriasCajas,
 	formatAmount,
@@ -374,79 +376,89 @@ export default function Gastos({
 					</form>
 
 					<div className="row">
-						<div className="col">
-							<div className="container-fluid">
-								<div className="row">
-									<div className="col">
-									{distribucionGastosCat.distribucionGastosCat?
-										Object.entries(distribucionGastosCat.distribucionGastosCat).map((ingregre,i)=>
-											<table className="table mb-2">
-												<tbody>
-													{ingregre[1]["data"].map(e=>
-														<tr key={e.id}>
-															<td className="cell3">
-																<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(ingregre[0],"ingreso_egreso","color")}}>
-																	{colorsGastosCat(ingregre[0],"ingreso_egreso","desc")}
-																</button>
-															</td>
-															<td className="cell5">
-																<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.id,"cat","color")}}>
-																	{e.nombre}
-																</button>
-															</td>
-															<td className="fs-6 text-right text-danger cell1">{moneda(e.sum)}</td>
-															<td className="text-muted fst-italic text-right cell1">{(e.por)}%</td>
-														</tr>
-													)}
-													<tr>
-														<td></td>
-														<td></td>
-														<td colSpan={2} className="bg-warning fs-6 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
+						<div className="col text-dark">
+							{distribucionGastosCat.distribucionGastosCat?
+								Object.entries(distribucionGastosCat.distribucionGastosCat).map((ingregre,i)=>
+									<>
+										{ingregre[0]==2||ingregre[0]==3?<Chart
+											options={{chart: {width: 1200,type: 'pie',}
+											,dataLabels: {
+												style: {
+												  colors: ['#000']
+												}
+											}
+											,colors: ingregre[1]["data"].map(e=>colorsGastosCat(e.id,"cat","color")) 
+											,labels: ingregre[1]["data"]? ingregre[1]["data"].map(e=>e.nombre) : []
+											,responsive: [{breakpoint: 480,options: {chart: {width: 200},legend: {position: 'bottom'}}}]}}
+											series={
+												ingregre[1]["data"]? ingregre[1]["data"].map(e=>Math.abs(e.sum)) : []
+											} 
+											type="pie" width="1200"
+										/>:null}
+										<table className="table mb-2">
+											<tbody>
+												{ingregre[1]["data"].map(e=>
+													<tr key={e.id}>
+														<td className="cell3">
+															<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.catgeneral,"catgeneral","color")}}>
+																{colorsGastosCat(e.catgeneral,"catgeneral","desc")}
+															</button>
+														</td>
+														<td className="cell3">
+															<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(ingregre[0],"ingreso_egreso","color")}}>
+																{colorsGastosCat(e.ingreso_egreso,"ingreso_egreso","desc")}
+															</button>
+														</td>
+														<td className="cell5">
+															<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.id,"cat","color")}}>
+																{e.nombre}
+															</button>
+														</td>
+														<td className="fs-6 text-right text-danger cell1">{moneda(e.sum)}</td>
+														<td className="text-muted fst-italic text-right cell1">{(e.por)}%</td>
 													</tr>
-												</tbody>
-											</table>
-										)
-									:null}
-									</div>
-									
-								</div>
-							</div>
+												)}
+												<tr>
+													<td></td>
+													<td></td>
+													<td colSpan={3} className="bg-warning fs-6 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
+												</tr>
+											</tbody>
+										</table>
+									</>
+								)
+							:null}
 						</div>
 						<div className="col">
-							<div className="container-fluid">
-								<div className="col">
-								{distribucionGastosCat.distribucionGastosSucursal?
-										Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>
-											<table className="table mb-3">
-												<tbody>
-													{ingregre[1]["data"].map(e=>
-														<tr key={e.id}>
-															<td className=" cell3">
-																<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(ingregre[0],"ingreso_egreso","color")}}>
-																	{colorsGastosCat(ingregre[0],"ingreso_egreso","desc")}
-																</button>
-															</td>
-															<td className=" cell5">
-																<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.id,"cat","color")}}>
-																	{e.nombre}
-																</button>
-															</td>
-															<td className="fs-6 text-right text-danger cell1">{moneda(e.sum)}</td>
-															<td className="text-muted fst-italic text-right cell1">{(e.por)}%</td>
-														</tr>
-													)}
-													<tr>
-														<td></td>
-														<td></td>
-														<td colSpan={2} className="bg-warning fs-6 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
-													</tr>
-												</tbody>
-											</table>
-										)
-									:null}
-								</div>
-							</div>
-
+							{distribucionGastosCat.distribucionGastosSucursal?
+								Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>
+									<table className="table mb-3">
+										<tbody>
+											{ingregre[1]["data"].map(e=>
+												<tr key={e.id}>
+													<td className=" cell3">
+														<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(ingregre[0],"ingreso_egreso","color")}}>
+															{colorsGastosCat(ingregre[0],"ingreso_egreso","desc")}
+														</button>
+													</td>
+													<td className=" cell5">
+														<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.id,"cat","color")}}>
+															{e.nombre}
+														</button>
+													</td>
+													<td className="fs-6 text-right text-danger cell1">{moneda(e.sum)}</td>
+													<td className="text-muted fst-italic text-right cell1">{(e.por)}%</td>
+												</tr>
+											)}
+											<tr>
+												<td></td>
+												<td></td>
+												<td colSpan={2} className="bg-warning fs-6 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
+											</tr>
+										</tbody>
+									</table>
+								)
+							:null}
 						</div>
 					</div>
 				</>

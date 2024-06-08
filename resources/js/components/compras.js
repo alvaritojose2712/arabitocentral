@@ -48,7 +48,7 @@ export default function Compras({
                         </div>
                     </div> 
                 </>}
-                {permiso([1,2,10]) && <>
+                {permiso([1,2,10,13]) && <>
                     <div className="col d-flex justify-content-center">
                         <div className="circle" onClick={()=>setviewmainPanel("cargarfactsdigitales")}>
                             <div className="circle_title">

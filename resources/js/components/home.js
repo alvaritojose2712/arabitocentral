@@ -625,7 +625,7 @@ function Home() {
           return colorCat[id][tipo]  
         break;
         case "catgeneral":
-          return colorCatGeneral[id][tipo]  
+          return  [id][tipo]  
         break;
         case "ingreso_egreso":
           return colorIngresoegre[id][tipo]  
@@ -4370,7 +4370,7 @@ function formatAmount( number, simbol ) {
           }
 
 
-          {permiso([1,2,9,10]) && viewmainPanel === "compras" &&
+          {permiso([1,2,9,10,13]) && viewmainPanel === "compras" &&
             <Compras
               permiso={permiso}
               setviewmainPanel={setviewmainPanel}
