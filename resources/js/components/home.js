@@ -3868,7 +3868,7 @@ function formatAmount( number, simbol ) {
     */}
     let obj = cloneDeep(productosInventario)
     let rows = inputimportitems.replace("\"","").replace("\'","").split("\n")
-    let cols,row, alterno,unidad,descripcion,ct,basef,base,venta;
+    let cols,row, alterno,barras,unidad,descripcion,ct,basef,base,venta;
     if (inputimportitems) {
       for(let i in rows){
         row = rows[i]
