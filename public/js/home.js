@@ -74181,16 +74181,17 @@ function Home() {
           break;
         }
         alterno = cols[0] ? cols[0] : "";
-        unidad = cols[1] ? cols[1] : "";
-        descripcion = cols[2] ? cols[2] : "";
-        ct = cols[3] ? cols[3] : "";
-        basef = cols[4] ? cols[4] : "";
-        base = cols[5] ? cols[5] : "";
-        venta = cols[6] ? cols[6] : "";
+        barras = cols[1] ? cols[1] : "";
+        unidad = cols[2] ? cols[2] : "";
+        descripcion = cols[3] ? cols[3] : "";
+        ct = cols[4] ? cols[4] : "";
+        basef = cols[5] ? cols[5] : "";
+        base = cols[6] ? cols[6] : "";
+        venta = cols[7] ? cols[7] : "";
         var newObj = [{
           id: null,
           codigo_proveedor: alterno,
-          codigo_barras: "",
+          codigo_barras: barras,
           unidad: unidad,
           descripcion: descripcion,
           cantidad: removeMoneyFormat(ct),
