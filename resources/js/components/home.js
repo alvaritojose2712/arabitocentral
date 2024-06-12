@@ -3649,6 +3649,7 @@ function formatAmount( number, simbol ) {
   const [gastosData,setgastosData] = useState([])
   const [gastosQ,setgastosQ] = useState("")
   const [gastosQCategoria,setgastosQCategoria] = useState("")
+  const [gastosQsucursal,setgastosQsucursal] = useState("")
   const [gastosQFecha,setgastosQFecha] = useState("")
   const [gastosQFechaHasta,setgastosQFechaHasta] = useState("")
 
@@ -3686,20 +3687,23 @@ function formatAmount( number, simbol ) {
     let fil = []
     if (modeEjecutor=="personal") {
       
-      fil = nominaData.personal.filter(e=>e.id==gastosBeneficiario)
+      fil = nominaData.personal.filter(e=>e.id==(id!==null?id:gastosBeneficiario))
     }else{
-      fil = sucursales.filter(e=>e.id==gastosBeneficiario)
+      fil = sucursales.filter(e=>e.id==(id!==null?id:gastosBeneficiario))
     }
-    if (fil.length) {
-      let clone = (listBeneficiario)
-      if (type=="add") {
-        if (!listBeneficiario.filter(e=>e.id==gastosBeneficiario).length) {
+    let clone = (listBeneficiario)
+    if (type=="add") {
+      if (fil.length) {
+        if (!listBeneficiario.filter(e=>e.id==(id!==null?id:gastosBeneficiario)).length) {
           
           setlistBeneficiario(clone.concat(fil[0]))
+        }else{
+          setlistBeneficiario(clone.filter(e=>e.id!=fil[0].id))
+
         }
-      }else{
-        setlistBeneficiario(clone.filter(e=>e.id!=id))
       }
+    }else{
+      setlistBeneficiario(clone.filter(e=>e.id!=id))
     }
   }
 
@@ -3758,6 +3762,7 @@ function formatAmount( number, simbol ) {
     db.getGastos({
       gastosQ,
       gastosQCategoria,
+      gastosQsucursal,
       gastosQFecha,
       gastosQFechaHasta,
       gastoscatgeneral,
@@ -4353,12 +4358,9 @@ function formatAmount( number, simbol ) {
               fechasMain2={fechasMain2}
               setfechasMain1={setfechasMain1}
               setfechasMain2={setfechasMain2}
-              moneda={moneda}
-              getsucursalDetallesData={getsucursalDetallesData}
               sucursalSelect={sucursalSelect}
               setsucursalSelect={setsucursalSelect}
               setsucursalDetallesData={setsucursalDetallesData}
-              sucursalDetallesData={sucursalDetallesData}
               getSucursales={getSucursales}
               sucursales={sucursales}
               qestatusaprobaciocaja={qestatusaprobaciocaja}
@@ -5344,6 +5346,8 @@ function formatAmount( number, simbol ) {
               setgastosQ={setgastosQ}
               gastosQCategoria={gastosQCategoria}
               setgastosQCategoria={setgastosQCategoria}
+              gastosQsucursal={gastosQsucursal}
+              setgastosQsucursal={setgastosQsucursal}
               gastosQFecha={gastosQFecha}
               setgastosQFecha={setgastosQFecha}
               gastosQFechaHasta={gastosQFechaHasta}

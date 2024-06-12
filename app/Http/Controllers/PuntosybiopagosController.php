@@ -263,6 +263,8 @@ class PuntosybiopagosController extends Controller
         $gastosQFecha = $arr["gastosQFecha"];
         $gastosQFechaHasta = $arr["gastosQFechaHasta"];
         $gastosQCategoria = $arr["gastosQCategoria"];
+        $gastosQsucursal = isset($arr["gastosQsucursal"])?$arr["gastosQsucursal"]:"";
+        
         $catgeneral = $arr["catgeneral"];
         $ingreso_egreso = $arr["ingreso_egreso"];
         $typecaja = $arr["typecaja"];
@@ -278,6 +280,9 @@ class PuntosybiopagosController extends Controller
         })
         ->when($gastosQCategoria,function($q) use ($gastosQCategoria) {
             $q->where("categoria",$gastosQCategoria);
+        })
+        ->when($gastosQsucursal,function($q) use ($gastosQsucursal) {
+            $q->where("id_sucursal",$gastosQsucursal);
         })
         ->when($typecaja,function($q) use ($typecaja) {
             $q->where("tipo",$typecaja);
@@ -344,6 +349,8 @@ class PuntosybiopagosController extends Controller
         $gastosQFecha = $req->gastosQFecha;
         $gastosQFechaHasta = $req->gastosQFechaHasta;
         $gastosQCategoria = $req->gastosQCategoria;
+        $gastosQsucursal = $req->gastosQsucursal;
+        
 
         $catgeneral = $req->catgeneral;
         $ingreso_egreso = $req->ingreso_egreso;
@@ -358,6 +365,7 @@ class PuntosybiopagosController extends Controller
             "gastosQFecha" => $gastosQFecha,
             "gastosQFechaHasta" => $gastosQFechaHasta,
             "gastosQCategoria" => $gastosQCategoria,
+            "gastosQsucursal" => $gastosQsucursal,
             "catgeneral" => $catgeneral,
             "ingreso_egreso" => $ingreso_egreso,
             "typecaja" => $typecaja,

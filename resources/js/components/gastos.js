@@ -15,6 +15,9 @@ export default function Gastos({
 	gastosQFechaHasta,
 	setgastosQFechaHasta,
 
+	gastosQsucursal,
+	setgastosQsucursal,
+
 	gastoscatgeneral,
 	setgastoscatgeneral,
 	gastosingreso_egreso,
@@ -85,7 +88,7 @@ export default function Gastos({
 
 }) {
 
-	useEffect(()=>{
+	/* useEffect(()=>{
 		getPersonal(data=>{
 			if (data.personal.length) {
 				let id = data.personal[0].id
@@ -97,9 +100,9 @@ export default function Gastos({
 		if (qNomina=="") {
 			setgastosBeneficiario("")
 		}
-	},[qNomina])
+	},[qNomina]) */
 
-	useEffect(()=>{
+	/* useEffect(()=>{
 		getSucursales(qSucursal,data=>{
 			if (data.length) {
 				let id = data[0].id
@@ -111,7 +114,7 @@ export default function Gastos({
 		if (qSucursal=="") {
 			setgastosBeneficiario("")
 		}
-	},[qSucursal])
+	},[qSucursal]) */
 
 	useEffect(()=>{
 		getGastos()
@@ -121,11 +124,14 @@ export default function Gastos({
 		gastosingreso_egreso,
 		gastosorder,
 		gastosfieldorder,
+		gastosQsucursal,
 	])
 
 	useEffect(()=>{
 		setlistBeneficiario([])
 	},[modeEjecutor])
+
+	const [qbuscarcat,setqbuscarcat] = useState("")
 
 	
 	return(
@@ -139,10 +145,7 @@ export default function Gastos({
             </div>
 
 			{subviewGastos=="cargar"?
-				<form onSubmit={e=>{
-					e.preventDefault()
-					saveNewGasto()
-				}} className="was-validated">
+				<div className="was-validated">
 					<div className="form-group mb-2">
 						<span className="form-label">Descripción</span>
 						<input type="text" className="form-control form-control-lg" value={gastosDescripcion} onChange={e=>setgastosDescripcion(e.target.value)} placeholder="Descripción" required={true}/>
@@ -192,37 +195,62 @@ export default function Gastos({
 
 					<div className="form-group mb-2">
 						<span className="form-label">Categoría</span>
-						<select className="form-control" 
-						value={gastosCategoria} 
-						onChange={e=>setgastosCategoria(e.target.value)} required={true}>
-							<option value="">-Categoría-</option>
-							{categoriasCajas.map(e=>
-								<option value={e.id} key={e.id}>{e.nombre}</option>
-							)}
-						</select>
+						
+						<input type="text" className="form-control" placeholder="Buscar CATEGORÍA..." value={qbuscarcat} onChange={event=>setqbuscarcat(event.target.value)} />
+
+						<div className="card card-personal">
+							<ul className="list-group">
+								{categoriasCajas.length?categoriasCajas.filter(e=>{
+									if(qbuscarcat==""){return true}
+									else{
+										if ((e.nombre.toLowerCase()).indexOf(qbuscarcat.toLowerCase())!==-1) {return true}else{return false}
+									}
+								}).map(e=>
+									<li key={e.id} className={"list-group-item "+(gastosCategoria==e.id?" active pointer ":"")} onClick={()=>{setgastosCategoria(e.id)}}>{e.nombre}</li>
+								):null}
+							</ul>
+						</div>
 					</div>
 
 					<div className="form-group mb-2">
-						<span className="form-label">Ejecutor</span>
+						<div className="mb-1">
+							<span className="form-label">Asignar a </span>
+							
+							{modeEjecutor=="personal"?<button className="btn btn-sinapsis" type="button" onClick={()=>setmodeEjecutor("sucursal")}><i className="fa fa-user"></i> </button>:null}
+							{modeEjecutor=="sucursal"?<button className="btn btn-success" type="button" onClick={()=>setmodeEjecutor("personal")}><i className="fa fa-home"></i></button>:null}
+						</div>
+
+
 							{modeEjecutor=="personal"?
 								<div className="row">
 									<div className="col-md-2">
 										<div className="input-group">
-											<button className="btn btn-sinapsis" type="button" onClick={()=>setmodeEjecutor("sucursal")}><i className="fa fa-home"></i> </button>
-											<input type="text" className="form-control is-invalid" value={qNomina} onChange={e=>setqNomina(e.target.value)} placeholder="Buscar..." />
+											
+											<form onSubmit={event=>{event.preventDefault();getPersonal()}} className="input-group">
+												<input type="text" className="form-control is-invalid" value={qNomina} onChange={e=>setqNomina(e.target.value)} placeholder="Buscar PERSONAL..." />
+												<button className="btn btn-success" type="submit"> <i className="fa fa-search"></i> </button>
+											</form>
 										</div>
 									</div>
 									<div className="col">
 										<div className="input-group">
-											<button className="btn btn-success" type="button" onClick={()=>addBeneficiarioList("add")}><i className="fa fa-arrow-right"></i></button>
-											<select className={("form-select ")} 
+											{/* <button className="btn btn-success" type="button" onClick={()=>addBeneficiarioList("add")}><i className="fa fa-arrow-right"></i></button>*/}
+											{/* <select className={("form-select ")} 
 											value={gastosBeneficiario} 
 											onChange={e=>setgastosBeneficiario(e.target.value)} required={true}>
 												<option value="">-Personal-</option>
 												{nominaData.personal?nominaData.personal.length?nominaData.personal.map(e=>
 													<option value={e.id} key={e.id}>{e.nominanombre} {e.nominacedula}</option>
 												):null:null}
-											</select>
+											</select> */}
+
+											<div className="card card-personal">
+                                                <ul className="list-group">
+													{nominaData.personal?nominaData.personal.length?nominaData.personal.map(e=>
+														<li key={e.id} className={"list-group-item "+(listBeneficiario.filter(ee=>ee.id==e.id).length?" active pointer ":"")} onClick={()=>{setgastosBeneficiario(e.id);addBeneficiarioList("add",e.id)}}>{e.nominanombre} {e.nominacedula}</li>
+													):null:null}
+												</ul>
+                                            </div>
 										</div>
 									</div>
 								</div>
@@ -232,22 +260,19 @@ export default function Gastos({
 								<div className="row">
 									<div className="col-md-2">
 										<div className="input-group">
-											<button className="btn btn-success" type="button" onClick={()=>setmodeEjecutor("personal")}><i className="fa fa-user"></i></button>
-											<input type="text" className="form-control is-invalid" value={qSucursal} onChange={e=>setqSucursal(e.target.value)} placeholder="Buscar..." />
+											
+											<form onSubmit={event=>{event.preventDefault();getSucursales(qSucursal)}} className="input-group">
+												<input type="text" className="form-control is-invalid" value={qSucursal} onChange={e=>{setqSucursal(e.target.value)}} placeholder="Buscar SUCURSALES..." />
+											</form>
 										</div>
 									</div>
 									<div className="col">
-										<div className="input-group">
-
-											<button className="btn btn-success" type="button" onClick={()=>addBeneficiarioList("add")}><i className="fa fa-arrow-right"></i></button>
-											<select className={("form-select ")} 
-											value={gastosBeneficiario} 
-											onChange={e=>setgastosBeneficiario(e.target.value)} required={true}>
-												<option value="">-Sucursal-</option>
-												{sucursales.map(e=>
-													<option value={e.id} key={e.id}>{e.codigo}</option>
-												)}
-											</select>
+										<div className="card card-personal">
+											<ul className="list-group">
+												{sucursales.length?sucursales.map(e=>
+													<li key={e.id} className={"list-group-item "+(listBeneficiario.filter(ee=>ee.id==e.id).length?" active pointer ":"")} onClick={()=>{setgastosBeneficiario(e.id);addBeneficiarioList("add",e.id)}}>{e.codigo}</li>
+												):null}
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -267,9 +292,9 @@ export default function Gastos({
 					</div>
 
 					<div className="text-center">
-						<button className="btn btn-success btn-lg"><i className="fa fa-save"></i> Guardar</button>
+						<button className="btn btn-success btn-lg" onClick={()=>saveNewGasto()}><i className="fa fa-save"></i> Guardar</button>
 					</div>
-				</form>				
+				</div>				
 			:null}
 
 			{subviewGastos=="resumen"?
@@ -285,6 +310,15 @@ export default function Gastos({
 							onChange={e=>setgastosQCategoria(e.target.value)}>
 								<option value="">-Buscar por Categoría-</option>
 								{categoriasCajas.map(e=>
+									<option value={e.id} key={e.id}>{e.nombre}</option>
+								)}
+							</select>
+							
+							<select className="form-control" 
+							value={gastosQsucursal} 
+							onChange={e=>setgastosQsucursal(e.target.value)}>
+								<option value="">-Buscar por Sucursal-</option>
+								{sucursales.map(e=>
 									<option value={e.id} key={e.id}>{e.nombre}</option>
 								)}
 							</select>
@@ -379,7 +413,7 @@ export default function Gastos({
 						<div className="col text-dark">
 							{distribucionGastosCat.distribucionGastosCat?
 								Object.entries(distribucionGastosCat.distribucionGastosCat).map((ingregre,i)=>
-									<>
+									ingregre[0]==2||ingregre[0]==3?<>
 										{ingregre[0]==2||ingregre[0]==3?<Chart
 											options={{chart: {width: 1200,type: 'pie',}
 											,dataLabels: {
@@ -425,7 +459,7 @@ export default function Gastos({
 												</tr>
 											</tbody>
 										</table>
-									</>
+									</>:null
 								)
 							:null}
 						</div>
