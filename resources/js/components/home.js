@@ -1541,7 +1541,7 @@ function formatAmount( number, simbol ) {
 
   function dateFormat(input_D, format_D) {
     // input date parsed
-    const date = new Date(input_D);
+    /* const date = new Date(input_D);
 
     //extracting parts of date string
     const day = date.getDate();
@@ -1559,9 +1559,9 @@ function formatAmount( number, simbol ) {
     }
 
     //to replace day
-    format_D = format_D.replace("dd", day.toString().padStart(2,"0"));
+    format_D = format_D.replace("dd", day.toString().padStart(2,"0")); */
 
-    return format_D;
+    return input_D;
   }
 
 

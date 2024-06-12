@@ -900,6 +900,10 @@ class CuentasporpagarController extends Controller
                 $subtotal += $item->cantidad * $item->basef;
             });
             $q->sumitems = $subtotal;
+
+            $q->fechaemision = date("d-m-Y", strtotime($q->fechaemision));
+            $q->fechavencimiento = date("d-m-Y", strtotime($q->fechavencimiento));
+            $q->fecharecepcion = date("d-m-Y", strtotime($q->fecharecepcion));
     
             if ($monto>0){
                 $q->condicion = "abonos";
