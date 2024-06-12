@@ -625,7 +625,7 @@ function Home() {
           return colorCat[id][tipo]  
         break;
         case "catgeneral":
-          return  [id][tipo]  
+          return  colorCatGeneral[id][tipo]  
         break;
         case "ingreso_egreso":
           return colorIngresoegre[id][tipo]  

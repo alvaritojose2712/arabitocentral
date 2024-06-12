@@ -138,11 +138,10 @@ class PuntosybiopagosController extends Controller
         ]);
 
         $distribucionGastosCat = collect($all["data"])->groupBy("categoria");
-        $distribucionGastosSucursal = collect($all["data"])->groupBy(["id_sucursal"]);
+        $distribucionGastosSucursal = collect($all["data"])->groupBy(["id_sucursal","categoria"]);
 
         $distribucionGastosCatMod = [];
         $distribucionGastosSucursalMod = [];
-
         
         foreach ($distribucionGastosCat as $i => $cat) {
             $sum = $cat->sum("montodolar");
@@ -177,40 +176,53 @@ class PuntosybiopagosController extends Controller
 
         }
         foreach ($distribucionGastosSucursal as $id_sucursalkey => $cats_sucursal) {
-            $sum = $cat->sum("montodolar");
-            $id_sucursal = "";
-            $nombre = "";
-            $id = "";
-            $catgeneral = "";
-            $ingreso_egreso = "";
+            $sumsucursal = 0;
+            $codigo_sucursal = "";
 
-            if ($cat->count()) {
-                $nombre = $cat[0]["sucursal"]["codigo"];
-                $id_sucursal = $cat[0]["sucursal"]["id"];
-                $id = $cat[0]["cat"]["id"];
-                $catgeneral = $cat[0]["cat"]["catgeneral"];
-                $ingreso_egreso = $cat[0]["cat"]["ingreso_egreso"];
-            }
-            if (!array_key_exists($id_sucursal,$distribucionGastosSucursalMod)) {
-                $distribucionGastosSucursalMod[$id_sucursal] = [
+            if (!array_key_exists($id_sucursalkey,$distribucionGastosSucursalMod)) {
+                $distribucionGastosSucursalMod[$id_sucursalkey] = [
                     "data"=>[],
                     "sum"=>0,
+                    "codigo_sucursal"=>"",
                 ];
             }
-            array_push($distribucionGastosSucursalMod[$id_sucursal]["data"],[
-                "sum" => ($sum),
-                "nombre" => $nombre,
-                "id" => $id,
-                "por" => 0,
-            ]);
+            
+            foreach ($cats_sucursal as $id_cat => $cats) {
+                $sumsucursal += $cats->sum("montodolar");
+                
+                $codigo_sucursal = $cats[0]["sucursal"]["codigo"];
+                $nombre = $cats[0]["cat"]["nombre"];
+                $id = $id_cat;
+                $catgeneral = $cats[0]["cat"]["catgeneral"];
+                $ingreso_egreso = $cats[0]["cat"]["ingreso_egreso"];
+
+                if (!array_key_exists($id_cat,$distribucionGastosSucursalMod[$id_sucursalkey]["data"])) {
+                    $distribucionGastosSucursalMod[$id_sucursalkey]["data"][$id_cat] = [
+                        "data"=>[],
+                        "detalles"=>$cats,
+                        "sum"=>0,
+                    ];
+                }
+                array_push($distribucionGastosSucursalMod[$id_sucursalkey]["data"][$id_cat]["data"],[
+                    "sum" => $cats->sum("montodolar"),
+                    "nombre" => $nombre,
+                    "catgeneral" => $catgeneral,
+                    "ingreso_egreso" => $ingreso_egreso,
+                    "id" => $id_cat,
+                    "por" => 0,
+                ]);
+            }
+            $distribucionGastosSucursalMod[$id_sucursalkey]["sum"] = $sumsucursal;
+            $distribucionGastosSucursalMod[$id_sucursalkey]["codigo_sucursal"] = $codigo_sucursal;
+            
         }
 
         foreach ($distribucionGastosCatMod as $key => $e) {
             $distribucionGastosCatMod[$key]["sum"] = array_sum(array_column($e["data"],"sum"));
         }
-        foreach ($distribucionGastosSucursalMod as $key => $e) {
+        /* foreach ($distribucionGastosSucursalMod as $key => $e) {
             $distribucionGastosSucursalMod[$key]["sum"] = array_sum(array_column($e["data"],"sum"));
-        }
+        } */
 
         foreach ($distribucionGastosCatMod as $key => $q) {
             $sumCatMod = $q["sum"];
@@ -218,13 +230,14 @@ class PuntosybiopagosController extends Controller
                 $distribucionGastosCatMod[$key]["data"][$keykey]["por"] = round(($sumCatMod==0||$qq["sum"]==0?0:  (abs($qq["sum"]*100)/$sumCatMod))  ,2);
             }
         }
-        foreach ($distribucionGastosSucursalMod as $key => $q) {
+        /* foreach ($distribucionGastosSucursalMod as $key => $q) {
             $sumCatMod = $q["sum"];
             foreach ($q["data"] as $keykey => $qq) {
                 $distribucionGastosSucursalMod[$key]["data"][$keykey]["por"] = round(($sumCatMod==0||$qq["sum"]==0?0:  (abs($qq["sum"]*100)/$sumCatMod))  ,2);
             }
-        }
-        
+        } */
+        array_multisort(array_column($distribucionGastosSucursalMod, "sum"),SORT_DESC, $distribucionGastosSucursalMod);
+
         return [
             "distribucionGastosCat" => $distribucionGastosCatMod,
             "distribucionGastosSucursal" => $distribucionGastosSucursalMod,

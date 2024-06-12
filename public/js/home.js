@@ -9904,7 +9904,7 @@ function Gastos(_ref) {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                       colSpan: 3,
-                      className: "bg-warning fs-6 text-danger text-right",
+                      className: "bg-warning fs-2 text-danger text-right",
                       children: ingregre[1]["sum"] ? moneda(ingregre[1]["sum"]) : 0
                     })]
                   })]
@@ -9914,47 +9914,63 @@ function Gastos(_ref) {
           }) : null
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: "col",
-          children: distribucionGastosCat.distribucionGastosSucursal ? Object.entries(distribucionGastosCat.distribucionGastosSucursal).map(function (ingregre, i) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
+          children: distribucionGastosCat.distribucionGastosSucursal ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_apexcharts__WEBPACK_IMPORTED_MODULE_1__["default"], {
+              options: {
+                chart: {
+                  width: 600,
+                  type: 'pie'
+                },
+                dataLabels: {
+                  style: {
+                    colors: ['#000']
+                  }
+                },
+                colors: Object.entries(distribucionGastosCat.distribucionGastosSucursal).map(function (ingregre, i) {
+                  return colorSucursal(ingregre[1]["codigo_sucursal"]);
+                }),
+                labels: Object.entries(distribucionGastosCat.distribucionGastosSucursal).map(function (ingregre, i) {
+                  return ingregre[1]["codigo_sucursal"];
+                }),
+                responsive: [{
+                  breakpoint: 480,
+                  options: {
+                    chart: {
+                      width: 200
+                    },
+                    legend: {
+                      position: 'bottom'
+                    }
+                  }
+                }]
+              },
+              series: Object.entries(distribucionGastosCat.distribucionGastosSucursal).map(function (ingregre, i) {
+                return ingregre[1]["sum"];
+              }),
+              type: "pie",
+              width: "600"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
               className: "table mb-3",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
-                children: [ingregre[1]["data"].map(function (e) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+              children: Object.entries(distribucionGastosCat.distribucionGastosSucursal).map(function (ingregre, i) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      className: " cell3",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-                        className: "btn w-100 fw-bolder fs-6",
+                        className: "btn w-100 fw-bolder fs-3",
                         style: {
-                          backgroundColor: colorsGastosCat(ingregre[0], "ingreso_egreso", "color")
+                          backgroundColor: colorSucursal(ingregre[1]["codigo_sucursal"])
                         },
-                        children: colorsGastosCat(ingregre[0], "ingreso_egreso", "desc")
+                        children: ingregre[1]["codigo_sucursal"]
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      className: " cell5",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-                        className: "btn w-100 fw-bolder fs-6",
-                        style: {
-                          backgroundColor: colorsGastosCat(e.id, "cat", "color")
-                        },
-                        children: e.nombre
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      className: "fs-6 text-right text-danger cell1",
-                      children: moneda(e.sum)
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
-                      className: "text-muted fst-italic text-right cell1",
-                      children: [e.por, "%"]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                      colSpan: 2,
+                      className: "bg-warning fs-6 text-danger text-right",
+                      children: ingregre[1]["sum"] ? moneda(ingregre[1]["sum"]) : 0
                     })]
-                  }, e.id);
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                    colSpan: 2,
-                    className: "bg-warning fs-6 text-danger text-right",
-                    children: ingregre[1]["sum"] ? moneda(ingregre[1]["sum"]) : 0
-                  })]
-                })]
+                  })
+                });
               })
-            });
+            })]
           }) : null
         })]
       })]
@@ -70504,7 +70520,7 @@ function Home() {
           return colorCat[id][tipo];
           break;
         case "catgeneral":
-          return [id][tipo];
+          return colorCatGeneral[id][tipo];
           break;
         case "ingreso_egreso":
           return colorIngresoegre[id][tipo];

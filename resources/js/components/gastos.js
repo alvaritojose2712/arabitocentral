@@ -414,21 +414,23 @@ export default function Gastos({
 							{distribucionGastosCat.distribucionGastosCat?
 								Object.entries(distribucionGastosCat.distribucionGastosCat).map((ingregre,i)=>
 									ingregre[0]==2||ingregre[0]==3?<>
-										{ingregre[0]==2||ingregre[0]==3?<Chart
-											options={{chart: {width: 1200,type: 'pie',}
-											,dataLabels: {
-												style: {
-												  colors: ['#000']
+										{ingregre[0]==2||ingregre[0]==3?
+											<Chart
+												options={{chart: {width: 1200,type: 'pie',}
+												,dataLabels: {
+													style: {
+													colors: ['#000']
+													}
 												}
-											}
-											,colors: ingregre[1]["data"].map(e=>colorsGastosCat(e.id,"cat","color")) 
-											,labels: ingregre[1]["data"]? ingregre[1]["data"].map(e=>e.nombre) : []
-											,responsive: [{breakpoint: 480,options: {chart: {width: 200},legend: {position: 'bottom'}}}]}}
-											series={
-												ingregre[1]["data"]? ingregre[1]["data"].map(e=>Math.abs(e.sum)) : []
-											} 
-											type="pie" width="1200"
-										/>:null}
+												,colors: ingregre[1]["data"].map(e=>colorsGastosCat(e.id,"cat","color")) 
+												,labels: ingregre[1]["data"]? ingregre[1]["data"].map(e=>e.nombre) : []
+												,responsive: [{breakpoint: 480,options: {chart: {width: 200},legend: {position: 'bottom'}}}]}}
+												series={
+													ingregre[1]["data"]? ingregre[1]["data"].map(e=>Math.abs(e.sum)) : []
+												} 
+												type="pie" width="1200"
+											/>
+										:null}
 										<table className="table mb-2">
 											<tbody>
 												{ingregre[1]["data"].map(e=>
@@ -455,7 +457,7 @@ export default function Gastos({
 												<tr>
 													<td></td>
 													<td></td>
-													<td colSpan={3} className="bg-warning fs-6 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
+													<td colSpan={3} className="bg-warning fs-2 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
 												</tr>
 											</tbody>
 										</table>
@@ -465,10 +467,27 @@ export default function Gastos({
 						</div>
 						<div className="col">
 							{distribucionGastosCat.distribucionGastosSucursal?
-								Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>
-									<table className="table mb-3">
+							<>
+							
+								<Chart
+									options={{chart: {width: 600,type: 'pie',}
+									,dataLabels: {
+										style: {
+										colors: ['#000']
+										}
+									}
+									,colors: Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>colorSucursal(ingregre[1]["codigo_sucursal"])) 
+									,labels: Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>ingregre[1]["codigo_sucursal"])
+									,responsive: [{breakpoint: 480,options: {chart: {width: 200},legend: {position: 'bottom'}}}]}}
+									series={
+										Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>ingregre[1]["sum"])
+									} 
+									type="pie" width="600"
+								/>
+								<table className="table mb-3">
+									{Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>
 										<tbody>
-											{ingregre[1]["data"].map(e=>
+											{/* {ingregre[1]["data"].map(e=>
 												<tr key={e.id}>
 													<td className=" cell3">
 														<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(ingregre[0],"ingreso_egreso","color")}}>
@@ -483,15 +502,20 @@ export default function Gastos({
 													<td className="fs-6 text-right text-danger cell1">{moneda(e.sum)}</td>
 													<td className="text-muted fst-italic text-right cell1">{(e.por)}%</td>
 												</tr>
-											)}
+											)} */}
 											<tr>
-												<td></td>
+												<td>
+													<button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(ingregre[1]["codigo_sucursal"])}}>
+														{ingregre[1]["codigo_sucursal"]}
+													</button>
+												</td>
 												<td></td>
 												<td colSpan={2} className="bg-warning fs-6 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
 											</tr>
 										</tbody>
-									</table>
-								)
+									)}
+								</table>
+							</>
 							:null}
 						</div>
 					</div>
