@@ -9316,7 +9316,7 @@ function Gastos(_ref) {
           onClick: function onClick() {
             return setsubviewGastos("resumen");
           },
-          children: "Destalles"
+          children: "Detalles"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
           className: "btn btn-sm " + (subviewGastos == "distribucion" ? "btn-sinapsis" : ""),
           onClick: function onClick() {
