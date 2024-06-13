@@ -9283,6 +9283,22 @@ function Gastos(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     qbuscarcat = _useState2[0],
     setqbuscarcat = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    indexviewcatdetalles = _useState4[0],
+    setindexviewcatdetalles = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    indexsubviewcatdetalles = _useState6[0],
+    setindexsubviewcatdetalles = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState8 = _slicedToArray(_useState7, 2),
+    indexviewsucursaldetalles = _useState8[0],
+    setindexviewsucursaldetalles = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState10 = _slicedToArray(_useState9, 2),
+    indexsubviewsucursaldetalles = _useState10[0],
+    setindexsubviewsucursaldetalles = _useState10[1];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "container-fluid",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -9826,8 +9842,8 @@ function Gastos(_ref) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: "col text-dark",
           children: distribucionGastosCat.distribucionGastosCat ? Object.entries(distribucionGastosCat.distribucionGastosCat).map(function (ingregre, i) {
-            return ingregre[0] == 2 || ingregre[0] == 3 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-              children: [ingregre[0] == 2 || ingregre[0] == 3 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_apexcharts__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_apexcharts__WEBPACK_IMPORTED_MODULE_1__["default"], {
                 options: {
                   chart: {
                     width: 1200,
@@ -9835,7 +9851,7 @@ function Gastos(_ref) {
                   },
                   dataLabels: {
                     style: {
-                      colors: ['#000']
+                      colors: ['#000', '#000', '#000']
                     }
                   },
                   colors: ingregre[1]["data"].map(function (e) {
@@ -9861,46 +9877,86 @@ function Gastos(_ref) {
                 }) : [],
                 type: "pie",
                 width: "1200"
-              }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
-                className: "table mb-2",
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
+                className: "table mb-4",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
-                  children: [ingregre[1]["data"].map(function (e) {
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                        className: "cell3",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-                          className: "btn w-100 fw-bolder fs-6",
-                          style: {
-                            backgroundColor: colorsGastosCat(e.catgeneral, "catgeneral", "color")
-                          },
-                          children: colorsGastosCat(e.catgeneral, "catgeneral", "desc")
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                        className: "cell3",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-                          className: "btn w-100 fw-bolder fs-6",
-                          style: {
-                            backgroundColor: colorsGastosCat(ingregre[0], "ingreso_egreso", "color")
-                          },
-                          children: colorsGastosCat(e.ingreso_egreso, "ingreso_egreso", "desc")
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                        className: "cell5",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-                          className: "btn w-100 fw-bolder fs-6",
-                          style: {
-                            backgroundColor: colorsGastosCat(e.id, "cat", "color")
-                          },
-                          children: e.nombre
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                        className: "fs-6 text-right text-danger cell1",
-                        children: moneda(e.sum)
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
-                        className: "text-muted fst-italic text-right cell1",
-                        children: [e.por, "%"]
-                      })]
-                    }, e.id);
+                  children: [ingregre[1]["data"].map(function (e, i) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+                        className: "pointer bg-success-superlight",
+                        onClick: function onClick() {
+                          return setindexviewcatdetalles(indexviewcatdetalles == i ? null : i);
+                        },
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                          className: "cell3",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                            className: "btn w-100 fw-bolder fs-6",
+                            style: {
+                              backgroundColor: colorsGastosCat(e.catgeneral, "catgeneral", "color")
+                            },
+                            children: colorsGastosCat(e.catgeneral, "catgeneral", "desc")
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                          className: "cell3",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                            className: "btn w-100 fw-bolder fs-6",
+                            style: {
+                              backgroundColor: colorsGastosCat(ingregre[0], "ingreso_egreso", "color")
+                            },
+                            children: colorsGastosCat(e.ingreso_egreso, "ingreso_egreso", "desc")
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                          className: "cell5",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                            className: "btn w-100 fw-bolder fs-6",
+                            style: {
+                              backgroundColor: colorsGastosCat(e.id, "cat", "color")
+                            },
+                            children: e.nombre
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                          className: "fs-6 text-right text-danger cell1",
+                          children: moneda(e.sum)
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+                          className: "text-muted fst-italic text-right cell1",
+                          children: [e.por, "%"]
+                        })]
+                      }, e.id), indexviewcatdetalles == i ? e.bysucursalmod.map(function (ee, ii) {
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+                            onClick: function onClick() {
+                              return setindexsubviewcatdetalles(indexsubviewcatdetalles == ii ? null : ii);
+                            },
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                                className: "btn w-100 fw-bolder fs-3",
+                                style: {
+                                  backgroundColor: colorSucursal(ee["codigo_sucursal"])
+                                },
+                                children: ee["codigo_sucursal"]
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                              colSpan: 2,
+                              className: "bg-warning text-right text-danger fs-4",
+                              children: moneda(ee["sum"])
+                            })]
+                          }, ii), indexviewcatdetalles == i && indexsubviewcatdetalles == ii ? ee.data.map(function (eee, iii) {
+                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                                className: "text-muted",
+                                children: eee.created_at
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                                children: eee.concepto
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                                colSpan: 2,
+                                className: " text-right text-danger fs-4",
+                                children: moneda(eee["montodolar"])
+                              })]
+                            }, iii);
+                          }) : null]
+                        });
+                      }) : null]
+                    });
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                       colSpan: 3,
@@ -9910,7 +9966,7 @@ function Gastos(_ref) {
                   })]
                 })
               })]
-            }) : null;
+            });
           }) : null
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: "col",
@@ -9923,7 +9979,7 @@ function Gastos(_ref) {
                 },
                 dataLabels: {
                   style: {
-                    colors: ['#000']
+                    colors: ['#000', '#000', '#000']
                   }
                 },
                 colors: Object.entries(distribucionGastosCat.distribucionGastosSucursal).map(function (ingregre, i) {
@@ -9945,15 +10001,18 @@ function Gastos(_ref) {
                 }]
               },
               series: Object.entries(distribucionGastosCat.distribucionGastosSucursal).map(function (ingregre, i) {
-                return ingregre[1]["sum"];
+                return Math.abs(ingregre[1]["sum"]);
               }),
               type: "pie",
               width: "600"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
               className: "table mb-3",
               children: Object.entries(distribucionGastosCat.distribucionGastosSucursal).map(function (ingregre, i) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+                    onClick: function onClick() {
+                      return setindexviewsucursaldetalles(indexviewsucursaldetalles == i ? null : i);
+                    },
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
                         className: "btn w-100 fw-bolder fs-3",
@@ -9963,11 +10022,47 @@ function Gastos(_ref) {
                         children: ingregre[1]["codigo_sucursal"]
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      colSpan: 2,
-                      className: "bg-warning fs-6 text-danger text-right",
-                      children: ingregre[1]["sum"] ? moneda(ingregre[1]["sum"]) : 0
+                      className: "fs-6 text-right text-danger cell1",
+                      children: moneda(ingregre[1]["sum"])
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+                      className: "text-muted fst-italic text-right cell1",
+                      children: [ingregre[1]["por"], "%"]
                     })]
-                  })
+                  }), indexviewsucursaldetalles == i ? ingregre[1]["bycatmod"].map(function (ee, ii) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+                        onClick: function onClick() {
+                          return setindexsubviewsucursaldetalles(indexsubviewsucursaldetalles == ii ? null : ii);
+                        },
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                            className: "btn w-100 fw-bolder fs-5",
+                            style: {
+                              backgroundColor: colorsGastosCat(ee["id"], "cat", "color")
+                            },
+                            children: ee["nombre"]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                          colSpan: 2,
+                          className: "bg-warning text-right text-danger fs-4",
+                          children: moneda(ee["sum"])
+                        })]
+                      }, ii), indexviewsucursaldetalles == i && indexsubviewsucursaldetalles == ii ? ee.data.map(function (eee, iii) {
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                            className: "text-muted",
+                            children: eee.created_at
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                            children: eee.concepto
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                            colSpan: 2,
+                            className: " text-right text-danger fs-4",
+                            children: moneda(eee["montodolar"])
+                          })]
+                        }, iii);
+                      }) : null]
+                    });
+                  }) : null]
                 });
               })
             })]

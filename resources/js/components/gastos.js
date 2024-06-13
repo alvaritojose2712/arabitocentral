@@ -132,6 +132,12 @@ export default function Gastos({
 	},[modeEjecutor])
 
 	const [qbuscarcat,setqbuscarcat] = useState("")
+	const [indexviewcatdetalles,setindexviewcatdetalles] = useState(null)
+	const [indexsubviewcatdetalles,setindexsubviewcatdetalles] = useState(null)
+
+	const [indexviewsucursaldetalles,setindexviewsucursaldetalles] = useState(null)
+	const [indexsubviewsucursaldetalles,setindexsubviewsucursaldetalles] = useState(null)
+	
 
 	
 	return(
@@ -413,28 +419,27 @@ export default function Gastos({
 						<div className="col text-dark">
 							{distribucionGastosCat.distribucionGastosCat?
 								Object.entries(distribucionGastosCat.distribucionGastosCat).map((ingregre,i)=>
-									ingregre[0]==2||ingregre[0]==3?<>
-										{ingregre[0]==2||ingregre[0]==3?
-											<Chart
-												options={{chart: {width: 1200,type: 'pie',}
-												,dataLabels: {
-													style: {
-													colors: ['#000']
-													}
+									<>
+										<Chart
+											options={{chart: {width: 1200,type: 'pie',}
+											,dataLabels: {
+												style: {
+												colors: ['#000','#000','#000']
 												}
-												,colors: ingregre[1]["data"].map(e=>colorsGastosCat(e.id,"cat","color")) 
-												,labels: ingregre[1]["data"]? ingregre[1]["data"].map(e=>e.nombre) : []
-												,responsive: [{breakpoint: 480,options: {chart: {width: 200},legend: {position: 'bottom'}}}]}}
-												series={
-													ingregre[1]["data"]? ingregre[1]["data"].map(e=>Math.abs(e.sum)) : []
-												} 
-												type="pie" width="1200"
-											/>
-										:null}
-										<table className="table mb-2">
+											}
+											,colors: ingregre[1]["data"].map(e=>colorsGastosCat(e.id,"cat","color")) 
+											,labels: ingregre[1]["data"]? ingregre[1]["data"].map(e=>e.nombre) : []
+											,responsive: [{breakpoint: 480,options: {chart: {width: 200},legend: {position: 'bottom'}}}]}}
+											series={
+												ingregre[1]["data"]? ingregre[1]["data"].map(e=>Math.abs(e.sum)) : []
+											} 
+											type="pie" width="1200"
+										/>
+										<table className="table mb-4">
 											<tbody>
-												{ingregre[1]["data"].map(e=>
-													<tr key={e.id}>
+												{ingregre[1]["data"].map((e,i)=>
+												<>
+													<tr key={e.id} className="pointer bg-success-superlight" onClick={()=>setindexviewcatdetalles(indexviewcatdetalles==i?null:i)}>
 														<td className="cell3">
 															<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.catgeneral,"catgeneral","color")}}>
 																{colorsGastosCat(e.catgeneral,"catgeneral","desc")}
@@ -453,6 +458,40 @@ export default function Gastos({
 														<td className="fs-6 text-right text-danger cell1">{moneda(e.sum)}</td>
 														<td className="text-muted fst-italic text-right cell1">{(e.por)}%</td>
 													</tr>
+													{indexviewcatdetalles==i?
+														e.bysucursalmod.map((ee,ii)=>
+															<>
+																<tr key={ii} onClick={()=>setindexsubviewcatdetalles(indexsubviewcatdetalles==ii?null:ii)}>
+																	<td></td>
+																	<td>
+																		<button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(ee["codigo_sucursal"])}}>
+																			{ee["codigo_sucursal"]}
+																		</button>
+																	</td>
+																	<td></td>
+																	<td colSpan={2} className="bg-warning text-right text-danger fs-4">
+																		{moneda(ee["sum"])}
+																	</td>
+																</tr>
+																{indexviewcatdetalles==i&&indexsubviewcatdetalles==ii?
+																	ee.data.map((eee,iii)=>
+																		<tr key={iii}>
+																			<td className="text-muted">{eee.created_at}</td>
+																			<td>{eee.concepto}</td>
+																			<td></td>
+																			<td colSpan={2} className=" text-right text-danger fs-4">
+																				{moneda(eee["montodolar"])}
+																			</td>
+																		</tr>
+																	)
+																
+																:null}
+															</>
+														)
+													
+													:null}
+
+												</>
 												)}
 												<tr>
 													<td></td>
@@ -461,7 +500,7 @@ export default function Gastos({
 												</tr>
 											</tbody>
 										</table>
-									</>:null
+									</>
 								)
 							:null}
 						</div>
@@ -473,45 +512,63 @@ export default function Gastos({
 									options={{chart: {width: 600,type: 'pie',}
 									,dataLabels: {
 										style: {
-										colors: ['#000']
+										colors: ['#000','#000','#000']
 										}
 									}
 									,colors: Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>colorSucursal(ingregre[1]["codigo_sucursal"])) 
 									,labels: Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>ingregre[1]["codigo_sucursal"])
 									,responsive: [{breakpoint: 480,options: {chart: {width: 200},legend: {position: 'bottom'}}}]}}
 									series={
-										Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>ingregre[1]["sum"])
+										Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>Math.abs(ingregre[1]["sum"]))
 									} 
 									type="pie" width="600"
 								/>
 								<table className="table mb-3">
 									{Object.entries(distribucionGastosCat.distribucionGastosSucursal).map((ingregre,i)=>
 										<tbody>
-											{/* {ingregre[1]["data"].map(e=>
-												<tr key={e.id}>
-													<td className=" cell3">
-														<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(ingregre[0],"ingreso_egreso","color")}}>
-															{colorsGastosCat(ingregre[0],"ingreso_egreso","desc")}
-														</button>
-													</td>
-													<td className=" cell5">
-														<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.id,"cat","color")}}>
-															{e.nombre}
-														</button>
-													</td>
-													<td className="fs-6 text-right text-danger cell1">{moneda(e.sum)}</td>
-													<td className="text-muted fst-italic text-right cell1">{(e.por)}%</td>
-												</tr>
-											)} */}
-											<tr>
+											<tr onClick={()=>setindexviewsucursaldetalles(indexviewsucursaldetalles==i?null:i)}>
 												<td>
 													<button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(ingregre[1]["codigo_sucursal"])}}>
 														{ingregre[1]["codigo_sucursal"]}
 													</button>
 												</td>
 												<td></td>
-												<td colSpan={2} className="bg-warning fs-6 text-danger text-right">{ingregre[1]["sum"]?moneda(ingregre[1]["sum"]):0}</td>
+
+												<td className="fs-6 text-right text-danger cell1">{moneda(ingregre[1]["sum"])}</td>
+												<td className="text-muted fst-italic text-right cell1">{(ingregre[1]["por"])}%</td>
 											</tr>
+											{indexviewsucursaldetalles==i?
+												ingregre[1]["bycatmod"].map((ee,ii)=>
+													<>
+														<tr key={ii} onClick={()=>setindexsubviewsucursaldetalles(indexsubviewsucursaldetalles==ii?null:ii)}>
+															<td></td>
+															<td>
+																<button className={"btn w-100 fw-bolder fs-5"}  style={{backgroundColor:colorsGastosCat(ee["id"],"cat","color")}}>
+																	{ee["nombre"]}
+																</button>
+															</td>
+															<td></td>
+															<td colSpan={2} className="bg-warning text-right text-danger fs-4">
+																{moneda(ee["sum"])}
+															</td>
+														</tr>
+														{indexviewsucursaldetalles==i&&indexsubviewsucursaldetalles==ii?
+															ee.data.map((eee,iii)=>
+																<tr key={iii}>
+																	<td className="text-muted">{eee.created_at}</td>
+																	<td>{eee.concepto}</td>
+																	<td></td>
+																	<td colSpan={2} className=" text-right text-danger fs-4">
+																		{moneda(eee["montodolar"])}
+																	</td>
+																</tr>
+															)
+														
+														:null}
+													</>
+												)
+											
+											:null}
 										</tbody>
 									)}
 								</table>

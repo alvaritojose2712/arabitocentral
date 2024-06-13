@@ -119,7 +119,7 @@ class PuntosybiopagosController extends Controller
 
         $gastosQ = "";
         $gastosQCategoria = "";
-        $catgeneral = "";
+        $catgeneral = [2,3];
         $ingreso_egreso = "";
         $typecaja = "";
         $gastosorder = "desc";
@@ -145,6 +145,7 @@ class PuntosybiopagosController extends Controller
         
         foreach ($distribucionGastosCat as $i => $cat) {
             $sum = $cat->sum("montodolar");
+            $bysucursales = $cat->groupBy("id_sucursal");
             $nombre = "";
             $id = "";
             $catgeneral = "";
@@ -161,13 +162,26 @@ class PuntosybiopagosController extends Controller
                     "sum"=>0,
                 ];
             }
+
+            $bysucursalmod = [];
+
+            foreach ($bysucursales as $id_bysucursal => $bysucursal) {
+                array_push($bysucursalmod,[
+                    "sum" => $bysucursal->sum("montodolar"),
+                    "codigo_sucursal" => $bysucursal[0]["sucursal"]["codigo"],
+                    "data" => $bysucursal,
+                ]);
+            }
+            array_multisort(array_column($bysucursalmod, 'sum'), SORT_ASC, $bysucursalmod);
+
             array_push($distribucionGastosCatMod[$catgeneral]["data"],[
-                "sum" => ($sum),
+                "sum" => $sum,
                 "nombre" => $nombre,
                 "catgeneral" => $catgeneral,
                 "ingreso_egreso" => $ingreso_egreso,
                 "id" => $id,
                 "por" => 0,
+                "bysucursalmod" => $bysucursalmod,
             ]);
         }
 
@@ -178,24 +192,27 @@ class PuntosybiopagosController extends Controller
         foreach ($distribucionGastosSucursal as $id_sucursalkey => $cats_sucursal) {
             $sumsucursal = 0;
             $codigo_sucursal = "";
+            $bycatMod = [];
 
             if (!array_key_exists($id_sucursalkey,$distribucionGastosSucursalMod)) {
                 $distribucionGastosSucursalMod[$id_sucursalkey] = [
                     "data"=>[],
                     "sum"=>0,
+                    "por"=>0,
                     "codigo_sucursal"=>"",
                 ];
             }
             
             foreach ($cats_sucursal as $id_cat => $cats) {
                 $sumsucursal += $cats->sum("montodolar");
+
+                $bycats = $cats->groupBy(["categoria"]);
                 
                 $codigo_sucursal = $cats[0]["sucursal"]["codigo"];
                 $nombre = $cats[0]["cat"]["nombre"];
                 $id = $id_cat;
                 $catgeneral = $cats[0]["cat"]["catgeneral"];
                 $ingreso_egreso = $cats[0]["cat"]["ingreso_egreso"];
-
                 if (!array_key_exists($id_cat,$distribucionGastosSucursalMod[$id_sucursalkey]["data"])) {
                     $distribucionGastosSucursalMod[$id_sucursalkey]["data"][$id_cat] = [
                         "data"=>[],
@@ -203,6 +220,16 @@ class PuntosybiopagosController extends Controller
                         "sum"=>0,
                     ];
                 }
+
+                foreach ($bycats as $id_bycat => $bycat) {
+                    array_push($bycatMod,[
+                        "sum" => $bycat->sum("montodolar"),
+                        "nombre" => $bycat[0]["cat"]["nombre"],
+                        "id" => $bycat[0]["cat"]["id"],
+                        "data" => $bycat,
+                    ]);
+                }
+                
                 array_push($distribucionGastosSucursalMod[$id_sucursalkey]["data"][$id_cat]["data"],[
                     "sum" => $cats->sum("montodolar"),
                     "nombre" => $nombre,
@@ -212,6 +239,9 @@ class PuntosybiopagosController extends Controller
                     "por" => 0,
                 ]);
             }
+            
+            array_multisort(array_column($bycatMod, 'sum'), SORT_ASC, $bycatMod);
+            $distribucionGastosSucursalMod[$id_sucursalkey]["bycatmod"] = $bycatMod;
             $distribucionGastosSucursalMod[$id_sucursalkey]["sum"] = $sumsucursal;
             $distribucionGastosSucursalMod[$id_sucursalkey]["codigo_sucursal"] = $codigo_sucursal;
             
@@ -230,13 +260,13 @@ class PuntosybiopagosController extends Controller
                 $distribucionGastosCatMod[$key]["data"][$keykey]["por"] = round(($sumCatMod==0||$qq["sum"]==0?0:  (abs($qq["sum"]*100)/$sumCatMod))  ,2);
             }
         }
-        /* foreach ($distribucionGastosSucursalMod as $key => $q) {
+
+        $sumTotalSucu = array_sum(array_column($distribucionGastosSucursalMod,"sum"));;
+        foreach ($distribucionGastosSucursalMod as $key => $q) {
             $sumCatMod = $q["sum"];
-            foreach ($q["data"] as $keykey => $qq) {
-                $distribucionGastosSucursalMod[$key]["data"][$keykey]["por"] = round(($sumCatMod==0||$qq["sum"]==0?0:  (abs($qq["sum"]*100)/$sumCatMod))  ,2);
-            }
-        } */
-        array_multisort(array_column($distribucionGastosSucursalMod, "sum"),SORT_DESC, $distribucionGastosSucursalMod);
+            $distribucionGastosSucursalMod[$key]["por"] = round(($sumTotalSucu==0||$q["sum"]==0?0:  (abs($q["sum"]*100)/$sumTotalSucu)) ,2);
+        }
+        array_multisort(array_column($distribucionGastosSucursalMod, "sum"),SORT_ASC, $distribucionGastosSucursalMod);
 
         return [
             "distribucionGastosCat" => $distribucionGastosCatMod,
@@ -301,7 +331,7 @@ class PuntosybiopagosController extends Controller
             $q->where("tipo",$typecaja);
         })
         ->when($catgeneral,function($q) use ($catgeneral) {
-            $q->whereIn("categoria",catcajas::where("catgeneral",$catgeneral)->select("id"));
+            $q->whereIn("categoria",catcajas::whereIn("catgeneral",$catgeneral)->select("id"));
         })
         ->when($ingreso_egreso,function($q) use ($ingreso_egreso) {
             $q->whereIn("categoria",catcajas::where("ingreso_egreso",$ingreso_egreso)->select("id"));
@@ -379,7 +409,7 @@ class PuntosybiopagosController extends Controller
             "gastosQFechaHasta" => $gastosQFechaHasta,
             "gastosQCategoria" => $gastosQCategoria,
             "gastosQsucursal" => $gastosQsucursal,
-            "catgeneral" => $catgeneral,
+            "catgeneral" => [$catgeneral],
             "ingreso_egreso" => $ingreso_egreso,
             "typecaja" => $typecaja,
             "gastosorder" => $gastosorder,
