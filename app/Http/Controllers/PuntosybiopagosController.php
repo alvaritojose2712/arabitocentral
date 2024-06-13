@@ -395,7 +395,7 @@ class PuntosybiopagosController extends Controller
         $gastosQsucursal = $req->gastosQsucursal;
         
 
-        $catgeneral = $req->catgeneral;
+        $catgeneral = $req->catgeneral?[$req->catgeneral]:"";
         $ingreso_egreso = $req->ingreso_egreso;
         $typecaja = $req->typecaja;
 
@@ -409,7 +409,7 @@ class PuntosybiopagosController extends Controller
             "gastosQFechaHasta" => $gastosQFechaHasta,
             "gastosQCategoria" => $gastosQCategoria,
             "gastosQsucursal" => $gastosQsucursal,
-            "catgeneral" => [$catgeneral],
+            "catgeneral" => $catgeneral,
             "ingreso_egreso" => $ingreso_egreso,
             "typecaja" => $typecaja,
             "gastosorder" => $gastosorder,
