@@ -24,6 +24,8 @@ class CreateUltimainformacioncargadasTable extends Migration
             $table->integer("id_last_garantias");
             $table->integer("id_last_fallas");
             $table->integer("id_last_efec");
+            $table->integer("id_last_estadisticas");
+            
             
             $table->unique(["id_sucursal","fecha"]);
             $table->timestamps();

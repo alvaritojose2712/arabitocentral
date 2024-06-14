@@ -36,6 +36,10 @@ class inventario_sucursal extends Model
         return $this->hasMany('App\Models\inventario_sucursal',"id_vinculacion","id"); 
 
     }
+
+    public function estadisticas() { 
+        return $this->hasMany('App\Models\inventario_sucursal_estadisticas',"id_inventario_sucursal","id"); 
+    }
     
     protected $fillable = [
     	"id",

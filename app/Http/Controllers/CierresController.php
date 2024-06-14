@@ -7,6 +7,7 @@ use App\Models\cajas;
 use App\Models\comovamos;
 use App\Models\creditos;
 use App\Models\inventario_sucursal;
+use App\Models\inventario_sucursal_estadisticas;
 use App\Models\nomina;
 use App\Models\puntosybiopagos;
 use App\Models\sucursal;
@@ -23,6 +24,11 @@ class CierresController extends Controller
 {
 
     function setAll(Request $req) {
+        $sendestadisticasVentareq = $req->sendestadisticasVenta;
+        $sendestadisticasVenta = json_decode(gzuncompress(base64_decode($sendestadisticasVentareq)),true);
+        
+
+
         $codigo_origen = $req->codigo_origen;
         $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
         $id_sucursal = $id_ruta["id_origen"];
@@ -33,12 +39,15 @@ class CierresController extends Controller
         cajas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
         puntosybiopagos::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->whereNull("fecha_liquidacion")->delete();
         cierres::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
+        inventario_sucursal_estadisticas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
+        
 
         $sendInventarioCt = (new InventarioSucursalController)->sendInventarioCt($req->sendInventarioCt, $id_sucursal);
         $sendGarantias = (new GarantiasController)->sendGarantias($req->sendGarantias, $id_sucursal);
         $sendFallas = (new FallasController)->sendFallas($req->sendFallas, $id_sucursal);
         $setCierreFromSucursalToCentral = (new CierresController)->setCierreFromSucursalToCentral($req->setCierreFromSucursalToCentral, $id_sucursal);
         $setEfecFromSucursalToCentral = (new CajasController)->setEfecFromSucursalToCentral($req->setEfecFromSucursalToCentral, $id_sucursal);
+        $sendestadisticasVenta = (new InventarioSucursalEstadisticasController)->sendestadisticasVenta($sendestadisticasVenta, $id_sucursal);
 
         $sendCreditos = (new CreditosController)->sendCreditos($req->sendCreditos, $id_sucursal);
 
@@ -47,6 +56,7 @@ class CierresController extends Controller
         if (!isset($sendGarantias["last"])) {return "sendGarantias: ".$sendGarantias;}
         if (!isset($sendFallas["last"])) {return "sendFallas: ".$sendFallas;}
         if (!isset($sendCreditos["last"])) {return "sendCreditos: ".$sendCreditos;}
+        if (!isset($sendestadisticasVenta["last"])) {return "sendestadisticasVenta: ".$sendestadisticasVenta;}
 
         ultimainformacioncargada::updateOrCreate([
             "id_sucursal" =>$id_sucursal,
@@ -59,6 +69,8 @@ class CierresController extends Controller
             "id_last_efec" => $setEfecFromSucursalToCentral["last"],
             "id_last_garantias" => $sendGarantias["last"],
             "id_last_fallas" => $sendFallas["last"],
+            "id_last_estadisticas" => $sendestadisticasVenta["last"],
+            
         ]);
         return [
             $sendInventarioCt,
@@ -67,6 +79,7 @@ class CierresController extends Controller
             $setCierreFromSucursalToCentral["msj"],
             $setEfecFromSucursalToCentral["msj"],
             $sendCreditos["msj"],
+            $sendestadisticasVenta["msj"],
         ];
        
     }

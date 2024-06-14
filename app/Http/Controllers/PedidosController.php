@@ -45,17 +45,16 @@ class PedidosController extends Controller
                         foreach ($e["items"] as $k => $ee) {
 
                             $id_categoria = null;
-                            $ifcat =  categorias::where("descripcion",$ee["producto"]["categoria"]["descripcion"])->first();
-                            if ($ifcat) {
-                                $id_categoria = $ifcat->id;
-                            }else{
-                                $newcat = new categorias; 
-                                $newcat->descripcion = $ee["producto"]["categoria"]["descripcion"];
-                                $newcat->save();
-
-                                $id_categoria = $newcat->id;
-
-                               
+                            if (isset($ee["producto"]["categoria"])) {
+                                $ifcat =  categorias::where("descripcion",$ee["producto"]["categoria"]["descripcion"])->first();
+                                if ($ifcat) {
+                                    $id_categoria = $ifcat->id;
+                                }else{
+                                    $newcat = new categorias; 
+                                    $newcat->descripcion = $ee["producto"]["categoria"]["descripcion"];
+                                    $newcat->save();
+                                    $id_categoria = $newcat->id;
+                                }
                             }
 
                             $id_proveedor = null;
