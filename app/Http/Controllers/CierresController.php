@@ -26,7 +26,7 @@ class CierresController extends Controller
     function setAll(Request $req) {
         $sendestadisticasVentareq = $req->sendestadisticasVenta;
         $sendestadisticasVenta = json_decode(gzuncompress(base64_decode($sendestadisticasVentareq)),true);
-        
+        return $sendestadisticasVenta;
 
 
         $codigo_origen = $req->codigo_origen;
