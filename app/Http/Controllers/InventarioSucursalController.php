@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\inventario_sucursal_estadisticas;
 
 set_time_limit(300000);
 
@@ -572,6 +573,25 @@ class InventarioSucursalController extends Controller
         }
     }
 
+    function autovincular() {
+        $i = inventario_sucursal::where("codigo_barras","LIKE","6928073674635")->whereNull("n1")->get();
+        foreach ($i as $key => $e) {
+            $get = inventario_sucursal::where("codigo_barras",$e->codigo_barras)->whereNotNull("n1")->first();
+            if ($get) {
+                $update = inventario_sucursal::find($e->id);
+                $update->id_categoria = $get->id_categoria;
+                $update->id_catgeneral = $get->id_catgeneral;
+                $update->id_marca = $get->id_marca;
+                $update->n1 = $get->n1;
+                $update->n2 = $get->n2;
+                $update->n3 = $get->n3;
+                $update->n4 = $get->n4;
+                $update->n5 = $get->n5;
+                $update->save();
+            }
+        }
+    }
+
     function getInventarioGeneral(Request $req) {
         $invsuc_q = $req->invsuc_q;
         $invsuc_num = $req->invsuc_num;
@@ -579,7 +599,9 @@ class InventarioSucursalController extends Controller
 
         $i = inventario_sucursal::with(["sucursal"])
         ->when($invsuc_q,function($q) use($invsuc_q) {
-            $q->where("descripcion", "LIKE", "%".$invsuc_q."%");
+            $q->orwhere("descripcion", "LIKE", "%".$invsuc_q."%")
+            ->orwhere("codigo_barras", "LIKE", "%".$invsuc_q."%")
+            ->orwhere("codigo_proveedor", "LIKE", "%".$invsuc_q."%");
         })
         ->limit($invsuc_num)
         ->orderBy("n1","asc")
@@ -590,6 +612,46 @@ class InventarioSucursalController extends Controller
             $nombrefull = ($q->n1?($q->n1." "):"").($q->n2?$q->n2." ":"").($q->n3?$q->n3." ":"").($q->n4?$q->n4." ":"").($q->n5?$q->n5." ":"");
             
             $q->nombrefull = $nombrefull? $nombrefull: "SIN ESPECIFICAR"; 
+            
+            
+            $today = (new NominaController)->today();
+            $mesDate = strtotime($today);
+            $mesDate = date('Y-m' , $mesDate);
+    
+            $estadisticas = inventario_sucursal_estadisticas::where("id_sucursal",$q->id_sucursal)
+            ->where("id_producto_insucursal",$q->idinsucursal)
+            ->orderBy("fecha","asc")
+            ->get();
+            $anual = [];
+            foreach ($estadisticas as $i => $estadistica) {
+                $fecha = $estadistica["fecha"];
+
+                $año = date('Y' , strtotime($fecha));
+                $mes = date('M' , strtotime($fecha));
+                $ct = $estadistica["cantidad"];
+
+
+                if (!array_key_exists($año, $anual)) {
+                    $anual[$año][$mes] = [
+                        "ct" => $ct,
+                        "dias" => 1
+                    ];
+                }else{
+                    if (array_key_exists($mes,$anual[$año])) {
+                        $anual[$año][$mes] = [
+                            "ct" => $anual[$año][$mes]["ct"]+$ct,
+                            "dias" => $anual[$año][$mes]["dias"]+1,
+                        ];
+                    }else{
+                        $anual[$año][$mes] = [
+                            "ct" => $ct,
+                            "dias" => 1,
+                        ];
+                    }
+                }
+
+            }
+            $q->anual = $anual;
             
             return $q;
         })

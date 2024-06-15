@@ -103,7 +103,7 @@ export default function Nominapagos({
                                                 {selectIdPersonal==e.id?
                                                     e.pagos.map(pago=>
                                                         <tr key={pago.id} className={(e.id==selectIdPersonal?"bg-success-superlight":"")}>
-                                                            <td></td>
+                                                            <td>COBRÓ POR {pago.sucursal?pago.sucursal.codigo:null}</td>
                                                             <td>PAGO</td>
                                                             <td>{pago.created_at.replace("00:00:00","")}</td>
                                                             <td>{pago.descripcion}</td>

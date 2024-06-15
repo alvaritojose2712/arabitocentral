@@ -469,6 +469,7 @@ Route::post('setNuevaTareaCentral', [sockets::class,"setNuevaTareaCentral"]);
 Route::post('setInventarioFromSucursal', [InventarioSucursalController::class,"setInventarioFromSucursal"]);
 Route::post('getInventarioSucursalFromCentral', [InventarioSucursalController::class,"getInventarioSucursalFromCentral"]);
 Route::post('setInventarioSucursalFromCentral', [InventarioSucursalController::class,"setInventarioSucursalFromCentral"]);
+Route::get('autovincular', [InventarioSucursalController::class,"autovincular"]);
 
 Route::post('setCambiosInventarioSucursal', [InventarioSucursalController::class,"setCambiosInventarioSucursal"]);
 
