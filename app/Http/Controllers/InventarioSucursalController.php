@@ -593,6 +593,10 @@ class InventarioSucursalController extends Controller
     }
 
     function getInventarioGeneral(Request $req) {
+        $today = (new NominaController)->today();
+        $mesDate = date('Y-m' , strtotime($today));
+        $añoDate = date('Y' , strtotime($today));
+
         $invsuc_q = $req->invsuc_q;
         $invsuc_num = $req->invsuc_num;
         $invsuc_orderBy = $req->invsuc_orderBy;
@@ -604,23 +608,19 @@ class InventarioSucursalController extends Controller
             ->orwhere("codigo_proveedor", "LIKE", "%".$invsuc_q."%");
         })
         ->limit($invsuc_num)
-        ->orderBy("n1","asc")
+        ->orderBy("n1","desc")
         ->orderBy("id_sucursal","asc")
         ->orderBy("descripcion","asc")
         ->get()
-        ->map(function($q){
+        ->map(function($q) use ($today,$mesDate,$añoDate){
             $nombrefull = ($q->n1?($q->n1." "):"").($q->n2?$q->n2." ":"").($q->n3?$q->n3." ":"").($q->n4?$q->n4." ":"").($q->n5?$q->n5." ":"");
             
             $q->nombrefull = $nombrefull? $nombrefull: "SIN ESPECIFICAR"; 
-            
-            
-            $today = (new NominaController)->today();
-            $mesDate = strtotime($today);
-            $mesDate = date('Y-m' , $mesDate);
     
             $estadisticas = inventario_sucursal_estadisticas::where("id_sucursal",$q->id_sucursal)
             ->where("id_producto_insucursal",$q->idinsucursal)
-            ->orderBy("fecha","asc")
+            ->where("fecha","LIKE",$añoDate."%")
+            ->orderBy("fecha","desc")
             ->get();
             $anual = [];
             foreach ($estadisticas as $i => $estadistica) {
@@ -652,6 +652,7 @@ class InventarioSucursalController extends Controller
 
             }
             $q->anual = $anual;
+            $q->estadisticas = $estadisticas;
             
             return $q;
         })

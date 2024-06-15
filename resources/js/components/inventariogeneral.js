@@ -126,7 +126,7 @@ export default function Inventariogeneral({
                         <th className="pointer"><span onClick={() => setinvsuc_orderColumn("cantidad")}>Ct.</span>/ <span onClick={() => setinvsuc_orderColumn("push")}>Inventario</span></th>
                         <th className="pointer"><span onClick={() => setinvsuc_orderColumn("precio_base")}>Base</span></th>
                         <th className="pointer"><span onClick={() => setinvsuc_orderColumn("precio")}>Venta </span></th>
-                        <th className="pointer" >
+                       {/*  <th className="pointer" >
                             <span onClick={() => setinvsuc_orderColumn("id_categoria")}>
                                 Categoría
                             </span>
@@ -136,8 +136,10 @@ export default function Inventariogeneral({
                             </span>
                         </th>
                         <th className="pointer"><span onClick={() => setinvsuc_orderColumn("iva")}>IVA</span></th>
+                         */}
                         <th className="">ACTUALIZACIÓN</th>
-
+                        {/* <th className="bg-sinapsis">Histórico de Ventas / TOTAL</th> */}
+                        <th className="bg-warning">Histórico de Ventas / MES</th>
                     </tr>
                 </thead>
 
@@ -167,12 +169,35 @@ export default function Inventariogeneral({
                                                 <th className="">{ee.cantidad}</th>
                                                 <td className="">{ee.precio_base}</td>
                                                 <td className="text-success">{ee.precio}</td>
-                                                <td className=""></td>
-                                                <td className="">{ee.iva}</td>
                                                 <td className="">{ee.updated_at}</td>
+                                                {/* <td className="bg-sinapsis">
+                                                    <b>
+                                                        {Object.entries(ee.anual).map(anual=>anual[0]+" ")}
+                                                    </b>  
+                                                    <hr />
+                                                    {Object.entries(ee.anual).map(anual=> Object.entries(anual[1]).map(mes=>mes[1]["ct"]).reduce((partialSum, a) => partialSum + a, 0) ).reduce((partialSum, a) => partialSum + a, 0).toFixed(2)} 
+                                                </td> */}
+                                                {Object.entries(ee.anual).map(anual=>
+                                                    <>
+                                                        <td className="bg-warning">
+                                                            <b>{anual[0]}</b>
+                                                            <hr />
+                                                            {Object.entries(anual[1]).map(mes=>mes[1]["ct"]).reduce((partialSum, a) => partialSum + a, 0).toFixed(2)}
+                                                        </td>
+                                                        {Object.entries(anual[1]).map(mes=>
+                                                            <td>
+                                                                <b>{mes[0]} - {anual[0]}</b>
+                                                                <hr />
+
+                                                                {mes[1]["ct"].toFixed(2)}
+                                                            </td>
+                                                        )}
+                                                    </>
+                                                )}
                                                 
                                             </tr>
-                                            <tr>
+                                           {/*  <tr>
+                                                <td></td>
                                                     {Object.entries(ee.anual).map(anual=>
                                                         <td className="">
                                                                 <Chart
@@ -184,7 +209,7 @@ export default function Inventariogeneral({
                                                                 
                                                         </td>
                                                     )}
-                                            </tr>
+                                            </tr> */}
                                         </>
                                     )}
                                 </tbody>

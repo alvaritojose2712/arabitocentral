@@ -10682,30 +10682,12 @@ function Inventariogeneral(_ref) {
               },
               children: "Venta "
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-            className: "pointer",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              onClick: function onClick() {
-                return setinvsuc_orderColumn("id_categoria");
-              },
-              children: "Categor\xEDa"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              onClick: function onClick() {
-                return setinvsuc_orderColumn("id_proveedor");
-              },
-              children: "Proveedor"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            className: "pointer",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              onClick: function onClick() {
-                return setinvsuc_orderColumn("iva");
-              },
-              children: "IVA"
-            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             className: "",
             children: "ACTUALIZACI\xD3N"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            className: "bg-warning",
+            children: "Hist\xF3rico de Ventas / MES"
           })]
         })
       }), inventariogeneralData ? inventariogeneralData.data ? Object.entries(inventariogeneralData.data).map(function (e) {
@@ -10716,8 +10698,8 @@ function Inventariogeneral(_ref) {
               children: e[0]
             })
           }), e[1].map(function (ee) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   className: "",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
@@ -10752,31 +10734,29 @@ function Inventariogeneral(_ref) {
                   className: "text-success",
                   children: ee.precio
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: ""
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "",
-                  children: ee.iva
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   className: "",
                   children: ee.updated_at
-                })]
-              }, ee.id), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
-                children: Object.entries(ee.anual).map(function (anual) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                    className: "",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_apexcharts__WEBPACK_IMPORTED_MODULE_0__["default"], {
-                      options: chartConfig("options", Object.entries(anual[1]).map(function (mes) {
-                        return mes[0] + "-" + anual[0];
-                      })),
-                      series: chartConfig("series", Object.entries(anual[1]).map(function (mes) {
-                        return mes[1]["ct"].toFixed(2);
-                      })),
-                      type: "line",
-                      width: "400"
-                    })
+                }), Object.entries(ee.anual).map(function (anual) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                      className: "bg-warning",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("b", {
+                        children: anual[0]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {}), Object.entries(anual[1]).map(function (mes) {
+                        return mes[1]["ct"];
+                      }).reduce(function (partialSum, a) {
+                        return partialSum + a;
+                      }, 0).toFixed(2)]
+                    }), Object.entries(anual[1]).map(function (mes) {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("b", {
+                          children: [mes[0], " - ", anual[0]]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {}), mes[1]["ct"].toFixed(2)]
+                      });
+                    })]
                   });
-                })
-              })]
+                })]
+              }, ee.id)
             });
           })]
         }, e.id);
