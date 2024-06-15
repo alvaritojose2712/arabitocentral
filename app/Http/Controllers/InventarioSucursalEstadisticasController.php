@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 set_time_limit(9000000);
+ini_set('memory_limit', '4095M');
+
 
 use App\Models\inventario_sucursal;
 use App\Models\inventario_sucursal_estadisticas;

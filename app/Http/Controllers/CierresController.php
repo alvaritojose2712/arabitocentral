@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+ini_set('memory_limit', '4095M');
 
 use App\Models\cierres;
 use App\Models\cajas;
