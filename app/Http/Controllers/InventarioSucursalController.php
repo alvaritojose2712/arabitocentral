@@ -604,8 +604,8 @@ class InventarioSucursalController extends Controller
         $i = inventario_sucursal::with(["sucursal"])
         ->when($invsuc_q,function($q) use($invsuc_q) {
             $q->orwhere("descripcion", "LIKE", "%".$invsuc_q."%")
-            ->orwhere("codigo_barras", "LIKE", "%".$invsuc_q."%")
-            ->orwhere("codigo_proveedor", "LIKE", "%".$invsuc_q."%");
+            ->orwhere("codigo_barras", "LIKE", $invsuc_q."%")
+            ->orwhere("codigo_proveedor", "LIKE", $invsuc_q."%");
         })
         ->limit($invsuc_num)
         ->orderBy("n1","desc")
@@ -652,7 +652,6 @@ class InventarioSucursalController extends Controller
 
             }
             $q->anual = $anual;
-            $q->estadisticas = $estadisticas;
             
             return $q;
         })
