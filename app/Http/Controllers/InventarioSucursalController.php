@@ -472,7 +472,48 @@ class InventarioSucursalController extends Controller
             return Response::json(["estado"=>false]);
         }
     }
+    function guardarmodificarInventarioDici(Request $req) {
+        try {
+            $msj = "";
+            $num = 0;
+            foreach ($req->lotes as $i => $ee) {
+                if (isset($ee["type"])) {
+                    if ($ee["type"]==="update"||$ee["type"]==="new") {
 
+
+                        $guardar = inventario_sucursal::updateOrCreate([
+                            "id" => $ee["id"]? $ee["id"]:null
+                        ],[
+                            "id_sucursal" => 13,
+                            "codigo_barras" => $ee["codigo_barras"],
+                            "codigo_proveedor" => $ee["codigo_proveedor"],
+                            "descripcion" => $ee["descripcion"],
+                            "unidad" => $ee["unidad"],
+                            "id_categoria" => $ee["id_categoria"],
+                            "id_catgeneral" => $ee["id_catgeneral"],
+                            "iva" => $ee["iva"],
+                            "precio" => $ee["precio"],
+                            "precio_base" => $ee["precio_base"],
+                            "cantidad" => 0,
+                        ]); 
+                        if ($guardar["estado"]) {
+                            $num++;
+                        }
+                        //array_push($msj, $guardar["msj"]);
+
+                        if (!$guardar["estado"]) {
+                            return Response::json(["msj"=>$msj, "estado"=>false]);   
+                        }
+                    }else if ($ee["type"]==="delete") {
+                        $this->delProductoFun($ee["id"]);
+                    }
+                }   
+            }
+            return Response::json(["msj"=> "PROCESADOS: ".count($req->lotes)." / ".$num, "estado"=>true]);   
+        } catch (\Exception $e) {
+            return Response::json(["msj"=>"Error: ".$e->getMessage()." LINEA ".$e->getLine(),"estado"=>false]);
+        } 
+    }
     public function guardarNuevoProductoLote(Request $req)
     {
         try {

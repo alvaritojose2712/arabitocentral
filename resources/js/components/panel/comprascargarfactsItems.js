@@ -309,6 +309,7 @@ export default function ComprascargarFactsItems({
                                                     <thead>
                                                         <tr>
                                                             <th>ALTERNO</th>
+                                                            <th>BARRAS</th>
                                                             <th>UNIDAD</th>
                                                             <th>DESCRIPCION</th>
                                                             <th>CANTIDAD</th>

@@ -83,12 +83,10 @@ export default function Inventariogeneral({
               }
         }
         if (type=="series") {
-            return [
-                {
-                  name: "",
-                  data: data
-                }
-              ]
+            return [{
+                name: "",
+                data: data
+            }]
         }
         
     }

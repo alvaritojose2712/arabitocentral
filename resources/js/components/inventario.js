@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from "react";
 import Inventariogeneral from "./inventariogeneral";
+import Editarinventario from "./editarinventario";
+
 export default function Inventario({
     qInventarioNovedades,
     setqInventarioNovedades,
@@ -28,6 +30,9 @@ export default function Inventario({
     inventariogeneralData,
     getInventarioGeneral,
     colorSucursal,
+
+    changeInventarioModificarDici,
+    guardarmodificarInventarioDici,
 }){
 
     const [subviewdici, setsubviewdici] = useState("novedades")
@@ -128,22 +133,29 @@ export default function Inventario({
         :null}
 
         {subviewdici=="inventariogeneral"?
-            <>
-                <Inventariogeneral
-                    colorSucursal={colorSucursal}
-                    setinvsuc_q={setinvsuc_q}
-                    invsuc_q={invsuc_q}
-                    invsuc_num={invsuc_num}
-                    setinvsuc_num={setinvsuc_num}
-                    invsuc_orderBy={invsuc_orderBy}
-                    setinvsuc_orderBy={setinvsuc_orderBy}
-                    setinvsuc_orderColumn={setinvsuc_orderColumn}
-                    inventariogeneralData={inventariogeneralData}
-                    getInventarioGeneral={getInventarioGeneral}
-                    sucursales={sucursales}
-                />
-            </>
+            <Inventariogeneral
+                colorSucursal={colorSucursal}
+                setinvsuc_q={setinvsuc_q}
+                invsuc_q={invsuc_q}
+                invsuc_num={invsuc_num}
+                setinvsuc_num={setinvsuc_num}
+                invsuc_orderBy={invsuc_orderBy}
+                setinvsuc_orderBy={setinvsuc_orderBy}
+                setinvsuc_orderColumn={setinvsuc_orderColumn}
+                inventariogeneralData={inventariogeneralData}
+                getInventarioGeneral={getInventarioGeneral}
+                sucursales={sucursales}
+            />
         :null}
+
+        {subviewdici=="editarinventario"?
+            <Editarinventario
+                changeInventarioModificarDici={changeInventarioModificarDici}
+                guardarmodificarInventarioDici={guardarmodificarInventarioDici}  
+            />
+        :null}
+
+
     </div>
     )
 }

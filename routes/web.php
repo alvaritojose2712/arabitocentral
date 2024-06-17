@@ -376,6 +376,8 @@ Route::post('sendInventario', [InventarioController::class,"sendInventario"]);
 Route::post('sendItemsPedidosChecked', [ItemsPedidosController::class,"sendItemsPedidosChecked"]);
 
 Route::post('guardarNuevoProductoLote', [InventarioSucursalController::class,"guardarNuevoProductoLote"]);
+Route::post('guardarmodificarInventarioDici', [InventarioSucursalController::class,"guardarmodificarInventarioDici"]);
+
 Route::post('getinventario', [InventarioSucursalController::class,"index"]);
 Route::post('getInventarioGeneral',  [InventarioSucursalController::class,"getInventarioGeneral"]);
 Route::post('getBarrasCargaItems',  [InventarioSucursalController::class,"getBarrasCargaItems"]);

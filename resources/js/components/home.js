@@ -1134,6 +1134,7 @@ function Home() {
           descripcion: "",
           id_categoria: "",
           id_marca: "",
+          
           id_catgeneral: "",
           unidad: "UND",
           cantidad: "",
@@ -1141,6 +1142,7 @@ function Home() {
           precio_base: "",
           precio: "",
           iva: "0",
+
           type: "new",
 
         }]
@@ -1156,6 +1158,75 @@ function Home() {
     }
     setProductosInventario(obj)
   }
+
+  const changeInventarioModificarDici = (val, i, type, name = null) => {
+    let obj = cloneDeep(productosInventario)
+
+    switch (type) {
+      case "update":
+        if (obj[i].type != "new") {
+          obj[i].type = "update"
+        }
+        break;
+      case "delModeUpdateDelete":
+        delete obj[i].type
+        break;
+      case "delNew":
+        obj = obj.filter((e, ii) => ii !== i)
+        break;
+      case "changeInput":
+        obj[i][name] = val
+        break;
+      case "add":
+        let pro = ""
+
+        
+        let newObj = [{
+          id: null,
+          id_categoria: "",
+          id_catgeneral: "",
+          id_marca: "",
+          
+          n1: "",
+          n2: "",
+          n3: "",
+          n4: "",
+          n5: "",
+
+          type: "new",
+
+        }]
+
+        obj = newObj.concat(obj)
+        break;
+
+      case "delMode":
+        obj[i].type = "delete"
+        break;
+    }
+    setProductosInventario(obj)
+  }
+
+  const guardarmodificarInventarioDici = () => {
+    let lotesFil = productosInventario.filter(e => e.type)
+
+
+    if (lotesFil.length) {
+
+      db.guardarmodificarInventarioDici({ lotes: lotesFil }).then(res => {
+        if (typeof res.data === "string") {
+          notificar(res.data, false);
+        }else{
+          notificar(res.data.msj.join("\n"), false);
+        }
+        if (res.data.estado) {
+          buscarInventario()
+        }
+      })
+    }
+  }
+
+
   const getBarrasCargaItems = id => {
 
     let obj = cloneDeep(productosInventario)
@@ -5009,6 +5080,55 @@ function formatAmount( number, simbol ) {
           {permiso([1,2,10]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+
+              selectIdVinculacion={selectIdVinculacion} 
+              setselectIdVinculacion={setselectIdVinculacion}
+              qvinculacion1={qvinculacion1} 
+              setqvinculacion1={setqvinculacion1}
+              qvinculacion2={qvinculacion2} 
+              setqvinculacion2={setqvinculacion2}
+              qvinculacion3={qvinculacion3} 
+              setqvinculacion3={setqvinculacion3}
+              qvinculacion4={qvinculacion4} 
+              setqvinculacion4={setqvinculacion4}
+              qvinculacionmarca={qvinculacionmarca} 
+              setqvinculacionmarca={setqvinculacionmarca}
+              datavinculacion1={datavinculacion1} 
+              setdatavinculacion1={setdatavinculacion1}
+              datavinculacion2={datavinculacion2} 
+              setdatavinculacion2={setdatavinculacion2}
+              datavinculacion3={datavinculacion3} 
+              setdatavinculacion3={setdatavinculacion3}
+              datavinculacion4={datavinculacion4} 
+              setdatavinculacion4={setdatavinculacion4}
+              datavinculacionmarca={datavinculacionmarca} 
+              setdatavinculacionmarca={setdatavinculacionmarca}
+              inputselectvinculacion1={inputselectvinculacion1} 
+              setinputselectvinculacion1={setinputselectvinculacion1}
+              inputselectvinculacion2={inputselectvinculacion2} 
+              setinputselectvinculacion2={setinputselectvinculacion2}
+              inputselectvinculacion3={inputselectvinculacion3} 
+              setinputselectvinculacion3={setinputselectvinculacion3}
+              inputselectvinculacion4={inputselectvinculacion4} 
+              setinputselectvinculacion4={setinputselectvinculacion4}
+              inputselectvinculacionmarca={inputselectvinculacionmarca} 
+              setinputselectvinculacionmarca={setinputselectvinculacionmarca}
+              inputselectvinculacion1General={inputselectvinculacion1General} 
+              setinputselectvinculacion1General={setinputselectvinculacion1General}
+              inputselectvinculacion2General={inputselectvinculacion2General} 
+              setinputselectvinculacion2General={setinputselectvinculacion2General}
+              inputselectvinculacion3General={inputselectvinculacion3General} 
+              setinputselectvinculacion3General={setinputselectvinculacion3General}
+              inputselectvinculacion4General={inputselectvinculacion4General} 
+              setinputselectvinculacion4General={setinputselectvinculacion4General}
+              inputselectvinculacionmarcaGeneral={inputselectvinculacionmarcaGeneral} 
+              setinputselectvinculacionmarcaGeneral={setinputselectvinculacionmarcaGeneral}
+              getDatinputSelectVinculacion={getDatinputSelectVinculacion}
+              saveCuatroNombres={saveCuatroNombres}
+
+              changeInventarioModificarDici={changeInventarioModificarDici}
+              guardarmodificarInventarioDici={guardarmodificarInventarioDici}
+
               delInventarioNovedades={delInventarioNovedades}
               colorSucursal={colorSucursal}
               qInventarioNovedades={qInventarioNovedades}

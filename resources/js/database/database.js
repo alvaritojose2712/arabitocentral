@@ -105,6 +105,8 @@ const db = {
   setProveedor: data=>axios.post(host+"setProveedor",data),
   openReporteInventario: data=>axios.post(host+"openReporteInventario",data),
   guardarNuevoProductoLote: data=>axios.post(host+"guardarNuevoProductoLote",data),
+  guardarmodificarInventarioDici: data=>axios.post(host+"guardarmodificarInventarioDici",data),
+  
   getEstaInventario: data=>axios.post(host+"getEstaInventario",data),
   getinventario: data=>axios.post(host+"getinventario",data),
   
