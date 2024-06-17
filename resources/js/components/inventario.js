@@ -33,6 +33,54 @@ export default function Inventario({
 
     changeInventarioModificarDici,
     guardarmodificarInventarioDici,
+
+    selectIdVinculacion, 
+    setselectIdVinculacion,
+    qvinculacion1, 
+    setqvinculacion1,
+    qvinculacion2, 
+    setqvinculacion2,
+    qvinculacion3, 
+    setqvinculacion3,
+    qvinculacion4, 
+    setqvinculacion4,
+    qvinculacionmarca, 
+    setqvinculacionmarca,
+    datavinculacion1, 
+    setdatavinculacion1,
+    datavinculacion2, 
+    setdatavinculacion2,
+    datavinculacion3, 
+    setdatavinculacion3,
+    datavinculacion4, 
+    setdatavinculacion4,
+    datavinculacionmarca, 
+    setdatavinculacionmarca,
+    inputselectvinculacion1, 
+    setinputselectvinculacion1,
+    inputselectvinculacion2, 
+    setinputselectvinculacion2,
+    inputselectvinculacion3, 
+    setinputselectvinculacion3,
+    inputselectvinculacion4, 
+    setinputselectvinculacion4,
+    inputselectvinculacionmarca, 
+    setinputselectvinculacionmarca,
+    inputselectvinculacion1General, 
+    setinputselectvinculacion1General,
+    inputselectvinculacion2General, 
+    setinputselectvinculacion2General,
+    inputselectvinculacion3General, 
+    setinputselectvinculacion3General,
+    inputselectvinculacion4General, 
+    setinputselectvinculacion4General,
+    inputselectvinculacionmarcaGeneral, 
+    setinputselectvinculacionmarcaGeneral,
+    getDatinputSelectVinculacion,
+    saveCuatroNombres,
+
+    inventarioGeneralqsucursal,
+    setinventarioGeneralqsucursal,
 }){
 
     const [subviewdici, setsubviewdici] = useState("novedades")
@@ -142,6 +190,10 @@ export default function Inventario({
                 invsuc_orderBy={invsuc_orderBy}
                 setinvsuc_orderBy={setinvsuc_orderBy}
                 setinvsuc_orderColumn={setinvsuc_orderColumn}
+
+                inventarioGeneralqsucursal={inventarioGeneralqsucursal}
+                setinventarioGeneralqsucursal={setinventarioGeneralqsucursal}
+
                 inventariogeneralData={inventariogeneralData}
                 getInventarioGeneral={getInventarioGeneral}
                 sucursales={sucursales}
@@ -151,7 +203,54 @@ export default function Inventario({
         {subviewdici=="editarinventario"?
             <Editarinventario
                 changeInventarioModificarDici={changeInventarioModificarDici}
-                guardarmodificarInventarioDici={guardarmodificarInventarioDici}  
+                guardarmodificarInventarioDici={guardarmodificarInventarioDici} 
+                inventarioGeneralqsucursal={inventarioGeneralqsucursal}
+                setinventarioGeneralqsucursal={setinventarioGeneralqsucursal}
+
+                selectIdVinculacion={selectIdVinculacion} 
+                setselectIdVinculacion={setselectIdVinculacion}
+                qvinculacion1={qvinculacion1} 
+                setqvinculacion1={setqvinculacion1}
+                qvinculacion2={qvinculacion2} 
+                setqvinculacion2={setqvinculacion2}
+                qvinculacion3={qvinculacion3} 
+                setqvinculacion3={setqvinculacion3}
+                qvinculacion4={qvinculacion4} 
+                setqvinculacion4={setqvinculacion4}
+                qvinculacionmarca={qvinculacionmarca} 
+                setqvinculacionmarca={setqvinculacionmarca}
+                datavinculacion1={datavinculacion1} 
+                setdatavinculacion1={setdatavinculacion1}
+                datavinculacion2={datavinculacion2} 
+                setdatavinculacion2={setdatavinculacion2}
+                datavinculacion3={datavinculacion3} 
+                setdatavinculacion3={setdatavinculacion3}
+                datavinculacion4={datavinculacion4} 
+                setdatavinculacion4={setdatavinculacion4}
+                datavinculacionmarca={datavinculacionmarca} 
+                setdatavinculacionmarca={setdatavinculacionmarca}
+                inputselectvinculacion1={inputselectvinculacion1} 
+                setinputselectvinculacion1={setinputselectvinculacion1}
+                inputselectvinculacion2={inputselectvinculacion2} 
+                setinputselectvinculacion2={setinputselectvinculacion2}
+                inputselectvinculacion3={inputselectvinculacion3} 
+                setinputselectvinculacion3={setinputselectvinculacion3}
+                inputselectvinculacion4={inputselectvinculacion4} 
+                setinputselectvinculacion4={setinputselectvinculacion4}
+                inputselectvinculacionmarca={inputselectvinculacionmarca} 
+                setinputselectvinculacionmarca={setinputselectvinculacionmarca}
+                inputselectvinculacion1General={inputselectvinculacion1General} 
+                setinputselectvinculacion1General={setinputselectvinculacion1General}
+                inputselectvinculacion2General={inputselectvinculacion2General} 
+                setinputselectvinculacion2General={setinputselectvinculacion2General}
+                inputselectvinculacion3General={inputselectvinculacion3General} 
+                setinputselectvinculacion3General={setinputselectvinculacion3General}
+                inputselectvinculacion4General={inputselectvinculacion4General} 
+                setinputselectvinculacion4General={setinputselectvinculacion4General}
+                inputselectvinculacionmarcaGeneral={inputselectvinculacionmarcaGeneral} 
+                setinputselectvinculacionmarcaGeneral={setinputselectvinculacionmarcaGeneral}
+                getDatinputSelectVinculacion={getDatinputSelectVinculacion}
+                saveCuatroNombres={saveCuatroNombres}
             />
         :null}
 

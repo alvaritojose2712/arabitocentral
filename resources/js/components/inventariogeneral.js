@@ -14,6 +14,9 @@ export default function Inventariogeneral({
 
     sucursales,
     colorSucursal,
+
+    inventarioGeneralqsucursal,
+    setinventarioGeneralqsucursal,
 }){
     /* Object.entries(anual[1]).map(mes=>mes[0]+"-"+anual[0])
     Object.entries(anual[1]).map(mes=>mes[1]["ct"].toFixed(2)) */
@@ -95,7 +98,12 @@ export default function Inventariogeneral({
             <div>
                 <form className="input-group" onSubmit={event=>{getInventarioGeneral();event.preventDefault()}}>
                     <input type="text" className="form-control" placeholder="Buscar...(esc)" onChange={e => setinvsuc_q(e.target.value)} value={invsuc_q} />
-
+                    <select className="form-control form-control-lg" value={inventarioGeneralqsucursal} onChange={e=>setinventarioGeneralqsucursal(e.target.value)}>
+                        <option value="">-SUCURSAL-</option>
+                        {sucursales.map(e=>
+                            <option key={e.id} value={e.id}>{e.codigo}</option>
+                        )}
+                    </select>
                     <select value={invsuc_num} onChange={e => setinvsuc_num(e.target.value)} className="form-control">
                         <option value="25">Num.25</option>
                         <option value="50">Num.50</option>

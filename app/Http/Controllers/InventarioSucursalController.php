@@ -641,8 +641,12 @@ class InventarioSucursalController extends Controller
         $invsuc_q = $req->invsuc_q;
         $invsuc_num = $req->invsuc_num;
         $invsuc_orderBy = $req->invsuc_orderBy;
+        $inventarioGeneralqsucursal = $req->inventarioGeneralqsucursal;
 
         $i = inventario_sucursal::with(["sucursal"])
+        ->when($inventarioGeneralqsucursal,function($q) use($inventarioGeneralqsucursal) {
+            $q->where("id_sucursal",$inventarioGeneralqsucursal);
+        })
         ->when($invsuc_q,function($q) use($invsuc_q) {
             $q->orwhere("descripcion", "LIKE", "%".$invsuc_q."%")
             ->orwhere("codigo_barras", "LIKE", $invsuc_q."%")

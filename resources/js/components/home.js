@@ -310,6 +310,8 @@ function Home() {
   const [invsuc_orderBy, setinvsuc_orderBy] = useState("desc")
   const [controlefecSelectGeneral, setcontrolefecSelectGeneral] = useState(1)
 
+  const [inventarioGeneralqsucursal,setinventarioGeneralqsucursal] = useState("")
+
 
 
   const [inpInvbarras, setinpInvbarras] = useState("")
@@ -394,6 +396,7 @@ function Home() {
       invsuc_q,
       invsuc_num,
       invsuc_orderBy,
+      inventarioGeneralqsucursal,
     })
     .then(res=>{
       setinventariogeneralData(res.data)
@@ -5145,6 +5148,9 @@ function formatAmount( number, simbol ) {
               resolveInventarioNovedades={resolveInventarioNovedades}
               sucursales={sucursales}
 
+
+              inventarioGeneralqsucursal={inventarioGeneralqsucursal}
+              setinventarioGeneralqsucursal={setinventarioGeneralqsucursal}
               setinvsuc_q={setinvsuc_q}
               invsuc_q={invsuc_q}
               invsuc_num={invsuc_num}
