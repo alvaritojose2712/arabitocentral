@@ -20,9 +20,9 @@ export default function Nominapagos({
     setnominapagodetalles,
     moneda,
 }){
-    useEffect(() => {
+    /* useEffect(() => {
         getPersonalNomina()
-    }, [subViewNomina])
+    }, [subViewNomina]) */
     const [selectIdPersonal, setselectIdPersonal] = useState(null)
     return (
         <div>

@@ -421,7 +421,7 @@ export default function CuentasporpagarDetalles({
 
                                     </th>
                                     <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="numfact"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("numfact")}} className="pointer  p-3 text-center">
-                                        NúMERO DE FACTURA
+                                        NÚMERO DE FACTURA
                                     </th>  
                                     <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="id_sucursal"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("id_sucursal")}} className="pointer  p-3 text-right">
                                         ORIGEN

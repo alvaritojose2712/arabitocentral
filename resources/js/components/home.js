@@ -2591,6 +2591,7 @@ function formatAmount( number, simbol ) {
                       setnewfactfechaemision(data.fechaemision)
                       setnewfactfechavencimiento(data.fechavencimiento)
                       setnewfactfecharecepcion(data.fecharecepcion)
+
                       setnewfactnota(data.nota)
                       setnewfacttipo(data.tipo)
                       setnewfactfrecuencia(data.frecuencia)

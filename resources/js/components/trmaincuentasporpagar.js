@@ -58,6 +58,7 @@ selectFacts,
                     <span className={(returnCondicion(e.condicion))+(" w-100 btn fs-2 pointer fw-bolder text-light ")+(dataselectFacts.data.filter(fil=>fil.id == e.id).length?"border-select":"")}> 
                         {e.numfact}
                     </span>
+                    
                 </td>  
                 <td className=" text-right">
                     <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal?e.sucursal.codigo:"")}}>
@@ -95,6 +96,10 @@ selectFacts,
                 :null}
                 </td>
                 <td className="text-right">
+                    {e.nota?
+                        <i className="fa fa-question text-sinapsis fa-3x m-2" aria-hidden="true"></i>
+                    :null}
+
                     {selectFactViewDetalles!=e.id || !e.pagos.length?
                         <>
                             {e.monto<0?
@@ -112,15 +117,15 @@ selectFacts,
                 <tr className={(selectFactViewDetalles==e.id?"bg-success-superlight":null)+" border-bottom-5"}>
                     <th colSpan={10} className="text-center">
                         <div className="btn-group">
-                            <button className="btn btn-outline-success btn-sm" onClick={()=>conciliarCuenta(e.id)}> CONCILIAR </button>
-                            {e.condicion!="pagadas" && e.condicion!="abonos"?<button className="btn btn-outline-success" onClick={()=>abonarFact(e.id_proveedor,e.id)}>
+                            <span className="btn btn-outline-success btn-sm" onClick={()=>conciliarCuenta(e.id)}> CONCILIAR </span>
+                            {e.condicion!="pagadas" && e.condicion!="abonos"?<span className="btn btn-outline-success" onClick={()=>abonarFact(e.id_proveedor,e.id)}>
                                 <i className=" fa fa-credit-card"></i>
                                 PAGAR 
-                            </button>:null}
-                            <button className="btn btn-outline-info" onClick={()=>showImageFact(e.descripcion)}> <i className="fa fa-eye"></i> VER </button>
-                            <button className="btn btn-outline-sinapsis" onClick={()=>setSelectCuentaPorPagarDetalle(e.id)}> <i className="fa fa-pencil"></i> EDITAR </button>
+                            </span>:null}
+                            <span className="btn btn-outline-info" onClick={()=>showImageFact(e.descripcion)}> <i className="fa fa-eye"></i> VER </span>
+                            <span className="btn btn-outline-sinapsis" onClick={()=>setSelectCuentaPorPagarDetalle(e.id)}> <i className="fa fa-pencil"></i> EDITAR </span>
                             
-                            <button className="btn" onDoubleClick={()=>changeSucursal(e.id)}> {e.sucursal?e.sucursal.codigo:""} </button>
+                            <span className="btn" onDoubleClick={()=>changeSucursal(e.id)}> {e.sucursal?e.sucursal.codigo:""} </span>
                             
                         </div>
                     </th>
@@ -200,7 +205,7 @@ selectFacts,
                                     FACTURA ASOCIADA <i className="fa fa-check text-sinapsis"></i>
                                 </td>
                                 <td className=" align-middle" colSpan={2}>
-                                    <span className="btn-sinapsis btn pointer w-100">
+                                    <span className="btn-sinapsis btn pointer w-100" onClick={()=>showImageFact(fact.descripcion)}>
                                         FACT {fact.numfact}
                                     </span> 
                                 </td>

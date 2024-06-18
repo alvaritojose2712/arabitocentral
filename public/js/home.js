@@ -7486,7 +7486,7 @@ function CuentasporpagarDetalles(_ref) {
                   setqCampocuentasPorPagarDetalles("numfact");
                 },
                 className: "pointer  p-3 text-center",
-                children: "N\xFAMERO DE FACTURA"
+                children: "N\xDAMERO DE FACTURA"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                 onClick: function onClick() {
                   if (qCampocuentasPorPagarDetalles == "id_sucursal") {
@@ -12059,9 +12059,9 @@ function Nominapagos(_ref) {
     nominapagodetalles = _ref.nominapagodetalles,
     setnominapagodetalles = _ref.setnominapagodetalles,
     moneda = _ref.moneda;
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    getPersonalNomina();
-  }, [subViewNomina]);
+  /* useEffect(() => {
+      getPersonalNomina()
+  }, [subViewNomina]) */
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
     selectIdPersonal = _useState2[0],
@@ -19151,14 +19151,17 @@ function Trmaincuentasporpagar(_ref) {
             })
           }) : null
         }) : null
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
         className: "text-right",
-        children: selectFactViewDetalles != e.id || !e.pagos.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        children: [e.nota ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+          className: "fa fa-question text-sinapsis fa-3x m-2",
+          "aria-hidden": "true"
+        }) : null, selectFactViewDetalles != e.id || !e.pagos.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
           children: e.monto < 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
             className: (e.balance < 0 ? "text-danger" : "text-success") + " fs-3 fw-bold",
             children: [" ", moneda(e.balance)]
           }) : null
-        }) : null
+        }) : null]
       })]
     }), selectFactViewDetalles == e.id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tr", {
@@ -19168,13 +19171,13 @@ function Trmaincuentasporpagar(_ref) {
           className: "text-center",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
             className: "btn-group",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
               className: "btn btn-outline-success btn-sm",
               onClick: function onClick() {
                 return conciliarCuenta(e.id);
               },
               children: " CONCILIAR "
-            }), e.condicion != "pagadas" && e.condicion != "abonos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+            }), e.condicion != "pagadas" && e.condicion != "abonos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
               className: "btn btn-outline-success",
               onClick: function onClick() {
                 return abonarFact(e.id_proveedor, e.id);
@@ -19182,7 +19185,7 @@ function Trmaincuentasporpagar(_ref) {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
                 className: " fa fa-credit-card"
               }), "PAGAR"]
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
               className: "btn btn-outline-info",
               onClick: function onClick() {
                 return showImageFact(e.descripcion);
@@ -19190,7 +19193,7 @@ function Trmaincuentasporpagar(_ref) {
               children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
                 className: "fa fa-eye"
               }), " VER "]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
               className: "btn btn-outline-sinapsis",
               onClick: function onClick() {
                 return setSelectCuentaPorPagarDetalle(e.id);
@@ -19198,7 +19201,7 @@ function Trmaincuentasporpagar(_ref) {
               children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
                 className: "fa fa-pencil"
               }), " EDITAR "]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
               className: "btn",
               onDoubleClick: function onDoubleClick() {
                 return changeSucursal(e.id);
@@ -19312,6 +19315,9 @@ function Trmaincuentasporpagar(_ref) {
             colSpan: 2,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
               className: "btn-sinapsis btn pointer w-100",
+              onClick: function onClick() {
+                return showImageFact(fact.descripcion);
+              },
               children: ["FACT ", fact.numfact]
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
