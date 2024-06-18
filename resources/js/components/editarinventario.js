@@ -66,11 +66,17 @@ export default function Editarinventario({
     qvinculacion3General,
     qvinculacion4General,
     qvinculacionmarcaGeneral,
+
+    colorSucursal,
 }){
     
     const [showInputGeneral, setshowInputGeneral] = useState(false)
     const [sameCatValue, setsameCatValue] = useState("");
     const [sameCateGenValue, setsameCateGenValue] = useState("");
+
+    useEffect(()=>{
+        getDatinputSelectVinculacion()
+    },[])
 
     useEffect(()=>{
         let fil = datavinculacion1.find(e=>e.nombre?e.nombre.toLowerCase().substr(0,qvinculacion1.length) == qvinculacion1.toLowerCase() :false)
@@ -220,7 +226,11 @@ export default function Editarinventario({
                 {productosInventario.length?productosInventario.map((e,i)=>
                     <tbody key={i}>
                         <tr className={" align-bottom border-top border-top-1 border-dark pointer "} onClick={()=>funIdVinc(e.id,e.n1,e.n2,e.n3,e.n4,e.marca)} onDoubleClick={() => changeInventarioModificarDici(null, i, "update")}>
-                            <td>{i+1}</td>
+                            <td>
+                                <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
+                                    {e.sucursal.codigo}
+                                </button>
+                            </td>
                             <td className="">
                                 {e.id}
                             </td>

@@ -33,7 +33,6 @@ export default function Inventario({
     setinvsuc_orderColumn,
     inventariogeneralData,
     getInventarioGeneral,
-    colorSucursal,
 
     changeInventarioModificarDici,
     guardarmodificarInventarioDici,
@@ -91,6 +90,8 @@ export default function Inventario({
 
     inventarioGeneralqsucursal,
     setinventarioGeneralqsucursal,
+
+    colorSucursal,
 }){
 
     const [subviewdici, setsubviewdici] = useState("novedades")
@@ -213,6 +214,7 @@ export default function Inventario({
 
         {subviewdici=="editarinventario"?
             <Editarinventario
+                colorSucursal={colorSucursal}
                 buscarInventario={buscarInventario}
                 qBuscarInventario={qBuscarInventario}
                 setQBuscarInventario={setQBuscarInventario}

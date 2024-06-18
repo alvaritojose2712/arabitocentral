@@ -68,6 +68,7 @@ class NominaController extends Controller
         ->where("activo",1)
         ->where("nominasucursal", $id_origen)
         ->orderBy("nominanombre", "asc")
+        ->orderBy("activo", "desc")
         ->get()
         ->map(function($q) {
             $cedula = $q->nominacedula;
@@ -181,6 +182,7 @@ class NominaController extends Controller
         ->when($qSucursalNomina, function ($q) use ($qSucursalNomina) {
             $q->where("nominasucursal", $qSucursalNomina);
         })
+        ->orderBy("activo","desc")
         ->get()
         ->map(function($q) use ($mes,$mespasado,$mesantepasado) {
             $cedula = $q->nominacedula;

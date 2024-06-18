@@ -313,6 +313,7 @@ function saveCuatroNombres(Request $req) {
     }
 
 }
+
 function getDatinputSelectVinculacion() {
     $datavinculacion1 = productonombre1::all();
     $datavinculacion2 = productonombre2::all();

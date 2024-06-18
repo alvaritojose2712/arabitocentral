@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\inventario_sucursal_estadisticas;
+use App\Models\marcas;
 
 set_time_limit(300000);
 
@@ -16,6 +17,13 @@ use App\Models\inventario;
 use App\Models\cuentasporpagar;
 use App\Models\cuentasporpagar_items;
 
+use App\Models\productonombre1;
+use App\Models\productonombre2;
+use App\Models\productonombre3;
+use App\Models\productonombre4;
+use App\Models\productonombre5;
+
+
 
 
 
@@ -27,6 +35,73 @@ use Response;
 
 class InventarioSucursalController extends Controller
 {
+
+    
+    function getDistinctNs() {
+        $n1s = inventario_sucursal::select("DISTINCT(n1)")->get();
+            foreach ($n1s as $i => $n1) {
+                if ($n1->nombre) {
+                    productonombre1::updateOrCreate([
+                        "nombre" => $n1->nombre
+                    ],[
+                        "nombre" => $n1->nombre
+                    ]);
+                }
+            }
+        $n2s = inventario_sucursal::select("DISTINCT(n2)")->get();
+            foreach ($n2s as $i => $n2) {
+                if ($n2->nombre) {
+                    productonombre2::updateOrCreate([
+                        "nombre" => $n2->nombre
+                    ],[
+                        "nombre" => $n2->nombre
+                    ]);
+                }
+            }
+        $n3s = inventario_sucursal::select("DISTINCT(n3)")->get();
+            foreach ($n3s as $i => $n3) {
+                if ($n3->nombre) {
+                    productonombre3::updateOrCreate([
+                        "nombre" => $n3->nombre
+                    ],[
+                        "nombre" => $n3->nombre
+                    ]);
+                }
+            }
+        $n4s = inventario_sucursal::select("DISTINCT(n4)")->get();
+            foreach ($n4s as $i => $n4) {
+                if ($n4->nombre) {
+                    productonombre4::updateOrCreate([
+                        "nombre" => $n4->nombre
+                    ],[
+                        "nombre" => $n4->nombre
+                    ]);
+                }
+            }
+        $n5s = inventario_sucursal::select("DISTINCT(n5)")->get();
+            foreach ($n5s as $i => $n5) {
+                if ($n5->nombre) {
+                    productonombre5::updateOrCreate([
+                        "nombre" => $n5->nombre
+                    ],[
+                        "nombre" => $n5->nombre
+                    ]);
+                }
+            }
+        $marcas = inventario_sucursal::select("DISTINCT(id_marca)")->get();
+        foreach ($marcas as $i => $marca) {
+            if ($marca->descripcion) {
+                marcas::updateOrCreate([
+                    "descripcion" => $marca->descripcion
+                ],[
+                    "descripcion" => $marca->descripcion
+                ]);
+            }
+        }
+
+
+
+    }
     public function index(Request $req)
     {
         $exacto = false;
@@ -57,6 +132,7 @@ class InventarioSucursalController extends Controller
                 "categoria",
                 "catgeneral",
                 "sucursales",
+                "sucursal",
             ])
             ->where("id_sucursal",13)
             ->limit($num)
@@ -69,6 +145,7 @@ class InventarioSucursalController extends Controller
             $data = inventario_sucursal::with([
                 "categoria",
                 "catgeneral",
+                "sucursal",
                 
             ])
             ->where("id_sucursal",13)
@@ -84,7 +161,6 @@ class InventarioSucursalController extends Controller
                     $e->orWhere("descripcion","LIKE","%$q%")
                     ->orWhere("codigo_proveedor","LIKE","%$q%")
                     ->orWhere("codigo_barras","LIKE","%$q%");
-
                 }
 
             })

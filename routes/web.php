@@ -453,6 +453,10 @@ Route::get('unicoinventario', [InventarioController::class,"unicoinventario"]);
 Route::get('vincularinventario', [InventarioController::class,"vincularinventario"]);
 Route::get('estatusVinculacion', [InventarioController::class,"estatusVinculacion"]);
 
+
+
+Route::get('getDistinctNs', [InventarioSucursalController::class,"getDistinctNs"]);
+
 Route::get('setNombres1', [InventarioController::class,"setNombres1"]);
 Route::post('getDatinputSelectVinculacion', [InventarioController::class,"getDatinputSelectVinculacion"]);
 Route::post('saveCuatroNombres', [InventarioController::class,"saveCuatroNombres"]);

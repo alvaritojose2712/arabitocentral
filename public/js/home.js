@@ -8979,7 +8979,8 @@ function Editarinventario(_ref) {
     qvinculacion2General = _ref.qvinculacion2General,
     qvinculacion3General = _ref.qvinculacion3General,
     qvinculacion4General = _ref.qvinculacion4General,
-    qvinculacionmarcaGeneral = _ref.qvinculacionmarcaGeneral;
+    qvinculacionmarcaGeneral = _ref.qvinculacionmarcaGeneral,
+    colorSucursal = _ref.colorSucursal;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     showInputGeneral = _useState2[0],
@@ -8992,6 +8993,9 @@ function Editarinventario(_ref) {
     _useState6 = _slicedToArray(_useState5, 2),
     sameCateGenValue = _useState6[0],
     setsameCateGenValue = _useState6[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getDatinputSelectVinculacion();
+  }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var fil = datavinculacion1.find(function (e) {
       return e.nombre ? e.nombre.toLowerCase().substr(0, qvinculacion1.length) == qvinculacion1.toLowerCase() : false;
@@ -9268,7 +9272,13 @@ function Editarinventario(_ref) {
               return changeInventarioModificarDici(null, i, "update");
             },
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: i + 1
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                className: "btn w-100 fw-bolder fs-3",
+                style: {
+                  backgroundColor: colorSucursal(e.sucursal.codigo)
+                },
+                children: e.sucursal.codigo
+              })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
               className: "",
               children: e.id
@@ -10785,7 +10795,6 @@ function Inventario(_ref) {
     setinvsuc_orderColumn = _ref.setinvsuc_orderColumn,
     inventariogeneralData = _ref.inventariogeneralData,
     getInventarioGeneral = _ref.getInventarioGeneral,
-    colorSucursal = _ref.colorSucursal,
     changeInventarioModificarDici = _ref.changeInventarioModificarDici,
     guardarmodificarInventarioDici = _ref.guardarmodificarInventarioDici,
     selectIdVinculacion = _ref.selectIdVinculacion,
@@ -10838,7 +10847,8 @@ function Inventario(_ref) {
     qvinculacion4General = _ref.qvinculacion4General,
     qvinculacionmarcaGeneral = _ref.qvinculacionmarcaGeneral,
     inventarioGeneralqsucursal = _ref.inventarioGeneralqsucursal,
-    setinventarioGeneralqsucursal = _ref.setinventarioGeneralqsucursal;
+    setinventarioGeneralqsucursal = _ref.setinventarioGeneralqsucursal,
+    colorSucursal = _ref.colorSucursal;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("novedades"),
     _useState2 = _slicedToArray(_useState, 2),
     subviewdici = _useState2[0],
@@ -11090,6 +11100,7 @@ function Inventario(_ref) {
       getInventarioGeneral: getInventarioGeneral,
       sucursales: sucursales
     }) : null, subviewdici == "editarinventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_editarinventario__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      colorSucursal: colorSucursal,
       buscarInventario: buscarInventario,
       qBuscarInventario: qBuscarInventario,
       setQBuscarInventario: setQBuscarInventario,
