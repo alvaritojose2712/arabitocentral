@@ -10,6 +10,7 @@ use App\Http\Controllers\CreditoAprobacionController;
 use App\Http\Controllers\CuentasporpagarController;
 use App\Http\Controllers\CuentasporpagarFisicasController;
 use App\Http\Controllers\CuentasporpagarItemsController;
+use App\Http\Controllers\InventarioSucursalEstadisticasController;
 use App\Http\Controllers\NovedadInventarioAprobacionController;
 use App\Http\Controllers\PuntosybiopagosController;
 use App\Http\Controllers\TransferenciaAprobacionController;
@@ -381,7 +382,7 @@ Route::post('guardarmodificarInventarioDici', [InventarioSucursalController::cla
 Route::post('getinventario', [InventarioSucursalController::class,"index"]);
 Route::post('getInventarioGeneral',  [InventarioSucursalController::class,"getInventarioGeneral"]);
 Route::post('getBarrasCargaItems',  [InventarioSucursalController::class,"getBarrasCargaItems"]);
-Route::get('delduplicateItemsEstadisticas',  [InventarioSucursalController::class,"delduplicateItemsEstadisticas"]);
+Route::get('delduplicateItemsEstadisticas',  [InventarioSucursalEstadisticasController::class,"delduplicateItemsEstadisticas"]);
 
 
 
