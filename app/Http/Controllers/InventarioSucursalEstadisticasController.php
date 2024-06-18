@@ -26,21 +26,19 @@ class InventarioSucursalEstadisticasController extends Controller
                     $tempArr = [];
 
                     foreach ($e as $key => $item) {
-                        inventario_sucursal_estadisticas::updateOrCreate([
+                        array_push($tempArr,[
                             "id_itempedido_insucursal" => $item["id"],
-                            "id_sucursal" => $id_sucursal,
-                            
-                        ],[
                             "id_pedido_insucursal" => $item["id_pedido"],
                             "id_producto_insucursal" => $item["id_producto"],
                             
+                            "id_sucursal" => $id_sucursal,
                             "cantidad" => $item["cantidad"],
                             "fecha" => substr($item["created_at"],0,10),
                             "created_at" => $today,
                         ]);
                     }
 
-                    //DB::table("inventario_sucursal_estadisticas")->insert($tempArr);
+                    DB::table("inventario_sucursal_estadisticas")->insert($tempArr);
                 }
                 return [
                     "msj" => "OK ESTADISTICAS ".$count_movs,
@@ -96,6 +94,7 @@ class InventarioSucursalEstadisticasController extends Controller
             }
     }
 
+
     function delduplicateItemsEstadisticas() {
         $du = inventario_sucursal_estadisticas::selectRaw("id_sucursal, id_itempedido_insucursal, COUNT(*) as count")->groupByRaw("id_sucursal, id_itempedido_insucursal")->havingRaw("COUNT(*) > 1")->get();
 
@@ -109,4 +108,23 @@ class InventarioSucursalEstadisticasController extends Controller
             echo "$id_sucursal __ $id_itempedido_insucursal ____ $count veces <br>";
         }
     }
+
+    /* foreach ($split as $i => $e) {
+        $tempArr = [];
+
+        foreach ($e as $key => $item) {
+            array_push($tempArr,[
+                "id_itempedido_insucursal" => $item["id"],
+                "id_pedido_insucursal" => $item["id_pedido"],
+                "id_producto_insucursal" => $item["id_producto"],
+                
+                "id_sucursal" => $id_sucursal,
+                "cantidad" => $item["cantidad"],
+                "fecha" => substr($item["created_at"],0,10),
+                "created_at" => $today,
+            ]);
+        }
+
+        DB::table("inventario_sucursal_estadisticas")->insert($tempArr);
+    } */
 }
