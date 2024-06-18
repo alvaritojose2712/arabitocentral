@@ -26,19 +26,21 @@ class InventarioSucursalEstadisticasController extends Controller
                     $tempArr = [];
 
                     foreach ($e as $key => $item) {
-                        array_push($tempArr,[
+                        inventario_sucursal_estadisticas::updateOrCreate([
                             "id_itempedido_insucursal" => $item["id"],
+                            "id_sucursal" => $id_sucursal,
+                            
+                        ],[
                             "id_pedido_insucursal" => $item["id_pedido"],
                             "id_producto_insucursal" => $item["id_producto"],
                             
-                            "id_sucursal" => $id_sucursal,
                             "cantidad" => $item["cantidad"],
                             "fecha" => substr($item["created_at"],0,10),
                             "created_at" => $today,
                         ]);
                     }
 
-                    DB::table("inventario_sucursal_estadisticas")->insert($tempArr);
+                    //DB::table("inventario_sucursal_estadisticas")->insert($tempArr);
                 }
                 return [
                     "msj" => "OK ESTADISTICAS ".$count_movs,
@@ -92,5 +94,19 @@ class InventarioSucursalEstadisticasController extends Controller
                     "last" => 0
                 ];
             }
+    }
+
+    function delduplicateItemsEstadisticas() {
+        $du = inventario_sucursal_estadisticas::selectRaw("id_sucursal, id_itempedido_insucursal, COUNT(*) as count")->groupByRaw("id_sucursal, id_itempedido_insucursal")->havingRaw("COUNT(*) > 1")->get();
+
+        foreach ($du as $key => $val) {
+            $id_itempedido_insucursal = $val["id_itempedido_insucursal"]; 
+            $id_sucursal = $val["id_sucursal"]; 
+            $count = $val["count"]-1;
+
+            inventario_sucursal_estadisticas::where("id_itempedido_insucursal",$id_itempedido_insucursal)->where("id_sucursal",$id_sucursal)->limit($count)->delete();
+
+            echo "$id_sucursal __ $id_itempedido_insucursal ____ $count veces <br>";
+        }
     }
 }

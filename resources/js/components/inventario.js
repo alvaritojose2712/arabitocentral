@@ -19,7 +19,11 @@ export default function Inventario({
     delInventarioNovedades,
 
     sucursales,
-
+    buscarInventario,
+    qBuscarInventario,
+    setQBuscarInventario,
+    productosInventario,
+    type,
     setinvsuc_q,
     invsuc_q,
     invsuc_num,
@@ -79,6 +83,12 @@ export default function Inventario({
     getDatinputSelectVinculacion,
     saveCuatroNombres,
 
+    qvinculacion1General,
+    qvinculacion2General,
+    qvinculacion3General,
+    qvinculacion4General,
+    qvinculacionmarcaGeneral,
+
     inventarioGeneralqsucursal,
     setinventarioGeneralqsucursal,
 }){
@@ -91,6 +101,7 @@ export default function Inventario({
             <div className="btn-group mb-2">
                 <button className={("fs-4 btn btn")+(subviewdici=="novedades"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("novedades")}> NOVEDADES</button>
                 <button className={("fs-2 btn btn")+(subviewdici=="inventariogeneral"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("inventariogeneral")}> INVENTARIO</button>
+                <button className={("fs-2 btn btn")+(subviewdici=="editarinventario"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("editarinventario")}> EDITAR INVENTARIO</button>
             </div>
         </div>
 
@@ -202,6 +213,12 @@ export default function Inventario({
 
         {subviewdici=="editarinventario"?
             <Editarinventario
+                buscarInventario={buscarInventario}
+                qBuscarInventario={qBuscarInventario}
+                setQBuscarInventario={setQBuscarInventario}
+                productosInventario={productosInventario}
+                type={type}
+                
                 changeInventarioModificarDici={changeInventarioModificarDici}
                 guardarmodificarInventarioDici={guardarmodificarInventarioDici} 
                 inventarioGeneralqsucursal={inventarioGeneralqsucursal}
@@ -251,6 +268,12 @@ export default function Inventario({
                 setinputselectvinculacionmarcaGeneral={setinputselectvinculacionmarcaGeneral}
                 getDatinputSelectVinculacion={getDatinputSelectVinculacion}
                 saveCuatroNombres={saveCuatroNombres}
+
+                qvinculacion1General={qvinculacion1General}
+                qvinculacion2General={qvinculacion2General}
+                qvinculacion3General={qvinculacion3General}
+                qvinculacion4General={qvinculacion4General}
+                qvinculacionmarcaGeneral={qvinculacionmarcaGeneral}
             />
         :null}
 

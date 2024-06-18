@@ -5083,7 +5083,11 @@ function formatAmount( number, simbol ) {
           {permiso([1,2,10]) && viewmainPanel === "dici" &&
           <>
             <Inventario
-
+              type={type}
+              buscarInventario={buscarInventario}
+              qBuscarInventario={qBuscarInventario}
+              setQBuscarInventario={setQBuscarInventario}
+              productosInventario={productosInventario}
               selectIdVinculacion={selectIdVinculacion} 
               setselectIdVinculacion={setselectIdVinculacion}
               qvinculacion1={qvinculacion1} 
@@ -5147,6 +5151,12 @@ function formatAmount( number, simbol ) {
               getInventarioNovedades={getInventarioNovedades}
               resolveInventarioNovedades={resolveInventarioNovedades}
               sucursales={sucursales}
+
+              qvinculacion1General={qvinculacion1General}
+              qvinculacion2General={qvinculacion2General}
+              qvinculacion3General={qvinculacion3General}
+              qvinculacion4General={qvinculacion4General}
+              qvinculacionmarcaGeneral={qvinculacionmarcaGeneral}
 
 
               inventarioGeneralqsucursal={inventarioGeneralqsucursal}

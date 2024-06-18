@@ -381,6 +381,8 @@ Route::post('guardarmodificarInventarioDici', [InventarioSucursalController::cla
 Route::post('getinventario', [InventarioSucursalController::class,"index"]);
 Route::post('getInventarioGeneral',  [InventarioSucursalController::class,"getInventarioGeneral"]);
 Route::post('getBarrasCargaItems',  [InventarioSucursalController::class,"getBarrasCargaItems"]);
+Route::post('delduplicateItemsEstadisticas',  [InventarioSucursalController::class,"delduplicateItemsEstadisticas"]);
+
 
 
 

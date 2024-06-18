@@ -1,14 +1,19 @@
+import { useState, useEffect } from "react";
 export default function Editarinventario({
     productosInventario,
-    changeInventarioModificarDiciModificarDici,
+    changeInventarioModificarDici,
     guardarmodificarInventarioDici,
 
     inputBuscarInventario,
     setQBuscarInventario,
     Invnum,
+    type,
     setInvnum,
     InvorderBy,
     setInvorderBy,
+
+    buscarInventario,
+    qBuscarInventario,
 
 
     selectIdVinculacion, 
@@ -55,7 +60,141 @@ export default function Editarinventario({
     setinputselectvinculacionmarcaGeneral,
     getDatinputSelectVinculacion,
     saveCuatroNombres,
+
+    qvinculacion1General,
+    qvinculacion2General,
+    qvinculacion3General,
+    qvinculacion4General,
+    qvinculacionmarcaGeneral,
 }){
+    
+    const [showInputGeneral, setshowInputGeneral] = useState(false)
+    const [sameCatValue, setsameCatValue] = useState("");
+    const [sameCateGenValue, setsameCateGenValue] = useState("");
+
+    useEffect(()=>{
+        let fil = datavinculacion1.find(e=>e.nombre?e.nombre.toLowerCase().substr(0,qvinculacion1.length) == qvinculacion1.toLowerCase() :false)
+        if (fil) {if (fil && qvinculacion1!="") {setinputselectvinculacion1(fil.nombre)}}else{setinputselectvinculacion1("")}
+        if (!qvinculacion1) {
+            setinputselectvinculacion1("")
+        }
+    },[qvinculacion1])
+
+    useEffect(()=>{
+        let fil = datavinculacion2.find(e=>e.nombre?e.nombre.toLowerCase().substr(0,qvinculacion2.length) == qvinculacion2.toLowerCase():false)
+        if (fil) {if (fil && qvinculacion2!="") {setinputselectvinculacion2(fil.nombre)}}else{setinputselectvinculacion2("")}
+        if (!qvinculacion2) {
+            setinputselectvinculacion2("")
+        }
+    },[qvinculacion2])
+
+    useEffect(()=>{
+        let fil = datavinculacion3.find(e=>e.nombre?e.nombre.toLowerCase().substr(0,qvinculacion3.length) == qvinculacion3.toLowerCase():false)
+        if (fil) {if (fil && qvinculacion3!="") {setinputselectvinculacion3(fil.nombre)}}else{setinputselectvinculacion3("")}
+        if (!qvinculacion3) {
+            setinputselectvinculacion3("")
+        }
+    },[qvinculacion3])
+
+    useEffect(()=>{
+        let fil = datavinculacion4.find(e=>e.nombre?e.nombre.toLowerCase().substr(0,qvinculacion4.length) == qvinculacion4.toLowerCase():false)
+        if (fil) {if (fil && qvinculacion4!="") {setinputselectvinculacion4(fil.nombre)}}else{setinputselectvinculacion4("")}
+        if (!qvinculacion4) {
+            setinputselectvinculacion4("")
+        }
+    },[qvinculacion4])
+
+    useEffect(()=>{
+        let fil = datavinculacionmarca.find(e=>e.descripcion?e.descripcion.toLowerCase().substr(0,qvinculacionmarca.length) == qvinculacionmarca.toLowerCase():false)
+        if (fil) {if (fil && qvinculacionmarca!="") {setinputselectvinculacionmarca(fil.descripcion)}}else{setinputselectvinculacionmarca("")}
+        if (!qvinculacionmarca) {
+            setinputselectvinculacionmarca("")
+        }
+    },[qvinculacionmarca])
+
+
+    ///////////////
+
+    const selectAllIds = val => {
+        if (val.length) {
+            if (productosInventario.length) {
+                let acumulateIds = []
+                productosInventario.map(e=>{
+                    acumulateIds.push(e.id)
+                })
+                setselectIdVinculacion(acumulateIds)
+            }
+        }else{
+            setselectIdVinculacion([])
+
+        }
+    }
+    useEffect(()=>{
+        let fil = datavinculacion1.find(e=>e.nombre?e.nombre.toLowerCase().indexOf(qvinculacion1General.toLowerCase())!=-1:false)
+        if (fil) {if (fil && qvinculacion1General!="") {selectAllIds(qvinculacion1General);setinputselectvinculacion1General(fil.nombre);setinputselectvinculacion1(fil.nombre)}}else{selectAllIds("");setinputselectvinculacion1("");setinputselectvinculacion1General("")}
+        
+    },[qvinculacion1General])
+
+    useEffect(()=>{
+        let fil = datavinculacion2.find(e=>e.nombre?e.nombre.toLowerCase().indexOf(qvinculacion2General.toLowerCase())!=-1:false)
+        if (fil) {if (fil && qvinculacion2General!="") {selectAllIds(qvinculacion2General);setinputselectvinculacion2General(fil.nombre);setinputselectvinculacion2(fil.nombre)}}else{selectAllIds("");setinputselectvinculacion2("");setinputselectvinculacion2General("")}
+        
+    },[qvinculacion2General])
+
+    useEffect(()=>{
+        let fil = datavinculacion3.find(e=>e.nombre?e.nombre.toLowerCase().indexOf(qvinculacion3General.toLowerCase())!=-1:false)
+        if (fil) {if (fil && qvinculacion3General!="") {selectAllIds(qvinculacion3General);setinputselectvinculacion3General(fil.nombre);setinputselectvinculacion3(fil.nombre)}}else{selectAllIds("");setinputselectvinculacion3("");setinputselectvinculacion3General("")}
+        
+    },[qvinculacion3General])
+
+    useEffect(()=>{
+        let fil = datavinculacion4.find(e=>e.nombre?e.nombre.toLowerCase().indexOf(qvinculacion4General.toLowerCase())!=-1:false)
+        if (fil) {if (fil && qvinculacion4General!="") {selectAllIds(qvinculacion4General);setinputselectvinculacion4General(fil.nombre);setinputselectvinculacion4(fil.nombre)}}else{selectAllIds("");setinputselectvinculacion4("");setinputselectvinculacion4General("")}
+        
+    },[qvinculacion4General])
+
+    useEffect(()=>{
+        let fil = datavinculacionmarca.find(e=>e.descripcion?e.descripcion.toLowerCase().indexOf(qvinculacionmarcaGeneral.toLowerCase())!=-1:false)
+        if (fil) {if (fil && qvinculacionmarcaGeneral!="") {selectAllIds(qvinculacionmarcaGeneral);setinputselectvinculacionmarcaGeneral(fil.descripcion);setinputselectvinculacionmarca(fil.descripcion)}}else{selectAllIds("");setinputselectvinculacionmarca("");setinputselectvinculacionmarca("")}
+        
+    },[qvinculacionmarcaGeneral])
+
+
+
+    const setSameCat = (val,type) => {
+        if (confirm("¿Confirma Generalizar?")) {
+            let obj = cloneDeep(productosInventario);
+            obj.map((e) => {
+                if (e.type) {
+                    if (type=="cat") {
+                        e.id_categoria = val;
+                        setsameCatValue(val);
+                    }
+                    
+                    if (type=="catgeneral") {
+                        e.id_catgeneral = val;
+                        setsameCateGenValue(val);
+                    }
+
+                }
+                return e;
+            });
+            setProductosInventario(obj);
+        }
+    };
+
+
+    const funIdVinc = (id,n1,n2,n3,n4,marca) => {
+        setselectIdVinculacion([id])
+        
+        setinputselectvinculacion1(n1)
+        setinputselectvinculacion2(n2)
+        setinputselectvinculacion3(n3)
+        setinputselectvinculacion4(n4)
+        setinputselectvinculacionmarca(marca)
+    }
+
+
     return <div className="container-fluid">
             <form className="input-group" onSubmit={e=>{e.preventDefault();buscarInventario()}}>
 
@@ -80,7 +219,7 @@ export default function Editarinventario({
             <table className="table">
                 {productosInventario.length?productosInventario.map((e,i)=>
                     <tbody key={i}>
-                        <tr className={" align-bottom border-top border-top-1 border-dark pointer "} /* onClick={()=>funIdVinc(e.id,e.n1,e.n2,e.n3,e.n4,e.marca)} */ onDoubleClick={() => changeInventarioModificarDici(null, i, "update")}>
+                        <tr className={" align-bottom border-top border-top-1 border-dark pointer "} onClick={()=>funIdVinc(e.id,e.n1,e.n2,e.n3,e.n4,e.marca)} onDoubleClick={() => changeInventarioModificarDici(null, i, "update")}>
                             <td>{i+1}</td>
                             <td className="">
                                 {e.id}
