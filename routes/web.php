@@ -272,7 +272,14 @@ Route::get('categoriasgastos',  function() {
     ["43","CAJA FUERTE: TRANSFERENCIA TRABAJADOR","1","4","2"],
     ["44","CAJA FUERTE: TRASPASO A CAJA CHICA","1","5","2"],
     ["45","CAJA FUERTE: EGRESO TRANSFERENCIA SUCURSAL","1","10","2"],
-    ["46","CAJA FUERTE: INGRESO TRANSFERENCIA SUCURSAL","1","10","2"]];
+    ["46","CAJA FUERTE: INGRESO TRANSFERENCIA SUCURSAL","1","10","2"],
+
+    ["47","CAJA MATRIZ: ARANCELES MUNICIPALES","1","2","0"],
+    ["48","CAJA MATRIZ: SENIAT","1","2","0"],
+    ["49","CAJA MATRIZ: CREDITO BANCARIO","1","2","0"],
+    ["50","CAJA MATRIZ: COMISION PUNTO DE VENTA","1","2","0"],
+    ["51","CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL","1","2","0"],
+];
     DB::table("catcajas")->truncate();
 
     foreach ($data as $i => $e) {

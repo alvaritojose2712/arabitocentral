@@ -590,6 +590,13 @@ function Home() {
     44:	{color: "#f4cccc",	desc:"CAJA FUERTE: TRASPASO A CAJA CHICA"},
     45:	{color: "#b7b7b7",	desc:"CAJA FUERTE: EGRESO TRANSFERENCIA SUCURSAL"},
     46:	{color: "#b7b7b7",	desc:"CAJA FUERTE: INGRESO TRANSFERENCIA SUCURSAL"},
+    
+    
+    47: {color:"#fff2cc", desc:"CAJA MATRIZ: ARANCELES MUNICIPALES"},
+    48: {color:"#fff2cc", desc:"CAJA MATRIZ: SENIAT"},
+    49: {color:"#fff2cc", desc:"CAJA MATRIZ: CREDITO BANCARIO"},
+    50: {color:"#fff2cc", desc:"CAJA MATRIZ: COMISION PUNTO DE VENTA"},
+    51: {color:"#fff2cc", desc:"CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL"},
   }
   
   
