@@ -717,9 +717,9 @@ class CierresController extends Controller
             $catgeneral_key = $gasto["catgeneral"];
             $variablefijo_key = $gasto["variable_fijo"];
 
-            
 
-            $monto =  (isset($gasto["montodolar"])?$gasto["montodolar"]:0)+((isset($gasto["montobs"])?$gasto["montobs"]:0)/$bs)+($gasto["montopeso"]/$cop);
+
+            $monto =  (isset($gasto["montodolar"])?$gasto["montodolar"]:0)+((isset($gasto["montobs"])?$gasto["montobs"]:0)/$bs)+((isset($gasto["montopeso"])?$gasto["montopeso"]:0)/$cop);
 
             if (array_key_exists($catgeneral_key, $sumArrcatgeneral)) {
                 $sumArrcatgeneral[$catgeneral_key]["sumdolar"] = $sumArrcatgeneral[$catgeneral_key]["sumdolar"] + $monto;  
