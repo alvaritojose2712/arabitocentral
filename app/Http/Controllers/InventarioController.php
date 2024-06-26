@@ -283,6 +283,7 @@ function saveCuatroNombres(Request $req) {
     $inputselectvinculacion2 = $req->inputselectvinculacion2;
     $inputselectvinculacion3 = $req->inputselectvinculacion3;
     $inputselectvinculacion4 = $req->inputselectvinculacion4;
+    $inputselectvinculacion5 = $req->inputselectvinculacion5;
     $inputselectvinculacionmarca = $req->inputselectvinculacionmarca;
 
     foreach ($selectIdVinculacion as $key => $e) {
@@ -304,6 +305,9 @@ function saveCuatroNombres(Request $req) {
             } 
             if ($inputselectvinculacion4) {
                 $query->n4 = $inputselectvinculacion4;
+            } 
+            if ($inputselectvinculacion5) {
+                $query->n5 = $inputselectvinculacion5;
             } 
             if ($inputselectvinculacionmarca) {
                 $query->marca = $inputselectvinculacionmarca;

@@ -17,6 +17,22 @@ export default function Inventariogeneral({
 
     inventarioGeneralqsucursal,
     setinventarioGeneralqsucursal,
+
+
+    selectcampobusquedaestadistica,
+    setselectcampobusquedaestadistica,
+    dataCamposBusquedaEstadisticas,
+    selectvalorcampobusquedaestadistica,
+    setselectvalorcampobusquedaestadistica,
+    agregarCampoBusquedaEstadisticas,
+    selectsucursalbusquedaestadistica,
+    setselectsucursalbusquedaestadistica,
+    agregarSucursalBusquedaEstadisticas,
+    
+    camposAgregadosBusquedaEstadisticas,
+    sucursalesAgregadasBusquedaEstadisticas,
+    setcamposAgregadosBusquedaEstadisticas,
+    setsucursalesAgregadasBusquedaEstadisticas,
 }){
     /* Object.entries(anual[1]).map(mes=>mes[0]+"-"+anual[0])
     Object.entries(anual[1]).map(mes=>mes[1]["ct"].toFixed(2)) */
@@ -97,13 +113,13 @@ export default function Inventariogeneral({
         <div className="container-fluid">
             <div>
                 <form className="input-group" onSubmit={event=>{getInventarioGeneral();event.preventDefault()}}>
-                    <input type="text" className="form-control" placeholder="Buscar...(esc)" onChange={e => setinvsuc_q(e.target.value)} value={invsuc_q} />
+                    {/* <input type="text" className="form-control" placeholder="Buscar...(esc)" onChange={e => setinvsuc_q(e.target.value)} value={invsuc_q} />
                     <select className="form-control form-control-lg" value={inventarioGeneralqsucursal} onChange={e=>setinventarioGeneralqsucursal(e.target.value)}>
                         <option value="">-SUCURSAL-</option>
                         {sucursales.map(e=>
                             <option key={e.id} value={e.id}>{e.codigo}</option>
                         )}
-                    </select>
+                    </select> */}
                     <select value={invsuc_num} onChange={e => setinvsuc_num(e.target.value)} className="form-control">
                         <option value="25">Num.25</option>
                         <option value="50">Num.50</option>
@@ -118,6 +134,66 @@ export default function Inventariogeneral({
                     </select>
                     <button className="btn btn-success"><i className="fa fa-search"></i></button>
                 </form>
+            </div>
+
+            <div className="row">
+                <div className="col">
+                    <div className="card">
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-3 text-center">
+                                    <div className="m-3">
+                                        <select className="form-control" value={selectcampobusquedaestadistica} onChange={event=>setselectcampobusquedaestadistica(event.target.value)}>
+                                            {dataCamposBusquedaEstadisticas.map(e=>
+                                                <option key={e.id} value={e.id}>{e.codigo}</option>
+                                            )}
+                                        </select>
+                                        <input type="text" className="form-control" value={selectvalorcampobusquedaestadistica} onChange={event=>setselectvalorcampobusquedaestadistica(event.target.value)}/>
+                                        <button className="btn btn-success m-2" onClick={()=>agregarCampoBusquedaEstadisticas()}><i className="fa fa-plus"></i></button>
+
+                                    </div>
+
+                                </div>
+
+                                <div className="col">
+                                    {camposAgregadosBusquedaEstadisticas.map((e,i)=>
+                                        <div key={i} className="btn-group m-2" onDoubleClick={()=>setcamposAgregadosBusquedaEstadisticas(camposAgregadosBusquedaEstadisticas.filter(ee=>ee.campo!=e.campo))}>
+                                            <button className="btn btn-sinapsis">{e.campo}</button>
+                                            <button className="btn btn-success">{e.valor}</button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col">
+                    <div className="card">
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-3 text-center">
+                                    <div className="m-3">
+                                        <select className="form-control" value={selectsucursalbusquedaestadistica} onChange={event=>setselectsucursalbusquedaestadistica(event.target.value)}>
+                                            <option value={""}>-SUCURSAL-</option>
+                                            {sucursales.map(e=>
+                                                <option key={e.id} value={e.id}>{e.codigo}</option>
+                                            )}
+                                        </select>
+                                        <button className="btn btn-success m-2" onClick={()=>agregarSucursalBusquedaEstadisticas()}><i className="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
+
+                                <div className="col">
+                                    {sucursalesAgregadasBusquedaEstadisticas.map(e=>
+                                        <div className="btn-group m-2" onDoubleClick={()=>setsucursalesAgregadasBusquedaEstadisticas(sucursalesAgregadasBusquedaEstadisticas.filter(ee=>ee.sucursal!=e.sucursal))}>
+                                            <button className="btn">{e.sucursal}</button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <table className="table">
                 <thead>
@@ -145,7 +221,7 @@ export default function Inventariogeneral({
                          */}
                         <th className="">ACTUALIZACIÓN</th>
                         {/* <th className="bg-sinapsis">Histórico de Ventas / TOTAL</th> */}
-                        <th className="bg-warning">Histórico de Ventas / MES</th>
+                        <th className="">HISTÓRICO</th>
                     </tr>
                 </thead>
 
@@ -154,68 +230,97 @@ export default function Inventariogeneral({
                             Object.entries(inventariogeneralData.data).map(e=>
                                 <tbody key={e.id}>
                                     <tr>
-                                        <th colSpan={14}>
+                                        <th className="fs-2" colSpan={11}>
                                             {e[0]}
                                         </th>
-                                    </tr>
-                                    {e[1].map(ee=>
-                                        <>
-                                            <tr key={ee.id}>
-                                                <td></td>
-                                                <td className="">
-                                                    <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(ee.sucursal.codigo)}}>
-                                                        {ee.sucursal.codigo}
-                                                    </button>
-                                                </td>
-                                                <td className="">{ee.idinsucursal}</td>
-                                                <td className="">{ee.codigo_proveedor}</td>
-                                                <td className="">{ee.codigo_barras}</td>
-                                                <td className="">{ee.unidad}</td>
-                                                <td className="">{ee.descripcion}</td>
-                                                <th className="">{ee.cantidad}</th>
-                                                <td className="">{ee.precio_base}</td>
-                                                <td className="text-success">{ee.precio}</td>
-                                                <td className="">{ee.updated_at}</td>
-                                                {/* <td className="bg-sinapsis">
-                                                    <b>
-                                                        {Object.entries(ee.anual).map(anual=>anual[0]+" ")}
-                                                    </b>  
-                                                    <hr />
-                                                    {Object.entries(ee.anual).map(anual=> Object.entries(anual[1]).map(mes=>mes[1]["ct"]).reduce((partialSum, a) => partialSum + a, 0) ).reduce((partialSum, a) => partialSum + a, 0).toFixed(2)} 
-                                                </td> */}
-                                                {Object.entries(ee.anual).map(anual=>
-                                                    <>
-                                                        <td className="bg-warning">
-                                                            <b>{anual[0]}</b>
-                                                            <hr />
-                                                            {Object.entries(anual[1]).map(mes=>mes[1]["ct"]).reduce((partialSum, a) => partialSum + a, 0).toFixed(2)}
-                                                        </td>
-                                                        {Object.entries(anual[1]).map(mes=>
-                                                            <td>
-                                                                <b>{mes[0]} - {anual[0]}</b>
-                                                                <hr />
 
-                                                                {mes[1]["ct"].toFixed(2)}
-                                                            </td>
-                                                        )}
-                                                    </>
-                                                )}
-                                                
-                                            </tr>
-                                           {/*  <tr>
+                                        {Object.entries(inventariogeneralData.sumas[e[0]]["totalsucursales"]).map(mesyct=>
+                                            <td className={(mesyct[0].indexOf("-")!==-1?"":"bg-sinapsis-light")+" notwrap"}>
+                                                <b>{mesyct[0]}</b>
+                                                <hr />
+                                                {mesyct[1].toFixed(2)}
+                                            </td> 
+                                        )}
+                                    </tr>
+
+                                    {Object.entries(e[1]).map(sucursalgroup=>
+                                        <>
+                                            <tr>
                                                 <td></td>
-                                                    {Object.entries(ee.anual).map(anual=>
-                                                        <td className="">
-                                                                <Chart
-                                                                    options={chartConfig("options",Object.entries(anual[1]).map(mes=>mes[0]+"-"+anual[0]))}
-                                                                    series={chartConfig("series",Object.entries(anual[1]).map(mes=>mes[1]["ct"].toFixed(2)))}
-                                                                    type="line"
-                                                                    width="400"
-                                                                />
-                                                                
+                                                <th>
+                                                    <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(sucursalgroup[0])}}>
+                                                        {sucursalgroup[0]}
+                                                    </button>
+                                                </th>
+                                                <td colSpan={9}></td>
+                                                {Object.entries(inventariogeneralData.sumas[e[0]][sucursalgroup[0]]).map(mesyct=>
+                                                    <td className={(mesyct[0].indexOf("-")!==-1?"":"bg-warning")+" notwrap"}>
+                                                        <b>{mesyct[0]}</b>
+                                                        <hr />
+                                                        {mesyct[1].toFixed(2)}
+                                                    </td> 
+                                                )}
+                                            </tr>
+
+                                            {sucursalgroup[1].map(ee=>
+                                                <>
+                                                    <tr key={ee.id}>
+                                                        <td></td>
+                                                        <td className="text-center">
+                                                            <span className="text-muted fst-italic">
+                                                                {ee.sucursal.codigo}
+                                                            </span>
                                                         </td>
-                                                    )}
-                                            </tr> */}
+                                                        <td className="">{ee.idinsucursal}</td>
+                                                        <td className="">{ee.codigo_proveedor}</td>
+                                                        <td className="">{ee.codigo_barras}</td>
+                                                        <td className="">{ee.unidad}</td>
+                                                        <td className="">{ee.descripcion}</td>
+                                                        <th className="">{ee.cantidad}</th>
+                                                        <td className="">{ee.precio_base}</td>
+                                                        <td className="text-success">{ee.precio}</td>
+                                                        <td className="">{ee.updated_at}</td>
+                                                        {/* <td className="bg-sinapsis">
+                                                            <b>
+                                                                {Object.entries(ee.anual).map(anual=>anual[0]+" ")}
+                                                            </b>  
+                                                            <hr />
+                                                            {Object.entries(ee.anual).map(anual=> Object.entries(anual[1]).map(mes=>mes[1]["ct"]).reduce((partialSum, a) => partialSum + a, 0) ).reduce((partialSum, a) => partialSum + a, 0).toFixed(2)} 
+                                                        </td> */}
+                                                        {Object.entries(ee.anual).map(anual=>
+                                                            <>
+                                                                <td className="bg-warning-light">
+                                                                    <b>{anual[0]}</b>
+                                                                    <hr />
+                                                                    {Object.entries(anual[1]).map(mes=>mes[1]["ct"]).reduce((partialSum, a) => partialSum + a, 0).toFixed(2)}
+                                                                </td>
+                                                                {Object.entries(anual[1]).map(mes=>
+                                                                    <td className="notwrap">
+                                                                        <b>{anual[0]} - {mes[0]}</b>
+                                                                        <hr />
+                                                                        {mes[1]["ct"].toFixed(2)}
+                                                                    </td>
+                                                                )}
+                                                            </>
+                                                        )}
+                                                        
+                                                    </tr>
+                                                   {/*  <tr>
+                                                        <td></td>
+                                                            {Object.entries(ee.anual).map(anual=>
+                                                                <td className="">
+                                                                        <Chart
+                                                                            options={chartConfig("options",Object.entries(anual[1]).map(mes=>mes[0]+"-"+anual[0]))}
+                                                                            series={chartConfig("series",Object.entries(anual[1]).map(mes=>mes[1]["ct"].toFixed(2)))}
+                                                                            type="line"
+                                                                            width="400"
+                                                                        />
+                                                                        
+                                                                </td>
+                                                            )}
+                                                    </tr> */}
+                                                </>
+                                            )}
                                         </>
                                     )}
                                 </tbody>

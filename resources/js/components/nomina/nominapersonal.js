@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function NominaPersonal({
     nominaNombre,
@@ -81,6 +81,43 @@ export default function NominaPersonal({
         setnominaCargo("")
         setnominaSucursal("")
 		setIndexSelectNomina(null)
+	}
+
+	const [showInactivoValue, setshowInactivoValue] = useState(1)
+	const showInactivos = () => {
+		let inicial = null
+		switch (showInactivoValue) {
+			case 0:
+				inicial = 1
+			break;
+			case 1:
+				inicial = 2
+			break;
+			case 2:
+				inicial = 0
+			break;
+			
+		}
+		setshowInactivoValue(inicial)
+	}
+
+	const funshowinactivo = activo => {
+		if (showInactivoValue==0) {
+			if (activo==0) {
+				return true
+			}
+		}
+
+		if (showInactivoValue==1) {
+			if (activo==1) {
+				return true
+			}
+		}
+		
+		if (showInactivoValue==2) {
+			return true
+		}
+		return false
 	}
 	return (
 		<>
@@ -215,7 +252,7 @@ export default function NominaPersonal({
 									placeholder="Buscar..."
 									value={qNomina}
 									onChange={e => setqNomina(e.target.value)} />
-
+								<button className={("btn ") + (showInactivoValue==0?"btn-danger":(showInactivoValue==1?"btn-success":""))} onClick={()=>showInactivos()}><i className="fa fa-eye"></i></button>
 							</div>
 							<div className="input-group ">
                             
@@ -251,7 +288,8 @@ export default function NominaPersonal({
 							nominaData.personal?
                                 nominaData.personal.length?
                                     nominaData.personal.map((e, i) =>
-                                        <div
+                                        funshowinactivo(e.activo)?
+										<div
                                             onClick={()=>setIndexSelectPersonalFun(e.id)}
                                             
                                             key={e.id}
@@ -276,7 +314,7 @@ export default function NominaPersonal({
                                             </div>
 											<button onClick={()=>activarPersonal(e.id)} className={"btn "+(e.activo?"btn-success":"btn-danger")}>{e.activo?"ACTIVO":"INACTIVO"}</button>
 											
-                                        </div>
+                                        </div>:null
                                     )
                                 : <div className='h3 text-center text-dark mt-2'><i>¡Sin resultados!</i></div>
                             : null

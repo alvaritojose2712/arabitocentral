@@ -300,12 +300,13 @@ function Home() {
   const [productosInventario, setProductosInventario] = useState([])
 
   const [qBuscarInventario, setQBuscarInventario] = useState("")
+  const [qBuscarInventarioSucursal, setqBuscarInventarioSucursal] = useState("")
   const [indexSelectInventario, setIndexSelectInventario] = useState(null)
 
   const [invsuc_itemCero, setinvsuc_itemCero] = useState("")
   const [invsuc_q, setinvsuc_q] = useState("")
   const [invsuc_exacto, setinvsuc_exacto] = useState("")
-  const [invsuc_num, setinvsuc_num] = useState("25")
+  const [invsuc_num, setinvsuc_num] = useState("100")
   const [invsuc_orderColumn, setinvsuc_orderColumn] = useState("descripcion")
   const [invsuc_orderBy, setinvsuc_orderBy] = useState("desc")
   const [controlefecSelectGeneral, setcontrolefecSelectGeneral] = useState(1)
@@ -397,6 +398,9 @@ function Home() {
       invsuc_num,
       invsuc_orderBy,
       inventarioGeneralqsucursal,
+
+      camposAgregadosBusquedaEstadisticas,
+      sucursalesAgregadasBusquedaEstadisticas,
     })
     .then(res=>{
       setinventariogeneralData(res.data)
@@ -1348,9 +1352,55 @@ function Home() {
     setinpInvLotes(inpInvLotes.concat(addObj))
   }
 
+  const [selectcampobusquedaestadistica,setselectcampobusquedaestadistica] = useState("")
+  const [selectvalorcampobusquedaestadistica,setselectvalorcampobusquedaestadistica] = useState("")
+  const [selectsucursalbusquedaestadistica,setselectsucursalbusquedaestadistica] = useState("")
+  
+  const dataCamposBusquedaEstadisticas =[
+    {id:"", codigo:"-"},
+    {id:"n1", codigo:"NOMBRE 1"},
+    {id:"n2", codigo:"NOMBRE 2"},
+    {id:"n3", codigo:"NOMBRE 3"},
+    {id:"n4", codigo:"NOMBRE 4"},
+    {id:"n5", codigo:"NOMBRE 5"},
+    {id:"id_marca", codigo:"MARCA"},
+    {id:"id_proveedor", codigo:"PROVEEDOR"},
+    {id:"id_categoria", codigo:"CATEGORIA"},
+    {id:"id_catgeneral", codigo:"SUBCATEGORIA"},
+    {id:"codigo_barras", codigo:"BARRAS"},
+    {id:"codigo_proveedor", codigo:"ALTERNO"},
+    {id:"descripcion", codigo:"descripcion"},
+  ]
+  const [camposAgregadosBusquedaEstadisticas,setcamposAgregadosBusquedaEstadisticas] = useState([])
+  const [sucursalesAgregadasBusquedaEstadisticas,setsucursalesAgregadasBusquedaEstadisticas] = useState([])
+
+  const agregarCampoBusquedaEstadisticas = () => {
+    if (!camposAgregadosBusquedaEstadisticas.filter(e=>e.campo==selectcampobusquedaestadistica).length) {
+      setcamposAgregadosBusquedaEstadisticas(camposAgregadosBusquedaEstadisticas.concat({
+        campo:selectcampobusquedaestadistica,
+        valor:selectvalorcampobusquedaestadistica,
+      }))
+    }
+  }
+  const agregarSucursalBusquedaEstadisticas = () => {
+    if (!sucursalesAgregadasBusquedaEstadisticas.filter(e=>e.campo==selectcampobusquedaestadistica).length) {
+      setsucursalesAgregadasBusquedaEstadisticas(sucursalesAgregadasBusquedaEstadisticas.concat({
+        sucursal:selectsucursalbusquedaestadistica,
+        codigo:selectsucursalbusquedaestadistica,
+      }))
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
   const buscarInventario = e => {
-      setLoading(true)
-      if (time != 0) {
+    setLoading(true)
+    if (time != 0) {
         clearTimeout(typingTimeout)
       }
       let time = window.setTimeout(() => {
@@ -1359,7 +1409,10 @@ function Home() {
           itemCero: true,
           qProductosMain: qBuscarInventario,
           orderColumn: InvorderColumn,
-          orderBy: InvorderBy
+          orderBy: InvorderBy,
+          qBuscarInventarioSucursal,
+
+
         }).then(res => {
           setProductosInventario(res.data)
           setLoading(false)
@@ -5092,10 +5145,27 @@ function formatAmount( number, simbol ) {
           {permiso([1,2,10]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              selectcampobusquedaestadistica={selectcampobusquedaestadistica}
+              setselectcampobusquedaestadistica={setselectcampobusquedaestadistica}
+              dataCamposBusquedaEstadisticas={dataCamposBusquedaEstadisticas}
+              selectvalorcampobusquedaestadistica={selectvalorcampobusquedaestadistica}
+              setselectvalorcampobusquedaestadistica={setselectvalorcampobusquedaestadistica}
+              agregarCampoBusquedaEstadisticas={agregarCampoBusquedaEstadisticas}
+              selectsucursalbusquedaestadistica={selectsucursalbusquedaestadistica}
+              setselectsucursalbusquedaestadistica={setselectsucursalbusquedaestadistica}
+              agregarSucursalBusquedaEstadisticas={agregarSucursalBusquedaEstadisticas}
+              camposAgregadosBusquedaEstadisticas={camposAgregadosBusquedaEstadisticas}
+              sucursalesAgregadasBusquedaEstadisticas={sucursalesAgregadasBusquedaEstadisticas}
+
+              setcamposAgregadosBusquedaEstadisticas={setcamposAgregadosBusquedaEstadisticas}
+              setsucursalesAgregadasBusquedaEstadisticas={setsucursalesAgregadasBusquedaEstadisticas}
+
               type={type}
               buscarInventario={buscarInventario}
               qBuscarInventario={qBuscarInventario}
               setQBuscarInventario={setQBuscarInventario}
+              qBuscarInventarioSucursal={qBuscarInventarioSucursal}
+              setqBuscarInventarioSucursal={setqBuscarInventarioSucursal}
               productosInventario={productosInventario}
               selectIdVinculacion={selectIdVinculacion} 
               setselectIdVinculacion={setselectIdVinculacion}

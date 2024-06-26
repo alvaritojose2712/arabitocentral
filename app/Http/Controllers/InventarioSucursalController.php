@@ -20,8 +20,8 @@ use App\Models\cuentasporpagar_items;
 use App\Models\productonombre1;
 use App\Models\productonombre2;
 use App\Models\productonombre3;
-use App\Models\productonombre4;
-use App\Models\productonombre5;
+use App\Models\productonombre4s;
+use App\Models\productonombre5s;
 
 
 
@@ -38,63 +38,63 @@ class InventarioSucursalController extends Controller
 
     
     function getDistinctNs() {
-        $n1s = inventario_sucursal::select("DISTINCT(n1)")->get();
+        $n1s = inventario_sucursal::selectRaw("DISTINCT(n1)")->get();
             foreach ($n1s as $i => $n1) {
-                if ($n1->nombre) {
+                if ($n1->n1) {
                     productonombre1::updateOrCreate([
-                        "nombre" => $n1->nombre
+                        "nombre" => $n1->n1
                     ],[
-                        "nombre" => $n1->nombre
+                        "nombre" => $n1->n1
                     ]);
                 }
             }
-        $n2s = inventario_sucursal::select("DISTINCT(n2)")->get();
+        $n2s = inventario_sucursal::selectRaw("DISTINCT(n2)")->get();
             foreach ($n2s as $i => $n2) {
-                if ($n2->nombre) {
+                if ($n2->n2) {
                     productonombre2::updateOrCreate([
-                        "nombre" => $n2->nombre
+                        "nombre" => $n2->n2
                     ],[
-                        "nombre" => $n2->nombre
+                        "nombre" => $n2->n2
                     ]);
                 }
             }
-        $n3s = inventario_sucursal::select("DISTINCT(n3)")->get();
+        $n3s = inventario_sucursal::selectRaw("DISTINCT(n3)")->get();
             foreach ($n3s as $i => $n3) {
-                if ($n3->nombre) {
+                if ($n3->n3) {
                     productonombre3::updateOrCreate([
-                        "nombre" => $n3->nombre
+                        "nombre" => $n3->n3
                     ],[
-                        "nombre" => $n3->nombre
+                        "nombre" => $n3->n3
                     ]);
                 }
             }
-        $n4s = inventario_sucursal::select("DISTINCT(n4)")->get();
+        $n4s = inventario_sucursal::selectRaw("DISTINCT(n4)")->get();
             foreach ($n4s as $i => $n4) {
-                if ($n4->nombre) {
-                    productonombre4::updateOrCreate([
-                        "nombre" => $n4->nombre
+                if ($n4->n4) {
+                    productonombre4s::updateOrCreate([
+                        "nombre" => $n4->n4
                     ],[
-                        "nombre" => $n4->nombre
+                        "nombre" => $n4->n4
                     ]);
                 }
             }
-        $n5s = inventario_sucursal::select("DISTINCT(n5)")->get();
+        $n5s = inventario_sucursal::selectRaw("DISTINCT(n5)")->get();
             foreach ($n5s as $i => $n5) {
-                if ($n5->nombre) {
-                    productonombre5::updateOrCreate([
-                        "nombre" => $n5->nombre
+                if ($n5->n5) {
+                    productonombre5s::updateOrCreate([
+                        "nombre" => $n5->n5
                     ],[
-                        "nombre" => $n5->nombre
+                        "nombre" => $n5->n5
                     ]);
                 }
             }
-        $marcas = inventario_sucursal::select("DISTINCT(id_marca)")->get();
+        $marcas = inventario_sucursal::selectRaw("DISTINCT(id_marca)")->get();
         foreach ($marcas as $i => $marca) {
-            if ($marca->descripcion) {
+            if ($marca->id_marca) {
                 marcas::updateOrCreate([
-                    "descripcion" => $marca->descripcion
+                    "descripcion" => $marca->id_marca
                 ],[
-                    "descripcion" => $marca->descripcion
+                    "descripcion" => $marca->id_marca
                 ]);
             }
         }
@@ -123,6 +123,8 @@ class InventarioSucursalController extends Controller
         $q = $req->qProductosMain;
         $num = $req->num;
         $itemCero = $req->itemCero;
+        $qBuscarInventarioSucursal = $req->qBuscarInventarioSucursal;
+        
 
         $orderColumn = "descripcion";
         $orderBy = $req->orderBy;
@@ -134,7 +136,9 @@ class InventarioSucursalController extends Controller
                 "sucursales",
                 "sucursal",
             ])
-            ->where("id_sucursal",13)
+            ->when($qBuscarInventarioSucursal, function($q) use($qBuscarInventarioSucursal) {
+                $q->where("id_sucursal",$qBuscarInventarioSucursal);
+            })
             ->limit($num)
             ->orderBy("n1","asc")
             ->orderBy("n2","asc")
@@ -148,7 +152,9 @@ class InventarioSucursalController extends Controller
                 "sucursal",
                 
             ])
-            ->where("id_sucursal",13)
+            ->when($qBuscarInventarioSucursal, function($q) use($qBuscarInventarioSucursal) {
+                $q->where("id_sucursal",$qBuscarInventarioSucursal);
+            })
             ->where(function($e) use($itemCero,$q,$exacto){
 
                 if ($exacto=="si") {
@@ -719,22 +725,31 @@ class InventarioSucursalController extends Controller
         $invsuc_orderBy = $req->invsuc_orderBy;
         $inventarioGeneralqsucursal = $req->inventarioGeneralqsucursal;
 
-        $i = inventario_sucursal::with(["sucursal"])
-        ->when($inventarioGeneralqsucursal,function($q) use($inventarioGeneralqsucursal) {
-            $q->where("id_sucursal",$inventarioGeneralqsucursal);
+        $camposAgregadosBusquedaEstadisticas = $req->camposAgregadosBusquedaEstadisticas;
+        $sucursalesAgregadasBusquedaEstadisticas = !count($req->sucursalesAgregadasBusquedaEstadisticas)? [] :$req->sucursalesAgregadasBusquedaEstadisticas->map(function($q) {
+            return $q["id"]; 
+        });
+
+        $estadisticas = inventario_sucursal::with(["sucursal"])
+        ->when($sucursalesAgregadasBusquedaEstadisticas,function($q) use($sucursalesAgregadasBusquedaEstadisticas) {
+            $q->whereIn("id_sucursal",$sucursalesAgregadasBusquedaEstadisticas);
         })
-        ->when($invsuc_q,function($q) use($invsuc_q) {
-            $q->where("descripcion", "LIKE", "%".$invsuc_q."%")
-            ->orwhere("codigo_barras", "LIKE", $invsuc_q."%")
-            ->orwhere("codigo_proveedor", "LIKE", $invsuc_q."%");
+        ->when($camposAgregadosBusquedaEstadisticas,function($q) use($camposAgregadosBusquedaEstadisticas) {
+            foreach ($camposAgregadosBusquedaEstadisticas as $i => $e) {
+                $q->where($e["campo"], $e["valor"]);
+            }
         })
         ->limit($invsuc_num)
         ->orderBy("n1","desc")
         ->orderBy("id_sucursal","asc")
         ->orderBy("descripcion","asc")
         ->get()
-        ->map(function($q) use ($today,$mesDate,$añoDate){
-            $nombrefull = ($q->n1?($q->n1." "):"").($q->n2?$q->n2." ":"").($q->n3?$q->n3." ":"").($q->n4?$q->n4." ":"").($q->n5?$q->n5." ":"");
+        ->map(function($q) use ($today,$mesDate,$añoDate, $camposAgregadosBusquedaEstadisticas){
+            $nombrefull = "";
+
+            foreach ($camposAgregadosBusquedaEstadisticas as $i => $e) {
+                $nombrefull .= ($q[$e["campo"]]?($q[$e["campo"]]." "):"");
+            }
             
             $q->nombrefull = $nombrefull? $nombrefull: "SIN ESPECIFICAR"; 
     
@@ -776,10 +791,41 @@ class InventarioSucursalController extends Controller
             
             return $q;
         })
-        ->groupBy(["nombrefull"]);
+        ->groupBy(["nombrefull","sucursal.codigo"]);
+
+        $sumas = [];
+
+        foreach ($estadisticas as $fullname => $byscursales) {
+            $sumas[$fullname] = [];
+            $sumas[$fullname]["totalsucursales"] = [];
+
+            foreach ($byscursales as $sucursalcode => $data) {
+                $sumas[$fullname][$sucursalcode] = [];
+                $totalsucursal = 0;
+                foreach ($data as $i => $productos) {
+                    $totalmismoproducto = 0;
+                    foreach ($productos["anual"] as $año => $databyano) {
+                        $totalaño = 0;
+                        foreach ($databyano as $mes => $ctydias) {
+                            $totalaño += $ctydias["ct"];
+                            $sumas[$fullname]["totalsucursales"][$año."-".$mes] = isset($sumas[$fullname]["totalsucursales"][$año."-".$mes])?$sumas[$fullname]["totalsucursales"][$año."-".$mes]+$ctydias["ct"]:$ctydias["ct"];
+                            $sumas[$fullname][$sucursalcode][$año."-".$mes] = isset($sumas[$fullname][$sucursalcode][$año."-".$mes])?$sumas[$fullname][$sucursalcode][$año."-".$mes]+$ctydias["ct"]:$ctydias["ct"];
+                        }
+                        $totalmismoproducto += $totalaño;
+                        $sumas[$fullname]["totalsucursales"][$año] = isset($sumas[$fullname]["totalsucursales"][$año])?$sumas[$fullname]["totalsucursales"][$año]+$totalaño:$totalaño;
+                        $sumas[$fullname][$sucursalcode][$año] = isset($sumas[$fullname][$sucursalcode][$año])?$sumas[$fullname][$sucursalcode][$año]+$totalaño:$totalaño;
+                    }
+                    $totalsucursal += $totalmismoproducto;
+                }
+                $sumas[$fullname]["totalsucursales"]["totalsucursal"] = isset($sumas[$fullname]["totalsucursales"]["totalsucursal"])?$sumas[$fullname]["totalsucursales"]["totalsucursal"]+$totalsucursal:$totalsucursal;
+                $sumas[$fullname][$sucursalcode]["totalsucursal"] = $totalsucursal;
+            }
+
+        }
 
         return [
-            "data" => $i
+            "data" => $estadisticas,
+            "sumas" => $sumas,
         ];
 
 

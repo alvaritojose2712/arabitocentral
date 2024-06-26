@@ -450,6 +450,10 @@ body{
 .bg-gastosfijos{
   background-color: #d89494;
 }
+
+.notwrap {
+  white-space: nowrap;
+}
 .bg-gastosvariables{
   background-color: #d8bfbf;
 }

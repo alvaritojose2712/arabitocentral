@@ -68,6 +68,11 @@ export default function Editarinventario({
     qvinculacionmarcaGeneral,
 
     colorSucursal,
+
+    qBuscarInventarioSucursal,
+    setqBuscarInventarioSucursal,
+
+    sucursales,
 }){
     
     const [showInputGeneral, setshowInputGeneral] = useState(false)
@@ -204,9 +209,14 @@ export default function Editarinventario({
     return <div className="container-fluid">
             <form className="input-group" onSubmit={e=>{e.preventDefault();buscarInventario()}}>
 
-                <div className="btn btn-success text-light" onClick={() => changeInventarioModificarDici(null, null, "add")}><i className="fa fa-plus"></i></div>
+                {/* <div className="btn btn-success text-light" onClick={() => changeInventarioModificarDici(null, null, "add")}><i className="fa fa-plus"></i></div> */}
                 <input type="text" ref={inputBuscarInventario} className="form-control" placeholder="Buscar...(esc)" onChange={e => setQBuscarInventario(e.target.value)} value={qBuscarInventario} />
-
+                <select className="form-control" value={qBuscarInventarioSucursal} onChange={event=>setqBuscarInventarioSucursal(event.target.value)}>
+                    <option value={""}>-SUCURSAL-</option>
+                    {sucursales.map(e=>
+                        <option key={e.id} value={e.id}>{e.codigo}</option>
+                    )}
+                </select>
                 <select value={Invnum} onChange={e => setInvnum(e.target.value)}>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -225,21 +235,24 @@ export default function Editarinventario({
             <table className="table">
                 {productosInventario.length?productosInventario.map((e,i)=>
                     <tbody key={i}>
-                        <tr className={" align-bottom border-top border-top-1 border-dark pointer "} onClick={()=>funIdVinc(e.id,e.n1,e.n2,e.n3,e.n4,e.marca)} onDoubleClick={() => changeInventarioModificarDici(null, i, "update")}>
+                        <tr className={" align-bottom pointer "} onClick={()=>funIdVinc(e.id,e.n1,e.n2,e.n3,e.n4,e.marca)} onDoubleClick={() => changeInventarioModificarDici(null, i, "update")}>
                             <td>
                                 <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
                                     {e.sucursal.codigo}
                                 </button>
-                            </td>
-                            <td className="">
-                                {e.id}
+                                <br />
+                                <small className="text-muted">{e.id}</small>
                             </td>
                             {type(e.type)?
                             <>
-                                <th className="">{e.codigo_proveedor}</th>
-                                <th className="">{e.codigo_barras}</th>
-                                <th className="">{e.unidad}</th>
-                                <th className="">{e.descripcion}</th>
+                                <th className="">
+                                    {e.codigo_proveedor}
+                                    <hr />
+                                    {e.codigo_barras}
+                                    <hr />
+                                    {e.unidad}
+                                </th>
+                                <th className="text">{e.descripcion}</th>
                                 <th className="bg-ct"></th>
                                 <th className=""></th>
                                 <th className="bg-base">{e.precio_base}</th>
@@ -250,7 +263,8 @@ export default function Editarinventario({
                             </>:null}
                         </tr>
                         <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
-                            <td colSpan={4}></td>
+                            <td></td>
+                            <td></td>
                             <td>
                                 <table className="table table-sm">
                                     <tbody>

@@ -22,6 +22,8 @@ export default function Inventario({
     buscarInventario,
     qBuscarInventario,
     setQBuscarInventario,
+    qBuscarInventarioSucursal,
+    setqBuscarInventarioSucursal,
     productosInventario,
     type,
     setinvsuc_q,
@@ -92,6 +94,22 @@ export default function Inventario({
     setinventarioGeneralqsucursal,
 
     colorSucursal,
+
+
+    selectcampobusquedaestadistica,
+    setselectcampobusquedaestadistica,
+    dataCamposBusquedaEstadisticas,
+    selectvalorcampobusquedaestadistica,
+    setselectvalorcampobusquedaestadistica,
+    agregarCampoBusquedaEstadisticas,
+    selectsucursalbusquedaestadistica,
+    setselectsucursalbusquedaestadistica,
+    agregarSucursalBusquedaEstadisticas,
+    
+    camposAgregadosBusquedaEstadisticas,
+    sucursalesAgregadasBusquedaEstadisticas,
+    setcamposAgregadosBusquedaEstadisticas,
+    setsucursalesAgregadasBusquedaEstadisticas,
 }){
 
     const [subviewdici, setsubviewdici] = useState("novedades")
@@ -194,6 +212,20 @@ export default function Inventario({
 
         {subviewdici=="inventariogeneral"?
             <Inventariogeneral
+                selectcampobusquedaestadistica={selectcampobusquedaestadistica}
+                setselectcampobusquedaestadistica={setselectcampobusquedaestadistica}
+                dataCamposBusquedaEstadisticas={dataCamposBusquedaEstadisticas}
+                selectvalorcampobusquedaestadistica={selectvalorcampobusquedaestadistica}
+                setselectvalorcampobusquedaestadistica={setselectvalorcampobusquedaestadistica}
+                agregarCampoBusquedaEstadisticas={agregarCampoBusquedaEstadisticas}
+                selectsucursalbusquedaestadistica={selectsucursalbusquedaestadistica}
+                setselectsucursalbusquedaestadistica={setselectsucursalbusquedaestadistica}
+                agregarSucursalBusquedaEstadisticas={agregarSucursalBusquedaEstadisticas}
+                camposAgregadosBusquedaEstadisticas={camposAgregadosBusquedaEstadisticas}
+                sucursalesAgregadasBusquedaEstadisticas={sucursalesAgregadasBusquedaEstadisticas}
+                setcamposAgregadosBusquedaEstadisticas={setcamposAgregadosBusquedaEstadisticas}
+                setsucursalesAgregadasBusquedaEstadisticas={setsucursalesAgregadasBusquedaEstadisticas}
+
                 colorSucursal={colorSucursal}
                 setinvsuc_q={setinvsuc_q}
                 invsuc_q={invsuc_q}
@@ -218,6 +250,9 @@ export default function Inventario({
                 buscarInventario={buscarInventario}
                 qBuscarInventario={qBuscarInventario}
                 setQBuscarInventario={setQBuscarInventario}
+                qBuscarInventarioSucursal={qBuscarInventarioSucursal}
+                setqBuscarInventarioSucursal={setqBuscarInventarioSucursal}
+                sucursales={sucursales}
                 productosInventario={productosInventario}
                 type={type}
                 
