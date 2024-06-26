@@ -8973,6 +8973,78 @@ function Editarinventario(_ref) {
     setinputselectvinculacion4General = _ref.setinputselectvinculacion4General,
     inputselectvinculacionmarcaGeneral = _ref.inputselectvinculacionmarcaGeneral,
     setinputselectvinculacionmarcaGeneral = _ref.setinputselectvinculacionmarcaGeneral,
+    inputselectvinculacion5 = _ref.inputselectvinculacion5,
+    setinputselectvinculacion5 = _ref.setinputselectvinculacion5,
+    inputselectvinculacioncat = _ref.inputselectvinculacioncat,
+    setinputselectvinculacioncat = _ref.setinputselectvinculacioncat,
+    inputselectvinculacioncatesp = _ref.inputselectvinculacioncatesp,
+    setinputselectvinculacioncatesp = _ref.setinputselectvinculacioncatesp,
+    inputselectvinculacionproveedor = _ref.inputselectvinculacionproveedor,
+    setinputselectvinculacionproveedor = _ref.setinputselectvinculacionproveedor,
+    inputselectvinculacionmaxct = _ref.inputselectvinculacionmaxct,
+    setinputselectvinculacionmaxct = _ref.setinputselectvinculacionmaxct,
+    inputselectvinculacionminct = _ref.inputselectvinculacionminct,
+    setinputselectvinculacionminct = _ref.setinputselectvinculacionminct,
+    inputselectvinculacion5General = _ref.inputselectvinculacion5General,
+    setinputselectvinculacion5General = _ref.setinputselectvinculacion5General,
+    inputselectvinculacioncatGeneral = _ref.inputselectvinculacioncatGeneral,
+    setinputselectvinculacioncatGeneral = _ref.setinputselectvinculacioncatGeneral,
+    inputselectvinculacioncatespGeneral = _ref.inputselectvinculacioncatespGeneral,
+    setinputselectvinculacioncatespGeneral = _ref.setinputselectvinculacioncatespGeneral,
+    inputselectvinculacionproveedorGeneral = _ref.inputselectvinculacionproveedorGeneral,
+    setinputselectvinculacionproveedorGeneral = _ref.setinputselectvinculacionproveedorGeneral,
+    inputselectvinculacionmaxctGeneral = _ref.inputselectvinculacionmaxctGeneral,
+    setinputselectvinculacionmaxctGeneral = _ref.setinputselectvinculacionmaxctGeneral,
+    inputselectvinculacionminctGeneral = _ref.inputselectvinculacionminctGeneral,
+    setinputselectvinculacionminctGeneral = _ref.setinputselectvinculacionminctGeneral,
+    qvinculacion5 = _ref.qvinculacion5,
+    setqvinculacion5 = _ref.setqvinculacion5,
+    qvinculaciocat = _ref.qvinculaciocat,
+    setqvinculaciocat = _ref.setqvinculaciocat,
+    qvinculaciocatesp = _ref.qvinculaciocatesp,
+    setqvinculaciocatesp = _ref.setqvinculaciocatesp,
+    qvinculacioproveedor = _ref.qvinculacioproveedor,
+    setqvinculacioproveedor = _ref.setqvinculacioproveedor,
+    qvinculaciomaxct = _ref.qvinculaciomaxct,
+    setqvinculaciomaxct = _ref.setqvinculaciomaxct,
+    qvinculaciominct = _ref.qvinculaciominct,
+    setqvinculaciominct = _ref.setqvinculaciominct,
+    qvinculacion5General = _ref.qvinculacion5General,
+    setqvinculacion5General = _ref.setqvinculacion5General,
+    qvinculaciocatGeneral = _ref.qvinculaciocatGeneral,
+    setqvinculaciocatGeneral = _ref.setqvinculaciocatGeneral,
+    qvinculaciocatespGeneral = _ref.qvinculaciocatespGeneral,
+    setqvinculaciocatespGeneral = _ref.setqvinculaciocatespGeneral,
+    qvinculacioproveedorGeneral = _ref.qvinculacioproveedorGeneral,
+    setqvinculacioproveedorGeneral = _ref.setqvinculacioproveedorGeneral,
+    qvinculaciomaxctGeneral = _ref.qvinculaciomaxctGeneral,
+    setqvinculaciomaxctGeneral = _ref.setqvinculaciomaxctGeneral,
+    qvinculaciominctGeneral = _ref.qvinculaciominctGeneral,
+    setqvinculaciominctGeneral = _ref.setqvinculaciominctGeneral,
+    datavinculacion5 = _ref.datavinculacion5,
+    setdatavinculacion5 = _ref.setdatavinculacion5,
+    datavinculaciocat = _ref.datavinculaciocat,
+    setdatavinculaciocat = _ref.setdatavinculaciocat,
+    datavinculaciocatesp = _ref.datavinculaciocatesp,
+    setdatavinculaciocatesp = _ref.setdatavinculaciocatesp,
+    datavinculacioproveedor = _ref.datavinculacioproveedor,
+    setdatavinculacioproveedor = _ref.setdatavinculacioproveedor,
+    datavinculaciomaxct = _ref.datavinculaciomaxct,
+    setdatavinculaciomaxct = _ref.setdatavinculaciomaxct,
+    datavinculaciominct = _ref.datavinculaciominct,
+    setdatavinculaciominct = _ref.setdatavinculaciominct,
+    newNombre5 = _ref.newNombre5,
+    setnewNombre5 = _ref.setnewNombre5,
+    newNombrecat = _ref.newNombrecat,
+    setnewNombrecat = _ref.setnewNombrecat,
+    newNombrecatesp = _ref.newNombrecatesp,
+    setnewNombrecatesp = _ref.setnewNombrecatesp,
+    newNombreproveedor = _ref.newNombreproveedor,
+    setnewNombreproveedor = _ref.setnewNombreproveedor,
+    newNombremaxct = _ref.newNombremaxct,
+    setnewNombremaxct = _ref.setnewNombremaxct,
+    newNombreminct = _ref.newNombreminct,
+    setnewNombreminct = _ref.setnewNombreminct,
     getDatinputSelectVinculacion = _ref.getDatinputSelectVinculacion,
     saveCuatroNombres = _ref.saveCuatroNombres,
     qvinculacion1General = _ref.qvinculacion1General,
@@ -9059,6 +9131,21 @@ function Editarinventario(_ref) {
       setinputselectvinculacion4("");
     }
   }, [qvinculacion4]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fil = datavinculacion5.find(function (e) {
+      return e.nombre ? e.nombre.toLowerCase().substr(0, qvinculacion5.length) == qvinculacion5.toLowerCase() : false;
+    });
+    if (fil) {
+      if (fil && qvinculacion5 != "") {
+        setinputselectvinculacion5(fil.nombre);
+      }
+    } else {
+      setinputselectvinculacion5("");
+    }
+    if (!qvinculacion5) {
+      setinputselectvinculacion5("");
+    }
+  }, [qvinculacion5]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var fil = datavinculacionmarca.find(function (e) {
       return e.descripcion ? e.descripcion.toLowerCase().substr(0, qvinculacionmarca.length) == qvinculacionmarca.toLowerCase() : false;
@@ -9189,13 +9276,19 @@ function Editarinventario(_ref) {
       setProductosInventario(obj);
     }
   };
-  var funIdVinc = function funIdVinc(id, n1, n2, n3, n4, marca) {
+  var funIdVinc = function funIdVinc(id, n1, n2, n3, n4, marca, n5, cat, catesp, proveedor, maxct, minct) {
     setselectIdVinculacion([id]);
     setinputselectvinculacion1(n1);
     setinputselectvinculacion2(n2);
     setinputselectvinculacion3(n3);
     setinputselectvinculacion4(n4);
     setinputselectvinculacionmarca(marca);
+    setinputselectvinculacion5(n5);
+    setinputselectvinculacioncat(cat);
+    setinputselectvinculacioncatesp(catesp);
+    setinputselectvinculacionproveedor(proveedor);
+    setinputselectvinculacionmaxct(maxct);
+    setinputselectvinculacionminct(minct);
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "container-fluid",
@@ -9269,14 +9362,40 @@ function Editarinventario(_ref) {
           className: "fa fa-send"
         }), " GUARDAR"]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
       className: "table",
-      children: productosInventario.length ? productosInventario.map(function (e, i) {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "SUCURSAL"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "ALTERNO / BARRAS / UNIDAD"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "DESC"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "CT"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "BASE"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "VENTA"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "CAT ESP"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "CAT GEN"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "PROVEEDOR"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "MIN"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "MAX"
+          })]
+        })
+      }), productosInventario.length ? productosInventario.map(function (e, i) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tbody", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
             className: " align-bottom pointer ",
             onClick: function onClick() {
-              return funIdVinc(e.id, e.n1, e.n2, e.n3, e.n4, e.marca);
+              return funIdVinc(e.id, e.n1, e.n2, e.n3, e.n4, e.id_marca, e.n5, e.id_catgeneral, e.id_categoria, e.id_proveedor, e.stockmax, e.stockmin);
             },
             onDoubleClick: function onDoubleClick() {
               return changeInventarioModificarDici(null, i, "update");
@@ -9302,8 +9421,6 @@ function Editarinventario(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 className: "bg-ct"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: ""
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 className: "bg-base",
                 children: e.precio_base
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
@@ -9317,7 +9434,10 @@ function Editarinventario(_ref) {
                 children: e.catgeneral ? e.catgeneral.descripcion : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 className: "",
-                children: e.iva
+                children: e.stockmin
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                className: "",
+                children: e.stockmax
               })]
             }) : null]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
@@ -9343,7 +9463,32 @@ function Editarinventario(_ref) {
                         children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacion3 : ""
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: e.marca ? e.marca + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                      children: e.n4 ? e.n4 + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "text-success fw-bold",
+                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacion4 : ""
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                      children: e.n5 ? e.n5 + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "text-success fw-bold",
+                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacion5 : ""
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                      children: e.id_marca ? e.id_marca + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "text-success fw-bold",
+                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacionmarca : ""
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                      children: e.id_marca ? e.id_marca + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "text-success fw-bold",
+                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacionmarca : ""
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                      children: e.id_marca ? e.id_marca + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "text-success fw-bold",
+                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacionmarca : ""
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                      children: e.id_marca ? e.id_marca + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                         className: "text-success fw-bold",
                         children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacionmarca : ""
                       })
@@ -9489,7 +9634,7 @@ function Editarinventario(_ref) {
             })
           }) : null]
         }, i);
-      }) : null
+      }) : null]
     })]
   });
 }
@@ -9761,12 +9906,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_apexcharts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-apexcharts */ "./node_modules/react-apexcharts/dist/react-apexcharts.min.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -9845,7 +9984,18 @@ function Gastos(_ref) {
     colorSucursal = _ref.colorSucursal,
     colorsGastosCat = _ref.colorsGastosCat,
     distribucionGastosCat = _ref.distribucionGastosCat,
-    getGastosDistribucion = _ref.getGastosDistribucion;
+    getGastosDistribucion = _ref.getGastosDistribucion,
+    removeMoneda = _ref.removeMoneda,
+    qbuscarcat = _ref.qbuscarcat,
+    setqbuscarcat = _ref.setqbuscarcat,
+    indexviewcatdetalles = _ref.indexviewcatdetalles,
+    setindexviewcatdetalles = _ref.setindexviewcatdetalles,
+    indexsubviewcatdetalles = _ref.indexsubviewcatdetalles,
+    setindexsubviewcatdetalles = _ref.setindexsubviewcatdetalles,
+    indexviewsucursaldetalles = _ref.indexviewsucursaldetalles,
+    setindexviewsucursaldetalles = _ref.setindexviewsucursaldetalles,
+    indexsubviewsucursaldetalles = _ref.indexsubviewsucursaldetalles,
+    setindexsubviewsucursaldetalles = _ref.setindexsubviewsucursaldetalles;
   /* useEffect(()=>{
   	getPersonal(data=>{
   		if (data.personal.length) {
@@ -9880,26 +10030,6 @@ function Gastos(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setlistBeneficiario([]);
   }, [modeEjecutor]);
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-    _useState2 = _slicedToArray(_useState, 2),
-    qbuscarcat = _useState2[0],
-    setqbuscarcat = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState4 = _slicedToArray(_useState3, 2),
-    indexviewcatdetalles = _useState4[0],
-    setindexviewcatdetalles = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState6 = _slicedToArray(_useState5, 2),
-    indexsubviewcatdetalles = _useState6[0],
-    setindexsubviewcatdetalles = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState8 = _slicedToArray(_useState7, 2),
-    indexviewsucursaldetalles = _useState8[0],
-    setindexviewsucursaldetalles = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState10 = _slicedToArray(_useState9, 2),
-    indexsubviewsucursaldetalles = _useState10[0],
-    setindexsubviewsucursaldetalles = _useState10[1];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "container-fluid",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -10014,6 +10144,15 @@ function Gastos(_ref) {
               })]
             })
           })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: "col",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("small", {
+              className: "text-success fs-4",
+              children: [moneda(parseFloat(removeMoneda(gastosMonto)) / parseFloat(gastosTasa)), " $"]
+            })
+          })
         })]
       }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "form-group mb-2",
@@ -10062,7 +10201,7 @@ function Gastos(_ref) {
             return setqbuscarcat(event.target.value);
           }
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "card card-personal",
+          className: "card card-personal h-400px table-responsive",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("ul", {
             className: "list-group",
             children: categoriasCajas.length ? categoriasCajas.filter(function (e) {
@@ -10077,7 +10216,10 @@ function Gastos(_ref) {
               }
             }).map(function (e) {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-                className: "list-group-item " + (gastosCategoria == e.id ? " active pointer " : ""),
+                style: {
+                  backgroundColor: colorsGastosCat(e.id, "cat", "color")
+                },
+                className: "list-group-item " + (gastosCategoria == e.id ? " fst-bold text-light bg-dark fs-2 pointer " : ""),
                 onClick: function onClick() {
                   setgastosCategoria(e.id);
                 },
@@ -10183,6 +10325,7 @@ function Gastos(_ref) {
                   value: qSucursal,
                   onChange: function onChange(e) {
                     setqSucursal(e.target.value);
+                    getSucursales(e.target.value);
                   },
                   placeholder: "Buscar SUCURSALES..."
                 })
@@ -10843,6 +10986,78 @@ function Inventario(_ref) {
     setinputselectvinculacion4General = _ref.setinputselectvinculacion4General,
     inputselectvinculacionmarcaGeneral = _ref.inputselectvinculacionmarcaGeneral,
     setinputselectvinculacionmarcaGeneral = _ref.setinputselectvinculacionmarcaGeneral,
+    inputselectvinculacion5 = _ref.inputselectvinculacion5,
+    setinputselectvinculacion5 = _ref.setinputselectvinculacion5,
+    inputselectvinculacioncat = _ref.inputselectvinculacioncat,
+    setinputselectvinculacioncat = _ref.setinputselectvinculacioncat,
+    inputselectvinculacioncatesp = _ref.inputselectvinculacioncatesp,
+    setinputselectvinculacioncatesp = _ref.setinputselectvinculacioncatesp,
+    inputselectvinculacionproveedor = _ref.inputselectvinculacionproveedor,
+    setinputselectvinculacionproveedor = _ref.setinputselectvinculacionproveedor,
+    inputselectvinculacionmaxct = _ref.inputselectvinculacionmaxct,
+    setinputselectvinculacionmaxct = _ref.setinputselectvinculacionmaxct,
+    inputselectvinculacionminct = _ref.inputselectvinculacionminct,
+    setinputselectvinculacionminct = _ref.setinputselectvinculacionminct,
+    inputselectvinculacion5General = _ref.inputselectvinculacion5General,
+    setinputselectvinculacion5General = _ref.setinputselectvinculacion5General,
+    inputselectvinculacioncatGeneral = _ref.inputselectvinculacioncatGeneral,
+    setinputselectvinculacioncatGeneral = _ref.setinputselectvinculacioncatGeneral,
+    inputselectvinculacioncatespGeneral = _ref.inputselectvinculacioncatespGeneral,
+    setinputselectvinculacioncatespGeneral = _ref.setinputselectvinculacioncatespGeneral,
+    inputselectvinculacionproveedorGeneral = _ref.inputselectvinculacionproveedorGeneral,
+    setinputselectvinculacionproveedorGeneral = _ref.setinputselectvinculacionproveedorGeneral,
+    inputselectvinculacionmaxctGeneral = _ref.inputselectvinculacionmaxctGeneral,
+    setinputselectvinculacionmaxctGeneral = _ref.setinputselectvinculacionmaxctGeneral,
+    inputselectvinculacionminctGeneral = _ref.inputselectvinculacionminctGeneral,
+    setinputselectvinculacionminctGeneral = _ref.setinputselectvinculacionminctGeneral,
+    qvinculacion5 = _ref.qvinculacion5,
+    setqvinculacion5 = _ref.setqvinculacion5,
+    qvinculaciocat = _ref.qvinculaciocat,
+    setqvinculaciocat = _ref.setqvinculaciocat,
+    qvinculaciocatesp = _ref.qvinculaciocatesp,
+    setqvinculaciocatesp = _ref.setqvinculaciocatesp,
+    qvinculacioproveedor = _ref.qvinculacioproveedor,
+    setqvinculacioproveedor = _ref.setqvinculacioproveedor,
+    qvinculaciomaxct = _ref.qvinculaciomaxct,
+    setqvinculaciomaxct = _ref.setqvinculaciomaxct,
+    qvinculaciominct = _ref.qvinculaciominct,
+    setqvinculaciominct = _ref.setqvinculaciominct,
+    qvinculacion5General = _ref.qvinculacion5General,
+    setqvinculacion5General = _ref.setqvinculacion5General,
+    qvinculaciocatGeneral = _ref.qvinculaciocatGeneral,
+    setqvinculaciocatGeneral = _ref.setqvinculaciocatGeneral,
+    qvinculaciocatespGeneral = _ref.qvinculaciocatespGeneral,
+    setqvinculaciocatespGeneral = _ref.setqvinculaciocatespGeneral,
+    qvinculacioproveedorGeneral = _ref.qvinculacioproveedorGeneral,
+    setqvinculacioproveedorGeneral = _ref.setqvinculacioproveedorGeneral,
+    qvinculaciomaxctGeneral = _ref.qvinculaciomaxctGeneral,
+    setqvinculaciomaxctGeneral = _ref.setqvinculaciomaxctGeneral,
+    qvinculaciominctGeneral = _ref.qvinculaciominctGeneral,
+    setqvinculaciominctGeneral = _ref.setqvinculaciominctGeneral,
+    datavinculacion5 = _ref.datavinculacion5,
+    setdatavinculacion5 = _ref.setdatavinculacion5,
+    datavinculaciocat = _ref.datavinculaciocat,
+    setdatavinculaciocat = _ref.setdatavinculaciocat,
+    datavinculaciocatesp = _ref.datavinculaciocatesp,
+    setdatavinculaciocatesp = _ref.setdatavinculaciocatesp,
+    datavinculacioproveedor = _ref.datavinculacioproveedor,
+    setdatavinculacioproveedor = _ref.setdatavinculacioproveedor,
+    datavinculaciomaxct = _ref.datavinculaciomaxct,
+    setdatavinculaciomaxct = _ref.setdatavinculaciomaxct,
+    datavinculaciominct = _ref.datavinculaciominct,
+    setdatavinculaciominct = _ref.setdatavinculaciominct,
+    newNombre5 = _ref.newNombre5,
+    setnewNombre5 = _ref.setnewNombre5,
+    newNombrecat = _ref.newNombrecat,
+    setnewNombrecat = _ref.setnewNombrecat,
+    newNombrecatesp = _ref.newNombrecatesp,
+    setnewNombrecatesp = _ref.setnewNombrecatesp,
+    newNombreproveedor = _ref.newNombreproveedor,
+    setnewNombreproveedor = _ref.setnewNombreproveedor,
+    newNombremaxct = _ref.newNombremaxct,
+    setnewNombremaxct = _ref.setnewNombremaxct,
+    newNombreminct = _ref.newNombreminct,
+    setnewNombreminct = _ref.setnewNombreminct,
     getDatinputSelectVinculacion = _ref.getDatinputSelectVinculacion,
     saveCuatroNombres = _ref.saveCuatroNombres,
     qvinculacion1General = _ref.qvinculacion1General,
@@ -11185,6 +11400,78 @@ function Inventario(_ref) {
       setinputselectvinculacion4General: setinputselectvinculacion4General,
       inputselectvinculacionmarcaGeneral: inputselectvinculacionmarcaGeneral,
       setinputselectvinculacionmarcaGeneral: setinputselectvinculacionmarcaGeneral,
+      inputselectvinculacion5: inputselectvinculacion5,
+      setinputselectvinculacion5: setinputselectvinculacion5,
+      inputselectvinculacioncat: inputselectvinculacioncat,
+      setinputselectvinculacioncat: setinputselectvinculacioncat,
+      inputselectvinculacioncatesp: inputselectvinculacioncatesp,
+      setinputselectvinculacioncatesp: setinputselectvinculacioncatesp,
+      inputselectvinculacionproveedor: inputselectvinculacionproveedor,
+      setinputselectvinculacionproveedor: setinputselectvinculacionproveedor,
+      inputselectvinculacionmaxct: inputselectvinculacionmaxct,
+      setinputselectvinculacionmaxct: setinputselectvinculacionmaxct,
+      inputselectvinculacionminct: inputselectvinculacionminct,
+      setinputselectvinculacionminct: setinputselectvinculacionminct,
+      inputselectvinculacion5General: inputselectvinculacion5General,
+      setinputselectvinculacion5General: setinputselectvinculacion5General,
+      inputselectvinculacioncatGeneral: inputselectvinculacioncatGeneral,
+      setinputselectvinculacioncatGeneral: setinputselectvinculacioncatGeneral,
+      inputselectvinculacioncatespGeneral: inputselectvinculacioncatespGeneral,
+      setinputselectvinculacioncatespGeneral: setinputselectvinculacioncatespGeneral,
+      inputselectvinculacionproveedorGeneral: inputselectvinculacionproveedorGeneral,
+      setinputselectvinculacionproveedorGeneral: setinputselectvinculacionproveedorGeneral,
+      inputselectvinculacionmaxctGeneral: inputselectvinculacionmaxctGeneral,
+      setinputselectvinculacionmaxctGeneral: setinputselectvinculacionmaxctGeneral,
+      inputselectvinculacionminctGeneral: inputselectvinculacionminctGeneral,
+      setinputselectvinculacionminctGeneral: setinputselectvinculacionminctGeneral,
+      qvinculacion5: qvinculacion5,
+      setqvinculacion5: setqvinculacion5,
+      qvinculaciocat: qvinculaciocat,
+      setqvinculaciocat: setqvinculaciocat,
+      qvinculaciocatesp: qvinculaciocatesp,
+      setqvinculaciocatesp: setqvinculaciocatesp,
+      qvinculacioproveedor: qvinculacioproveedor,
+      setqvinculacioproveedor: setqvinculacioproveedor,
+      qvinculaciomaxct: qvinculaciomaxct,
+      setqvinculaciomaxct: setqvinculaciomaxct,
+      qvinculaciominct: qvinculaciominct,
+      setqvinculaciominct: setqvinculaciominct,
+      qvinculacion5General: qvinculacion5General,
+      setqvinculacion5General: setqvinculacion5General,
+      qvinculaciocatGeneral: qvinculaciocatGeneral,
+      setqvinculaciocatGeneral: setqvinculaciocatGeneral,
+      qvinculaciocatespGeneral: qvinculaciocatespGeneral,
+      setqvinculaciocatespGeneral: setqvinculaciocatespGeneral,
+      qvinculacioproveedorGeneral: qvinculacioproveedorGeneral,
+      setqvinculacioproveedorGeneral: setqvinculacioproveedorGeneral,
+      qvinculaciomaxctGeneral: qvinculaciomaxctGeneral,
+      setqvinculaciomaxctGeneral: setqvinculaciomaxctGeneral,
+      qvinculaciominctGeneral: qvinculaciominctGeneral,
+      setqvinculaciominctGeneral: setqvinculaciominctGeneral,
+      datavinculacion5: datavinculacion5,
+      setdatavinculacion5: setdatavinculacion5,
+      datavinculaciocat: datavinculaciocat,
+      setdatavinculaciocat: setdatavinculaciocat,
+      datavinculaciocatesp: datavinculaciocatesp,
+      setdatavinculaciocatesp: setdatavinculaciocatesp,
+      datavinculacioproveedor: datavinculacioproveedor,
+      setdatavinculacioproveedor: setdatavinculacioproveedor,
+      datavinculaciomaxct: datavinculaciomaxct,
+      setdatavinculaciomaxct: setdatavinculaciomaxct,
+      datavinculaciominct: datavinculaciominct,
+      setdatavinculaciominct: setdatavinculaciominct,
+      newNombre5: newNombre5,
+      setnewNombre5: setnewNombre5,
+      newNombrecat: newNombrecat,
+      setnewNombrecat: setnewNombrecat,
+      newNombrecatesp: newNombrecatesp,
+      setnewNombrecatesp: setnewNombrecatesp,
+      newNombreproveedor: newNombreproveedor,
+      setnewNombreproveedor: setnewNombreproveedor,
+      newNombremaxct: newNombremaxct,
+      setnewNombremaxct: setnewNombremaxct,
+      newNombreminct: newNombreminct,
+      setnewNombreminct: setnewNombreminct,
       getDatinputSelectVinculacion: getDatinputSelectVinculacion,
       saveCuatroNombres: saveCuatroNombres,
       qvinculacion1General: qvinculacion1General,
@@ -71602,6 +71889,10 @@ function Home() {
     51: {
       color: "#fff2cc",
       desc: "CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL"
+    },
+    52: {
+      color: "#fff2cc",
+      desc: "CAJA MATRIZ: ASEO"
     }
   };
   var colorCatGeneral = {
@@ -75326,6 +75617,26 @@ function Home() {
       setdistribucionGastosCat(data);
     });
   };
+  var _useState655 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState656 = _slicedToArray(_useState655, 2),
+    qbuscarcat = _useState656[0],
+    setqbuscarcat = _useState656[1];
+  var _useState657 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    _useState658 = _slicedToArray(_useState657, 2),
+    indexviewcatdetalles = _useState658[0],
+    setindexviewcatdetalles = _useState658[1];
+  var _useState659 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    _useState660 = _slicedToArray(_useState659, 2),
+    indexsubviewcatdetalles = _useState660[0],
+    setindexsubviewcatdetalles = _useState660[1];
+  var _useState661 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    _useState662 = _slicedToArray(_useState661, 2),
+    indexviewsucursaldetalles = _useState662[0],
+    setindexviewsucursaldetalles = _useState662[1];
+  var _useState663 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    _useState664 = _slicedToArray(_useState663, 2),
+    indexsubviewsucursaldetalles = _useState664[0],
+    setindexsubviewsucursaldetalles = _useState664[1];
   var getGastos = function getGastos() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getGastos({
       gastosQ: gastosQ,
@@ -75357,6 +75668,8 @@ function Home() {
     setgastosMonto_dolar("");
     setgastosTasa("");
     setgastosBanco("");
+    setlistBeneficiario([]);
+    setqbuscarcat("");
   };
   var setEditGastosInput = function setEditGastosInput(id) {
     var fil = gastosData.filter(function (e) {
@@ -75374,150 +75687,294 @@ function Home() {
       setgastosBanco(dataFil.banco);
     }
   };
-  var _useState655 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-    _useState656 = _slicedToArray(_useState655, 2),
-    selectIdVinculacion = _useState656[0],
-    setselectIdVinculacion = _useState656[1];
-  var _useState657 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState658 = _slicedToArray(_useState657, 2),
-    qvinculacion1 = _useState658[0],
-    setqvinculacion1 = _useState658[1];
-  var _useState659 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState660 = _slicedToArray(_useState659, 2),
-    qvinculacion2 = _useState660[0],
-    setqvinculacion2 = _useState660[1];
-  var _useState661 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState662 = _slicedToArray(_useState661, 2),
-    qvinculacion3 = _useState662[0],
-    setqvinculacion3 = _useState662[1];
-  var _useState663 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState664 = _slicedToArray(_useState663, 2),
-    qvinculacion4 = _useState664[0],
-    setqvinculacion4 = _useState664[1];
-  var _useState665 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState665 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState666 = _slicedToArray(_useState665, 2),
-    qvinculacionmarca = _useState666[0],
-    setqvinculacionmarca = _useState666[1];
+    selectIdVinculacion = _useState666[0],
+    setselectIdVinculacion = _useState666[1];
   var _useState667 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState668 = _slicedToArray(_useState667, 2),
-    qvinculacion1General = _useState668[0],
-    setqvinculacion1General = _useState668[1];
+    qvinculacion1 = _useState668[0],
+    setqvinculacion1 = _useState668[1];
   var _useState669 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState670 = _slicedToArray(_useState669, 2),
-    qvinculacion2General = _useState670[0],
-    setqvinculacion2General = _useState670[1];
+    qvinculacion2 = _useState670[0],
+    setqvinculacion2 = _useState670[1];
   var _useState671 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState672 = _slicedToArray(_useState671, 2),
-    qvinculacion3General = _useState672[0],
-    setqvinculacion3General = _useState672[1];
+    qvinculacion3 = _useState672[0],
+    setqvinculacion3 = _useState672[1];
   var _useState673 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState674 = _slicedToArray(_useState673, 2),
-    qvinculacion4General = _useState674[0],
-    setqvinculacion4General = _useState674[1];
+    qvinculacion4 = _useState674[0],
+    setqvinculacion4 = _useState674[1];
   var _useState675 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState676 = _slicedToArray(_useState675, 2),
-    qvinculacionmarcaGeneral = _useState676[0],
-    setqvinculacionmarcaGeneral = _useState676[1];
-  var _useState677 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    qvinculacionmarca = _useState676[0],
+    setqvinculacionmarca = _useState676[1];
+  var _useState677 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState678 = _slicedToArray(_useState677, 2),
-    datavinculacion1 = _useState678[0],
-    setdatavinculacion1 = _useState678[1];
-  var _useState679 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    qvinculacion5 = _useState678[0],
+    setqvinculacion5 = _useState678[1];
+  var _useState679 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState680 = _slicedToArray(_useState679, 2),
-    datavinculacion2 = _useState680[0],
-    setdatavinculacion2 = _useState680[1];
-  var _useState681 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    qvinculaciocat = _useState680[0],
+    setqvinculaciocat = _useState680[1];
+  var _useState681 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState682 = _slicedToArray(_useState681, 2),
-    datavinculacion3 = _useState682[0],
-    setdatavinculacion3 = _useState682[1];
-  var _useState683 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    qvinculaciocatesp = _useState682[0],
+    setqvinculaciocatesp = _useState682[1];
+  var _useState683 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState684 = _slicedToArray(_useState683, 2),
-    datavinculacion4 = _useState684[0],
-    setdatavinculacion4 = _useState684[1];
-  var _useState685 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    qvinculacioproveedor = _useState684[0],
+    setqvinculacioproveedor = _useState684[1];
+  var _useState685 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState686 = _slicedToArray(_useState685, 2),
-    datavinculacionmarca = _useState686[0],
-    setdatavinculacionmarca = _useState686[1];
+    qvinculaciomaxct = _useState686[0],
+    setqvinculaciomaxct = _useState686[1];
   var _useState687 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState688 = _slicedToArray(_useState687, 2),
-    inputselectvinculacion1 = _useState688[0],
-    setinputselectvinculacion1 = _useState688[1];
+    qvinculaciominct = _useState688[0],
+    setqvinculaciominct = _useState688[1];
   var _useState689 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState690 = _slicedToArray(_useState689, 2),
-    inputselectvinculacion2 = _useState690[0],
-    setinputselectvinculacion2 = _useState690[1];
+    qvinculacion1General = _useState690[0],
+    setqvinculacion1General = _useState690[1];
   var _useState691 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState692 = _slicedToArray(_useState691, 2),
-    inputselectvinculacion3 = _useState692[0],
-    setinputselectvinculacion3 = _useState692[1];
+    qvinculacion2General = _useState692[0],
+    setqvinculacion2General = _useState692[1];
   var _useState693 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState694 = _slicedToArray(_useState693, 2),
-    inputselectvinculacion4 = _useState694[0],
-    setinputselectvinculacion4 = _useState694[1];
+    qvinculacion3General = _useState694[0],
+    setqvinculacion3General = _useState694[1];
   var _useState695 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState696 = _slicedToArray(_useState695, 2),
-    inputselectvinculacionmarca = _useState696[0],
-    setinputselectvinculacionmarca = _useState696[1];
+    qvinculacion4General = _useState696[0],
+    setqvinculacion4General = _useState696[1];
   var _useState697 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState698 = _slicedToArray(_useState697, 2),
-    inputselectvinculacion1General = _useState698[0],
-    setinputselectvinculacion1General = _useState698[1];
+    qvinculacionmarcaGeneral = _useState698[0],
+    setqvinculacionmarcaGeneral = _useState698[1];
   var _useState699 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState700 = _slicedToArray(_useState699, 2),
-    inputselectvinculacion2General = _useState700[0],
-    setinputselectvinculacion2General = _useState700[1];
+    qvinculacion5General = _useState700[0],
+    setqvinculacion5General = _useState700[1];
   var _useState701 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState702 = _slicedToArray(_useState701, 2),
-    inputselectvinculacion3General = _useState702[0],
-    setinputselectvinculacion3General = _useState702[1];
+    qvinculaciocatGeneral = _useState702[0],
+    setqvinculaciocatGeneral = _useState702[1];
   var _useState703 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState704 = _slicedToArray(_useState703, 2),
-    inputselectvinculacion4General = _useState704[0],
-    setinputselectvinculacion4General = _useState704[1];
+    qvinculaciocatespGeneral = _useState704[0],
+    setqvinculaciocatespGeneral = _useState704[1];
   var _useState705 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState706 = _slicedToArray(_useState705, 2),
-    inputselectvinculacionmarcaGeneral = _useState706[0],
-    setinputselectvinculacionmarcaGeneral = _useState706[1];
+    qvinculacioproveedorGeneral = _useState706[0],
+    setqvinculacioproveedorGeneral = _useState706[1];
   var _useState707 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState708 = _slicedToArray(_useState707, 2),
-    newNombre1 = _useState708[0],
-    setnewNombre1 = _useState708[1];
+    qvinculaciomaxctGeneral = _useState708[0],
+    setqvinculaciomaxctGeneral = _useState708[1];
   var _useState709 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState710 = _slicedToArray(_useState709, 2),
-    newNombre2 = _useState710[0],
-    setnewNombre2 = _useState710[1];
-  var _useState711 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    qvinculaciominctGeneral = _useState710[0],
+    setqvinculaciominctGeneral = _useState710[1];
+  var _useState711 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState712 = _slicedToArray(_useState711, 2),
-    newNombre3 = _useState712[0],
-    setnewNombre3 = _useState712[1];
-  var _useState713 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    datavinculacion1 = _useState712[0],
+    setdatavinculacion1 = _useState712[1];
+  var _useState713 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState714 = _slicedToArray(_useState713, 2),
-    newNombre4 = _useState714[0],
-    setnewNombre4 = _useState714[1];
-  var _useState715 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    datavinculacion2 = _useState714[0],
+    setdatavinculacion2 = _useState714[1];
+  var _useState715 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState716 = _slicedToArray(_useState715, 2),
-    newNombremarca = _useState716[0],
-    setnewNombremarca = _useState716[1];
-  var _useState717 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("selectfacttodistribuir"),
+    datavinculacion3 = _useState716[0],
+    setdatavinculacion3 = _useState716[1];
+  var _useState717 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState718 = _slicedToArray(_useState717, 2),
-    subviewDistribuir = _useState718[0],
-    setsubviewDistribuir = _useState718[1];
+    datavinculacion4 = _useState718[0],
+    setdatavinculacion4 = _useState718[1];
   var _useState719 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState720 = _slicedToArray(_useState719, 2),
-    listdistribucionselect = _useState720[0],
-    setlistdistribucionselect = _useState720[1];
-  var _useState721 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    datavinculacionmarca = _useState720[0],
+    setdatavinculacionmarca = _useState720[1];
+  var _useState721 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState722 = _slicedToArray(_useState721, 2),
-    distribucionSelectSucursal = _useState722[0],
-    setdistribucionSelectSucursal = _useState722[1];
-  var _useState723 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("selectfacts"),
+    datavinculacion5 = _useState722[0],
+    setdatavinculacion5 = _useState722[1];
+  var _useState723 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState724 = _slicedToArray(_useState723, 2),
-    subviewcargaritemsfact = _useState724[0],
-    setsubviewcargaritemsfact = _useState724[1];
-  var _useState725 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+    datavinculaciocat = _useState724[0],
+    setdatavinculaciocat = _useState724[1];
+  var _useState725 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState726 = _slicedToArray(_useState725, 2),
-    showtextarea = _useState726[0],
-    setshowtextarea = _useState726[1];
+    datavinculaciocatesp = _useState726[0],
+    setdatavinculaciocatesp = _useState726[1];
+  var _useState727 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState728 = _slicedToArray(_useState727, 2),
+    datavinculacioproveedor = _useState728[0],
+    setdatavinculacioproveedor = _useState728[1];
+  var _useState729 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState730 = _slicedToArray(_useState729, 2),
+    datavinculaciomaxct = _useState730[0],
+    setdatavinculaciomaxct = _useState730[1];
+  var _useState731 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState732 = _slicedToArray(_useState731, 2),
+    datavinculaciominct = _useState732[0],
+    setdatavinculaciominct = _useState732[1];
+  var _useState733 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState734 = _slicedToArray(_useState733, 2),
+    newNombre1 = _useState734[0],
+    setnewNombre1 = _useState734[1];
+  var _useState735 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState736 = _slicedToArray(_useState735, 2),
+    newNombre2 = _useState736[0],
+    setnewNombre2 = _useState736[1];
+  var _useState737 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState738 = _slicedToArray(_useState737, 2),
+    newNombre3 = _useState738[0],
+    setnewNombre3 = _useState738[1];
+  var _useState739 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState740 = _slicedToArray(_useState739, 2),
+    newNombre4 = _useState740[0],
+    setnewNombre4 = _useState740[1];
+  var _useState741 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState742 = _slicedToArray(_useState741, 2),
+    newNombremarca = _useState742[0],
+    setnewNombremarca = _useState742[1];
+  var _useState743 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState744 = _slicedToArray(_useState743, 2),
+    newNombre5 = _useState744[0],
+    setnewNombre5 = _useState744[1];
+  var _useState745 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState746 = _slicedToArray(_useState745, 2),
+    newNombrecat = _useState746[0],
+    setnewNombrecat = _useState746[1];
+  var _useState747 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState748 = _slicedToArray(_useState747, 2),
+    newNombrecatesp = _useState748[0],
+    setnewNombrecatesp = _useState748[1];
+  var _useState749 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState750 = _slicedToArray(_useState749, 2),
+    newNombreproveedor = _useState750[0],
+    setnewNombreproveedor = _useState750[1];
+  var _useState751 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState752 = _slicedToArray(_useState751, 2),
+    newNombremaxct = _useState752[0],
+    setnewNombremaxct = _useState752[1];
+  var _useState753 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState754 = _slicedToArray(_useState753, 2),
+    newNombreminct = _useState754[0],
+    setnewNombreminct = _useState754[1];
+  var _useState755 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState756 = _slicedToArray(_useState755, 2),
+    inputselectvinculacion1 = _useState756[0],
+    setinputselectvinculacion1 = _useState756[1];
+  var _useState757 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState758 = _slicedToArray(_useState757, 2),
+    inputselectvinculacion2 = _useState758[0],
+    setinputselectvinculacion2 = _useState758[1];
+  var _useState759 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState760 = _slicedToArray(_useState759, 2),
+    inputselectvinculacion3 = _useState760[0],
+    setinputselectvinculacion3 = _useState760[1];
+  var _useState761 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState762 = _slicedToArray(_useState761, 2),
+    inputselectvinculacion4 = _useState762[0],
+    setinputselectvinculacion4 = _useState762[1];
+  var _useState763 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState764 = _slicedToArray(_useState763, 2),
+    inputselectvinculacion5 = _useState764[0],
+    setinputselectvinculacion5 = _useState764[1];
+  var _useState765 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState766 = _slicedToArray(_useState765, 2),
+    inputselectvinculacioncat = _useState766[0],
+    setinputselectvinculacioncat = _useState766[1];
+  var _useState767 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState768 = _slicedToArray(_useState767, 2),
+    inputselectvinculacioncatesp = _useState768[0],
+    setinputselectvinculacioncatesp = _useState768[1];
+  var _useState769 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState770 = _slicedToArray(_useState769, 2),
+    inputselectvinculacionproveedor = _useState770[0],
+    setinputselectvinculacionproveedor = _useState770[1];
+  var _useState771 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState772 = _slicedToArray(_useState771, 2),
+    inputselectvinculacionmaxct = _useState772[0],
+    setinputselectvinculacionmaxct = _useState772[1];
+  var _useState773 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState774 = _slicedToArray(_useState773, 2),
+    inputselectvinculacionminct = _useState774[0],
+    setinputselectvinculacionminct = _useState774[1];
+  var _useState775 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState776 = _slicedToArray(_useState775, 2),
+    inputselectvinculacionmarca = _useState776[0],
+    setinputselectvinculacionmarca = _useState776[1];
+  var _useState777 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState778 = _slicedToArray(_useState777, 2),
+    inputselectvinculacion1General = _useState778[0],
+    setinputselectvinculacion1General = _useState778[1];
+  var _useState779 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState780 = _slicedToArray(_useState779, 2),
+    inputselectvinculacion2General = _useState780[0],
+    setinputselectvinculacion2General = _useState780[1];
+  var _useState781 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState782 = _slicedToArray(_useState781, 2),
+    inputselectvinculacion3General = _useState782[0],
+    setinputselectvinculacion3General = _useState782[1];
+  var _useState783 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState784 = _slicedToArray(_useState783, 2),
+    inputselectvinculacion4General = _useState784[0],
+    setinputselectvinculacion4General = _useState784[1];
+  var _useState785 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState786 = _slicedToArray(_useState785, 2),
+    inputselectvinculacion5General = _useState786[0],
+    setinputselectvinculacion5General = _useState786[1];
+  var _useState787 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState788 = _slicedToArray(_useState787, 2),
+    inputselectvinculacioncatGeneral = _useState788[0],
+    setinputselectvinculacioncatGeneral = _useState788[1];
+  var _useState789 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState790 = _slicedToArray(_useState789, 2),
+    inputselectvinculacioncatespGeneral = _useState790[0],
+    setinputselectvinculacioncatespGeneral = _useState790[1];
+  var _useState791 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState792 = _slicedToArray(_useState791, 2),
+    inputselectvinculacionproveedorGeneral = _useState792[0],
+    setinputselectvinculacionproveedorGeneral = _useState792[1];
+  var _useState793 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState794 = _slicedToArray(_useState793, 2),
+    inputselectvinculacionmaxctGeneral = _useState794[0],
+    setinputselectvinculacionmaxctGeneral = _useState794[1];
+  var _useState795 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState796 = _slicedToArray(_useState795, 2),
+    inputselectvinculacionminctGeneral = _useState796[0],
+    setinputselectvinculacionminctGeneral = _useState796[1];
+  var _useState797 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState798 = _slicedToArray(_useState797, 2),
+    inputselectvinculacionmarcaGeneral = _useState798[0],
+    setinputselectvinculacionmarcaGeneral = _useState798[1];
+  var _useState799 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("selectfacttodistribuir"),
+    _useState800 = _slicedToArray(_useState799, 2),
+    subviewDistribuir = _useState800[0],
+    setsubviewDistribuir = _useState800[1];
+  var _useState801 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState802 = _slicedToArray(_useState801, 2),
+    listdistribucionselect = _useState802[0],
+    setlistdistribucionselect = _useState802[1];
+  var _useState803 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState804 = _slicedToArray(_useState803, 2),
+    distribucionSelectSucursal = _useState804[0],
+    setdistribucionSelectSucursal = _useState804[1];
+  var _useState805 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("selectfacts"),
+    _useState806 = _slicedToArray(_useState805, 2),
+    subviewcargaritemsfact = _useState806[0],
+    setsubviewcargaritemsfact = _useState806[1];
+  var _useState807 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+    _useState808 = _slicedToArray(_useState807, 2),
+    showtextarea = _useState808[0],
+    setshowtextarea = _useState808[1];
   var removeMoneyFormat = function removeMoneyFormat(num) {
     var n = num.toString();
     if (n.indexOf(",") === -1) {
@@ -75691,6 +76148,10 @@ function Home() {
       setdatavinculacion3(data.datavinculacion3);
       setdatavinculacion4(data.datavinculacion4);
       setdatavinculacionmarca(data.datavinculacionmarca);
+      setdatavinculacion5(data.datavinculacion5);
+      setdatavinculaciocat(data.datavinculaciocat);
+      setdatavinculaciocatesp(data.datavinculaciocatesp);
+      setdatavinculacioproveedor(data.datavinculacioproveedor);
     });
   };
   var saveCuatroNombres = function saveCuatroNombres() {
@@ -75700,6 +76161,12 @@ function Home() {
       inputselectvinculacion2: inputselectvinculacion2,
       inputselectvinculacion3: inputselectvinculacion3,
       inputselectvinculacion4: inputselectvinculacion4,
+      inputselectvinculacion5: inputselectvinculacion5,
+      inputselectvinculacioncat: inputselectvinculacioncat,
+      inputselectvinculacioncatesp: inputselectvinculacioncatesp,
+      inputselectvinculacionproveedor: inputselectvinculacionproveedor,
+      inputselectvinculacionmaxct: inputselectvinculacionmaxct,
+      inputselectvinculacionminct: inputselectvinculacionminct,
       inputselectvinculacionmarca: inputselectvinculacionmarca
     }).then(function (res) {
       buscarInventario();
@@ -75714,6 +76181,18 @@ function Home() {
       setinputselectvinculacion3General("");
       setinputselectvinculacion4General("");
       setinputselectvinculacionmarcaGeneral("");
+      setinputselectvinculacion5("");
+      setinputselectvinculacioncat("");
+      setinputselectvinculacioncatesp("");
+      setinputselectvinculacionproveedor("");
+      setinputselectvinculacionmaxct("");
+      setinputselectvinculacionminct("");
+      setinputselectvinculacion5General("");
+      setinputselectvinculacioncatGeneral("");
+      setinputselectvinculacioncatespGeneral("");
+      setinputselectvinculacionproveedorGeneral("");
+      setinputselectvinculacionmaxctGeneral("");
+      setinputselectvinculacionminctGeneral("");
       setqvinculacion1("");
       setqvinculacion2("");
       setqvinculacion3("");
@@ -75763,22 +76242,22 @@ function Home() {
         break;
     }
   };
-  var _useState727 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState728 = _slicedToArray(_useState727, 2),
-    sucursalBalanceGeneral = _useState728[0],
-    setsucursalBalanceGeneral = _useState728[1];
-  var _useState729 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState730 = _slicedToArray(_useState729, 2),
-    fechaBalanceGeneral = _useState730[0],
-    setfechaBalanceGeneral = _useState730[1];
-  var _useState731 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState732 = _slicedToArray(_useState731, 2),
-    fechaHastaBalanceGeneral = _useState732[0],
-    setfechaHastaBalanceGeneral = _useState732[1];
-  var _useState733 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-    _useState734 = _slicedToArray(_useState733, 2),
-    balanceGeneralData = _useState734[0],
-    setbalanceGeneralData = _useState734[1];
+  var _useState809 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState810 = _slicedToArray(_useState809, 2),
+    sucursalBalanceGeneral = _useState810[0],
+    setsucursalBalanceGeneral = _useState810[1];
+  var _useState811 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState812 = _slicedToArray(_useState811, 2),
+    fechaBalanceGeneral = _useState812[0],
+    setfechaBalanceGeneral = _useState812[1];
+  var _useState813 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState814 = _slicedToArray(_useState813, 2),
+    fechaHastaBalanceGeneral = _useState814[0],
+    setfechaHastaBalanceGeneral = _useState814[1];
+  var _useState815 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState816 = _slicedToArray(_useState815, 2),
+    balanceGeneralData = _useState816[0],
+    setbalanceGeneralData = _useState816[1];
   var getBalanceGeneral = function getBalanceGeneral() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getBalanceGeneral({
       sucursalBalanceGeneral: sucursalBalanceGeneral,
@@ -76576,6 +77055,78 @@ function Home() {
             setinputselectvinculacion4General: setinputselectvinculacion4General,
             inputselectvinculacionmarcaGeneral: inputselectvinculacionmarcaGeneral,
             setinputselectvinculacionmarcaGeneral: setinputselectvinculacionmarcaGeneral,
+            inputselectvinculacion5: inputselectvinculacion5,
+            setinputselectvinculacion5: setinputselectvinculacion5,
+            inputselectvinculacioncat: inputselectvinculacioncat,
+            setinputselectvinculacioncat: setinputselectvinculacioncat,
+            inputselectvinculacioncatesp: inputselectvinculacioncatesp,
+            setinputselectvinculacioncatesp: setinputselectvinculacioncatesp,
+            inputselectvinculacionproveedor: inputselectvinculacionproveedor,
+            setinputselectvinculacionproveedor: setinputselectvinculacionproveedor,
+            inputselectvinculacionmaxct: inputselectvinculacionmaxct,
+            setinputselectvinculacionmaxct: setinputselectvinculacionmaxct,
+            inputselectvinculacionminct: inputselectvinculacionminct,
+            setinputselectvinculacionminct: setinputselectvinculacionminct,
+            inputselectvinculacion5General: inputselectvinculacion5General,
+            setinputselectvinculacion5General: setinputselectvinculacion5General,
+            inputselectvinculacioncatGeneral: inputselectvinculacioncatGeneral,
+            setinputselectvinculacioncatGeneral: setinputselectvinculacioncatGeneral,
+            inputselectvinculacioncatespGeneral: inputselectvinculacioncatespGeneral,
+            setinputselectvinculacioncatespGeneral: setinputselectvinculacioncatespGeneral,
+            inputselectvinculacionproveedorGeneral: inputselectvinculacionproveedorGeneral,
+            setinputselectvinculacionproveedorGeneral: setinputselectvinculacionproveedorGeneral,
+            inputselectvinculacionmaxctGeneral: inputselectvinculacionmaxctGeneral,
+            setinputselectvinculacionmaxctGeneral: setinputselectvinculacionmaxctGeneral,
+            inputselectvinculacionminctGeneral: inputselectvinculacionminctGeneral,
+            setinputselectvinculacionminctGeneral: setinputselectvinculacionminctGeneral,
+            qvinculacion5: qvinculacion5,
+            setqvinculacion5: setqvinculacion5,
+            qvinculaciocat: qvinculaciocat,
+            setqvinculaciocat: setqvinculaciocat,
+            qvinculaciocatesp: qvinculaciocatesp,
+            setqvinculaciocatesp: setqvinculaciocatesp,
+            qvinculacioproveedor: qvinculacioproveedor,
+            setqvinculacioproveedor: setqvinculacioproveedor,
+            qvinculaciomaxct: qvinculaciomaxct,
+            setqvinculaciomaxct: setqvinculaciomaxct,
+            qvinculaciominct: qvinculaciominct,
+            setqvinculaciominct: setqvinculaciominct,
+            qvinculacion5General: qvinculacion5General,
+            setqvinculacion5General: setqvinculacion5General,
+            qvinculaciocatGeneral: qvinculaciocatGeneral,
+            setqvinculaciocatGeneral: setqvinculaciocatGeneral,
+            qvinculaciocatespGeneral: qvinculaciocatespGeneral,
+            setqvinculaciocatespGeneral: setqvinculaciocatespGeneral,
+            qvinculacioproveedorGeneral: qvinculacioproveedorGeneral,
+            setqvinculacioproveedorGeneral: setqvinculacioproveedorGeneral,
+            qvinculaciomaxctGeneral: qvinculaciomaxctGeneral,
+            setqvinculaciomaxctGeneral: setqvinculaciomaxctGeneral,
+            qvinculaciominctGeneral: qvinculaciominctGeneral,
+            setqvinculaciominctGeneral: setqvinculaciominctGeneral,
+            datavinculacion5: datavinculacion5,
+            setdatavinculacion5: setdatavinculacion5,
+            datavinculaciocat: datavinculaciocat,
+            setdatavinculaciocat: setdatavinculaciocat,
+            datavinculaciocatesp: datavinculaciocatesp,
+            setdatavinculaciocatesp: setdatavinculaciocatesp,
+            datavinculacioproveedor: datavinculacioproveedor,
+            setdatavinculacioproveedor: setdatavinculacioproveedor,
+            datavinculaciomaxct: datavinculaciomaxct,
+            setdatavinculaciomaxct: setdatavinculaciomaxct,
+            datavinculaciominct: datavinculaciominct,
+            setdatavinculaciominct: setdatavinculaciominct,
+            newNombre5: newNombre5,
+            setnewNombre5: setnewNombre5,
+            newNombrecat: newNombrecat,
+            setnewNombrecat: setnewNombrecat,
+            newNombrecatesp: newNombrecatesp,
+            setnewNombrecatesp: setnewNombrecatesp,
+            newNombreproveedor: newNombreproveedor,
+            setnewNombreproveedor: setnewNombreproveedor,
+            newNombremaxct: newNombremaxct,
+            setnewNombremaxct: setnewNombremaxct,
+            newNombreminct: newNombreminct,
+            setnewNombreminct: setnewNombreminct,
             getDatinputSelectVinculacion: getDatinputSelectVinculacion,
             saveCuatroNombres: saveCuatroNombres,
             changeInventarioModificarDici: changeInventarioModificarDici,
@@ -76854,6 +77405,17 @@ function Home() {
             marcas: marcas
           }) : null]
         }), permiso([1, 2, 5]) && viewmainPanel === "gastos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_52__["default"], {
+          qbuscarcat: qbuscarcat,
+          setqbuscarcat: setqbuscarcat,
+          indexviewcatdetalles: indexviewcatdetalles,
+          setindexviewcatdetalles: setindexviewcatdetalles,
+          indexsubviewcatdetalles: indexsubviewcatdetalles,
+          setindexsubviewcatdetalles: setindexsubviewcatdetalles,
+          indexviewsucursaldetalles: indexviewsucursaldetalles,
+          setindexviewsucursaldetalles: setindexviewsucursaldetalles,
+          indexsubviewsucursaldetalles: indexsubviewsucursaldetalles,
+          setindexsubviewsucursaldetalles: setindexsubviewsucursaldetalles,
+          removeMoneda: removeMoneda,
           getGastosDistribucion: getGastosDistribucion,
           distribucionGastosCat: distribucionGastosCat,
           categoriasCajas: categoriasCajas,

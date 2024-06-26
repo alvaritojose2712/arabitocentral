@@ -794,7 +794,7 @@ class InventarioSucursalController extends Controller
         ->groupBy(["nombrefull","sucursal.codigo"]);
 
         $sumas = [];
-
+        
         foreach ($estadisticas as $fullname => $byscursales) {
             $sumas[$fullname] = [];
             $sumas[$fullname]["totalsucursales"] = [];

@@ -86,6 +86,19 @@ export default function Gastos({
 	distribucionGastosCat,
 	getGastosDistribucion,
 
+	removeMoneda,
+
+	qbuscarcat,
+	setqbuscarcat,
+	indexviewcatdetalles,
+	setindexviewcatdetalles,
+	indexsubviewcatdetalles,
+	setindexsubviewcatdetalles,
+	indexviewsucursaldetalles,
+	setindexviewsucursaldetalles,
+	indexsubviewsucursaldetalles,
+	setindexsubviewsucursaldetalles,
+
 }) {
 
 	/* useEffect(()=>{
@@ -131,12 +144,7 @@ export default function Gastos({
 		setlistBeneficiario([])
 	},[modeEjecutor])
 
-	const [qbuscarcat,setqbuscarcat] = useState("")
-	const [indexviewcatdetalles,setindexviewcatdetalles] = useState(null)
-	const [indexsubviewcatdetalles,setindexsubviewcatdetalles] = useState(null)
-
-	const [indexviewsucursaldetalles,setindexviewsucursaldetalles] = useState(null)
-	const [indexsubviewsucursaldetalles,setindexsubviewsucursaldetalles] = useState(null)
+	
 	
 
 	
@@ -178,8 +186,12 @@ export default function Gastos({
 									<div className="input-group">
 										<input type="text" className="form-control text-sinapsis fs-2" value={gastosTasa} onChange={e=>setgastosTasa(e.target.value)} placeholder="Tasa" required={true} />
 										<button className="btn btn-success" type="button" onClick={()=>setmodeMoneda("dolar")}><i className="fa fa-refresh"></i> $</button>
-
 									</div>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col">
+									<small className="text-success fs-4">{moneda(parseFloat(removeMoneda(gastosMonto))/parseFloat((gastosTasa)))} $</small>
 								</div>
 							</div>
 						</div>
@@ -204,7 +216,7 @@ export default function Gastos({
 						
 						<input type="text" className="form-control" placeholder="Buscar CATEGORÍA..." value={qbuscarcat} onChange={event=>setqbuscarcat(event.target.value)} />
 
-						<div className="card card-personal">
+						<div className="card card-personal h-400px table-responsive">
 							<ul className="list-group">
 								{categoriasCajas.length?categoriasCajas.filter(e=>{
 									if(qbuscarcat==""){return true}
@@ -212,9 +224,11 @@ export default function Gastos({
 										if ((e.nombre.toLowerCase()).indexOf(qbuscarcat.toLowerCase())!==-1) {return true}else{return false}
 									}
 								}).map(e=>
-									<li key={e.id} className={"list-group-item "+(gastosCategoria==e.id?" active pointer ":"")} onClick={()=>{setgastosCategoria(e.id)}}>{e.nombre}</li>
+									<li key={e.id} style={{backgroundColor:colorsGastosCat(e.id,"cat","color")}} className={"list-group-item "+(gastosCategoria==e.id?" fst-bold text-light bg-dark fs-2 pointer ":"")} onClick={()=>{setgastosCategoria(e.id)}}>{e.nombre}</li>
 								):null}
 							</ul>
+
+							
 						</div>
 					</div>
 
@@ -268,7 +282,7 @@ export default function Gastos({
 										<div className="input-group">
 											
 											<form onSubmit={event=>{event.preventDefault();getSucursales(qSucursal)}} className="input-group">
-												<input type="text" className="form-control is-invalid" value={qSucursal} onChange={e=>{setqSucursal(e.target.value)}} placeholder="Buscar SUCURSALES..." />
+												<input type="text" className="form-control is-invalid" value={qSucursal} onChange={e=>{setqSucursal(e.target.value);getSucursales(e.target.value)}} placeholder="Buscar SUCURSALES..." />
 											</form>
 										</div>
 									</div>

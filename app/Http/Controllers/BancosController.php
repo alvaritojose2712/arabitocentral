@@ -12,6 +12,42 @@ use Illuminate\Http\Request;
 
 class BancosController extends Controller
 {
+
+
+
+    function getCuentaAuditoria($arr) {
+        $qbancobancosdata = $arr["qbancobancosdata"];
+        $qdescripcionbancosdata = $arr["qdescripcionbancosdata"];
+        $qfechabancosdata = $arr["qfechabancosdata"];
+        $fechaHastaSelectAuditoria = $arr["fechaHastaSelectAuditoria"];
+        $sucursalSelectAuditoria = $arr["sucursalSelectAuditoria"];
+
+        return  cuentasporpagar::with("sucursal")
+        ->whereNotIn("metodo",["ZELLE","BINANCE","AirTM","EFECTIVO"])
+        ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
+            $q->whereIn("metodo",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
+        })
+        ->when($qdescripcionbancosdata!="",function($q) use ($qdescripcionbancosdata) {
+            $q->orwhere("numfact",$qdescripcionbancosdata)
+            ->orwhere("monto",$qdescripcionbancosdata);
+        })
+        ->when($qfechabancosdata!="",function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria) {
+            $q->whereBetween("fechaemision", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
+        })
+        ->when($sucursalSelectAuditoria!="",function($q) use ($sucursalSelectAuditoria) {
+            $q->where("id_sucursal",$sucursalSelectAuditoria);
+        })
+        ->get()
+        ->map(function($q) {
+            $q->loteserial = $q->numfact;
+            $q->tipo = "Transferencia";
+            $q->categoria = 2;
+            $q->fecha = $q->fechaemision;
+            $q->fecha_liquidacion = $q->fechaemision;
+            $q->id_usuario = $q->id;
+            return $q;
+        });
+    }
     function bancosDataFun($arr) {
         $qdescripcionbancosdata = $arr["qdescripcionbancosdata"];
         $qbancobancosdata = $arr["qbancobancosdata"];
@@ -54,47 +90,93 @@ class BancosController extends Controller
 
 
 
+        /* return [
+            $qbancobancosdata,
+            $qdescripcionbancosdata,
+            $qfechabancosdata,
+            $sucursalSelectAuditoria,
+        ]; */
 
-        $cuenta = cuentasporpagar::with("sucursal")
-        ->whereNotIn("metodo",["ZELLE","BINANCE","AirTM","EFECTIVO"])
-        ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
-            $q->whereIn("metodo",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
-        })
-        ->when($qdescripcionbancosdata!="",function($q) use($qdescripcionbancosdata) {
-            $q->orwhere("numfact",$qdescripcionbancosdata)
-            ->orwhere("monto",$qdescripcionbancosdata);
-        })
-        ->when($qfechabancosdata!="",function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria) {
-            $q->whereBetween("fechaemision", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
-        })
-        ->when($sucursalSelectAuditoria!="",function($q) use ($sucursalSelectAuditoria) {
-            $q->where("id_sucursal",$sucursalSelectAuditoria);
-        })
-        ->get()
-        ->map(function ($q) {
-            $q->loteserial = $q->numfact;
-            $q->tipo = "Transferencia";
-            $q->categoria = 2;
-            $q->fecha = $q->fechaemision;
-            $q->fecha_liquidacion = $q->fechaemision;
-            $q->id_usuario = $q->id;
-            $q->banco = $q->metodo;
+        $arrq = [
+            "qbancobancosdata" => $qbancobancosdata,
+            "qdescripcionbancosdata" => $qdescripcionbancosdata,
+            "qfechabancosdata" => $qfechabancosdata,
+            "fechaHastaSelectAuditoria" => $fechaHastaSelectAuditoria,
+            "sucursalSelectAuditoria" => $sucursalSelectAuditoria,
+        ];
+        $cuenta1 = $this->getCuentaAuditoria($arrq);
+        $cuenta2 = $this->getCuentaAuditoria($arrq);
+        $cuenta3 = $this->getCuentaAuditoria($arrq);
+        $cuenta4 = $this->getCuentaAuditoria($arrq);
+        $cuenta5 = $this->getCuentaAuditoria($arrq);
+
+        $bs1 = array_filter($cuenta1->map(function ($q) {
+            $q->banco = $q->metodobs1;
             $sum = 0;
-
             if ($q->montobs1) {$sum += $q->montobs1;}
+            $q->monto_liquidado = $sum*-1;
+            $q->monto = $sum*-1;
+            if ($q->metodobs1) {
+                return $q;
+            }
+        })->toArray(),function($q) {
+            return $q!==null;
+        });
+        $bs2 = array_filter($cuenta2->map(function ($q) {
+            $q->banco = $q->metodobs2;
+            $sum = 0;
             if ($q->montobs2) {$sum += $q->montobs2;}
+            $q->monto_liquidado = $sum*-1;
+            $q->monto = $sum*-1;
+            if ($q->metodobs2) {
+                return $q;
+            }
+        })->toArray(),function($q) {
+            return $q!==null;
+        });
+        $bs3 = array_filter($cuenta3->map(function ($q) {
+            $q->banco = $q->metodobs3;
+            $sum = 0;
             if ($q->montobs3) {$sum += $q->montobs3;}
+            $q->monto_liquidado = $sum*-1;
+            $q->monto = $sum*-1;
+            if ($q->metodobs3) {
+                return $q;
+            }
+        })->toArray(),function($q) {
+            return $q!==null;
+        });
+        $bs4 = array_filter($cuenta4->map(function ($q) {
+            $q->banco = $q->metodobs4;
+            $sum = 0;
             if ($q->montobs4) {$sum += $q->montobs4;}
+            $q->monto_liquidado = $sum*-1;
+            $q->monto = $sum*-1;
+            if ($q->metodobs4) {
+                return $q;
+            }
+        })->toArray(),function($q) {
+            return $q!==null;
+        });
+        $bs5 = array_filter($cuenta5->map(function ($q) {
+            $q->banco = $q->metodobs5;
+            $sum = 0;
             if ($q->montobs5) {$sum += $q->montobs5;}
             $q->monto_liquidado = $sum*-1;
             $q->monto = $sum*-1;
-            return $q;
+            if ($q->metodobs5) {
+                return $q;
+            }
+        })->toArray(),function($q) {
+            return $q!==null;
         });
-        
-        
-        $bancosSum = [];
 
-        $puntosmascuentas = array_merge($puntosybiopagos->get()->toArray(), $cuenta->toArray());
+        $bancosSum = [];
+        $mergebs = [];
+
+        $mergebs = array_merge($bs1,$bs2, array_merge($bs3,$bs4,$bs5));
+
+        $puntosmascuentas = array_merge($puntosybiopagos->get()->toArray(), $mergebs);
         array_multisort(array_column($puntosmascuentas, $columnOrder), $order=="desc"? SORT_DESC: SORT_ASC, $puntosmascuentas);
         
         $xbanco = collect($puntosmascuentas)->map(function ($q) {

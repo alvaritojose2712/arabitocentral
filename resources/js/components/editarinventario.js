@@ -58,6 +58,83 @@ export default function Editarinventario({
     setinputselectvinculacion4General,
     inputselectvinculacionmarcaGeneral, 
     setinputselectvinculacionmarcaGeneral,
+
+    inputselectvinculacion5,
+    setinputselectvinculacion5,
+    inputselectvinculacioncat,
+    setinputselectvinculacioncat,
+    inputselectvinculacioncatesp,
+    setinputselectvinculacioncatesp,
+    inputselectvinculacionproveedor,
+    setinputselectvinculacionproveedor,
+    inputselectvinculacionmaxct,
+    setinputselectvinculacionmaxct,
+    inputselectvinculacionminct,
+    setinputselectvinculacionminct,
+    inputselectvinculacion5General,
+    setinputselectvinculacion5General,
+    inputselectvinculacioncatGeneral,
+    setinputselectvinculacioncatGeneral,
+    inputselectvinculacioncatespGeneral,
+    setinputselectvinculacioncatespGeneral,
+    inputselectvinculacionproveedorGeneral,
+    setinputselectvinculacionproveedorGeneral,
+    inputselectvinculacionmaxctGeneral,
+    setinputselectvinculacionmaxctGeneral,
+    inputselectvinculacionminctGeneral,
+    setinputselectvinculacionminctGeneral,
+
+
+    qvinculacion5,
+    setqvinculacion5,
+    qvinculaciocat,
+    setqvinculaciocat,
+    qvinculaciocatesp,
+    setqvinculaciocatesp,
+    qvinculacioproveedor,
+    setqvinculacioproveedor,
+    qvinculaciomaxct,
+    setqvinculaciomaxct,
+    qvinculaciominct,
+    setqvinculaciominct,
+    qvinculacion5General,
+    setqvinculacion5General,
+    qvinculaciocatGeneral,
+    setqvinculaciocatGeneral,
+    qvinculaciocatespGeneral,
+    setqvinculaciocatespGeneral,
+    qvinculacioproveedorGeneral,
+    setqvinculacioproveedorGeneral,
+    qvinculaciomaxctGeneral,
+    setqvinculaciomaxctGeneral,
+    qvinculaciominctGeneral,
+    setqvinculaciominctGeneral,
+    datavinculacion5,
+    setdatavinculacion5,
+    datavinculaciocat,
+    setdatavinculaciocat,
+    datavinculaciocatesp,
+    setdatavinculaciocatesp,
+    datavinculacioproveedor,
+    setdatavinculacioproveedor,
+    datavinculaciomaxct,
+    setdatavinculaciomaxct,
+    datavinculaciominct,
+    setdatavinculaciominct,
+    newNombre5,
+    setnewNombre5,
+    newNombrecat,
+    setnewNombrecat,
+    newNombrecatesp,
+    setnewNombrecatesp,
+    newNombreproveedor,
+    setnewNombreproveedor,
+    newNombremaxct,
+    setnewNombremaxct,
+    newNombreminct,
+    setnewNombreminct,
+
+
     getDatinputSelectVinculacion,
     saveCuatroNombres,
 
@@ -114,6 +191,16 @@ export default function Editarinventario({
             setinputselectvinculacion4("")
         }
     },[qvinculacion4])
+
+
+    useEffect(()=>{
+        let fil = datavinculacion5.find(e=>e.nombre?e.nombre.toLowerCase().substr(0,qvinculacion5.length) == qvinculacion5.toLowerCase():false)
+        if (fil) {if (fil && qvinculacion5!="") {setinputselectvinculacion5(fil.nombre)}}else{setinputselectvinculacion5("")}
+        if (!qvinculacion5) {
+            setinputselectvinculacion5("")
+        }
+    },[qvinculacion5])
+
 
     useEffect(()=>{
         let fil = datavinculacionmarca.find(e=>e.descripcion?e.descripcion.toLowerCase().substr(0,qvinculacionmarca.length) == qvinculacionmarca.toLowerCase():false)
@@ -195,7 +282,21 @@ export default function Editarinventario({
     };
 
 
-    const funIdVinc = (id,n1,n2,n3,n4,marca) => {
+    const funIdVinc = (
+        id,
+        n1,
+        n2,
+        n3,
+        n4,
+        marca,
+
+        n5,
+        cat,
+        catesp,
+        proveedor,
+        maxct,
+        minct,
+    ) => {
         setselectIdVinculacion([id])
         
         setinputselectvinculacion1(n1)
@@ -203,6 +304,15 @@ export default function Editarinventario({
         setinputselectvinculacion3(n3)
         setinputselectvinculacion4(n4)
         setinputselectvinculacionmarca(marca)
+
+
+        setinputselectvinculacion5(n5)
+        setinputselectvinculacioncat(cat)
+        setinputselectvinculacioncatesp(catesp)
+        setinputselectvinculacionproveedor(proveedor)
+        setinputselectvinculacionmaxct(maxct)
+        setinputselectvinculacionminct(minct)
+       
     }
 
 
@@ -233,9 +343,42 @@ export default function Editarinventario({
             </form>
 
             <table className="table">
+                <thead>
+                    <tr>
+                        <th>
+                            SUCURSAL
+                        </th>
+                        <th>
+                            ALTERNO / BARRAS / UNIDAD
+                        </th>
+                        <th>DESC</th>
+                        <th>CT</th>
+                        <th>BASE</th>
+                        <th>VENTA</th>
+                        <th>CAT ESP</th>
+                        <th>CAT GEN</th>
+                        <th>PROVEEDOR</th>
+                        <th>MIN</th>
+                        <th>MAX</th>
+                    </tr>
+                </thead>
                 {productosInventario.length?productosInventario.map((e,i)=>
                     <tbody key={i}>
-                        <tr className={" align-bottom pointer "} onClick={()=>funIdVinc(e.id,e.n1,e.n2,e.n3,e.n4,e.marca)} onDoubleClick={() => changeInventarioModificarDici(null, i, "update")}>
+                        <tr className={" align-bottom pointer "} onClick={()=>funIdVinc(
+                            e.id,
+                            e.n1,
+                            e.n2,
+                            e.n3,
+                            e.n4,
+                            e.id_marca,
+
+                            e.n5,
+                            e.id_catgeneral,
+                            e.id_categoria,
+                            e.id_proveedor,
+                            e.stockmax,
+                            e.stockmin,
+                            )} onDoubleClick={() => changeInventarioModificarDici(null, i, "update")}>
                             <td>
                                 <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
                                     {e.sucursal.codigo}
@@ -254,12 +397,12 @@ export default function Editarinventario({
                                 </th>
                                 <th className="text">{e.descripcion}</th>
                                 <th className="bg-ct"></th>
-                                <th className=""></th>
                                 <th className="bg-base">{e.precio_base}</th>
                                 <th className="bg-venta">{e.precio}</th>
                                 <th className="">{e.categoria?e.categoria.descripcion:null}</th>
                                 <th className="">{e.catgeneral?e.catgeneral.descripcion:null}</th>
-                                <th className="">{e.iva}</th> 
+                                <th className="">{e.stockmin}</th> 
+                                <th className="">{e.stockmax}</th> 
                             </>:null}
                         </tr>
                         <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
@@ -279,8 +422,26 @@ export default function Editarinventario({
                                                 {e.n3? e.n3+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion3:"")}</span>}
                                             </td>
                                             <td>
-                                                {e.marca? e.marca+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacionmarca:"")}</span>}
+                                                {e.n4? e.n4+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion4:"")}</span>}
+                                            </td>
+                                            <td>
+                                                {e.n5? e.n5+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion5:"")}</span>}
+                                            </td>
+                                            <td>
+                                                {e.id_marca? e.id_marca+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacionmarca:"")}</span>}
+                                            </td>
 
+
+                                            <td>
+                                                {e.id_marca? e.id_marca+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacionmarca:"")}</span>}
+                                            </td>
+
+                                            <td>
+                                                {e.id_marca? e.id_marca+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacionmarca:"")}</span>}
+                                            </td>
+
+                                            <td>
+                                                {e.id_marca? e.id_marca+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacionmarca:"")}</span>}
                                             </td>
                                         </tr>
                                         {selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?<>
@@ -341,7 +502,6 @@ export default function Editarinventario({
                                     <button className="btn btn-success" type="button" onClick={()=>saveCuatroNombres()}>GUARDAR</button>
                                 </>:null}
                             
-                                    {/* {e.n4? e.n4+"  ":""} */}
                             </td>
                             <td className="text-muted" colSpan={7}></td>
                         

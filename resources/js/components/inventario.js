@@ -81,6 +81,82 @@ export default function Inventario({
     setinputselectvinculacion4General,
     inputselectvinculacionmarcaGeneral, 
     setinputselectvinculacionmarcaGeneral,
+
+    inputselectvinculacion5,
+    setinputselectvinculacion5,
+    inputselectvinculacioncat,
+    setinputselectvinculacioncat,
+    inputselectvinculacioncatesp,
+    setinputselectvinculacioncatesp,
+    inputselectvinculacionproveedor,
+    setinputselectvinculacionproveedor,
+    inputselectvinculacionmaxct,
+    setinputselectvinculacionmaxct,
+    inputselectvinculacionminct,
+    setinputselectvinculacionminct,
+    inputselectvinculacion5General,
+    setinputselectvinculacion5General,
+    inputselectvinculacioncatGeneral,
+    setinputselectvinculacioncatGeneral,
+    inputselectvinculacioncatespGeneral,
+    setinputselectvinculacioncatespGeneral,
+    inputselectvinculacionproveedorGeneral,
+    setinputselectvinculacionproveedorGeneral,
+    inputselectvinculacionmaxctGeneral,
+    setinputselectvinculacionmaxctGeneral,
+    inputselectvinculacionminctGeneral,
+    setinputselectvinculacionminctGeneral,
+
+
+    qvinculacion5,
+    setqvinculacion5,
+    qvinculaciocat,
+    setqvinculaciocat,
+    qvinculaciocatesp,
+    setqvinculaciocatesp,
+    qvinculacioproveedor,
+    setqvinculacioproveedor,
+    qvinculaciomaxct,
+    setqvinculaciomaxct,
+    qvinculaciominct,
+    setqvinculaciominct,
+    qvinculacion5General,
+    setqvinculacion5General,
+    qvinculaciocatGeneral,
+    setqvinculaciocatGeneral,
+    qvinculaciocatespGeneral,
+    setqvinculaciocatespGeneral,
+    qvinculacioproveedorGeneral,
+    setqvinculacioproveedorGeneral,
+    qvinculaciomaxctGeneral,
+    setqvinculaciomaxctGeneral,
+    qvinculaciominctGeneral,
+    setqvinculaciominctGeneral,
+    datavinculacion5,
+    setdatavinculacion5,
+    datavinculaciocat,
+    setdatavinculaciocat,
+    datavinculaciocatesp,
+    setdatavinculaciocatesp,
+    datavinculacioproveedor,
+    setdatavinculacioproveedor,
+    datavinculaciomaxct,
+    setdatavinculaciomaxct,
+    datavinculaciominct,
+    setdatavinculaciominct,
+    newNombre5,
+    setnewNombre5,
+    newNombrecat,
+    setnewNombrecat,
+    newNombrecatesp,
+    setnewNombrecatesp,
+    newNombreproveedor,
+    setnewNombreproveedor,
+    newNombremaxct,
+    setnewNombremaxct,
+    newNombreminct,
+    setnewNombreminct,
+
     getDatinputSelectVinculacion,
     saveCuatroNombres,
 
@@ -303,6 +379,81 @@ export default function Inventario({
                 setinputselectvinculacion4General={setinputselectvinculacion4General}
                 inputselectvinculacionmarcaGeneral={inputselectvinculacionmarcaGeneral} 
                 setinputselectvinculacionmarcaGeneral={setinputselectvinculacionmarcaGeneral}
+
+                inputselectvinculacion5={inputselectvinculacion5}
+                setinputselectvinculacion5={setinputselectvinculacion5}
+                inputselectvinculacioncat={inputselectvinculacioncat}
+                setinputselectvinculacioncat={setinputselectvinculacioncat}
+                inputselectvinculacioncatesp={inputselectvinculacioncatesp}
+                setinputselectvinculacioncatesp={setinputselectvinculacioncatesp}
+                inputselectvinculacionproveedor={inputselectvinculacionproveedor}
+                setinputselectvinculacionproveedor={setinputselectvinculacionproveedor}
+                inputselectvinculacionmaxct={inputselectvinculacionmaxct}
+                setinputselectvinculacionmaxct={setinputselectvinculacionmaxct}
+                inputselectvinculacionminct={inputselectvinculacionminct}
+                setinputselectvinculacionminct={setinputselectvinculacionminct}
+                inputselectvinculacion5General={inputselectvinculacion5General}
+                setinputselectvinculacion5General={setinputselectvinculacion5General}
+                inputselectvinculacioncatGeneral={inputselectvinculacioncatGeneral}
+                setinputselectvinculacioncatGeneral={setinputselectvinculacioncatGeneral}
+                inputselectvinculacioncatespGeneral={inputselectvinculacioncatespGeneral}
+                setinputselectvinculacioncatespGeneral={setinputselectvinculacioncatespGeneral}
+                inputselectvinculacionproveedorGeneral={inputselectvinculacionproveedorGeneral}
+                setinputselectvinculacionproveedorGeneral={setinputselectvinculacionproveedorGeneral}
+                inputselectvinculacionmaxctGeneral={inputselectvinculacionmaxctGeneral}
+                setinputselectvinculacionmaxctGeneral={setinputselectvinculacionmaxctGeneral}
+                inputselectvinculacionminctGeneral={inputselectvinculacionminctGeneral}
+                setinputselectvinculacionminctGeneral={setinputselectvinculacionminctGeneral}
+
+                qvinculacion5={qvinculacion5} 
+                setqvinculacion5={setqvinculacion5}
+                qvinculaciocat={qvinculaciocat} 
+                setqvinculaciocat={setqvinculaciocat}
+                qvinculaciocatesp={qvinculaciocatesp} 
+                setqvinculaciocatesp={setqvinculaciocatesp}
+                qvinculacioproveedor={qvinculacioproveedor} 
+                setqvinculacioproveedor={setqvinculacioproveedor}
+                qvinculaciomaxct={qvinculaciomaxct} 
+                setqvinculaciomaxct={setqvinculaciomaxct}
+                qvinculaciominct={qvinculaciominct} 
+                setqvinculaciominct={setqvinculaciominct}
+                qvinculacion5General={qvinculacion5General} 
+                setqvinculacion5General={setqvinculacion5General}
+                qvinculaciocatGeneral={qvinculaciocatGeneral} 
+                setqvinculaciocatGeneral={setqvinculaciocatGeneral}
+                qvinculaciocatespGeneral={qvinculaciocatespGeneral} 
+                setqvinculaciocatespGeneral={setqvinculaciocatespGeneral}
+                qvinculacioproveedorGeneral={qvinculacioproveedorGeneral} 
+                setqvinculacioproveedorGeneral={setqvinculacioproveedorGeneral}
+                qvinculaciomaxctGeneral={qvinculaciomaxctGeneral} 
+                setqvinculaciomaxctGeneral={setqvinculaciomaxctGeneral}
+                qvinculaciominctGeneral={qvinculaciominctGeneral} 
+                setqvinculaciominctGeneral={setqvinculaciominctGeneral}
+                datavinculacion5={datavinculacion5} 
+                setdatavinculacion5={setdatavinculacion5}
+                datavinculaciocat={datavinculaciocat} 
+                setdatavinculaciocat={setdatavinculaciocat}
+                datavinculaciocatesp={datavinculaciocatesp} 
+                setdatavinculaciocatesp={setdatavinculaciocatesp}
+                datavinculacioproveedor={datavinculacioproveedor} 
+                setdatavinculacioproveedor={setdatavinculacioproveedor}
+                datavinculaciomaxct={datavinculaciomaxct} 
+                setdatavinculaciomaxct={setdatavinculaciomaxct}
+                datavinculaciominct={datavinculaciominct} 
+                setdatavinculaciominct={setdatavinculaciominct}
+                newNombre5={newNombre5}
+                setnewNombre5={setnewNombre5}
+                newNombrecat={newNombrecat}
+                setnewNombrecat={setnewNombrecat}
+                newNombrecatesp={newNombrecatesp}
+                setnewNombrecatesp={setnewNombrecatesp}
+                newNombreproveedor={newNombreproveedor}
+                setnewNombreproveedor={setnewNombreproveedor}
+                newNombremaxct={newNombremaxct}
+                setnewNombremaxct={setnewNombremaxct}
+                newNombreminct={newNombreminct}
+                setnewNombreminct={setnewNombreminct}
+
                 getDatinputSelectVinculacion={getDatinputSelectVinculacion}
                 saveCuatroNombres={saveCuatroNombres}
 

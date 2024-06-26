@@ -8,7 +8,15 @@ use App\Models\marcas;
 use App\Models\productonombre1;
 use App\Models\productonombre2;
 use App\Models\productonombre3;
-use App\Models\productonombre4;
+use App\Models\productonombre4s;
+use App\Models\productonombre5s;
+
+
+use App\Models\proveedores;
+use App\Models\categorias;
+use App\Models\CatGenerals;
+
+
 
 use App\Models\cuentasporpagar_items;
 use App\Models\inventario;
@@ -293,7 +301,7 @@ function saveCuatroNombres(Request $req) {
             # code...
         } */
         if ($isPermiso) {
-            $query = inventario::find($e);
+            $query = inventario_sucursal::find($e);
             if ($inputselectvinculacion1) {
                 $query->n1 = $inputselectvinculacion1;
             } 
@@ -310,7 +318,7 @@ function saveCuatroNombres(Request $req) {
                 $query->n5 = $inputselectvinculacion5;
             } 
             if ($inputselectvinculacionmarca) {
-                $query->marca = $inputselectvinculacionmarca;
+                $query->id_marca = $inputselectvinculacionmarca;
             } 
             $query->save();
         }
@@ -322,14 +330,28 @@ function getDatinputSelectVinculacion() {
     $datavinculacion1 = productonombre1::all();
     $datavinculacion2 = productonombre2::all();
     $datavinculacion3 = productonombre3::all();
-    $datavinculacion4 = productonombre4::all();
+    $datavinculacion4 = productonombre4s::all();
     $datavinculacionmarca = marcas::all();
+
+
+    
+    
+    
+    
+    $productonombre5s = productonombre5s::all();
+    $proveedores = proveedores::all();
+    $categorias = categorias::all();
+    $CatGenerals = CatGenerals::all();
     return [
         "datavinculacion1" => $datavinculacion1,
         "datavinculacion2" => $datavinculacion2,
         "datavinculacion3" => $datavinculacion3,
         "datavinculacion4" => $datavinculacion4,
         "datavinculacionmarca" => $datavinculacionmarca,
+        "datavinculacion5" => $productonombre5s,
+        "datavinculaciocat" => $CatGenerals,
+        "datavinculaciocatesp" => $categorias,
+        "datavinculacioproveedor" => $proveedores,
     ];
 }
 function unicoinventario() {

@@ -122,6 +122,19 @@ class CuentasporpagarController extends Controller
                 return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 5"];
             }
         }
+
+        if (!$cuentasPagosMetodo) {
+            if (
+                $montobs1PagoFact ||
+                $montobs2PagoFact ||
+                $montobs3PagoFact ||
+                $montobs4PagoFact ||
+                $montobs5PagoFact
+
+            ) {
+                $cuentasPagosMetodo = "Transferencia";
+            }
+        }
         if ($selectAbonoFact) {
             foreach ($selectAbonoFact as $abonoFact) {
                 $c = cuentasporpagar::with("proveedor")->find($abonoFact["id"]);

@@ -602,6 +602,7 @@ function Home() {
     49: {color:"#fff2cc", desc:"CAJA MATRIZ: CREDITO BANCARIO"},
     50: {color:"#fff2cc", desc:"CAJA MATRIZ: COMISION PUNTO DE VENTA"},
     51: {color:"#fff2cc", desc:"CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL"},
+    52: {color:"#fff2cc", desc:"CAJA MATRIZ: ASEO"},
   }
   
   
@@ -3894,6 +3895,13 @@ function formatAmount( number, simbol ) {
       setdistribucionGastosCat(data)
     })
   }
+
+  const [qbuscarcat,setqbuscarcat] = useState("")
+	const [indexviewcatdetalles,setindexviewcatdetalles] = useState(null)
+	const [indexsubviewcatdetalles,setindexsubviewcatdetalles] = useState(null)
+
+	const [indexviewsucursaldetalles,setindexviewsucursaldetalles] = useState(null)
+	const [indexsubviewsucursaldetalles,setindexsubviewsucursaldetalles] = useState(null)
   const getGastos = () => {
     db.getGastos({
       gastosQ,
@@ -3925,6 +3933,8 @@ function formatAmount( number, simbol ) {
     setgastosMonto_dolar("")
     setgastosTasa("")
     setgastosBanco("")
+    setlistBeneficiario([])
+    setqbuscarcat("")
   }
   const setEditGastosInput = id => {
     let fil = gastosData.filter(e=>e.id===id)
@@ -3949,37 +3959,76 @@ function formatAmount( number, simbol ) {
   const [qvinculacion3, setqvinculacion3] = useState("")
   const [qvinculacion4, setqvinculacion4] = useState("")
   const [qvinculacionmarca, setqvinculacionmarca] = useState("")
+  const [qvinculacion5, setqvinculacion5] = useState("")
+  const [qvinculaciocat, setqvinculaciocat] = useState("")
+  const [qvinculaciocatesp, setqvinculaciocatesp] = useState("")
+  const [qvinculacioproveedor, setqvinculacioproveedor] = useState("")
+  const [qvinculaciomaxct, setqvinculaciomaxct] = useState("")
+  const [qvinculaciominct, setqvinculaciominct] = useState("")
 
   const [qvinculacion1General, setqvinculacion1General] = useState("")
   const [qvinculacion2General, setqvinculacion2General] = useState("")
   const [qvinculacion3General, setqvinculacion3General] = useState("")
   const [qvinculacion4General, setqvinculacion4General] = useState("")
   const [qvinculacionmarcaGeneral, setqvinculacionmarcaGeneral] = useState("")
+  const [qvinculacion5General, setqvinculacion5General] = useState("")
+  const [qvinculaciocatGeneral, setqvinculaciocatGeneral] = useState("")
+  const [qvinculaciocatespGeneral, setqvinculaciocatespGeneral] = useState("")
+  const [qvinculacioproveedorGeneral, setqvinculacioproveedorGeneral] = useState("")
+  const [qvinculaciomaxctGeneral, setqvinculaciomaxctGeneral] = useState("")
+  const [qvinculaciominctGeneral, setqvinculaciominctGeneral] = useState("")
   
   const [datavinculacion1, setdatavinculacion1] = useState([])
   const [datavinculacion2, setdatavinculacion2] = useState([])
   const [datavinculacion3, setdatavinculacion3] = useState([])
   const [datavinculacion4, setdatavinculacion4] = useState([])
   const [datavinculacionmarca, setdatavinculacionmarca] = useState([])
-
-  const [inputselectvinculacion1, setinputselectvinculacion1] = useState("")
-  const [inputselectvinculacion2, setinputselectvinculacion2] = useState("")
-  const [inputselectvinculacion3, setinputselectvinculacion3] = useState("")
-  const [inputselectvinculacion4, setinputselectvinculacion4] = useState("")
-  const [inputselectvinculacionmarca, setinputselectvinculacionmarca] = useState("")
-
-  const [inputselectvinculacion1General, setinputselectvinculacion1General] = useState("")
-  const [inputselectvinculacion2General, setinputselectvinculacion2General] = useState("")
-  const [inputselectvinculacion3General, setinputselectvinculacion3General] = useState("")
-  const [inputselectvinculacion4General, setinputselectvinculacion4General] = useState("")
-  const [inputselectvinculacionmarcaGeneral, setinputselectvinculacionmarcaGeneral] = useState("")
+  const [datavinculacion5, setdatavinculacion5] = useState([])
+  const [datavinculaciocat, setdatavinculaciocat] = useState([])
+  const [datavinculaciocatesp, setdatavinculaciocatesp] = useState([])
+  const [datavinculacioproveedor, setdatavinculacioproveedor] = useState([])
+  const [datavinculaciomaxct, setdatavinculaciomaxct] = useState([])
+  const [datavinculaciominct, setdatavinculaciominct] = useState([])
 
   const [newNombre1,setnewNombre1] = useState("")
   const [newNombre2,setnewNombre2] = useState("")
   const [newNombre3,setnewNombre3] = useState("")
   const [newNombre4,setnewNombre4] = useState("")
   const [newNombremarca,setnewNombremarca] = useState("")
+  const [newNombre5,setnewNombre5] = useState("")
+  const [newNombrecat,setnewNombrecat] = useState("")
+  const [newNombrecatesp,setnewNombrecatesp] = useState("")
+  const [newNombreproveedor,setnewNombreproveedor] = useState("")
+  const [newNombremaxct,setnewNombremaxct] = useState("")
+  const [newNombreminct,setnewNombreminct] = useState("")
 
+  
+  const [inputselectvinculacion1, setinputselectvinculacion1] = useState("")
+  const [inputselectvinculacion2, setinputselectvinculacion2] = useState("")
+  const [inputselectvinculacion3, setinputselectvinculacion3] = useState("")
+  const [inputselectvinculacion4, setinputselectvinculacion4] = useState("")
+  const [inputselectvinculacion5, setinputselectvinculacion5] = useState("")
+  const [inputselectvinculacioncat, setinputselectvinculacioncat] = useState("")
+  const [inputselectvinculacioncatesp, setinputselectvinculacioncatesp] = useState("")
+  const [inputselectvinculacionproveedor, setinputselectvinculacionproveedor] = useState("")
+  const [inputselectvinculacionmaxct, setinputselectvinculacionmaxct] = useState("")
+  const [inputselectvinculacionminct, setinputselectvinculacionminct] = useState("")
+  const [inputselectvinculacionmarca, setinputselectvinculacionmarca] = useState("")
+  
+  
+  
+  const [inputselectvinculacion1General, setinputselectvinculacion1General] = useState("")
+  const [inputselectvinculacion2General, setinputselectvinculacion2General] = useState("")
+  const [inputselectvinculacion3General, setinputselectvinculacion3General] = useState("")
+  const [inputselectvinculacion4General, setinputselectvinculacion4General] = useState("")
+  const [inputselectvinculacion5General, setinputselectvinculacion5General] = useState("")
+  const [inputselectvinculacioncatGeneral, setinputselectvinculacioncatGeneral] = useState("")
+  const [inputselectvinculacioncatespGeneral, setinputselectvinculacioncatespGeneral] = useState("")
+  const [inputselectvinculacionproveedorGeneral, setinputselectvinculacionproveedorGeneral] = useState("")
+  const [inputselectvinculacionmaxctGeneral, setinputselectvinculacionmaxctGeneral] = useState("")
+  const [inputselectvinculacionminctGeneral, setinputselectvinculacionminctGeneral] = useState("")
+  const [inputselectvinculacionmarcaGeneral, setinputselectvinculacionmarcaGeneral] = useState("")
+  
   const [subviewDistribuir, setsubviewDistribuir] = useState("selectfacttodistribuir") 
   const [listdistribucionselect, setlistdistribucionselect] = useState([]) 
   const [distribucionSelectSucursal, setdistribucionSelectSucursal] = useState("") 
@@ -4170,6 +4219,11 @@ function formatAmount( number, simbol ) {
       setdatavinculacion4(data.datavinculacion4)
       setdatavinculacionmarca(data.datavinculacionmarca)
 
+      
+      setdatavinculacion5(data.datavinculacion5)
+      setdatavinculaciocat(data.datavinculaciocat)
+      setdatavinculaciocatesp(data.datavinculaciocatesp)
+      setdatavinculacioproveedor(data.datavinculacioproveedor)
     })
   }
 
@@ -4180,6 +4234,19 @@ function formatAmount( number, simbol ) {
       inputselectvinculacion2,
       inputselectvinculacion3,
       inputselectvinculacion4,
+
+
+
+      inputselectvinculacion5,
+      inputselectvinculacioncat,
+      inputselectvinculacioncatesp,
+      inputselectvinculacionproveedor,
+      inputselectvinculacionmaxct,
+      inputselectvinculacionminct,
+   
+
+
+
       inputselectvinculacionmarca,
     }).then(res=>{
       buscarInventario()
@@ -4195,6 +4262,20 @@ function formatAmount( number, simbol ) {
       setinputselectvinculacion3General("")
       setinputselectvinculacion4General("")
       setinputselectvinculacionmarcaGeneral("")
+
+
+      setinputselectvinculacion5("")
+      setinputselectvinculacioncat("")
+      setinputselectvinculacioncatesp("")
+      setinputselectvinculacionproveedor("")
+      setinputselectvinculacionmaxct("")
+      setinputselectvinculacionminct("")
+      setinputselectvinculacion5General("")
+      setinputselectvinculacioncatGeneral("")
+      setinputselectvinculacioncatespGeneral("")
+      setinputselectvinculacionproveedorGeneral("")
+      setinputselectvinculacionmaxctGeneral("")
+      setinputselectvinculacionminctGeneral("")
 
 
 
@@ -5209,6 +5290,81 @@ function formatAmount( number, simbol ) {
               setinputselectvinculacion4General={setinputselectvinculacion4General}
               inputselectvinculacionmarcaGeneral={inputselectvinculacionmarcaGeneral} 
               setinputselectvinculacionmarcaGeneral={setinputselectvinculacionmarcaGeneral}
+
+              inputselectvinculacion5={inputselectvinculacion5}
+              setinputselectvinculacion5={setinputselectvinculacion5}
+              inputselectvinculacioncat={inputselectvinculacioncat}
+              setinputselectvinculacioncat={setinputselectvinculacioncat}
+              inputselectvinculacioncatesp={inputselectvinculacioncatesp}
+              setinputselectvinculacioncatesp={setinputselectvinculacioncatesp}
+              inputselectvinculacionproveedor={inputselectvinculacionproveedor}
+              setinputselectvinculacionproveedor={setinputselectvinculacionproveedor}
+              inputselectvinculacionmaxct={inputselectvinculacionmaxct}
+              setinputselectvinculacionmaxct={setinputselectvinculacionmaxct}
+              inputselectvinculacionminct={inputselectvinculacionminct}
+              setinputselectvinculacionminct={setinputselectvinculacionminct}
+              inputselectvinculacion5General={inputselectvinculacion5General}
+              setinputselectvinculacion5General={setinputselectvinculacion5General}
+              inputselectvinculacioncatGeneral={inputselectvinculacioncatGeneral}
+              setinputselectvinculacioncatGeneral={setinputselectvinculacioncatGeneral}
+              inputselectvinculacioncatespGeneral={inputselectvinculacioncatespGeneral}
+              setinputselectvinculacioncatespGeneral={setinputselectvinculacioncatespGeneral}
+              inputselectvinculacionproveedorGeneral={inputselectvinculacionproveedorGeneral}
+              setinputselectvinculacionproveedorGeneral={setinputselectvinculacionproveedorGeneral}
+              inputselectvinculacionmaxctGeneral={inputselectvinculacionmaxctGeneral}
+              setinputselectvinculacionmaxctGeneral={setinputselectvinculacionmaxctGeneral}
+              inputselectvinculacionminctGeneral={inputselectvinculacionminctGeneral}
+              setinputselectvinculacionminctGeneral={setinputselectvinculacionminctGeneral}
+
+              qvinculacion5={qvinculacion5} 
+              setqvinculacion5={setqvinculacion5}
+              qvinculaciocat={qvinculaciocat} 
+              setqvinculaciocat={setqvinculaciocat}
+              qvinculaciocatesp={qvinculaciocatesp} 
+              setqvinculaciocatesp={setqvinculaciocatesp}
+              qvinculacioproveedor={qvinculacioproveedor} 
+              setqvinculacioproveedor={setqvinculacioproveedor}
+              qvinculaciomaxct={qvinculaciomaxct} 
+              setqvinculaciomaxct={setqvinculaciomaxct}
+              qvinculaciominct={qvinculaciominct} 
+              setqvinculaciominct={setqvinculaciominct}
+              qvinculacion5General={qvinculacion5General} 
+              setqvinculacion5General={setqvinculacion5General}
+              qvinculaciocatGeneral={qvinculaciocatGeneral} 
+              setqvinculaciocatGeneral={setqvinculaciocatGeneral}
+              qvinculaciocatespGeneral={qvinculaciocatespGeneral} 
+              setqvinculaciocatespGeneral={setqvinculaciocatespGeneral}
+              qvinculacioproveedorGeneral={qvinculacioproveedorGeneral} 
+              setqvinculacioproveedorGeneral={setqvinculacioproveedorGeneral}
+              qvinculaciomaxctGeneral={qvinculaciomaxctGeneral} 
+              setqvinculaciomaxctGeneral={setqvinculaciomaxctGeneral}
+              qvinculaciominctGeneral={qvinculaciominctGeneral} 
+              setqvinculaciominctGeneral={setqvinculaciominctGeneral}
+              datavinculacion5={datavinculacion5} 
+              setdatavinculacion5={setdatavinculacion5}
+              datavinculaciocat={datavinculaciocat} 
+              setdatavinculaciocat={setdatavinculaciocat}
+              datavinculaciocatesp={datavinculaciocatesp} 
+              setdatavinculaciocatesp={setdatavinculaciocatesp}
+              datavinculacioproveedor={datavinculacioproveedor} 
+              setdatavinculacioproveedor={setdatavinculacioproveedor}
+              datavinculaciomaxct={datavinculaciomaxct} 
+              setdatavinculaciomaxct={setdatavinculaciomaxct}
+              datavinculaciominct={datavinculaciominct} 
+              setdatavinculaciominct={setdatavinculaciominct}
+              newNombre5={newNombre5}
+              setnewNombre5={setnewNombre5}
+              newNombrecat={newNombrecat}
+              setnewNombrecat={setnewNombrecat}
+              newNombrecatesp={newNombrecatesp}
+              setnewNombrecatesp={setnewNombrecatesp}
+              newNombreproveedor={newNombreproveedor}
+              setnewNombreproveedor={setnewNombreproveedor}
+              newNombremaxct={newNombremaxct}
+              setnewNombremaxct={setnewNombremaxct}
+              newNombreminct={newNombreminct}
+              setnewNombreminct={setnewNombreminct}
+
               getDatinputSelectVinculacion={getDatinputSelectVinculacion}
               saveCuatroNombres={saveCuatroNombres}
 
@@ -5528,6 +5684,17 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5]) && viewmainPanel === "gastos" && 
             <Gastos
+              qbuscarcat={qbuscarcat}
+              setqbuscarcat={setqbuscarcat}
+              indexviewcatdetalles={indexviewcatdetalles}
+              setindexviewcatdetalles={setindexviewcatdetalles}
+              indexsubviewcatdetalles={indexsubviewcatdetalles}
+              setindexsubviewcatdetalles={setindexsubviewcatdetalles}
+              indexviewsucursaldetalles={indexviewsucursaldetalles}
+              setindexviewsucursaldetalles={setindexviewsucursaldetalles}
+              indexsubviewsucursaldetalles={indexsubviewsucursaldetalles}
+              setindexsubviewsucursaldetalles={setindexsubviewsucursaldetalles}
+              removeMoneda={removeMoneda}
               getGastosDistribucion={getGastosDistribucion}
               distribucionGastosCat={distribucionGastosCat}
               categoriasCajas={categoriasCajas}

@@ -74,6 +74,10 @@
   justify-content: center;
   font-weight: bold;
 }
+
+.h-400px{
+  max-height: 400px;;
+}
 .th-sinapsis{
   background-color: var(--sinapsis-color) !important;
   color: white !important;
