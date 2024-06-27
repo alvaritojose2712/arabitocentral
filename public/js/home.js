@@ -9067,12 +9067,6 @@ function Editarinventario(_ref) {
     stockmaxvaluegeneral = _useState4[0],
     setstockmaxvaluegeneral = _useState4[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    getDatinputSelectVinculacion();
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    buscarInventario();
-  }, [InvorderColumn, InvorderBy, Invnum]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var fil = datavinculacion1.find(function (e) {
       return e.nombre ? e.nombre.toLowerCase().substr(0, qvinculacion1.length) == qvinculacion1.toLowerCase() : false;
     });
@@ -9310,8 +9304,8 @@ function Editarinventario(_ref) {
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
             value: Invnum,
-            onChange: function onChange(e) {
-              return setInvnum(e.target.value);
+            onChange: function onChange(event) {
+              return setInvnum(event.target.value);
             },
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
               value: "25",
@@ -11535,7 +11529,15 @@ function Inventario(_ref) {
     InvorderColumn = _ref.InvorderColumn,
     InvorderBy = _ref.InvorderBy,
     setInvorderColumn = _ref.setInvorderColumn,
-    setInvorderBy = _ref.setInvorderBy;
+    setInvorderBy = _ref.setInvorderBy,
+    setInvnum = _ref.setInvnum,
+    Invnum = _ref.Invnum;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getDatinputSelectVinculacion();
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    buscarInventario();
+  }, [InvorderColumn, InvorderBy, Invnum]);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("novedades"),
     _useState2 = _slicedToArray(_useState, 2),
     subviewdici = _useState2[0],
@@ -11806,6 +11808,8 @@ function Inventario(_ref) {
       getInventarioGeneral: getInventarioGeneral,
       sucursales: sucursales
     }) : null, subviewdici == "editarinventario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_editarinventario__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      setInvnum: setInvnum,
+      Invnum: Invnum,
       InvorderColumn: InvorderColumn,
       setInvorderColumn: setInvorderColumn,
       InvorderBy: InvorderBy,
@@ -77520,6 +77524,8 @@ function Home() {
           })]
         }), permiso([1, 2, 10]) && viewmainPanel === "dici" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_inventario__WEBPACK_IMPORTED_MODULE_53__["default"], {
+            setInvnum: setInvnum,
+            Invnum: Invnum,
             InvorderColumn: InvorderColumn,
             setInvorderColumn: setInvorderColumn,
             InvorderBy: InvorderBy,

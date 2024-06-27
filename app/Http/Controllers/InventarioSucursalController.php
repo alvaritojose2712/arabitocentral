@@ -114,19 +114,19 @@ class InventarioSucursalController extends Controller
                 $exacto = "id_only";
             }
         }
-        $cop = moneda::where("tipo",2)->orderBy("id","desc")->first();
-        $bs = moneda::where("tipo",1)->orderBy("id","desc")->first();
+        /* $cop = moneda::where("tipo",2)->orderBy("id","desc")->first();
+        $bs = moneda::where("tipo",1)->orderBy("id","desc")->first(); */
 
 
         $data = [];
 
         $q = $req->qProductosMain;
-        $num = $req->num;
         $itemCero = $req->itemCero;
         $qBuscarInventarioSucursal = $req->qBuscarInventarioSucursal;
-       
+        
         $orderColumn = $req->orderColumn;
         $orderBy = $req->orderBy;
+        $num = $req->num;
 
         if ($q=="") {
             $data = inventario_sucursal::with([

@@ -157,15 +157,8 @@ export default function Editarinventario({
     const [stockminvaluegeneral, setstockminvaluegeneral] = useState("")
     const [stockmaxvaluegeneral, setstockmaxvaluegeneral] = useState("")
 
-    useEffect(()=>{
-        getDatinputSelectVinculacion()
-    },[])
 
-
-
-    useEffect(()=>{
-        buscarInventario()
-    },[InvorderColumn,InvorderBy,Invnum])
+    
 
     useEffect(()=>{
         let fil = datavinculacion1.find(e=>e.nombre?e.nombre.toLowerCase().substr(0,qvinculacion1.length) == qvinculacion1.toLowerCase() :false)
@@ -314,7 +307,7 @@ export default function Editarinventario({
                                     <option key={e.id} value={e.id}>{e.codigo}</option>
                                 )}
                             </select>
-                            <select value={Invnum} onChange={e => setInvnum(e.target.value)}>
+                            <select value={Invnum} onChange={event => setInvnum(event.target.value)}>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>

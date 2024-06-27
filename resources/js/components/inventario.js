@@ -207,8 +207,16 @@ export default function Inventario({
     InvorderBy,
     setInvorderColumn,
     setInvorderBy,
+    setInvnum,
+    Invnum,
 }){
+    useEffect(()=>{
+        getDatinputSelectVinculacion()
+    },[])
 
+    useEffect(()=>{
+        buscarInventario()
+    },[InvorderColumn,InvorderBy,Invnum])
     const [subviewdici, setsubviewdici] = useState("novedades")
 
     return(
@@ -344,6 +352,8 @@ export default function Inventario({
 
         {subviewdici=="editarinventario"?
             <Editarinventario
+                setInvnum={setInvnum}
+                Invnum={Invnum}
                 InvorderColumn={InvorderColumn}
                 setInvorderColumn={setInvorderColumn}
                 InvorderBy={InvorderBy}
