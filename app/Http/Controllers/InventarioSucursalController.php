@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\inventario_sucursal_estadisticas;
 use App\Models\marcas;
 
-set_time_limit(300000);
+set_time_limit(600000);
+ini_set('memory_limit', '4095M');
 
 use Illuminate\Http\Request;
 use App\Models\inventario_sucursal;
