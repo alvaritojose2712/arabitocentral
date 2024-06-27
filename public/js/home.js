@@ -9769,7 +9769,7 @@ function Editarinventario(_ref) {
               }) : null
             })]
           })
-        }, i);
+        }, e.id);
       }) : null]
     })]
   });

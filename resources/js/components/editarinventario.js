@@ -434,7 +434,7 @@ export default function Editarinventario({
                     </tr>
                 </thead>
                 {productosInventario.length?productosInventario.map((e,i)=>
-                    <tbody key={i}>
+                    <tbody key={e.id}>
                         <tr className={" align-bottom pointer "} 
                             onClick={()=>funIdVinc(
                                 e.id,
