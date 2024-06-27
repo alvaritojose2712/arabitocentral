@@ -135,6 +135,7 @@ class InventarioSucursalController extends Controller
                 "catgeneral",
                 "sucursales",
                 "sucursal",
+                "proveedor"
             ])
             ->when($qBuscarInventarioSucursal, function($q) use($qBuscarInventarioSucursal) {
                 $q->where("id_sucursal",$qBuscarInventarioSucursal);
@@ -149,7 +150,9 @@ class InventarioSucursalController extends Controller
             $data = inventario_sucursal::with([
                 "categoria",
                 "catgeneral",
+                "sucursales",
                 "sucursal",
+                "proveedor",
                 
             ])
             ->when($qBuscarInventarioSucursal, function($q) use($qBuscarInventarioSucursal) {
@@ -563,31 +566,31 @@ class InventarioSucursalController extends Controller
                     if ($ee["type"]==="update"||$ee["type"]==="new") {
 
 
-                        $guardar = inventario_sucursal::updateOrCreate([
+                       $guardar = inventario_sucursal::updateOrCreate([
                             "id" => $ee["id"]? $ee["id"]:null
                         ],[
-                            "id_sucursal" => 13,
-                            "codigo_barras" => $ee["codigo_barras"],
-                            "codigo_proveedor" => $ee["codigo_proveedor"],
-                            "descripcion" => $ee["descripcion"],
-                            "unidad" => $ee["unidad"],
+                            "n1" => $ee["n1"],
+                            "n2" => $ee["n2"],
+                            "n3" => $ee["n3"],
+                            "n4" => $ee["n4"],
+                            "n5" => $ee["n5"],
+                            "id_marca" => $ee["id_marca"],
                             "id_categoria" => $ee["id_categoria"],
                             "id_catgeneral" => $ee["id_catgeneral"],
-                            "iva" => $ee["iva"],
-                            "precio" => $ee["precio"],
-                            "precio_base" => $ee["precio_base"],
-                            "cantidad" => 0,
-                        ]); 
-                        if ($guardar["estado"]) {
-                            $num++;
-                        }
-                        //array_push($msj, $guardar["msj"]);
+                            "id_proveedor" => $ee["id_proveedor"],
 
-                        if (!$guardar["estado"]) {
+                            "stockmin" => $ee["stockmin"],
+                            "stockmax" => $ee["stockmax"],
+                            
+
+                        ]); 
+                        if ($guardar) {
+                            $num++;
+                        }else{
                             return Response::json(["msj"=>$msj, "estado"=>false]);   
                         }
                     }else if ($ee["type"]==="delete") {
-                        $this->delProductoFun($ee["id"]);
+                        //$this->delProductoFun($ee["id"]);
                     }
                 }   
             }

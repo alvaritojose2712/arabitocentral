@@ -345,105 +345,204 @@ export default function Editarinventario({
             <table className="table">
                 <thead>
                     <tr>
-                        <th>
-                            SUCURSAL
-                        </th>
-                        <th>
-                            ALTERNO / BARRAS / UNIDAD
-                        </th>
+                        <th>ID</th>
+                        <th>SUCURSAL</th>
+                        <th>ALTERNO</th>
+                        <th>BARRAS</th>
+                        <th>UNIDAD</th>
                         <th>DESC</th>
-                        <th>CT</th>
-                        <th>BASE</th>
-                        <th>VENTA</th>
+                        <th>N1</th>
+                        <th>N2</th>
+                        <th>N3</th>
+                        <th>N4</th>
+                        <th>N5</th>
+                        <th>MARCA</th>
                         <th>CAT ESP</th>
                         <th>CAT GEN</th>
                         <th>PROVEEDOR</th>
+                        <th className="bg-ct">CT</th>
+                        <th className="bg-base">BASE</th>
+                        <th className="bg-venta">VENTA</th>
                         <th>MIN</th>
                         <th>MAX</th>
                     </tr>
                 </thead>
                 {productosInventario.length?productosInventario.map((e,i)=>
                     <tbody key={i}>
-                        <tr className={" align-bottom pointer "} onClick={()=>funIdVinc(
-                            e.id,
-                            e.n1,
-                            e.n2,
-                            e.n3,
-                            e.n4,
-                            e.id_marca,
+                        <tr className={" align-bottom pointer "} 
+                            onClick={()=>funIdVinc(
+                                e.id,
+                                e.n1,
+                                e.n2,
+                                e.n3,
+                                e.n4,
+                                e.id_marca,
 
-                            e.n5,
-                            e.id_catgeneral,
-                            e.id_categoria,
-                            e.id_proveedor,
-                            e.stockmax,
-                            e.stockmin,
+                                e.n5,
+                                e.id_catgeneral,
+                                e.id_categoria,
+                                e.id_proveedor,
+                                e.stockmax,
+                                e.stockmin,
                             )} onDoubleClick={() => changeInventarioModificarDici(null, i, "update")}>
                             <td>
-                                <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
-                                    {e.sucursal.codigo}
-                                </button>
-                                <br />
                                 <small className="text-muted">{e.id}</small>
                             </td>
-                            {type(e.type)?
-                            <>
-                                <th className="">
-                                    {e.codigo_proveedor}
-                                    <hr />
-                                    {e.codigo_barras}
-                                    <hr />
-                                    {e.unidad}
-                                </th>
-                                <th className="text">{e.descripcion}</th>
-                                <th className="bg-ct"></th>
-                                <th className="bg-base">{e.precio_base}</th>
-                                <th className="bg-venta">{e.precio}</th>
-                                <th className="">{e.categoria?e.categoria.descripcion:null}</th>
-                                <th className="">{e.catgeneral?e.catgeneral.descripcion:null}</th>
-                                <th className="">{e.stockmin}</th> 
-                                <th className="">{e.stockmax}</th> 
-                            </>:null}
+                            <td>
+                                <button className={"btn w-100 fw-bolder fs-5"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
+                                    {e.sucursal.codigo}
+                                </button>
+                            </td>
+                            <td>{e.codigo_proveedor}</td>
+                            <td>{e.codigo_barras}</td>
+                            <td>{e.unidad}</td>
+                            <td className="text">{e.descripcion}</td>
+
+                            <td>
+                                {type(e.type)?
+                                    e.n1
+                                :
+                                    <select onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "n1")} className="form-control" value={e.n1}>
+                                        <option value=""></option>
+                                        {datavinculacion1.map(data=>
+                                            <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                        )}
+                                    </select>   
+                                }
+                            </td>
+                            <td>
+                                {type(e.type)?
+                                    e.n2
+                                :
+                                    <select onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "n2")} className="form-control" value={e.n2}>
+                                        <option value=""></option>
+                                        {datavinculacion2.map(data=>
+                                            <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                        )}
+                                    </select>   
+                                }
+                            </td>
+                            <td>
+                                {type(e.type)?
+                                    e.n3
+                                :
+                                    <select onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "n3")} className="form-control" value={e.n3}>
+                                        <option value=""></option>
+                                        {datavinculacion3.map(data=>
+                                            <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                        )}
+                                    </select>   
+                                }
+                            </td>
+                            <td>
+                                {type(e.type)?
+                                    e.n4
+                                :
+                                    <select onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "n4")} className="form-control" value={e.n4}>
+                                        <option value=""></option>
+                                        {datavinculacion4.map(data=>
+                                            <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                        )}
+                                    </select>   
+                                }
+                            </td>
+                            <td>
+                                {type(e.type)?
+                                    e.n5
+                                :
+                                    <select onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "n5")} className="form-control" value={e.n5}>
+                                        <option value=""></option>
+                                        {datavinculacion5.map(data=>
+                                            <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                        )}
+                                    </select>   
+                                }
+                            </td>
+                            <td>
+                                {type(e.type)?
+                                    e.id_marca
+                                :
+
+                                    <select onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "id_marca")} className="form-control" value={e.id_marca}>
+                                        <option value=""></option>
+                                        {datavinculacionmarca.map(data=>
+                                            <option value={data.descripcion} key={data.id}>{data.descripcion}</option>
+                                        )}
+                                    </select>  
+                                }
+                            </td>
+                            <td className="">
+                                {type(e.type)?
+                                    (e.categoria?e.categoria.descripcion:null)
+                                :
+                                       
+                                    <select onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "id_categoria")} value={e.id_categoria} className="form-control">
+                                        <option value=""></option>
+                                        {datavinculaciocatesp.map(data=>
+                                            <option value={data.id} key={data.id}>{data.descripcion}</option>
+                                        )}
+                                    </select>
+                                }
+                            </td>
+                            <td className="">
+                                {type(e.type)?
+                                    (e.catgeneral?e.catgeneral.descripcion:null)
+                                :
+                                       
+                                    <select onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "id_catgeneral")} value={e.id_catgeneral} className="form-control">
+                                        <option value=""></option>
+                                        {datavinculaciocat.map(data=>
+                                            <option value={data.id} key={data.id}>{data.descripcion}</option>
+                                        )}
+                                    </select>
+                                }
+                            </td>
+                            <td className="">
+                                {type(e.type)?
+                                    (e.proveedor?e.proveedor.descripcion:null)
+                                :
+
+                                    <select onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "id_proveedor")} value={e.id_proveedor} className="form-control">
+                                        <option value=""></option>
+                                        {datavinculacioproveedor.map(data=>
+                                            <option value={data.id} key={data.id}>{data.descripcion}</option>
+                                        )}
+                                    </select>
+                                    
+                                }
+                            </td>
+
+
+                            <td className="bg-ct">{e.cantidad}</td>
+                            <td className="bg-base">{e.precio_base}</td>
+                            <td className="bg-venta">{e.precio}</td>
+
+
+                            <td className="">
+                                {type(e.type)?
+                                    e.stockmin
+                                :
+                                    <input type="text" className="form-control" placeholder="stockmin" size={2} onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "stockmin")} value={e.stockmin} />   
+                                
+                                }
+
+                            </td> 
+                            <td className="">
+                                {type(e.type)?
+                                    e.stockmax
+                                :
+                                    <input type="text" className="form-control" placeholder="stockmax" size={2} onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "stockmax")} value={e.stockmax} />   
+                                
+                                }
+
+                            </td> 
                         </tr>
-                        <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
+                        {/* <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
                             <td></td>
                             <td></td>
                             <td>
                                 <table className="table table-sm">
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                {e.n1? e.n1+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion1:"")}</span>}
-                                            </td>
-                                            <td>
-                                                {e.n2? e.n2+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion2:"")}</span>}
-                                            </td>
-                                            <td>
-                                                {e.n3? e.n3+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion3:"")}</span>}
-                                            </td>
-                                            <td>
-                                                {e.n4? e.n4+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion4:"")}</span>}
-                                            </td>
-                                            <td>
-                                                {e.n5? e.n5+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion5:"")}</span>}
-                                            </td>
-                                            <td>
-                                                {e.id_marca? e.id_marca+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacionmarca:"")}</span>}
-                                            </td>
-
-
-                                            <td>
-                                                {e.id_marca? e.id_marca+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacionmarca:"")}</span>}
-                                            </td>
-
-                                            <td>
-                                                {e.id_marca? e.id_marca+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacionmarca:"")}</span>}
-                                            </td>
-
-                                            <td>
-                                                {e.id_marca? e.id_marca+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacionmarca:"")}</span>}
-                                            </td>
-                                        </tr>
                                         {selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?<>
                                             <tr>
                                                 <td>
@@ -505,43 +604,8 @@ export default function Editarinventario({
                             </td>
                             <td className="text-muted" colSpan={7}></td>
                         
-                        </tr>
-                        {
-                            selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?
-                                <>
-                                    <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    
-
-                                        {/* <td>
-                                            <div>
-                                                <div className="form-group">
-                                                    <input type="text" className="" value={qvinculacion4} onChange={event=>setqvinculacion4(event.target.value)} placeholder="BUSCAR VIN 4" />
-                                                </div>
-                                                <div className="form-group">
-                                                    <select type="text" className=" text-danger" value={inputselectvinculacion4} onChange={()=>setinputselectvinculacion4} placeholder="VIN 4">
-                                                        <option value=""></option>
-                                                        {datavinculacion4.map(data=>
-                                                            <option value={data.nombre} key={data.id}>{data.nombre}</option>
-                                                        )}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div>
-
-                                            </div>
-                                        </td> */}
-
-                                        <td>
-
-                                        </td>
-                                    </tr>
-                                                    
-                                </>
-                            :null
-                        }
+                        </tr> */}
+                        
                     </tbody>
                 ):null}
             </table>

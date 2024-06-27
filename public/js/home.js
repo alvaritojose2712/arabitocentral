@@ -8917,7 +8917,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function Editarinventario(_ref) {
   var productosInventario = _ref.productosInventario,
     changeInventarioModificarDici = _ref.changeInventarioModificarDici,
@@ -9367,17 +9366,29 @@ function Editarinventario(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "ID"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "SUCURSAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            children: "ALTERNO / BARRAS / UNIDAD"
+            children: "ALTERNO"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "BARRAS"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "UNIDAD"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "DESC"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            children: "CT"
+            children: "N1"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            children: "BASE"
+            children: "N2"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            children: "VENTA"
+            children: "N3"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "N4"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "N5"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "MARCA"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "CAT ESP"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
@@ -9385,14 +9396,23 @@ function Editarinventario(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "PROVEEDOR"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            className: "bg-ct",
+            children: "CT"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            className: "bg-base",
+            children: "BASE"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            className: "bg-venta",
+            children: "VENTA"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "MIN"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "MAX"
           })]
         })
       }), productosInventario.length ? productosInventario.map(function (e, i) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tbody", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
             className: " align-bottom pointer ",
             onClick: function onClick() {
               return funIdVinc(e.id, e.n1, e.n2, e.n3, e.n4, e.id_marca, e.n5, e.id_catgeneral, e.id_categoria, e.id_proveedor, e.stockmax, e.stockmin);
@@ -9400,239 +9420,210 @@ function Editarinventario(_ref) {
             onDoubleClick: function onDoubleClick() {
               return changeInventarioModificarDici(null, i, "update");
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                className: "btn w-100 fw-bolder fs-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("small", {
+                className: "text-muted",
+                children: e.id
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                className: "btn w-100 fw-bolder fs-5",
                 style: {
                   backgroundColor: colorSucursal(e.sucursal.codigo)
                 },
                 children: e.sucursal.codigo
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("small", {
-                className: "text-muted",
-                children: e.id
-              })]
-            }), type(e.type) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-                className: "",
-                children: [e.codigo_proveedor, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {}), e.codigo_barras, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {}), e.unidad]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "text",
-                children: e.descripcion
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-ct"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-base",
-                children: e.precio_base
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "bg-venta",
-                children: e.precio
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "",
-                children: e.categoria ? e.categoria.descripcion : null
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "",
-                children: e.catgeneral ? e.catgeneral.descripcion : null
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "",
-                children: e.stockmin
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                className: "",
-                children: e.stockmax
-              })]
-            }) : null]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-            className: selectIdVinculacion.indexOf(e.id) != -1 ? " bg-success-superlight " : "",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
-                className: "table table-sm",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tbody", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: e.n1 ? e.n1 + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                        className: "text-success fw-bold",
-                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacion1 : ""
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: e.n2 ? e.n2 + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                        className: "text-success fw-bold",
-                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacion2 : ""
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: e.n3 ? e.n3 + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                        className: "text-success fw-bold",
-                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacion3 : ""
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: e.n4 ? e.n4 + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                        className: "text-success fw-bold",
-                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacion4 : ""
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: e.n5 ? e.n5 + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                        className: "text-success fw-bold",
-                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacion5 : ""
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: e.id_marca ? e.id_marca + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                        className: "text-success fw-bold",
-                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacionmarca : ""
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: e.id_marca ? e.id_marca + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                        className: "text-success fw-bold",
-                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacionmarca : ""
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: e.id_marca ? e.id_marca + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                        className: "text-success fw-bold",
-                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacionmarca : ""
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                      children: e.id_marca ? e.id_marca + "  " : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                        className: "text-success fw-bold",
-                        children: selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? inputselectvinculacionmarca : ""
-                      })
-                    })]
-                  }), selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                          type: "text",
-                          className: "",
-                          value: qvinculacion1,
-                          onChange: function onChange(event) {
-                            return setqvinculacion1(event.target.value);
-                          },
-                          placeholder: "N1"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                          type: "text",
-                          className: "",
-                          value: qvinculacion2,
-                          onChange: function onChange(event) {
-                            return setqvinculacion2(event.target.value);
-                          },
-                          placeholder: "N2"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                          type: "text",
-                          className: "",
-                          value: qvinculacion3,
-                          onChange: function onChange(event) {
-                            return setqvinculacion3(event.target.value);
-                          },
-                          placeholder: "N3"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                          type: "text",
-                          className: "",
-                          value: qvinculacionmarca,
-                          onChange: function onChange(event) {
-                            return setqvinculacionmarca(event.target.value);
-                          },
-                          placeholder: "Marca"
-                        })
-                      })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-                          type: "text",
-                          className: " text-primary",
-                          value: inputselectvinculacion1,
-                          onChange: function onChange() {
-                            return setinputselectvinculacion1;
-                          },
-                          placeholder: "VIN 1",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                            value: ""
-                          }), datavinculacion1.map(function (data) {
-                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                              value: data.nombre,
-                              children: data.nombre
-                            }, data.id);
-                          })]
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-                          type: "text",
-                          className: " text-info",
-                          value: inputselectvinculacion2,
-                          onChange: function onChange() {
-                            return setinputselectvinculacion2;
-                          },
-                          placeholder: "VIN 2",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                            value: ""
-                          }), datavinculacion2.map(function (data) {
-                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                              value: data.nombre,
-                              children: data.nombre
-                            }, data.id);
-                          })]
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-                          type: "text",
-                          className: " text-sinapsis",
-                          value: inputselectvinculacion3,
-                          onChange: function onChange() {
-                            return setinputselectvinculacion3;
-                          },
-                          placeholder: "VIN 3",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                            value: ""
-                          }), datavinculacion3.map(function (data) {
-                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                              value: data.nombre,
-                              children: data.nombre
-                            }, data.id);
-                          })]
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-                          type: "text",
-                          className: " text-success",
-                          value: inputselectvinculacionmarca,
-                          onChange: function onChange() {
-                            return setinputselectvinculacionmarca;
-                          },
-                          placeholder: "VIN marca",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                            value: ""
-                          }), datavinculacionmarca.map(function (data) {
-                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                              value: data.descripcion,
-                              children: data.descripcion
-                            }, data.id);
-                          })]
-                        })
-                      })]
-                    })]
-                  }) : null]
-                })
-              }), selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                  className: "btn btn-success",
-                  type: "button",
-                  onClick: function onClick() {
-                    return saveCuatroNombres();
-                  },
-                  children: "GUARDAR"
-                })
-              }) : null]
+              })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              className: "text-muted",
-              colSpan: 7
+              children: e.codigo_proveedor
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: e.codigo_barras
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: e.unidad
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "text",
+              children: e.descripcion
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: type(e.type) ? e.n1 : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                onChange: function onChange(event) {
+                  return changeInventarioModificarDici(event.target.value, i, "changeInput", "n1");
+                },
+                className: "form-control",
+                value: e.n1,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                  value: ""
+                }), datavinculacion1.map(function (data) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                    value: data.nombre,
+                    children: data.nombre
+                  }, data.id);
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: type(e.type) ? e.n2 : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                onChange: function onChange(event) {
+                  return changeInventarioModificarDici(event.target.value, i, "changeInput", "n2");
+                },
+                className: "form-control",
+                value: e.n2,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                  value: ""
+                }), datavinculacion2.map(function (data) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                    value: data.nombre,
+                    children: data.nombre
+                  }, data.id);
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: type(e.type) ? e.n3 : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                onChange: function onChange(event) {
+                  return changeInventarioModificarDici(event.target.value, i, "changeInput", "n3");
+                },
+                className: "form-control",
+                value: e.n3,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                  value: ""
+                }), datavinculacion3.map(function (data) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                    value: data.nombre,
+                    children: data.nombre
+                  }, data.id);
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: type(e.type) ? e.n4 : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                onChange: function onChange(event) {
+                  return changeInventarioModificarDici(event.target.value, i, "changeInput", "n4");
+                },
+                className: "form-control",
+                value: e.n4,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                  value: ""
+                }), datavinculacion4.map(function (data) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                    value: data.nombre,
+                    children: data.nombre
+                  }, data.id);
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: type(e.type) ? e.n5 : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                onChange: function onChange(event) {
+                  return changeInventarioModificarDici(event.target.value, i, "changeInput", "n5");
+                },
+                className: "form-control",
+                value: e.n5,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                  value: ""
+                }), datavinculacion5.map(function (data) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                    value: data.nombre,
+                    children: data.nombre
+                  }, data.id);
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: type(e.type) ? e.id_marca : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                onChange: function onChange(event) {
+                  return changeInventarioModificarDici(event.target.value, i, "changeInput", "id_marca");
+                },
+                className: "form-control",
+                value: e.id_marca,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                  value: ""
+                }), datavinculacionmarca.map(function (data) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                    value: data.descripcion,
+                    children: data.descripcion
+                  }, data.id);
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "",
+              children: type(e.type) ? e.categoria ? e.categoria.descripcion : null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                onChange: function onChange(event) {
+                  return changeInventarioModificarDici(event.target.value, i, "changeInput", "id_categoria");
+                },
+                value: e.id_categoria,
+                className: "form-control",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                  value: ""
+                }), datavinculaciocatesp.map(function (data) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                    value: data.id,
+                    children: data.descripcion
+                  }, data.id);
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "",
+              children: type(e.type) ? e.catgeneral ? e.catgeneral.descripcion : null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                onChange: function onChange(event) {
+                  return changeInventarioModificarDici(event.target.value, i, "changeInput", "id_catgeneral");
+                },
+                value: e.id_catgeneral,
+                className: "form-control",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                  value: ""
+                }), datavinculaciocat.map(function (data) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                    value: data.id,
+                    children: data.descripcion
+                  }, data.id);
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "",
+              children: type(e.type) ? e.proveedor ? e.proveedor.descripcion : null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+                onChange: function onChange(event) {
+                  return changeInventarioModificarDici(event.target.value, i, "changeInput", "id_proveedor");
+                },
+                value: e.id_proveedor,
+                className: "form-control",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                  value: ""
+                }), datavinculacioproveedor.map(function (data) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                    value: data.id,
+                    children: data.descripcion
+                  }, data.id);
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "bg-ct",
+              children: e.cantidad
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "bg-base",
+              children: e.precio_base
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "bg-venta",
+              children: e.precio
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "",
+              children: type(e.type) ? e.stockmin : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                type: "text",
+                className: "form-control",
+                placeholder: "stockmin",
+                size: 2,
+                onChange: function onChange(event) {
+                  return changeInventarioModificarDici(event.target.value, i, "changeInput", "stockmin");
+                },
+                value: e.stockmin
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: "",
+              children: type(e.type) ? e.stockmax : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                type: "text",
+                className: "form-control",
+                placeholder: "stockmax",
+                size: 2,
+                onChange: function onChange(event) {
+                  return changeInventarioModificarDici(event.target.value, i, "changeInput", "stockmax");
+                },
+                value: e.stockmax
+              })
             })]
-          }), selectIdVinculacion.indexOf(e.id) != -1 && e.type != "delete" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-              className: selectIdVinculacion.indexOf(e.id) != -1 ? " bg-success-superlight " : "",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {})]
-            })
-          }) : null]
+          })
         }, i);
       }) : null]
     })]
@@ -72523,14 +72514,17 @@ function Home() {
         var pro = "";
         var newObj = [{
           id: null,
-          id_categoria: "",
-          id_catgeneral: "",
-          id_marca: "",
           n1: "",
           n2: "",
           n3: "",
           n4: "",
           n5: "",
+          id_marca: "",
+          id_proveedor: "",
+          id_categoria: "",
+          id_catgeneral: "",
+          stockmin: "",
+          stockmax: "",
           type: "new"
         }];
         obj = newObj.concat(obj);
@@ -72551,8 +72545,6 @@ function Home() {
       }).then(function (res) {
         if (typeof res.data === "string") {
           notificar(res.data, false);
-        } else {
-          notificar(res.data.msj.join("\n"), false);
         }
         if (res.data.estado) {
           buscarInventario();

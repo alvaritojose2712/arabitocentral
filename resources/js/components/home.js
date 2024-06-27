@@ -1199,15 +1199,19 @@ function Home() {
         
         let newObj = [{
           id: null,
-          id_categoria: "",
-          id_catgeneral: "",
-          id_marca: "",
           
           n1: "",
           n2: "",
           n3: "",
           n4: "",
           n5: "",
+          id_marca: "",
+          id_proveedor: "",
+          id_categoria: "",
+          id_catgeneral: "",
+          
+          stockmin: "",
+          stockmax: "",
 
           type: "new",
 
@@ -1232,8 +1236,6 @@ function Home() {
       db.guardarmodificarInventarioDici({ lotes: lotesFil }).then(res => {
         if (typeof res.data === "string") {
           notificar(res.data, false);
-        }else{
-          notificar(res.data.msj.join("\n"), false);
         }
         if (res.data.estado) {
           buscarInventario()
