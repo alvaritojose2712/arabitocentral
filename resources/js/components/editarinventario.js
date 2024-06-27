@@ -335,87 +335,87 @@ export default function Editarinventario({
             <table className="table">
                 <thead>
                     <tr>
-                        <th onClick={()=>{setInvorderColumn("id");if(InvorderColumn=="id"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>ID</th>
-                        <th onClick={()=>{setInvorderColumn("id_sucursal");if(InvorderColumn=="id_sucursal"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>SUCURSAL</th>
-                        <th onClick={()=>{setInvorderColumn("codigo_proveedor");if(InvorderColumn=="codigo_proveedor"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>ALTERNO</th>
-                        <th onClick={()=>{setInvorderColumn("codigo_barras");if(InvorderColumn=="codigo_barras"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>BARRAS</th>
-                        <th onClick={()=>{setInvorderColumn("unidad");if(InvorderColumn=="unidad"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>UNIDAD</th>
-                        <th onClick={()=>{setInvorderColumn("descripcion");if(InvorderColumn=="descripcion"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>DESC</th>
-                        <th onClick={()=>{setInvorderColumn("n1");if(InvorderColumn=="n1"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
-                            N1
-                            <select onChange={event=>sameCatValue(event.target.value, "n1")} className="form-control form-control-sm">
+                        <th className="pointer" onClick={()=>{setInvorderColumn("id");if(InvorderColumn=="id"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>ID</th>
+                        <th className="pointer" onClick={()=>{setInvorderColumn("id_sucursal");if(InvorderColumn=="id_sucursal"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>SUCURSAL</th>
+                        <th className="pointer" onClick={()=>{setInvorderColumn("codigo_proveedor");if(InvorderColumn=="codigo_proveedor"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>ALTERNO</th>
+                        <th className="pointer" onClick={()=>{setInvorderColumn("codigo_barras");if(InvorderColumn=="codigo_barras"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>BARRAS</th>
+                        <th className="pointer" onClick={()=>{setInvorderColumn("unidad");if(InvorderColumn=="unidad"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>UNIDAD</th>
+                        <th className="pointer" onClick={()=>{setInvorderColumn("descripcion");if(InvorderColumn=="descripcion"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>DESC</th>
+                        <th>
+                            <span onClick={()=>{setInvorderColumn("n1");if(InvorderColumn=="n1"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}} className="pointer">N1</span>
+                            <select onClick={event=>sameCatValue(event.target.value, "n1")} onChange={event=>sameCatValue(event.target.value, "n1")} className="form-control form-control-sm">
                                 <option value=""></option>
                                 {datavinculacion1.map(data=>
                                     <option value={data.nombre} key={data.id}>{data.nombre}</option>
                                 )}
                             </select>
                         </th>
-                        <th onClick={()=>{setInvorderColumn("n2");if(InvorderColumn=="n2"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
-                            N2
-                            <select onChange={event=>sameCatValue(event.target.value, "n2")} className="form-control form-control-sm">
+                        <th>
+                            <span onClick={()=>{setInvorderColumn("n2");if(InvorderColumn=="n2"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}} className="pointer">N2</span>
+                            <select onClick={event=>sameCatValue(event.target.value, "n2")} onChange={event=>sameCatValue(event.target.value, "n2")} className="form-control form-control-sm">
                                 <option value=""></option>
                                 {datavinculacion2.map(data=>
                                     <option value={data.nombre} key={data.id}>{data.nombre}</option>
                                 )}
                             </select>  
                         </th>
-                        <th onClick={()=>{setInvorderColumn("n3");if(InvorderColumn=="n3"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
-                            N3
-                            <select onChange={event=>sameCatValue(event.target.value, "n3")} className="form-control form-control-sm">
+                        <th>
+                            <span onClick={()=>{setInvorderColumn("n3");if(InvorderColumn=="n3"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}} className="pointer">N3</span>
+                            <select onClick={event=>sameCatValue(event.target.value, "n3")} onChange={event=>sameCatValue(event.target.value, "n3")} className="form-control form-control-sm">
                                 <option value=""></option>
                                 {datavinculacion3.map(data=>
                                     <option value={data.nombre} key={data.id}>{data.nombre}</option>
                                 )}
                             </select> 
                         </th>
-                        <th onClick={()=>{setInvorderColumn("n4");if(InvorderColumn=="n4"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
-                            N4
-                            <select onChange={event=>sameCatValue(event.target.value, "n4")} className="form-control form-control-sm">
+                        <th>
+                            <span onClick={()=>{setInvorderColumn("n4");if(InvorderColumn=="n4"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}} className="pointer">N4</span>
+                            <select onClick={event=>sameCatValue(event.target.value, "n4")} onChange={event=>sameCatValue(event.target.value, "n4")} className="form-control form-control-sm">
                                 <option value=""></option>
                                 {datavinculacion4.map(data=>
                                     <option value={data.nombre} key={data.id}>{data.nombre}</option>
                                 )}
                             </select>
                         </th>
-                        <th onClick={()=>{setInvorderColumn("n5");if(InvorderColumn=="n5"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
-                            N5
-                            <select onChange={event=>sameCatValue(event.target.value, "n5")} className="form-control form-control-sm">
+                        <th>
+                            <span onClick={()=>{setInvorderColumn("n5");if(InvorderColumn=="n5"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}} className="pointer">N5</span>
+                            <select onClick={event=>sameCatValue(event.target.value, "n5")} onChange={event=>sameCatValue(event.target.value, "n5")} className="form-control form-control-sm">
                                 <option value=""></option>
                                 {datavinculacion5.map(data=>
                                     <option value={data.nombre} key={data.id}>{data.nombre}</option>
                                 )}
                             </select> 
                         </th>
-                        <th onClick={()=>{setInvorderColumn("id_marca");if(InvorderColumn=="id_marca"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
-                            MARCA
-                            <select onChange={event=>sameCatValue(event.target.value, "id_marca")} className="form-control form-control-sm">
+                        <th>
+                            <span onClick={()=>{setInvorderColumn("id_marca");if(InvorderColumn=="id_marca"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}} className="pointer">MARCA</span>
+                            <select onClick={event=>sameCatValue(event.target.value, "id_marca")} onChange={event=>sameCatValue(event.target.value, "id_marca")} className="form-control form-control-sm">
                                 <option value=""></option>
                                 {datavinculacionmarca.map(data=>
                                     <option value={data.descripcion} key={data.id}>{data.descripcion}</option>
                                 )}
                             </select> 
                         </th>
-                        <th onClick={()=>{setInvorderColumn("id_categoria");if(InvorderColumn=="id_categoria"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
-                            CAT ESP
-                            <select onChange={event=>sameCatValue(event.target.value, "id_categoria")} className="form-control form-control-sm">
+                        <th>
+                            <span onClick={()=>{setInvorderColumn("id_categoria");if(InvorderColumn=="id_categoria"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}} className="pointer">CAT ESP</span>
+                            <select onClick={event=>sameCatValue(event.target.value, "id_categoria")} onChange={event=>sameCatValue(event.target.value, "id_categoria")} className="form-control form-control-sm">
                                 <option value=""></option>
                                 {datavinculaciocatesp.map(data=>
                                     <option value={data.id} key={data.id}>{data.descripcion}</option>
                                 )}
                             </select>
                         </th>
-                        <th onClick={()=>{setInvorderColumn("id_catgeneral");if(InvorderColumn=="id_catgeneral"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
-                            CAT GEN
-                            <select onChange={event=>sameCatValue(event.target.value, "id_catgeneral")} className="form-control form-control-sm">
+                        <th>
+                            <span onClick={()=>{setInvorderColumn("id_catgeneral");if(InvorderColumn=="id_catgeneral"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}} className="pointer">CAT GEN</span>
+                            <select onClick={event=>sameCatValue(event.target.value, "id_catgeneral")} onChange={event=>sameCatValue(event.target.value, "id_catgeneral")} className="form-control form-control-sm">
                                 <option value=""></option>
                                 {datavinculaciocat.map(data=>
                                     <option value={data.id} key={data.id}>{data.descripcion}</option>
                                 )}
                             </select>
                         </th>
-                        <th onClick={()=>{setInvorderColumn("id_proveedor");if(InvorderColumn=="id_proveedor"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
-                            PROVEEDOR
-                            <select onChange={event=>sameCatValue(event.target.value, "id_proveedor")} className="form-control form-control-sm">
+                        <th>
+                            <span onClick={()=>{setInvorderColumn("id_proveedor");if(InvorderColumn=="id_proveedor"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}} className="pointer">PROVEEDOR</span>
+                            <select onClick={event=>sameCatValue(event.target.value, "id_proveedor")} onChange={event=>sameCatValue(event.target.value, "id_proveedor")} className="form-control form-control-sm">
                                 <option value=""></option>
                                 {datavinculacioproveedor.map(data=>
                                     <option value={data.id} key={data.id}>{data.descripcion}</option>

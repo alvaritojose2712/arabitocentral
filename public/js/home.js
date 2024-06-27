@@ -9363,6 +9363,7 @@ function Editarinventario(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            className: "pointer",
             onClick: function onClick() {
               setInvorderColumn("id");
               if (InvorderColumn == "id") {
@@ -9371,6 +9372,7 @@ function Editarinventario(_ref) {
             },
             children: "ID"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            className: "pointer",
             onClick: function onClick() {
               setInvorderColumn("id_sucursal");
               if (InvorderColumn == "id_sucursal") {
@@ -9379,6 +9381,7 @@ function Editarinventario(_ref) {
             },
             children: "SUCURSAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            className: "pointer",
             onClick: function onClick() {
               setInvorderColumn("codigo_proveedor");
               if (InvorderColumn == "codigo_proveedor") {
@@ -9387,6 +9390,7 @@ function Editarinventario(_ref) {
             },
             children: "ALTERNO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            className: "pointer",
             onClick: function onClick() {
               setInvorderColumn("codigo_barras");
               if (InvorderColumn == "codigo_barras") {
@@ -9395,6 +9399,7 @@ function Editarinventario(_ref) {
             },
             children: "BARRAS"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            className: "pointer",
             onClick: function onClick() {
               setInvorderColumn("unidad");
               if (InvorderColumn == "unidad") {
@@ -9403,6 +9408,7 @@ function Editarinventario(_ref) {
             },
             children: "UNIDAD"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            className: "pointer",
             onClick: function onClick() {
               setInvorderColumn("descripcion");
               if (InvorderColumn == "descripcion") {
@@ -9411,13 +9417,19 @@ function Editarinventario(_ref) {
             },
             children: "DESC"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-            onClick: function onClick() {
-              setInvorderColumn("n1");
-              if (InvorderColumn == "n1") {
-                setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
-              }
-            },
-            children: ["N1", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              onClick: function onClick() {
+                setInvorderColumn("n1");
+                if (InvorderColumn == "n1") {
+                  setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
+                }
+              },
+              className: "pointer",
+              children: "N1"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+              onClick: function onClick(event) {
+                return sameCatValue(event.target.value, "n1");
+              },
               onChange: function onChange(event) {
                 return sameCatValue(event.target.value, "n1");
               },
@@ -9432,13 +9444,19 @@ function Editarinventario(_ref) {
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-            onClick: function onClick() {
-              setInvorderColumn("n2");
-              if (InvorderColumn == "n2") {
-                setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
-              }
-            },
-            children: ["N2", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              onClick: function onClick() {
+                setInvorderColumn("n2");
+                if (InvorderColumn == "n2") {
+                  setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
+                }
+              },
+              className: "pointer",
+              children: "N2"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+              onClick: function onClick(event) {
+                return sameCatValue(event.target.value, "n2");
+              },
               onChange: function onChange(event) {
                 return sameCatValue(event.target.value, "n2");
               },
@@ -9453,13 +9471,19 @@ function Editarinventario(_ref) {
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-            onClick: function onClick() {
-              setInvorderColumn("n3");
-              if (InvorderColumn == "n3") {
-                setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
-              }
-            },
-            children: ["N3", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              onClick: function onClick() {
+                setInvorderColumn("n3");
+                if (InvorderColumn == "n3") {
+                  setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
+                }
+              },
+              className: "pointer",
+              children: "N3"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+              onClick: function onClick(event) {
+                return sameCatValue(event.target.value, "n3");
+              },
               onChange: function onChange(event) {
                 return sameCatValue(event.target.value, "n3");
               },
@@ -9474,13 +9498,19 @@ function Editarinventario(_ref) {
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-            onClick: function onClick() {
-              setInvorderColumn("n4");
-              if (InvorderColumn == "n4") {
-                setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
-              }
-            },
-            children: ["N4", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              onClick: function onClick() {
+                setInvorderColumn("n4");
+                if (InvorderColumn == "n4") {
+                  setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
+                }
+              },
+              className: "pointer",
+              children: "N4"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+              onClick: function onClick(event) {
+                return sameCatValue(event.target.value, "n4");
+              },
               onChange: function onChange(event) {
                 return sameCatValue(event.target.value, "n4");
               },
@@ -9495,13 +9525,19 @@ function Editarinventario(_ref) {
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-            onClick: function onClick() {
-              setInvorderColumn("n5");
-              if (InvorderColumn == "n5") {
-                setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
-              }
-            },
-            children: ["N5", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              onClick: function onClick() {
+                setInvorderColumn("n5");
+                if (InvorderColumn == "n5") {
+                  setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
+                }
+              },
+              className: "pointer",
+              children: "N5"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+              onClick: function onClick(event) {
+                return sameCatValue(event.target.value, "n5");
+              },
               onChange: function onChange(event) {
                 return sameCatValue(event.target.value, "n5");
               },
@@ -9516,13 +9552,19 @@ function Editarinventario(_ref) {
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-            onClick: function onClick() {
-              setInvorderColumn("id_marca");
-              if (InvorderColumn == "id_marca") {
-                setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
-              }
-            },
-            children: ["MARCA", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              onClick: function onClick() {
+                setInvorderColumn("id_marca");
+                if (InvorderColumn == "id_marca") {
+                  setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
+                }
+              },
+              className: "pointer",
+              children: "MARCA"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+              onClick: function onClick(event) {
+                return sameCatValue(event.target.value, "id_marca");
+              },
               onChange: function onChange(event) {
                 return sameCatValue(event.target.value, "id_marca");
               },
@@ -9537,13 +9579,19 @@ function Editarinventario(_ref) {
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-            onClick: function onClick() {
-              setInvorderColumn("id_categoria");
-              if (InvorderColumn == "id_categoria") {
-                setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
-              }
-            },
-            children: ["CAT ESP", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              onClick: function onClick() {
+                setInvorderColumn("id_categoria");
+                if (InvorderColumn == "id_categoria") {
+                  setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
+                }
+              },
+              className: "pointer",
+              children: "CAT ESP"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+              onClick: function onClick(event) {
+                return sameCatValue(event.target.value, "id_categoria");
+              },
               onChange: function onChange(event) {
                 return sameCatValue(event.target.value, "id_categoria");
               },
@@ -9558,13 +9606,19 @@ function Editarinventario(_ref) {
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-            onClick: function onClick() {
-              setInvorderColumn("id_catgeneral");
-              if (InvorderColumn == "id_catgeneral") {
-                setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
-              }
-            },
-            children: ["CAT GEN", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              onClick: function onClick() {
+                setInvorderColumn("id_catgeneral");
+                if (InvorderColumn == "id_catgeneral") {
+                  setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
+                }
+              },
+              className: "pointer",
+              children: "CAT GEN"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+              onClick: function onClick(event) {
+                return sameCatValue(event.target.value, "id_catgeneral");
+              },
               onChange: function onChange(event) {
                 return sameCatValue(event.target.value, "id_catgeneral");
               },
@@ -9579,13 +9633,19 @@ function Editarinventario(_ref) {
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-            onClick: function onClick() {
-              setInvorderColumn("id_proveedor");
-              if (InvorderColumn == "id_proveedor") {
-                setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
-              }
-            },
-            children: ["PROVEEDOR", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              onClick: function onClick() {
+                setInvorderColumn("id_proveedor");
+                if (InvorderColumn == "id_proveedor") {
+                  setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
+                }
+              },
+              className: "pointer",
+              children: "PROVEEDOR"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+              onClick: function onClick(event) {
+                return sameCatValue(event.target.value, "id_proveedor");
+              },
               onChange: function onChange(event) {
                 return sameCatValue(event.target.value, "id_proveedor");
               },
