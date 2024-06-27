@@ -9291,75 +9291,89 @@ function Editarinventario(_ref) {
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "container-fluid",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
-      className: "input-group",
-      onSubmit: function onSubmit(e) {
-        e.preventDefault();
-        buscarInventario();
-      },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-        type: "text",
-        ref: inputBuscarInventario,
-        className: "form-control",
-        placeholder: "Buscar...(esc)",
-        onChange: function onChange(e) {
-          return setQBuscarInventario(e.target.value);
-        },
-        value: qBuscarInventario
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-        className: "form-control",
-        value: qBuscarInventarioSucursal,
-        onChange: function onChange(event) {
-          return setqBuscarInventarioSucursal(event.target.value);
-        },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "",
-          children: "-SUCURSAL-"
-        }), sucursales.map(function (e) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-            value: e.id,
-            children: e.codigo
-          }, e.id);
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-        value: Invnum,
-        onChange: function onChange(e) {
-          return setInvnum(e.target.value);
-        },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "25",
-          children: "25"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "50",
-          children: "50"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "100",
-          children: "100"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "500",
-          children: "500"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "2000",
-          children: "2000"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
-        value: InvorderBy,
-        onChange: function onChange(e) {
-          return setInvorderBy(e.target.value);
-        },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "asc",
-          children: "Asc"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "desc",
-          children: "Desc"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "btn btn-success text-light",
-        onClick: guardarmodificarInventarioDici,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-          className: "fa fa-send"
-        }), " GUARDAR"]
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "row",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "col",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+          className: "input-group",
+          onSubmit: function onSubmit(e) {
+            e.preventDefault();
+            buscarInventario();
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "text",
+            ref: inputBuscarInventario,
+            className: "form-control",
+            placeholder: "Buscar...(esc)",
+            onChange: function onChange(e) {
+              return setQBuscarInventario(e.target.value);
+            },
+            value: qBuscarInventario
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            className: "form-control",
+            value: qBuscarInventarioSucursal,
+            onChange: function onChange(event) {
+              return setqBuscarInventarioSucursal(event.target.value);
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              value: "",
+              children: "-SUCURSAL-"
+            }), sucursales.map(function (e) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                value: e.id,
+                children: e.codigo
+              }, e.id);
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            value: Invnum,
+            onChange: function onChange(e) {
+              return setInvnum(e.target.value);
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              value: "25",
+              children: "25"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              value: "50",
+              children: "50"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              value: "100",
+              children: "100"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              value: "500",
+              children: "500"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              value: "2000",
+              children: "2000"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            value: InvorderBy,
+            onChange: function onChange(e) {
+              return setInvorderBy(e.target.value);
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              value: "asc",
+              children: "Asc"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              value: "desc",
+              children: "Desc"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "btn btn-success",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+              className: "fa fa-search"
+            })
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "col-sm text-right",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "btn btn-success text-light",
+          onClick: guardarmodificarInventarioDici,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+            className: "fa fa-send"
+          }), " GUARDAR"]
+        })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
       className: "table",
@@ -9604,7 +9618,7 @@ function Editarinventario(_ref) {
                 type: "text",
                 className: "form-control",
                 placeholder: "stockmin",
-                size: 2,
+                size: 5,
                 onChange: function onChange(event) {
                   return changeInventarioModificarDici(event.target.value, i, "changeInput", "stockmin");
                 },
@@ -9616,12 +9630,22 @@ function Editarinventario(_ref) {
                 type: "text",
                 className: "form-control",
                 placeholder: "stockmax",
-                size: 2,
+                size: 5,
                 onChange: function onChange(event) {
                   return changeInventarioModificarDici(event.target.value, i, "changeInput", "stockmax");
                 },
                 value: e.stockmax
               })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: e.type === "update" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                className: "btn-sm btn btn-warning",
+                onClick: function onClick() {
+                  return changeInventarioModificarDici(null, i, "delModeUpdateDelete");
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+                  className: "fa fa-times"
+                })
+              }) : null
             })]
           })
         }, i);

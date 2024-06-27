@@ -317,30 +317,34 @@ export default function Editarinventario({
 
 
     return <div className="container-fluid">
-            <form className="input-group" onSubmit={e=>{e.preventDefault();buscarInventario()}}>
-
-                {/* <div className="btn btn-success text-light" onClick={() => changeInventarioModificarDici(null, null, "add")}><i className="fa fa-plus"></i></div> */}
-                <input type="text" ref={inputBuscarInventario} className="form-control" placeholder="Buscar...(esc)" onChange={e => setQBuscarInventario(e.target.value)} value={qBuscarInventario} />
-                <select className="form-control" value={qBuscarInventarioSucursal} onChange={event=>setqBuscarInventarioSucursal(event.target.value)}>
-                    <option value={""}>-SUCURSAL-</option>
-                    {sucursales.map(e=>
-                        <option key={e.id} value={e.id}>{e.codigo}</option>
-                    )}
-                </select>
-                <select value={Invnum} onChange={e => setInvnum(e.target.value)}>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="500">500</option>
-                    <option value="2000">2000</option>
-                </select>
-                <select value={InvorderBy} onChange={e => setInvorderBy(e.target.value)}>
-                    <option value="asc">Asc</option>
-                    <option value="desc">Desc</option>
-                </select>
-                
-                <div className="btn btn-success text-light" onClick={guardarmodificarInventarioDici}><i className="fa fa-send"></i> GUARDAR</div>
-            </form>
+                <div className="row">
+                    <div className="col">
+                        <form className="input-group" onSubmit={e=>{e.preventDefault();buscarInventario()}}>
+                            <input type="text" ref={inputBuscarInventario} className="form-control" placeholder="Buscar...(esc)" onChange={e => setQBuscarInventario(e.target.value)} value={qBuscarInventario} />
+                            <select className="form-control" value={qBuscarInventarioSucursal} onChange={event=>setqBuscarInventarioSucursal(event.target.value)}>
+                                <option value={""}>-SUCURSAL-</option>
+                                {sucursales.map(e=>
+                                    <option key={e.id} value={e.id}>{e.codigo}</option>
+                                )}
+                            </select>
+                            <select value={Invnum} onChange={e => setInvnum(e.target.value)}>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="500">500</option>
+                                <option value="2000">2000</option>
+                            </select>
+                            <select value={InvorderBy} onChange={e => setInvorderBy(e.target.value)}>
+                                <option value="asc">Asc</option>
+                                <option value="desc">Desc</option>
+                            </select>
+                            <button className="btn btn-success"><i className="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <div className="col-sm text-right">
+                        <div className="btn btn-success text-light" onClick={guardarmodificarInventarioDici}><i className="fa fa-send"></i> GUARDAR</div>
+                    </div>
+                </div>
 
             <table className="table">
                 <thead>
@@ -522,7 +526,7 @@ export default function Editarinventario({
                                 {type(e.type)?
                                     e.stockmin
                                 :
-                                    <input type="text" className="form-control" placeholder="stockmin" size={2} onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "stockmin")} value={e.stockmin} />   
+                                    <input type="text" className="form-control" placeholder="stockmin" size={5} onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "stockmin")} value={e.stockmin} />   
                                 
                                 }
 
@@ -531,11 +535,17 @@ export default function Editarinventario({
                                 {type(e.type)?
                                     e.stockmax
                                 :
-                                    <input type="text" className="form-control" placeholder="stockmax" size={2} onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "stockmax")} value={e.stockmax} />   
+                                    <input type="text" className="form-control" placeholder="stockmax" size={5} onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "stockmax")} value={e.stockmax} />   
                                 
                                 }
 
                             </td> 
+                            <td>
+
+                                {e.type === "update" ?
+                                    <span className="btn-sm btn btn-warning" onClick={() => changeInventarioModificarDici(null, i, "delModeUpdateDelete")}><i className="fa fa-times"></i></span>
+                                : null}
+                            </td>
                         </tr>
                         {/* <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
                             <td></td>
