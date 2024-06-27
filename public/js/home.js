@@ -8924,8 +8924,8 @@ function Editarinventario(_ref) {
     inputBuscarInventario = _ref.inputBuscarInventario,
     setQBuscarInventario = _ref.setQBuscarInventario,
     Invnum = _ref.Invnum,
-    type = _ref.type,
     setInvnum = _ref.setInvnum,
+    type = _ref.type,
     buscarInventario = _ref.buscarInventario,
     qBuscarInventario = _ref.qBuscarInventario,
     selectIdVinculacion = _ref.selectIdVinculacion,
@@ -9071,7 +9071,7 @@ function Editarinventario(_ref) {
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     buscarInventario();
-  }, [InvorderColumn, InvorderBy]);
+  }, [InvorderColumn, InvorderBy, Invnum]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var fil = datavinculacion1.find(function (e) {
       return e.nombre ? e.nombre.toLowerCase().substr(0, qvinculacion1.length) == qvinculacion1.toLowerCase() : false;

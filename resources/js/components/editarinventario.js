@@ -7,8 +7,8 @@ export default function Editarinventario({
     inputBuscarInventario,
     setQBuscarInventario,
     Invnum,
-    type,
     setInvnum,
+    type,
     buscarInventario,
     qBuscarInventario,
 
@@ -165,7 +165,7 @@ export default function Editarinventario({
 
     useEffect(()=>{
         buscarInventario()
-    },[InvorderColumn,InvorderBy])
+    },[InvorderColumn,InvorderBy,Invnum])
 
     useEffect(()=>{
         let fil = datavinculacion1.find(e=>e.nombre?e.nombre.toLowerCase().substr(0,qvinculacion1.length) == qvinculacion1.toLowerCase() :false)
