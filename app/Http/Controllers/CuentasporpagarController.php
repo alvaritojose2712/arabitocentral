@@ -435,6 +435,22 @@ class CuentasporpagarController extends Controller
             }
         }
     }
+
+
+    function removeDuplicatesCXP() {
+
+        $du = cuentasporpagar::where("aprobado",0)->selectRaw("id_proveedor, numfact, COUNT(*) as count")->groupByRaw("id_proveedor, numfact")->havingRaw("COUNT(*) > 1")->get();
+
+        foreach ($du as $key => $val) {
+            $numfact = $val["numfact"]; 
+            $id_proveedor = $val["id_proveedor"]; 
+            $count = $val["count"]-1;
+
+            //cuentasporpagar::where("numfact",$numfact)->where("id_proveedor",$id_proveedor)->limit($count)->delete();
+
+            echo "$id_proveedor __ $numfact ____ $count veces <br>";
+        }
+    }
     function sendFacturaCentral(Request $req){
         try {
             

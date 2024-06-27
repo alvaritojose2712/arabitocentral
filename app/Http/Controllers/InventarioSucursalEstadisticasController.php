@@ -14,6 +14,24 @@ use DB;
 
 class InventarioSucursalEstadisticasController extends Controller
 {
+
+    function removeDuplicatesItemsEstadisticas() {
+
+        $du = inventario_sucursal_estadisticas::selectRaw("id_sucursal, id_itempedido_insucursal, COUNT(*) as count")->groupByRaw("id_sucursal, id_itempedido_insucursal")->havingRaw("COUNT(*) > 1")->get();
+
+        foreach ($du as $key => $val) {
+            $id_itempedido_insucursal = $val["id_itempedido_insucursal"]; 
+            $id_sucursal = $val["id_sucursal"]; 
+            $count = $val["count"]-1;
+
+            inventario_sucursal_estadisticas::where("id_itempedido_insucursal",$id_itempedido_insucursal)->where("id_sucursal",$id_sucursal)->limit($count)->delete();
+
+            echo "$id_sucursal __ $id_itempedido_insucursal ____ $count veces <br>";
+        }
+    }
+
+
+    
     function sendestadisticasVenta($movs,$id_sucursal) {
         $count_movs = count($movs);
             $counter =0;

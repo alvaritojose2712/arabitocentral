@@ -394,6 +394,9 @@ Route::get('delduplicateItemsEstadisticas',  [InventarioSucursalEstadisticasCont
 Route::post('buscarNombres',  [InventarioController::class,"buscarNombres"]);
 Route::post('modNombres',  [InventarioController::class,"modNombres"]);
 
+Route::get('removeDuplicatesCXP',  [CuentasporpagarController::class,"removeDuplicatesCXP"]);
+Route::get('removeDuplicatesItemsEstadisticas',  [InventarioSucursalEstadisticasController::class,"removeDuplicatesItemsEstadisticas"]);
+
 
 
 Route::post('getInventarioNovedades', [NovedadInventarioAprobacionController::class,"getInventarioNovedades"]);

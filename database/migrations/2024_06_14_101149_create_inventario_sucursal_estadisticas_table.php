@@ -26,7 +26,7 @@ class CreateInventarioSucursalEstadisticasTable extends Migration
             $table->integer("id_pedido_insucursal");
             $table->integer("id_producto_insucursal");
 
-            $table->unique(["id_sucursal","id_itempedido_insucursal"]);
+            $table->unique(["id_sucursal","id_itempedido_insucursal"],"idsucu_iditeminsu_pk");
 
 
            /*  $table->integer("id_inventario_sucursal")->unsigned();
