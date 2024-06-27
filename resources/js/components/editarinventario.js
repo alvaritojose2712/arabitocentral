@@ -422,9 +422,9 @@ export default function Editarinventario({
                                 )}
                             </select>
                         </th>
-                        <th className="bg-ct" onClick={()=>{setInvorderColumn("cantidad");if(InvorderColumn=="cantidad"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>CT</th>
-                        <th className="bg-base" onClick={()=>{setInvorderColumn("precio_base");if(InvorderColumn=="precio_base"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>BASE</th>
-                        <th className="bg-venta" onClick={()=>{setInvorderColumn("precio_venta");if(InvorderColumn=="precio_venta"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>VENTA</th>
+                        <th className="bg-ct pointer" onClick={()=>{setInvorderColumn("cantidad");if(InvorderColumn=="cantidad"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>CT</th>
+                        <th className="bg-base pointer" onClick={()=>{setInvorderColumn("precio_base");if(InvorderColumn=="precio_base"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>BASE</th>
+                        <th className="bg-venta pointer" onClick={()=>{setInvorderColumn("precio");if(InvorderColumn=="precio"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>VENTA</th>
                         <th onClick={()=>{setInvorderColumn("stockmin");if(InvorderColumn=="stockmin"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             MIN
                             <form onSubmit={event=>{ sameCatValue(stockminvaluegeneral,"stockmin");event.preventDefault()}}>

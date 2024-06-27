@@ -9660,7 +9660,7 @@ function Editarinventario(_ref) {
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            className: "bg-ct",
+            className: "bg-ct pointer",
             onClick: function onClick() {
               setInvorderColumn("cantidad");
               if (InvorderColumn == "cantidad") {
@@ -9669,7 +9669,7 @@ function Editarinventario(_ref) {
             },
             children: "CT"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            className: "bg-base",
+            className: "bg-base pointer",
             onClick: function onClick() {
               setInvorderColumn("precio_base");
               if (InvorderColumn == "precio_base") {
@@ -9678,10 +9678,10 @@ function Editarinventario(_ref) {
             },
             children: "BASE"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            className: "bg-venta",
+            className: "bg-venta pointer",
             onClick: function onClick() {
-              setInvorderColumn("precio_venta");
-              if (InvorderColumn == "precio_venta") {
+              setInvorderColumn("precio");
+              if (InvorderColumn == "precio") {
                 setInvorderBy(InvorderBy == "desc" ? "asc" : "desc");
               }
             },
