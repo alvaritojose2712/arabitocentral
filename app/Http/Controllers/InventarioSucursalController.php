@@ -693,7 +693,7 @@ class InventarioSucursalController extends Controller
     }
 
     function autovincular() {
-        $i = inventario_sucursal::where("codigo_barras","LIKE","6928073674635")->whereNull("n1")->get();
+        $i = inventario_sucursal::whereNull("n1")->get();
         foreach ($i as $key => $e) {
             $get = inventario_sucursal::where("codigo_barras",$e->codigo_barras)->whereNotNull("n1")->first();
             if ($get) {
