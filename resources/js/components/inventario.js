@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import Inventariogeneral from "./inventariogeneral";
 import Editarinventario from "./editarinventario";
+import GestionarnombresInventario from "./gestionarnombresinventario";
+
 
 export default function Inventario({
     qInventarioNovedades,
@@ -186,6 +188,16 @@ export default function Inventario({
     sucursalesAgregadasBusquedaEstadisticas,
     setcamposAgregadosBusquedaEstadisticas,
     setsucursalesAgregadasBusquedaEstadisticas,
+    sameCatValue,
+
+
+    buscarNombres,
+    qnombres,
+    setqnombres,
+    qtiponombres,
+    setqtiponombres,
+    datanombres,
+    modNombres,
 }){
 
     const [subviewdici, setsubviewdici] = useState("novedades")
@@ -197,6 +209,7 @@ export default function Inventario({
                 <button className={("fs-4 btn btn")+(subviewdici=="novedades"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("novedades")}> NOVEDADES</button>
                 <button className={("fs-2 btn btn")+(subviewdici=="inventariogeneral"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("inventariogeneral")}> INVENTARIO</button>
                 <button className={("fs-2 btn btn")+(subviewdici=="editarinventario"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("editarinventario")}> EDITAR INVENTARIO</button>
+                <button className={("fs-2 btn btn")+(subviewdici=="gestionarnombres"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("gestionarnombres")}> GESTIONAR NOMBRES</button>
             </div>
         </div>
 
@@ -322,6 +335,7 @@ export default function Inventario({
 
         {subviewdici=="editarinventario"?
             <Editarinventario
+                sameCatValue={sameCatValue}
                 colorSucursal={colorSucursal}
                 buscarInventario={buscarInventario}
                 qBuscarInventario={qBuscarInventario}
@@ -464,6 +478,20 @@ export default function Inventario({
                 qvinculacionmarcaGeneral={qvinculacionmarcaGeneral}
             />
         :null}
+
+        {subviewdici=="gestionarnombres"?
+            <GestionarnombresInventario
+                buscarNombres={buscarNombres}
+                qnombres={qnombres}
+                setqnombres={setqnombres}
+                qtiponombres={qtiponombres}
+                setqtiponombres={setqtiponombres}
+                datanombres={datanombres}
+                modNombres={modNombres}
+            />
+        :null}
+
+
 
 
     </div>

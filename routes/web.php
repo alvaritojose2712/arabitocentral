@@ -391,6 +391,8 @@ Route::post('getInventarioGeneral',  [InventarioSucursalController::class,"getIn
 Route::post('getBarrasCargaItems',  [InventarioSucursalController::class,"getBarrasCargaItems"]);
 Route::get('delduplicateItemsEstadisticas',  [InventarioSucursalEstadisticasController::class,"delduplicateItemsEstadisticas"]);
 
+Route::post('buscarNombres',  [InventarioController::class,"buscarNombres"]);
+Route::post('modNombres',  [InventarioController::class,"modNombres"]);
 
 
 

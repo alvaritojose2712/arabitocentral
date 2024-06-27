@@ -150,11 +150,11 @@ export default function Editarinventario({
     setqBuscarInventarioSucursal,
 
     sucursales,
+    sameCatValue,
 }){
     
-    const [showInputGeneral, setshowInputGeneral] = useState(false)
-    const [sameCatValue, setsameCatValue] = useState("");
-    const [sameCateGenValue, setsameCateGenValue] = useState("");
+    const [stockminvaluegeneral, setstockminvaluegeneral] = useState("")
+    const [stockmaxvaluegeneral, setstockmaxvaluegeneral] = useState("")
 
     useEffect(()=>{
         getDatinputSelectVinculacion()
@@ -259,27 +259,7 @@ export default function Editarinventario({
 
 
 
-    const setSameCat = (val,type) => {
-        if (confirm("¿Confirma Generalizar?")) {
-            let obj = cloneDeep(productosInventario);
-            obj.map((e) => {
-                if (e.type) {
-                    if (type=="cat") {
-                        e.id_categoria = val;
-                        setsameCatValue(val);
-                    }
-                    
-                    if (type=="catgeneral") {
-                        e.id_catgeneral = val;
-                        setsameCateGenValue(val);
-                    }
-
-                }
-                return e;
-            });
-            setProductosInventario(obj);
-        }
-    };
+   
 
 
     const funIdVinc = (
@@ -355,20 +335,102 @@ export default function Editarinventario({
                         <th>BARRAS</th>
                         <th>UNIDAD</th>
                         <th>DESC</th>
-                        <th>N1</th>
-                        <th>N2</th>
-                        <th>N3</th>
-                        <th>N4</th>
-                        <th>N5</th>
-                        <th>MARCA</th>
-                        <th>CAT ESP</th>
-                        <th>CAT GEN</th>
-                        <th>PROVEEDOR</th>
+                        <th>
+                            N1
+                            <select onChange={event=>sameCatValue(event.target.value, "n1")} className="form-control form-control-sm">
+                                <option value=""></option>
+                                {datavinculacion1.map(data=>
+                                    <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                )}
+                            </select>
+                        </th>
+                        <th>
+                            N2
+                            <select onChange={event=>sameCatValue(event.target.value, "n2")} className="form-control form-control-sm">
+                                <option value=""></option>
+                                {datavinculacion2.map(data=>
+                                    <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                )}
+                            </select>  
+                        </th>
+                        <th>
+                            N3
+                            <select onChange={event=>sameCatValue(event.target.value, "n3")} className="form-control form-control-sm">
+                                <option value=""></option>
+                                {datavinculacion3.map(data=>
+                                    <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                )}
+                            </select> 
+                        </th>
+                        <th>
+                            N4
+                            <select onChange={event=>sameCatValue(event.target.value, "n4")} className="form-control form-control-sm">
+                                <option value=""></option>
+                                {datavinculacion4.map(data=>
+                                    <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                )}
+                            </select>
+                        </th>
+                        <th>
+                            N5
+                            <select onChange={event=>sameCatValue(event.target.value, "n5")} className="form-control form-control-sm">
+                                <option value=""></option>
+                                {datavinculacion5.map(data=>
+                                    <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                )}
+                            </select> 
+                        </th>
+                        <th>
+                            MARCA
+                            <select onChange={event=>sameCatValue(event.target.value, "id_marca")} className="form-control form-control-sm">
+                                <option value=""></option>
+                                {datavinculacionmarca.map(data=>
+                                    <option value={data.descripcion} key={data.id}>{data.descripcion}</option>
+                                )}
+                            </select> 
+                        </th>
+                        <th>
+                            CAT ESP
+                            <select onChange={event=>sameCatValue(event.target.value, "id_categoria")} className="form-control form-control-sm">
+                                <option value=""></option>
+                                {datavinculaciocatesp.map(data=>
+                                    <option value={data.id} key={data.id}>{data.descripcion}</option>
+                                )}
+                            </select>
+                        </th>
+                        <th>
+                            CAT GEN
+                            <select onChange={event=>sameCatValue(event.target.value, "id_catgeneral")} className="form-control form-control-sm">
+                                <option value=""></option>
+                                {datavinculaciocat.map(data=>
+                                    <option value={data.id} key={data.id}>{data.descripcion}</option>
+                                )}
+                            </select>
+                        </th>
+                        <th>
+                            PROVEEDOR
+                            <select onChange={event=>sameCatValue(event.target.value, "id_proveedor")} className="form-control form-control-sm">
+                                <option value=""></option>
+                                {datavinculacioproveedor.map(data=>
+                                    <option value={data.id} key={data.id}>{data.descripcion}</option>
+                                )}
+                            </select>
+                        </th>
                         <th className="bg-ct">CT</th>
                         <th className="bg-base">BASE</th>
                         <th className="bg-venta">VENTA</th>
-                        <th>MIN</th>
-                        <th>MAX</th>
+                        <th>
+                            MIN
+                            <form onSubmit={event=>{ sameCatValue(stockminvaluegeneral,"stockmin");event.preventDefault()}}>
+                                <input type="text" className="form-control form-control-sm"  value={stockminvaluegeneral} onChange={e=>setstockminvaluegeneral(e.target.value)}/>
+                            </form>
+                        </th>
+                        <th>
+                            MAX
+                            <form onSubmit={event=>{ sameCatValue(stockmaxvaluegeneral,"stockmax");event.preventDefault()}}>
+                                <input type="text" className="form-control form-control-sm"  value={stockmaxvaluegeneral} onChange={e=>setstockmaxvaluegeneral(e.target.value)}/>
+                            </form>
+                        </th>
                     </tr>
                 </thead>
                 {productosInventario.length?productosInventario.map((e,i)=>

@@ -325,23 +325,129 @@ function saveCuatroNombres(Request $req) {
     }
 
 }
+function modNombres(Request $req) {
+    $id = $req->id;
+    $type = $req->type;
+    $tiponombre = $req->tiponombre;
+    $newvalue = $req->newvalue;
+
+    $field = "";
+
+    switch ($tiponombre) {
+        case "n1":
+            $obj = productonombre1::find($id);
+            $field = "nombre";
+        break;
+        case "n2":
+            $obj = productonombre2::find($id);
+            $field = "nombre";
+        break;
+        case "n3":
+            $obj = productonombre3::find($id);
+            $field = "nombre";
+        break;
+        case "n4":
+            $obj = productonombre4s::find($id);
+            $field = "nombre";
+        break;
+        case "n5":
+            $obj = productonombre5s::find($id);
+            $field = "nombre";
+        break;
+        case "id_marca":
+            $obj = marcas::find($id);
+            $field = "descripcion";
+        break;
+        case "id_categoria":
+            $obj = categorias::find($id);
+            $field = "descripcion";
+        break;
+        case "id_catgeneral":
+            $obj = CatGenerals::find($id);
+            $field = "descripcion";
+        break;
+    }
+    if ($type=="eliminar") {
+       // $obj->delete();
+    }else{
+        if ($newvalue) {
+            $obj[$field] = strtoupper($newvalue);
+            $obj->save();
+        }
+    }
+}
+function buscarNombres(Request $req) {
+    $qnombres = $req->qnombres;
+    $qtiponombres = $req->qtiponombres;
+
+    switch ($qtiponombres) {
+        case "n1":
+            $obj = productonombre1::when($qnombres,function($q) use($qnombres) {
+                $q->where("nombre","LIKE","%$qnombres%");
+            })->orderBy("id","asc")->get();
+        break;
+        case "n2":
+            $obj = productonombre2::when($qnombres,function($q) use($qnombres) {
+                $q->where("nombre","LIKE","%$qnombres%");
+            })->orderBy("id","asc")->get();
+        break;
+        case "n3":
+            $obj = productonombre3::when($qnombres,function($q) use($qnombres) {
+                $q->where("nombre","LIKE","%$qnombres%");
+            })->orderBy("id","asc")->get();
+        break;
+        case "n4":
+            $obj = productonombre4s::when($qnombres,function($q) use($qnombres) {
+                $q->where("nombre","LIKE","%$qnombres%");
+            })->orderBy("id","asc")->get();
+        break;
+        case "n5":
+            $obj = productonombre5s::when($qnombres,function($q) use($qnombres) {
+                $q->where("nombre","LIKE","%$qnombres%");
+            })->orderBy("id","asc")->get();
+        break;
+        case "id_marca":
+            $obj = marcas::when($qnombres,function($q) use($qnombres) {
+                $q->where("descripcion","LIKE","%$qnombres%");
+            })->orderBy("id","asc")->get();
+        break;
+        case "id_categoria":
+            $obj = categorias::when($qnombres,function($q) use($qnombres) {
+                $q->where("descripcion","LIKE","%$qnombres%");
+            })->orderBy("id","asc")->get();
+        break;
+        case "id_catgeneral":
+            $obj = CatGenerals::when($qnombres,function($q) use($qnombres) {
+                $q->where("descripcion","LIKE","%$qnombres%");
+            })->orderBy("id","asc")->get();
+        break;
+    }
+
+        
+    return $obj->map(function($q) use ($qtiponombres) {
+        $q->tipo = $qtiponombres;
+        return $q;
+    });
+}
 
 function getDatinputSelectVinculacion() {
-    $datavinculacion1 = productonombre1::all();
-    $datavinculacion2 = productonombre2::all();
-    $datavinculacion3 = productonombre3::all();
-    $datavinculacion4 = productonombre4s::all();
-    $datavinculacionmarca = marcas::all();
+    $datavinculacion1 = productonombre1::orderBy("nombre","asc")->get();
+    $datavinculacion2 = productonombre2::orderBy("nombre","asc")->get();
+    $datavinculacion3 = productonombre3::orderBy("nombre","asc")->get();
+    $datavinculacion4 = productonombre4s::orderBy("nombre","asc")->get();
+    $productonombre5s = productonombre5s::orderBy("nombre","asc")->get();
+    $datavinculacionmarca = marcas::orderBy("descripcion","asc")->get();
+    $categorias = categorias::orderBy("descripcion","asc")->get();
+    $CatGenerals = CatGenerals::orderBy("descripcion","asc")->get();
+    
+    
+    $proveedores = proveedores::orderBy("descripcion","asc")->get();
 
 
     
     
     
     
-    $productonombre5s = productonombre5s::all();
-    $proveedores = proveedores::all();
-    $categorias = categorias::all();
-    $CatGenerals = CatGenerals::all();
     return [
         "datavinculacion1" => $datavinculacion1,
         "datavinculacion2" => $datavinculacion2,

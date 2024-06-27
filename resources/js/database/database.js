@@ -42,6 +42,9 @@ const db = {
   autoliquidarTransferencia: data=>axios.post(host+"autoliquidarTransferencia",data),
   getBalanceGeneral: data=>axios.post(host+"getBalanceGeneral",data),
   
+  buscarNombres: data=>axios.post(host+"buscarNombres",data),
+  modNombres: data=>axios.post(host+"modNombres",data),
+  
   
 
   changeBank: data=>axios.post(host+"changeBank",data),

@@ -1398,8 +1398,44 @@ function Home() {
   
   
   
+  const [qnombres,setqnombres] = useState("")
+  const [qtiponombres,setqtiponombres] = useState("n1")
+  const [datanombres,setdatanombres] = useState([])
   
+  const buscarNombres = () => {
+    db.buscarNombres({
+      qnombres,
+      qtiponombres,
+    }).then(res=>{
+      setdatanombres(res.data)
+    })
+  }
+
+  const modNombres = (id,tiponombre,type) => {
+    let newvalue ;
+    if (type=="editar") {
+      newvalue = window.prompt("Nuevo nombre")
+    }
+    db.modNombres({
+      id,tiponombre,type,newvalue
+    }).then(res=>{
+      buscarNombres()
+    })
+  }
   
+
+  const sameCatValue = (val,name)=>{
+    if (confirm("¿Confirma Generalizar categoría?")) {
+      let obj = cloneDeep(productosInventario);
+      obj.map((e) => {
+          if (e.type) {
+              e[name] = val;
+          }
+          return e;
+      });
+      setProductosInventario(obj);
+    }
+  }
   
   const buscarInventario = e => {
     setLoading(true)
@@ -5228,6 +5264,14 @@ function formatAmount( number, simbol ) {
           {permiso([1,2,10]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              modNombres={modNombres}
+              buscarNombres={buscarNombres}
+              qnombres={qnombres}
+              setqnombres={setqnombres}
+              qtiponombres={qtiponombres}
+              setqtiponombres={setqtiponombres}
+              datanombres={datanombres}
+              sameCatValue={sameCatValue}
               selectcampobusquedaestadistica={selectcampobusquedaestadistica}
               setselectcampobusquedaestadistica={setselectcampobusquedaestadistica}
               dataCamposBusquedaEstadisticas={dataCamposBusquedaEstadisticas}
