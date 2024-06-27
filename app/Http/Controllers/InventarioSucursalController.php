@@ -140,7 +140,7 @@ class InventarioSucursalController extends Controller
                 $q->where("id_sucursal",$qBuscarInventarioSucursal);
             })
             ->limit($num)
-            ->orderBy($orderColumn,"orderBy")
+            ->orderBy($orderColumn,$orderBy)
             ->get();
         }else{
             $data = inventario_sucursal::with([
@@ -170,7 +170,7 @@ class InventarioSucursalController extends Controller
 
             })
             ->limit($num)
-            ->orderBy($orderColumn,"orderBy")
+            ->orderBy($orderColumn,$orderBy)
             ->get();
         }
     
