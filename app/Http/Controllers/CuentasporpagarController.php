@@ -446,7 +446,10 @@ class CuentasporpagarController extends Controller
             $factura = json_decode($req->factura,2);
             $imagen = $req->imagen;
 
-           
+            return [
+                "msj" => "Ya no tienes permisos para subir facturas!",
+                "idinsucursal" => null,
+            ];
 
             
 

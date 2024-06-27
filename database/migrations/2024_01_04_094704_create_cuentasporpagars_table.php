@@ -79,7 +79,10 @@ class CreateCuentasporpagarsTable extends Migration
             $table->string("idinsucursal")->nullable(true)->default(null);
 
             $table->integer("conciliada")->nullable(true)->default(null);
+            
             $table->unique(["idinsucursal","id_sucursal"]);
+            $table->unique(["id_proveedor","numfact"]);
+
             $table->timestamps();
         });
     }

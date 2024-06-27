@@ -5264,6 +5264,10 @@ function formatAmount( number, simbol ) {
           {permiso([1,2,10]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              InvorderColumn={InvorderColumn}
+              setInvorderColumn={setInvorderColumn}
+              InvorderBy={InvorderBy}
+              setInvorderBy={setInvorderBy}
               modNombres={modNombres}
               buscarNombres={buscarNombres}
               qnombres={qnombres}

@@ -9,12 +9,8 @@ export default function Editarinventario({
     Invnum,
     type,
     setInvnum,
-    InvorderBy,
-    setInvorderBy,
-
     buscarInventario,
     qBuscarInventario,
-
 
     selectIdVinculacion, 
     setselectIdVinculacion,
@@ -151,6 +147,11 @@ export default function Editarinventario({
 
     sucursales,
     sameCatValue,
+
+    InvorderColumn,
+    InvorderBy,
+    setInvorderColumn,
+    setInvorderBy,
 }){
     
     const [stockminvaluegeneral, setstockminvaluegeneral] = useState("")
@@ -159,6 +160,12 @@ export default function Editarinventario({
     useEffect(()=>{
         getDatinputSelectVinculacion()
     },[])
+
+
+
+    useEffect(()=>{
+        buscarInventario()
+    },[InvorderColumn,InvorderBy])
 
     useEffect(()=>{
         let fil = datavinculacion1.find(e=>e.nombre?e.nombre.toLowerCase().substr(0,qvinculacion1.length) == qvinculacion1.toLowerCase() :false)
@@ -325,17 +332,16 @@ export default function Editarinventario({
                         <div className="btn btn-success text-light" onClick={guardarmodificarInventarioDici}><i className="fa fa-send"></i> GUARDAR</div>
                     </div>
                 </div>
-
             <table className="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>SUCURSAL</th>
-                        <th>ALTERNO</th>
-                        <th>BARRAS</th>
-                        <th>UNIDAD</th>
-                        <th>DESC</th>
-                        <th>
+                        <th onClick={()=>{setInvorderColumn("id");if(InvorderColumn=="id"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>ID</th>
+                        <th onClick={()=>{setInvorderColumn("id_sucursal");if(InvorderColumn=="id_sucursal"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>SUCURSAL</th>
+                        <th onClick={()=>{setInvorderColumn("codigo_proveedor");if(InvorderColumn=="codigo_proveedor"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>ALTERNO</th>
+                        <th onClick={()=>{setInvorderColumn("codigo_barras");if(InvorderColumn=="codigo_barras"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>BARRAS</th>
+                        <th onClick={()=>{setInvorderColumn("unidad");if(InvorderColumn=="unidad"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>UNIDAD</th>
+                        <th onClick={()=>{setInvorderColumn("descripcion");if(InvorderColumn=="descripcion"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>DESC</th>
+                        <th onClick={()=>{setInvorderColumn("n1");if(InvorderColumn=="n1"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             N1
                             <select onChange={event=>sameCatValue(event.target.value, "n1")} className="form-control form-control-sm">
                                 <option value=""></option>
@@ -344,7 +350,7 @@ export default function Editarinventario({
                                 )}
                             </select>
                         </th>
-                        <th>
+                        <th onClick={()=>{setInvorderColumn("n2");if(InvorderColumn=="n2"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             N2
                             <select onChange={event=>sameCatValue(event.target.value, "n2")} className="form-control form-control-sm">
                                 <option value=""></option>
@@ -353,7 +359,7 @@ export default function Editarinventario({
                                 )}
                             </select>  
                         </th>
-                        <th>
+                        <th onClick={()=>{setInvorderColumn("n3");if(InvorderColumn=="n3"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             N3
                             <select onChange={event=>sameCatValue(event.target.value, "n3")} className="form-control form-control-sm">
                                 <option value=""></option>
@@ -362,7 +368,7 @@ export default function Editarinventario({
                                 )}
                             </select> 
                         </th>
-                        <th>
+                        <th onClick={()=>{setInvorderColumn("n4");if(InvorderColumn=="n4"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             N4
                             <select onChange={event=>sameCatValue(event.target.value, "n4")} className="form-control form-control-sm">
                                 <option value=""></option>
@@ -371,7 +377,7 @@ export default function Editarinventario({
                                 )}
                             </select>
                         </th>
-                        <th>
+                        <th onClick={()=>{setInvorderColumn("n5");if(InvorderColumn=="n5"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             N5
                             <select onChange={event=>sameCatValue(event.target.value, "n5")} className="form-control form-control-sm">
                                 <option value=""></option>
@@ -380,7 +386,7 @@ export default function Editarinventario({
                                 )}
                             </select> 
                         </th>
-                        <th>
+                        <th onClick={()=>{setInvorderColumn("id_marca");if(InvorderColumn=="id_marca"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             MARCA
                             <select onChange={event=>sameCatValue(event.target.value, "id_marca")} className="form-control form-control-sm">
                                 <option value=""></option>
@@ -389,7 +395,7 @@ export default function Editarinventario({
                                 )}
                             </select> 
                         </th>
-                        <th>
+                        <th onClick={()=>{setInvorderColumn("id_categoria");if(InvorderColumn=="id_categoria"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             CAT ESP
                             <select onChange={event=>sameCatValue(event.target.value, "id_categoria")} className="form-control form-control-sm">
                                 <option value=""></option>
@@ -398,7 +404,7 @@ export default function Editarinventario({
                                 )}
                             </select>
                         </th>
-                        <th>
+                        <th onClick={()=>{setInvorderColumn("id_catgeneral");if(InvorderColumn=="id_catgeneral"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             CAT GEN
                             <select onChange={event=>sameCatValue(event.target.value, "id_catgeneral")} className="form-control form-control-sm">
                                 <option value=""></option>
@@ -407,7 +413,7 @@ export default function Editarinventario({
                                 )}
                             </select>
                         </th>
-                        <th>
+                        <th onClick={()=>{setInvorderColumn("id_proveedor");if(InvorderColumn=="id_proveedor"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             PROVEEDOR
                             <select onChange={event=>sameCatValue(event.target.value, "id_proveedor")} className="form-control form-control-sm">
                                 <option value=""></option>
@@ -416,16 +422,16 @@ export default function Editarinventario({
                                 )}
                             </select>
                         </th>
-                        <th className="bg-ct">CT</th>
-                        <th className="bg-base">BASE</th>
-                        <th className="bg-venta">VENTA</th>
-                        <th>
+                        <th className="bg-ct" onClick={()=>{setInvorderColumn("cantidad");if(InvorderColumn=="cantidad"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>CT</th>
+                        <th className="bg-base" onClick={()=>{setInvorderColumn("precio_base");if(InvorderColumn=="precio_base"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>BASE</th>
+                        <th className="bg-venta" onClick={()=>{setInvorderColumn("precio_venta");if(InvorderColumn=="precio_venta"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>VENTA</th>
+                        <th onClick={()=>{setInvorderColumn("stockmin");if(InvorderColumn=="stockmin"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             MIN
                             <form onSubmit={event=>{ sameCatValue(stockminvaluegeneral,"stockmin");event.preventDefault()}}>
                                 <input type="text" className="form-control form-control-sm"  value={stockminvaluegeneral} onChange={e=>setstockminvaluegeneral(e.target.value)}/>
                             </form>
                         </th>
-                        <th>
+                        <th onClick={()=>{setInvorderColumn("stockmax");if(InvorderColumn=="stockmax"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
                             MAX
                             <form onSubmit={event=>{ sameCatValue(stockmaxvaluegeneral,"stockmax");event.preventDefault()}}>
                                 <input type="text" className="form-control form-control-sm"  value={stockmaxvaluegeneral} onChange={e=>setstockmaxvaluegeneral(e.target.value)}/>

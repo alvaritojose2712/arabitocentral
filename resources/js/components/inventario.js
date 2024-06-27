@@ -28,13 +28,17 @@ export default function Inventario({
     setqBuscarInventarioSucursal,
     productosInventario,
     type,
+
     setinvsuc_q,
     invsuc_q,
     invsuc_num,
     setinvsuc_num,
+
     invsuc_orderBy,
     setinvsuc_orderBy,
+
     setinvsuc_orderColumn,
+
     inventariogeneralData,
     getInventarioGeneral,
 
@@ -198,6 +202,11 @@ export default function Inventario({
     setqtiponombres,
     datanombres,
     modNombres,
+
+    InvorderColumn,
+    InvorderBy,
+    setInvorderColumn,
+    setInvorderBy,
 }){
 
     const [subviewdici, setsubviewdici] = useState("novedades")
@@ -335,6 +344,10 @@ export default function Inventario({
 
         {subviewdici=="editarinventario"?
             <Editarinventario
+                InvorderColumn={InvorderColumn}
+                setInvorderColumn={setInvorderColumn}
+                InvorderBy={InvorderBy}
+                setInvorderBy={setInvorderBy}
                 sameCatValue={sameCatValue}
                 colorSucursal={colorSucursal}
                 buscarInventario={buscarInventario}
