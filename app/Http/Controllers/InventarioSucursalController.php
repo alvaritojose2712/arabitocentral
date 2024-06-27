@@ -124,9 +124,8 @@ class InventarioSucursalController extends Controller
         $num = $req->num;
         $itemCero = $req->itemCero;
         $qBuscarInventarioSucursal = $req->qBuscarInventarioSucursal;
-        
-
-        $orderColumn = "descripcion";
+       
+        $orderColumn = $req->orderColumn;
         $orderBy = $req->orderBy;
 
         if ($q=="") {
@@ -141,10 +140,7 @@ class InventarioSucursalController extends Controller
                 $q->where("id_sucursal",$qBuscarInventarioSucursal);
             })
             ->limit($num)
-            ->orderBy("n1","asc")
-            ->orderBy("n2","asc")
-            ->orderBy("n3","asc")
-            ->orderBy("id_marca","asc")
+            ->orderBy($orderColumn,"orderBy")
             ->get();
         }else{
             $data = inventario_sucursal::with([
@@ -174,10 +170,7 @@ class InventarioSucursalController extends Controller
 
             })
             ->limit($num)
-            ->orderBy("n1","asc")
-            ->orderBy("n2","asc")
-            ->orderBy("n3","asc")
-            ->orderBy("id_marca","asc")
+            ->orderBy($orderColumn,"orderBy")
             ->get();
         }
     
