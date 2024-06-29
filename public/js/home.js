@@ -6804,8 +6804,9 @@ function Cuentasporpagar(_ref) {
     className: "container",
     children: [subViewCuentasxPagar == "proveedor" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
-        onSubmit: function onSubmit() {
-          return getsucursalDetallesData();
+        onSubmit: function onSubmit(event) {
+          getsucursalDetallesData();
+          event.preventDefault();
         },
         className: "input-group mb-2",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
