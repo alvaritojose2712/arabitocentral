@@ -6,6 +6,10 @@ import Modalselectfile from "../modalselectfile";
 
 
 export default function ComprascargarFactsItems({
+    setqcampoBusquedacuentasPorPagarDetalles,
+    qcampoBusquedacuentasPorPagarDetalles,
+    setqinvertircuentasPorPagarDetalles,
+    qinvertircuentasPorPagarDetalles,
     setProductosInventario,
 
     facturaSelectAddItems,
@@ -895,6 +899,10 @@ export default function ComprascargarFactsItems({
             {subviewcargaritemsfact=="selectfacts"?
                 <div className="container">
                     <SearchBarFacturas
+                        setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
+                        qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}
+                        setqinvertircuentasPorPagarDetalles={setqinvertircuentasPorPagarDetalles}
+                        qinvertircuentasPorPagarDetalles={qinvertircuentasPorPagarDetalles}
                         selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
                         cuentaporpagarAprobado={cuentaporpagarAprobado}
                         setcuentaporpagarAprobado={setcuentaporpagarAprobado}

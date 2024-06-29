@@ -2237,6 +2237,10 @@ function formatAmount( number, simbol ) {
 
   const [selectCuentaPorPagarId, setSelectCuentaPorPagarId] = useState(null)
   const [qcuentasPorPagarDetalles, setqcuentasPorPagarDetalles] = useState("")
+  const [qcampoBusquedacuentasPorPagarDetalles,setqcampoBusquedacuentasPorPagarDetalles] = useState("numfact")
+  const [qinvertircuentasPorPagarDetalles,setqinvertircuentasPorPagarDetalles] = useState(0)
+
+  
   
   
   const [qcuentasPorPagarTipoFact, setqcuentasPorPagarTipoFact] = useState("")
@@ -2805,6 +2809,8 @@ function formatAmount( number, simbol ) {
       numcuentasPorPagarDetalles,
       qCampocuentasPorPagarDetalles,
       qcuentasPorPagarDetalles,
+      qcampoBusquedacuentasPorPagarDetalles,
+      qinvertircuentasPorPagarDetalles,
       OrdercuentasPorPagarDetalles,
       cuentaporpagarAprobado,
       sucursalcuentasPorPagarDetalles,
@@ -4784,6 +4790,10 @@ function formatAmount( number, simbol ) {
                   <>
                     {cuentasporpagarDetallesView=="cuentas"?
                       <CuentasporpagarDetalles
+                        setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
+                        qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}
+                        setqinvertircuentasPorPagarDetalles={setqinvertircuentasPorPagarDetalles}
+                        qinvertircuentasPorPagarDetalles={qinvertircuentasPorPagarDetalles}
                         conciliarCuenta={conciliarCuenta}
                         setdataselectFacts={setdataselectFacts}
                         dateFormat={dateFormat}
@@ -4860,6 +4870,10 @@ function formatAmount( number, simbol ) {
 
                     {cuentasporpagarDetallesView=="pagos"?
                       <CuentasporpagarPago
+                        setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
+                        qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}
+                        setqinvertircuentasPorPagarDetalles={setqinvertircuentasPorPagarDetalles}
+                        qinvertircuentasPorPagarDetalles={qinvertircuentasPorPagarDetalles}
                         returnCondicion={returnCondicion}
                         setSelectCuentaPorPagarDetalle={setSelectCuentaPorPagarDetalle}
                         showImageFact={showImageFact}
@@ -5146,6 +5160,10 @@ function formatAmount( number, simbol ) {
               permiso={permiso}
             />
             <ComprasDistribuirFacts
+              setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
+              qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}
+              setqinvertircuentasPorPagarDetalles={setqinvertircuentasPorPagarDetalles}
+              qinvertircuentasPorPagarDetalles={qinvertircuentasPorPagarDetalles}
               autorepartircantidades={autorepartircantidades}
               number={number}
               changeInputDistribuirpedido={changeInputDistribuirpedido}
@@ -5199,6 +5217,10 @@ function formatAmount( number, simbol ) {
           {permiso([1,2,10]) && viewmainPanel === "pedidos" &&
           <>
             <Comprasmenufactsdigital 
+              setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
+              qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}
+              setqinvertircuentasPorPagarDetalles={setqinvertircuentasPorPagarDetalles}
+              qinvertircuentasPorPagarDetalles={qinvertircuentasPorPagarDetalles}
               viewmainPanel={viewmainPanel}
               setviewmainPanel={setviewmainPanel}
               permiso={permiso}
@@ -5551,6 +5573,11 @@ function formatAmount( number, simbol ) {
               />
               {subViewInventario == "gestion" ?
                 <ComprascargarFactsItems
+
+                  setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
+                  qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}
+                  setqinvertircuentasPorPagarDetalles={setqinvertircuentasPorPagarDetalles}
+                  qinvertircuentasPorPagarDetalles={qinvertircuentasPorPagarDetalles}
                   getBarrasCargaItems={getBarrasCargaItems}
                   setProductosInventario={setProductosInventario}
                   procesarTextitemscompras={procesarTextitemscompras}

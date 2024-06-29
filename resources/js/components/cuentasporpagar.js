@@ -21,7 +21,7 @@ export default function Cuentasporpagar({
         <div className="container">
             {subViewCuentasxPagar=="proveedor"?
                 <>
-                    <form onSubmit={getsucursalDetallesData} className="input-group mb-2">
+                    <form onSubmit={()=>getsucursalDetallesData()} className="input-group mb-2">
                         <input type="text" className="form-control form-control-lg fs-3" placeholder="Buscar proveedor" onChange={e=>setqcuentasPorPagar(e.target.value)} value={qcuentasPorPagar} />
                         <button className="btn btn-success"><i className="fa fa-search"></i></button>
                     </form>

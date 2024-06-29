@@ -2,6 +2,11 @@ import { useState } from "react";
 import  SearchBarFacturas  from "./searchBarFacturas";
 
 export default function ComprasDistribuirFacts({
+    setqcampoBusquedacuentasPorPagarDetalles,
+    qcampoBusquedacuentasPorPagarDetalles,
+    setqinvertircuentasPorPagarDetalles,
+    qinvertircuentasPorPagarDetalles,
+
     facturaSelectAddItems,
     setfacturaSelectAddItems,
     selectCuentaPorPagarProveedorDetallesFun,
@@ -67,6 +72,12 @@ export default function ComprasDistribuirFacts({
             <div className="container">
                 
                 <SearchBarFacturas
+
+                    setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
+                    qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}
+                    setqinvertircuentasPorPagarDetalles={setqinvertircuentasPorPagarDetalles}
+                    qinvertircuentasPorPagarDetalles={qinvertircuentasPorPagarDetalles}
+
                     selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
                     cuentaporpagarAprobado={cuentaporpagarAprobado}
                     setcuentaporpagarAprobado={setcuentaporpagarAprobado}

@@ -3,6 +3,11 @@ import Proveedores from "./proveedores";
 import SearchBarFacturas from "./searchBarFacturas";
 
 export default function CuentasporpagarPagos({
+    setqcampoBusquedacuentasPorPagarDetalles,
+    qcampoBusquedacuentasPorPagarDetalles,
+    setqinvertircuentasPorPagarDetalles,
+    qinvertircuentasPorPagarDetalles,
+
     cuentasporpagarDetallesView,
     setSelectCuentaPorPagarDetalle,
     setcuentasporpagarDetallesView,
@@ -450,6 +455,10 @@ export default function CuentasporpagarPagos({
                                         <span className={("btn btn-sm ")+(qcuentasPorPagarTipoFact=="vencidas"?"btn-danger":"btn-outline-danger")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="vencidas"?"":"vencidas")}>VENCIDAS</span>
                                     </div>
                                 <SearchBarFacturas
+                                    setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
+                                    qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}
+                                    setqinvertircuentasPorPagarDetalles={setqinvertircuentasPorPagarDetalles}
+                                    qinvertircuentasPorPagarDetalles={qinvertircuentasPorPagarDetalles}
                                     selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
                                     cuentaporpagarAprobado={cuentaporpagarAprobado}
                                     setcuentaporpagarAprobado={setcuentaporpagarAprobado}

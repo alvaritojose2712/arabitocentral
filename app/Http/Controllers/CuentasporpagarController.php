@@ -729,6 +729,8 @@ class CuentasporpagarController extends Controller
 
     function selectCuentaPorPagarProveedorDetallesFun($arr) {
         $id_proveedor = $arr["id_proveedor"];
+        $qcampoBusquedacuentasPorPagarDetalles = $arr["qcampoBusquedacuentasPorPagarDetalles"];
+        $qinvertircuentasPorPagarDetalles = $arr["qinvertircuentasPorPagarDetalles"];
         $cuentaporpagarAprobado = $arr["cuentaporpagarAprobado"];
         $categoriacuentasPorPagarDetalles = $arr["categoriacuentasPorPagarDetalles"];
         $tipocuentasPorPagarDetalles = $arr["tipocuentasPorPagarDetalles"];
@@ -823,11 +825,23 @@ class CuentasporpagarController extends Controller
                     break;
                 }
             })
-            ->where(function($q) use ($keys){
-                foreach ($keys as $i => $val) {
-                    $q->orWhere("numfact","LIKE","%$val%");
+            ->where(function($q) use ($keys,$qinvertircuentasPorPagarDetalles){
+
+                if ($qinvertircuentasPorPagarDetalles==0) {
+                    foreach ($keys as $i => $val) {
+                        $q->orWhere("numfact","LIKE","%$val%");
+                    }
+                }else{
+                    $qsi = cuentasporpagar::where(function($q) use ($keys){
+                        foreach ($keys as $i => $val) {
+                            $q->orWhere("numfact","LIKE","%$val%");
+                        }
+                    })->select("id");
+                    
+                    $q->whereNotIn("id",$qsi);
                 }
             });
+            
             $idsOrden = "";
             $getIds = $detalles->get(["id","numfact"]);
             foreach ($keys as $key => $val) {
@@ -838,7 +852,9 @@ class CuentasporpagarController extends Controller
                 }
             }
             $idsOrden = rtrim($idsOrden, ",");
-            $detalles = $detalles->orderByRaw("FIELD(id,$idsOrden)");
+            if ($qinvertircuentasPorPagarDetalles==0) {
+                $detalles = $detalles->orderByRaw("FIELD(id,$idsOrden)");
+            }
     
             foreach ($keys as $key => $split) {
                 $esta = false;
@@ -860,9 +876,9 @@ class CuentasporpagarController extends Controller
             ->when($sucursalcuentasPorPagarDetalles!="",function($q) use ($sucursalcuentasPorPagarDetalles){
                 $q->where("id_sucursal",$sucursalcuentasPorPagarDetalles);
             })
-            ->when($qcuentasPorPagarDetalles!="", function($q) use($qcuentasPorPagarDetalles, $sucursalcuentasPorPagarDetalles) {
-                $q->where(function($q) use ($sucursalcuentasPorPagarDetalles,$qcuentasPorPagarDetalles) {
-                    $q->orWhere("numfact","LIKE","%$qcuentasPorPagarDetalles%")
+            ->when($qcuentasPorPagarDetalles!="", function($q) use($qcuentasPorPagarDetalles, $sucursalcuentasPorPagarDetalles, $qcampoBusquedacuentasPorPagarDetalles) {
+                $q->where(function($q) use ($sucursalcuentasPorPagarDetalles,$qcuentasPorPagarDetalles, $qcampoBusquedacuentasPorPagarDetalles) {
+                    $q->orWhere($qcampoBusquedacuentasPorPagarDetalles,"LIKE","%$qcuentasPorPagarDetalles%")
                     ->when($sucursalcuentasPorPagarDetalles=="",function($qq) use ($qcuentasPorPagarDetalles) {
                         $qq->orWhereIn("id_sucursal",sucursal::where("nombre","LIKE","$qcuentasPorPagarDetalles%")->select("id"));
                     });
@@ -975,6 +991,9 @@ class CuentasporpagarController extends Controller
         } */
         
         $id_proveedor = $req->id_proveedor=="null"?null:$req->id_proveedor;
+
+        $qcampoBusquedacuentasPorPagarDetalles = $req->qcampoBusquedacuentasPorPagarDetalles;
+        $qinvertircuentasPorPagarDetalles = $req->qinvertircuentasPorPagarDetalles;
         $cuentaporpagarAprobado = $req->cuentaporpagarAprobado;
         $categoriacuentasPorPagarDetalles = $req->categoriacuentasPorPagarDetalles;
         $tipocuentasPorPagarDetalles = $req->tipocuentasPorPagarDetalles;
@@ -989,6 +1008,8 @@ class CuentasporpagarController extends Controller
 
         return $this->selectCuentaPorPagarProveedorDetallesFun([
             "id_proveedor" => $id_proveedor,
+            "qcampoBusquedacuentasPorPagarDetalles" => $qcampoBusquedacuentasPorPagarDetalles,
+            "qinvertircuentasPorPagarDetalles" => $qinvertircuentasPorPagarDetalles,
             "cuentaporpagarAprobado" => $cuentaporpagarAprobado,
             "categoriacuentasPorPagarDetalles" => $categoriacuentasPorPagarDetalles,
             "tipocuentasPorPagarDetalles" => $tipocuentasPorPagarDetalles,

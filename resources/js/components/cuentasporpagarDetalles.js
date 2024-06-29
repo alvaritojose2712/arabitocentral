@@ -4,6 +4,11 @@ import  Trmaincuentasporpagar  from "./trmaincuentasporpagar";
 
 
 export default function CuentasporpagarDetalles({
+    setqcampoBusquedacuentasPorPagarDetalles,
+    qcampoBusquedacuentasPorPagarDetalles,
+    setqinvertircuentasPorPagarDetalles,
+    qinvertircuentasPorPagarDetalles,
+
     conciliarCuenta,
     modeEditarFact,
     selectCuentaPorPagarId,
@@ -336,6 +341,11 @@ export default function CuentasporpagarDetalles({
                 <div className="container-fluid p-0 mb-6">
 
                     <SearchBarFacturas
+                        setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
+                        qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}
+                        setqinvertircuentasPorPagarDetalles={setqinvertircuentasPorPagarDetalles}
+                        qinvertircuentasPorPagarDetalles={qinvertircuentasPorPagarDetalles}
+
                         selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
                         cuentaporpagarAprobado={cuentaporpagarAprobado}
                         setcuentaporpagarAprobado={setcuentaporpagarAprobado}
@@ -497,37 +507,37 @@ export default function CuentasporpagarDetalles({
                                     })
                                 : null 
                             }  
-                        {
-                            selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
-                            ? selectCuentaPorPagarId.detalles.map( (e,i) =>
-                                <tbody key={e.id}>
+                            {
+                                selectCuentaPorPagarId?selectCuentaPorPagarId.detalles
+                                ? selectCuentaPorPagarId.detalles.map( (e,i) =>
+                                    <tbody key={e.id}>
 
-                                    {!selectCuentaPorPagarId.fasts_no.length?
-                                        <Trmaincuentasporpagar
-                                            conciliarCuenta={conciliarCuenta}
-                                            e={e}
-                                            i={i}
-                                            selectFactViewDetalles={selectFactViewDetalles}
-                                            dateFormat={dateFormat}
-                                            colorSucursal={colorSucursal}
-                                            moneda={moneda}
-                                            abonarFact={abonarFact}
-                                            showImageFact={showImageFact}
-                                            setSelectCuentaPorPagarDetalle={setSelectCuentaPorPagarDetalle}
-                                            changeSucursal={changeSucursal}
-                                            viewAvanzatedShow={viewAvanzatedShow}
-                                            returnCondicion={returnCondicion}
-                                            dataselectFacts={dataselectFacts}
-                                            setselectFactViewDetalles={setselectFactViewDetalles}
-                                            selectFacts={selectFacts}
-                                        />
-                                        
-                                    :null}
+                                        {!selectCuentaPorPagarId.fasts_no.length || qinvertircuentasPorPagarDetalles==1?
+                                            <Trmaincuentasporpagar
+                                                conciliarCuenta={conciliarCuenta}
+                                                e={e}
+                                                i={i}
+                                                selectFactViewDetalles={selectFactViewDetalles}
+                                                dateFormat={dateFormat}
+                                                colorSucursal={colorSucursal}
+                                                moneda={moneda}
+                                                abonarFact={abonarFact}
+                                                showImageFact={showImageFact}
+                                                setSelectCuentaPorPagarDetalle={setSelectCuentaPorPagarDetalle}
+                                                changeSucursal={changeSucursal}
+                                                viewAvanzatedShow={viewAvanzatedShow}
+                                                returnCondicion={returnCondicion}
+                                                dataselectFacts={dataselectFacts}
+                                                setselectFactViewDetalles={setselectFactViewDetalles}
+                                                selectFacts={selectFacts}
+                                            />
+                                            
+                                        :null}
 
-                                </tbody>
-                            )
-                            : null : null
-                        } 
+                                    </tbody>
+                                )
+                                : null : null
+                            } 
                         
                     </table>
 

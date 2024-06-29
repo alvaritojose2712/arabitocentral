@@ -77,13 +77,13 @@ selectFacts,
                 </td>
 
                 <td className=" text-right">
-                    {selectFactViewDetalles!=e.id || !e.pagos.length?
+                    {selectFactViewDetalles!=e.id || !e.pagos?
                     <>
                         <span className={(e.monto<0? "text-danger": "text-success")+(" fs-3 fw-bold ")}>{moneda(e.monto)}</span>
                     </>:null}
                 </td>
                 <td className="text-right">
-                {selectFactViewDetalles!=e.id || !e.pagos.length?
+                {selectFactViewDetalles!=e.id || !e.pagos?
                     <>
                         {e.monto_abonado?
                             <>
@@ -100,7 +100,7 @@ selectFacts,
                         <i className="fa fa-question text-sinapsis fa-3x m-2" aria-hidden="true"></i>
                     :null}
 
-                    {selectFactViewDetalles!=e.id || !e.pagos.length?
+                    {selectFactViewDetalles!=e.id || !e.pagos?
                         <>
                             {e.monto<0?
                                 <span className={(e.balance<0? "text-danger": "text-success")+(" fs-3 fw-bold")}> {moneda(e.balance)}</span>
@@ -132,7 +132,7 @@ selectFacts,
 
                 </tr>
 
-                {e.pagos.length?
+                {e.pagos?
                     <>
                         <tr className={(selectFactViewDetalles==e.id?"bg-success-superlight":null)+" border-bottom-5"}>
                             <th colSpan={5}></th>

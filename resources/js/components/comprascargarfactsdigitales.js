@@ -3,6 +3,11 @@ import  SearchBarFacturas  from "./searchBarFacturas";
 import Modalselectfile from "./modalselectfile";
 
 export default function Comprascargarfactsdigitales({
+    setqcampoBusquedacuentasPorPagarDetalles,
+    qcampoBusquedacuentasPorPagarDetalles,
+    setqinvertircuentasPorPagarDetalles,
+    qinvertircuentasPorPagarDetalles,
+
     selectCuentaPorPagarProveedorDetallesFun,
     cuentaporpagarAprobado,
     setcuentaporpagarAprobado,
@@ -62,6 +67,11 @@ export default function Comprascargarfactsdigitales({
 
 
         <SearchBarFacturas
+            setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
+            qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}
+            setqinvertircuentasPorPagarDetalles={setqinvertircuentasPorPagarDetalles}
+            qinvertircuentasPorPagarDetalles={qinvertircuentasPorPagarDetalles}
+
             selectCuentaPorPagarProveedorDetallesFun={selectCuentaPorPagarProveedorDetallesFun}
             cuentaporpagarAprobado={cuentaporpagarAprobado}
             setcuentaporpagarAprobado={setcuentaporpagarAprobado}
@@ -92,9 +102,9 @@ export default function Comprascargarfactsdigitales({
                                 <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="semipagadas"?"btn-primary":"btn-outline-primary")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="semipagadas"?"":"semipagadas")}>ABONADAS</span>
                                 <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="porvencer"?"btn-sinapsis":"btn-outline-sinapsis")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="porvencer"?"":"porvencer")}>POR VENCER</span>
                                 <span className={("btn btn-lg ")+(qcuentasPorPagarTipoFact=="vencidas"?"btn-danger":"btn-outline-danger")} onClick={()=>setqcuentasPorPagarTipoFact(qcuentasPorPagarTipoFact=="vencidas"?"":"vencidas")}>VENCIDAS</span>
-                            </div> */}
+                            </div> 
                             <button className="btn btn-warning fs-2" onClick={()=>setviewmainPanel("comprasmodalselectfactsfisicas")}>ANCLAR <i className="fa fa-link"></i></button>
-
+                            */}
 
                         </th>
                         <th colSpan={4} className="text-right">
@@ -167,7 +177,7 @@ export default function Comprascargarfactsdigitales({
                             {e.type=="update" || e.type=="new" || e.type=="delete"?
                                 <>
                                     <td colSpan={2}>
-                                        {numfact_select_imagen?
+                                       {/*  {numfact_select_imagen?
                                             <div className="text-center">
                                                 <div>
                                                     <img src={numfact_select_imagen.ruta} width={150} onClick={()=>showFilescxp(numfact_select_imagen.ruta)} className="pointer"/>
@@ -176,7 +186,7 @@ export default function Comprascargarfactsdigitales({
                                             </div>
                                         :null}
                                         <button className="btn btn-warning w-100" onClick={()=>setviewmainPanel("comprasmodalselectfactsfisicas")}><i className="fa fa-link"></i></button>
-
+ */}
                                     </td>
                                     <td>
                                         <input disabled={type(e.type)} type="date" className="form-control"
