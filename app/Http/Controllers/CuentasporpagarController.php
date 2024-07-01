@@ -729,8 +729,8 @@ class CuentasporpagarController extends Controller
 
     function selectCuentaPorPagarProveedorDetallesFun($arr) {
         $id_proveedor = $arr["id_proveedor"];
-        $qcampoBusquedacuentasPorPagarDetalles = $arr["qcampoBusquedacuentasPorPagarDetalles"];
-        $qinvertircuentasPorPagarDetalles = $arr["qinvertircuentasPorPagarDetalles"];
+        $qcampoBusquedacuentasPorPagarDetalles = isset($arr["qcampoBusquedacuentasPorPagarDetalles"])?$arr["qcampoBusquedacuentasPorPagarDetalles"]:"numfact";
+        $qinvertircuentasPorPagarDetalles = isset($arr["qinvertircuentasPorPagarDetalles"])?$arr["qinvertircuentasPorPagarDetalles"]:"0";
         $cuentaporpagarAprobado = $arr["cuentaporpagarAprobado"];
         $categoriacuentasPorPagarDetalles = $arr["categoriacuentasPorPagarDetalles"];
         $tipocuentasPorPagarDetalles = $arr["tipocuentasPorPagarDetalles"];
