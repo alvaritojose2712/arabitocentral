@@ -114,6 +114,8 @@ class PuntosybiopagosController extends Controller
     }
 
     function getGastosDistribucion(Request $req) {
+
+        
         $gastosQFecha = $req->gastosQFecha;
         $gastosQFechaHasta = $req->gastosQFechaHasta;
 
@@ -124,6 +126,47 @@ class PuntosybiopagosController extends Controller
         $typecaja = "";
         $gastosorder = "desc";
         $gastosfieldorder = "montodolar";
+
+
+        $pagoproveedor = (new CuentasporpagarController)->selectCuentaPorPagarProveedorDetallesFun([
+            "fechasMain1" => $gastosQFecha,
+            "fechasMain2" => $gastosQFechaHasta,
+
+            "categoriacuentasPorPagarDetalles" => "",
+            "cuentaporpagarAprobado" => 1,
+            "id_facts_force" => null,
+            "id_proveedor" => "",
+            "numcuentasPorPagarDetalles" => "",
+            "OrdercuentasPorPagarDetalles" => "desc",
+            "qCampocuentasPorPagarDetalles" => "updated_at",
+            "qcuentasPorPagarDetalles" => "",
+            "qcuentasPorPagarTipoFact" => "abonos",
+            "sucursalcuentasPorPagarDetalles" => "",
+            "tipocuentasPorPagarDetalles" => "",
+            "type" => "buscar",
+        ]);
+
+        $byproveedororden = [];
+        $byproveedor = $pagoproveedor["detalles"]->groupBy(["id_proveedor"]);
+
+        foreach ($byproveedor as $id_proveedor => $dataproveedors) {
+            $descripcion = "";
+            $rif = "";
+            if ($dataproveedors->count()) {
+                $descripcion = $dataproveedors[0]["proveedor"]["descripcion"];
+                $rif = $dataproveedors[0]["proveedor"]["rif"];
+            }
+            array_push($byproveedororden, [
+                "id_proveedor" => $id_proveedor,
+                "sum" => $dataproveedors->sum("monto"),
+                "descripcion" => $descripcion,
+                "rif" => $rif,
+                "data" => $dataproveedors,
+            ]);
+        }
+        array_multisort(array_column($byproveedororden,"sum"),SORT_DESC,$byproveedororden);
+        $pagoproveedor["byproveedor"] = $byproveedororden;
+        //$pagoproveedor["bysucursal"] = $pagoproveedor["detalles"]->groupBy(["id_sucursal"]);
 
         $all = $this->getGastosFun([
             "gastosQ" => $gastosQ,
@@ -271,6 +314,7 @@ class PuntosybiopagosController extends Controller
         return [
             "distribucionGastosCat" => $distribucionGastosCatMod,
             "distribucionGastosSucursal" => $distribucionGastosSucursalMod,
+            "pagoproveedor" => $pagoproveedor,
         ];
     }
 

@@ -99,35 +99,12 @@ export default function Gastos({
 	indexsubviewsucursaldetalles,
 	setindexsubviewsucursaldetalles,
 
+	indexsubviewproveedordetalles,
+	setindexsubviewproveedordetalles,
+
 }) {
 
-	/* useEffect(()=>{
-		getPersonal(data=>{
-			if (data.personal.length) {
-				let id = data.personal[0].id
-				if (qNomina) {
-					setgastosBeneficiario(id)
-				}
-			}
-		})
-		if (qNomina=="") {
-			setgastosBeneficiario("")
-		}
-	},[qNomina]) */
-
-	/* useEffect(()=>{
-		getSucursales(qSucursal,data=>{
-			if (data.length) {
-				let id = data[0].id
-				if (qSucursal) {
-					setgastosBeneficiario(id)
-				}
-			}
-		})
-		if (qSucursal=="") {
-			setgastosBeneficiario("")
-		}
-	},[qSucursal]) */
+	
 
 	useEffect(()=>{
 		getGastos()
@@ -517,6 +494,8 @@ export default function Gastos({
 									</>
 								)
 							:null}
+							
+								
 						</div>
 						<div className="col">
 							{distribucionGastosCat.distribucionGastosSucursal?
@@ -589,6 +568,65 @@ export default function Gastos({
 							</>
 							:null}
 						</div>
+					</div>
+					<div className="">
+						<hr />
+
+						{distribucionGastosCat.pagoproveedor?
+							distribucionGastosCat.pagoproveedor.byproveedor?
+								<>
+									<Chart
+										options={{chart: {width: 1200,type: 'pie',}
+										,dataLabels: {
+											style: {
+											colors: ['#000','#000','#000']
+											}
+										}
+										,colors: [] 
+										,labels: distribucionGastosCat.pagoproveedor.byproveedor.map(e=>e.descripcion)
+										,responsive: [{breakpoint: 1200,options: {chart: {width: 200},legend: {position: 'bottom'}}}]}}
+										series={
+											distribucionGastosCat.pagoproveedor.byproveedor.map(e=>e.sum)
+										} 
+										type="pie" width="1200"
+									/>
+									<table className="table">
+
+										{distribucionGastosCat.pagoproveedor.byproveedor.map((e,i)=>
+											
+											<>
+												<tr key={i} onClick={()=>setindexsubviewproveedordetalles(indexsubviewproveedordetalles==i?null:i)}>
+													<td></td>
+													<td>
+														<button className={"btn w-100 fw-bolder fs-3"}>
+															{e.descripcion}
+														</button>
+													</td>
+													<td></td>
+													<td colSpan={2} className="bg-warning text-right text-danger fs-4">
+														{moneda(e["sum"])}
+													</td>
+												</tr>
+												{indexsubviewproveedordetalles==i?
+													e.data.map((eee,iii)=>
+														<tr key={iii}>
+															<td className="text-muted">{eee.created_at}</td>
+															<td>{eee.descripcion}</td>
+															<td></td>
+															<td colSpan={2} className=" text-right text-danger fs-4">
+																{moneda(eee["monto"])}
+															</td>
+														</tr>
+													)
+												
+												:null}
+											</>
+											
+										)}
+									</table>
+								</>
+							:null
+						:null}
 					</div>
 				</>
 			:null}

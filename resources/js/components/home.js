@@ -3943,6 +3943,8 @@ function formatAmount( number, simbol ) {
   const [qbuscarcat,setqbuscarcat] = useState("")
 	const [indexviewcatdetalles,setindexviewcatdetalles] = useState(null)
 	const [indexsubviewcatdetalles,setindexsubviewcatdetalles] = useState(null)
+	const [indexsubviewproveedordetalles,setindexsubviewproveedordetalles] = useState(null)
+  
 
 	const [indexviewsucursaldetalles,setindexviewsucursaldetalles] = useState(null)
 	const [indexsubviewsucursaldetalles,setindexsubviewsucursaldetalles] = useState(null)
@@ -5763,12 +5765,16 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5]) && viewmainPanel === "gastos" && 
             <Gastos
+              
+              indexsubviewproveedordetalles={indexsubviewproveedordetalles}
+              setindexsubviewproveedordetalles={setindexsubviewproveedordetalles}
               qbuscarcat={qbuscarcat}
               setqbuscarcat={setqbuscarcat}
               indexviewcatdetalles={indexviewcatdetalles}
               setindexviewcatdetalles={setindexviewcatdetalles}
               indexsubviewcatdetalles={indexsubviewcatdetalles}
               setindexsubviewcatdetalles={setindexsubviewcatdetalles}
+
               indexviewsucursaldetalles={indexviewsucursaldetalles}
               setindexviewsucursaldetalles={setindexviewsucursaldetalles}
               indexsubviewsucursaldetalles={indexsubviewsucursaldetalles}
