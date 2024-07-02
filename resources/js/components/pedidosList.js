@@ -50,7 +50,7 @@ export default function PedidosList({
 						{/* <div className={" m-1 pointer "+(qestadopedido=="0"?"select-fact bg-info":"select-fact")} onClick={()=>setqestadopedido("0")}>
 							Pend. <i className="fa fa-exclamation"></i>
 						</div> */}
-						<div className={" m-1 pointer " + (qestadopedido==""?"select-fact bg-danger":"select-fact")} onClick={()=>setqestadopedido("")}>
+						<div className={" m-1 pointer " + (qestadopedido==""?"select-fact":"select-fact")} onClick={()=>setqestadopedido("")}>
 							Todos. <i className="fa fa-clock-o"></i> 
 						</div>
 						<div className={" m-1 pointer " + (qestadopedido=="1"?"select-fact bg-danger":"select-fact")} onClick={()=>setqestadopedido("1")}>
@@ -84,7 +84,7 @@ export default function PedidosList({
 							{e.estado==2? <button className="btn btn-success">PROCESADO</button>:null}
 							<h3>
 								<b>{e.sucursal.nombre}</b>
-								<span className="btn btn-secondary m-2">{e.id}</span>
+								<span className="btn btn-secondary m-2">{e.id}</span> - <span className="btn btn-secondary m-2">{e.idinsucursal}</span>
 							</h3>
 							<small className="text-muted">{e.created_at}</small>
 						</div>

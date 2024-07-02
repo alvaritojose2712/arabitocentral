@@ -18809,7 +18809,7 @@ function PedidosList(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: "radios d-flex",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-            className: " m-1 pointer " + (qestadopedido == "" ? "select-fact bg-danger" : "select-fact"),
+            className: " m-1 pointer " + (qestadopedido == "" ? "select-fact" : "select-fact"),
             onClick: function onClick() {
               return setqestadopedido("");
             },
@@ -18876,6 +18876,9 @@ function PedidosList(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
                 className: "btn btn-secondary m-2",
                 children: e.id
+              }), " - ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                className: "btn btn-secondary m-2",
+                children: e.idinsucursal
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("small", {
               className: "text-muted",

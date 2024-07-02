@@ -375,7 +375,13 @@ class PedidosController extends Controller
 
         return pedidos::with(["sucursal","items"=>function($q){
             $q->with("producto");
-        }])->where("id","LIKE","$qpedido%")
+        }])
+        ->when($qpedido, function($q) use ($qpedido) {
+            $q->where(function($q) use($qpedido) {
+                $q->orwhere("id","LIKE","$qpedido%")
+                ->orwhere("idinsucursal","LIKE","$qpedido%");
+            });
+        })
         ->when($qestadopedido, function($q) use($qestadopedido) {
             $q->where("estado",$qestadopedido);
         })
