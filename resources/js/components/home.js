@@ -3999,6 +3999,7 @@ function formatAmount( number, simbol ) {
     setgastosBanco("")
     setlistBeneficiario([])
     setqbuscarcat("")
+    setiscomisiongasto(0)
   }
   const setEditGastosInput = id => {
     let fil = gastosData.filter(e=>e.id===id)

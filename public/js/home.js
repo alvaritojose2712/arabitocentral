@@ -76569,6 +76569,7 @@ function Home() {
     setgastosBanco("");
     setlistBeneficiario([]);
     setqbuscarcat("");
+    setiscomisiongasto(0);
   };
   var setEditGastosInput = function setEditGastosInput(id) {
     var fil = gastosData.filter(function (e) {
