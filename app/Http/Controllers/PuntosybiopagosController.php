@@ -363,7 +363,7 @@ class PuntosybiopagosController extends Controller
 
         $gastos =  cajas::with(["sucursal","cat"])
         ->when($gastosQ,function($q) use ($gastosQ){
-            $q->where("concepto",$gastosQ);
+            $q->where("concepto","LIKE","%$gastosQ%");
         })
         ->when($gastosQFecha,function($q) use ($gastosQFecha,$gastosQFechaHasta) {
             $q->whereBetween("fecha", [$gastosQFecha, !$gastosQFechaHasta?$gastosQFecha:$gastosQFechaHasta]);
