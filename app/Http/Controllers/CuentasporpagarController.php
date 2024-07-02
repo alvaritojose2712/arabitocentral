@@ -852,7 +852,7 @@ class CuentasporpagarController extends Controller
                 }
             }
             $idsOrden = rtrim($idsOrden, ",");
-            if ($qinvertircuentasPorPagarDetalles==0) {
+            if ($qinvertircuentasPorPagarDetalles==0&&$detalles->count()) {
                 $detalles = $detalles->orderByRaw("FIELD(id,$idsOrden)");
             }
     
