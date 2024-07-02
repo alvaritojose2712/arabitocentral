@@ -146,6 +146,9 @@ class NominaController extends Controller
         $qSucursalNomina = isset($req->qSucursalNomina)? $req->qSucursalNomina: "";
         $qCargoNomina = isset($req->qCargoNomina)? $req->qCargoNomina: "";
 
+        $qSucursalNominaOrden = isset($req->qSucursalNominaOrden) ? $req->qSucursalNominaOrden:"desc";
+        $qSucursalNominaOrdenCampo = isset($req->qSucursalNominaOrdenCampo) ? $req->qSucursalNominaOrdenCampo:"sumPrestamos";
+
         $fechasMain1 = isset($req->fechasMain1)? $req->fechasMain1: "";
         $fechasMain2 = isset($req->fechasMain2)? $req->fechasMain2: "";
 
@@ -228,7 +231,7 @@ class NominaController extends Controller
         })
         ->toArray();
         
-        array_multisort(array_column($personal,"sumPrestamos"), SORT_ASC, $personal);
+        array_multisort(array_column($personal,$qSucursalNominaOrdenCampo), $qSucursalNominaOrden=="desc"?SORT_DESC:SORT_ASC, $personal);
 
         $estadisticas = [];
 

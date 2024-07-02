@@ -44,6 +44,10 @@ export default function NominaPersonal({
 
 	nominaid_sucursal_disponible,
 	setnominaid_sucursal_disponible,
+	qSucursalNominaOrden,
+	setqSucursalNominaOrden,
+	qSucursalNominaOrdenCampo,
+	setqSucursalNominaOrdenCampo,
 }) {
 
     useEffect(() => {
@@ -280,6 +284,27 @@ export default function NominaPersonal({
 									    <option key={e.id} value={e.id}>{e.nombre}</option>
                                     )}
 								</select>
+
+
+								<select
+									value={qSucursalNominaOrden}
+									onChange={e => setqSucursalNominaOrden(e.target.value)}
+									className="form-control">
+									<option value="asc">Ascendente</option>
+									<option value="desc">Descendente</option>
+								</select>
+
+								<select
+									value={qSucursalNominaOrdenCampo}
+									onChange={e => setqSucursalNominaOrdenCampo(e.target.value)}
+									className="form-control">
+									<option value="sumPrestamos">DEUDA</option>
+									<option value="nominanombre">NOMBRE</option>
+									<option value="nominacargo">CARGO</option>
+									<option value="nominasucursal">SUCURSAL</option>
+								</select>
+
+
 
                                 <select
 									value={qCargoNomina}

@@ -2096,6 +2096,9 @@ function formatAmount( number, simbol ) {
   const [qSucursalNomina, setqSucursalNomina] = useState("")
   const [qCargoNomina, setqCargoNomina] = useState("")
 
+  const [qSucursalNominaOrden,setqSucursalNominaOrden] = useState("desc")
+  const [qSucursalNominaOrdenCampo,setqSucursalNominaOrdenCampo] = useState("")
+
   const [nominaData, setnominaData] = useState([])
 
   const [nominapagodetalles, setnominapagodetalles] = useState({})
@@ -2944,6 +2947,8 @@ function formatAmount( number, simbol ) {
       qNomina,
       qSucursalNomina,
       qCargoNomina,
+      qSucursalNominaOrden,
+      qSucursalNominaOrdenCampo,
       type: subViewNomina
     }).then(({ data }) => {
       setnominaData(data)
@@ -4505,6 +4510,11 @@ function formatAmount( number, simbol ) {
                       setnominaid_sucursal_disponible={setnominaid_sucursal_disponible}
                       indexSelectNomina={indexSelectNomina}
                       setIndexSelectNomina={setIndexSelectNomina}
+
+                      qSucursalNominaOrden={qSucursalNominaOrden}
+                      setqSucursalNominaOrden={setqSucursalNominaOrden}
+                      qSucursalNominaOrdenCampo={qSucursalNominaOrdenCampo}
+                      setqSucursalNominaOrdenCampo={setqSucursalNominaOrdenCampo}
                       qNomina={qNomina}
                       setqNomina={setqNomina}
                       qSucursalNomina={qSucursalNomina}
