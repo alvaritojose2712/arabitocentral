@@ -66,7 +66,7 @@ class NominaController extends Controller
         }])
         ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
         ->where("activo",1)
-        ->where("nominasucursal", $id_origen)
+        ->where("id_sucursal_disponible", $id_origen)
         ->orderBy("nominanombre", "asc")
         ->orderBy("activo", "desc")
         ->get()
