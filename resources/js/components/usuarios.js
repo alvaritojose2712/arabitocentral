@@ -161,7 +161,7 @@ export default function Usuarios({
 									
 									<option value="11">CAJA DE SUCURSAL</option>
 									<option value="12">SUPERVISORA DE CAJA</option>
-									<option value="13">DICI</option>
+									<option value="14">DICI</option>
 
 								</select>
 							</div>

@@ -586,7 +586,7 @@ export default function Gastos({
 										,labels: distribucionGastosCat.pagoproveedor.byproveedor.map(e=>e.descripcion)
 										,responsive: [{breakpoint: 1200,options: {chart: {width: 200},legend: {position: 'bottom'}}}]}}
 										series={
-											distribucionGastosCat.pagoproveedor.byproveedor.map(e=>e.sum)
+											distribucionGastosCat.pagoproveedor.byproveedor.map(e=>(e.sum))
 										} 
 										type="pie" width="1200"
 									/>

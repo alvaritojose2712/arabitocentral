@@ -5285,7 +5285,7 @@ function formatAmount( number, simbol ) {
           </>
           }
 
-          {permiso([1,2,10,13]) && viewmainPanel === "dici" &&
+          {permiso([1,2,10,14]) && viewmainPanel === "dici" &&
           <>
             <Inventario
               setInvnum={setInvnum}

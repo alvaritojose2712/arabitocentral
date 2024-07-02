@@ -20678,7 +20678,7 @@ function Usuarios(_ref) {
                   value: "12",
                   children: "SUPERVISORA DE CAJA"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
-                  value: "13",
+                  value: "14",
                   children: "DICI"
                 })]
               })]
@@ -77652,7 +77652,7 @@ function Home() {
             showPedidoBarras: showPedidoBarras,
             aprobarRevisionPedido: aprobarRevisionPedido
           })]
-        }), permiso([1, 2, 10, 13]) && viewmainPanel === "dici" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
+        }), permiso([1, 2, 10, 14]) && viewmainPanel === "dici" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_inventario__WEBPACK_IMPORTED_MODULE_53__["default"], {
             setInvnum: setInvnum,
             Invnum: Invnum,
