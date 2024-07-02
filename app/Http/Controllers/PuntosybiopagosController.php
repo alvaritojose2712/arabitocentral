@@ -521,8 +521,8 @@ class PuntosybiopagosController extends Controller
         if ($modeMoneda=="dolar") {
             $montoDolar = abs($gastosMonto_dolar)*-1;
         }elseif ($modeMoneda=="bs"){
-            $montoBs = abs($gastosMonto)*-1;
-            $taseBs = abs($gastosTasa);
+            $montoBs = abs(floatval($gastosMonto))*-1;
+            $taseBs = abs(floatval($gastosTasa));
         }
         $tipo = "Transferencia";
         if (strtoupper($gastosBanco)=="EFECTIVO") {
