@@ -226,55 +226,6 @@ export default function CuentasporpagarDetalles({
                     <table className="table table-borderless table-sm">
                         <tbody>
                             
-                                {dataCuenta.montobs1?
-                                    <tr>
-                                        <td><span className="text-success">{moneda(dataCuenta.montobs1)}</span> - <span className="text-sinapsis">{moneda(dataCuenta.tasabs1)}</span></td>
-                                        <td>
-                                            <span className="text-muted">#{dataCuenta.refbs1}</span> - <span>{dataCuenta.metodobs1}</span>
-                                        </td>
-                                    </tr>
-                                :null}
-
-
-                                {dataCuenta.montobs2?
-                                    <tr>
-                                        <td><span className="text-success">{moneda(dataCuenta.montobs2)}</span> - <span className="text-sinapsis">{moneda(dataCuenta.tasabs2)}</span></td>
-                                        <td>
-                                            <span className="text-muted">#{dataCuenta.refbs2}</span> - <span>{dataCuenta.metodobs2}</span>
-                                        </td>
-                                    </tr>
-                                :null}
-
-
-                                {dataCuenta.montobs3?
-                                    <tr>
-                                        <td><span className="text-success">{moneda(dataCuenta.montobs3)}</span> - <span className="text-sinapsis">{moneda(dataCuenta.tasabs3)}</span></td>
-                                        <td>
-                                            <span className="text-muted">#{dataCuenta.refbs3}</span> - <span>{dataCuenta.metodobs3}</span>
-                                        </td>
-                                    </tr>
-                                :null}
-
-
-                                {dataCuenta.montobs4?
-                                    <tr>
-                                        <td><span className="text-success">{moneda(dataCuenta.montobs4)}</span> - <span className="text-sinapsis">{moneda(dataCuenta.tasabs4)}</span></td>
-                                        <td>
-                                            <span className="text-muted">#{dataCuenta.refbs4}</span> - <span>{dataCuenta.metodobs4}</span>
-                                        </td>
-                                    </tr>
-                                :null}
-
-                                {dataCuenta.montobs5?
-                                    <tr>
-                                        <td><span className="text-success">{moneda(dataCuenta.montobs5)}</span> - <span className="text-sinapsis">{moneda(dataCuenta.tasabs5)}</span></td>
-                                        <td>
-                                            <span className="text-muted">#{dataCuenta.refbs5}</span> - <span>{dataCuenta.metodobs5}</span>
-                                        </td>
-                                    </tr>
-                                :null}
-                                
-                                
                              
                             {dataCuenta.monto_abonado && dataCuenta.pagos?
                             <>

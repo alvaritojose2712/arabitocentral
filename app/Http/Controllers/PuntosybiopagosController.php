@@ -602,7 +602,7 @@ class PuntosybiopagosController extends Controller
                         "tasa" => $e["tasa"],
                         
                         "monto" => $e["monto"]*($comisionpagomovilinterban/100),
-                        "monto_liquidado" => $e["monto"],
+                        "monto_liquidado" => $e["monto"]*($comisionpagomovilinterban/100),
                         "monto_dolar" => $e["monto_dolar"]*($comisionpagomovilinterban/100),
         
                         "origen" => 2,

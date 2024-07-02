@@ -173,11 +173,13 @@ export default function Gastos({
 							</div>
 							<div className="row">
 								<div className="col">
-									<small className="text-success fs-4">{moneda(parseFloat(removeMoneda(gastosMonto))/parseFloat((gastosTasa)))} $</small>
-									<div className="input-group">
+									<div className="input-group w-50 mt-1">
 										<button className={("btn btn")+(iscomisiongasto==1?"-success":"-danger")} onClick={()=>setiscomisiongasto(iscomisiongasto==1?0:1)}>Genera Comisión</button>
-										<input type="text" className="form-control" size={5} placeholder="% Comión" value={comisionpagomovilinterban} onChange={event=>setcomisionpagomovilinterban(event.preventDefault())}/>
+										{iscomisiongasto?
+											<input type="text" disabled={true} className="form-control" size={5} placeholder="% Comión" value={comisionpagomovilinterban} onChange={event=>setcomisionpagomovilinterban(event.preventDefault())}/>
+										:null}
 									</div>
+									<small className="text-success fs-4">{moneda(parseFloat(removeMoneda(gastosMonto))/parseFloat((gastosTasa)))} $</small>
 								</div>
 							</div>
 						</div>

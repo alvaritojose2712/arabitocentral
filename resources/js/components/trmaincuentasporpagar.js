@@ -132,6 +132,59 @@ selectFacts,
 
                 </tr>
 
+                {e.montobs1!="0.00"?
+                    <tr>
+                        <td colSpan={10}></td>
+                        <td>
+                            <span className="text-muted">#{e.refbs1}</span> - <span>{e.metodobs1}</span>
+                        </td>
+                        <td><span className="text-sinapsis">{moneda(e.tasabs1)}</span> - <span className="text-success">{moneda(e.montobs1)} Bs.</span></td>
+                    </tr>
+                :null}
+
+
+                {e.montobs2!="0.00"?
+                    <tr>
+                        <td colSpan={10}></td>
+                        <td>
+                            <span className="text-muted">#{e.refbs2}</span> - <span>{e.metodobs2}</span>
+                        </td>
+                        <td><span className="text-sinapsis">{moneda(e.tasabs2)}</span> - <span className="text-success">{moneda(e.montobs2)} Bs.</span></td>
+                    </tr>
+                :null}
+
+
+                {e.montobs3!="0.00"?
+                    <tr>
+                        <td colSpan={10}></td>
+                        <td>
+                            <span className="text-muted">#{e.refbs3}</span> - <span>{e.metodobs3}</span>
+                        </td>
+                        <td><span className="text-sinapsis">{moneda(e.tasabs3)}</span> - <span className="text-success">{moneda(e.montobs3)} Bs.</span></td>
+                    </tr>
+                :null}
+
+
+                {e.montobs4!="0.00"?
+                    <tr>
+                        <td colSpan={10}></td>
+                        <td>
+                            <span className="text-muted">#{e.refbs4}</span> - <span>{e.metodobs4}</span>
+                        </td>
+                        <td><span className="text-sinapsis">{moneda(e.tasabs4)}</span> - <span className="text-success">{moneda(e.montobs4)} Bs.</span></td>
+                    </tr>
+                :null}
+
+                {e.montobs5!="0.00"?
+                    <tr>
+                        <td colSpan={10}></td>
+                        <td>
+                            <span className="text-muted">#{e.refbs5}</span> - <span>{e.metodobs5}</span>
+                        </td>
+                        <td><span className="text-sinapsis">{moneda(e.tasabs5)}</span> - <span className="text-success">{moneda(e.montobs5)} Bs.</span></td>
+                    </tr>
+                :null}
+
                 {e.pagos?
                     <>
                         <tr className={(selectFactViewDetalles==e.id?"bg-success-superlight":null)+" border-bottom-5"}>
