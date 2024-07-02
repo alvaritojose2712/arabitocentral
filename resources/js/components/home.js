@@ -3837,6 +3837,9 @@ function formatAmount( number, simbol ) {
   const [gastosQFecha,setgastosQFecha] = useState("")
   const [gastosQFechaHasta,setgastosQFechaHasta] = useState("")
 
+  const [iscomisiongasto,setiscomisiongasto] = useState("")
+  const [comisionpagomovilinterban,setcomisionpagomovilinterban] = useState("0.3")
+
   const [gastoscatgeneral, setgastoscatgeneral] = useState("")
   const [gastosingreso_egreso, setgastosingreso_egreso] = useState("")
   const [gastostypecaja, setgastostypecaja] = useState("")
@@ -3920,6 +3923,9 @@ function formatAmount( number, simbol ) {
         modeMoneda,
         modeEjecutor,
         listBeneficiario,
+
+        iscomisiongasto,
+        comisionpagomovilinterban,
       }).then(res=>{
         if (res.data.estado) {
           getGastos()
@@ -5770,7 +5776,11 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5]) && viewmainPanel === "gastos" && 
             <Gastos
-              
+              setiscomisiongasto={setiscomisiongasto}
+              iscomisiongasto={iscomisiongasto}
+              comisionpagomovilinterban={comisionpagomovilinterban}
+              setcomisionpagomovilinterban={setcomisionpagomovilinterban}
+
               indexsubviewproveedordetalles={indexsubviewproveedordetalles}
               setindexsubviewproveedordetalles={setindexsubviewproveedordetalles}
               qbuscarcat={qbuscarcat}

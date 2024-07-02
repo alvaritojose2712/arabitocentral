@@ -507,6 +507,12 @@ class PuntosybiopagosController extends Controller
         $gastosBeneficiario = $req->gastosBeneficiario;
         $modeEjecutor = $req->modeEjecutor;
         $listBeneficiario = $req->listBeneficiario;
+
+        $iscomisiongasto = $req->iscomisiongasto;
+        $comisionpagomovilinterban = $req->comisionpagomovilinterban;
+
+        $catcompg = catcajas::where("nombre","CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL")->first();
+
         
         $montoDolar = 0;
         $montoBs = 0;
@@ -581,6 +587,28 @@ class PuntosybiopagosController extends Controller
             ]);
             if ($p) {
                 $num++;
+
+                if ($iscomisiongasto==1) {
+                    puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[
+                        "loteserial" => "COMISION ".$gastosDescripcion.($divisor>1?(" 1/".$divisor):""),
+                        "banco" => $gastosBanco,
+                        "categoria" => $catcompg->id,
+                        "fecha" => $gastosFecha,
+                        "fecha_liquidacion" => $gastosFecha,
+                        "tipo" => $tipo,
+        
+                        "id_sucursal" => $e["id_sucursal"],
+                        "id_beneficiario" => $e["id_beneficiario"],
+                        "tasa" => $e["tasa"],
+                        
+                        "monto" => $e["monto"]*($comisionpagomovilinterban/100),
+                        "monto_liquidado" => $e["monto"],
+                        "monto_dolar" => $e["monto_dolar"]*($comisionpagomovilinterban/100),
+        
+                        "origen" => 2,
+                        "id_usuario" => 1,
+                    ]);
+                }
             }
         }
         return [

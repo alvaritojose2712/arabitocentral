@@ -102,6 +102,11 @@ export default function Gastos({
 	indexsubviewproveedordetalles,
 	setindexsubviewproveedordetalles,
 
+	setiscomisiongasto,
+	iscomisiongasto,
+	comisionpagomovilinterban,
+	setcomisionpagomovilinterban,
+
 }) {
 
 	
@@ -169,6 +174,10 @@ export default function Gastos({
 							<div className="row">
 								<div className="col">
 									<small className="text-success fs-4">{moneda(parseFloat(removeMoneda(gastosMonto))/parseFloat((gastosTasa)))} $</small>
+									<div className="input-group">
+										<button className={("btn btn")+(iscomisiongasto==1?"-success":"-danger")} onClick={()=>setiscomisiongasto(iscomisiongasto==1?0:1)}>Genera Comisión</button>
+										<input type="text" className="form-control" size={5} placeholder="% Comión" value={comisionpagomovilinterban} onChange={event=>setcomisionpagomovilinterban(event.preventDefault())}/>
+									</div>
 								</div>
 							</div>
 						</div>
