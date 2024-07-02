@@ -10875,7 +10875,24 @@ function Gastos(_ref) {
         },
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "input-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("select", {
+            className: "form-control",
+            value: gastosQsucursal,
+            onChange: function onChange(e) {
+              return setgastosQsucursal(e.target.value);
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
+              className: "list-group-item",
+              value: "",
+              children: "-SUCURSAL-"
+            }), sucursales.length ? sucursales.map(function (e) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
+                className: "list-group-item ",
+                value: e.id,
+                children: e.codigo
+              }, e.id);
+            }) : null]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
             type: "date",
             className: "form-control fs-6",
             value: gastosQFecha,
@@ -76417,7 +76434,8 @@ function Home() {
   var getGastosDistribucion = function getGastosDistribucion() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getGastosDistribucion({
       gastosQFecha: gastosQFecha,
-      gastosQFechaHasta: gastosQFechaHasta
+      gastosQFechaHasta: gastosQFechaHasta,
+      gastosQsucursal: gastosQsucursal
     }).then(function (res) {
       var data = res.data;
       setdistribucionGastosCat(data);

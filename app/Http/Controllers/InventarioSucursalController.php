@@ -498,9 +498,9 @@ class InventarioSucursalController extends Controller
             "id_sucursal" => $id_sucursal,
             "codigo_barras" => $arr["codigo_barras"],
             "codigo_proveedor" => $arr["codigo_proveedor"],
-            "id_proveedor" => $arr["id_proveedor"],
+            /* "id_proveedor" => $arr["id_proveedor"],
             "id_categoria" => $arr["id_categoria"],
-            "id_marca" => $arr["id_marca"],
+            "id_marca" => $arr["id_marca"], */
             "unidad" => $arr["unidad"],
             "id_deposito" => $arr["id_deposito"],
             "descripcion" => $arr["descripcion"],

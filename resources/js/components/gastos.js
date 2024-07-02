@@ -410,6 +410,13 @@ export default function Gastos({
 						getGastosDistribucion()
 					}}>
 						<div className="input-group">
+
+							<select className="form-control" value={gastosQsucursal} onChange={e=>setgastosQsucursal(e.target.value)} >
+								<option className={"list-group-item"} value="">-SUCURSAL-</option>
+								{sucursales.length?sucursales.map(e=>
+									<option key={e.id} className={"list-group-item "} value={e.id}>{e.codigo}</option>
+								):null}
+							</select>
 							<input type="date" className="form-control fs-6" value={gastosQFecha} onChange={e=>setgastosQFecha(e.target.value)} />
 							<input type="date" className="form-control fs-6" value={gastosQFechaHasta} onChange={e=>setgastosQFechaHasta(e.target.value)} />
 

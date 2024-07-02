@@ -118,6 +118,8 @@ class PuntosybiopagosController extends Controller
         
         $gastosQFecha = $req->gastosQFecha;
         $gastosQFechaHasta = $req->gastosQFechaHasta;
+        $gastosQsucursal = $req->gastosQsucursal;
+        
 
         $gastosQ = "";
         $gastosQCategoria = "";
@@ -141,7 +143,7 @@ class PuntosybiopagosController extends Controller
             "qCampocuentasPorPagarDetalles" => "updated_at",
             "qcuentasPorPagarDetalles" => "",
             "qcuentasPorPagarTipoFact" => "abonos",
-            "sucursalcuentasPorPagarDetalles" => "",
+            "sucursalcuentasPorPagarDetalles" => $gastosQsucursal,
             "tipocuentasPorPagarDetalles" => "",
             "type" => "buscar",
         ]);
@@ -178,6 +180,7 @@ class PuntosybiopagosController extends Controller
             "typecaja" => $typecaja,
             "gastosorder" => $gastosorder,
             "gastosfieldorder" => $gastosfieldorder,
+            "gastosQsucursal" => $gastosQsucursal,
         ]);
 
         $distribucionGastosCat = collect($all["data"])->groupBy("categoria");
@@ -395,6 +398,9 @@ class PuntosybiopagosController extends Controller
                 $q->orwhere("loteserial","LIKE","%$gastosQ%")
                 ->orwhere("banco","LIKE","%$gastosQ%");
             });
+        })
+        ->when($gastosQsucursal,function($q) use ($gastosQsucursal) {
+            $q->where("id_sucursal",$gastosQsucursal);
         })
         ->when($gastosQFecha,function($q) use ($gastosQFecha,$gastosQFechaHasta) {
             $q->whereBetween("fecha_liquidacion", [$gastosQFecha, !$gastosQFechaHasta?$gastosQFecha:$gastosQFechaHasta]);

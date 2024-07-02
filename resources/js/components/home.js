@@ -3942,6 +3942,7 @@ function formatAmount( number, simbol ) {
     db.getGastosDistribucion({
       gastosQFecha,
       gastosQFechaHasta,
+      gastosQsucursal,
     })
     .then(res=>{
       let data = res.data

@@ -26,7 +26,7 @@ class CreateInventarioSucursalsTable extends Migration
             $table->string("codigo_proveedor")->nullable()->default(null);
             $table->string("codigo_proveedor2")->nullable()->default(null);
 
-            $table->integer("id_proveedor");
+            $table->integer("id_proveedor")->nullable(true);
             
             $table->integer("id_categoria")->nullable(true);
             $table->integer("id_catgeneral")->nullable(true);
