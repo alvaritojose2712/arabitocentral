@@ -253,7 +253,7 @@ class NominaController extends Controller
             $nominaGradoInstruccion = $req->nominaGradoInstruccion;
             $nominaCargo = $req->nominaCargo;
             $nominaSucursal = $req->nominaSucursal;
-            $id_sucursal_disponible = $req->id_sucursal_disponible;
+            $id_sucursal_disponible = $req->nominaid_sucursal_disponible;
             
 
             $id = $req->id;
@@ -302,6 +302,7 @@ class NominaController extends Controller
             "nominagradoinstruccion" => $arr["nominagradoinstruccion"],
             "nominacargo" => $arr["nominacargo"],
             "nominasucursal" => $arr["nominasucursal"],
+            "id_sucursal_disponible" => isset($arr["id_sucursal_disponible"])?$arr["id_sucursal_disponible"]:""
         ]);
     }
 }
