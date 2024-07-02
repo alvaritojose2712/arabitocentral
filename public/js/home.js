@@ -10424,7 +10424,7 @@ function Gastos(_ref) {
                 className: "form-control text-sinapsis fs-2",
                 value: gastosTasa,
                 onChange: function onChange(e) {
-                  return setgastosTasa(e.target.value);
+                  return setgastosTasa(formatAmount(e.target.value, "Bs/$ "));
                 },
                 placeholder: "Tasa",
                 required: true
@@ -10465,7 +10465,7 @@ function Gastos(_ref) {
               }) : null]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("small", {
               className: "text-success fs-4",
-              children: [moneda(parseFloat(removeMoneda(gastosMonto)) / parseFloat(gastosTasa)), " $"]
+              children: [moneda(parseFloat(removeMoneda(gastosMonto)) / parseFloat(removeMoneda(gastosTasa))), " $"]
             })]
           })
         })]
@@ -73794,7 +73794,7 @@ function Home() {
     return number;
   }
   var removeMoneda = function removeMoneda(val) {
-    return number(val.replace("Bs.", "").replace("$", "").replace(" ", "").replace(".", "").replace(",", "."));
+    return number(val.replace("Bs/$ ", "").replace("Bs.", "").replace("$", "").replace(" ", "").replace(".", "").replace(",", "."));
   };
   function formatAmount(number, simbol) {
     // remove all the characters except the numeric values
@@ -76484,7 +76484,7 @@ function Home() {
         gastosBanco: gastosBanco,
         gastosMonto: removeMoneda(gastosMonto),
         gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
-        gastosTasa: gastosTasa,
+        gastosTasa: removeMoneda(gastosTasa),
         selectIdGastos: selectIdGastos,
         modeMoneda: modeMoneda,
         modeEjecutor: modeEjecutor,

@@ -166,7 +166,7 @@ export default function Gastos({
 								</div>
 								<div className="col-3">
 									<div className="input-group">
-										<input type="text" className="form-control text-sinapsis fs-2" value={gastosTasa} onChange={e=>setgastosTasa(e.target.value)} placeholder="Tasa" required={true} />
+										<input type="text" className="form-control text-sinapsis fs-2" value={gastosTasa} onChange={e=>setgastosTasa(formatAmount(e.target.value,"Bs/$ "))} placeholder="Tasa" required={true} />
 										<button className="btn btn-success" type="button" onClick={()=>setmodeMoneda("dolar")}><i className="fa fa-refresh"></i> $</button>
 									</div>
 								</div>
@@ -179,7 +179,7 @@ export default function Gastos({
 											<input type="text" disabled={true} className="form-control" size={5} placeholder="% Comión" value={comisionpagomovilinterban} onChange={event=>setcomisionpagomovilinterban(event.preventDefault())}/>
 										:null}
 									</div>
-									<small className="text-success fs-4">{moneda(parseFloat(removeMoneda(gastosMonto))/parseFloat((gastosTasa)))} $</small>
+									<small className="text-success fs-4">{moneda(parseFloat(removeMoneda(gastosMonto))/parseFloat(removeMoneda(gastosTasa)))} $</small>
 								</div>
 							</div>
 						</div>

@@ -1686,7 +1686,7 @@ function Home() {
     return number;
   }
   const removeMoneda = val => {
-    return number(val.replace("Bs.","").replace("$","").replace(" ","").replace(".","").replace(",","."))
+    return number(val.replace("Bs/$ ","").replace("Bs.","").replace("$","").replace(" ","").replace(".","").replace(",","."))
   }
 
 function formatAmount( number, simbol ) {
@@ -3926,7 +3926,7 @@ function formatAmount( number, simbol ) {
         
         gastosMonto: removeMoneda(gastosMonto),
         gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
-        gastosTasa,
+        gastosTasa:removeMoneda(gastosTasa),
         selectIdGastos,
         modeMoneda,
         modeEjecutor,
