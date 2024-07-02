@@ -177,6 +177,7 @@ function Home() {
   const [pedidoList, setpedidoList] = useState([])
 
   const [qpedidosucursal, setqpedidosucursal] = useState("")
+  const [qpedidosucursaldestino,setqpedidosucursaldestino] = useState("")
   const [qpedido, setqpedido] = useState("")
   const [qpedidoDateFrom, setqpedidoDateFrom] = useState("")
   const [qpedidoDateTo, setqpedidoDateTo] = useState("")
@@ -1654,6 +1655,7 @@ function Home() {
     qpedidoOrderByDescAsc,
     qestadopedido,
     qpedidosucursal,
+    qpedidosucursaldestino,
   ])
 
 
@@ -1910,6 +1912,7 @@ function formatAmount( number, simbol ) {
       qpedidoOrderByDescAsc, 
       qestadopedido,
       qpedidosucursal,
+      qpedidosucursaldestino,
      }).then(res => {
       setpedidos(res.data)
       setLoading(false)
@@ -5228,6 +5231,8 @@ function formatAmount( number, simbol ) {
               permiso={permiso}
             />
             <Pedidos 
+              qpedidosucursaldestino={qpedidosucursaldestino}
+              setqpedidosucursaldestino={setqpedidosucursaldestino}
               inputBuscarInventario={inputBuscarInventario}
               qBuscarInventario={qBuscarInventario}
               setQBuscarInventario={setQBuscarInventario}

@@ -69,6 +69,9 @@ export default function Pedidos({
 	qpedidosucursal,
 	setqpedidosucursal,
 
+	qpedidosucursaldestino,
+	setqpedidosucursaldestino,
+
 }){
 	return (
 		<>
@@ -123,6 +126,8 @@ export default function Pedidos({
 			</div>
 			{showCantidadCarrito=="procesar"?
 				<PedidosList
+					qpedidosucursaldestino={qpedidosucursaldestino}
+					setqpedidosucursaldestino={setqpedidosucursaldestino}
 					sucursales={sucursales}
 					qpedidosucursal={qpedidosucursal}
 					setqpedidosucursal={setqpedidosucursal}

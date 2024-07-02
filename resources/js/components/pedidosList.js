@@ -13,6 +13,9 @@ export default function PedidosList({
 	setpedidos,
 	qpedidosucursal,
 	setqpedidosucursal,
+
+	qpedidosucursaldestino,
+	setqpedidosucursaldestino,
 	qestadopedido,
 	setqestadopedido,
 	getPedidos,
@@ -33,6 +36,13 @@ export default function PedidosList({
 							<option key={e.id} value={e.id}>{e.codigo}</option>
 						)}
 					</select>
+
+					<select className="form-control form-control-lg" value={qpedidosucursaldestino} onChange={e=>setqpedidosucursaldestino(e.target.value)}>
+						<option value="">-SUCURSAL-</option>
+						{sucursales.map(e=>
+							<option key={e.id} value={e.id}>{e.codigo}</option>
+						)}
+					</select>
 					
 					<input type="date" value={qpedidoDateFrom} onChange={e=>setqpedidoDateFrom(e.target.value)} className="form-control" />
 					<input type="date" value={qpedidoDateTo} onChange={e=>setqpedidoDateTo(e.target.value)} className="form-control" />
@@ -40,6 +50,9 @@ export default function PedidosList({
 						{/* <div className={" m-1 pointer "+(qestadopedido=="0"?"select-fact bg-info":"select-fact")} onClick={()=>setqestadopedido("0")}>
 							Pend. <i className="fa fa-exclamation"></i>
 						</div> */}
+						<div className={" m-1 pointer " + (qestadopedido==""?"select-fact bg-danger":"select-fact")} onClick={()=>setqestadopedido("")}>
+							Todos. <i className="fa fa-clock-o"></i> 
+						</div>
 						<div className={" m-1 pointer " + (qestadopedido=="1"?"select-fact bg-danger":"select-fact")} onClick={()=>setqestadopedido("1")}>
 							Pend. <i className="fa fa-clock-o"></i> 
 						</div>

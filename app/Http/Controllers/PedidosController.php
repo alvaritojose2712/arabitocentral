@@ -354,6 +354,8 @@ class PedidosController extends Controller
         $qpedidoOrderByDescAsc = $req->qpedidoOrderByDescAsc;
         $qestadopedido = $req->qestadopedido;
         $qpedidosucursal = $req->qpedidosucursal;
+        $qpedidosucursaldestino = $req->qpedidosucursaldestino;
+        
         
 
         $limit = 500;
@@ -374,11 +376,17 @@ class PedidosController extends Controller
         return pedidos::with(["sucursal","items"=>function($q){
             $q->with("producto");
         }])->where("id","LIKE","$qpedido%")
-        ->where("estado",$qestadopedido)
-        ->when($qpedidosucursal,function($q) use ($qpedidosucursal) {
-            $q->where("id_destino",$qpedidosucursal);
+        ->whne($qestadopedido, function($q) use($qestadopedido) {
+            $q->where("estado",$qestadopedido);
         })
-        ->whereBetween("created_at",["$qpedidoDateFrom 00:00:01","$qpedidoDateTo 23:59:59"])
+        ->when($qpedidosucursal,function($q) use ($qpedidosucursal) {
+            $q->where("id_origen",$qpedidosucursal);
+        })
+        ->when($qpedidosucursaldestino,function($q) use ($qpedidosucursaldestino) {
+            $q->where("id_destino",$qpedidosucursaldestino);
+        })
+        
+        ->whereBetween("created_at",["$qpedidoDateFrom 00:00:00","$qpedidoDateTo 23:59:59"])
         ->orderBy("id","desc")
         ->limit($limit)
         ->get()
