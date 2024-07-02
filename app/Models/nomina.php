@@ -36,6 +36,7 @@ class nomina extends Model
         "nominagradoinstruccion",
         "nominacargo",
         "nominasucursal",
+        "id_sucursal_disponible", 
         "activo",
     ];
 }

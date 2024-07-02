@@ -2088,6 +2088,8 @@ function formatAmount( number, simbol ) {
   const [nominaGradoInstruccion, setnominaGradoInstruccion] = useState("")
   const [nominaCargo, setnominaCargo] = useState("")
   const [nominaSucursal, setnominaSucursal] = useState("")
+  const [nominaid_sucursal_disponible, setnominaid_sucursal_disponible] = useState("")
+  
 
   const [indexSelectNomina, setIndexSelectNomina] = useState(null)
   const [qNomina, setqNomina] = useState("")
@@ -2915,6 +2917,7 @@ function formatAmount( number, simbol ) {
       nominaGradoInstruccion,
       nominaCargo,
       nominaSucursal,
+      nominaid_sucursal_disponible,
 
       id: indexSelectNomina
     }).then(({ data }) => {
@@ -4498,6 +4501,8 @@ function formatAmount( number, simbol ) {
                       setnominaCargo={setnominaCargo}
                       nominaSucursal={nominaSucursal}
                       setnominaSucursal={setnominaSucursal}
+                      nominaid_sucursal_disponible={nominaid_sucursal_disponible}
+                      setnominaid_sucursal_disponible={setnominaid_sucursal_disponible}
                       indexSelectNomina={indexSelectNomina}
                       setIndexSelectNomina={setIndexSelectNomina}
                       qNomina={qNomina}

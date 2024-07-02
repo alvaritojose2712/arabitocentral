@@ -33,6 +33,11 @@ class CreateNominasTable extends Migration
             $table->integer("nominasucursal")->unsigned();
             $table->foreign('nominasucursal')->references('id')->on('sucursals');
 
+
+
+            $table->integer("id_sucursal_disponible")->unsigned();
+            $table->foreign('id_sucursal_disponible')->references('id')->on('sucursals');
+
             $table->timestamps();
         });
 

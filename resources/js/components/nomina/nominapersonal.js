@@ -41,6 +41,9 @@ export default function NominaPersonal({
     getPersonalCargos,
 	getSucursales,
 	activarPersonal,
+
+	nominaid_sucursal_disponible,
+	setnominaid_sucursal_disponible,
 }) {
 
     useEffect(() => {
@@ -218,11 +221,27 @@ export default function NominaPersonal({
                             
                             <div className="form-group">
 								<label htmlFor="">
-									Sucursal
+									Pertenece a Sucursal... 
 								</label>
 								<select
 									value={nominaSucursal}
 									onChange={e => setnominaSucursal(e.target.value)}
+									className="form-control">
+									<option value="">--Seleccione--</option>
+                                    {sucursales.map(e=>
+									    <option key={e.id} value={e.id}>{e.nombre}</option>
+                                    )}
+								</select>
+							</div>
+
+
+							<div className="form-group">
+								<label htmlFor="">
+									Sucursal Disponible para pago... 
+								</label>
+								<select
+									value={nominaid_sucursal_disponible}
+									onChange={e => setnominaid_sucursal_disponible(e.target.value)}
 									className="form-control">
 									<option value="">--Seleccione--</option>
                                     {sucursales.map(e=>
@@ -252,11 +271,7 @@ export default function NominaPersonal({
 									placeholder="Buscar..."
 									value={qNomina}
 									onChange={e => setqNomina(e.target.value)} />
-								<button className={("btn ") + (showInactivoValue==0?"btn-danger":(showInactivoValue==1?"btn-success":""))} onClick={()=>showInactivos()}><i className="fa fa-eye"></i></button>
-							</div>
-							<div className="input-group ">
-                            
-                                <select
+								<select
 									value={qSucursalNomina}
 									onChange={e => setqSucursalNomina(e.target.value)}
 									className="form-control">
@@ -281,44 +296,54 @@ export default function NominaPersonal({
 								<div className="input-group-prepend">
 									<button className="btn btn-outline-secondary" type="button" onClick={getPersonalNomina}><i className="fa fa-search"></i></button>
 								</div>
+								<button className={("btn ") + (showInactivoValue==0?"btn-danger":(showInactivoValue==1?"btn-success":""))} onClick={()=>showInactivos()}><i className="fa fa-eye"></i></button>
 							</div>
-							
 						</form>
-						{
-							nominaData.personal?
-                                nominaData.personal.length?
-                                    nominaData.personal.map((e, i) =>
-                                        funshowinactivo(e.activo)?
-										<div
-                                            onClick={()=>setIndexSelectPersonalFun(e.id)}
-                                            
-                                            key={e.id}
-                                            className={(indexSelectNomina == e.id ? "bg-sinapsis" : "bg-light text-secondary") + " card mt-2 pointer"}>
-                                            <div className="card-header flex-row row justify-content-between">
-                                                <div>
-                                                    <small>ID.{e.id}</small>
-                                                </div>
-                                                <div className="d-flex justify-content-between">
-                                                    <div><span>{e.nominanombre}</span></div>
-                                                    <div>{e.cargo.cargosdescripcion}-{e.sucursal.nombre}</div>
-                                                </div>
-                                            </div>
-                                            <div className="card-body">
-                                                <div className="">
-                                                    <h5
-                                                        className="card-title"
-                                                    ><b>{e.nominacedula}</b></h5>
-                                                </div>
-                                                <p className="card-text">
-                                                </p>
-                                            </div>
-											<button onClick={()=>activarPersonal(e.id)} className={"btn "+(e.activo?"btn-success":"btn-danger")}>{e.activo?"ACTIVO":"INACTIVO"}</button>
-											
-                                        </div>:null
-                                    )
-                                : <div className='h3 text-center text-dark mt-2'><i>¡Sin resultados!</i></div>
-                            : null
-						}
+						<table className="table table-bordered">
+								<tbody>
+
+									{
+										nominaData.personal?
+											nominaData.personal.length?
+												nominaData.personal.map((e, i) =>
+													funshowinactivo(e.activo)?
+													<tr
+														onClick={()=>setIndexSelectPersonalFun(e.id)}
+														
+														key={e.id}
+														className={(indexSelectNomina == e.id ? "bg-sinapsis" : "bg-light text-secondary") + "mt-2 pointer"}>
+
+															<td>
+																<small>ID.{e.id}</small>
+
+															</td>
+															<th>
+																<div className='fs-3'><span>{e.nominanombre}</span></div>
+
+															</th>
+															<th>
+																<h5 className="card-title fs-4"
+																><b>{e.nominacedula}</b></h5>
+
+															</th>
+															<th>
+
+																<div>{e.cargo.cargosdescripcion}-{e.sucursal.nombre}</div>
+															</th>
+														<th>
+															<button onClick={()=>activarPersonal(e.id)} className={"btn "+(e.activo?"btn-success":"btn-danger")}>{e.activo?"ACTIVO":"INACTIVO"}</button>
+														</th>
+														
+														
+													</tr>:null
+												)
+											: <div className='h3 text-center text-dark mt-2'><i>¡Sin resultados!</i></div>
+										: null
+									}
+								</tbody>
+
+						</table>
+
 					</div>
 				</div>
 
