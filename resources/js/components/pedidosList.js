@@ -98,7 +98,7 @@ export default function PedidosList({
 						</td>
 						<td>
 							<h3>
-								<span className="btn btn-secondary m-2">{e.id}</span> - <span className="btn btn-secondary m-2">{e.idinsucursal}</span>
+								<span className="bg-secondary m-2">{e.id}</span> - <span className="bg-secondary m-2">{e.idinsucursal}</span>
 							</h3>
 						</td>
 						<td>

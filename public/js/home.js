@@ -19071,10 +19071,10 @@ function PedidosList(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                className: "btn btn-secondary m-2",
+                className: "bg-secondary m-2",
                 children: e.id
               }), " - ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                className: "btn btn-secondary m-2",
+                className: "bg-secondary m-2",
                 children: e.idinsucursal
               })]
             })
