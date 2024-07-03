@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import PanelOpciones from './panel/panelopciones'
-import FechasMain from './panel/fechasmain'
+import PanelOpciones from './panel/panelopciones';
+import Aprobtransferencia from './aprobtransferencia';
+import AuditoriaEfectivo from './auditoriaEfectivo';
 
 export default function Auditoria({
     getBancoName,
@@ -28,6 +29,9 @@ export default function Auditoria({
     getCatCajas,
 
     bancosdata,
+
+    cuentasPagosMetodoDestino,
+    setcuentasPagosMetodoDestino,
 
     cuentasPagosDescripcion,
     setcuentasPagosDescripcion,
@@ -101,6 +105,13 @@ export default function Auditoria({
     setfechaAutoLiquidarTransferencia,
     bancoAutoLiquidarTransferencia,
     setbancoAutoLiquidarTransferencia,
+
+    controlefecQDescripcion,
+    setcontrolefecQDescripcion,
+    controlefecSelectCat,
+    setcontrolefecSelectCat,
+    controlefecSelectGeneral,
+    setcontrolefecSelectGeneral,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -111,17 +122,6 @@ export default function Auditoria({
         setsubviewAuditoriaGeneral("")
 
     },[])
-
-    useEffect(()=>{
-        getsucursalDetallesData()
-    },[
-        subviewpanelsucursales,
-        fechasMain1,
-        fechasMain2,
-        sucursalSelect,
-        qestatusaprobaciocaja,
-    ])
-
 
     useEffect(()=>{
         getBancosData()
@@ -191,17 +191,15 @@ export default function Auditoria({
                                         <input type="text" className="form-control" placeholder="Referencia" value={cuentasPagosDescripcion} onChange={e=>setcuentasPagosDescripcion(e.target.value)} />
                                     </div>
 
-                                    <div className="form-group mb-1 row">
-                                        <div className="col">
-                                            <span className="text-label fs-4 cell3">Monto</span>
-                                            <input type="text" className="form-control fs-3 text-success" placeholder="Monto" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} />
-                                        </div>
-                                        <div className="col">
-                                            <span className="text-label fs-4 cell3">Fecha</span>
-                                            <input type="date" className="form-control" value={cuentasPagosFecha} onChange={e=>setcuentasPagosFecha(e.target.value)} />
-                                        </div>
+                                    <div className="form-group mb-1">
+                                        <span className="text-label fs-4 cell3">Monto</span>
+                                        <input type="text" className="form-control fs-3 text-success" placeholder="Monto" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} />
                                     </div>
                                     <div className="form-group mb-1">
+                                        <span className="text-label fs-4 cell3">Fecha</span>
+                                        <input type="date" className="form-control" value={cuentasPagosFecha} onChange={e=>setcuentasPagosFecha(e.target.value)} />
+                                    </div>
+                                    {/* <div className="form-group mb-1">
                                         <span className="text-label fs-4 cell3">Método</span>
                                         <select className="form-control" value={cuentasPagosPuntooTranfe} onChange={e=>setcuentasPagosPuntooTranfe((e.target.value))}>
                                             <option value="">-</option>
@@ -209,9 +207,9 @@ export default function Auditoria({
                                             <option value="Transferencia">TRANSFERENCIA</option>
                                             <option value="BioPago">BIOPAGO</option>
                                         </select>
-                                    </div>
+                                    </div> */}
 
-                                    <div className="form-group mb-1">
+                                    {/* <div className="form-group mb-1">
                                         <span className="text-label fs-4 cell3">Sucursal</span>
                                         <select className="form-control" 
                                         value={cuentasPagosSucursal} 
@@ -221,33 +219,42 @@ export default function Auditoria({
                                                     <option key={e.id} value={e.id}>{e.codigo}</option>
                                                 )}
                                         </select>
-                                    </div>
+                                    </div> */}
 
-                                    <div className="form-group m-4 text-center">
+                                    {/* <div className="form-group m-4 text-center">
                                         <div className="btn-group">
                                             <button type="button" onClick={()=>setcuentasPagosTipo("egreso")} className={(cuentasPagoTipo=="egreso"?"btn-danger":"")+(" btn")}>Egreso</button>
                                             <button type="button" onClick={()=>setcuentasPagosTipo("ingreso")} className={(cuentasPagoTipo=="ingreso"?"btn-success":"")+(" btn")}>Ingreso</button>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     
                                     <div className="input-group">
                                         <select className="form-control" 
                                         value={cuentasPagosMetodo} 
                                         onChange={e=>setcuentasPagosMetodo(e.target.value)}>
-                                            <option value="">-Banco-</option>
+                                            <option value="">-Banco Origen-</option>
                                             {opcionesMetodosPago.filter(e=>e.codigo!="EFECTIVO").map(e=>
                                                 <option value={e.id} key={e.id}>{e.descripcion}</option>
                                             )}
                                         </select>
 
                                         <select className="form-control" 
+                                        value={cuentasPagosMetodoDestino} 
+                                        onChange={e=>setcuentasPagosMetodoDestino(e.target.value)}>
+                                            <option value="">-Banco Destino-</option>
+                                            {opcionesMetodosPago.filter(e=>e.codigo!="EFECTIVO").map(e=>
+                                                <option value={e.id} key={e.id}>{e.descripcion}</option>
+                                            )}
+                                        </select>
+
+                                        {/* <select className="form-control" 
                                         value={cuentasPagosCategoria} 
                                         onChange={e=>setcuentasPagosCategoria(e.target.value)}>
                                             <option value="">-Categoría-</option>
                                             {categoriasCajas.map(e=>
                                                 <option value={e.id} key={e.id}>{e.nombre}</option>
                                             )}
-                                        </select>
+                                        </select> */}
                                     </div>
 
                                     <div className="form-group w-100 text-center">
@@ -751,92 +758,51 @@ export default function Auditoria({
 
             </div>
         :null}
-        {permiso([1,2,3]) && subviewAuditoriaGeneral=="efectivo"?null:null}
-        {permiso([1,2,3,6]) && subviewAuditoriaGeneral=="aprobtransferencia"?<div className="container">
-        <>
-            <FechasMain
+        {permiso([1,2,3]) && subviewAuditoriaGeneral=="efectivo"?
+
+            <AuditoriaEfectivo
+                fechasMain1={fechasMain1}
+                fechasMain2={fechasMain2}
+                setfechasMain1={setfechasMain1}
+                setfechasMain2={setfechasMain2}
+                controlefecQDescripcion={controlefecQDescripcion}
+                setcontrolefecQDescripcion={setcontrolefecQDescripcion}
+                controlefecSelectCat={controlefecSelectCat}
+                setcontrolefecSelectCat={setcontrolefecSelectCat}
+                getsucursalDetallesData={getsucursalDetallesData}
+                sucursalDetallesData={sucursalDetallesData}
+                controlefecSelectGeneral={controlefecSelectGeneral}
+                setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
+                moneda={moneda}
+                colorsGastosCat={colorsGastosCat}
+                getCatCajas={getCatCajas}
+                subviewpanelsucursales={subviewpanelsucursales}
+                sucursalSelect={sucursalSelect}
+                qestatusaprobaciocaja={qestatusaprobaciocaja}
+            />   
+        
+        :null}
+        {permiso([1,2,3,6]) && subviewAuditoriaGeneral=="aprobtransferencia"?
+            <Aprobtransferencia
+                setsucursalSelect={setsucursalSelect}
+                sucursalSelect={sucursalSelect}
+                sucursales={sucursales}
+                qestatusaprobaciocaja={qestatusaprobaciocaja}
+                setqestatusaprobaciocaja={setqestatusaprobaciocaja}
+                sucursalDetallesData={sucursalDetallesData}
+                colorSucursal={colorSucursal}
+                colors={colors}
+                moneda={moneda}
+                getBancoName={getBancoName}
+                aprobarTransferenciaFun={aprobarTransferenciaFun}
+                getsucursalDetallesData={getsucursalDetallesData}
+                subviewpanelsucursales={subviewpanelsucursales}
                 fechasMain1={fechasMain1}
                 fechasMain2={fechasMain2}
                 setfechasMain1={setfechasMain1}
                 setfechasMain2={setfechasMain2}
             />
-            <div className="">
-                <div className="input-group mb-2">
-                    <select className="form-control" onChange={e=>setsucursalSelect(e.target.value)} value={sucursalSelect===null?"":sucursalSelect}>
-                        <option value="">-TODAS SUCURSALES-</option>    
-                        {
-                            sucursales.map(e=>
-                                <option key={e.id} value={e.id}>{e.codigo}</option>    
-                            )
-                        }
-                    </select>
-                    <div className="input-group-prepend">
-                        <button className={("btn btn-"+(qestatusaprobaciocaja==0?"sinapsis":""))} onClick={e=>{setqestatusaprobaciocaja(0);if(qestatusaprobaciocaja==0){getsucursalDetallesData()}}}><i className="fa fa-clock-o"></i></button>
-                        <button className={("btn btn-"+(qestatusaprobaciocaja==1?"success":""))} onClick={e=>{setqestatusaprobaciocaja(1);if(qestatusaprobaciocaja==1){getsucursalDetallesData()}}}><i className="fa fa-check"></i></button>
-                    </div>
-                </div>
-                { 
-                sucursalDetallesData.aprobaciontransferenciasdata?sucursalDetallesData.aprobaciontransferenciasdata.length
-                ? sucursalDetallesData.aprobaciontransferenciasdata.map( (e,i) =>
-                    <div 
-                    key={e.id}
-                    className={(!e.estatus?"bg-sinapsis-light":"bg-light")+" text-secondary card mb-3 pointer shadow border border-dark"}>
-                        <div className="card-header flex-row justify-content-between">
-                            <div className="d-flex justify-content-between">
-                                <div className="w-50">
-                                    <button className="btn fw-bolder" style={{
-                                        backgroundColor:colorSucursal(e.sucursal.codigo),
-                                    }}>{e.sucursal.codigo}</button>
-                                    
-                                </div>
-                                <div className="w-50 text-right">
-                                    {
-                                        e.saldo!=0?
-                                            <>
-                                                <span className="h6 text-muted font-italic fs-3">Monto <b>{moneda(e.saldo)}</b></span>
-                                                <br />
-                                                {e.montoretencion?
-                                                    <span className="h6 text-muted font-italic fs-3">Retención <b>{moneda(e.montoretencion)}</b></span>
-                                                :null}
-                                                <br />
-                                                {e.montoretencion?
-                                                    <span className="h6 text-muted font-italic fs-3">Total Transferido <b>{moneda(parseFloat(e.montoretencion)+parseFloat(e.saldo))}</b></span>
-                                                :null}
-                                            </>
-                                        :null
-                                    }
-
-                                </div>
-                            </div>
-                        </div>
-                        <div className="text-center">
-                            <span className="card-title ">
-                                <small className="fst-italic fs-2">
-                                <b>{e.loteserial}</b>
-                                <br /> 
-                                <button className="btn fw-bolder m-1" 
-                                style={{
-                                    backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
-                                    color:colors[e.banco]?colors[e.banco][1]:""
-                                }}>{getBancoName(e.banco)}</button>
-                                </small><br/>
-                            </span>
-                        </div> 
-                        <div className="card-body d-flex justify-content-between">
-                            <i onClick={()=>aprobarTransferenciaFun(e.id,"delete")} className="fa fa-times text-danger"></i>
-                            <span className="text-success" onClick={()=>aprobarTransferenciaFun(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></span>
-                        </div>
-                        <div className="text-center text-muted">
-                            <small>{e.created_at}</small>
-                        </div>
-                            
-                    </div>
-                )
-                : null : null
-                }
-            </div>
-        </>
-        </div>:null}
+        :null}
        </>
 
     )

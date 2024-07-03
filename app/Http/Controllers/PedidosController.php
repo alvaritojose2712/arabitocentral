@@ -358,7 +358,7 @@ class PedidosController extends Controller
         
         
 
-        $limit = 500;
+        $limit = 1000000;
         if ($qpedidoDateFrom=="" AND $qpedidoDateTo=="") {
             $qpedidoDateFrom = "0000-00-00";
             $qpedidoDateTo = "9999-12-31";
@@ -373,7 +373,7 @@ class PedidosController extends Controller
 
 
 
-        return pedidos::with(["sucursal","items"=>function($q){
+        return pedidos::with(["origen","destino","sucursal","items"=>function($q){
             $q->with("producto");
         }])
         ->when($qpedido, function($q) use ($qpedido) {
@@ -393,7 +393,7 @@ class PedidosController extends Controller
         })
         
         ->whereBetween("created_at",["$qpedidoDateFrom 00:00:00","$qpedidoDateTo 23:59:59"])
-        ->orderBy("id","desc")
+        ->orderBy("id_origen","desc")
         ->limit($limit)
         ->get()
         ->map(function($q){

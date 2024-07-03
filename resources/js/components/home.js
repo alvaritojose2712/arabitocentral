@@ -2064,6 +2064,7 @@ function formatAmount( number, simbol ) {
   const [qestatusaprobaciocaja, setqestatusaprobaciocaja] = useState(0)
   const [qcuentasPorPagar, setqcuentasPorPagar] = useState("")
 
+  const [cuentasPagosMetodoDestino,setcuentasPagosMetodoDestino] = useState("")
   const [cuentasPagosDescripcion, setcuentasPagosDescripcion] = useState("")
   const [cuentasPagosMonto, setcuentasPagosMonto] = useState("")
   const [cuentasPagosPuntooTranfe, setcuentasPagosPuntooTranfe] = useState("Transferencia")
@@ -3808,7 +3809,7 @@ function formatAmount( number, simbol ) {
       !cuentasPagosDescripcion ||
       !cuentasPagosMonto ||
       !cuentasPagosMetodo ||
-      !cuentasPagosCategoria
+      !cuentasPagosMetodoDestino
     ) {
       alert("Campos Vacíos!")      
     }else{
@@ -3816,11 +3817,8 @@ function formatAmount( number, simbol ) {
         cuentasPagosDescripcion,
         cuentasPagosMonto,
         cuentasPagosMetodo,
+        cuentasPagosMetodoDestino,
         cuentasPagosFecha,
-        cuentasPagoTipo,
-        cuentasPagosCategoria,
-        cuentasPagosPuntooTranfe,
-        cuentasPagosSucursal,
       }).then(res=>{
         if (res.data.estado) {
           getBancosData()
@@ -4671,6 +4669,12 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
             <Auditoria
+              controlefecQDescripcion={controlefecQDescripcion}
+              setcontrolefecQDescripcion={setcontrolefecQDescripcion}
+              controlefecSelectCat={controlefecSelectCat}
+              setcontrolefecSelectCat={setcontrolefecSelectCat}
+              controlefecSelectGeneral={controlefecSelectGeneral}
+              setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
               fechaAutoLiquidarTransferencia={fechaAutoLiquidarTransferencia}
               setfechaAutoLiquidarTransferencia={setfechaAutoLiquidarTransferencia}   
               bancoAutoLiquidarTransferencia={bancoAutoLiquidarTransferencia}
@@ -4732,6 +4736,8 @@ function formatAmount( number, simbol ) {
 
               cuentasPagosDescripcion={cuentasPagosDescripcion}
               setcuentasPagosDescripcion={setcuentasPagosDescripcion}
+              cuentasPagosMetodoDestino={cuentasPagosMetodoDestino}
+              setcuentasPagosMetodoDestino={setcuentasPagosMetodoDestino}
               cuentasPagosMonto={cuentasPagosMonto}
               setcuentasPagosMonto={setcuentasPagosMonto}
               cuentasPagosMetodo={cuentasPagosMetodo}

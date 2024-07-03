@@ -83,7 +83,9 @@ export default function PedidosList({
 							{e.estado==4? <button className="btn btn-info">REVISADO</button>:null}
 							{e.estado==2? <button className="btn btn-success">PROCESADO</button>:null}
 							<h3>
-								<b>{e.sucursal.nombre}</b>
+								<b>ORIGEN: {e.origen.codigo}  (#{e.idinsucursal})</b> <br />
+								<b>DESTINO: {e.destino.codigo}</b>
+								<br />
 								<span className="btn btn-secondary m-2">{e.id}</span> - <span className="btn btn-secondary m-2">{e.idinsucursal}</span>
 							</h3>
 							<small className="text-muted">{e.created_at}</small>

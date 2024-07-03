@@ -54,55 +54,71 @@ class PuntosybiopagosController extends Controller
     function sendMovimientoBanco(Request $req) {
         try {
             $id = null;
-            $cuentasPagoTipo = $req->cuentasPagoTipo;
             $cuentasPagosDescripcion = $req->cuentasPagosDescripcion;
-            
-            $cuentasPagosMonto = $cuentasPagoTipo=="egreso"? $req->cuentasPagosMonto*-1:$req->cuentasPagosMonto;
+            $cuentasPagosMonto = $req->cuentasPagosMonto;
             $cuentasPagosMetodo = $req->cuentasPagosMetodo;
-            $cuentasPagosPuntooTranfe = $req->cuentasPagosPuntooTranfe;
-            $cuentasPagosSucursal = $req->cuentasPagosSucursal;
-            
-
-            
+            $cuentasPagosMetodoDestino = $req->cuentasPagosMetodoDestino;
             $cuentasPagosFecha = $req->cuentasPagosFecha;
 
-            $cuentasPagosCategoria = $req->cuentasPagosCategoria;
-    
-            $today = new \DateTime((new NominaController)->today());
-            $su = sucursal::updateOrCreate(["codigo"=>"administracion"],[
-                "nombre" => "ADMINISTRACION",
-                "codigo" => "administracion",
-            ]);
-            $banco = bancos_list::find($cuentasPagosMetodo);
-            if ($banco) {
-                $mov = puntosybiopagos::updateOrCreate([
-                    "id" => $id
-                ],[
-                    "loteserial" => $cuentasPagosDescripcion,
-                    "banco" => $banco->codigo,
-                    "tipo" => $cuentasPagosPuntooTranfe,
+            $catingresotras = catcajas::where("nombre","CAJA MATRIZ: INGRESO TRASPASO ENTRE CUENTAS")->first();
+            $categresotras = catcajas::where("nombre","CAJA MATRIZ: EGRESO TRASPASO ENTRE CUENTAS")->first();
 
-                    "fecha" => $cuentasPagosFecha,
-                    "monto" => $cuentasPagosMonto,
-                    "fecha_liquidacion" => $cuentasPagosPuntooTranfe=="Transferencia"? $cuentasPagosFecha:null,
-                    "monto_liquidado" => $cuentasPagosPuntooTranfe=="Transferencia"? $cuentasPagosMonto:null,
-                    "id_sucursal" => $cuentasPagosSucursal?$cuentasPagosSucursal: $su->id,
-                    "id_usuario" => 1,
-                    "categoria" => $cuentasPagosCategoria
+            if ($catingresotras && $categresotras) {
+                $today = new \DateTime((new NominaController)->today());
+                $su = sucursal::updateOrCreate(["codigo"=>"administracion"],[
+                    "nombre" => "ADMINISTRACION",
+                    "codigo" => "administracion",
                 ]);
-        
-                if ($mov) {
+                $banco = bancos_list::find($cuentasPagosMetodo);
+                $bancoDestino = bancos_list::find($cuentasPagosMetodoDestino);
+                if ($banco) {
+                    $mov1 = puntosybiopagos::updateOrCreate([
+                        "id" => $id
+                    ],[
+                        "loteserial" => $cuentasPagosDescripcion,
+                        "banco" => $bancoDestino->codigo,
+                        "fecha" => $cuentasPagosFecha,
+                        "monto" => abs(floatval($cuentasPagosMonto)),
+                        "monto_liquidado" => abs(floatval($cuentasPagosMonto)),
+    
+                        "tipo" => "Transferencia",
+                        "fecha_liquidacion" => $cuentasPagosFecha,
+                        "id_usuario" => 1,
+                        "id_sucursal" => $su->id,
+                        "categoria" => $catingresotras->id
+                    ]);
+
+                    $mov2 = puntosybiopagos::updateOrCreate([
+                        "id" => $id
+                    ],[
+                        "loteserial" => $cuentasPagosDescripcion,
+                        "banco" => $banco->codigo,
+                        "fecha" => $cuentasPagosFecha,
+                        "monto" => abs(floatval($cuentasPagosMonto))*-1,
+                        "monto_liquidado" => abs(floatval($cuentasPagosMonto))*-1,
+    
+                        "tipo" => "Transferencia",
+                        "fecha_liquidacion" => $cuentasPagosFecha,
+                        "id_usuario" => 1,
+                        "id_sucursal" => $su->id,
+                        "categoria" => $categresotras->id
+                    ]);
+            
+                    if ($mov1) {
+                        return [
+                            "estado" => true,
+                            "msj" => "Éxito"
+                        ];
+                    }
+                }else{
                     return [
-                        "estado" => true,
-                        "msj" => "Éxito"
-                    ];
+                        "estado" => false,
+                        "msj" => "No se encontró banco seleccionado",
+                    ];    
                 }
-            }else{
-                return [
-                    "estado" => false,
-                    "msj" => "No se encontró banco seleccionado",
-                ];    
             }
+            
+    
     
         } catch (\Exception $e) {
             return [
