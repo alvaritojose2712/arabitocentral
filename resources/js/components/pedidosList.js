@@ -83,10 +83,10 @@ export default function PedidosList({
 
 						</td>
 						<td>
-							{e.estado==1? <span className="h2 text-danger">PENDIENTE</span>:null}
-							{e.estado==3? <span className="h2 text-warning">EN REVISIÓN</span>:null}
-							{e.estado==4? <span className="h2 text-info">REVISADO</span>:null}
-							{e.estado==2? <span className="h2 text-success">PROCESADO</span>:null}
+							{e.estado==1? <div className="h2 bg-danger">PENDIENTE</div>:null}
+							{e.estado==3? <div className="h2 bg-warning">EN REVISIÓN</div>:null}
+							{e.estado==4? <div className="h2 bg-info">REVISADO</div>:null}
+							{e.estado==2? <div className="h2 bg-success">PROCESADO</div>:null}
 						</td>
 						<td>
 								<b>ORIGEN: {e.origen.codigo}  (#{e.idinsucursal})</b> <br />

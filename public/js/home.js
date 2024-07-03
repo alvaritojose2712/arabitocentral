@@ -19047,17 +19047,17 @@ function PedidosList(_ref) {
               children: e.created_at
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-            children: [e.estado == 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-              className: "h2 text-danger",
+            children: [e.estado == 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "h2 bg-danger",
               children: "PENDIENTE"
-            }) : null, e.estado == 3 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-              className: "h2 text-warning",
+            }) : null, e.estado == 3 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "h2 bg-warning",
               children: "EN REVISI\xD3N"
-            }) : null, e.estado == 4 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-              className: "h2 text-info",
+            }) : null, e.estado == 4 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "h2 bg-info",
               children: "REVISADO"
-            }) : null, e.estado == 2 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-              className: "h2 text-success",
+            }) : null, e.estado == 2 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "h2 bg-success",
               children: "PROCESADO"
             }) : null]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
