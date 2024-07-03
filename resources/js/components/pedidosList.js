@@ -68,40 +68,54 @@ export default function PedidosList({
 					</div>
 				</div>
 			</div>
+			
 
-			<div>
+			<table className="table">
 				{pedidos.map(e=>
-					<div
+					<tr
 					onClick={selectPedido}
 					data-id={e.id} 
 					className="card-pedidos d-flex justify-content-between pointer" 
 					key={e.id}
 					>
-						<div>
-							{e.estado==1? <button className="btn btn-danger">PENDIENTE</button>:null}
-							{e.estado==3? <button className="btn btn-warning">EN REVISIÓN</button>:null}
-							{e.estado==4? <button className="btn btn-info">REVISADO</button>:null}
-							{e.estado==2? <button className="btn btn-success">PROCESADO</button>:null}
-							<h3>
+						<td>
+							<small className="text-muted">{e.created_at}</small>
+
+						</td>
+						<td>
+							{e.estado==1? <span className="h2 text-danger">PENDIENTE</span>:null}
+							{e.estado==3? <span className="h2 text-warning">EN REVISIÓN</span>:null}
+							{e.estado==4? <span className="h2 text-info">REVISADO</span>:null}
+							{e.estado==2? <span className="h2 text-success">PROCESADO</span>:null}
+						</td>
+						<td>
 								<b>ORIGEN: {e.origen.codigo}  (#{e.idinsucursal})</b> <br />
+
+						</td>
+						<td>
 								<b>DESTINO: {e.destino.codigo}</b>
-								<br />
+
+						</td>
+						<td>
+							<h3>
 								<span className="btn btn-secondary m-2">{e.id}</span> - <span className="btn btn-secondary m-2">{e.idinsucursal}</span>
 							</h3>
-							<small className="text-muted">{e.created_at}</small>
-						</div>
-						<div className="d-flex flex-column justify-content-between">
+						</td>
+						<td>
 							<small className="text-muted">
 								Prods. {e.items.length}
 							</small>
-							<div>
-								<button className={"btn btn-outline-arabito"}>{moneda(e.base)}</button>
-								<button className={"btn btn-outline-success"}>{moneda(e.venta)}</button>
-							</div>
-						</div>
-					</div>
+
+						</td>
+						<th className="bg-arabito">
+							<span className={""}>{moneda(e.base)}</span>
+						</th>
+						<th className="bg-success">
+							<span className={""}>{moneda(e.venta)}</span>
+						</th>
+					</tr>
 				)}
-			</div>
+			</table>
 		</>
 	)
 }
