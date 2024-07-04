@@ -9,6 +9,6 @@ use App\Http\Requests\Updatebancos_listRequest;
 class BancosListController extends Controller
 {
     function getMetodosPago(){
-        return bancos_list::all();
+        return bancos_list::orderBy("codigo","asc")->get();
     }
 }

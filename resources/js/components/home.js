@@ -5817,6 +5817,7 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5,13]) && viewmainPanel === "gastos" && 
             <Gastos
+              number={number}
               sendMovimientoBanco={sendMovimientoBanco}
               cuentasPagosDescripcion={cuentasPagosDescripcion}
               setcuentasPagosDescripcion={setcuentasPagosDescripcion}

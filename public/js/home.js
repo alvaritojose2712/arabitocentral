@@ -4545,7 +4545,9 @@ function CargarTraspasos(_ref) {
     cuentasPagosMetodo = _ref.cuentasPagosMetodo,
     setcuentasPagosMetodo = _ref.setcuentasPagosMetodo,
     cuentasPagosMetodoDestino = _ref.cuentasPagosMetodoDestino,
-    setcuentasPagosMetodoDestino = _ref.setcuentasPagosMetodoDestino;
+    setcuentasPagosMetodoDestino = _ref.setcuentasPagosMetodoDestino,
+    opcionesMetodosPago = _ref.opcionesMetodosPago,
+    number = _ref.number;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     className: "container",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
@@ -10474,7 +10476,8 @@ function Gastos(_ref) {
     cuentasPagosMetodo = _ref.cuentasPagosMetodo,
     setcuentasPagosMetodo = _ref.setcuentasPagosMetodo,
     cuentasPagosMetodoDestino = _ref.cuentasPagosMetodoDestino,
-    setcuentasPagosMetodoDestino = _ref.setcuentasPagosMetodoDestino;
+    setcuentasPagosMetodoDestino = _ref.setcuentasPagosMetodoDestino,
+    number = _ref.number;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getGastos();
   }, [gastosQCategoria, gastoscatgeneral, gastosingreso_egreso, gastosorder, gastosfieldorder, gastosQsucursal]);
@@ -10494,7 +10497,7 @@ function Gastos(_ref) {
           },
           children: "Cargar Gastos"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-          className: "btn btn-sm " + (subviewGastos == "cargar" ? "btn-sinapsis" : ""),
+          className: "btn btn-sm " + (subviewGastos == "traspasos" ? "btn-sinapsis" : ""),
           onClick: function onClick() {
             return setsubviewGastos("traspasos");
           },
@@ -10873,7 +10876,9 @@ function Gastos(_ref) {
       cuentasPagosMetodo: cuentasPagosMetodo,
       setcuentasPagosMetodo: setcuentasPagosMetodo,
       cuentasPagosMetodoDestino: cuentasPagosMetodoDestino,
-      setcuentasPagosMetodoDestino: setcuentasPagosMetodoDestino
+      setcuentasPagosMetodoDestino: setcuentasPagosMetodoDestino,
+      opcionesMetodosPago: opcionesMetodosPago,
+      number: number
     }) : null, subviewGastos == "resumen" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
         onSubmit: function onSubmit(event) {
@@ -78581,6 +78586,18 @@ function Home() {
             marcas: marcas
           }) : null]
         }), permiso([1, 2, 5, 13]) && viewmainPanel === "gastos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_52__["default"], {
+          number: number,
+          sendMovimientoBanco: sendMovimientoBanco,
+          cuentasPagosDescripcion: cuentasPagosDescripcion,
+          setcuentasPagosDescripcion: setcuentasPagosDescripcion,
+          cuentasPagosMonto: cuentasPagosMonto,
+          setcuentasPagosMonto: setcuentasPagosMonto,
+          cuentasPagosFecha: cuentasPagosFecha,
+          setcuentasPagosFecha: setcuentasPagosFecha,
+          cuentasPagosMetodo: cuentasPagosMetodo,
+          setcuentasPagosMetodo: setcuentasPagosMetodo,
+          cuentasPagosMetodoDestino: cuentasPagosMetodoDestino,
+          setcuentasPagosMetodoDestino: setcuentasPagosMetodoDestino,
           setiscomisiongasto: setiscomisiongasto,
           iscomisiongasto: iscomisiongasto,
           comisionpagomovilinterban: comisionpagomovilinterban,

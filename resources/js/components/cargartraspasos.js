@@ -14,6 +14,8 @@ export default function CargarTraspasos({
     setcuentasPagosMetodo,
     cuentasPagosMetodoDestino,
     setcuentasPagosMetodoDestino,
+    opcionesMetodosPago,
+    number,
 }){
     return (
         <div className="container">

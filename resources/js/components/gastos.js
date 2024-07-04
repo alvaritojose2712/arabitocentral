@@ -120,6 +120,7 @@ export default function Gastos({
 	setcuentasPagosMetodo,
 	cuentasPagosMetodoDestino,
 	setcuentasPagosMetodoDestino,
+	number,
 
 }) {
 
@@ -149,7 +150,7 @@ export default function Gastos({
 			<div className="d-flex justify-content-center">
                 <div className="btn-group m-1">
                     <button className={("btn btn-sm ")+(subviewGastos=="cargar"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargar")}>Cargar Gastos</button>
-                    <button className={("btn btn-sm ")+(subviewGastos=="cargar"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("traspasos")}>Cargar Traspasos</button>
+                    <button className={("btn btn-sm ")+(subviewGastos=="traspasos"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("traspasos")}>Cargar Traspasos</button>
                     <button className={("btn btn-sm ")+(subviewGastos=="resumen"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("resumen")}>Detalles</button>
                     <button className={("btn btn-sm ")+(subviewGastos=="distribucion"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("distribucion")}>Resumen</button>
                 </div>
@@ -336,6 +337,8 @@ export default function Gastos({
 					setcuentasPagosMetodo={setcuentasPagosMetodo}
 					cuentasPagosMetodoDestino={cuentasPagosMetodoDestino}
 					setcuentasPagosMetodoDestino={setcuentasPagosMetodoDestino}
+					opcionesMetodosPago={opcionesMetodosPago}
+					number={number}
 				/>
 			:null}
 
