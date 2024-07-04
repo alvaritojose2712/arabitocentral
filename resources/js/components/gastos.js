@@ -497,7 +497,7 @@ export default function Gastos({
 																	ee.data.map((eee,iii)=>
 																		<tr key={iii}>
 																			<td className="text-muted">{eee.created_at}</td>
-																			<td>{eee.concepto}</td>
+																			<td>{eee.concepto?eee.concepto:eee.loteserial}</td>
 																			<td></td>
 																			<td colSpan={2} className=" text-right text-danger fs-4">
 																				{moneda(eee["montodolar"])}

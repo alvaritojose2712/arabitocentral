@@ -11141,7 +11141,7 @@ function Gastos(_ref) {
                                 className: "text-muted",
                                 children: eee.created_at
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                                children: eee.concepto
+                                children: eee.concepto ? eee.concepto : eee.loteserial
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                                 colSpan: 2,
                                 className: " text-right text-danger fs-4",
