@@ -117,7 +117,7 @@ class PuntosybiopagosController extends Controller
                     $com = puntosybiopagos::updateOrCreate([
                         "id" => $id
                     ],[
-                        "loteserial" => $cuentasPagosDescripcion,
+                        "loteserial" => $cuentasPagosDescripcion." COMISION",
                         "banco" => $banco->codigo,
                         "fecha" => $cuentasPagosFecha,
                         "monto" => ($montopositivo*-1)*($comisionpagomovilinterban/100),
@@ -639,7 +639,7 @@ class PuntosybiopagosController extends Controller
 
                 if ($iscomisiongasto==1) {
                     puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[
-                        "loteserial" => "COMISION ".$gastosDescripcion.($divisor>1?(" 1/".$divisor):""),
+                        "loteserial" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):"")." COMISION",
                         "banco" => $gastosBanco,
                         "categoria" => $catcompg->id,
                         "fecha" => $gastosFecha,
