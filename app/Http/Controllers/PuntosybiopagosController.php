@@ -60,8 +60,13 @@ class PuntosybiopagosController extends Controller
             $cuentasPagosMetodoDestino = $req->cuentasPagosMetodoDestino;
             $cuentasPagosFecha = $req->cuentasPagosFecha;
 
+            $iscomisiongasto = $req->iscomisiongasto; 
+            $comisionpagomovilinterban = $req->comisionpagomovilinterban; 
+
             $catingresotras = catcajas::where("nombre","CAJA MATRIZ: INGRESO TRASPASO ENTRE CUENTAS")->first();
             $categresotras = catcajas::where("nombre","CAJA MATRIZ: EGRESO TRASPASO ENTRE CUENTAS")->first();
+            $catcompg = catcajas::where("nombre","CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL")->first();
+
 
             if ($catingresotras && $categresotras) {
                 $today = new \DateTime((new NominaController)->today());
@@ -71,6 +76,8 @@ class PuntosybiopagosController extends Controller
                 ]);
                 $banco = bancos_list::find($cuentasPagosMetodo);
                 $bancoDestino = bancos_list::find($cuentasPagosMetodoDestino);
+
+                $montopositivo = abs(floatval($cuentasPagosMonto));
                 if ($banco) {
                     $mov1 = puntosybiopagos::updateOrCreate([
                         "id" => $id
@@ -78,13 +85,14 @@ class PuntosybiopagosController extends Controller
                         "loteserial" => $cuentasPagosDescripcion,
                         "banco" => $bancoDestino->codigo,
                         "fecha" => $cuentasPagosFecha,
-                        "monto" => abs(floatval($cuentasPagosMonto)),
-                        "monto_liquidado" => abs(floatval($cuentasPagosMonto)),
+                        "monto" => $montopositivo,
+                        "monto_liquidado" => $montopositivo,
     
                         "tipo" => "Transferencia",
                         "fecha_liquidacion" => $cuentasPagosFecha,
                         "id_usuario" => 1,
                         "id_sucursal" => $su->id,
+                        "origen" => 2,
                         "categoria" => $catingresotras->id
                     ]);
 
@@ -94,14 +102,33 @@ class PuntosybiopagosController extends Controller
                         "loteserial" => $cuentasPagosDescripcion,
                         "banco" => $banco->codigo,
                         "fecha" => $cuentasPagosFecha,
-                        "monto" => abs(floatval($cuentasPagosMonto))*-1,
-                        "monto_liquidado" => abs(floatval($cuentasPagosMonto))*-1,
+                        "monto" => $montopositivo*-1,
+                        "monto_liquidado" => $montopositivo*-1,
     
                         "tipo" => "Transferencia",
                         "fecha_liquidacion" => $cuentasPagosFecha,
                         "id_usuario" => 1,
                         "id_sucursal" => $su->id,
+                        "origen" => 2,
                         "categoria" => $categresotras->id
+                    ]);
+
+
+                    $com = puntosybiopagos::updateOrCreate([
+                        "id" => $id
+                    ],[
+                        "loteserial" => $cuentasPagosDescripcion,
+                        "banco" => $banco->codigo,
+                        "fecha" => $cuentasPagosFecha,
+                        "monto" => ($montopositivo*-1)*($comisionpagomovilinterban/100),
+                        "monto_liquidado" => ($montopositivo*-1)*($comisionpagomovilinterban/100),
+    
+                        "tipo" => "Transferencia",
+                        "fecha_liquidacion" => $cuentasPagosFecha,
+                        "id_usuario" => 1,
+                        "id_sucursal" => $su->id,
+                        "origen" => 2,
+                        "categoria" => $catcompg->id
                     ]);
             
                     if ($mov1) {

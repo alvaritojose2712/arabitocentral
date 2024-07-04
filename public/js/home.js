@@ -2953,7 +2953,11 @@ function Auditoria(_ref) {
     controlefecSelectCat = _ref.controlefecSelectCat,
     setcontrolefecSelectCat = _ref.setcontrolefecSelectCat,
     controlefecSelectGeneral = _ref.controlefecSelectGeneral,
-    setcontrolefecSelectGeneral = _ref.setcontrolefecSelectGeneral;
+    setcontrolefecSelectGeneral = _ref.setcontrolefecSelectGeneral,
+    iscomisiongasto = _ref.iscomisiongasto,
+    setiscomisiongasto = _ref.setiscomisiongasto,
+    comisionpagomovilinterban = _ref.comisionpagomovilinterban,
+    setcomisionpagomovilinterban = _ref.setcomisionpagomovilinterban;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getMetodosPago();
     getBancosData();
@@ -3030,7 +3034,7 @@ function Auditoria(_ref) {
             className: "form-group mb-1",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
               className: "text-label fs-4 cell3",
-              children: "Descripci\xF3n"
+              children: "Traspaso entre Cuentas"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
               type: "text",
               className: "form-control",
@@ -3053,6 +3057,26 @@ function Auditoria(_ref) {
               onChange: function onChange(e) {
                 return setcuentasPagosMonto(number(e.target.value));
               }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "input-group w-50 mt-1",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                type: "button",
+                className: "btn btn" + (iscomisiongasto == 1 ? "-success" : "-danger"),
+                onClick: function onClick() {
+                  return setiscomisiongasto(iscomisiongasto == 1 ? 0 : 1);
+                },
+                children: "Genera Comisi\xF3n"
+              }), iscomisiongasto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                type: "text",
+                disabled: true,
+                className: "form-control",
+                size: 5,
+                placeholder: "% Comi\xF3n",
+                value: comisionpagomovilinterban,
+                onChange: function onChange(event) {
+                  return setcomisionpagomovilinterban(event.preventDefault());
+                }
+              }) : null]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "form-group mb-1",
@@ -3106,10 +3130,12 @@ function Auditoria(_ref) {
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "form-group w-100 text-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
               className: "mt-2 btn btn-outline-success fs-3 btn-lg",
               type: "submit",
-              children: "Guardar"
+              children: ["Guardar Traspaso ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                className: "fa fa-paper-plane"
+              })]
             })
           })]
         })
@@ -10863,6 +10889,8 @@ function Gastos(_ref) {
               },
               children: "FECHA"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              children: "ORIGEN"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
               className: "pointer",
               onClick: function onClick() {
                 setgastosfieldorder("id_sucursal");
@@ -10907,18 +10935,20 @@ function Gastos(_ref) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 children: e.created_at
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                children: e.origen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("b", {
+                  children: "ADMINISTRACI\xD3N"
+                }) : "SUCURSAL"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
                 className: "text-center",
-                children: [e.sucursal ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                children: [e.sucursal ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
                     className: "btn w-100 fw-bolder fs-6",
                     style: {
                       backgroundColor: colorSucursal(e.sucursal.codigo)
                     },
                     children: e.sucursal.codigo
-                  }), e.origen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("b", {
-                    children: "CARGA ADMINISTRACI\xD3N"
-                  }) : null]
+                  })
                 }) : null, e.beneficiario ? " / " + e.beneficiario.nominanombre : null]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 children: e.concepto ? e.concepto : e.loteserial ? e.loteserial : null
@@ -10948,7 +10978,7 @@ function Gastos(_ref) {
                 }) : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 className: "fs-6 text-right " + (e.montodolar < 0 ? "text-danger" : "text-success"),
-                children: moneda(e.montodolar)
+                children: e.montodolar ? moneda(e.montodolar) : moneda(e.monto_liquidado)
               })]
             }, e.id);
           }) : null : null
@@ -72787,24 +72817,36 @@ function Home() {
       desc: "CAJA MATRIZ: ARANCELES MUNICIPALES"
     },
     48: {
-      color: "#fff2cc",
+      color: "#fff9cc",
       desc: "CAJA MATRIZ: SENIAT"
     },
     49: {
-      color: "#fff2cc",
+      color: "#fff8cc",
       desc: "CAJA MATRIZ: CREDITO BANCARIO"
     },
     50: {
-      color: "#fff2cc",
+      color: "#fff7cc",
       desc: "CAJA MATRIZ: COMISION PUNTO DE VENTA"
     },
     51: {
-      color: "#fff2cc",
+      color: "#fff6cc",
       desc: "CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL"
     },
     52: {
-      color: "#fff2cc",
+      color: "#fff5cc",
       desc: "CAJA MATRIZ: ASEO"
+    },
+    53: {
+      color: "#fff4cc",
+      desc: "CAJA FUERTE: PUBLICIDAD"
+    },
+    54: {
+      color: "#fff1cc",
+      desc: "CAJA MATRIZ: INGRESO TRASPASO ENTRE CUENTAS"
+    },
+    55: {
+      color: "#fff1cc",
+      desc: "CAJA MATRIZ: EGRESO TRASPASO ENTRE CUENTAS"
     }
   };
   var colorCatGeneral = {
@@ -76400,10 +76442,18 @@ function Home() {
         cuentasPagosMonto: cuentasPagosMonto,
         cuentasPagosMetodo: cuentasPagosMetodo,
         cuentasPagosMetodoDestino: cuentasPagosMetodoDestino,
-        cuentasPagosFecha: cuentasPagosFecha
+        cuentasPagosFecha: cuentasPagosFecha,
+        iscomisiongasto: iscomisiongasto,
+        comisionpagomovilinterban: comisionpagomovilinterban
       }).then(function (res) {
         if (res.data.estado) {
           getBancosData();
+          setiscomisiongasto(0);
+          setcuentasPagosDescripcion("");
+          setcuentasPagosMonto("");
+          setcuentasPagosMetodo("");
+          setcuentasPagosMetodoDestino("");
+          setcuentasPagosFecha("");
         }
         notificar(res.data.msj);
       });
@@ -77459,6 +77509,10 @@ function Home() {
           setviewmainPanel: setviewmainPanel,
           viewmainPanel: viewmainPanel
         }), permiso([1, 2, 3, 6]) && viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_34__["default"], {
+          iscomisiongasto: iscomisiongasto,
+          setiscomisiongasto: setiscomisiongasto,
+          comisionpagomovilinterban: comisionpagomovilinterban,
+          setcomisionpagomovilinterban: setcomisionpagomovilinterban,
           controlefecQDescripcion: controlefecQDescripcion,
           setcontrolefecQDescripcion: setcontrolefecQDescripcion,
           controlefecSelectCat: controlefecSelectCat,

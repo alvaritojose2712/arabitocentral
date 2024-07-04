@@ -599,11 +599,14 @@ function Home() {
     
     
     47: {color:"#fff2cc", desc:"CAJA MATRIZ: ARANCELES MUNICIPALES"},
-    48: {color:"#fff2cc", desc:"CAJA MATRIZ: SENIAT"},
-    49: {color:"#fff2cc", desc:"CAJA MATRIZ: CREDITO BANCARIO"},
-    50: {color:"#fff2cc", desc:"CAJA MATRIZ: COMISION PUNTO DE VENTA"},
-    51: {color:"#fff2cc", desc:"CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL"},
-    52: {color:"#fff2cc", desc:"CAJA MATRIZ: ASEO"},
+    48: {color:"#fff9cc", desc:"CAJA MATRIZ: SENIAT"},
+    49: {color:"#fff8cc", desc:"CAJA MATRIZ: CREDITO BANCARIO"},
+    50: {color:"#fff7cc", desc:"CAJA MATRIZ: COMISION PUNTO DE VENTA"},
+    51: {color:"#fff6cc", desc:"CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL"},
+    52: {color:"#fff5cc", desc:"CAJA MATRIZ: ASEO"},
+    53: {color:"#fff4cc", desc:"CAJA FUERTE: PUBLICIDAD"},
+    54: {color:"#fff1cc", desc:"CAJA MATRIZ: INGRESO TRASPASO ENTRE CUENTAS"},
+    55: {color:"#fff1cc", desc:"CAJA MATRIZ: EGRESO TRASPASO ENTRE CUENTAS"},
   }
   
   
@@ -3819,9 +3822,17 @@ function formatAmount( number, simbol ) {
         cuentasPagosMetodo,
         cuentasPagosMetodoDestino,
         cuentasPagosFecha,
+        iscomisiongasto,
+        comisionpagomovilinterban,
       }).then(res=>{
         if (res.data.estado) {
           getBancosData()
+          setiscomisiongasto(0)
+          setcuentasPagosDescripcion("")
+          setcuentasPagosMonto("")
+          setcuentasPagosMetodo("")
+          setcuentasPagosMetodoDestino("")
+          setcuentasPagosFecha("")
         }
         notificar(res.data.msj)
       })
@@ -4669,6 +4680,10 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
             <Auditoria
+              iscomisiongasto={iscomisiongasto}
+              setiscomisiongasto={setiscomisiongasto}
+              comisionpagomovilinterban={comisionpagomovilinterban}
+              setcomisionpagomovilinterban={setcomisionpagomovilinterban}
               controlefecQDescripcion={controlefecQDescripcion}
               setcontrolefecQDescripcion={setcontrolefecQDescripcion}
               controlefecSelectCat={controlefecSelectCat}

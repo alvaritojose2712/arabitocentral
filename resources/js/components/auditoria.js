@@ -112,6 +112,10 @@ export default function Auditoria({
     setcontrolefecSelectCat,
     controlefecSelectGeneral,
     setcontrolefecSelectGeneral,
+    iscomisiongasto,
+    setiscomisiongasto,
+    comisionpagomovilinterban,
+    setcomisionpagomovilinterban,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -187,13 +191,20 @@ export default function Auditoria({
 
                                 <form onSubmit={sendMovimientoBanco}>
                                     <div className="form-group mb-1">
-                                        <span className="text-label fs-4 cell3">Descripción</span>
+                                        <span className="text-label fs-4 cell3">Traspaso entre Cuentas</span>
                                         <input type="text" className="form-control" placeholder="Referencia" value={cuentasPagosDescripcion} onChange={e=>setcuentasPagosDescripcion(e.target.value)} />
                                     </div>
 
                                     <div className="form-group mb-1">
                                         <span className="text-label fs-4 cell3">Monto</span>
                                         <input type="text" className="form-control fs-3 text-success" placeholder="Monto" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} />
+
+                                        <div className="input-group w-50 mt-1">
+                                            <button type="button" className={("btn btn")+(iscomisiongasto==1?"-success":"-danger")} onClick={()=>setiscomisiongasto(iscomisiongasto==1?0:1)}>Genera Comisión</button>
+                                            {iscomisiongasto?
+                                                <input type="text" disabled={true} className="form-control" size={5} placeholder="% Comión" value={comisionpagomovilinterban} onChange={event=>setcomisionpagomovilinterban(event.preventDefault())}/>
+                                            :null}
+                                        </div>
                                     </div>
                                     <div className="form-group mb-1">
                                         <span className="text-label fs-4 cell3">Fecha</span>
@@ -258,7 +269,7 @@ export default function Auditoria({
                                     </div>
 
                                     <div className="form-group w-100 text-center">
-                                        <button className="mt-2 btn btn-outline-success fs-3 btn-lg" type="submit">Guardar</button>
+                                        <button className="mt-2 btn btn-outline-success fs-3 btn-lg" type="submit">Guardar Traspaso <i className="fa fa-paper-plane"></i></button>
                                     </div>
                                 </form>
                             </div>

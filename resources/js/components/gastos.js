@@ -341,6 +341,7 @@ export default function Gastos({
 						<thead>
 							<tr>
 								<th className="pointer" onClick={()=>{setgastosfieldorder("created_at");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>FECHA</th>
+								<th>ORIGEN</th>
 								<th className="pointer" onClick={()=>{setgastosfieldorder("id_sucursal");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>SUCURSAL / PERSONA</th>
 								<th className="pointer">DESCRIPCIÓN</th>
 								{/* <th className="bg-warning text-danger fs-6 text-right">
@@ -360,13 +361,16 @@ export default function Gastos({
 							{gastosData?gastosData.data?gastosData.data.map(e=>
 								<tr key={e.id}>
 									<td>{e.created_at}</td>
+									<td>
+										{e.origen? <b>ADMINISTRACIÓN</b> :"SUCURSAL"}
+
+									</td>
 									<td className="text-center">
 										{e.sucursal?
 											<>
 												<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
 													{e.sucursal.codigo}
 												</button>
-												{e.origen? <b>CARGA ADMINISTRACIÓN</b> :null}
 											</>
 										:null}
 										{e.beneficiario?" / "+e.beneficiario.nominanombre:null}
@@ -395,7 +399,14 @@ export default function Gastos({
 										:null}
 									</td>
 									
-									<td className={("fs-6 text-right ")+(e.montodolar<0?"text-danger":"text-success")}>{moneda(e.montodolar)}</td>
+									<td className={("fs-6 text-right ")+(e.montodolar<0?"text-danger":"text-success")}>
+										{e.montodolar?
+											moneda(e.montodolar)
+											:
+											moneda(e.monto_liquidado)
+											
+										}
+									</td>
 								</tr>
 							):null:null}
 						</tbody>
