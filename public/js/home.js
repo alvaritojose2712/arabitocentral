@@ -10978,7 +10978,9 @@ function Gastos(_ref) {
                 }) : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 className: "fs-6 text-right " + (e.montodolar < 0 ? "text-danger" : "text-success"),
-                children: e.montodolar ? moneda(e.montodolar) : moneda(e.monto_liquidado)
+                children: e.montodolar ? moneda(e.montodolar) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+                  children: [moneda(e.monto_liquidado), " Bs"]
+                })
               })]
             }, e.id);
           }) : null : null

@@ -403,7 +403,7 @@ export default function Gastos({
 										{e.montodolar?
 											moneda(e.montodolar)
 											:
-											moneda(e.monto_liquidado)
+											<span>{moneda(e.monto_liquidado)} Bs</span>
 											
 										}
 									</td>
