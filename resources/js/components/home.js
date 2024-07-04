@@ -5817,6 +5817,17 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5,13]) && viewmainPanel === "gastos" && 
             <Gastos
+              sendMovimientoBanco={sendMovimientoBanco}
+              cuentasPagosDescripcion={cuentasPagosDescripcion}
+              setcuentasPagosDescripcion={setcuentasPagosDescripcion}
+              cuentasPagosMonto={cuentasPagosMonto}
+              setcuentasPagosMonto={setcuentasPagosMonto}
+              cuentasPagosFecha={cuentasPagosFecha}
+              setcuentasPagosFecha={setcuentasPagosFecha}
+              cuentasPagosMetodo={cuentasPagosMetodo}
+              setcuentasPagosMetodo={setcuentasPagosMetodo}
+              cuentasPagosMetodoDestino={cuentasPagosMetodoDestino}
+              setcuentasPagosMetodoDestino={setcuentasPagosMetodoDestino}
               setiscomisiongasto={setiscomisiongasto}
               iscomisiongasto={iscomisiongasto}
               comisionpagomovilinterban={comisionpagomovilinterban}

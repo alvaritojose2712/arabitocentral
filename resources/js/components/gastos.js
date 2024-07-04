@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 
+import CargarTraspasos  from "./cargartraspasos";
+
 export default function Gastos({
 	categoriasCajas,
 	formatAmount,
@@ -107,6 +109,18 @@ export default function Gastos({
 	comisionpagomovilinterban,
 	setcomisionpagomovilinterban,
 
+	sendMovimientoBanco,
+	cuentasPagosDescripcion,
+	setcuentasPagosDescripcion,
+	cuentasPagosMonto,
+	setcuentasPagosMonto,
+	cuentasPagosFecha,
+	setcuentasPagosFecha,
+	cuentasPagosMetodo,
+	setcuentasPagosMetodo,
+	cuentasPagosMetodoDestino,
+	setcuentasPagosMetodoDestino,
+
 }) {
 
 	
@@ -134,7 +148,8 @@ export default function Gastos({
 		<div className="container-fluid">
 			<div className="d-flex justify-content-center">
                 <div className="btn-group m-1">
-                    <button className={("btn btn-sm ")+(subviewGastos=="cargar"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargar")}>Cargar</button>
+                    <button className={("btn btn-sm ")+(subviewGastos=="cargar"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargar")}>Cargar Gastos</button>
+                    <button className={("btn btn-sm ")+(subviewGastos=="cargar"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("traspasos")}>Cargar Traspasos</button>
                     <button className={("btn btn-sm ")+(subviewGastos=="resumen"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("resumen")}>Detalles</button>
                     <button className={("btn btn-sm ")+(subviewGastos=="distribucion"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("distribucion")}>Resumen</button>
                 </div>
@@ -304,6 +319,26 @@ export default function Gastos({
 					</div>
 				</div>				
 			:null}
+			{subviewGastos=="traspasos"?
+				<CargarTraspasos
+					sendMovimientoBanco={sendMovimientoBanco}
+					cuentasPagosDescripcion={cuentasPagosDescripcion}
+					setcuentasPagosDescripcion={setcuentasPagosDescripcion}
+					cuentasPagosMonto={cuentasPagosMonto}
+					setcuentasPagosMonto={setcuentasPagosMonto}
+					setiscomisiongasto={setiscomisiongasto}
+					iscomisiongasto={iscomisiongasto}
+					comisionpagomovilinterban={comisionpagomovilinterban}
+					setcomisionpagomovilinterban={setcomisionpagomovilinterban}
+					cuentasPagosFecha={cuentasPagosFecha}
+					setcuentasPagosFecha={setcuentasPagosFecha}
+					cuentasPagosMetodo={cuentasPagosMetodo}
+					setcuentasPagosMetodo={setcuentasPagosMetodo}
+					cuentasPagosMetodoDestino={cuentasPagosMetodoDestino}
+					setcuentasPagosMetodoDestino={setcuentasPagosMetodoDestino}
+				/>
+			:null}
+
 
 			{subviewGastos=="resumen"?
 				<>
