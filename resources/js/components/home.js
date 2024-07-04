@@ -607,6 +607,9 @@ function Home() {
     53: {color:"#fff4cc", desc:"CAJA FUERTE: PUBLICIDAD"},
     54: {color:"#fff1cc", desc:"CAJA MATRIZ: INGRESO TRASPASO ENTRE CUENTAS"},
     55: {color:"#fff1cc", desc:"CAJA MATRIZ: EGRESO TRASPASO ENTRE CUENTAS"},
+    56: {color:"#fff1cc", desc:"CAJA MATRIZ: DEVOLUCION CLIENTE"},
+
+    
   }
   
   
@@ -5812,7 +5815,7 @@ function formatAmount( number, simbol ) {
             </>
           }
 
-          {permiso([1,2,5]) && viewmainPanel === "gastos" && 
+          {permiso([1,2,5,13]) && viewmainPanel === "gastos" && 
             <Gastos
               setiscomisiongasto={setiscomisiongasto}
               iscomisiongasto={iscomisiongasto}

@@ -72849,6 +72849,10 @@ function Home() {
     55: {
       color: "#fff1cc",
       desc: "CAJA MATRIZ: EGRESO TRASPASO ENTRE CUENTAS"
+    },
+    56: {
+      color: "#fff1cc",
+      desc: "CAJA MATRIZ: DEVOLUCION CLIENTE"
     }
   };
   var colorCatGeneral = {
@@ -78512,7 +78516,7 @@ function Home() {
             delMarcas: delMarcas,
             marcas: marcas
           }) : null]
-        }), permiso([1, 2, 5]) && viewmainPanel === "gastos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_52__["default"], {
+        }), permiso([1, 2, 5, 13]) && viewmainPanel === "gastos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_52__["default"], {
           setiscomisiongasto: setiscomisiongasto,
           iscomisiongasto: iscomisiongasto,
           comisionpagomovilinterban: comisionpagomovilinterban,
