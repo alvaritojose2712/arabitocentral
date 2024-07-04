@@ -16,7 +16,10 @@ export default function CargarTraspasos({
     setcuentasPagosMetodoDestino,
     opcionesMetodosPago,
     number,
+    formatAmount,
 }){
+
+    
     return (
         <div className="container">
 
@@ -28,7 +31,7 @@ export default function CargarTraspasos({
 
                 <div className="form-group mb-1">
                     <span className="text-label fs-4 cell3">Monto</span>
-                    <input type="text" className="form-control fs-3 text-success" placeholder="Monto" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(number(e.target.value))} />
+                    <input type="text" className="form-control fs-3 text-success" placeholder="Monto" value={cuentasPagosMonto} onChange={e=>setcuentasPagosMonto(formatAmount(e.target.value,"Bs. "))} />
 
                     <div className="input-group w-50 mt-1">
                         <button type="button" className={("btn btn")+(iscomisiongasto==1?"-success":"-danger")} onClick={()=>setiscomisiongasto(iscomisiongasto==1?0:1)}>Genera Comisión</button>

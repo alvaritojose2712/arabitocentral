@@ -602,11 +602,11 @@ function Home() {
     48: {color:"#fff9cc", desc:"CAJA MATRIZ: SENIAT"},
     49: {color:"#fff8cc", desc:"CAJA MATRIZ: CREDITO BANCARIO"},
     50: {color:"#fff7cc", desc:"CAJA MATRIZ: COMISION PUNTO DE VENTA"},
-    51: {color:"#fff6cc", desc:"CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL"},
+    51: {color:"#fb9f68", desc:"CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL"},
     52: {color:"#fff5cc", desc:"CAJA MATRIZ: ASEO"},
     53: {color:"#fff4cc", desc:"CAJA FUERTE: PUBLICIDAD"},
-    54: {color:"#fff1cc", desc:"CAJA MATRIZ: INGRESO TRASPASO ENTRE CUENTAS"},
-    55: {color:"#fff1cc", desc:"CAJA MATRIZ: EGRESO TRASPASO ENTRE CUENTAS"},
+    54: {color:"#e8f0be", desc:"CAJA MATRIZ: INGRESO TRASPASO ENTRE CUENTAS"},
+    55: {color:"#ffe4e1", desc:"CAJA MATRIZ: EGRESO TRASPASO ENTRE CUENTAS"},
     56: {color:"#fff1cc", desc:"CAJA MATRIZ: DEVOLUCION CLIENTE"},
 
     
@@ -619,7 +619,7 @@ function Home() {
     2: {color:"#ff9900", desc: "GASTO"},
     3: {color:"#b45f06", desc: "GASTO GENERAL"},
     4: {color:"#999999", desc: "TRANSFERENCIA TRABAJADOR"},
-    5: {color:"#434343", desc: "MOVIMIENTO NULO INTERNO"},
+    5: {color:"#a3a3a3", desc: "MOVIMIENTO NULO INTERNO"},
     6: {color:"#fff2cc", desc: "CAJA MATRIZ"},
     7: {color:"#b7b7b7", desc: "FDI"},
     8: {color:"#6aa84f", desc: "INGRESO EXTERNO"},
@@ -1692,7 +1692,7 @@ function Home() {
     return number;
   }
   const removeMoneda = val => {
-    return number(val.replace("Bs/$ ","").replace("Bs.","").replace("$","").replace(" ","").replace(".","").replace(",","."))
+    return number(val.replace("Bs/$ ","").replace("Bs.","").replace("Bs. ","").replace("$","").replace(" ","").replace(".","").replace(",","."))
   }
 
 function formatAmount( number, simbol ) {
@@ -3821,7 +3821,8 @@ function formatAmount( number, simbol ) {
     }else{
       db.sendMovimientoBanco({
         cuentasPagosDescripcion,
-        cuentasPagosMonto,
+        cuentasPagosMonto:removeMoneda(cuentasPagosMonto),
+        
         cuentasPagosMetodo,
         cuentasPagosMetodoDestino,
         cuentasPagosFecha,

@@ -4547,7 +4547,8 @@ function CargarTraspasos(_ref) {
     cuentasPagosMetodoDestino = _ref.cuentasPagosMetodoDestino,
     setcuentasPagosMetodoDestino = _ref.setcuentasPagosMetodoDestino,
     opcionesMetodosPago = _ref.opcionesMetodosPago,
-    number = _ref.number;
+    number = _ref.number,
+    formatAmount = _ref.formatAmount;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     className: "container",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
@@ -4577,7 +4578,7 @@ function CargarTraspasos(_ref) {
           placeholder: "Monto",
           value: cuentasPagosMonto,
           onChange: function onChange(e) {
-            return setcuentasPagosMonto(number(e.target.value));
+            return setcuentasPagosMonto(formatAmount(e.target.value, "Bs. "));
           }
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: "input-group w-50 mt-1",
@@ -10516,262 +10517,310 @@ function Gastos(_ref) {
           children: "Resumen"
         })]
       })
-    }), subviewGastos == "cargar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "was-validated",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "form-group mb-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-          className: "form-label",
-          children: "Descripci\xF3n"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-          type: "text",
-          className: "form-control form-control-lg",
-          value: gastosDescripcion,
-          onChange: function onChange(e) {
-            return setgastosDescripcion(e.target.value);
-          },
-          placeholder: "Descripci\xF3n",
-          required: true
-        })]
-      }), modeMoneda == "dolar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "form-group mb-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-          className: "form-label text-success",
-          children: "Monto $"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "input-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            className: "form-control text-success fs-2",
-            value: gastosMonto_dolar,
-            onChange: function onChange(e) {
-              return setgastosMonto_dolar(formatAmount(e.target.value, "$ "));
-            },
-            placeholder: "Monto $",
-            required: true
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-            className: "btn btn-sinapsis",
-            type: "button",
-            onClick: function onClick() {
-              return setmodeMoneda("bs");
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-              className: "fa fa-refresh"
-            }), " Bs"]
-          })]
-        })]
-      }) : null, modeMoneda == "bs" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "form-group mb-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-          className: "form-label text-sinapsis",
-          children: "Monto Bs "
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "row",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "col",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-              type: "text",
-              className: "form-control text-sinapsis fs-2",
-              value: gastosMonto,
-              onChange: function onChange(e) {
-                return setgastosMonto(formatAmount(e.target.value, "Bs. "));
-              },
-              placeholder: "Monto Bs",
-              required: true
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "col-3",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-              className: "input-group",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                type: "text",
-                className: "form-control text-sinapsis fs-2",
-                value: gastosTasa,
-                onChange: function onChange(e) {
-                  return setgastosTasa(formatAmount(e.target.value, "Bs/$ "));
-                },
-                placeholder: "Tasa",
-                required: true
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-                className: "btn btn-success",
-                type: "button",
-                onClick: function onClick() {
-                  return setmodeMoneda("dolar");
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-                  className: "fa fa-refresh"
-                }), " $"]
-              })]
-            })
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "row",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-            className: "col",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-              className: "input-group w-50 mt-1",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-                className: "btn btn" + (iscomisiongasto == 1 ? "-success" : "-danger"),
-                onClick: function onClick() {
-                  return setiscomisiongasto(iscomisiongasto == 1 ? 0 : 1);
-                },
-                children: "Genera Comisi\xF3n"
-              }), iscomisiongasto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                type: "text",
-                disabled: true,
-                className: "form-control",
-                size: 5,
-                placeholder: "% Comi\xF3n",
-                value: comisionpagomovilinterban,
-                onChange: function onChange(event) {
-                  return setcomisionpagomovilinterban(event.preventDefault());
-                }
-              }) : null]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("small", {
-              className: "text-success fs-4",
-              children: [moneda(parseFloat(removeMoneda(gastosMonto)) / parseFloat(removeMoneda(gastosTasa))), " $"]
-            })]
-          })
-        })]
-      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "form-group mb-2",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
-          className: "form-control",
-          value: gastosBanco,
-          onChange: function onChange(e) {
-            return setgastosBanco(e.target.value);
-          },
-          required: true,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-            value: "",
-            children: "-M\xE9todo-"
-          }), opcionesMetodosPago.map(function (e) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-              value: e.codigo,
-              children: e.descripcion
-            }, e.id);
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "form-group mb-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-          className: "form-label",
-          children: "Fecha"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-          type: "date",
-          className: "form-control form-control-lg",
-          value: gastosFecha,
-          onChange: function onChange(e) {
-            return setgastosFecha(e.target.value);
-          },
-          required: true
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "form-group mb-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-          className: "form-label",
-          children: "Categor\xEDa"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-          type: "text",
-          className: "form-control",
-          placeholder: "Buscar CATEGOR\xCDA...",
-          value: qbuscarcat,
-          onChange: function onChange(event) {
-            return setqbuscarcat(event.target.value);
-          }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "card card-personal h-400px table-responsive",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
-            className: "list-group",
-            children: categoriasCajas.length ? categoriasCajas.filter(function (e) {
-              if (qbuscarcat == "") {
-                return true;
-              } else {
-                if (e.nombre.toLowerCase().indexOf(qbuscarcat.toLowerCase()) !== -1) {
-                  return true;
-                } else {
-                  return false;
-                }
-              }
-            }).map(function (e) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
-                style: {
-                  backgroundColor: colorsGastosCat(e.id, "cat", "color")
-                },
-                className: "list-group-item " + (gastosCategoria == e.id ? " fst-bold text-light bg-dark fs-2 pointer " : ""),
-                onClick: function onClick() {
-                  setgastosCategoria(e.id);
-                },
-                children: e.nombre
-              }, e.id);
-            }) : null
-          })
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "form-group mb-2",
+    }), subviewGastos == "cargar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "container",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "was-validated",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "mb-1",
+          className: "form-group mb-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "form-label",
-            children: "Asignar a "
-          }), modeEjecutor == "personal" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-            className: "btn btn-sinapsis",
-            type: "button",
-            onClick: function onClick() {
-              return setmodeEjecutor("sucursal");
+            children: "Descripci\xF3n"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+            type: "text",
+            className: "form-control form-control-lg",
+            value: gastosDescripcion,
+            onChange: function onChange(e) {
+              return setgastosDescripcion(e.target.value);
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-              className: "fa fa-user"
-            }), " "]
-          }) : null, modeEjecutor == "sucursal" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            className: "btn btn-success",
-            type: "button",
-            onClick: function onClick() {
-              return setmodeEjecutor("personal");
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-              className: "fa fa-home"
-            })
-          }) : null]
-        }), modeEjecutor == "personal" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "row",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "col-md-2",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-              className: "input-group",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
-                onSubmit: function onSubmit(event) {
-                  event.preventDefault();
-                  getPersonal();
+            placeholder: "Descripci\xF3n",
+            required: true
+          })]
+        }), modeMoneda == "dolar" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "form-group mb-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "form-label text-success",
+            children: "Monto $"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "input-group",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "text",
+              className: "form-control text-success fs-2",
+              value: gastosMonto_dolar,
+              onChange: function onChange(e) {
+                return setgastosMonto_dolar(formatAmount(e.target.value, "$ "));
+              },
+              placeholder: "Monto $",
+              required: true
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+              className: "btn btn-sinapsis",
+              type: "button",
+              onClick: function onClick() {
+                return setmodeMoneda("bs");
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                className: "fa fa-refresh"
+              }), " Bs"]
+            })]
+          })]
+        }) : null, modeMoneda == "bs" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "form-group mb-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "form-label text-sinapsis",
+            children: "Monto Bs "
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "row",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "text",
+                className: "form-control text-sinapsis fs-2",
+                value: gastosMonto,
+                onChange: function onChange(e) {
+                  return setgastosMonto(formatAmount(e.target.value, "Bs. "));
                 },
+                placeholder: "Monto Bs",
+                required: true
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col-3",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "input-group",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   type: "text",
-                  className: "form-control is-invalid",
-                  value: qNomina,
+                  className: "form-control text-sinapsis fs-2",
+                  value: gastosTasa,
                   onChange: function onChange(e) {
-                    return setqNomina(e.target.value);
+                    return setgastosTasa(formatAmount(e.target.value, "Bs/$ "));
                   },
-                  placeholder: "Buscar PERSONAL..."
+                  placeholder: "Tasa",
+                  required: true
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
                   className: "btn btn-success",
-                  type: "submit",
-                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-                    className: "fa fa-search"
-                  }), " "]
+                  type: "button",
+                  onClick: function onClick() {
+                    return setmodeMoneda("dolar");
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                    className: "fa fa-refresh"
+                  }), " $"]
                 })]
               })
-            })
+            })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "col",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-              className: "input-group",
+            className: "row",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "input-group w-50 mt-1",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                  className: "btn btn" + (iscomisiongasto == 1 ? "-success" : "-danger"),
+                  onClick: function onClick() {
+                    return setiscomisiongasto(iscomisiongasto == 1 ? 0 : 1);
+                  },
+                  children: "Genera Comisi\xF3n"
+                }), iscomisiongasto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  disabled: true,
+                  className: "form-control",
+                  size: 5,
+                  placeholder: "% Comi\xF3n",
+                  value: comisionpagomovilinterban,
+                  onChange: function onChange(event) {
+                    return setcomisionpagomovilinterban(event.preventDefault());
+                  }
+                }) : null]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("small", {
+                className: "text-success fs-4",
+                children: [moneda(parseFloat(removeMoneda(gastosMonto)) / parseFloat(removeMoneda(gastosTasa))), " $"]
+              })]
+            })
+          })]
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "form-group mb-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+            className: "form-control",
+            value: gastosBanco,
+            onChange: function onChange(e) {
+              return setgastosBanco(e.target.value);
+            },
+            required: true,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+              value: "",
+              children: "-M\xE9todo-"
+            }), opcionesMetodosPago.map(function (e) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                value: e.codigo,
+                children: e.descripcion
+              }, e.id);
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "form-group mb-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "form-label",
+            children: "Fecha"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+            type: "date",
+            className: "form-control form-control-lg",
+            value: gastosFecha,
+            onChange: function onChange(e) {
+              return setgastosFecha(e.target.value);
+            },
+            required: true
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "form-group mb-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "form-label",
+            children: "Categor\xEDa"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+            type: "text",
+            className: "form-control",
+            placeholder: "Buscar CATEGOR\xCDA...",
+            value: qbuscarcat,
+            onChange: function onChange(event) {
+              return setqbuscarcat(event.target.value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "card card-personal h-400px table-responsive",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
+              className: "list-group",
+              children: categoriasCajas.length ? categoriasCajas.filter(function (e) {
+                if (qbuscarcat == "") {
+                  return true;
+                } else {
+                  if (e.nombre.toLowerCase().indexOf(qbuscarcat.toLowerCase()) !== -1) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                }
+              }).map(function (e) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+                  style: {
+                    backgroundColor: colorsGastosCat(e.id, "cat", "color")
+                  },
+                  className: "list-group-item " + (gastosCategoria == e.id ? " fst-bold text-light bg-dark fs-2 pointer " : ""),
+                  onClick: function onClick() {
+                    setgastosCategoria(e.id);
+                  },
+                  children: e.nombre
+                }, e.id);
+              }) : null
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "form-group mb-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "mb-1",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "form-label",
+              children: "Asignar a "
+            }), modeEjecutor == "personal" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+              className: "btn btn-sinapsis",
+              type: "button",
+              onClick: function onClick() {
+                return setmodeEjecutor("sucursal");
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                className: "fa fa-user"
+              }), " "]
+            }) : null, modeEjecutor == "sucursal" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "btn btn-success",
+              type: "button",
+              onClick: function onClick() {
+                return setmodeEjecutor("personal");
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                className: "fa fa-home"
+              })
+            }) : null]
+          }), modeEjecutor == "personal" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "row",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col-md-2",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "input-group",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+                  onSubmit: function onSubmit(event) {
+                    event.preventDefault();
+                    getPersonal();
+                  },
+                  className: "input-group",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                    type: "text",
+                    className: "form-control is-invalid",
+                    value: qNomina,
+                    onChange: function onChange(e) {
+                      return setqNomina(e.target.value);
+                    },
+                    placeholder: "Buscar PERSONAL..."
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                    className: "btn btn-success",
+                    type: "submit",
+                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                      className: "fa fa-search"
+                    }), " "]
+                  })]
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "input-group",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                  className: "card card-personal",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
+                    className: "list-group",
+                    children: nominaData.personal ? nominaData.personal.length ? nominaData.personal.map(function (e) {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
+                        className: "list-group-item " + (listBeneficiario.filter(function (ee) {
+                          return ee.id == e.id;
+                        }).length ? " active pointer " : ""),
+                        onClick: function onClick() {
+                          setgastosBeneficiario(e.id);
+                          addBeneficiarioList("add", e.id);
+                        },
+                        children: [e.nominanombre, " ", e.nominacedula]
+                      }, e.id);
+                    }) : null : null
+                  })
+                })
+              })
+            })]
+          }) : null, modeEjecutor == "sucursal" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "row",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col-md-2",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "input-group",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                  onSubmit: function onSubmit(event) {
+                    event.preventDefault();
+                    getSucursales(qSucursal);
+                  },
+                  className: "input-group",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                    type: "text",
+                    className: "form-control is-invalid",
+                    value: qSucursal,
+                    onChange: function onChange(e) {
+                      setqSucursal(e.target.value);
+                      getSucursales(e.target.value);
+                    },
+                    placeholder: "Buscar SUCURSALES..."
+                  })
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "card card-personal",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
                   className: "list-group",
-                  children: nominaData.personal ? nominaData.personal.length ? nominaData.personal.map(function (e) {
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
+                  children: sucursales.length ? sucursales.map(function (e) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
                       className: "list-group-item " + (listBeneficiario.filter(function (ee) {
                         return ee.id == e.id;
                       }).length ? " active pointer " : ""),
@@ -10779,89 +10828,45 @@ function Gastos(_ref) {
                         setgastosBeneficiario(e.id);
                         addBeneficiarioList("add", e.id);
                       },
-                      children: [e.nominanombre, " ", e.nominacedula]
+                      children: e.codigo
                     }, e.id);
-                  }) : null : null
+                  }) : null
                 })
               })
-            })
-          })]
-        }) : null, modeEjecutor == "sucursal" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "row",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "col-md-2",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-              className: "input-group",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
-                onSubmit: function onSubmit(event) {
-                  event.preventDefault();
-                  getSucursales(qSucursal);
+            })]
+          }) : null, listBeneficiario.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "border bg-light p-3 m-2",
+            children: listBeneficiario.map(function (e) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                className: "btn mb-1 me-1",
+                onClick: function onClick() {
+                  return addBeneficiarioList("del", e.id);
                 },
-                className: "input-group",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                  type: "text",
-                  className: "form-control is-invalid",
-                  value: qSucursal,
-                  onChange: function onChange(e) {
-                    setqSucursal(e.target.value);
-                    getSucursales(e.target.value);
-                  },
-                  placeholder: "Buscar SUCURSALES..."
-                })
-              })
+                style: {
+                  backgroundColor: e.color ? e.color : "coral"
+                },
+                onDoubleClick: function onDoubleClick() {
+                  return addBeneficiarioList("del", e.id);
+                },
+                children: e.codigo ? e.codigo : e.nominanombre
+              }, e.id);
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "col",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-              className: "card card-personal",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
-                className: "list-group",
-                children: sucursales.length ? sucursales.map(function (e) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
-                    className: "list-group-item " + (listBeneficiario.filter(function (ee) {
-                      return ee.id == e.id;
-                    }).length ? " active pointer " : ""),
-                    onClick: function onClick() {
-                      setgastosBeneficiario(e.id);
-                      addBeneficiarioList("add", e.id);
-                    },
-                    children: e.codigo
-                  }, e.id);
-                }) : null
-              })
-            })
-          })]
-        }) : null, listBeneficiario.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "border bg-light p-3 m-2",
-          children: listBeneficiario.map(function (e) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-              className: "btn mb-1 me-1",
-              onClick: function onClick() {
-                return addBeneficiarioList("del", e.id);
-              },
-              style: {
-                backgroundColor: e.color ? e.color : "coral"
-              },
-              onDoubleClick: function onDoubleClick() {
-                return addBeneficiarioList("del", e.id);
-              },
-              children: e.codigo ? e.codigo : e.nominanombre
-            }, e.id);
+          }) : null]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "text-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+            className: "btn btn-success btn-lg",
+            onClick: function onClick() {
+              return saveNewGasto();
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+              className: "fa fa-save"
+            }), " Guardar"]
           })
-        }) : null]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "text-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-          className: "btn btn-success btn-lg",
-          onClick: function onClick() {
-            return saveNewGasto();
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-            className: "fa fa-save"
-          }), " Guardar"]
-        })
-      })]
+        })]
+      })
     }) : null, subviewGastos == "traspasos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_cargartraspasos__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      formatAmount: formatAmount,
       sendMovimientoBanco: sendMovimientoBanco,
       cuentasPagosDescripcion: cuentasPagosDescripcion,
       setcuentasPagosDescripcion: setcuentasPagosDescripcion,
@@ -11046,7 +11051,7 @@ function Gastos(_ref) {
                   children: colorsGastosCat(e.cat.ingreso_egreso, "ingreso_egreso", "desc")
                 }) : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                className: "fs-6 text-right " + (e.montodolar < 0 ? "text-danger" : "text-success"),
+                className: "fs-6 text-right " + (e.montodolar < 0 || e.monto_liquidado < 0 ? "text-danger" : "text-success"),
                 children: e.montodolar ? moneda(e.montodolar) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
                   children: [moneda(e.monto_liquidado), " Bs"]
                 })
@@ -72900,7 +72905,7 @@ function Home() {
       desc: "CAJA MATRIZ: COMISION PUNTO DE VENTA"
     },
     51: {
-      color: "#fff6cc",
+      color: "#fb9f68",
       desc: "CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL"
     },
     52: {
@@ -72912,11 +72917,11 @@ function Home() {
       desc: "CAJA FUERTE: PUBLICIDAD"
     },
     54: {
-      color: "#fff1cc",
+      color: "#e8f0be",
       desc: "CAJA MATRIZ: INGRESO TRASPASO ENTRE CUENTAS"
     },
     55: {
-      color: "#fff1cc",
+      color: "#ffe4e1",
       desc: "CAJA MATRIZ: EGRESO TRASPASO ENTRE CUENTAS"
     },
     56: {
@@ -72946,7 +72951,7 @@ function Home() {
       desc: "TRANSFERENCIA TRABAJADOR"
     },
     5: {
-      color: "#434343",
+      color: "#a3a3a3",
       desc: "MOVIMIENTO NULO INTERNO"
     },
     6: {
@@ -74012,7 +74017,7 @@ function Home() {
     return number;
   }
   var removeMoneda = function removeMoneda(val) {
-    return number(val.replace("Bs/$ ", "").replace("Bs.", "").replace("$", "").replace(" ", "").replace(".", "").replace(",", "."));
+    return number(val.replace("Bs/$ ", "").replace("Bs.", "").replace("Bs. ", "").replace("$", "").replace(" ", "").replace(".", "").replace(",", "."));
   };
   function formatAmount(number, simbol) {
     // remove all the characters except the numeric values
@@ -76514,7 +76519,7 @@ function Home() {
     } else {
       _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].sendMovimientoBanco({
         cuentasPagosDescripcion: cuentasPagosDescripcion,
-        cuentasPagosMonto: cuentasPagosMonto,
+        cuentasPagosMonto: removeMoneda(cuentasPagosMonto),
         cuentasPagosMetodo: cuentasPagosMetodo,
         cuentasPagosMetodoDestino: cuentasPagosMetodoDestino,
         cuentasPagosFecha: cuentasPagosFecha,
