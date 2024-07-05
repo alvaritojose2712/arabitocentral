@@ -608,8 +608,7 @@ function Home() {
     54: {color:"#e8f0be", desc:"CAJA MATRIZ: INGRESO TRASPASO ENTRE CUENTAS"},
     55: {color:"#ffe4e1", desc:"CAJA MATRIZ: EGRESO TRASPASO ENTRE CUENTAS"},
     56: {color:"#fff1cc", desc:"CAJA MATRIZ: DEVOLUCION CLIENTE"},
-
-    
+    57: {color:"#fff1cc", desc:"CAJA MATRIZ: BOMBEROS"},
   }
   
   
