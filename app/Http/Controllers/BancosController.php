@@ -62,7 +62,7 @@ class BancosController extends Controller
         }
 
         $puntosybiopagos = puntosybiopagos::with("sucursal")
-        ->whereNotIn("banco",["ZELLE","BINANCE","AirTM","EFECTIVO"])
+        ->whereNotIn("banco",["EFECTIVO"])
         ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
             $q->whereIn("banco",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
         })
