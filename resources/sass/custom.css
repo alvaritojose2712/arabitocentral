@@ -477,6 +477,14 @@ body{
 w-200px{
   width: 200px !important;
 }
+
+.ps-6{
+  padding-left: 4rem !important;
+}
+
+.pe-6{
+  padding-right: 4rem !important;
+}
 .text-successfuerte{
   font-weight: bolder !important;
   color: #34751d !important;
