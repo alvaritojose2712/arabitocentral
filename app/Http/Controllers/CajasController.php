@@ -187,4 +187,7 @@ class CajasController extends Controller
             }
         
     }
+    function getEfectivoAuditoria(Request $req) {
+        
+    }
 }

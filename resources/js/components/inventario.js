@@ -209,6 +209,7 @@ export default function Inventario({
     setInvorderBy,
     setInvnum,
     Invnum,
+    newNombres,
 }){
     useEffect(()=>{
         getDatinputSelectVinculacion()
@@ -511,6 +512,7 @@ export default function Inventario({
                 setqtiponombres={setqtiponombres}
                 datanombres={datanombres}
                 modNombres={modNombres}
+                newNombres={newNombres}
             />
         :null}
 

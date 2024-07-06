@@ -376,6 +376,58 @@ function modNombres(Request $req) {
         }
     }
 }
+
+function newNombres(Request $req) {
+    $id = $req->id;
+    $type = $req->type;
+    $tiponombre = $req->tiponombre;
+    $newvalue = $req->newvalue;
+
+    $field = "";
+
+    switch ($tiponombre) {
+        case "n1":
+            $obj = new productonombre1;
+            $field = "nombre";
+        break;
+        case "n2":
+            $obj = new productonombre2;
+            $field = "nombre";
+        break;
+        case "n3":
+            $obj = new productonombre3;
+            $field = "nombre";
+        break;
+        case "n4":
+            $obj = new productonombre4s;
+            $field = "nombre";
+        break;
+        case "n5":
+            $obj = new productonombre5s;
+            $field = "nombre";
+        break;
+        case "id_marca":
+            $obj = new marcas;
+            $field = "descripcion";
+        break;
+        case "id_categoria":
+            $obj = new categorias;
+            $field = "descripcion";
+        break;
+        case "id_catgeneral":
+            $obj = new CatGenerals;
+            $field = "descripcion";
+        break;
+    }
+    if ($type=="eliminar") {
+       // $obj->delete();
+    }else{
+        if ($newvalue) {
+            $obj[$field] = strtoupper($newvalue);
+            $obj->save();
+        }
+    }
+}
 function buscarNombres(Request $req) {
     $qnombres = $req->qnombres;
     $qtiponombres = $req->qtiponombres;

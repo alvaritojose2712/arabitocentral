@@ -6,6 +6,7 @@ export default function GestionarnombresInventario({
     setqtiponombres,
     datanombres,
     modNombres,
+    newNombres,
 }){
     return (
         <div className="container">
@@ -36,6 +37,7 @@ export default function GestionarnombresInventario({
                                     <div className="btn btn-group">
                                         <button className="btn btn-danger" onClick={()=>modNombres(e.id,e.tipo,"eliminar")}><i className="fa fa-times"></i></button>
                                         <button className="btn btn-warning" onClick={()=>modNombres(e.id,e.tipo,"editar")}><i className="fa fa-pencil"></i></button>
+                                        <button className="btn btn-success" onClick={()=>newNombres(e.id,e.tipo,"nuevo")}>NEW</button>
                                     </div>
                                 </td>
                             </tr>

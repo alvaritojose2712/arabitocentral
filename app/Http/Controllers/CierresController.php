@@ -206,6 +206,270 @@ class CierresController extends Controller
             return "Error TRY CENTRAL: " . $e->getMessage()." ".$e->getLine();
         }
     }
+    function getCuadreGeneral(Request $req) {
+        $id_sucursal = $req->sucursalqcuadregeneral;
+        $fechasMain1 = $req->fechadesdeqcuadregeneral;
+        $fechasMain2 = $req->fechahastaqcuadregeneral;
+
+        if (!$fechasMain1) {
+            return "Sin fecha Seleccionada!";
+        }
+        
+
+        $debito = [];
+        $sum_debito = 0;
+        $sum_debito_dolar = 0;
+        $efectivo = [];
+        $sum_efectivo = 0;
+        $transferencia = [];
+        $sum_transferencia = 0;
+        $sum_transferencia_dolar = 0;
+        $caja_biopago = [];
+        $sum_caja_biopago = 0;
+        $sum_caja_biopago_dolar = 0;
+        
+        $gastos_fijos = [];
+        $sum_gastos_fijos = 0;
+        $gastos_variables = [];
+        $sum_gastos_variables = 0;
+        $pago_proveedores = [];
+        $sum_pago_proveedores = 0;
+
+        $caja_inicial = [];
+        $sum_caja_inicial = 0;
+
+
+        $bs = $this->getTasa()["bs"];
+        $cop = $this->getTasa()["cop"];
+
+
+
+        $cierres = cierres::with("sucursal")
+        ->when($id_sucursal, function ($q) use ($id_sucursal) {
+            $q->where("id_sucursal", $id_sucursal);
+        })
+        ->where("fecha", $fechasMain1)
+        ->orderBy("fecha","desc")
+        ->get()
+        ->map(function($q) use ($bs,$cop,$fechasMain1, &$caja_inicial, &$sum_caja_inicial){
+            $caja_inicial_suc = cierres::with("sucursal")->where("id_sucursal",$q->id_sucursal)->where("fecha","<",$fechasMain1)->orderBy("fecha","desc")->first();
+            $caja_chica = cajas::where("id_sucursal",$q->id_sucursal)->where("tipo",0)->where("fecha","<",$fechasMain1)->orderBy("fecha","desc")->first();
+            $caja_fuerte = cajas::where("id_sucursal",$q->id_sucursal)->where("tipo",1)->where("fecha","<",$fechasMain1)->orderBy("fecha","desc")->first();
+            
+            $sum_caja_registradora = $caja_inicial_suc["deja_dolar"]+($caja_inicial_suc["deja_peso"]/$cop)+($caja_inicial_suc["deja_bss"]/$bs);
+            $sum_caja_chica = $caja_chica["dolarbalance"]+ ($caja_chica["bsbalance"]/$bs)+ ($caja_chica["pesobalance"]/$cop)+$caja_chica["eurobalance"];
+            $sum_caja_fuerte = $caja_fuerte["dolarbalance"]+ ($caja_fuerte["bsbalance"]/$bs)+ ($caja_fuerte["pesobalance"]/$cop)+$caja_fuerte["eurobalance"];
+
+            $sum_cajas = $sum_caja_registradora+$sum_caja_fuerte+$sum_caja_chica;
+
+
+            $caja_inicial[$caja_inicial_suc["sucursal"]["codigo"]] = [
+                "caja_registradora" => [
+                    "dolar" => $caja_inicial_suc["deja_dolar"],
+                    "peso" => $caja_inicial_suc["deja_peso"],
+                    "bs" => $caja_inicial_suc["deja_bss"],
+                    "euro" => 0,
+                    "total_dolar" => $sum_caja_registradora,
+                ],
+                "caja_fuerte" => [
+                    "dolar" => $caja_fuerte["dolarbalance"],
+                    "bs" => $caja_fuerte["bsbalance"],
+                    "peso" => $caja_fuerte["pesobalance"],
+                    "euro" => $caja_fuerte["eurobalance"],
+                    "total_dolar" => $sum_caja_fuerte,
+                ],
+                "caja_chica" => [
+                    "dolar" => $caja_chica["dolarbalance"],
+                    "bs" => $caja_chica["bsbalance"],
+                    "peso" => $caja_chica["pesobalance"],
+                    "euro" => $caja_chica["eurobalance"],
+                    "total_dolar" => $sum_caja_chica,
+                ],
+                "sum_cajas" => $sum_cajas,
+            ];
+            $sum_caja_inicial += $sum_cajas;
+            return $q;
+        });
+
+        foreach ($cierres as $i => $c) {
+            $codigo = $c->sucursal->codigo;
+            $efectivo[$codigo] = isset($efectivo[$codigo])?$efectivo[$codigo]+$c->efectivo: $c->efectivo;
+            $sum_efectivo += $c->efectivo;
+            //////////////////
+            $caja_biopago[$codigo] = isset($caja_biopago[$codigo])?$caja_biopago[$codigo]+$c->caja_biopago: $c->caja_biopago;
+            $sum_caja_biopago += $c->caja_biopago;
+            $sum_caja_biopago_dolar += ($c->caja_biopago/$bs);
+            /////////////////
+            $debitos = puntosybiopagos::where("id_sucursal",$c->id_sucursal)->where("fecha_liquidacion",$fechasMain1)->where("tipo","LIKE","PUNTO%")->get();
+            $bancos_debito = [];
+            foreach ($debitos as $item_punto) {
+                $bancos_debito[$item_punto["banco"]] = [
+                    "bs" => isset($bancos_debito[$item_punto["banco"]])? $bancos_debito[$item_punto["banco"]]["bs"] + $item_punto["monto"]: $item_punto["monto"],
+                    "dolar" => isset($bancos_debito[$item_punto["banco"]])? $bancos_debito[$item_punto["banco"]]["dolar"] + ($item_punto["monto"]/$bs): ($item_punto["monto"]/$bs),
+                ]; 
+            }
+            $debito[$codigo]["sum_debitos"] = $debitos->sum("monto");
+            $debito[$codigo]["sum_debitos_dolar"] = $debitos->sum("monto")/$bs;
+            $sum_debito += $debitos->sum("monto");
+            $sum_debito_dolar += ($debitos->sum("monto")/$bs);
+            $debito[$codigo]["bancos_debito"] = $bancos_debito;
+            ///////////////
+            $transferencias = puntosybiopagos::where("id_sucursal",$c->id_sucursal)->where("fecha_liquidacion",$fechasMain1)->where("tipo","LIKE","Transferencia%")->get();
+            $bancos_transferencias = [];
+            foreach ($transferencias as $item_trans) {
+                $bancos_transferencias[$item_trans["banco"]] = [
+                    "bs" => isset($bancos_transferencias[$item_trans["banco"]])? $bancos_transferencias[$item_trans["banco"]]["bs"] + $item_trans["monto"]: $item_trans["monto"],
+                    "dolar" => isset($bancos_transferencias[$item_trans["banco"]])? $bancos_transferencias[$item_trans["banco"]]["dolar"] + ($item_trans["monto"]/$bs): ($item_trans["monto"]/$bs)
+                ]; 
+            }
+            $transferencia[$codigo]["sum_transferencias"] = $transferencias->sum("monto");
+            $transferencia[$codigo]["sum_transferencias_dolar"] = $transferencias->sum("monto")/$bs;
+            $sum_transferencia += $transferencias->sum("monto");
+            $sum_transferencia_dolar += ($transferencias->sum("monto")/$bs);
+            $transferencia[$codigo]["bancos_transferencias"] = $bancos_transferencias;
+
+        }
+        $pago_proveedoresFun = (new CuentasporpagarController)->selectCuentaPorPagarProveedorDetallesFun([
+            "fechasMain1" => $fechasMain1,
+            "fechasMain2" => $fechasMain1,
+
+            "categoriacuentasPorPagarDetalles" => "",
+            "cuentaporpagarAprobado" => 1,
+            "id_facts_force" => null,
+            "id_proveedor" => "",
+            "numcuentasPorPagarDetalles" => "",
+            "OrdercuentasPorPagarDetalles" => "desc",
+            "qCampocuentasPorPagarDetalles" => "updated_at",
+            "qcuentasPorPagarDetalles" => "",
+            "qcuentasPorPagarTipoFact" => "abonos",
+            "sucursalcuentasPorPagarDetalles" => $id_sucursal,
+            "tipocuentasPorPagarDetalles" => "",
+            "type" => "buscar",
+        ]);
+        $pago_proveedores = collect($pago_proveedoresFun["detalles"])->groupBy(["proveedor.descripcion"]);
+        $sum_pago_proveedores = $pago_proveedoresFun["balance"];
+
+
+        $gastosFun = collect(array_filter((new PuntosybiopagosController)
+        ->getGastosFun([
+            "gastosQ"=>"",
+            "gastosQFecha"=>$fechasMain1,
+            "gastosQFechaHasta"=>$fechasMain1,
+            "gastosQCategoria"=>"",
+            "catgeneral"=>"",
+            "ingreso_egreso"=>"",
+            "typecaja"=>"",
+            "gastosorder"=>"desc",
+            "gastosfieldorder"=>"variable_fijo",
+        ])["data"],function($filter) {
+            return $filter["cat"]["catgeneral"]==2||$filter["cat"]["catgeneral"]==3; 
+        }))->groupBy(["cat.variable_fijo","sucursal.codigo","cat.nombre"]);
+
+        $distgastosFun = collect(array_filter((new PuntosybiopagosController)
+        ->getGastosFun([
+            "gastosQ"=>"",
+            "gastosQFecha"=>$fechasMain1,
+            "gastosQFechaHasta"=>$fechasMain1,
+            "gastosQCategoria"=>"",
+            "catgeneral"=>"",
+            "ingreso_egreso"=>"",
+            "typecaja"=>"",
+            "gastosorder"=>"desc",
+            "gastosfieldorder"=>"variable_fijo",
+        ])["data"],function($filter) {
+            return $filter["cat"]["catgeneral"]!=2&&$filter["cat"]["catgeneral"]!=3; 
+        }))->groupBy(["cat.variable_fijo","sucursal.codigo","cat.nombre"]);
+
+
+        $gastos = [];
+        $mov_dist_gastos = [];
+
+
+        foreach ($gastosFun as $id_var_fijo => $bysucursal) {
+            $gastos[$id_var_fijo] = [
+                "sum" => 0,
+                "data" => [],
+            ];
+            $sum_gastos_var_fijo = 0;
+            foreach ($bysucursal as $codigo_sucursal => $cats) {
+                $sum_gastos_sucursal = 0;
+                $gastos[$id_var_fijo]["data"][$codigo_sucursal] = [
+                    "sum" => 0,
+                    "data" => []
+                ];
+
+                foreach ($cats as $id_cat => $values) {
+                    $gastos[$id_var_fijo]["data"][$codigo_sucursal]["data"][$id_cat] = [
+                        "sum" => $values->sum("montodolar"),
+                        "data" => $values 
+                    ];
+                    $sum_gastos_sucursal += $values->sum("montodolar");
+                    $sum_gastos_var_fijo += $values->sum("montodolar");
+                }
+
+                $gastos[$id_var_fijo]["data"][$codigo_sucursal]["sum"] = $sum_gastos_sucursal;
+            }
+
+            $gastos[$id_var_fijo]["sum"] = $sum_gastos_var_fijo; 
+        }
+
+        foreach ($distgastosFun as $id_var_fijo => $bysucursal) {
+            $mov_dist_gastos[$id_var_fijo] = [
+                "sum" => 0,
+                "data" => [],
+            ];
+            $sum_gastos_var_fijo = 0;
+            foreach ($bysucursal as $codigo_sucursal => $cats) {
+                $sum_gastos_sucursal = 0;
+                $mov_dist_gastos[$id_var_fijo]["data"][$codigo_sucursal] = [
+                    "sum" => 0,
+                    "data" => []
+                ];
+
+                foreach ($cats as $id_cat => $values) {
+                    $mov_dist_gastos[$id_var_fijo]["data"][$codigo_sucursal]["data"][$id_cat] = [
+                        "sum" => $values->sum("montodolar"),
+                        "data" => $values 
+                    ];
+                    $sum_gastos_sucursal += $values->sum("montodolar");
+                    $sum_gastos_var_fijo += $values->sum("montodolar");
+                }
+
+                $mov_dist_gastos[$id_var_fijo]["data"][$codigo_sucursal]["sum"] = $sum_gastos_sucursal;
+            }
+
+            $mov_dist_gastos[$id_var_fijo]["sum"] = $sum_gastos_var_fijo; 
+        }
+
+
+
+        return [
+            "mov_dist_gastos" => $mov_dist_gastos,
+            "gastos" => $gastos,
+            "debito" => $debito,
+            "sum_debito" => $sum_debito,
+            "efectivo" => $efectivo,
+            "sum_efectivo" => $sum_efectivo,
+            "transferencia" => $transferencia,
+            "sum_transferencia" => $sum_transferencia,
+            "caja_biopago" => $caja_biopago,
+            "sum_caja_biopago" => $sum_caja_biopago,
+
+            "sum_debito_dolar" => $sum_debito_dolar,
+            "sum_transferencia_dolar" => $sum_transferencia_dolar,
+            "sum_caja_biopago_dolar" => $sum_caja_biopago_dolar,
+            "gastos_fijos" => $gastos_fijos,
+            "sum_gastos_fijos" => $sum_gastos_fijos,
+            "gastos_variables" => $gastos_variables,
+            "sum_gastos_variables" => $sum_gastos_variables,
+            "pago_proveedores" => $pago_proveedores,
+            "sum_pago_proveedores" => $sum_pago_proveedores,
+            "caja_inicial" => $caja_inicial,
+            "sum_caja_inicial" => $sum_caja_inicial,
+        ];
+
+
+    }
     public function getCierres($fechasMain1, $fechasMain2, $filtros)
     {
         return sucursal::all()->map(function ($q) use ($fechasMain1, $fechasMain2) {
@@ -580,9 +844,6 @@ class CierresController extends Controller
     
         }
     }
-
-
-
     function getCreditos($fechasMain1, $fechasMain2, $id_sucursal, $filtros) {
         $data = creditos::with(["sucursal","cliente"]) 
         ->when($id_sucursal, function ($q) use ($id_sucursal) {

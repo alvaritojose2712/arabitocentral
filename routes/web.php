@@ -393,6 +393,8 @@ Route::get('delduplicateItemsEstadisticas',  [InventarioSucursalEstadisticasCont
 
 Route::post('buscarNombres',  [InventarioController::class,"buscarNombres"]);
 Route::post('modNombres',  [InventarioController::class,"modNombres"]);
+Route::post('newNombres',  [InventarioController::class,"newNombres"]);
+
 
 Route::get('removeDuplicatesCXP',  [CuentasporpagarController::class,"removeDuplicatesCXP"]);
 Route::get('removeDuplicatesItemsEstadisticas',  [InventarioSucursalEstadisticasController::class,"removeDuplicatesItemsEstadisticas"]);
@@ -507,6 +509,8 @@ Route::post('resolveTareaCentral', [TareasController::class,"resolveTareaCentral
 Route::post('getsucursalListData', [CierresController::class,"getsucursalListData"]);
 Route::post('getsucursalDetallesData', [CierresController::class,"getsucursalDetallesData"]);
 Route::post('getBalanceGeneral', [CierresController::class,"getBalanceGeneral"]);
+Route::get('getCuadreGeneral', [CierresController::class,"getCuadreGeneral"]);
+
 
 
 

@@ -463,16 +463,19 @@ body{
 }
 
 .bg-success-1{
-  background-color: #3cff33;
+  background-color: #3cff33 !important;
 }
 .bg-success-2{
-  background-color: #3dff33c9;
+  background-color: #3dff33c9 !important;
 }
 .bg-success-3{
-  background-color: #3dff338a;
+  background-color: #3dff338a !important;
 }
 .bg-success-4{
-  background-color: #3dff335d;
+  background-color: #3dff335d !important;
+}
+w-200px{
+  width: 200px !important;
 }
 .text-successfuerte{
   font-weight: bolder !important;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PanelOpciones from './panel/panelopciones';
 import Aprobtransferencia from './aprobtransferencia';
-import AuditoriaEfectivo from './auditoriaEfectivo';
+import CuadreGeneral from './cuadregeneral';
 
 export default function Auditoria({
     getBancoName,
@@ -30,24 +30,6 @@ export default function Auditoria({
 
     bancosdata,
 
-    cuentasPagosMetodoDestino,
-    setcuentasPagosMetodoDestino,
-
-    cuentasPagosDescripcion,
-    setcuentasPagosDescripcion,
-    cuentasPagosMonto,
-    setcuentasPagosMonto,
-    cuentasPagosMetodo,
-    setcuentasPagosMetodo,
-    cuentasPagosFecha,
-    setcuentasPagosFecha,
-    sendMovimientoBanco,
-
-    cuentasPagoTipo,
-    setcuentasPagosTipo,
-    cuentasPagosCategoria,
-    setcuentasPagosCategoria,
-    number,
     moneda,
     selectxMovimientos,
     movimientoAuditoria,
@@ -95,11 +77,7 @@ export default function Auditoria({
     sucursalDetallesData,
     setqestatusaprobaciocaja,
     permiso,
-    cuentasPagosPuntooTranfe,
-    setcuentasPagosPuntooTranfe,
-    cuentasPagosSucursal,
-    setcuentasPagosSucursal,
-    categoriasCajas,
+
     autoliquidarTransferencia,
     fechaAutoLiquidarTransferencia,
     setfechaAutoLiquidarTransferencia,
@@ -112,10 +90,17 @@ export default function Auditoria({
     setcontrolefecSelectCat,
     controlefecSelectGeneral,
     setcontrolefecSelectGeneral,
-    iscomisiongasto,
-    setiscomisiongasto,
-    comisionpagomovilinterban,
-    setcomisionpagomovilinterban,
+
+    sucursalqcuadregeneral,
+    setsucursalqcuadregeneral,
+    fechadesdeqcuadregeneral,
+    setfechadesdeqcuadregeneral,
+    fechahastaqcuadregeneral,
+    setfechahastaqcuadregeneral,
+    datacuadregeneral,
+    getCuadreGeneral,
+    number,
+    formatAmount,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -145,6 +130,7 @@ export default function Auditoria({
         return id
     }
 
+    const [showautoliquidar, setshowautoliquidar] = useState(false)
     const [nummm, setnummm] = useState(0)
 
     let opcionesAuditoria = [
@@ -192,39 +178,25 @@ export default function Auditoria({
 
                                         <div className="form-group">
                                             <div className="input-group">
-                                                <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
-                                                <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
-                                            </div>
-                                        </div>
-
-                                        <div className="form-group">
-                                            <div className="input-group">
                                                 <select className="form-control" value={bancoSelectAuditoria}  onChange={event=>setbancoSelectAuditoria(event.target.value)}>
                                                     <option value="">-BANCO-</option>
                                                     {opcionesMetodosPago.map(e=>
                                                         <option key={e.id} value={e.id}>{e.codigo}</option>
                                                     )}
                                                 </select>
-                                            </div>
-                                        </div>
-
-                                        <div className="form-group">
-                                            <div className="input-group">
                                                 <select className="form-control" value={sucursalSelectAuditoria}  onChange={event=>setsucursalSelectAuditoria(event.target.value)}>
                                                     <option value="">-SUCURSAL-</option>
                                                     {sucursales.map(e=>
                                                         <option key={e.id} value={e.id}>{e.codigo}</option>
                                                     )}
                                                 </select>
-                                            </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="input-group">
+                                                <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
+                                                <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
                                                 <input type="text" className="form-control" placeholder="Buscar Descripción o Monto..." value={qdescripcionbancosdata} onChange={event=>setqdescripcionbancosdata(event.target.value)}/>    
                                                 <button className="btn btn-success" onClick={()=>getBancosData()}><i className="fa fa-search"></i></button>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div className="row">
@@ -519,26 +491,51 @@ export default function Auditoria({
                         subviewAuditoria=="liquidar" && bancosdata.view=="liquidar"? 
                             <>
                                 <div className="form-group">
-                                    <div className="input-group">
-                                        <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
-                                        <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
-                                        <button className="btn btn-success" onClick={()=>getBancosData()}><i className="fa fa-search"></i></button>
-                                    
+                                    <div className="row">
+                                        <div className="col">
+                                            <div className="input-group">
+
+                                                <select className="form-control" value={bancoSelectAuditoria}  onChange={event=>setbancoSelectAuditoria(event.target.value)}>
+                                                    <option value="">-BANCO-</option>
+                                                    {opcionesMetodosPago.map(e=>
+                                                        <option key={e.id} value={e.id}>{e.codigo}</option>
+                                                    )}
+                                                </select>
+                                                <select className="form-control" value={sucursalSelectAuditoria}  onChange={event=>setsucursalSelectAuditoria(event.target.value)}>
+                                                    <option value="">-SUCURSAL-</option>
+                                                    {sucursales.map(e=>
+                                                        <option key={e.id} value={e.id}>{e.codigo}</option>
+                                                    )}
+                                                </select>
+                                                <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
+                                                <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
+                                                <button className="btn btn-success" onClick={()=>getBancosData()}><i className="fa fa-search"></i></button>
+                                            
+                                            </div>
+
+                                        </div>
+                                        <div className="col-md-auto">
+                                            <button className="btn btn-success" onClick={()=>setshowautoliquidar(!showautoliquidar)}><i className="fa fa-eye"></i> AutoLiquidar</button>
+                                        </div>
                                     </div>
-                                    <hr />
-                                    <div className="input-group">
-                                        <input type="date" value={fechaAutoLiquidarTransferencia} onChange={event=>setfechaAutoLiquidarTransferencia(event.target.value)} className="form-control" />
-                                        <select className="form-control" 
-                                        value={bancoAutoLiquidarTransferencia} 
-                                        onChange={e=>setbancoAutoLiquidarTransferencia(e.target.value)}>
-                                            <option value="">-Banco-</option>
-                                            {opcionesMetodosPago.filter(e=>e.codigo!="EFECTIVO").map(e=>
-                                                <option value={e.codigo} key={e.id}>{e.descripcion}</option>
-                                            )}
-                                        </select>
-                                        <button className="btn btn-success m-2" onClick={()=>autoliquidarTransferencia("auto")}>AUTOLIQUIDAR TRANSFERENCIAS</button>
-                                        <button className="btn btn-sinapsis m-2" onClick={()=>autoliquidarTransferencia("reversar")}>REVERSAR LIQUIDACIÓN DE TRANSFERENCIAS</button>
-                                    </div>
+                                    {showautoliquidar?<div>
+                                        <hr />
+
+                                        <div className="input-group">
+                                            <input type="date" value={fechaAutoLiquidarTransferencia} onChange={event=>setfechaAutoLiquidarTransferencia(event.target.value)} className="form-control" />
+                                            <select className="form-control" 
+                                            value={bancoAutoLiquidarTransferencia} 
+                                            onChange={e=>setbancoAutoLiquidarTransferencia(e.target.value)}>
+                                                <option value="">-Banco-</option>
+                                                {opcionesMetodosPago.filter(e=>e.codigo!="EFECTIVO").map(e=>
+                                                    <option value={e.codigo} key={e.id}>{e.descripcion}</option>
+                                                )}
+                                            </select>
+                                            <button className="btn btn-success m-2" onClick={()=>autoliquidarTransferencia("auto")}>AUTOLIQUIDAR TRANSFERENCIAS</button>
+                                            <button className="btn btn-sinapsis m-2" onClick={()=>autoliquidarTransferencia("reversar")}>REVERSAR LIQUIDACIÓN DE TRANSFERENCIAS</button>
+                                        </div>
+
+                                    </div>:null}
                                 </div> 
                                     <hr />
                                 <table className="table">
@@ -679,25 +676,22 @@ export default function Auditoria({
         :null}
         {permiso([1,2,3]) && subviewAuditoriaGeneral=="efectivo"?
 
-            <AuditoriaEfectivo
-                fechasMain1={fechasMain1}
-                fechasMain2={fechasMain2}
-                setfechasMain1={setfechasMain1}
-                setfechasMain2={setfechasMain2}
-                controlefecQDescripcion={controlefecQDescripcion}
-                setcontrolefecQDescripcion={setcontrolefecQDescripcion}
-                controlefecSelectCat={controlefecSelectCat}
-                setcontrolefecSelectCat={setcontrolefecSelectCat}
-                getsucursalDetallesData={getsucursalDetallesData}
-                sucursalDetallesData={sucursalDetallesData}
-                controlefecSelectGeneral={controlefecSelectGeneral}
-                setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
+            <CuadreGeneral
+                sucursalqcuadregeneral={sucursalqcuadregeneral}
+                setsucursalqcuadregeneral={setsucursalqcuadregeneral}
+                fechadesdeqcuadregeneral={fechadesdeqcuadregeneral}
+                setfechadesdeqcuadregeneral={setfechadesdeqcuadregeneral}
+                fechahastaqcuadregeneral={fechahastaqcuadregeneral}
+                setfechahastaqcuadregeneral={setfechahastaqcuadregeneral}
+                datacuadregeneral={datacuadregeneral}
+                getCuadreGeneral={getCuadreGeneral}
                 moneda={moneda}
+                number={number}
+                formatAmount={formatAmount}
+                sucursales={sucursales}
+                colorSucursal={colorSucursal}
                 colorsGastosCat={colorsGastosCat}
-                getCatCajas={getCatCajas}
-                subviewpanelsucursales={subviewpanelsucursales}
-                sucursalSelect={sucursalSelect}
-                qestatusaprobaciocaja={qestatusaprobaciocaja}
+                colors={colors}
             />   
         
         :null}

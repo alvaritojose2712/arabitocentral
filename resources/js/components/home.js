@@ -609,6 +609,10 @@ function Home() {
     55: {color:"#ffe4e1", desc:"CAJA MATRIZ: EGRESO TRASPASO ENTRE CUENTAS"},
     56: {color:"#fff1cc", desc:"CAJA MATRIZ: DEVOLUCION CLIENTE"},
     57: {color:"#fff1cc", desc:"CAJA MATRIZ: BOMBEROS"},
+    58:	{color:"#ffff01", desc:"CAJA MATRIZ: IVSS"},
+    59:	{color:"#ffff01", desc:"CAJA MATRIZ: BANAVIH"},
+    60:	{color:"#ffff01", desc:"CAJA MATRIZ: INCES"},
+    61:	{color:"#ffff00", desc:"CAJA FUERTE: NOMINA PRESTACIONES SOCIALES"},
   }
   
   
@@ -1428,6 +1432,18 @@ function Home() {
       buscarNombres()
     })
   }
+
+  const newNombres = (id,tiponombre,type) => {
+    let newvalue ;
+    newvalue = window.prompt("Nuevo nombre")
+    db.newNombres({
+      id,tiponombre,type,newvalue
+    }).then(res=>{
+      buscarNombres()
+    })
+  }
+
+  
   
 
   const sameCatValue = (val,name)=>{
@@ -4412,6 +4428,20 @@ function formatAmount( number, simbol ) {
 
   }
 
+  const [sucursalqcuadregeneral,setsucursalqcuadregeneral] = useState("")
+  const [fechadesdeqcuadregeneral,setfechadesdeqcuadregeneral] = useState("")
+  const [fechahastaqcuadregeneral,setfechahastaqcuadregeneral] = useState("")
+  const [datacuadregeneral,setdatacuadregeneral] = useState([])
+  
+  const getCuadreGeneral = () => {
+    db.getCuadreGeneral({
+      sucursalqcuadregeneral,
+      fechadesdeqcuadregeneral,
+      fechahastaqcuadregeneral,
+    }).then(res=>{
+      setdatacuadregeneral(res.data)
+    })
+  }
 
   
   const [sucursalBalanceGeneral, setsucursalBalanceGeneral] = useState("")
@@ -4683,6 +4713,17 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
             <Auditoria
+              sucursalqcuadregeneral={sucursalqcuadregeneral}
+              setsucursalqcuadregeneral={setsucursalqcuadregeneral}
+              fechadesdeqcuadregeneral={fechadesdeqcuadregeneral}
+              setfechadesdeqcuadregeneral={setfechadesdeqcuadregeneral}
+              fechahastaqcuadregeneral={fechahastaqcuadregeneral}
+              setfechahastaqcuadregeneral={setfechahastaqcuadregeneral}
+              datacuadregeneral={datacuadregeneral}
+              getCuadreGeneral={getCuadreGeneral}
+              number={number}
+              formatAmount={formatAmount}
+
               iscomisiongasto={iscomisiongasto}
               setiscomisiongasto={setiscomisiongasto}
               comisionpagomovilinterban={comisionpagomovilinterban}
@@ -5347,6 +5388,7 @@ function formatAmount( number, simbol ) {
               InvorderBy={InvorderBy}
               setInvorderBy={setInvorderBy}
               modNombres={modNombres}
+              newNombres={newNombres}
               buscarNombres={buscarNombres}
               qnombres={qnombres}
               setqnombres={setqnombres}

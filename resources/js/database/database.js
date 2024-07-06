@@ -41,9 +41,12 @@ const db = {
   liquidarMov: data=>axios.post(host+"liquidarMov",data),
   autoliquidarTransferencia: data=>axios.post(host+"autoliquidarTransferencia",data),
   getBalanceGeneral: data=>axios.post(host+"getBalanceGeneral",data),
+  getCuadreGeneral: data=>axios.get(host+"getCuadreGeneral",{params:data}),
+  
   
   buscarNombres: data=>axios.post(host+"buscarNombres",data),
   modNombres: data=>axios.post(host+"modNombres",data),
+  newNombres: data=>axios.post(host+"newNombres",data),
   
   
 
