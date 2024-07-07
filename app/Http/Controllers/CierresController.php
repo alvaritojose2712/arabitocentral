@@ -494,7 +494,7 @@ class CierresController extends Controller
         }
 
         $total_ingresos = $sum_debito_dolar+$sum_efectivo+$sum_transferencia_dolar+$sum_caja_biopago_dolar;
-        $total_egresos = $sum_gastos_fijos+$sum_gastos_variables+$sum_pago_proveedores;
+        $total_egresos = abs($sum_gastos_fijos)+abs($sum_gastos_variables)+abs($sum_pago_proveedores);
         $total_caja_inicial = $sum_caja_inicial+$sum_caja_inicial_banco_dolar;
         
         return [
