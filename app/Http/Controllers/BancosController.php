@@ -23,9 +23,14 @@ class BancosController extends Controller
         $sucursalSelectAuditoria = $arr["sucursalSelectAuditoria"];
 
         return  cuentasporpagar::with("sucursal")
-        ->whereNotIn("metodo",["ZELLE","BINANCE","AirTM","EFECTIVO"])
+        ->whereNotIn("metodo",["BINANCE","AirTM","EFECTIVO"])
         ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
-            $q->whereIn("metodo",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
+            //$q->whereIn("metodo",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
+            /* ->orwhereIn("metodobs1",bancos_list::where("id",$qbancobancosdata)->select("codigo"))
+            ->orwhereIn("metodobs2",bancos_list::where("id",$qbancobancosdata)->select("codigo"))
+            ->orwhereIn("metodobs3",bancos_list::where("id",$qbancobancosdata)->select("codigo"))
+            ->orwhereIn("metodobs4",bancos_list::where("id",$qbancobancosdata)->select("codigo"))
+            ->orwhereIn("metodobs5",bancos_list::where("id",$qbancobancosdata)->select("codigo")); */
         })
         ->when($qdescripcionbancosdata!="",function($q) use ($qdescripcionbancosdata) {
             $q->orwhere("numfact",$qdescripcionbancosdata)
@@ -110,7 +115,19 @@ class BancosController extends Controller
         $cuenta4 = $this->getCuentaAuditoria($arrq);
         $cuenta5 = $this->getCuentaAuditoria($arrq);
 
-        $bs1 = array_filter($cuenta1->map(function ($q) {
+        $bancoselect = null;
+        if ($qbancobancosdata) {
+            $bancoselect =  bancos_list::where("id",$qbancobancosdata)->first(["codigo"])->codigo;
+        }
+
+        $bs1 = array_filter($cuenta1->map(function ($q) use ($bancoselect,$qbancobancosdata) {
+            if ($qbancobancosdata) {
+                if ($q->metodobs1==$bancoselect) {
+                    
+                }else{
+                    return null;
+                }
+            }
             $q->banco = $q->metodobs1;
             $sum = 0;
             if ($q->montobs1) {$sum += $q->montobs1;}
@@ -122,7 +139,14 @@ class BancosController extends Controller
         })->toArray(),function($q) {
             return $q!==null;
         });
-        $bs2 = array_filter($cuenta2->map(function ($q) {
+        $bs2 = array_filter($cuenta2->map(function ($q) use ($bancoselect,$qbancobancosdata) {
+            if ($qbancobancosdata) {
+                if ($q->metodobs2==$bancoselect) {
+                    
+                }else{
+                    return null;
+                }
+            }
             $q->banco = $q->metodobs2;
             $sum = 0;
             if ($q->montobs2) {$sum += $q->montobs2;}
@@ -134,7 +158,14 @@ class BancosController extends Controller
         })->toArray(),function($q) {
             return $q!==null;
         });
-        $bs3 = array_filter($cuenta3->map(function ($q) {
+        $bs3 = array_filter($cuenta3->map(function ($q) use ($bancoselect,$qbancobancosdata) {
+            if ($qbancobancosdata) {
+                if ($q->metodobs3==$bancoselect) {
+                    
+                }else{
+                    return null;
+                }
+            }
             $q->banco = $q->metodobs3;
             $sum = 0;
             if ($q->montobs3) {$sum += $q->montobs3;}
@@ -146,7 +177,14 @@ class BancosController extends Controller
         })->toArray(),function($q) {
             return $q!==null;
         });
-        $bs4 = array_filter($cuenta4->map(function ($q) {
+        $bs4 = array_filter($cuenta4->map(function ($q) use ($bancoselect,$qbancobancosdata) {
+            if ($qbancobancosdata) {
+                if ($q->metodobs4==$bancoselect) {
+                    
+                }else{
+                    return null;
+                }
+            }
             $q->banco = $q->metodobs4;
             $sum = 0;
             if ($q->montobs4) {$sum += $q->montobs4;}
@@ -158,7 +196,14 @@ class BancosController extends Controller
         })->toArray(),function($q) {
             return $q!==null;
         });
-        $bs5 = array_filter($cuenta5->map(function ($q) {
+        $bs5 = array_filter($cuenta5->map(function ($q) use ($bancoselect,$qbancobancosdata) {
+            if ($qbancobancosdata) {
+                if ($q->metodobs5==$bancoselect) {
+                    
+                }else{
+                    return null;
+                }
+            }
             $q->banco = $q->metodobs5;
             $sum = 0;
             if ($q->montobs5) {$sum += $q->montobs5;}
