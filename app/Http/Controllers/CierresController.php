@@ -498,7 +498,7 @@ class CierresController extends Controller
                 "saldo_dolar" => $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs),
             ]);
             $sum_caja_inicial_banco += $saldo;
-            $sum_caja_inicial_banco_dolar += $this->dividir($saldo,$bs);
+            $sum_caja_inicial_banco_dolar += $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs);
         }
 
         $total_ingresos = $sum_debito_dolar+$sum_efectivo+$sum_transferencia_dolar+$sum_caja_biopago_dolar;
