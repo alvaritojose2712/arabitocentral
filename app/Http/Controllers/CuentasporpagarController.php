@@ -953,15 +953,40 @@ class CuentasporpagarController extends Controller
             $pago_efectivo = 0;
 
             if ($q->montobs1) {
-                $pago_banco += ($q->montobs1&&$q->tasabs1?$q->montobs1/$q->tasabs1:0);
+                try {
+                    $pago_banco += ($q->montobs1&&$q->tasabs1? ($q->montobs1/$q->tasabs1) :0);
+                    
+                } catch (\Exception $exe) {
+                    
+                }
             }else if($q->montobs2){
-                $pago_banco += ($q->montobs2&&$q->tasabs2?$q->montobs2/$q->tasabs2:0);
+                try {
+                    $pago_banco += ($q->montobs2&&$q->tasabs2? ($q->montobs2/$q->tasabs2) :0);
+                    
+                } catch (\Exception $exe) {
+                    
+                }
             }else if($q->montobs3){
-                $pago_banco += ($q->montobs3&&$q->tasabs3?$q->montobs3/$q->tasabs3:0);
+                try {
+                    $pago_banco += ($q->montobs3&&$q->tasabs3? ($q->montobs3/$q->tasabs3) :0);
+                    
+                } catch (\Exception $exe) {
+                    
+                }
             }else if($q->montobs4){
-                $pago_banco += ($q->montobs4&&$q->tasabs4?$q->montobs4/$q->tasabs4:0);
+                try {
+                    $pago_banco += ($q->montobs4&&$q->tasabs4? ($q->montobs4/$q->tasabs4) :0);
+                    
+                } catch (\Exception $exe) {
+                    
+                }
             }else if($q->montobs5){
-                $pago_banco += ($q->montobs5&&$q->tasabs5?$q->montobs5/$q->tasabs5:0);
+                try {
+                    $pago_banco += ($q->montobs5&&$q->tasabs5? ($q->montobs5/$q->tasabs5) :0);
+                    
+                } catch (\Exception $exe) {
+                    
+                }
             }else{
                 $pago_efectivo += $q->monto;
             }

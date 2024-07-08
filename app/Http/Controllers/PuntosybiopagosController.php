@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\bancos_list;
 use App\Models\cajas;
 use App\Models\catcajas;
+use App\Models\cierres;
 use App\Models\puntosybiopagos;
 use App\Models\sucursal;
 use App\Http\Requests\StorepuntosybiopagosRequest;
@@ -404,6 +405,9 @@ class PuntosybiopagosController extends Controller
         $gastosorder = $arr["gastosorder"];
         $gastosfieldorder = $arr["gastosfieldorder"];
 
+
+        
+        
         $gastos =  cajas::with(["sucursal","cat"])
         ->when($gastosQ,function($q) use ($gastosQ){
             $q->where("concepto","LIKE","%$gastosQ%");
@@ -428,9 +432,16 @@ class PuntosybiopagosController extends Controller
         })
         ->get()
         ->map(function($q) {
+            $c = cierres::where("fecha",$q->fecha)->where("id_sucursal",$q->id_sucursal)->first();
+
+            $bs = $c->tasa;
+            $cop = $c->tasacop;
+
             $q->ingreso_egreso = $q->cat->ingreso_egreso;
             $q->catgeneral = $q->cat->catgeneral;
             $q->variable_fijo = $q->cat->variable_fijo;
+
+            $q->montodolar = ($q->montodolar) + ($q->montobs/$bs) + ($q->montopeso/$cop); 
             return $q;
         });
 
