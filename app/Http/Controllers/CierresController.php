@@ -242,6 +242,12 @@ class CierresController extends Controller
         $sum_caja_biopago = 0;
         $sum_caja_biopago_dolar = 0;
         
+        $sum_caja_regis = 0;
+        $sum_caja_chica = 0;
+        $sum_caja_fuerte = 0;
+
+
+        
         $gastos_fijos = [];
         $sum_gastos_fijos = 0;
         $gastos_variables = [];
@@ -275,7 +281,7 @@ class CierresController extends Controller
         ->where("fecha", $fechasMain1)
         ->orderBy("fecha","desc")
         ->get()
-        ->map(function($q) use ($fechasMain1, &$caja_inicial, &$sum_caja_inicial){
+        ->map(function($q) use ($fechasMain1, &$caja_inicial, &$sum_caja_inicial, &$sum_caja_regis,&$sum_caja_chica,&$sum_caja_fuerte){
             $caja_inicial_suc = cierres::with("sucursal")->where("id_sucursal",$q->id_sucursal)->where("fecha","<",$fechasMain1)->orderBy("fecha","desc")->first();
             $bs = $caja_inicial_suc["tasa"];
             $cop = $caja_inicial_suc["tasacop"];
@@ -288,7 +294,9 @@ class CierresController extends Controller
             $sum_caja_fuerte = $caja_fuerte["dolarbalance"]+ $this->dividir($caja_fuerte["bsbalance"],$bs)+ $this->dividir($caja_fuerte["pesobalance"],$cop)+$caja_fuerte["eurobalance"];
 
             $sum_cajas = $sum_caja_registradora+$sum_caja_fuerte+$sum_caja_chica;
-
+            $sum_caja_regis +=  $sum_caja_registradora;
+            $sum_caja_chica +=  $sum_caja_chica;
+            $sum_caja_fuerte +=  $sum_caja_fuerte;
 
             $caja_inicial[$caja_inicial_suc["sucursal"]["codigo"]] = [
                 "caja_registradora" => [
@@ -487,7 +495,7 @@ class CierresController extends Controller
             array_push($caja_inicial_banco, [
                 "banco"=> $banco->codigo,
                 "saldo" => $saldo,
-                "saldo_dolar" => $this->dividir($saldo,$bs),
+                "saldo_dolar" => $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs),
             ]);
             $sum_caja_inicial_banco += $saldo;
             $sum_caja_inicial_banco_dolar += $this->dividir($saldo,$bs);
@@ -507,6 +515,9 @@ class CierresController extends Controller
             "sum_transferencia" => $sum_transferencia,
             "caja_biopago" => $caja_biopago,
             "sum_caja_biopago" => $sum_caja_biopago,
+            "sum_caja_regis" => $sum_caja_regis,
+            "sum_caja_chica" => $sum_caja_chica,
+            "sum_caja_fuerte" => $sum_caja_fuerte,
 
             "sum_debito_dolar" => $sum_debito_dolar,
             "sum_transferencia_dolar" => $sum_transferencia_dolar,

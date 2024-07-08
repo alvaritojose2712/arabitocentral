@@ -385,6 +385,15 @@ export default function cuadregeneraltivo({
                                         </td>
                                         <td className="text-right text-sinapsis fs-2">
                                             $ {moneda(datacuadregeneral.sum_caja_inicial)}
+
+                                            <br />
+
+                                            
+
+
+
+<span className="text-success">Registradora $ {moneda(datacuadregeneral.sum_caja_regis)}</span> / <span className="text-muted">Fuerte $ {moneda(datacuadregeneral.sum_caja_fuerte)}</span> / <span className="text-sinapsis">Chica $ {moneda(datacuadregeneral.sum_caja_chica)}</span> 
+                                                                
                                         </td>
                                     </tr>
                                     {showcaja_inicialdetalles=="efectivo"?
@@ -480,6 +489,14 @@ export default function cuadregeneraltivo({
                                     </tr>
                                     <tr>
                                         <td colSpan={2} className="">
+                                            <button className="btn bg-sinapsis w-200px">TOTAL CAJA INICIAL</button>
+                                        </td>
+                                        <td className="text-right">
+                                            <span className="fs-2 text-sinapsis">{moneda(datacuadregeneral.total_caja_inicial)}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colSpan={2} className="">
                                             <button className="btn bg-danger w-200px">TOTAL EGRESOS</button>
                                         </td>
                                         <td className="text-right">
@@ -487,14 +504,6 @@ export default function cuadregeneraltivo({
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td colSpan={2} className="">
-                                            <button className="btn bg-sinapsis w-200px">TOTAL CAJA INICIAL</button>
-                                        </td>
-                                        <td className="text-right">
-                                            <span className="fs-2 text-sinapsis">{moneda(datacuadregeneral.total_caja_inicial)}</span>
-                                        </td>
-                                    </tr>
 
                                     <tr>
                                         <td colSpan={2} className="">

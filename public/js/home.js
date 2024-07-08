@@ -7459,7 +7459,16 @@ function cuadregeneraltivo(_ref) {
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
                     className: "text-right text-sinapsis fs-2",
-                    children: ["$ ", moneda(datacuadregeneral.sum_caja_inicial)]
+                    children: ["$ ", moneda(datacuadregeneral.sum_caja_inicial), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                      className: "text-success",
+                      children: ["Registradora $ ", moneda(datacuadregeneral.sum_caja_regis)]
+                    }), " / ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                      className: "text-muted",
+                      children: ["Fuerte $ ", moneda(datacuadregeneral.sum_caja_fuerte)]
+                    }), " / ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                      className: "text-sinapsis",
+                      children: ["Chica $ ", moneda(datacuadregeneral.sum_caja_chica)]
+                    })]
                   })]
                 }), showcaja_inicialdetalles == "efectivo" ? Object.entries(datacuadregeneral.caja_inicial).map(function (e, i) {
                   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
@@ -7626,21 +7635,6 @@ function cuadregeneraltivo(_ref) {
                     colSpan: 2,
                     className: "",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                      className: "btn bg-danger w-200px",
-                      children: "TOTAL EGRESOS"
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                    className: "text-right",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                      className: "fs-2 text-danger",
-                      children: moneda(datacuadregeneral.total_egresos)
-                    })
-                  })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                    colSpan: 2,
-                    className: "",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
                       className: "btn bg-sinapsis w-200px",
                       children: "TOTAL CAJA INICIAL"
                     })
@@ -7649,6 +7643,21 @@ function cuadregeneraltivo(_ref) {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                       className: "fs-2 text-sinapsis",
                       children: moneda(datacuadregeneral.total_caja_inicial)
+                    })
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                    colSpan: 2,
+                    className: "",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                      className: "btn bg-danger w-200px",
+                      children: "TOTAL EGRESOS"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                    className: "text-right",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                      className: "fs-2 text-danger",
+                      children: moneda(datacuadregeneral.total_egresos)
                     })
                   })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
