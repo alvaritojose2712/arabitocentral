@@ -242,9 +242,9 @@ class CierresController extends Controller
         $sum_caja_biopago = 0;
         $sum_caja_biopago_dolar = 0;
         
-        $sum_caja_regis = 0;
-        $sum_caja_chica = 0;
-        $sum_caja_fuerte = 0;
+        $sum_caja_regis_inicial = 0;
+        $sum_caja_chica_inicial = 0;
+        $sum_caja_fuerte_inicial = 0;
 
 
         
@@ -281,23 +281,20 @@ class CierresController extends Controller
         ->where("fecha", $fechasMain1)
         ->orderBy("fecha","desc")
         ->get()
-        ->map(function($q) use ($fechasMain1, &$caja_inicial, &$sum_caja_inicial, &$sum_caja_regis,&$sum_caja_chica,&$sum_caja_fuerte){
+        ->map(function($q) use ($fechasMain1, &$caja_inicial, &$sum_caja_inicial, &$sum_caja_regis_inicial,&$sum_caja_chica_inicial,&$sum_caja_fuerte_inicial){
             $caja_inicial_suc = cierres::with("sucursal")->where("id_sucursal",$q->id_sucursal)->where("fecha","<",$fechasMain1)->orderBy("fecha","desc")->first();
             $bs = $caja_inicial_suc["tasa"];
             $cop = $caja_inicial_suc["tasacop"];
             
-            $caja_chica = cajas::where("id_sucursal",$q->id_sucursal)->where("tipo",0)->where("fecha","<",$fechasMain1)->orderBy("fecha","desc")->first();
-            $caja_fuerte = cajas::where("id_sucursal",$q->id_sucursal)->where("tipo",1)->where("fecha","<",$fechasMain1)->orderBy("fecha","desc")->first();
+            $caja_chica = cajas::where("id_sucursal",$q->id_sucursal)->where("tipo",0)->where("fecha","<",$fechasMain1)->orderBy("fecha","desc")->orderBy("id","desc")->first();
+            $caja_fuerte = cajas::where("id_sucursal",$q->id_sucursal)->where("tipo",1)->where("fecha","<",$fechasMain1)->orderBy("fecha","desc")->orderBy("id","desc")->first();
             
             $sum_caja_registradora = $caja_inicial_suc["dejar_dolar"]+$this->dividir($caja_inicial_suc["dejar_peso"],$cop)+$this->dividir($caja_inicial_suc["dejar_bss"],$bs);
             $sum_caja_chica = $caja_chica["dolarbalance"]+ $this->dividir($caja_chica["bsbalance"],$bs)+ $this->dividir($caja_chica["pesobalance"],$cop)+$caja_chica["eurobalance"];
             $sum_caja_fuerte = $caja_fuerte["dolarbalance"]+ $this->dividir($caja_fuerte["bsbalance"],$bs)+ $this->dividir($caja_fuerte["pesobalance"],$cop)+$caja_fuerte["eurobalance"];
 
             $sum_cajas = $sum_caja_registradora+$sum_caja_fuerte+$sum_caja_chica;
-            $sum_caja_regis +=  $sum_caja_registradora;
-            $sum_caja_chica +=  $sum_caja_chica;
-            $sum_caja_fuerte +=  $sum_caja_fuerte;
-
+            
             $caja_inicial[$caja_inicial_suc["sucursal"]["codigo"]] = [
                 "caja_registradora" => [
                     "dolar" => $caja_inicial_suc["dejar_dolar"],
@@ -323,6 +320,9 @@ class CierresController extends Controller
                 "sum_cajas" => $sum_cajas,
             ];
             $sum_caja_inicial += $sum_cajas;
+            $sum_caja_regis_inicial +=  $sum_caja_registradora;
+            $sum_caja_chica_inicial +=  $sum_caja_chica;
+            $sum_caja_fuerte_inicial +=  $sum_caja_fuerte;
             return $q;
         });
 
@@ -515,9 +515,10 @@ class CierresController extends Controller
             "sum_transferencia" => $sum_transferencia,
             "caja_biopago" => $caja_biopago,
             "sum_caja_biopago" => $sum_caja_biopago,
-            "sum_caja_regis" => $sum_caja_regis,
-            "sum_caja_chica" => $sum_caja_chica,
-            "sum_caja_fuerte" => $sum_caja_fuerte,
+
+            "sum_caja_regis" => $sum_caja_regis_inicial,
+            "sum_caja_chica" => $sum_caja_chica_inicial,
+            "sum_caja_fuerte" => $sum_caja_fuerte_inicial,
 
             "sum_debito_dolar" => $sum_debito_dolar,
             "sum_transferencia_dolar" => $sum_transferencia_dolar,

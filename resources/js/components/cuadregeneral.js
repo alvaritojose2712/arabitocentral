@@ -383,16 +383,15 @@ export default function cuadregeneraltivo({
                                         <td>
                                             <button className="btn btn-sinapsis">EFECTIVO</button>
                                         </td>
-                                        <td className="text-right text-sinapsis fs-2">
-                                            $ {moneda(datacuadregeneral.sum_caja_inicial)}
-
+                                        <td className="text-right">
+                                            <span className="text-sinapsis fs-2">
+                                                $ {moneda(datacuadregeneral.sum_caja_inicial)}
+                                            </span>
                                             <br />
+                                            <p>
+                                                <span className="text-muted">Fuerte $ {moneda(datacuadregeneral.sum_caja_fuerte)}</span> / <span className="text-sinapsis">Chica $ {moneda(datacuadregeneral.sum_caja_chica)}</span> / <span className="text-success">Registradora $ {moneda(datacuadregeneral.sum_caja_regis)}</span>
 
-                                            
-
-
-
-<span className="text-success">Registradora $ {moneda(datacuadregeneral.sum_caja_regis)}</span> / <span className="text-muted">Fuerte $ {moneda(datacuadregeneral.sum_caja_fuerte)}</span> / <span className="text-sinapsis">Chica $ {moneda(datacuadregeneral.sum_caja_chica)}</span> 
+                                            </p>
                                                                 
                                         </td>
                                     </tr>

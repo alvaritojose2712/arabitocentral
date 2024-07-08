@@ -7458,16 +7458,21 @@ function cuadregeneraltivo(_ref) {
                       children: "EFECTIVO"
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-                    className: "text-right text-sinapsis fs-2",
-                    children: ["$ ", moneda(datacuadregeneral.sum_caja_inicial), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-                      className: "text-success",
-                      children: ["Registradora $ ", moneda(datacuadregeneral.sum_caja_regis)]
-                    }), " / ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-                      className: "text-muted",
-                      children: ["Fuerte $ ", moneda(datacuadregeneral.sum_caja_fuerte)]
-                    }), " / ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-                      className: "text-sinapsis",
-                      children: ["Chica $ ", moneda(datacuadregeneral.sum_caja_chica)]
+                    className: "text-right",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                      className: "text-sinapsis fs-2",
+                      children: ["$ ", moneda(datacuadregeneral.sum_caja_inicial)]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                        className: "text-muted",
+                        children: ["Fuerte $ ", moneda(datacuadregeneral.sum_caja_fuerte)]
+                      }), " / ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                        className: "text-sinapsis",
+                        children: ["Chica $ ", moneda(datacuadregeneral.sum_caja_chica)]
+                      }), " / ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                        className: "text-success",
+                        children: ["Registradora $ ", moneda(datacuadregeneral.sum_caja_regis)]
+                      })]
                     })]
                   })]
                 }), showcaja_inicialdetalles == "efectivo" ? Object.entries(datacuadregeneral.caja_inicial).map(function (e, i) {
