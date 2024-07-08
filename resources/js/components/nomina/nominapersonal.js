@@ -73,6 +73,7 @@ export default function NominaPersonal({
                 setnominaGradoInstruccion(select[0].nominagradoinstruccion)
                 setnominaCargo(select[0].nominacargo)
                 setnominaSucursal(select[0].nominasucursal)
+                setnominaid_sucursal_disponible(select[0].id_sucursal_disponible)
             }
 			setIndexSelectNomina(id)
 		}
@@ -88,6 +89,8 @@ export default function NominaPersonal({
         setnominaCargo("")
         setnominaSucursal("")
 		setIndexSelectNomina(null)
+		setnominaid_sucursal_disponible("")
+
 	}
 
 	const [showInactivoValue, setshowInactivoValue] = useState(1)

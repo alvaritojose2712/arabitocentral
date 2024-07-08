@@ -948,6 +948,26 @@ class CuentasporpagarController extends Controller
                 $subtotal += $item->cantidad * $item->basef;
             });
             $q->sumitems = $subtotal;
+            
+            $pago_banco = 0;
+            $pago_efectivo = 0;
+
+            if ($q->montobs1) {
+                $pago_banco += ($q->montobs1&&$q->tasabs1?$q->montobs1/$q->tasabs1:0);
+            }else if($q->montobs2){
+                $pago_banco += ($q->montobs2&&$q->tasabs2?$q->montobs2/$q->tasabs2:0);
+            }else if($q->montobs3){
+                $pago_banco += ($q->montobs3&&$q->tasabs3?$q->montobs3/$q->tasabs3:0);
+            }else if($q->montobs4){
+                $pago_banco += ($q->montobs4&&$q->tasabs4?$q->montobs4/$q->tasabs4:0);
+            }else if($q->montobs5){
+                $pago_banco += ($q->montobs5&&$q->tasabs5?$q->montobs5/$q->tasabs5:0);
+            }else{
+                $pago_efectivo += $q->monto;
+            }
+            $q->pago_banco = $pago_banco;
+            $q->pago_efectivo = $pago_efectivo;
+
 
             /* $q->fechaemision = date("d-m-Y", strtotime($q->fechaemision));
             $q->fechavencimiento = date("d-m-Y", strtotime($q->fechavencimiento));

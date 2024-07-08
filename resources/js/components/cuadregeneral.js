@@ -198,7 +198,7 @@ export default function cuadregeneraltivo({
                                                 </button>
                                             </td>
                                             <td className="text-right text-muted pe-2">
-                                                <span className=" fs-4"> Bs {moneda(e[1])}</span>
+                                                <span className=" fs-4"> Bs {moneda(e[1]["sum_caja_biopago"])}</span> / <span className=" fs-4"> $ {moneda(e[1]["sum_caja_biopago_dolar"])}</span> 
                                             </td>
                                         </tr>
 

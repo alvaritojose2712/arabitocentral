@@ -7221,12 +7221,15 @@ function cuadregeneraltivo(_ref) {
                       },
                       children: e[0]
                     })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
                     className: "text-right text-muted pe-2",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
                       className: " fs-4",
-                      children: [" Bs ", moneda(e[1])]
-                    })
+                      children: [" Bs ", moneda(e[1]["sum_caja_biopago"])]
+                    }), " / ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                      className: " fs-4",
+                      children: [" $ ", moneda(e[1]["sum_caja_biopago_dolar"])]
+                    })]
                   })]
                 });
               }) : null]
@@ -14489,6 +14492,7 @@ function NominaPersonal(_ref) {
         setnominaGradoInstruccion(select[0].nominagradoinstruccion);
         setnominaCargo(select[0].nominacargo);
         setnominaSucursal(select[0].nominasucursal);
+        setnominaid_sucursal_disponible(select[0].id_sucursal_disponible);
       }
       setIndexSelectNomina(id);
     }
@@ -14504,6 +14508,7 @@ function NominaPersonal(_ref) {
     setnominaCargo("");
     setnominaSucursal("");
     setIndexSelectNomina(null);
+    setnominaid_sucursal_disponible("");
   };
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
     _useState2 = _slicedToArray(_useState, 2),

@@ -247,6 +247,7 @@ class CierresController extends Controller
         $sum_caja_fuerte_inicial = 0;
 
 
+
         
         $gastos_fijos = [];
         $sum_gastos_fijos = 0;
@@ -331,9 +332,27 @@ class CierresController extends Controller
             $efectivo[$codigo] = isset($efectivo[$codigo])?$efectivo[$codigo]+$c->efectivo: $c->efectivo;
             $sum_efectivo += $c->efectivo;
             //////////////////
-            $caja_biopago[$codigo] = isset($caja_biopago[$codigo])?$caja_biopago[$codigo]+$c->caja_biopago: $c->caja_biopago;
+            /* $caja_biopago[$codigo] = isset($caja_biopago[$codigo])?$caja_biopago[$codigo]+$c->caja_biopago: $c->caja_biopago;
             $sum_caja_biopago += $c->caja_biopago;
-            $sum_caja_biopago_dolar += $this->dividir($c->caja_biopago,$bs);
+            $sum_caja_biopago_dolar += $this->dividir($c->caja_biopago,$bs); */
+
+
+            $caja_biopagos = puntosybiopagos::where("id_sucursal",$c->id_sucursal)->where("origen",1)->where("fecha_liquidacion",$fechasMain1)->where("tipo","LIKE","BIOPAGO%")->get();
+            $sum_all_biopago = $caja_biopagos->sum("monto");
+            $bancos_caja_biopago = [];
+            foreach ($caja_biopagos as $item_caja_biopago) {
+                $bancos_caja_biopago[$item_caja_biopago["banco"]] = [
+                    "bs" => isset($bancos_caja_biopago[$item_caja_biopago["banco"]])? $bancos_caja_biopago[$item_caja_biopago["banco"]]["bs"] + $item_caja_biopago["monto"]: $item_caja_biopago["monto"],
+                    "dolar" => isset($bancos_caja_biopago[$item_caja_biopago["banco"]])? $bancos_caja_biopago[$item_caja_biopago["banco"]]["dolar"] + $this->dividir($item_caja_biopago["monto"],$bs): $this->dividir($item_caja_biopago["monto"],$bs),
+                ]; 
+            }
+            $caja_biopago[$codigo]["sum_caja_biopago"] = $sum_all_biopago;
+            $caja_biopago[$codigo]["sum_caja_biopago_dolar"] = $this->dividir($sum_all_biopago,$bs);
+            $sum_caja_biopago += $sum_all_biopago;
+            $sum_caja_biopago_dolar += $this->dividir($sum_all_biopago,$bs);
+            $caja_biopago[$codigo]["bancos_caja_biopago"] = $bancos_caja_biopago;
+
+
             /////////////////
             $debitos = puntosybiopagos::where("id_sucursal",$c->id_sucursal)->where("origen",1)->where("fecha_liquidacion",$fechasMain1)->where("tipo","LIKE","PUNTO%")->get();
             $bancos_debito = [];
@@ -504,6 +523,19 @@ class CierresController extends Controller
         $total_ingresos = $sum_debito_dolar+$sum_efectivo+$sum_transferencia_dolar+$sum_caja_biopago_dolar;
         $total_egresos = abs($sum_gastos_fijos)+abs($sum_gastos_variables)+abs($sum_pago_proveedores);
         $total_caja_inicial = $sum_caja_inicial+$sum_caja_inicial_banco_dolar;
+
+
+        $sum_banco_ingreso =  $sum_debito_dolar+$sum_transferencia_dolar+$sum_caja_biopago_dolar;
+        $sum_efectivo_ingreso =  $sum_efectivo;
+
+
+        $sum_banco_egreso =  0;
+        $sum_efectivo_egreso =  0;
+
+
+
+
+
         
         return [
             "mov_dist_gastos" => $mov_dist_gastos,
