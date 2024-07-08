@@ -953,40 +953,15 @@ class CuentasporpagarController extends Controller
             $pago_efectivo = 0;
 
             if ($q->montobs1) {
-                try {
-                    $pago_banco += ($q->montobs1&&$q->tasabs1? ($q->montobs1/$q->tasabs1) :0);
-                    
-                } catch (\Exception $exe) {
-                    
-                }
+                $pago_banco += ($q->montobs1&&$q->tasabs1&&$q->tasabs1!="0.00"&&$q->tasabs1!=0.00? ($q->montobs1/$q->tasabs1) :0);
             }else if($q->montobs2){
-                try {
-                    $pago_banco += ($q->montobs2&&$q->tasabs2? ($q->montobs2/$q->tasabs2) :0);
-                    
-                } catch (\Exception $exe) {
-                    
-                }
+                $pago_banco += ($q->montobs2&&$q->tasabs2&&$q->tasabs2!="0.00"&&$q->tasabs2!=0.00? ($q->montobs2/$q->tasabs2) :0);
             }else if($q->montobs3){
-                try {
-                    $pago_banco += ($q->montobs3&&$q->tasabs3? ($q->montobs3/$q->tasabs3) :0);
-                    
-                } catch (\Exception $exe) {
-                    
-                }
+                $pago_banco += ($q->montobs3&&$q->tasabs3&&$q->tasabs3!="0.00"&&$q->tasabs3!=0.00? ($q->montobs3/$q->tasabs3) :0);
             }else if($q->montobs4){
-                try {
-                    $pago_banco += ($q->montobs4&&$q->tasabs4? ($q->montobs4/$q->tasabs4) :0);
-                    
-                } catch (\Exception $exe) {
-                    
-                }
+                $pago_banco += ($q->montobs4&&$q->tasabs4&&$q->tasabs4!="0.00"&&$q->tasabs4!=0.00? ($q->montobs4/$q->tasabs4) :0);
             }else if($q->montobs5){
-                try {
-                    $pago_banco += ($q->montobs5&&$q->tasabs5? ($q->montobs5/$q->tasabs5) :0);
-                    
-                } catch (\Exception $exe) {
-                    
-                }
+                $pago_banco += ($q->montobs5&&$q->tasabs5&&$q->tasabs5!="0.00"&&$q->tasabs5!=0.00? ($q->montobs5/$q->tasabs5) :0);
             }else{
                 $pago_efectivo += $q->monto;
             }
