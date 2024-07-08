@@ -11772,13 +11772,16 @@ function Gastos(_ref) {
                 setgastosorder(gastosorder == "desc" ? "asc" : "desc");
               },
               children: "TIPO"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
               className: "pointer text-right",
               onClick: function onClick() {
                 setgastosfieldorder("montodolar");
                 setgastosorder(gastosorder == "desc" ? "asc" : "desc");
               },
-              children: "MONTO"
+              children: ["MONTO", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-danger fs-3",
+                children: moneda(gastosData.sum ? gastosData.sum : 0)
+              })]
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
