@@ -204,6 +204,25 @@ export default function cuadregeneraltivo({
 
                                     )
                                 :null}
+
+                                <tr>
+                                    <td colSpan={2} className="text-right">
+                                        <button className="btn bg-secondary w-200px">EFECTIVO</button>
+                                    </td>
+                                    <td className=" text-success">
+                                        <button className="btn bg-secondary w-200px">BANCO</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colSpan={2} className="text-right">
+                                        <span className="text-muted fs-4">$ {moneda(datacuadregeneral.sum_efectivo_ingreso)}</span>
+                                    </td>
+                                    <td className="">
+                                        <span className="text-muted fs-4"> $ {moneda(datacuadregeneral.sum_banco_ingreso)}</span>
+                                    </td>
+                                </tr>
+
                             </table>
                         </div>
                     </div>
@@ -282,6 +301,24 @@ export default function cuadregeneraltivo({
                                         </td>
                                     </tr>
 
+                                    <tr>
+                                        <td className="text-right">
+                                            <button className="btn bg-secondary w-200px">EFECTIVO</button>
+                                        </td>
+                                        <td className=" text-success">
+                                            <button className="btn bg-secondary w-200px">BANCO</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td className="text-right">
+                                            <span className="text-muted fs-4">$ {moneda(datacuadregeneral.sum_efectivo_gasto_fijovar)}</span>
+                                        </td>
+                                        <td className="">
+                                            <span className="text-muted fs-4"> $ {moneda(datacuadregeneral.sum_banco_gasto_fijovar)}</span>
+                                        </td>
+                                    </tr>
+
                                     {showgastosdetalles==0?
                                         Object.entries(datacuadregeneral.gastos_variables).map((e,i)=>
                                             <>
@@ -340,6 +377,24 @@ export default function cuadregeneraltivo({
                                             $ {moneda(datacuadregeneral.sum_pago_proveedores)}
                                         </td>
                                     </tr>
+
+                                    <tr>
+                                        <td className="text-right">
+                                            <button className="btn bg-secondary w-200px">EFECTIVO</button>
+                                        </td>
+                                        <td className=" text-success">
+                                            <button className="btn bg-secondary w-200px">BANCO</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td className="text-right">
+                                            <span className="text-muted fs-4">$ {moneda(datacuadregeneral.sum_efectivo_pagoproveedor_egreso)}</span>
+                                        </td>
+                                        <td className="text-success">
+                                            <span className="text-muted fs-4"> $ {moneda(datacuadregeneral.sum_banco_pagoproveedor_egreso)}</span>
+                                        </td>
+                                    </tr>
                                     
                                     
                                     {showpago_proveedoresdetalles?
@@ -367,6 +422,10 @@ export default function cuadregeneraltivo({
                                             :null}
                                         </>
                                     ):null}
+
+
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -510,6 +569,24 @@ export default function cuadregeneraltivo({
                                         </td>
                                         <td className="text-right">
                                             <span className="fs-1 text-primary">{moneda(datacuadregeneral.cuantodebotener)}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colSpan={2} className="">
+                                            <button className="btn bg-secondary w-200px">EFECTIVO</button>
+                                        </td>
+                                        <td className="text-right">
+                                            <span className="fs-4 text-muted">{moneda(datacuadregeneral.total_efectivo)}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colSpan={2} className="">
+                                            <button className="btn bg-secondary w-200px">BANCO</button>
+                                        </td>
+                                        <td className="text-right">
+                                            <span className="fs-4 text-muted">{moneda(datacuadregeneral.total_banco)}</span>
                                         </td>
                                     </tr>
 

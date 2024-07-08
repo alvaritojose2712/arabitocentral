@@ -441,7 +441,12 @@ class PuntosybiopagosController extends Controller
             $q->catgeneral = $q->cat->catgeneral;
             $q->variable_fijo = $q->cat->variable_fijo;
 
-            $q->montodolar = ($q->montodolar) + ($q->montobs/$bs) + ($q->montopeso/$cop); 
+            $montodolar = ($q->montodolar) + ($q->montobs/$bs) + ($q->montopeso/$cop);
+            $q->montodolar = $montodolar; 
+            
+            $q->pago_efectivo = $montodolar;
+            $q->pago_banco = 0;
+
             return $q;
         });
 
@@ -479,6 +484,10 @@ class PuntosybiopagosController extends Controller
             $q->ingreso_egreso = $q->cat->ingreso_egreso;
             $q->catgeneral = $q->cat->catgeneral;
             $q->variable_fijo = $q->cat->variable_fijo;
+
+            $q->pago_efectivo = 0;
+            $q->pago_banco = $monto_dolar+$bs;
+
             return $q;  
         });
 

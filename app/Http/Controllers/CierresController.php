@@ -263,6 +263,12 @@ class CierresController extends Controller
         $sum_caja_inicial_banco = 0;
         $sum_caja_inicial_banco_dolar = 0;
 
+        $sum_banco_pagoproveedor_egreso =  0;
+        $sum_efectivo_pagoproveedor_egreso =  0;
+
+        $sum_banco_gasto_fijovar =  0;
+        $sum_efectivo_gasto_fijovar =  0;
+
 
         
         
@@ -410,6 +416,9 @@ class CierresController extends Controller
                 "sum" => $dataproveedor->sum("monto"),
                 "data" => $dataproveedor
             ]);
+
+            $sum_banco_pagoproveedor_egreso += $dataproveedor->sum("pago_banco");
+            $sum_efectivo_pagoproveedor_egreso +=  $dataproveedor->sum("pago_efectivo");
         }
 
 
@@ -466,6 +475,9 @@ class CierresController extends Controller
                     ];
                     $sum_gastos_sucursal += $values->sum("montodolar");
                     $sum_gastos_var_fijo += $values->sum("montodolar");
+
+                    $sum_banco_gasto_fijovar += $values->sum("pago_banco");
+                    $sum_efectivo_gasto_fijovar += $values->sum("pago_efectivo");
                 }
 
                 $gastos[$id_var_fijo]["data"][$codigo_sucursal]["sum"] = $sum_gastos_sucursal;
@@ -513,10 +525,10 @@ class CierresController extends Controller
             
             array_push($caja_inicial_banco, [
                 "banco"=> $banco->codigo,
-                "saldo" => $saldo,
+                "saldo" => $banco->codigo=="ZELLE" || $banco->codigo=="BINANCE"? 0: $saldo,
                 "saldo_dolar" => $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs),
             ]);
-            $sum_caja_inicial_banco += $saldo;
+            $sum_caja_inicial_banco += $banco->codigo!="ZELLE" && $banco->codigo!="BINANCE"? $saldo: 0;
             $sum_caja_inicial_banco_dolar += $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs);
         }
 
@@ -528,9 +540,13 @@ class CierresController extends Controller
         $sum_banco_ingreso =  $sum_debito_dolar+$sum_transferencia_dolar+$sum_caja_biopago_dolar;
         $sum_efectivo_ingreso =  $sum_efectivo;
 
+        $total_banco = ($sum_caja_inicial+$sum_banco_ingreso) - (abs($sum_banco_gasto_fijovar)+abs($sum_banco_pagoproveedor_egreso));
+        $total_efectivo = ($sum_caja_inicial_banco_dolar+$sum_efectivo_ingreso) - (abs($sum_efectivo_gasto_fijovar)+abs($sum_efectivo_pagoproveedor_egreso));
+        
+        
 
-        $sum_banco_egreso =  0;
-        $sum_efectivo_egreso =  0;
+
+        
 
 
 
@@ -575,7 +591,24 @@ class CierresController extends Controller
             "total_ingresos" => $total_ingresos,
             "total_egresos" => $total_egresos,
             "total_caja_inicial" => $total_caja_inicial,
-            "cuantodebotener" => ($total_caja_inicial+$total_ingresos)-$total_egresos
+            "cuantodebotener" => ($total_caja_inicial+$total_ingresos)-$total_egresos,
+
+
+
+            "sum_banco_pagoproveedor_egreso" => $sum_banco_pagoproveedor_egreso,
+            "sum_efectivo_pagoproveedor_egreso" => $sum_efectivo_pagoproveedor_egreso,
+
+            "sum_banco_ingreso" => $sum_banco_ingreso,
+            "sum_efectivo_ingreso" => $sum_efectivo_ingreso,
+
+            "sum_banco_gasto_fijovar" => $sum_banco_gasto_fijovar,
+            "sum_efectivo_gasto_fijovar" => $sum_efectivo_gasto_fijovar,
+
+            "total_banco" => $total_banco,
+            "total_efectivo" => $total_efectivo,
+
+            
+
         ];
 
 
