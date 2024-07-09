@@ -531,6 +531,8 @@ export default function cuadregeneraltivo({
                             </table>
                         </div>
                     </div>
+                </div>
+                <div className="row mt-2">
                     <div className="w-50">
                         <div className="card p-3">
                             <h2 className="text-secondary fw-bolder text-decoration-underline text-center">DEBO TENER</h2>

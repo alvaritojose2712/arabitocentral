@@ -711,8 +711,111 @@ class InventarioSucursalController extends Controller
             }
         }
     }
+    function clavesinve() {
+        return [
+            ['n1','ABRAZADERA','n2','','n3','','n4','','n5','1-1/4"X2"'],
+            ['n1','ABRAZADERA','n2','','n3','','n4','','n5','1/2" - 3/4"'],
+            ['n1','ACCESORIO','n2','BAÑO','n3','','n4','4 PIEZAS','n5',''],
+            ['n1','ACOPLE','n2','HEMBRA','n3','','n4','1/4','n5',''],
+            ['n1','ALICATE','n2','CORTA CABLE','n3','','n4','','n5','7P'],
+            ['n1','ALICATE','n2','CORTA CABLE','n3','','n4','','n5','8P'],
+            ['n1','ALICATE','n2','CORTE DIAGONAL','n3','AISLADO','n4','6P','n5',''],
+            ['n1','ALICATE','n2','CORTE DIAGONAL','n3','','n4','','n5','7P'],
+            ['n1','ALICATE','n2','CORTE ELECTRONICA','n3','','n4','','n5','5P'],
+            ['n1','ALICATE','n2','PRESION','n3','PUNTA LARGA','n4','','n5','6P'],
+            ['n1','ALICATE','n2','PRESION','n3','','n4','','n5','10P'],
+            ['n1','ALICATE','n2','PRESION','n3','PUNTA LARGA','n4','','n5','4P'],
+            ['n1','ALICATE','n2','MECANICO','n3','','n4','','n5','10P'],
+            ['n1','ALICATE','n2','MECANICO','n3','MANGO GOMA','n4','','n5','10P'],
+            ['n1','ALICATE','n2','MECANICO','n3','','n4','','n5','6P'],
+            ['n1','ALICATE','n2','MECANICO','n3','','n4','','n5','8P'],
+            ['n1','ALICATE','n2','MULTIUSO','n3','','n4','','n5',''],
+            ['n1','ALICATE','n2','PRESION','n3','PUNTA LARGA','n4','','n5','9P'],
+            ['n1','ALICATE','n2','PUNTA LARGA','n3','','n4','','n5','8P'],
+            ['n1','ANILLO','n2','CERA','n3','INODORO','n4','3" O 4"','n5',''],
+            ['n1','ANILLO','n2','GALVANIZADO','n3','','n4','','n5','2P'],
+            ['n1','BOMBA + MANOMETRO','n2','AIRE','n3','PIE','n4','','n5',''],
+            ['n1','BOMBA','n2','AIRE','n3','BICICLETA','n4','','n5',''],
+            ['n1','BOMBILLO','n2','PLEGABLE','n3','TIPO FLOR','n4','','n5','36W'],
+            ['n1','BOMBILLO','n2','LED','n3','TIPO VELA','n4','5W','n5','RE14'],
+            ['n1','BORNES','n2','BATERIA','n3','','n4','2 PIEZAS','n5',''],
+            ['n1','BREAKER','n2','EMPOTRAR','n3','','n4','','n5','1PX40 AMP'],
+            ['n1','BREAKER','n2','EMPOTRAR','n3','','n4','','n5','2PX20 AMP'],
+            ['n1','BREAKER','n2','EMPOTRAR','n3','','n4','','n5','2Px60 AMP'],
+            ['n1','BREAKER','n2','SUPERFICIAL','n3','','n4','','n5','1PX15 AMP'],
+            ['n1','BREAKER','n2','SUPERFICIAL','n3','','n4','','n5','1PX40 AMP'],
+            ['n1','BREAKER','n2','SUPERFICIAL','n3','','n4','','n5','1PX60 AMP'],
+            ['n1','BREAKER','n2','SUPERFICIAL','n3','','n4','','n5','2PX50 AMP'],
+            ['n1','CABEZAL','n2','HEMBRA','n3','PARA INFLAR','n4','CAUCHO','n5',''],
+            ['n1','CABEZAL','n2','MACHO','n3','PARA INFLAR','n4','CAUCHO','n5',''],
+            ['n1','CABLE','n2','USB','n3','DOBLE FUNCION','n4','','n5',''],
+            ['n1','CABLE','n2','USB','n3','IPHONE','n4','','n5','1M 2.2A'],
+            ['n1','CADENA','n2','GALVANIZADA','n3','3/16P','n4','25KG','n5',''],
+            ['n1','CADENA','n2','GALVANIZADA','n3','1/4P','n4','25KG','n5',''],
+            ['n1','CAJE','n2','FUERTE','n3','','n4','','n5','25X35X25CM'],
+            ['n1','CEPILLO','n2','CIRCULAR','n3','ALAMBRE','n4','TRENZADO MULTIROSCA','n5','4P'],
+            ['n1','CEPILLO','n2','ALAMBRE','n3','ONDULADO 3"','n4','','n5',''],
+            ['n1','CERRADURA','n2','CON MANILLA','n3','CURVA DERECHA','n4','','n5',''],
+            ['n1','CERRADURA','n2','BAÑO','n3','POMO','n4','BOTON COBRE','n5',''],
+            ['n1','CERRADURA','n2','DIENTE DE PERRO','n3','BL','n4','','n5',''],
+            ['n1','CERRADURA','n2','MUEBLE','n3','2','n4','DORADA','n5',''],
+            ['n1','CERRADURA','n2','MUEBLE','n3','2','n4','NIQUELADA','n5',''],
+            ['n1','CERROJO','n2','LLAVES','n3','BRONCE','n4','','n5',''],
+            ['n1','CERROJO','n2','LLAVES','n3','COBRE','n4','','n5',''],
+            ['n1','CERROJO','n2','LLAVES','n3','MARIPOSA','n4','','n5',''],
+            ['n1','CERROJO','n2','LLAVES','n3','MARIPOSA','n4','BRONCE','n5',''],
+            ['n1','CERROJO','n2','LLAVES','n3','MARIPOSA','n4','COBRE','n5',''],
+            ['n1','CINCEL','n2','1X12','n3','MANGO','n4','','n5',''],
+            ['n1','CINCEL','n2','1/2X10"','n3','','n4','','n5',''],
+            ['n1','CINTA','n2','PASA CABLE','n3','','n4','','n5','30M'],
+            ['n1','CINTA','n2','PASA CABLE','n3','','n4','','n5','50M'],
+            ['n1','CIZALLA','n2','MANGO GOMA','n3','','n4','8"','n5',''],
+            ['n1','DISCO','n2','LIJA','n3','','n4','7"','n5','GRANO 60'],
+            ['n1','DISCO','n2','TRONZADORA','n3','','n4','14P','n5',''],
+            ['n1','DISCO','n2','ESMERILAR','n3','','n4','7"','n5','1/4 X 7/8'],
+            ['n1','DISCO','n2','FLAP','n3','','n4','4 1/2P','n5','GRANO 100'],
+            ['n1','DUCHA','n2','BAÑO','n3','','n4','1.5M','n5',''],
+            ['n1','DUCHA','n2','TELEFONO','n3','BLACK','n4','','n5','1.2M'],
+            ['n1','ESCUADRA','n2','CARPINTERIA','n3','','n4','8P','n5',''],
+            ['n1','FIJADOR','n2','ROSCA ROJA','n3','','n4','EXTRA FUERTE','n5','10G'],
+            ['n1','FIJADOR','n2','ROSCA AZUL','n3','','n4','','n5','10G'],
+            ['n1','FILTRO','n2','DESAGUE','n3','FREGADERO','n4','8CM','n5',''],
+            ['n1','FILTRO','n2','PURIFICADOR','n3','','n4','','n5',''],
+            ['n1','FREGADERO','n2','ACERO','n3','INOXIDABLE','n4','DOBLE ESCURRIDERO','n5','84CMX56CM'],
+            ['n1','FUNDA','n2','','n3','ANTIGOTEO','n4','','n5','9P'],
+            ['n1','GARRUCHA','n2','DOBLE','n3','1 3/4"','n4','','n5','IMPORTADA'],
+            ['n1','GUAYA','n2','DESTAPA CAÑERIA','n3','3MTS','n4','','n5',''],
+            ['n1','HACHA','n2','SIN MANGO','n3','','n4','3.5LB','n5',''],
+            ['n1','HERRAJE','n2','CON FLOTADOR','n3','','n4','COMPACTO','n5',''],
+            ['n1','HERRAJE','n2','ONE PIECE','n3','DOBLE BOTON','n4','','n5',''],
+            ['n1','INTERRUPTOR','n2','DOBLE','n3','TIPO BTICINO','n4','','n5',''],
+            ['n1','JUEGO','n2','DADO RATCHET','n3','1/2','n4','12 PIEZAS','n5',''],
+            ['n1','JUEGO','n2','DADO RATCHET','n3','1/2','n4','20 PIEZAS','n5',''],
+            ['n1','JUEGO','n2','DADO RATCHET','n3','1/2','n4','32 PIEZAS','n5',''],
+            ['n1','JUEGO','n2','DADO RATCHET','n3','1/4','n4','12 PIEZAS','n5',''],
+            ['n1','JUEGO','n2','','n3','BOQUILLAS','n4','DE','n5','AIRE'],
+            ['n1','JUEGO','n2','LLAVES','n3','COMBINADAS','n4','','n5','6 PIEZAS'],
+            ['n1','JUEGO','n2','LLAVES','n3','COMBINADAS','n4','','n5','11 PIEZAS'],
+            ['n1','JUEGO','n2','LLAVES','n3','COMBINADAS','n4','','n5','6 PIEZAS'],
+            ['n1','JUEGO','n2','MINI ALICATES','n3','','n4','4 PIEZAS','n5',''],
+            ['n1','JUEGO','n2','PISTOLA DE AIRE','n3','','n4','','n5',''],
+            ['n1','JUEGO','n2','MANGUERA','n3','COMPRESOR','n4','','n5','6 PIEZAS'],
+            ['n1','KIT','n2','SOPORTE','n3','CON','n4','5','n5','UND'],
+            ['n1','LANA','n2','ACERO','n3','#3','n4','','n5','160G'],
+            ['n1','LANA','n2','ACERO','n3','#3','n4','','n5','400G'],
+            ['n1','LLAVE','n2','ALLEN','n3','PLEGABLE','n4','HEXAGONAL','n5','6 PIEZAS'],
+            ['n1','LLAVE','n2','ALLEN','n3','TORX','n4','10 PIEZAS','n5',''],
+            ['n1','LLAVE','n2','BATEA','n3','PARA PARED','n4','PLASTICO/CROMADA','n5',''],
+            ['n1','LLAVE','n2','CHORRO','n3','PVC','n4','BLANCA','n5',''],
+            ['n1','LLAVE','n2','CRUZ','n3','14-7/8,13/16,3/4,17MM','n4','','n5',''],
+            ['n1','LLAVE','n2','TUBO','n3','','n4','','n5','12P'],  /**/
+        ];
+    }
 
     function getInventarioGeneral(Request $req) {
+
+        $arr = $this->clavesinve();
+        
         $today = (new NominaController)->today();
         $mesDate = date('Y-m' , strtotime($today));
         $añoDate = date('Y' , strtotime($today));
@@ -727,68 +830,116 @@ class InventarioSucursalController extends Controller
             return $q["id"]; 
         });
 
-        $estadisticas = inventario_sucursal::with(["sucursal"])
-        ->when($sucursalesAgregadasBusquedaEstadisticas,function($q) use($sucursalesAgregadasBusquedaEstadisticas) {
-            $q->whereIn("id_sucursal",$sucursalesAgregadasBusquedaEstadisticas);
-        })
-        ->when($camposAgregadosBusquedaEstadisticas,function($q) use($camposAgregadosBusquedaEstadisticas) {
-            foreach ($camposAgregadosBusquedaEstadisticas as $i => $e) {
-                $q->where($e["campo"], $e["valor"]);
-            }
-        })
-        ->limit($invsuc_num)
-        ->orderBy("n1","desc")
-        ->orderBy("id_sucursal","asc")
-        ->orderBy("descripcion","asc")
-        ->get()
-        ->map(function($q) use ($today,$mesDate,$añoDate, $camposAgregadosBusquedaEstadisticas){
-            $nombrefull = "";
 
-            foreach ($camposAgregadosBusquedaEstadisticas as $i => $e) {
-                $nombrefull .= ($q[$e["campo"]]?($q[$e["campo"]]." "):"");
-            }
+        $estadisticas = [];
+        
+        foreach ($this->clavesinve() as $i => $val) {
+            $n1 = $val[1];
+            $n2 = $val[3];
+            $n3 = $val[5];
+            $n4 = $val[7];
+            $n5 = $val[9];
             
-            $q->nombrefull = $nombrefull? $nombrefull: "SIN ESPECIFICAR"; 
+            $merge = inventario_sucursal::with(["sucursal"])
+            ->when($sucursalesAgregadasBusquedaEstadisticas,function($q) use($sucursalesAgregadasBusquedaEstadisticas) {
+                $q->whereIn("id_sucursal",$sucursalesAgregadasBusquedaEstadisticas);
+            })
+            ->where(function($q) use ($n1,$n2,$n3,$n4,$n5) {
+                if ($n1) {
+                    $q->where("n1",$n1);
+                }
+                if ($n2) {
+                    $q->where("n2",$n2);
+                }
+                if ($n3) {
+                    $q->where("n3",$n3);
+                }
+                if ($n4) {
+                    $q->where("n4",$n4);
+                }
+                if ($n5) {
+                    $q->where("n5",$n5);
+                }
+            })
+            /* ->when($camposAgregadosBusquedaEstadisticas,function($q) use($camposAgregadosBusquedaEstadisticas) {
+                foreach ($camposAgregadosBusquedaEstadisticas as $i => $e) {
+                    $q->where($e["campo"], $e["valor"]);
+                }
+            }) */
+           /*  ->limit($invsuc_num) */
+            ->orderBy("n1","desc")
+            ->orderBy("id_sucursal","asc")
+            ->orderBy("descripcion","asc")
+            ->get()
+            ->map(function($q) use ($today,$mesDate,$añoDate, $camposAgregadosBusquedaEstadisticas,$n1,$n2,$n3,$n4,$n5){
+                $nombrefull = "";
     
-            $estadisticas = inventario_sucursal_estadisticas::where("id_sucursal",$q->id_sucursal)
-            ->where("id_producto_insucursal",$q->idinsucursal)
-            ->where("fecha","LIKE",$añoDate."%")
-            ->orderBy("fecha","desc")
-            ->get();
-            $anual = [];
-            foreach ($estadisticas as $i => $estadistica) {
-                $fecha = $estadistica["fecha"];
-
-                $año = date('Y' , strtotime($fecha));
-                $mes = date('M' , strtotime($fecha));
-                $ct = $estadistica["cantidad"];
-
-
-                if (!array_key_exists($año, $anual)) {
-                    $anual[$año][$mes] = [
-                        "ct" => $ct,
-                        "dias" => 1
-                    ];
-                }else{
-                    if (array_key_exists($mes,$anual[$año])) {
-                        $anual[$año][$mes] = [
-                            "ct" => $anual[$año][$mes]["ct"]+$ct,
-                            "dias" => $anual[$año][$mes]["dias"]+1,
-                        ];
-                    }else{
+                /* foreach ($camposAgregadosBusquedaEstadisticas as $i => $e) {
+                    $nombrefull .= ($q[$e["campo"]]?($q[$e["campo"]]." "):"");
+                    } */
+                if ($n1) {
+                    $nombrefull .=  $q["n1"]? ($q["n1"]." "): "";
+                }
+                if ($n2) {
+                    $nombrefull .=  $q["n2"]? ($q["n2"]." "): "";
+                }
+                if ($n3) {
+                    $nombrefull .=  $q["n3"]? ($q["n3"]." "): "";
+                }
+                if ($n4) {
+                    $nombrefull .=  $q["n4"]? ($q["n4"]." "): "";
+                }
+                if ($n5) {
+                    $nombrefull .=  $q["n5"]? ($q["n5"]." "): "";
+                }
+                
+                $q->nombrefull = $nombrefull? $nombrefull: "SIN ESPECIFICAR"; 
+        
+                $estadisticas = inventario_sucursal_estadisticas::where("id_sucursal",$q->id_sucursal)
+                ->where("id_producto_insucursal",$q->idinsucursal)
+                ->where("fecha","LIKE",$añoDate."%")
+                ->orderBy("fecha","desc")
+                ->get();
+                $anual = [];
+                foreach ($estadisticas as $i => $estadistica) {
+                    $fecha = $estadistica["fecha"];
+    
+                    $año = date('Y' , strtotime($fecha));
+                    $mes = date('M' , strtotime($fecha));
+                    $ct = $estadistica["cantidad"];
+    
+    
+                    if (!array_key_exists($año, $anual)) {
                         $anual[$año][$mes] = [
                             "ct" => $ct,
-                            "dias" => 1,
+                            "dias" => 1
                         ];
+                    }else{
+                        if (array_key_exists($mes,$anual[$año])) {
+                            $anual[$año][$mes] = [
+                                "ct" => $anual[$año][$mes]["ct"]+$ct,
+                                "dias" => $anual[$año][$mes]["dias"]+1,
+                            ];
+                        }else{
+                            $anual[$año][$mes] = [
+                                "ct" => $ct,
+                                "dias" => 1,
+                            ];
+                        }
                     }
+    
                 }
+                $q->anual = $anual;
+                
+                return $q;
+            }) ;
+            //$estadisticas = $estadisticas->merge($merge);
+            $estadisticas = array_merge($estadisticas,$merge->toArray());
+        }
+        
+        $estadisticas = collect($estadisticas)->groupBy(["nombrefull","sucursal.codigo"]);
 
-            }
-            $q->anual = $anual;
-            
-            return $q;
-        })
-        ->groupBy(["nombrefull","sucursal.codigo"]);
+
 
         $sumas = [];
         

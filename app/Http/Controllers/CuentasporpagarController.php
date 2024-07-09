@@ -97,27 +97,27 @@ class CuentasporpagarController extends Controller
         $metodobs5PagoFact = $req->metodobs5PagoFact;
         $refbs5PagoFact = $req->refbs5PagoFact;
 
-        if ($montobs1PagoFact) {
+        if ($montobs1PagoFact && $montobs1PagoFact!="0" && $montobs1PagoFact!="0.00") {
             if (!$tasabs1PagoFact || !$metodobs1PagoFact) {
                 return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 1"];
             }
         }
-        if ($montobs2PagoFact) {
+        if ($montobs2PagoFact && $montobs2PagoFact!="0" && $montobs2PagoFact!="0.00") {
             if (!$tasabs2PagoFact || !$metodobs2PagoFact) {
                 return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 2"];
             }
         }
-        if ($montobs3PagoFact) {
+        if ($montobs3PagoFact && $montobs3PagoFact!="0" && $montobs3PagoFact!="0.00") {
             if (!$tasabs3PagoFact || !$metodobs3PagoFact) {
                 return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 3"];
             }
         }
-        if ($montobs4PagoFact) {
+        if ($montobs4PagoFact && $montobs4PagoFact!="0" && $montobs4PagoFact!="0.00") {
             if (!$tasabs4PagoFact || !$metodobs4PagoFact) {
                 return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 4"];
             }
         }
-        if ($montobs5PagoFact) {
+        if ($montobs5PagoFact && $montobs5PagoFact!="0" && $montobs5PagoFact!="0.00") {
             if (!$tasabs5PagoFact || !$metodobs5PagoFact) {
                 return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 5"];
             }
