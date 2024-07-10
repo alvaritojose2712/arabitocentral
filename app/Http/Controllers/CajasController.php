@@ -220,7 +220,7 @@ class CajasController extends Controller
             $lastcajacierre = cajas::where("id_sucursal",$q->id_sucursal)
             ->where("tipo",$qcajaauditoriaefectivo)
             ->where("concepto","INGRESO DESDE CIERRE")
-            ->where("idinsucursal","<=",$q->idinsucursal)
+            ->where("idinsucursal","<",$q->idinsucursal)
             ->orderBy("idinsucursal","desc")->first();
             $caja_incial_dolarbalance = 0;
             $caja_incial_bsbalance = 0;
@@ -273,7 +273,21 @@ class CajasController extends Controller
             $movdehoy = cajas::where("id_sucursal",$q->id_sucursal)
             ->where("tipo",$qcajaauditoriaefectivo)
             ->where("fecha",$q->fecha)
+            
             ->where("concepto","<>","INGRESO DESDE CIERRE")->get();
+
+
+            $movdehoypaarriba = cajas::where("id_sucursal",$q->id_sucursal)
+            ->where("tipo",$qcajaauditoriaefectivo)
+            ->where("idinsucursal",">",$q->idinsucursal)
+            ->where("fecha",$q->fecha);
+
+            $sumpaarriba_montodolar = $movdehoypaarriba->sum("montodolar");
+            $sumpaarriba_montobs = $movdehoypaarriba->sum("montobs");
+            $sumpaarriba_montopeso = $movdehoypaarriba->sum("montopeso");
+            $sumpaarriba_montoeuro = $movdehoypaarriba->sum("montoeuro");
+
+            $sumpaarriba = $sumpaarriba_montodolar + (new CierresController)->dividir($sumpaarriba_montobs,$tasabs) + (new CierresController)->dividir($sumpaarriba_montopeso,$tasacop) + $sumpaarriba_montoeuro;
 
             $adicionaleshoy_montodolar = $movdehoy->where("montodolar",">",0)->sum("montodolar");
             $egresoshoy_montodolar = $movdehoy->where("montodolar","<",0)->sum("montodolar");
@@ -293,7 +307,7 @@ class CajasController extends Controller
 
             $dejehoy = $today_dejar_dolar + (new CierresController)->dividir($today_dejar_bss,$tasabs_today) + (new CierresController)->dividir($today_dejar_peso,$tasacop_today);
             
-            $debestener = $total_inicial + (($ingreso_efectivo+$adicionalesdehoy)-$dejehoy) - abs($egresosdehoy);
+            $debestener = $total_inicial + (($ingreso_efectivo+$adicionalesdehoy)-$dejehoy) - abs($egresosdehoy) - $sumpaarriba;
             
             $sumasistema = $q->dolarbalance + (new CierresController)->dividir($q->bsbalance, $tasabs) + (new CierresController)->dividir($q->pesobalance, $tasacop) + $q->eurobalance;
             

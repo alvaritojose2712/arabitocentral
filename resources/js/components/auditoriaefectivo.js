@@ -18,7 +18,7 @@ export default function AuditoriaEfectivo({
 }){
     return (
         <div className="container-fluid">
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center mb-2">
                 <div className="form-group w-50">
                     <form className="input-group" onSubmit={event=>{event.preventDefault();getAuditoriaEfec()}}>
                         <select className="form-control" onChange={event=>setqcajaauditoriaefectivo(event.target.value)} value={qcajaauditoriaefectivo}>
@@ -52,25 +52,25 @@ export default function AuditoriaEfectivo({
                         <th className="text-right">Monto DOLAR</th>
                         <th className="bg-info">Balance DOLAR</th>
                         
-                        <th className="bg-success-1">Balance DOLAR AUDITORIA</th>
+                        <th className="bg-success-1">Balance DOLAR POR SUMA REAL</th>
                         
 
                         <th className="text-right">Monto BS</th>
                         <th className="bg-info">Balance BS</th>
                         
-                        <th className="bg-success-1">Balance BS AUDITORIA</th>
+                        <th className="bg-success-1">Balance BS POR SUMA REAL</th>
                         
 
                         <th className="text-right">Monto PESO</th>
                         <th className="bg-info">Balance PESO</th>
                         
-                        <th className="bg-success-1">Balance PESO AUDITORIA</th>
+                        <th className="bg-success-1">Balance PESO POR SUMA REAL</th>
                         
 
                         <th className="text-right">Monto EURO</th>
                         <th className="bg-info">Balance EURO</th>
                         
-                        <th className="bg-success-1">Balance EURO AUDITORIA</th>
+                        <th className="bg-success-1">Balance EURO POR SUMA REAL</th>
                         <th></th>
 
                         <th className="bg-primary">Balance TOTAL POR SISTEMA</th>

@@ -4050,7 +4050,7 @@ function AuditoriaEfectivo(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "container-fluid",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-      className: "d-flex justify-content-center",
+      className: "d-flex justify-content-center mb-2",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         className: "form-group w-50",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
@@ -4143,7 +4143,7 @@ function AuditoriaEfectivo(_ref) {
             children: "Balance DOLAR"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "bg-success-1",
-            children: "Balance DOLAR AUDITORIA"
+            children: "Balance DOLAR POR SUMA REAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "text-right",
             children: "Monto BS"
@@ -4152,7 +4152,7 @@ function AuditoriaEfectivo(_ref) {
             children: "Balance BS"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "bg-success-1",
-            children: "Balance BS AUDITORIA"
+            children: "Balance BS POR SUMA REAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "text-right",
             children: "Monto PESO"
@@ -4161,7 +4161,7 @@ function AuditoriaEfectivo(_ref) {
             children: "Balance PESO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "bg-success-1",
-            children: "Balance PESO AUDITORIA"
+            children: "Balance PESO POR SUMA REAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "text-right",
             children: "Monto EURO"
@@ -4170,7 +4170,7 @@ function AuditoriaEfectivo(_ref) {
             children: "Balance EURO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "bg-success-1",
-            children: "Balance EURO AUDITORIA"
+            children: "Balance EURO POR SUMA REAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "bg-primary",
             children: "Balance TOTAL POR SISTEMA"
