@@ -114,6 +114,7 @@ Route::post('getNomina', [NominaController::class,"getNomina"]);
 Route::post('getAlquileresSucursal', [AlquileresController::class,"getAlquileresSucursal"]);
 
 Route::get('getCatCajas', [CatcajasController::class,"getCatCajas"]);
+Route::post('getAuditoriaEfec', [CajasController::class,"getAuditoriaEfec"]);
 
 
 Route::get('getFallas', [FallasController::class,"getFallas"]);

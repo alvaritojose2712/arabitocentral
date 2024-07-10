@@ -47,6 +47,7 @@ const db = {
   buscarNombres: data=>axios.post(host+"buscarNombres",data),
   modNombres: data=>axios.post(host+"modNombres",data),
   newNombres: data=>axios.post(host+"newNombres",data),
+  getAuditoriaEfec: data=>axios.post(host+"getAuditoriaEfec",data),
   
   
 

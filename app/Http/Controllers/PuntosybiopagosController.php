@@ -6,6 +6,7 @@ use App\Models\bancos_list;
 use App\Models\cajas;
 use App\Models\catcajas;
 use App\Models\cierres;
+use App\Models\nomina;
 use App\Models\puntosybiopagos;
 use App\Models\sucursal;
 use App\Http\Requests\StorepuntosybiopagosRequest;
@@ -618,6 +619,7 @@ class PuntosybiopagosController extends Controller
             if ($modeEjecutor=="personal") {
                 $id_sucursal = $admin_id->id;
                 $id_beneficiario = $id_selectEjecutor;
+                
             }else if ($modeEjecutor== "sucursal") {
                 $id_sucursal = $id_selectEjecutor;
                 $id_beneficiario = null;
@@ -677,6 +679,10 @@ class PuntosybiopagosController extends Controller
                         "origen" => 2,
                         "id_usuario" => 1,
                     ]);
+                }
+                if ($e["id_beneficiario"]) {
+                    $personal = nomina::find($id_beneficiario);
+                    (new NominapagosController)->setPagoNomina($personal->nominacedula, ($montoDolar? ($montoDolar/$divisor): (($montoBs/$taseBs)/$divisor)), $e["id_sucursal"], $p->id, $gastosFecha);
                 }
             }
         }

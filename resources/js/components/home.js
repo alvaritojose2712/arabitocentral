@@ -3565,7 +3565,7 @@ function formatAmount( number, simbol ) {
     },
     {
       route: "auditoria",
-      name: "AUDITORÍA"
+      name: "CONCILIACIÓN"
     },
     {
       route: "gastos",
@@ -4430,6 +4430,26 @@ function formatAmount( number, simbol ) {
 
   }
 
+  
+  const [qauditoriaefectivo,setqauditoriaefectivo] = useState("")
+  const [sucursalqauditoriaefectivo,setsucursalqauditoriaefectivo] = useState("")
+  const [fechadesdeauditoriaefec,setfechadesdeauditoriaefec] = useState("")
+  const [fechahastaauditoriaefec,setfechahastaauditoriaefec] = useState("")
+  const [dataAuditoriaEfectivo,setdataAuditoriaEfectivo] = useState([])
+  const [qcajaauditoriaefectivo,setqcajaauditoriaefectivo] = useState(1)
+
+  const getAuditoriaEfec= () => {
+    db.getAuditoriaEfec({
+      qauditoriaefectivo,
+      sucursalqauditoriaefectivo,
+      fechadesdeauditoriaefec,
+      fechahastaauditoriaefec,
+      qcajaauditoriaefectivo,
+    }).then(res=>{
+      setdataAuditoriaEfectivo(res.data)
+    })
+  }
+
   const [sucursalqcuadregeneral,setsucursalqcuadregeneral] = useState("")
   const [fechadesdeqcuadregeneral,setfechadesdeqcuadregeneral] = useState("")
   const [fechahastaqcuadregeneral,setfechahastaqcuadregeneral] = useState("")
@@ -4715,6 +4735,19 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
             <Auditoria
+              getAuditoriaEfec={getAuditoriaEfec}
+              qauditoriaefectivo={qauditoriaefectivo}
+              setqauditoriaefectivo={setqauditoriaefectivo}
+              sucursalqauditoriaefectivo={sucursalqauditoriaefectivo}
+              setsucursalqauditoriaefectivo={setsucursalqauditoriaefectivo}
+              fechadesdeauditoriaefec={fechadesdeauditoriaefec}
+              setfechadesdeauditoriaefec={setfechadesdeauditoriaefec}
+              fechahastaauditoriaefec={fechahastaauditoriaefec}
+              setfechahastaauditoriaefec={setfechahastaauditoriaefec}
+              setqcajaauditoriaefectivo={setqcajaauditoriaefectivo}
+              qcajaauditoriaefectivo={qcajaauditoriaefectivo}
+              dataAuditoriaEfectivo={dataAuditoriaEfectivo}
+
               sucursalqcuadregeneral={sucursalqcuadregeneral}
               setsucursalqcuadregeneral={setsucursalqcuadregeneral}
               fechadesdeqcuadregeneral={fechadesdeqcuadregeneral}

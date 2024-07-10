@@ -187,7 +187,48 @@ class CajasController extends Controller
             }
         
     }
-    function getEfectivoAuditoria(Request $req) {
+    function getAuditoriaEfec(Request $req) {
+        $qauditoriaefectivo = $req->qauditoriaefectivo;
+        $id_sucursal = $req->sucursalqauditoriaefectivo;
+        $fechasMain1 = $req->fechadesdeauditoriaefec;
+        $fechasMain2 = $req->fechahastaauditoriaefec;
+        $qcajaauditoriaefectivo = $req->qcajaauditoriaefectivo;
         
+
+        $data = cajas::with(["sucursal","cat"])
+        ->when($id_sucursal, function($q) use ($id_sucursal) {
+            $q->where("id_sucursal",$id_sucursal);
+        })
+        ->when($qcajaauditoriaefectivo, function($q) use ($qcajaauditoriaefectivo) {
+            $q->where("tipo",$qcajaauditoriaefectivo);
+        })
+        ->when($qauditoriaefectivo, function($q) use ($qauditoriaefectivo){
+            $q->where("concepto","LIKE","%$qauditoriaefectivo%");
+        })
+        ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
+        ->orderBy("id_sucursal","asc")
+        ->orderBy("idinsucursal","desc")
+        ->get()
+        ->map(function($q)
+        {
+            $sumreal = cajas::where("id_sucursal",$q->id_sucursal)
+            ->where("tipo",$q->tipo)
+            ->where("idinsucursal","<=",$q->idinsucursal)
+            ->orderBy("id_sucursal","asc")
+            ->orderBy("idinsucursal","desc");
+
+            $q->dolarbalance_real = $sumreal->sum("montodolar");
+            $q->bsbalance_real = $sumreal->sum("montobs");
+            $q->pesobalance_real = $sumreal->sum("montopeso");
+            $q->eurobalance_real = $sumreal->sum("montoeuro");
+            
+            return $q;
+
+        });
+
+        return [
+            "data" => $data,
+            "sum" =>0
+        ];
     }
 }

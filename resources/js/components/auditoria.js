@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PanelOpciones from './panel/panelopciones';
 import Aprobtransferencia from './aprobtransferencia';
 import CuadreGeneral from './cuadregeneral';
+import AuditoriaEfectivo from './auditoriaefectivo';
 
 export default function Auditoria({
     getBancoName,
@@ -84,13 +85,6 @@ export default function Auditoria({
     bancoAutoLiquidarTransferencia,
     setbancoAutoLiquidarTransferencia,
 
-    controlefecQDescripcion,
-    setcontrolefecQDescripcion,
-    controlefecSelectCat,
-    setcontrolefecSelectCat,
-    controlefecSelectGeneral,
-    setcontrolefecSelectGeneral,
-
     sucursalqcuadregeneral,
     setsucursalqcuadregeneral,
     fechadesdeqcuadregeneral,
@@ -101,6 +95,20 @@ export default function Auditoria({
     getCuadreGeneral,
     number,
     formatAmount,
+
+
+    getAuditoriaEfec,
+    qauditoriaefectivo,
+    setqauditoriaefectivo,
+    sucursalqauditoriaefectivo,
+    setsucursalqauditoriaefectivo,
+    fechadesdeauditoriaefec,
+    setfechadesdeauditoriaefec,
+    fechahastaauditoriaefec,
+    setfechahastaauditoriaefec,
+    setqcajaauditoriaefectivo,
+    qcajaauditoriaefectivo,
+    dataAuditoriaEfectivo,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -139,13 +147,17 @@ export default function Auditoria({
           name: "BANCO"
         },
         {
-          route: "efectivo",
-          name: "CUADRE GENERAL"
+            route: "efectivo",
+            name: "EFECTIVO "
+          },
+        {
+          route: "cuadregeneral",
+          name: "CONCILIACIÓN GENERAL"
         },
     
         {
           route: "aprobtransferencia",
-          name: "APRB. TRANSF."
+          name: "APROBAR TRANSFERENCIAS"
         },
     
     ]
@@ -674,7 +686,28 @@ export default function Auditoria({
 
             </div>
         :null}
+
         {permiso([1,2,3]) && subviewAuditoriaGeneral=="efectivo"?
+            <AuditoriaEfectivo
+                getAuditoriaEfec={getAuditoriaEfec}
+                qauditoriaefectivo={qauditoriaefectivo}
+                setqauditoriaefectivo={setqauditoriaefectivo}
+                sucursalqauditoriaefectivo={sucursalqauditoriaefectivo}
+                setsucursalqauditoriaefectivo={setsucursalqauditoriaefectivo}
+                sucursales={sucursales}
+                fechadesdeauditoriaefec={fechadesdeauditoriaefec}
+                setfechadesdeauditoriaefec={setfechadesdeauditoriaefec}
+                fechahastaauditoriaefec={fechahastaauditoriaefec}
+                setfechahastaauditoriaefec={setfechahastaauditoriaefec}
+                setqcajaauditoriaefectivo={setqcajaauditoriaefectivo}
+                qcajaauditoriaefectivo={qcajaauditoriaefectivo}
+                dataAuditoriaEfectivo={dataAuditoriaEfectivo}
+                colorsGastosCat={colorsGastosCat}
+                moneda={moneda}
+            />
+        :null}
+
+        {permiso([1,2,3]) && subviewAuditoriaGeneral=="cuadregeneral"?
 
             <CuadreGeneral
                 sucursalqcuadregeneral={sucursalqcuadregeneral}
