@@ -220,7 +220,7 @@ class CajasController extends Controller
             $lastcajacierre = cajas::where("id_sucursal",$q->id_sucursal)
             ->where("tipo",$qcajaauditoriaefectivo)
             ->where("concepto","INGRESO DESDE CIERRE")
-            ->where("idinsucursal","<",$q->idinsucursal)
+            ->where("idinsucursal","<=",$q->idinsucursal)
             ->orderBy("idinsucursal","desc")->first();
             $caja_incial_dolarbalance = 0;
             $caja_incial_bsbalance = 0;
