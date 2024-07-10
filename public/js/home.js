@@ -4142,7 +4142,7 @@ function AuditoriaEfectivo(_ref) {
             className: "bg-info",
             children: "Balance DOLAR"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            className: "bg-success-1",
+            className: "bg-warning",
             children: "Balance DOLAR POR SUMA REAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "text-right",
@@ -4151,7 +4151,7 @@ function AuditoriaEfectivo(_ref) {
             className: "bg-info",
             children: "Balance BS"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            className: "bg-success-1",
+            className: "bg-warning",
             children: "Balance BS POR SUMA REAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "text-right",
@@ -4160,7 +4160,7 @@ function AuditoriaEfectivo(_ref) {
             className: "bg-info",
             children: "Balance PESO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            className: "bg-success-1",
+            className: "bg-warning",
             children: "Balance PESO POR SUMA REAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "text-right",
@@ -4169,7 +4169,7 @@ function AuditoriaEfectivo(_ref) {
             className: "bg-info",
             children: "Balance EURO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            className: "bg-success-1",
+            className: "bg-warning",
             children: "Balance EURO POR SUMA REAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "bg-primary",
@@ -4178,10 +4178,10 @@ function AuditoriaEfectivo(_ref) {
             className: "bg-warning",
             children: "Balance TOTAL POR SUMA REAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            className: "bg-sinapsis",
+            className: "bg-sinapsis text-light",
             children: "Balance TOTAL POR VENTA"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            className: "bg-dark",
+            className: "",
             children: "CUADRE"
           })]
         })
@@ -4238,7 +4238,7 @@ function AuditoriaEfectivo(_ref) {
               className: "bg-info",
               children: moneda(e.dolarbalance)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "bg-" + (e.dolarbalance_real == e.dolarbalance ? "success" : "danger"),
+              className: "bg-warning text-" + (e.dolarbalance_real == e.dolarbalance ? "success" : "danger"),
               children: moneda(e.dolarbalance_real)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               className: (e.montobs < 0 ? "text-danger" : "text-success") + " text-right",
@@ -4247,7 +4247,7 @@ function AuditoriaEfectivo(_ref) {
               className: "bg-info",
               children: moneda(e.bsbalance)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "bg-" + (e.bsbalance_real == e.bsbalance ? "success" : "danger"),
+              className: "bg-warning text-" + (e.bsbalance_real == e.bsbalance ? "success" : "danger"),
               children: moneda(e.bsbalance_real)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               className: (e.montopeso < 0 ? "text-danger" : "text-success") + " text-right",
@@ -4256,7 +4256,7 @@ function AuditoriaEfectivo(_ref) {
               className: "bg-info",
               children: moneda(e.pesobalance)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "bg-" + (e.pesobalance_real == e.pesobalance ? "success" : "danger"),
+              className: "bg-warning text-" + (e.pesobalance_real == e.pesobalance ? "success" : "danger"),
               children: moneda(e.pesobalance_real)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               className: (e.montoeuro < 0 ? "text-danger" : "text-success") + " text-right",
@@ -4265,7 +4265,7 @@ function AuditoriaEfectivo(_ref) {
               className: "bg-info",
               children: moneda(e.eurobalance)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "bg-" + (e.eurobalance_real == e.eurobalance ? "success" : "danger"),
+              className: "bg-warning text-" + (e.eurobalance_real == e.eurobalance ? "success" : "danger"),
               children: moneda(e.eurobalance_real)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               className: "bg-primary",
@@ -4274,10 +4274,10 @@ function AuditoriaEfectivo(_ref) {
               className: "bg-warning",
               children: moneda(e.sumbruta)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "bg-sinapsis",
+              className: "bg-sinapsis fw-bolder fs-3 text-light",
               children: moneda(e.debestener)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "bg-" + (e.cuadre == 0 ? "success" : "danger"),
+              className: "fs-3 fw-bolder " + (e.cuadre < -5 || e.cuadre > 5 ? "bg-success" : " text-light bg-danger"),
               children: moneda(e.cuadre)
             })]
           }, e.id);
