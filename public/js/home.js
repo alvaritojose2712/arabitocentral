@@ -4139,7 +4139,7 @@ function AuditoriaEfectivo(_ref) {
             className: "text-right",
             children: "Monto DOLAR"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            className: "",
+            className: "bg-info",
             children: "Balance DOLAR"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "bg-success-1",
@@ -4148,7 +4148,7 @@ function AuditoriaEfectivo(_ref) {
             className: "text-right",
             children: "Monto BS"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            className: "",
+            className: "bg-info",
             children: "Balance BS"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "bg-success-1",
@@ -4157,7 +4157,7 @@ function AuditoriaEfectivo(_ref) {
             className: "text-right",
             children: "Monto PESO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            className: "",
+            className: "bg-info",
             children: "Balance PESO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "bg-success-1",
@@ -4166,11 +4166,23 @@ function AuditoriaEfectivo(_ref) {
             className: "text-right",
             children: "Monto EURO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            className: "",
+            className: "bg-info",
             children: "Balance EURO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             className: "bg-success-1",
             children: "Balance EURO AUDITORIA"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "bg-primary",
+            children: "Balance TOTAL POR SISTEMA"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "bg-warning",
+            children: "Balance TOTAL POR SUMA REAL"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "bg-sinapsis",
+            children: "Balance TOTAL POR VENTA"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            className: "bg-dark",
+            children: "CUADRE"
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
@@ -4190,7 +4202,7 @@ function AuditoriaEfectivo(_ref) {
               className: "",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("small", {
                 className: "text-muted",
-                children: e.created_at
+                children: e.fecha
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: e.cat ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
@@ -4223,38 +4235,50 @@ function AuditoriaEfectivo(_ref) {
               className: (e.montodolar < 0 ? "text-danger" : "text-success") + " text-right",
               children: moneda(e.montodolar)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              className: "",
+              className: "bg-info",
               children: moneda(e.dolarbalance)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "bg-success-1",
+              className: "bg-" + (e.dolarbalance_real == e.dolarbalance ? "success" : "danger"),
               children: moneda(e.dolarbalance_real)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               className: (e.montobs < 0 ? "text-danger" : "text-success") + " text-right",
               children: moneda(e.montobs)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              className: "",
+              className: "bg-info",
               children: moneda(e.bsbalance)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "bg-success-1",
+              className: "bg-" + (e.bsbalance_real == e.bsbalance ? "success" : "danger"),
               children: moneda(e.bsbalance_real)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               className: (e.montopeso < 0 ? "text-danger" : "text-success") + " text-right",
               children: moneda(e.montopeso)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              className: "",
+              className: "bg-info",
               children: moneda(e.pesobalance)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "bg-success-1",
+              className: "bg-" + (e.pesobalance_real == e.pesobalance ? "success" : "danger"),
               children: moneda(e.pesobalance_real)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               className: (e.montoeuro < 0 ? "text-danger" : "text-success") + " text-right",
               children: moneda(e.montoeuro)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              className: "",
+              className: "bg-info",
               children: moneda(e.eurobalance)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "bg-success-1",
+              className: "bg-" + (e.eurobalance_real == e.eurobalance ? "success" : "danger"),
               children: moneda(e.eurobalance_real)
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              className: "bg-primary",
+              children: moneda(e.sumasistema)
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              className: "bg-warning",
+              children: moneda(e.sumbruta)
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              className: "bg-sinapsis",
+              children: moneda(e.debestener)
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              className: "bg-" + (e.cuadre == 0 ? "success" : "danger"),
+              children: moneda(e.cuadre)
             })]
           }, e.id);
         }) : null

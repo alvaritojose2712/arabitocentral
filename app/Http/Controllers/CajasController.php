@@ -6,6 +6,7 @@ use App\Models\cajas;
 use App\Http\Requests\StorecajasRequest;
 use App\Http\Requests\UpdatecajasRequest;
 use App\Models\catcajas;
+use App\Models\cierres;
 use App\Models\cuentasporpagar;
 use App\Models\proveedores;
 use App\Models\sucursal;
@@ -209,18 +210,127 @@ class CajasController extends Controller
         ->orderBy("id_sucursal","asc")
         ->orderBy("idinsucursal","desc")
         ->get()
-        ->map(function($q)
+        ->map(function($q) use ($qcajaauditoriaefectivo)
         {
             $sumreal = cajas::where("id_sucursal",$q->id_sucursal)
-            ->where("tipo",$q->tipo)
+            ->where("tipo",$qcajaauditoriaefectivo)
             ->where("idinsucursal","<=",$q->idinsucursal)
-            ->orderBy("id_sucursal","asc")
             ->orderBy("idinsucursal","desc");
 
+            $lastcajacierre = cajas::where("id_sucursal",$q->id_sucursal)
+            ->where("tipo",$qcajaauditoriaefectivo)
+            ->where("concepto","INGRESO DESDE CIERRE")
+            ->where("idinsucursal","<",$q->idinsucursal)
+            ->orderBy("idinsucursal","desc")->first();
+            $caja_incial_dolarbalance = 0;
+            $caja_incial_bsbalance = 0;
+            $caja_incial_pesobalance = 0;
+            $caja_incial_eurobalance = 0;
+            if ($lastcajacierre) {
+                $caja_incial_dolarbalance = $lastcajacierre->dolarbalance;
+                $caja_incial_bsbalance = $lastcajacierre->bsbalance;
+                $caja_incial_pesobalance = $lastcajacierre->pesobalance;
+                $caja_incial_eurobalance = $lastcajacierre->eurobalance;
+            }
+            $lastcierre = cierres::where("id_sucursal",$q->id_sucursal)->where("fecha","<",$q->fecha)->orderBy("fecha","desc")->first();
+            $tasabs = 0;
+            $tasacop = 0;
+            $caja_incial_dejar_dolar = 0;
+            $caja_incial_dejar_peso = 0;
+            $caja_incial_dejar_bss = 0;
+            
+            if ($lastcierre) {
+                $tasabs = $lastcierre->tasa;
+                $tasacop = $lastcierre->tasacop;
+                $caja_incial_dejar_dolar = $lastcierre->dejar_dolar;
+                $caja_incial_dejar_peso = $lastcierre->dejar_peso;
+                $caja_incial_dejar_bss = $lastcierre->dejar_bss;
+                $ingreso_efectivo = $lastcierre->efectivo;
+            }
+            
+            $ingreso_efectivo = 0;
+
+            $tasabs_today = 0;
+            $tasacop_today = 0;
+
+            $today_dejar_dolar = 0;
+            $today_dejar_peso = 0;
+            $today_dejar_bss = 0;
+            $todaycierre = cierres::where("id_sucursal",$q->id_sucursal)->where("fecha",$q->fecha)->first();
+            if ($todaycierre) {
+                $tasabs_today = $todaycierre->tasa;
+                $tasacop_today = $todaycierre->tasacop;
+                
+                $ingreso_efectivo = $todaycierre->efectivo;
+                $today_dejar_dolar = $todaycierre->dejar_dolar;
+                $today_dejar_peso = $todaycierre->dejar_peso;
+                $today_dejar_bss = $todaycierre->dejar_bss;
+            }
+            $total_dejar = $caja_incial_dejar_dolar + (new CierresController)->dividir($caja_incial_dejar_bss,$tasabs) + (new CierresController)->dividir($caja_incial_dejar_peso,$tasacop);
+            $total_cajas = $caja_incial_dolarbalance + (new CierresController)->dividir($caja_incial_bsbalance, $tasabs) + (new CierresController)->dividir($caja_incial_pesobalance, $tasacop) + $caja_incial_eurobalance;
+            $total_inicial =  $total_dejar + $total_cajas;
+            
+            $movdehoy = cajas::where("id_sucursal",$q->id_sucursal)
+            ->where("tipo",$qcajaauditoriaefectivo)
+            ->where("fecha",$q->fecha)
+            ->where("concepto","<>","INGRESO DESDE CIERRE")->get();
+
+            $adicionaleshoy_montodolar = $movdehoy->where("montodolar",">",0)->sum("montodolar");
+            $egresoshoy_montodolar = $movdehoy->where("montodolar","<",0)->sum("montodolar");
+
+            $adicionaleshoy_montobs = $movdehoy->where("montobs",">",0)->sum("montobs");
+            $egresoshoy_montobs = $movdehoy->where("montobs","<",0)->sum("montobs");
+
+            $adicionaleshoy_montopeso = $movdehoy->where("montopeso",">",0)->sum("montopeso");
+            $egresoshoy_montopeso = $movdehoy->where("montopeso","<",0)->sum("montopeso");
+
+            $adicionaleshoy_montoeuro = $movdehoy->where("montoeuro",">",0)->sum("montoeuro");
+            $egresoshoy_montoeuro = $movdehoy->where("montoeuro","<",0)->sum("montoeuro");
+
+            $adicionalesdehoy = $adicionaleshoy_montodolar+ (new CierresController)->dividir($adicionaleshoy_montobs,$tasabs_today) +(new CierresController)->dividir($adicionaleshoy_montopeso,$tasacop_today)+$adicionaleshoy_montoeuro;
+
+            $egresosdehoy = $egresoshoy_montodolar+ (new CierresController)->dividir($egresoshoy_montobs,$tasabs_today) +(new CierresController)->dividir($egresoshoy_montopeso,$tasacop_today)+$egresoshoy_montoeuro;
+
+            $dejehoy = $today_dejar_dolar + (new CierresController)->dividir($today_dejar_bss,$tasabs_today) + (new CierresController)->dividir($today_dejar_peso,$tasacop_today);
+            
+            $debestener = $total_inicial + (($ingreso_efectivo+$adicionalesdehoy)-$dejehoy) - abs($egresosdehoy);
+            
+            $sumasistema = $q->dolarbalance + (new CierresController)->dividir($q->bsbalance, $tasabs) + (new CierresController)->dividir($q->pesobalance, $tasacop) + $q->eurobalance;
+            
+            
+            
+            
             $q->dolarbalance_real = $sumreal->sum("montodolar");
             $q->bsbalance_real = $sumreal->sum("montobs");
             $q->pesobalance_real = $sumreal->sum("montopeso");
             $q->eurobalance_real = $sumreal->sum("montoeuro");
+            $sumbruta = $sumreal->sum("montodolar") + (new CierresController)->dividir($sumreal->sum("montobs"), $tasabs) + (new CierresController)->dividir($sumreal->sum("montopeso"), $tasacop) + $sumreal->sum("montoeuro");
+            
+            $q->debestener = $debestener;
+            $q->sumasistema = $sumasistema;
+            $q->sumbruta = $sumbruta;
+            $q->cuadre = $sumbruta - $debestener - $sumasistema;
+            
+
+            $q->total_inicial = $total_inicial;
+            $q->total_dejar = $total_dejar;
+            $q->total_cajas = $total_cajas;
+            
+
+            $q->ingreso_efectivo = $ingreso_efectivo;
+            $q->adicionalesdehoy = $adicionalesdehoy;
+            $q->dejehoy = $dejehoy;
+            $q->egresosdehoy = $egresosdehoy;
+            $q->egresoshoy_montodolar = $egresoshoy_montodolar;
+
+
+            $q->caja_incial_dolarbalance = $caja_incial_dolarbalance;
+            $q->caja_incial_bsbalance = (new CierresController)->dividir($caja_incial_bsbalance, $tasabs);
+            $q->caja_incial_pesobalance = (new CierresController)->dividir($caja_incial_pesobalance, $tasacop);
+            $q->caja_incial_eurobalance = $caja_incial_eurobalance;
+            
+
+
             
             return $q;
 

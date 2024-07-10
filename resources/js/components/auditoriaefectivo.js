@@ -50,24 +50,34 @@ export default function AuditoriaEfectivo({
                         <th>INGRESO/EGRESO</th>
                         <th>DESCRIPCION</th>
                         <th className="text-right">Monto DOLAR</th>
-                        <th className="">Balance DOLAR</th>
+                        <th className="bg-info">Balance DOLAR</th>
                         
                         <th className="bg-success-1">Balance DOLAR AUDITORIA</th>
+                        
 
                         <th className="text-right">Monto BS</th>
-                        <th className="">Balance BS</th>
+                        <th className="bg-info">Balance BS</th>
                         
                         <th className="bg-success-1">Balance BS AUDITORIA</th>
+                        
 
                         <th className="text-right">Monto PESO</th>
-                        <th className="">Balance PESO</th>
+                        <th className="bg-info">Balance PESO</th>
                         
                         <th className="bg-success-1">Balance PESO AUDITORIA</th>
+                        
 
                         <th className="text-right">Monto EURO</th>
-                        <th className="">Balance EURO</th>
+                        <th className="bg-info">Balance EURO</th>
                         
                         <th className="bg-success-1">Balance EURO AUDITORIA</th>
+                        <th></th>
+
+                        <th className="bg-primary">Balance TOTAL POR SISTEMA</th>
+                        <th className="bg-warning">Balance TOTAL POR SUMA REAL</th>
+                        <th className="bg-sinapsis">Balance TOTAL POR VENTA</th>
+                        <th className="bg-dark">CUADRE</th>
+                        
                         
                     </tr>
                 </thead>
@@ -84,7 +94,7 @@ export default function AuditoriaEfectivo({
                                     }
                                 </td>
                                 <td>{e.sucursal.codigo}</td>
-                                <td className=""><small className="text-muted">{e.created_at}</small></td>
+                                <td className=""><small className="text-muted">{e.fecha}</small></td>
 
                                 <td> 
                                     {e.cat?
@@ -112,20 +122,26 @@ export default function AuditoriaEfectivo({
                                 <td className="">{e.concepto}</td>
                                 
                                 <td className={(e.montodolar<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montodolar)}</td>
-                                <td className={("")}>{moneda(e.dolarbalance)}</td>
-                                <th className="bg-success-1">{moneda(e.dolarbalance_real)}</th>
+                                <td className={("bg-info")}>{moneda(e.dolarbalance)}</td>
+                                <th className={("bg-")+(e.dolarbalance_real==e.dolarbalance?"success":"danger")}>{moneda(e.dolarbalance_real)}</th>
                                 
                                 <td className={(e.montobs<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montobs)}</td>
-                                <td className={("")}>{moneda(e.bsbalance)}</td>
-                                <th className="bg-success-1">{moneda(e.bsbalance_real)}</th>
+                                <td className={("bg-info")}>{moneda(e.bsbalance)}</td>
+                                <th className={("bg-")+(e.bsbalance_real==e.bsbalance?"success":"danger")}>{moneda(e.bsbalance_real)}</th>
                                 
                                 <td className={(e.montopeso<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montopeso)}</td>
-                                <td className={("")}>{moneda(e.pesobalance)}</td>
-                                <th className="bg-success-1">{moneda(e.pesobalance_real)}</th>
+                                <td className={("bg-info")}>{moneda(e.pesobalance)}</td>
+                                <th className={("bg-")+(e.pesobalance_real==e.pesobalance?"success":"danger")}>{moneda(e.pesobalance_real)}</th>
 
                                 <td className={(e.montoeuro<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montoeuro)}</td>
-                                <td className={("")}>{moneda(e.eurobalance)}</td>
-                                <th className="bg-success-1">{moneda(e.eurobalance_real)}</th>
+                                <td className={("bg-info")}>{moneda(e.eurobalance)}</td>
+                                <th className={("bg-")+(e.eurobalance_real==e.eurobalance?"success":"danger")}>{moneda(e.eurobalance_real)}</th>
+                                <th></th>
+
+                                <th className="bg-primary">{moneda(e.sumasistema)}</th>
+                                <th className="bg-warning">{moneda(e.sumbruta)}</th>
+                                <th className="bg-sinapsis">{moneda(e.debestener)}</th>
+                                <th className={("bg-")+(e.cuadre==0?"success":"danger")}>{moneda(e.cuadre)}</th>
                                 
                             </tr>
                         )
