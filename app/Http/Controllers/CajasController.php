@@ -309,7 +309,7 @@ class CajasController extends Controller
             $q->debestener = $debestener;
             $q->sumasistema = $sumasistema;
             $q->sumbruta = $sumbruta;
-            $q->cuadre = $sumbruta - $debestener - $sumasistema;
+            $q->cuadre = ($sumbruta - $debestener) + ($sumbruta - $sumasistema);
             
 
             $q->total_inicial = $total_inicial;
