@@ -368,10 +368,10 @@ class CierresController extends Controller
                     "dolar" => isset($bancos_debito[$item_punto["banco"]])? $bancos_debito[$item_punto["banco"]]["dolar"] + $this->dividir($item_punto["monto_liquidado"],$bs): $this->dividir($item_punto["monto_liquidado"],$bs),
                 ]; 
             }
-            $debito[$codigo]["sum_debitos"] = $debitos->sum("monto");
-            $debito[$codigo]["sum_debitos_dolar"] = $this->dividir($debitos->sum("monto"),$bs);
-            $sum_debito += $debitos->sum("monto");
-            $sum_debito_dolar += $this->dividir($debitos->sum("monto"),$bs);
+            $debito[$codigo]["sum_debitos"] = $debitos->sum("monto_liquidado");
+            $debito[$codigo]["sum_debitos_dolar"] = $this->dividir($debitos->sum("monto_liquidado"),$bs);
+            $sum_debito += $debitos->sum("monto_liquidado");
+            $sum_debito_dolar += $this->dividir($debitos->sum("monto_liquidado"),$bs);
             $debito[$codigo]["bancos_debito"] = $bancos_debito;
             ///////////////
             $transferencias = puntosybiopagos::where("id_sucursal",$c->id_sucursal)->where("origen",1)->where("fecha_liquidacion",$fechasMain1)->where("tipo","LIKE","Transferencia%")->get();
