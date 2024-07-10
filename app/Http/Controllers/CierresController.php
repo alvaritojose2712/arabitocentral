@@ -348,8 +348,8 @@ class CierresController extends Controller
             $bancos_caja_biopago = [];
             foreach ($caja_biopagos as $item_caja_biopago) {
                 $bancos_caja_biopago[$item_caja_biopago["banco"]] = [
-                    "bs" => isset($bancos_caja_biopago[$item_caja_biopago["banco"]])? $bancos_caja_biopago[$item_caja_biopago["banco"]]["bs"] + $item_caja_biopago["monto"]: $item_caja_biopago["monto"],
-                    "dolar" => isset($bancos_caja_biopago[$item_caja_biopago["banco"]])? $bancos_caja_biopago[$item_caja_biopago["banco"]]["dolar"] + $this->dividir($item_caja_biopago["monto"],$bs): $this->dividir($item_caja_biopago["monto"],$bs),
+                    "bs" => isset($bancos_caja_biopago[$item_caja_biopago["banco"]])? $bancos_caja_biopago[$item_caja_biopago["banco"]]["bs"] + $item_caja_biopago["monto_liquidado"]: $item_caja_biopago["monto_liquidado"],
+                    "dolar" => isset($bancos_caja_biopago[$item_caja_biopago["banco"]])? $bancos_caja_biopago[$item_caja_biopago["banco"]]["dolar"] + $this->dividir($item_caja_biopago["monto_liquidado"],$bs): $this->dividir($item_caja_biopago["monto_liquidado"],$bs),
                 ]; 
             }
             $caja_biopago[$codigo]["sum_caja_biopago"] = $sum_all_biopago;
@@ -364,8 +364,8 @@ class CierresController extends Controller
             $bancos_debito = [];
             foreach ($debitos as $item_punto) {
                 $bancos_debito[$item_punto["banco"]] = [
-                    "bs" => isset($bancos_debito[$item_punto["banco"]])? $bancos_debito[$item_punto["banco"]]["bs"] + $item_punto["monto"]: $item_punto["monto"],
-                    "dolar" => isset($bancos_debito[$item_punto["banco"]])? $bancos_debito[$item_punto["banco"]]["dolar"] + $this->dividir($item_punto["monto"],$bs): $this->dividir($item_punto["monto"],$bs),
+                    "bs" => isset($bancos_debito[$item_punto["banco"]])? $bancos_debito[$item_punto["banco"]]["bs"] + $item_punto["monto_liquidado"]: $item_punto["monto_liquidado"],
+                    "dolar" => isset($bancos_debito[$item_punto["banco"]])? $bancos_debito[$item_punto["banco"]]["dolar"] + $this->dividir($item_punto["monto_liquidado"],$bs): $this->dividir($item_punto["monto_liquidado"],$bs),
                 ]; 
             }
             $debito[$codigo]["sum_debitos"] = $debitos->sum("monto");
