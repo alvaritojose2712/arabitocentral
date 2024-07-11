@@ -544,14 +544,6 @@ class CierresController extends Controller
         $total_efectivo = ($sum_caja_inicial_banco_dolar+$sum_efectivo_ingreso) - (abs($sum_efectivo_gasto_fijovar)+abs($sum_efectivo_pagoproveedor_egreso));
         
         
-
-
-        
-
-
-
-
-
         
         return [
             "mov_dist_gastos" => $mov_dist_gastos,

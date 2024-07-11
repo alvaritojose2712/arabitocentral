@@ -407,11 +407,31 @@ class CajasController extends Controller
         $cm = cajas::find($id);
         $banco = bancos_list::find($bancoreq);
         $cat = catcajas::where("nombre","CAJA FUERTE: TRASPASO A CAJA CHICA")->first();
+        $cierre = cierres::where("id_sucursal",$cm->id_sucursal)->where("fecha",$fecha)->first();
 
         if ($banco) {
             if ($cm) {
                 if ($cm->montodolar) {
-                    
+                    if ($cierre) {
+                        $monto = abs($cm->montodolar);
+                        $tasa = $cierre->tasa;
+                        $p = puntosybiopagos::updateOrCreate(["id"=>null],[
+                            "loteserial" => $cm->concepto,
+                            "banco" => $banco->codigo,
+                            "categoria" => $cat->id,
+                            "fecha" => $fecha,
+                            "fecha_liquidacion" => $fecha,
+                            "tipo" => "Transferencia",
+                            "id_sucursal" => 13,
+                            "id_beneficiario" => null,
+                            "tasa" => 0,
+                            "monto" => $monto*$tasa,
+                            "monto_liquidado" => $monto*$tasa,
+                            "monto_dolar" => 0,
+                            "origen" => 2,
+                            "id_usuario" => 1,
+                        ]);
+                    }
                 }
                 if ($cm->montobs!=0&&$cm->montobs!="0.00") {
                     $monto = abs($cm->montobs);
@@ -422,15 +442,12 @@ class CajasController extends Controller
                         "fecha" => $fecha,
                         "fecha_liquidacion" => $fecha,
                         "tipo" => "Transferencia",
-        
                         "id_sucursal" => 13,
                         "id_beneficiario" => null,
                         "tasa" => 0,
-                        
                         "monto" => $monto,
                         "monto_liquidado" => $monto,
                         "monto_dolar" => 0,
-        
                         "origen" => 2,
                         "id_usuario" => 1,
                     ]);
