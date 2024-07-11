@@ -8,6 +8,10 @@ use App\Http\Requests\UpdatecajasRequest;
 use App\Models\catcajas;
 use App\Models\cierres;
 use App\Models\cuentasporpagar;
+use App\Models\puntosybiopagos;
+use App\Models\bancos_list;
+
+
 use App\Models\proveedores;
 use App\Models\sucursal;
 use Illuminate\Http\Request;
@@ -354,5 +358,91 @@ class CajasController extends Controller
             "data" => $data,
             "sum" =>0
         ];
+    }
+    function getCajaMatriz(Request $req) {
+        $qcajamatriz = $req->qcajamatriz;
+        $sucursalqcajamatriz = $req->sucursalqcajamatriz;
+        $fechadesdecajamatriz = $req->fechadesdecajamatriz;
+        $fechahastacajamatriz = $req->fechahastacajamatriz;
+
+        $data = cajas::with(["sucursal","cat"])
+        ->when($qcajamatriz,function($q) use ($qcajamatriz) {
+            $q->where("concepto","LIKE","%$qcajamatriz%");
+        })
+        ->when($sucursalqcajamatriz,function($q) use ($sucursalqcajamatriz) {
+            $q->where("id_sucursal",$sucursalqcajamatriz);
+        })
+        ->when($fechadesdecajamatriz&&$fechahastacajamatriz,function($q) use ($fechadesdecajamatriz, $fechahastacajamatriz) {
+            $q->whereBetween("fecha",[$fechadesdecajamatriz, $fechahastacajamatriz]);
+        })
+        ->whereIn("categoria",[42,40])
+        //->orwhere("id_sucursal",13)
+        ->orderBy("fecha","desc")
+        ->get();
+        
+        $summatriz = cajas::whereIn("categoria",[42,40]);
+
+        $bs = abs($summatriz->sum("montodolar"));
+        $cop = abs($summatriz->sum("montobs"));
+        $dolar = abs($summatriz->sum("montopeso"));
+        $euro = abs($summatriz->sum("montoeuro"));
+
+        
+
+        return [
+            "data" => $data,
+            "balance" => [
+                "bs" => $bs, 
+                "cop" => $cop, 
+                "dolar" => $dolar, 
+                "euro" => $euro, 
+            ]
+            ];
+    }
+    function depositarmatrizalbanco(Request $req) {
+        $id = $req->id;
+        $fecha = $req->fecha;
+        $bancoreq = $req->banco;
+
+        $cm = cajas::find($id);
+        $banco = bancos_list::find($bancoreq);
+        $cat = catcajas::where("nombre","CAJA FUERTE: TRASPASO A CAJA CHICA")->first();
+
+        if ($banco) {
+            if ($cm) {
+                if ($cm->montodolar) {
+                    
+                }
+                if ($cm->montobs!=0&&$cm->montobs!="0.00") {
+                    $monto = abs($cm->montobs);
+                    $p = puntosybiopagos::updateOrCreate(["id"=>null],[
+                        "loteserial" => $cm->concepto,
+                        "banco" => $banco->codigo,
+                        "categoria" => $cat->id,
+                        "fecha" => $fecha,
+                        "fecha_liquidacion" => $fecha,
+                        "tipo" => "Transferencia",
+        
+                        "id_sucursal" => 13,
+                        "id_beneficiario" => null,
+                        "tasa" => 0,
+                        
+                        "monto" => $monto,
+                        "monto_liquidado" => $monto,
+                        "monto_dolar" => 0,
+        
+                        "origen" => 2,
+                        "id_usuario" => 1,
+                    ]);
+                }
+                if ($cm->montopeso) {
+                    
+                }
+                if ($cm->montoeuro) {
+                    
+                }
+            }
+        }
+
     }
 }

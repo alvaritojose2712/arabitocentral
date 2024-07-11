@@ -71,7 +71,7 @@ export default function AuditoriaEfectivo({
                         <th className="bg-info">Balance EURO</th>
                         
                         <th className="bg-warning">Balance EURO POR SUMA REAL</th>
-                        <th></th>
+                        <th className="bg-dark"></th>
 
                         <th className="bg-primary">Balance TOTAL POR SISTEMA</th>
                         <th className="bg-warning">Balance TOTAL POR SUMA REAL</th>
@@ -136,12 +136,12 @@ export default function AuditoriaEfectivo({
                                 <td className={(e.montoeuro<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montoeuro)}</td>
                                 <td className={("bg-info")}>{moneda(e.eurobalance)}</td>
                                 <th className={("bg-warning text-")+(e.eurobalance_real==e.eurobalance?"success":"danger")}>{moneda(e.eurobalance_real)}</th>
-                                <th></th>
+                                <th className="bg-dark"></th>
 
                                 <th className="bg-primary">{moneda(e.sumasistema)}</th>
                                 <th className="bg-warning">{moneda(e.sumbruta)}</th>
                                 <th className="bg-sinapsis fw-bolder fs-3 text-light">{moneda(e.debestener)}</th>
-                                <th className={("fs-3 fw-bolder ")+(e.cuadre<-5||e.cuadre>5?"bg-success":" text-light bg-danger")}>{moneda(e.cuadre)}</th>
+                                <th className={("fs-3 fw-bolder ")+(e.cuadre<-5||e.cuadre>5?"bg-danger":" text-light bg-success")}>{moneda(e.cuadre)}</th>
                                 
                             </tr>
                         )

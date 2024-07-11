@@ -2401,7 +2401,39 @@ function formatAmount( number, simbol ) {
   const showFilescxp = (id) => {
     db.showFilescxp(id)
   }
+
+
+  const [datacajamatriz, setdatacajamatriz] = useState([])
+  const [qcajamatriz,setqcajamatriz] = useState("")
+  const [sucursalqcajamatriz,setsucursalqcajamatriz] = useState("")
+  const [fechadesdecajamatriz,setfechadesdecajamatriz] = useState("")
+  const [fechahastacajamatriz,setfechahastacajamatriz] = useState("")
+
+  const [bancodepositobanco,setbancodepositobanco] = useState("")
+  const [fechadepositobanco,setfechadepositobanco] = useState("")
+  const [selectdepositobanco,setselectdepositobanco] = useState("")
   
+  const depositarmatrizalbanco = (id) => {
+    db.depositarmatrizalbanco({
+      id,
+      banco: bancodepositobanco,
+      fecha: fechadepositobanco,
+    }).then(res=>{
+      notificar(res)
+      setbancodepositobanco("")
+      setfechadepositobanco("")
+    })
+  }
+  const getCajaMatriz = () => {
+    db.getCajaMatriz({
+      qcajamatriz,
+      sucursalqcajamatriz,
+      fechadesdecajamatriz,
+      fechahastacajamatriz,
+    }).then(res=>{
+      setdatacajamatriz(res.data)
+    })
+  }
 
   const getDisponibleEfectivoSucursal = () => {
     db.getDisponibleEfectivoSucursal({}).then(res=>{
@@ -5180,6 +5212,28 @@ function formatAmount( number, simbol ) {
                       getDisponibleEfectivoSucursal={getDisponibleEfectivoSucursal}
                       colorSucursal={colorSucursal}
                       moneda={moneda}
+
+                      datacajamatriz={datacajamatriz}
+                      colorsGastosCat={colorsGastosCat}
+                      depositarmatrizalbanco={depositarmatrizalbanco}
+                      getCajaMatriz={getCajaMatriz}
+                      qcajamatriz={qcajamatriz}
+                      setqcajamatriz={setqcajamatriz}
+                      sucursalqcajamatriz={sucursalqcajamatriz}
+                      setsucursalqcajamatriz={setsucursalqcajamatriz}
+                      fechadesdecajamatriz={fechadesdecajamatriz}
+                      setfechadesdecajamatriz={setfechadesdecajamatriz}
+                      fechahastacajamatriz={fechahastacajamatriz}
+                      setfechahastacajamatriz={setfechahastacajamatriz}
+                      sucursales={sucursales}
+
+                      bancodepositobanco={bancodepositobanco}
+                      setbancodepositobanco={setbancodepositobanco}
+                      fechadepositobanco={fechadepositobanco}
+                      setfechadepositobanco={setfechadepositobanco}
+                      selectdepositobanco={selectdepositobanco}
+                      setselectdepositobanco={setselectdepositobanco}
+                      opcionesMetodosPago={opcionesMetodosPago}
                     />:null
                   }
                 </>

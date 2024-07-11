@@ -347,6 +347,9 @@ Route::post('getAllProveedores', [ProveedoresController::class,"getAllProveedore
 Route::match(array('GET', 'POST'),'selectCuentaPorPagarProveedorDetalles', [CuentasporpagarController::class,"selectCuentaPorPagarProveedorDetalles"]);
 Route::get('showImageFact', [CuentasporpagarController::class,"showImageFact"]);
 Route::post('getDisponibleEfectivoSucursal', [CajasController::class,"getDisponibleEfectivoSucursal"]);
+Route::post('getCajaMatriz', [CajasController::class,"getCajaMatriz"]);
+Route::post('depositarmatrizalbanco', [CajasController::class,"depositarmatrizalbanco"]);
+
 
 Route::get('getMetodosPago', [BancosListController::class,"getMetodosPago"]);
 Route::get('getBancosData', [BancosController::class,"getBancosData"]);

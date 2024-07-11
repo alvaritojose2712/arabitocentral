@@ -57,6 +57,10 @@ const db = {
   sendsaldoactualbancofecha: data=>axios.post(host+"sendsaldoactualbancofecha",data),
   reverserLiquidar: data=>axios.post(host+"reverserLiquidar",data),
   getDisponibleEfectivoSucursal: data=>axios.post(host+"getDisponibleEfectivoSucursal",data),
+
+  getCajaMatriz: data=>axios.post(host+"getCajaMatriz",data),
+  depositarmatrizalbanco: data=>axios.post(host+"depositarmatrizalbanco",data),
+  
   saveFacturaLote: data=>axios.post(host+"saveFacturaLote",data),
   sendlistdistribucionselect: data=>axios.post(host+"sendlistdistribucionselect",data),
   
