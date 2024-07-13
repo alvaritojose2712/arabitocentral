@@ -351,6 +351,15 @@ Route::post('getCajaMatriz', [CajasController::class,"getCajaMatriz"]);
 Route::post('depositarmatrizalbanco', [CajasController::class,"depositarmatrizalbanco"]);
 
 
+Route::post('getControlEfec', [CajasController::class,"getControlEfec"]);
+Route::post('delCaja', [CajasController::class,"delCaja"]);
+Route::post('verificarMovPenControlEfecTRANFTRABAJADOR', [CajasController::class,"verificarMovPenControlEfecTRANFTRABAJADOR"]);
+Route::post('verificarMovPenControlEfec', [CajasController::class,"verificarMovPenControlEfec"]);
+Route::post('aprobarRecepcionCaja', [CajasController::class,"aprobarRecepcionCaja"]);
+Route::post('reversarMovPendientes', [CajasController::class,"reversarMovPendientes"]);
+Route::post('setControlEfec', [CajasController::class,"setControlEfec"]);
+
+
 Route::get('getMetodosPago', [BancosListController::class,"getMetodosPago"]);
 Route::get('getBancosData', [BancosController::class,"getBancosData"]);
 

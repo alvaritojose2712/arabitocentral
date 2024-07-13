@@ -206,7 +206,7 @@ export default function Gastos({
 							value={gastosBanco} 
 							onChange={e=>setgastosBanco(e.target.value)} required={true}>
 								<option value="">-Método-</option>
-								{opcionesMetodosPago.map(e=>
+								{opcionesMetodosPago.filter(e=>e.codigo!="EFECTIVO").map(e=>
 									<option value={e.codigo} key={e.id}>{e.descripcion}</option>
 								)}
 							</select>

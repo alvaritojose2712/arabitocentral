@@ -59,6 +59,16 @@ const db = {
   getDisponibleEfectivoSucursal: data=>axios.post(host+"getDisponibleEfectivoSucursal",data),
 
   getCajaMatriz: data=>axios.post(host+"getCajaMatriz",data),
+
+  getControlEfec: data=>axios.post(host+"getControlEfec",data),
+  delCaja: data=>axios.post(host+"delCaja",data),
+  verificarMovPenControlEfecTRANFTRABAJADOR: data=>axios.post(host+"verificarMovPenControlEfecTRANFTRABAJADOR",data),
+  verificarMovPenControlEfec: data=>axios.post(host+"verificarMovPenControlEfec",data),
+  aprobarRecepcionCaja: data=>axios.post(host+"aprobarRecepcionCaja",data),
+  reversarMovPendientes: data=>axios.post(host+"reversarMovPendientes",data),
+  setControlEfec: data=>axios.post(host+"setControlEfec",data),
+
+
   depositarmatrizalbanco: data=>axios.post(host+"depositarmatrizalbanco",data),
   
   saveFacturaLote: data=>axios.post(host+"saveFacturaLote",data),

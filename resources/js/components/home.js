@@ -312,10 +312,130 @@ function Home() {
   const [invsuc_orderBy, setinvsuc_orderBy] = useState("desc")
   const [controlefecSelectGeneral, setcontrolefecSelectGeneral] = useState(1)
 
+
+
+
+  const [controlefecQ,setcontrolefecQ] = useState("")
+  const [controlefecQDesde,setcontrolefecQDesde] = useState("")
+  const [controlefecQHasta,setcontrolefecQHasta] = useState("")
+  const [controlefecNewConcepto,setcontrolefecNewConcepto] = useState("")
+  const [controlefecNewCategoria,setcontrolefecNewCategoria] = useState("")
+  const [controlefecNewMonto,setcontrolefecNewMonto] = useState("")
+  
+  const [controlefecQCategoria,setcontrolefecQCategoria] = useState("")
+  const [controlefecNewMontoMoneda,setcontrolefecNewMontoMoneda] = useState("")
+  const [transferirpedidoa,settransferirpedidoa] = useState("")
+
+  const [controlefecData, setcontrolefecData] = useState([])
+  const [openModalNuevoEfectivo, setopenModalNuevoEfectivo] = useState(false)
+
+  const [personalNomina, setpersonalNomina] = useState([])
+
+
+  const getControlEfec = () => {
+    db.getControlEfec({
+        controlefecQ,
+        controlefecQDesde,
+        controlefecQHasta,
+        controlefecQCategoria,
+        controlefecSelectGeneral
+    }).then(res => {
+        setcontrolefecData(res.data)
+    })
+  }
+  const delCaja = (id) => {
+      db.delCaja({
+          id
+      }).then(res => {
+          notificar(res)
+          getControlEfec()
+      })
+  }
+  const verificarMovPenControlEfecTRANFTRABAJADOR = () => {
+      if (confirm("Confirme")) {
+          db.verificarMovPenControlEfecTRANFTRABAJADOR({}).then(res=>{
+              getControlEfec()
+              notificar(res.data)
+          })
+      }
+  }
+
+  const verificarMovPenControlEfec = () => {
+      if (confirm("Confirme")) {
+          db.verificarMovPenControlEfec({}).then(res=>{
+              getControlEfec()
+              notificar(res)
+          })
+      }
+  }
+  const aprobarRecepcionCaja = (id,type) => {
+      if(confirm("¿Está seguro de "+type+" el movimiento?")){
+          db.aprobarRecepcionCaja({id,type}).then(res=>{
+              getControlEfec()
+              notificar(res)
+          })
+      }
+  }
+
+  const reversarMovPendientes = () => {
+      if (confirm("¿Realmente desea eliminar los movimientos pendientes?")) {
+          if (confirm("¿Seguro/a, Seguro/a?")) {
+              if (confirm("No hay marcha atrás!")) {
+                  db.reversarMovPendientes({})
+                  .then(res=> {
+                      getControlEfec()
+                      notificar(res.data)
+                  })
+              }
+          }   
+      }
+  }
+
+  const setControlEfec = (sendCentralData=false) => {
+
+      if (confirm("¿Realmente desea cargar el movimiento?")) {
+
+          if (
+              !controlefecNewConcepto ||
+              !controlefecNewCategoria ||
+              !controlefecNewMonto ||
+              !controlefecNewMontoMoneda
+          ) {
+
+              console.log(controlefecNewConcepto, "controlefecNewConcepto")
+              console.log(controlefecNewCategoria, "controlefecNewCategoria")
+              console.log(controlefecNewMonto, "controlefecNewMonto")
+              console.log(controlefecNewMontoMoneda, "controlefecNewMontoMoneda")
+              alert("Error: Campos Vacíos!")
+          } else {
+              setopenModalNuevoEfectivo(false)
+
+              setcontrolefecNewConcepto("")
+              setcontrolefecNewConcepto("")
+              setcontrolefecNewMonto("")
+              setcontrolefecNewMontoMoneda("")
+              setcontrolefecNewCategoria("")
+
+              db.setControlEfec({
+                  concepto: controlefecNewConcepto,
+                  categoria: controlefecNewCategoria,
+                  monto: controlefecNewMonto,
+                  controlefecSelectGeneral,
+                  controlefecNewMontoMoneda,
+                  sendCentralData,
+                  transferirpedidoa,
+              }).then(res => {
+                  getControlEfec()
+                  notificar(res.data.msj)
+              })
+          }
+      }
+  }
+
+  
+  
+  
   const [inventarioGeneralqsucursal,setinventarioGeneralqsucursal] = useState("")
-
-
-
   const [inpInvbarras, setinpInvbarras] = useState("")
   const [inpInvcantidad, setinpInvcantidad] = useState("")
   const [inpInvalterno, setinpInvalterno] = useState("")
@@ -5234,6 +5354,51 @@ function formatAmount( number, simbol ) {
                       selectdepositobanco={selectdepositobanco}
                       setselectdepositobanco={setselectdepositobanco}
                       opcionesMetodosPago={opcionesMetodosPago}
+
+
+                      setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
+                      number={number}
+                      getAlquileres={getAlquileres}
+                      getSucursales={getSucursales}
+                      controlefecQ={controlefecQ}
+                      setcontrolefecQ={setcontrolefecQ}
+                      controlefecQDesde={controlefecQDesde}
+                      setcontrolefecQDesde={setcontrolefecQDesde}
+                      controlefecQHasta={controlefecQHasta}
+                      setcontrolefecQHasta={setcontrolefecQHasta}
+                      controlefecData={controlefecData}
+                      controlefecSelectGeneral={controlefecSelectGeneral}
+                      controlefecNewConcepto={controlefecNewConcepto}
+                      setcontrolefecNewConcepto={setcontrolefecNewConcepto}
+                      controlefecNewCategoria={controlefecNewCategoria}
+                      setcontrolefecNewCategoria={setcontrolefecNewCategoria}
+                      controlefecNewMonto={controlefecNewMonto}
+                      setcontrolefecNewMonto={setcontrolefecNewMonto}
+                      getControlEfec={getControlEfec}
+                      setControlEfec={setControlEfec}
+                      setcontrolefecQCategoria={setcontrolefecQCategoria}
+                      controlefecQCategoria={controlefecQCategoria}
+                      controlefecNewMontoMoneda={controlefecNewMontoMoneda}
+                      setcontrolefecNewMontoMoneda={setcontrolefecNewMontoMoneda}
+                      categoriasCajas={categoriasCajas}
+                      getcatsCajas={getCatCajas}
+                      delCaja={delCaja}
+                      personalNomina={personalNomina}
+                      getNomina={getPersonalNomina}
+                      setopenModalNuevoEfectivo={setopenModalNuevoEfectivo}
+                      openModalNuevoEfectivo={openModalNuevoEfectivo}
+                      verificarMovPenControlEfec={verificarMovPenControlEfec}
+                      verificarMovPenControlEfecTRANFTRABAJADOR={verificarMovPenControlEfecTRANFTRABAJADOR}
+                      allProveedoresCentral={proveedoresList}
+                      getAllProveedores={getProveedores}
+                      alquileresData={alquileresData}
+                      sucursalesCentral={sucursales}
+                      transferirpedidoa={transferirpedidoa}
+                      settransferirpedidoa={settransferirpedidoa}
+                      reversarMovPendientes={reversarMovPendientes}
+                      aprobarRecepcionCaja={aprobarRecepcionCaja}
+                      dolar={dolar}
+                      peso={peso}
                     />:null
                   }
                 </>
