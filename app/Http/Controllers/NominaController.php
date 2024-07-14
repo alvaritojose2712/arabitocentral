@@ -185,7 +185,7 @@ class NominaController extends Controller
         ->when($qSucursalNomina, function ($q) use ($qSucursalNomina) {
             $q->where("nominasucursal", $qSucursalNomina);
         })
-        ->where("activo",1)
+        //->where("activo",1)
         ->orderBy("activo","desc")
         ->get()
         ->map(function($q) use ($mes,$mespasado,$mesantepasado) {
