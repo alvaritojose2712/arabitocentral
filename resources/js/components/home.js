@@ -319,6 +319,8 @@ function Home() {
   const [controlefecQDesde,setcontrolefecQDesde] = useState("")
   const [controlefecQHasta,setcontrolefecQHasta] = useState("")
   const [controlefecNewConcepto,setcontrolefecNewConcepto] = useState("")
+  const [controlefecNewFecha,setcontrolefecNewFecha] = useState("")
+  
   const [controlefecNewCategoria,setcontrolefecNewCategoria] = useState("")
   const [controlefecNewMonto,setcontrolefecNewMonto] = useState("")
   
@@ -399,7 +401,8 @@ function Home() {
               !controlefecNewConcepto ||
               !controlefecNewCategoria ||
               !controlefecNewMonto ||
-              !controlefecNewMontoMoneda
+              !controlefecNewMontoMoneda ||
+              !controlefecNewFecha
           ) {
 
               console.log(controlefecNewConcepto, "controlefecNewConcepto")
@@ -411,12 +414,15 @@ function Home() {
               setopenModalNuevoEfectivo(false)
 
               setcontrolefecNewConcepto("")
-              setcontrolefecNewConcepto("")
               setcontrolefecNewMonto("")
               setcontrolefecNewMontoMoneda("")
               setcontrolefecNewCategoria("")
+              setcontrolefecNewFecha("")
+              
 
               db.setControlEfec({
+
+                  fecha: controlefecNewFecha,
                   concepto: controlefecNewConcepto,
                   categoria: controlefecNewCategoria,
                   monto: controlefecNewMonto,
@@ -2318,6 +2324,8 @@ function formatAmount( number, simbol ) {
       setgastosFecha(today)
       setgastosQFecha(today)
       setgastosQFechaHasta(today)
+      setcontrolefecQDesde(today)
+      setcontrolefecQHasta(today)
 
       
       
@@ -4015,7 +4023,7 @@ function formatAmount( number, simbol ) {
 
   const [facturaSelectAddItems, setfacturaSelectAddItems] = useState(null)
 
-  const [modeMoneda, setmodeMoneda] = useState("dolar")
+  const [modeMoneda, setmodeMoneda] = useState("bs")
 	const [modeEjecutor, setmodeEjecutor] = useState("personal")
   
   const [subViewCuentasxPagar, setsubViewCuentasxPagar] = useState("disponible")
@@ -5000,7 +5008,6 @@ function formatAmount( number, simbol ) {
               setcuentasPagosTipo={setcuentasPagosTipo}
               cuentasPagosCategoria={cuentasPagosCategoria}
               setcuentasPagosCategoria={setcuentasPagosCategoria}
-              number={number}
               moneda={moneda}
               movimientoAuditoria={movimientoAuditoria}
               setmovimientoAuditoria={setmovimientoAuditoria}
@@ -5355,9 +5362,9 @@ function formatAmount( number, simbol ) {
                       setselectdepositobanco={setselectdepositobanco}
                       opcionesMetodosPago={opcionesMetodosPago}
 
+                      number={number}
 
                       setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
-                      number={number}
                       getAlquileres={getAlquileres}
                       getSucursales={getSucursales}
                       controlefecQ={controlefecQ}
@@ -5370,6 +5377,10 @@ function formatAmount( number, simbol ) {
                       controlefecSelectGeneral={controlefecSelectGeneral}
                       controlefecNewConcepto={controlefecNewConcepto}
                       setcontrolefecNewConcepto={setcontrolefecNewConcepto}
+                      controlefecNewFecha={controlefecNewFecha}
+                      setcontrolefecNewFecha={setcontrolefecNewFecha}
+                      
+
                       controlefecNewCategoria={controlefecNewCategoria}
                       setcontrolefecNewCategoria={setcontrolefecNewCategoria}
                       controlefecNewMonto={controlefecNewMonto}
@@ -5383,7 +5394,7 @@ function formatAmount( number, simbol ) {
                       categoriasCajas={categoriasCajas}
                       getcatsCajas={getCatCajas}
                       delCaja={delCaja}
-                      personalNomina={personalNomina}
+                      personalNomina={nominaData}
                       getNomina={getPersonalNomina}
                       setopenModalNuevoEfectivo={setopenModalNuevoEfectivo}
                       openModalNuevoEfectivo={openModalNuevoEfectivo}
@@ -6221,6 +6232,51 @@ function formatAmount( number, simbol ) {
               qNomina={qNomina}
               setqNomina={setqNomina}
               moneda={moneda}
+
+
+
+              setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
+              getAlquileres={getAlquileres}
+              controlefecQ={controlefecQ}
+              setcontrolefecQ={setcontrolefecQ}
+              controlefecQDesde={controlefecQDesde}
+              setcontrolefecQDesde={setcontrolefecQDesde}
+              controlefecQHasta={controlefecQHasta}
+              setcontrolefecQHasta={setcontrolefecQHasta}
+              controlefecData={controlefecData}
+              controlefecSelectGeneral={controlefecSelectGeneral}
+              controlefecNewConcepto={controlefecNewConcepto}
+              setcontrolefecNewConcepto={setcontrolefecNewConcepto}
+              controlefecNewFecha={controlefecNewFecha}
+              setcontrolefecNewFecha={setcontrolefecNewFecha}
+              controlefecNewCategoria={controlefecNewCategoria}
+              setcontrolefecNewCategoria={setcontrolefecNewCategoria}
+              controlefecNewMonto={controlefecNewMonto}
+              setcontrolefecNewMonto={setcontrolefecNewMonto}
+              getControlEfec={getControlEfec}
+              setControlEfec={setControlEfec}
+              setcontrolefecQCategoria={setcontrolefecQCategoria}
+              controlefecQCategoria={controlefecQCategoria}
+              controlefecNewMontoMoneda={controlefecNewMontoMoneda}
+              setcontrolefecNewMontoMoneda={setcontrolefecNewMontoMoneda}
+              getcatsCajas={getCatCajas}
+              delCaja={delCaja}
+              personalNomina={nominaData}
+              getNomina={getPersonalNomina}
+              setopenModalNuevoEfectivo={setopenModalNuevoEfectivo}
+              openModalNuevoEfectivo={openModalNuevoEfectivo}
+              verificarMovPenControlEfec={verificarMovPenControlEfec}
+              verificarMovPenControlEfecTRANFTRABAJADOR={verificarMovPenControlEfecTRANFTRABAJADOR}
+              allProveedoresCentral={proveedoresList}
+              getAllProveedores={getProveedores}
+              alquileresData={alquileresData}
+              sucursalesCentral={sucursales}
+              transferirpedidoa={transferirpedidoa}
+              settransferirpedidoa={settransferirpedidoa}
+              reversarMovPendientes={reversarMovPendientes}
+              aprobarRecepcionCaja={aprobarRecepcionCaja}
+              dolar={dolar}
+              peso={peso}
 
             />
           }

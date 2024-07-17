@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import CajaMatriz from './cajamatriz'
-import ControlEfectivoMatriz from './controlefectivomatriz'
 
 export default function EfectivoDisponibleSucursales({
     efectivoDisponibleSucursalesData,
@@ -32,7 +31,7 @@ export default function EfectivoDisponibleSucursales({
     setselectdepositobanco,
     opcionesMetodosPago,
 
-    controlefecQ,    
+   /*  controlefecQ,    
     setcontrolefecQ,
     controlefecQDesde,    
     setcontrolefecQDesde,
@@ -74,7 +73,7 @@ export default function EfectivoDisponibleSucursales({
     reversarMovPendientes,
     aprobarRecepcionCaja,
     dolar,
-    peso,
+    peso, */
     
 }){
     const [subviewefectivoadministracion, setsubviewefectivoadministracion] = useState("todos")
@@ -86,8 +85,8 @@ export default function EfectivoDisponibleSucursales({
             <div className="d-flex justify-content-center">
                 <div className="btn-group m-2">
                     <button className={("btn btn-sm ")+(subviewefectivoadministracion=="movdesucursalamatriz"?"btn-sinapsis":"")} onClick={()=>{setsubviewefectivoadministracion("movdesucursalamatriz")}}>Transferencias a Matriz</button>
-                    <button className={("btn btn-sm ")+(subviewefectivoadministracion=="cajasucursales"?"btn-sinapsis":"")} onClick={()=>{setsubviewefectivoadministracion("cajasucursales")}}>Caja Sucursales</button>
-                    <button className={("btn btn-sm ")+(subviewefectivoadministracion=="controlefectivomatriz"?"btn-sinapsis":"")} onClick={()=>{setsubviewefectivoadministracion("controlefectivomatriz")}}>Caja Matriz</button>
+                    <button className={("btn btn-sm ")+(subviewefectivoadministracion=="cajasucursales"?"btn-sinapsis":"")} onClick={()=>{setsubviewefectivoadministracion("cajasucursales")}}>Disponible EFECTIVO</button>
+                  
                 </div>
             </div>
             {
@@ -186,56 +185,7 @@ export default function EfectivoDisponibleSucursales({
                 :null 
             }
 
-            {
-                subviewefectivoadministracion=="controlefectivomatriz" ?
-                <ControlEfectivoMatriz
-                    controlefecQ={controlefecQ}    
-                    setcontrolefecQ={setcontrolefecQ}
-                    controlefecQDesde={controlefecQDesde}    
-                    setcontrolefecQDesde={setcontrolefecQDesde}
-                    controlefecQHasta={controlefecQHasta}    
-                    setcontrolefecQHasta={setcontrolefecQHasta}
-                    controlefecData={controlefecData}    
-                    controlefecSelectGeneral={controlefecSelectGeneral}    
-                    setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
-                    controlefecNewConcepto={controlefecNewConcepto}    
-                    setcontrolefecNewConcepto={setcontrolefecNewConcepto}
-                    controlefecNewCategoria={controlefecNewCategoria}    
-                    setcontrolefecNewCategoria={setcontrolefecNewCategoria}
-                    controlefecNewMonto={controlefecNewMonto}    
-                    setcontrolefecNewMonto={setcontrolefecNewMonto}
-                    getControlEfec={getControlEfec}    
-                    setControlEfec={setControlEfec}    
-                    setcontrolefecQCategoria={setcontrolefecQCategoria} 
-                    controlefecQCategoria={controlefecQCategoria}
-                    number={number}
-                    controlefecNewMontoMoneda={controlefecNewMontoMoneda}
-                    setcontrolefecNewMontoMoneda={setcontrolefecNewMontoMoneda}
-                    categoriasCajas={categoriasCajas}
-                    getcatsCajas={getcatsCajas}
-                    delCaja={delCaja}
-                    personalNomina={personalNomina}
-                    getNomina={getNomina}
-                    setopenModalNuevoEfectivo={setopenModalNuevoEfectivo}
-                    openModalNuevoEfectivo={openModalNuevoEfectivo}
-                    verificarMovPenControlEfec={verificarMovPenControlEfec}
-                    verificarMovPenControlEfecTRANFTRABAJADOR={verificarMovPenControlEfecTRANFTRABAJADOR}
-                    allProveedoresCentral={allProveedoresCentral}
-                    getAllProveedores={getAllProveedores}
-                    getAlquileres={getAlquileres}
-                    alquileresData={alquileresData}
-                    sucursalesCentral={sucursalesCentral}
-                    transferirpedidoa={transferirpedidoa}
-                    settransferirpedidoa={settransferirpedidoa}
-                    getSucursales={getSucursales}
-                    reversarMovPendientes={reversarMovPendientes}
-                    aprobarRecepcionCaja={aprobarRecepcionCaja}
-                    dolar={dolar}
-                    peso={peso}
-                    moneda={moneda}
-                />
-                :null 
-            }
+           
 
 
 

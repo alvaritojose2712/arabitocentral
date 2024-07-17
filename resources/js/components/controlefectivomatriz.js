@@ -12,6 +12,8 @@ export default function ControlEfectivo({
     setcontrolefecSelectGeneral,
     controlefecNewConcepto,    
     setcontrolefecNewConcepto,
+    controlefecNewFecha,
+    setcontrolefecNewFecha,
     controlefecNewCategoria,    
     setcontrolefecNewCategoria,
     controlefecNewMonto,    
@@ -163,7 +165,7 @@ export default function ControlEfectivo({
             <table className="table">
                 <thead>
                     <tr>
-                        <th>NUM</th>
+                        <th>CREADO</th>
                         <th>FECHA</th>
                         <th>ESTATUS</th>
                         <th>CAT GENERAL</th>
@@ -184,8 +186,8 @@ export default function ControlEfectivo({
                 <tbody>
                     {controlefecData ? controlefecData.data ? controlefecData.data.length?
                         controlefecData.data.map((e,i)=><tr key={e.id}>
-                            <td className=""><small className="text-muted">{i+1}</small></td>
                             <td className=""><small className="text-muted">{e.created_at}</small></td>
+                            <td className=""><small className="text-muted">{e.fecha}</small></td>
                             <td className="">
                                 <small className="text-muted">
                                     
@@ -261,6 +263,8 @@ export default function ControlEfectivo({
                     setControlEfec={setControlEfec}
                     catselect={catselect}
                     setcontrolefecNewConcepto={setcontrolefecNewConcepto}
+                    controlefecNewFecha={controlefecNewFecha}
+                    setcontrolefecNewFecha={setcontrolefecNewFecha}
                     controlefecNewConcepto={controlefecNewConcepto}
                     controlefecNewMonto={controlefecNewMonto}
                     setcontrolefecNewMonto={setcontrolefecNewMonto}

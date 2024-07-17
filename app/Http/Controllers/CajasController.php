@@ -46,15 +46,86 @@ class CajasController extends Controller
             "eurobalance" => $eurobalance,
         ];
     }
+
+    function setPagosCajas($data,$id_sucursal) {
+        $bs = (new CierresController)->getTasa()["bs"];
+        $cop = (new CierresController)->getTasa()["cop"];
+
+        $catnombre = $data["cat"]["nombre"];
+        $cattipo = $data["cat"]["tipo"];
+        $catindice = $data["cat"]["id"];
+        if (strpos($catnombre,"NOMINA QUINCENA")) {
+            $split = explode("=",$data["concepto"]);
+            if (isset($split[1])) {
+                $ci = $split[1];
+                $monto = $data["montodolar"];
+                $monto += $data["montobs"]/$bs;
+                $monto += $data["montopeso"]/$cop;
+                $monto += $data["montoeuro"];
+                return (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $data["id"], $data["fecha"]);
+            }
+        }
+        if (strpos($catnombre,"NOMINA ABONO") || strpos($catnombre,"NOMINA PRESTAMO")) {
+            $split = explode("=",$data["concepto"]);
+            if (isset($split[1])) {
+                $ci = $split[1];
+                $monto = $data["montodolar"];
+                $monto += round($data["montobs"]/$bs,2);
+                $monto += round($data["montopeso"]/$cop,2);
+                $monto += $data["montoeuro"];
+
+                if (strpos($catnombre,"NOMINA ABONO")) {
+                    $monto = abs($monto);
+                }
+                return (new NominaprestamosController)->setPrestamoNomina($ci, $monto, $id_sucursal, $data["id"],$data["fecha"]);
+            }
+        }
+        if (strpos($catnombre,"PAGO PROVEEDOR")) {
+            $split = explode("=",$data["concepto"]);
+            if (isset($split[2])) {
+                return $this->setCajaFun([
+                    "id" => null,
+                    "categoria" => $catindice,
+                    "tipo" => 1,
+                    "concepto" => $data["concepto"],
+    
+                    "montodolar" => abs($data["montodolar"]),
+                    "montopeso" => abs($data["montopeso"]),
+                    "montobs" => abs($data["montobs"]),
+                    "montoeuro" => abs($data["montoeuro"]),
+    
+                    "fecha" => $data["fecha"],
+                    "idinsucursal" => $data["id"]
+                ]);
+            }
+        }
+        if (strpos($catnombre,"TRASPASO A CAJA MATRIZ")) {
+            return $this->setCajaFun([
+                "id" => null,
+                "categoria" => $catindice,
+                "tipo" => 1,
+                "concepto" => $data["concepto"],
+
+                "montodolar" => abs($data["montodolar"]),
+                "montopeso" => abs($data["montopeso"]),
+                "montobs" => abs($data["montobs"]),
+                "montoeuro" => abs($data["montoeuro"]),
+
+                "fecha" => $data["fecha"],
+                "idinsucursal" => $data["id"]
+            ]);
+        }
+    }
     function setEfecFromSucursalToCentral($movs, $id_sucursal) {
 
-            $bs = (new CierresController)->getTasa()["bs"];
-            $cop = (new CierresController)->getTasa()["cop"];
+           /*  $bs = (new CierresController)->getTasa()["bs"];
+            $cop = (new CierresController)->getTasa()["cop"]; */
         
             $count_movs = count($movs);
             $counter =0;
             $last = 0;
             if ($count_movs) {
+                //return $movs;
                 foreach ($movs as $e) {
                     if ($last<$e["id"]) {
                         $last=$e["id"];
@@ -69,112 +140,32 @@ class CajasController extends Controller
                     }else{
                         $setcategoria = $catindice; 
                     }
-    
-                    if (strpos($catnombre,"NOMINA QUINCENA")) {
-                        $split = explode("=",$e["concepto"]);
-                        if (isset($split[1])) {
-                            $ci = $split[1];
-                            $monto = $e["montodolar"];
-                            $monto += $e["montobs"]/$bs;
-                            $monto += $e["montopeso"]/$cop;
-                            $monto += $e["montoeuro"];
-                            (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $e["id"],$e["fecha"]);
-                        }
-                    }
-
-                    if (strpos($catnombre,"NOMINA ABONO") || strpos($catnombre,"NOMINA PRESTAMO")) {
-                        $split = explode("=",$e["concepto"]);
-                        if (isset($split[1])) {
-                            $ci = $split[1];
-                            $monto = $e["montodolar"];
-                            $monto += round($e["montobs"]/$bs,2);
-                            $monto += round($e["montopeso"]/$cop,2);
-                            $monto += $e["montoeuro"];
-
-                            if (strpos($catnombre,"NOMINA ABONO")) {
-                                $monto = abs($monto);
-                            }
-                            (new NominaprestamosController)->setPrestamoNomina($ci, $monto, $id_sucursal, $e["id"],$e["fecha"]);
-                        }
-                    }
                     
-                    if (strpos($catnombre,"PAGO PROVEEDOR")) {
-                        $split = explode("=",$e["concepto"]);
-                        if (isset($split[2])) {
-                            $id_proveedor_caja = $split[2];
+
+                    $this->setPagosCajas($e,$id_sucursal);
+
+                    
+
+                    $cc =  cajas::updateOrCreate([
+                        "id_sucursal" => $id_sucursal,
+                        "idinsucursal" => $e["id"],
+                    ],[
+                        "montoeuro" => $e["montoeuro"],
+                        "eurobalance" => $e["eurobalance"],
     
-                            $pro = proveedores::find($id_proveedor_caja);
-                            if ($pro) {
-                                $monto = $e["montodolar"]?$e["montodolar"]:($e["montobs"]?$e["montobs"]:($e["montopeso"]?$e["montoeuro"]:0));
-                                $monto = $monto*-1;
-                                $idinsucursal_pago = "PAGO_".$id_proveedor_caja."_".$e["id"];
-                                $fecha_creada = date("Y-m-d", strtotime($e["created_at"]));
-                                $numfact_desc = "PAGO ".$pro->descripcion." ".$fecha_creada;
-    
-                                (new CuentasporpagarController)->setPago([
-                                    "id_sucursal" => $id_sucursal,
-                                    "idinsucursal_pago" => $idinsucursal_pago,
-                                    "id_proveedor_caja" => $id_proveedor_caja,
-                                    "numfact_desc" => $numfact_desc,
-                                    "monto" => $monto,
-                                    "fecha_creada" => $fecha_creada,
-                                ]);
-                            }
-                        }
-                    }
-                    /* if (strpos($catnombre,"TODAS SUCURSALES")) {
-                        $todas_sucursales = sucursal::where("codigo","<>","administracion")->get();
-                        $divisor = $todas_sucursales->count(); 
-                        foreach ($todas_sucursales as $key => $sucursal) {
-                            $arr_insert = [
-                                
-                                "montodolar" => $e["montodolar"]/$divisor,
-                                "montobs" => $e["montobs"]/$divisor,
-                                "montopeso" => $e["montopeso"]/$divisor,
-                                "montoeuro" => $e["montoeuro"]/$divisor,
-                                
-                                "dolarbalance" => $sucursal["id"]==$id_sucursal? $e["dolarbalance"]:0,
-                                "bsbalance" => $sucursal["id"]==$id_sucursal? $e["bsbalance"]:0,
-                                "pesobalance" => $sucursal["id"]==$id_sucursal? $e["pesobalance"]:0,
-                                "eurobalance" => $sucursal["id"]==$id_sucursal? $e["eurobalance"]:0,
-                                
-                                "concepto" => $e["concepto"]." - FRACCION 1/".$divisor,
-                                "categoria" => $setcategoria,
-                                
-                                "fecha" => $e["fecha"],
-                                "tipo" => $e["tipo"],
-                                "id_sucursal" => $sucursal["id"],
-                                "idinsucursal" => $e["id"].$sucursal["id"],
-                            ] ; 
-                            $cc =  cajas::updateOrCreate([
-                                "id_sucursal" => $sucursal["id"],
-                                "idinsucursal" => $e["id"].$sucursal["id"],
-                            ],$arr_insert);
-                        }
-                    }else{ */
-                        $arr_insert = [
-                            "montoeuro" => $e["montoeuro"],
-                            "eurobalance" => $e["eurobalance"],
-        
-                            "concepto" => $e["concepto"],
-                            "categoria" => $setcategoria,
-                            "montodolar" => $e["montodolar"],
-                            "montopeso" => $e["montopeso"],
-                            "montobs" => $e["montobs"],
-                            "dolarbalance" => $e["dolarbalance"],
-                            "pesobalance" => $e["pesobalance"],
-                            "bsbalance" => $e["bsbalance"],
-                            "fecha" => $e["fecha"],
-                            "tipo" => $e["tipo"],
-                            "id_sucursal" => $id_sucursal,
-                            "idinsucursal" => $e["id"],
-                        ] ; 
-                        $cc =  cajas::updateOrCreate([
-                            "id_sucursal" => $id_sucursal,
-                            "idinsucursal" => $e["id"],
-                            
-                        ],$arr_insert);
-                    /* } */
+                        "concepto" => $e["concepto"],
+                        "categoria" => $setcategoria,
+                        "montodolar" => $e["montodolar"],
+                        "montopeso" => $e["montopeso"],
+                        "montobs" => $e["montobs"],
+                        "dolarbalance" => $e["dolarbalance"],
+                        "pesobalance" => $e["pesobalance"],
+                        "bsbalance" => $e["bsbalance"],
+                        "fecha" => $e["fecha"],
+                        "tipo" => $e["tipo"],
+                        "id_sucursal" => $id_sucursal,
+                        "idinsucursal" => $e["id"],
+                    ]);
     
                     if ($cc) {
                         $counter++;
@@ -470,13 +461,10 @@ class CajasController extends Controller
     function ajustarbalancecajas($tipo) {
         $today = (new NominaController)->today();
 
-        if ($tipo==1) {
-            $inicial = cajas::where("concepto","INGRESO DESDE CIERRE")->where("tipo",$tipo)->where("fecha","<>",$today)->orderBy("id","desc")->first();
-        }else{
-            $inicial = cajas::where("tipo",$tipo)->orderBy("id","asc")->first();
-            if ($inicial->count()==1) {
-                $inicial = null;
-            }
+        
+        $inicial = cajas::where("tipo",$tipo)->where("id_sucursal",13)->orderBy("id","asc")->first();
+        if ($inicial->count()==1) {
+            $inicial = null;
         }
         //print_r($inicial);
         
@@ -484,7 +472,7 @@ class CajasController extends Controller
         $inicial_bsbalance = $inicial? $inicial->bsbalance: 0;
         $inicial_pesobalance = $inicial? $inicial->pesobalance: 0;
         $inicial_eurobalance = $inicial? $inicial->eurobalance: 0;
-        $ajustarlist = cajas::where("id",">",$inicial? $inicial->id: 0)->where("tipo",$tipo)/* ->where("estatus",1) */->orderBy("id","asc")->get();
+        $ajustarlist = cajas::where("id",">",$inicial? $inicial->id: 0)->where("tipo",$tipo)->where("id_sucursal",13)->orderBy("id","asc")->get();
         
         $summontodolar = $inicial_dolarbalance;
         $summontobs = $inicial_bsbalance;
@@ -545,107 +533,41 @@ class CajasController extends Controller
     }
 
     function setCajaFun($arr) {
-        $today = (new NominaController)->today();
-        $check = cajas::where("tipo",1)->where("fecha",$today)->orderBy("id","desc")->first();
-
-        $cat_ingreso_desde_cierre= catcajas::where("nombre","LIKE","%INGRESO DESDE CIERRE%")->get("id")->map(function($q){return $q->id;})->toArray();
-
-
-        /* if ($arr["tipo"]==0) {
-            $checkStatus = cajas::where("tipo",$arr["tipo"])->orderBy("id","desc")->first();
-            if ($checkStatus) {
-                if ($arr["estatus"]==1 && $checkStatus->estatus==0 && $arr["id"]==null) {
-                    return "Error: Hay pendientes.";
-                }
-            }
-        } */
-
-        if (in_array($arr["categoria"], $cat_ingreso_desde_cierre)) {
-
-            if ($check) {
-                if (in_array($check->categoria, $cat_ingreso_desde_cierre)){
-                    cajas::where("fecha",$today)
-                    ->where("tipo",$arr["tipo"])
-                    ->where("categoria",$arr["categoria"])
-                    ->delete();
-                }
-            }
-            //Viene del cierre
-        }else{
-            if ($check) {
-                if (in_array($check->categoria, $cat_ingreso_desde_cierre)){
-                    return "Error: Cierre Guardado";
-                }
-            }
-        }
-
+        $lastid = cajas::orderBy("id","desc")->first();
+        
         $montodolar = isset($arr["montodolar"])?$arr["montodolar"]:0;
         $montopeso = isset($arr["montopeso"])?$arr["montopeso"]:0;
         $montobs = isset($arr["montobs"])?$arr["montobs"]:0;
         $montoeuro = isset($arr["montoeuro"])?$arr["montoeuro"]:0;
+        $idinsucursal = isset($arr["idinsucursal"])?$arr["idinsucursal"]:($lastid?$lastid->id + 1:1);
+        $fecha = $arr["fecha"];
 
-        /* $dolarbalance =  $this->getBalance($arr["tipo"], "dolarbalance")+$montodolar;
-        $pesobalance =  $this->getBalance($arr["tipo"], "pesobalance")+$montopeso;
-        $bsbalance =  $this->getBalance($arr["tipo"], "bsbalance")+$montobs;
-        $eurobalance =  $this->getBalance($arr["tipo"], "eurobalance")+$montoeuro; */
+        $arr_insert = [
+            "concepto" => $arr["concepto"],
+            "categoria" => $arr["categoria"],
+            "tipo" => $arr["tipo"],
+            "fecha" => $fecha,
 
-
-        /* if ($arr["estatus"]==0) {
-            $arr_insert = [
-                "concepto" => $arr["concepto"],
-                "categoria" => $arr["categoria"],
-                "tipo" => $arr["tipo"],
-                "fecha" => $today,
-    
-                "montodolar" => $montodolar,
-                "montopeso" => $montopeso,
-                "montobs" => $montobs,
-                "montoeuro" => $montoeuro,
-                "dolarbalance" => 0,
-                "pesobalance" => 0,
-                "bsbalance" => 0,
-                "eurobalance" => 0,
-                "estatus" => 0,
-            ] ;
-
-        }else{ */
-            $lastid = cajas::orderBy("id","desc")->first();
-            $arr_insert = [
-                "concepto" => $arr["concepto"],
-                "categoria" => $arr["categoria"],
-                "tipo" => $arr["tipo"],
-                "fecha" => $today,
-    
-                "montodolar" => $montodolar,
-                "montopeso" => $montopeso,
-                "montobs" => $montobs,
-                "montoeuro" => $montoeuro,
-                
-                "dolarbalance" => 0,
-                "pesobalance" => 0,
-                "bsbalance" => 0,
-                "eurobalance" => 0,
-               // "estatus" => 1,
-                "id_sucursal" => 13,
-                "idinsucursal" => $lastid->id + 1
-            ] ; 
-        /* } */
-        $arrbusqueda = ["id"=>$arr["id"]];
-        /* if (isset($arr["idincentralrecepcion"])) {
-            $arrbusqueda = ["idincentralrecepcion"=>$arr["idincentralrecepcion"]];
-        }else{
-            $arrbusqueda = ["id"=>$arr["id"]];
-        } */
+            "montodolar" => $montodolar,
+            "montopeso" => $montopeso,
+            "montobs" => $montobs,
+            "montoeuro" => $montoeuro,
+            
+            "dolarbalance" => 0,
+            "pesobalance" => 0,
+            "bsbalance" => 0,
+            "eurobalance" => 0,
+            "estatus" => 1,
+            "id_sucursal" => 13,
+            "idinsucursal" => $idinsucursal,
+        ] ; 
+        
+        $arrbusqueda = ["id_sucursal"=>13, "idinsucursal"=>$idinsucursal];
+        
         $cc =  cajas::updateOrCreate($arrbusqueda,$arr_insert);
         if ($cc) {
-            $c = cajas::find($cc->id);
-            $c->idinsucursal = $cc->id;
-            $c->save();
-
-            
             $this->ajustarbalancecajas($arr["tipo"]);
-
-            return "Éxito";
+            return $cc;
         }
     }
     function checkDelMovCajaFun($caja) {
@@ -703,97 +625,99 @@ class CajasController extends Controller
         $cat_tras_fuerte= catcajas::where("nombre","LIKE","%CAJA FUERTE: TRASPASO A CAJA CHICA%")->get("id")->map(function($q){return $q->id;})->toArray();
         $cat_tras_chica= catcajas::where("nombre","LIKE","%CAJA CHICA: TRASPASO A CAJA FUERTE%")->get("id")->map(function($q){return $q->id;})->toArray();
         
+        $controlefecSelectGeneral = $req->controlefecSelectGeneral;
+        $concepto = $req->concepto;
+        $categoria = $req->categoria;
+        $fecha = $req->fecha;
         
-        try {
-            $controlefecSelectGeneral = $req->controlefecSelectGeneral;
-            $concepto = $req->concepto;
-            $categoria = $req->categoria;
-            
-            $sendCentralData = $req->sendCentralData;
-            $transferirpedidoa = $req->transferirpedidoa;
-            
-            $montodolar = 0;
-            $montopeso = 0;
-            $montobs = 0;
-            $montoeuro = 0;
-            
-            $cat_trans_trabajador = catcajas::where("nombre","LIKE","%TRANSFERENCIA TRABAJADOR%")->first("id");
-            if ($sendCentralData) {
-                if ($categoria!=$cat_trans_trabajador->id) {
-                    return Response::json(["msj"=>"Error: Solo puede transferir TRANSFERENCIA TRABAJADOR","estado"=>false]);
-                }
+        $sendCentralData = $req->sendCentralData;
+        $transferirpedidoa = $req->transferirpedidoa;
+        
+        $montodolar = 0;
+        $montopeso = 0;
+        $montobs = 0;
+        $montoeuro = 0;
+        
+        $cat_trans_trabajador = catcajas::where("nombre","LIKE","%TRANSFERENCIA TRABAJADOR%")->first("id");
+        if ($sendCentralData) {
+            if ($categoria!=$cat_trans_trabajador->id) {
+                return Response::json(["msj"=>"Error: Solo puede transferir TRANSFERENCIA TRABAJADOR","estado"=>false]);
             }
-            
+        }
+        
 
-            
-            $factor = -1;
-            if (in_array($categoria, $cat_efectivo_adicional)) {$factor = 1;}
+        
+        $factor = -1;
+        if (in_array($categoria, $cat_efectivo_adicional)) {$factor = 1;}
 
-            switch ($req->controlefecNewMontoMoneda) {
-                case 'dolar':
-                    $montodolar = $req->monto*$factor;
-                break;
-                case 'peso':
-                    $montopeso = $req->monto*$factor;
-                break;
-                case 'bs':
-                    $montobs = $req->monto*$factor;
-                break;
-                case 'euro':
-                    $montoeuro = $req->monto*$factor;
-                break;
-            }
+        switch ($req->controlefecNewMontoMoneda) {
+            case 'dolar':
+                $montodolar = $req->monto*$factor;
+            break;
+            case 'peso':
+                $montopeso = $req->monto*$factor;
+            break;
+            case 'bs':
+                $montobs = $req->monto*$factor;
+            break;
+            case 'euro':
+                $montoeuro = $req->monto*$factor;
+            break;
+        }
+        $cajas = $this->setCajaFun([
+            "id" => null,
+            "concepto" => $concepto,
+            "categoria" => $categoria,
+            "montodolar" => $montodolar,
+            "montopeso" => $montopeso,
+            "montobs" => $montobs,
+            "montoeuro" => $montoeuro,
+            "tipo" => $controlefecSelectGeneral,
+            "estatus" => ($controlefecSelectGeneral==0? 1: 0),
+            "id_sucursal_destino" => $transferirpedidoa,
+            "fecha" => $fecha,
+            "ifforcentral" => ($controlefecSelectGeneral==1?$sendCentralData:false) 
+        ]);
+        $this->setPagosCajas(cajas::with("cat")->where("id",$cajas->id)->first(),13);
+
+        if (in_array($categoria, $cat_tras_fuerte)) {
+            $adicional= catcajas::where("nombre","LIKE","%EFECTIVO ADICIONAL%")->where("tipo",0)->first();
             $cajas = $this->setCajaFun([
                 "id" => null,
                 "concepto" => $concepto,
-                "categoria" => $categoria,
-                "montodolar" => $montodolar,
-                "montopeso" => $montopeso,
-                "montobs" => $montobs,
-                "montoeuro" => $montoeuro,
-                "tipo" => $controlefecSelectGeneral,
-                "estatus" => ($controlefecSelectGeneral==0? 1: 0),
-                "id_sucursal_destino" => $transferirpedidoa,
-                "ifforcentral" => ($controlefecSelectGeneral==1?$sendCentralData:false) 
+                "categoria" => $adicional->id,
+                "montodolar" => $montodolar*-1,
+                "montopeso" => $montopeso*-1,
+                "montobs" => $montobs*-1,
+                "montoeuro" => $montoeuro*-1,
+                "tipo" => 0,
+                "estatus" => 0,
+                "fecha" => $fecha,
+
             ]);
-
-            if (in_array($categoria, $cat_tras_fuerte)) {
-                $adicional= catcajas::where("nombre","LIKE","%EFECTIVO ADICIONAL%")->where("tipo",0)->first();
-                $cajas = $this->setCajaFun([
-                    "id" => null,
-                    "concepto" => $concepto,
-                    "categoria" => $adicional->id,
-                    "montodolar" => $montodolar*-1,
-                    "montopeso" => $montopeso*-1,
-                    "montobs" => $montobs*-1,
-                    "montoeuro" => $montoeuro*-1,
-                    "tipo" => 0,
-                    "estatus" => 0,
-                ]);
-            }
-
-            if (in_array($categoria, $cat_tras_chica)) {
-                
-                $adicional= catcajas::orwhere("nombre","LIKE","%EFECTIVO ADICIONAL%")->where("tipo",1)->first();
-                $cajas = $this->setCajaFun([
-                    "id" => null,
-                    "concepto" => $concepto,
-                    "categoria" => $adicional->id,
-                    "montodolar" => $montodolar*-1,
-                    "montopeso" => $montopeso*-1,
-                    "montobs" => $montobs*-1,
-                    "montoeuro" => $montoeuro*-1,
-                    "tipo" => 1,
-                    "estatus" => 0,
-                ]);
-            }
-    
-            if ($cajas) {
-                return Response::json(["msj"=>$cajas,"estado"=>true]);
-            }
-        } catch (\Exception $e) {
-            return Response::json(["msj"=>$e->getMessage(), "estado"=>false]);
         }
+        if (in_array($categoria, $cat_tras_chica)) {
+            
+            $adicional= catcajas::orwhere("nombre","LIKE","%EFECTIVO ADICIONAL%")->where("tipo",1)->first();
+            $cajas = $this->setCajaFun([
+                "id" => null,
+                "concepto" => $concepto,
+                "categoria" => $adicional->id,
+                "montodolar" => $montodolar*-1,
+                "montopeso" => $montopeso*-1,
+                "montobs" => $montobs*-1,
+                "montoeuro" => $montoeuro*-1,
+                "tipo" => 1,
+                "estatus" => 0,
+                "fecha" => $fecha,
+            ]);
+        }
+
+        if ($cajas) {
+            return Response::json(["msj"=>$cajas,"estado"=>true]);
+        }
+    
+        return Response::json(["msj"=>"Error", "estado"=>false]);
     }
     function delCajaFun($id) {
         $check_last = cajas::orderBy("id","desc")->first("id");

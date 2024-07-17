@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 
 import CargarTraspasos  from "./cargartraspasos";
+import ControlEfectivoMatriz from './controlefectivomatriz'
+
 
 export default function Gastos({
 	categoriasCajas,
@@ -122,6 +124,49 @@ export default function Gastos({
 	setcuentasPagosMetodoDestino,
 	number,
 
+	setcontrolefecSelectGeneral,
+	getAlquileres,
+	controlefecQ,
+	setcontrolefecQ,
+	controlefecQDesde,
+	setcontrolefecQDesde,
+	controlefecQHasta,
+	setcontrolefecQHasta,
+	controlefecData,
+	controlefecSelectGeneral,
+	controlefecNewConcepto,
+	setcontrolefecNewConcepto,
+	controlefecNewFecha,
+	setcontrolefecNewFecha,
+	controlefecNewCategoria,
+	setcontrolefecNewCategoria,
+	controlefecNewMonto,
+	setcontrolefecNewMonto,
+	getControlEfec,
+	setControlEfec,
+	setcontrolefecQCategoria,
+	controlefecQCategoria,
+	controlefecNewMontoMoneda,
+	setcontrolefecNewMontoMoneda,
+	getcatsCajas,
+	delCaja,
+	personalNomina,
+	getNomina,
+	setopenModalNuevoEfectivo,
+	openModalNuevoEfectivo,
+	verificarMovPenControlEfec,
+	verificarMovPenControlEfecTRANFTRABAJADOR,
+	allProveedoresCentral,
+	getAllProveedores,
+	alquileresData,
+	sucursalesCentral,
+	transferirpedidoa,
+	settransferirpedidoa,
+	reversarMovPendientes,
+	aprobarRecepcionCaja,
+	dolar,
+	peso,
+
 }) {
 
 	
@@ -149,14 +194,15 @@ export default function Gastos({
 		<div className="container-fluid">
 			<div className="d-flex justify-content-center">
                 <div className="btn-group m-1">
-                    <button className={("btn btn-sm ")+(subviewGastos=="cargar"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargar")}>Cargar Gastos</button>
-                    <button className={("btn btn-sm ")+(subviewGastos=="traspasos"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("traspasos")}>Cargar Traspasos</button>
+                    <button className={("btn btn-sm ")+(subviewGastos=="cargarbanco"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargarbanco")}>BANCO</button>
+                    <button className={("btn btn-sm ")+(subviewGastos=="cargarefectivo"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargarefectivo")}>EFECTIVO</button>
+                    <button className={("btn btn-sm ")+(subviewGastos=="traspasos"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("traspasos")}>Traspasos entre BANCOS</button>
                     <button className={("btn btn-sm ")+(subviewGastos=="resumen"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("resumen")}>Detalles</button>
-                    <button className={("btn btn-sm ")+(subviewGastos=="distribucion"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("distribucion")}>Resumen</button>
+                    <button className={("btn btn-sm ")+(subviewGastos=="distribucion"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("distribucion")}>Estadísticas</button>
                 </div>
             </div>
 
-			{subviewGastos=="cargar"?
+			{subviewGastos=="cargarbanco"?
 				<div className="container">
 					<div className="was-validated">
 						<div className="form-group mb-2">
@@ -169,7 +215,7 @@ export default function Gastos({
 								<span className="form-label text-success">Monto $</span>
 								<div className="input-group">
 									<input type="text" className="form-control text-success fs-2" value={gastosMonto_dolar} onChange={e=>setgastosMonto_dolar(formatAmount(e.target.value,"$ "))} placeholder="Monto $" required={true}/>
-									<button className="btn btn-sinapsis" type="button" onClick={()=>setmodeMoneda("bs")}><i className="fa fa-refresh"></i> Bs</button>
+									{/* <button className="btn btn-sinapsis" type="button" onClick={()=>setmodeMoneda("bs")}><i className="fa fa-refresh"></i> Bs</button> */}
 								</div>
 							</div>
 						:null}
@@ -184,7 +230,7 @@ export default function Gastos({
 									<div className="col-3">
 										<div className="input-group">
 											<input type="text" className="form-control text-sinapsis fs-2" value={gastosTasa} onChange={e=>setgastosTasa(formatAmount(e.target.value,"Bs/$ "))} placeholder="Tasa" required={true} />
-											<button className="btn btn-success" type="button" onClick={()=>setmodeMoneda("dolar")}><i className="fa fa-refresh"></i> $</button>
+											{/* <button className="btn btn-success" type="button" onClick={()=>setmodeMoneda("dolar")}><i className="fa fa-refresh"></i> $</button> */}
 										</div>
 									</div>
 								</div>
@@ -258,7 +304,6 @@ export default function Gastos({
 											</div>
 										</div>
 										<div className="col">
-											<div className="input-group">
 												{/* <button className="btn btn-success" type="button" onClick={()=>addBeneficiarioList("add")}><i className="fa fa-arrow-right"></i></button>*/}
 												{/* <select className={("form-select ")} 
 												value={gastosBeneficiario} 
@@ -269,13 +314,12 @@ export default function Gastos({
 													):null:null}
 												</select> */}
 
-												<div className="card card-personal">
-													<ul className="list-group">
-														{nominaData.personal?nominaData.personal.length?nominaData.personal.map(e=>
-															<li key={e.id} className={"list-group-item "+(listBeneficiario.filter(ee=>ee.id==e.id).length?" active pointer ":"")} onClick={()=>{setgastosBeneficiario(e.id);addBeneficiarioList("add",e.id)}}>{e.nominanombre} {e.nominacedula}</li>
-														):null:null}
-													</ul>
-												</div>
+											<div className="card card-personal h-400px table-responsive">
+												<ul className="list-group">
+													{nominaData.personal?nominaData.personal.length?nominaData.personal.map(e=>
+														<li key={e.id} className={"list-group-item "+(listBeneficiario.filter(ee=>ee.id==e.id).length?" active pointer ":"")} onClick={()=>{setgastosBeneficiario(e.id);addBeneficiarioList("add",e.id)}}>{e.nominanombre} {e.nominacedula}</li>
+													):null:null}
+												</ul>
 											</div>
 										</div>
 									</div>
@@ -322,6 +366,59 @@ export default function Gastos({
 					</div>	
 				</div>			
 			:null}
+			{subviewGastos=="cargarefectivo"?
+				<ControlEfectivoMatriz
+                    controlefecQ={controlefecQ}    
+                    setcontrolefecQ={setcontrolefecQ}
+                    controlefecQDesde={controlefecQDesde}    
+                    setcontrolefecQDesde={setcontrolefecQDesde}
+                    controlefecQHasta={controlefecQHasta}    
+                    setcontrolefecQHasta={setcontrolefecQHasta}
+                    controlefecData={controlefecData}    
+                    controlefecSelectGeneral={controlefecSelectGeneral}    
+                    setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
+                    controlefecNewConcepto={controlefecNewConcepto}    
+                    setcontrolefecNewConcepto={setcontrolefecNewConcepto}
+					controlefecNewFecha={controlefecNewFecha}
+					setcontrolefecNewFecha={setcontrolefecNewFecha}
+                    controlefecNewCategoria={controlefecNewCategoria}    
+                    setcontrolefecNewCategoria={setcontrolefecNewCategoria}
+                    controlefecNewMonto={controlefecNewMonto}    
+                    setcontrolefecNewMonto={setcontrolefecNewMonto}
+                    getControlEfec={getControlEfec}    
+                    setControlEfec={setControlEfec}    
+                    setcontrolefecQCategoria={setcontrolefecQCategoria} 
+                    controlefecQCategoria={controlefecQCategoria}
+                    controlefecNewMontoMoneda={controlefecNewMontoMoneda}
+                    setcontrolefecNewMontoMoneda={setcontrolefecNewMontoMoneda}
+                    getcatsCajas={getcatsCajas}
+                    delCaja={delCaja}
+                    personalNomina={personalNomina}
+                    getNomina={getNomina}
+                    setopenModalNuevoEfectivo={setopenModalNuevoEfectivo}
+                    openModalNuevoEfectivo={openModalNuevoEfectivo}
+                    verificarMovPenControlEfec={verificarMovPenControlEfec}
+                    verificarMovPenControlEfecTRANFTRABAJADOR={verificarMovPenControlEfecTRANFTRABAJADOR}
+                    allProveedoresCentral={allProveedoresCentral}
+                    getAllProveedores={getAllProveedores}
+                    getAlquileres={getAlquileres}
+                    alquileresData={alquileresData}
+                    sucursalesCentral={sucursalesCentral}
+                    transferirpedidoa={transferirpedidoa}
+                    settransferirpedidoa={settransferirpedidoa}
+                    reversarMovPendientes={reversarMovPendientes}
+                    aprobarRecepcionCaja={aprobarRecepcionCaja}
+                    dolar={dolar}
+                    peso={peso}
+                    getSucursales={getSucursales}
+                    number={number}
+                    categoriasCajas={categoriasCajas}
+                    moneda={moneda}
+                />
+			:null}
+
+
+
 			{subviewGastos=="traspasos"?
 				<CargarTraspasos
 					formatAmount={formatAmount}

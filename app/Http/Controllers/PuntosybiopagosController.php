@@ -614,10 +614,7 @@ class PuntosybiopagosController extends Controller
         if (strtoupper($gastosBanco)=="EFECTIVO") {
             $tipo = "EFECTIVO";
         }
-        $admin_id = sucursal::updateOrCreate(["codigo"=>"administracion"],[
-            "nombre" => "ADMINISTRACION",
-            "codigo" => "administracion",
-        ]);
+        $admin_id = 13;
 
         $arrForce = [];
         if (!count($listBeneficiario)) {
@@ -633,7 +630,7 @@ class PuntosybiopagosController extends Controller
             $id_selectEjecutor = $id["id"];
             
             if ($modeEjecutor=="personal") {
-                $id_sucursal = $admin_id->id;
+                $id_sucursal = $admin_id;
                 $id_beneficiario = $id_selectEjecutor;
                 
             }else if ($modeEjecutor== "sucursal") {
@@ -698,7 +695,22 @@ class PuntosybiopagosController extends Controller
                 }
                 if ($e["id_beneficiario"]) {
                     $personal = nomina::find($id_beneficiario);
-                    (new NominapagosController)->setPagoNomina($personal->nominacedula, ($montoDolar? ($montoDolar/$divisor): (($montoBs/$taseBs)/$divisor)), $e["id_sucursal"], $p->id, $gastosFecha);
+                    $catcajas = catcajas::find($gastosCategoria);
+                    $catnombre = $catcajas->nombre;
+                    $ci = $personal->nominacedula;
+                    $monto = $montoDolar? ($montoDolar/$divisor): (($montoBs/$taseBs)/$divisor);
+
+                    if (strpos($catnombre,"NOMINA QUINCENA")) {
+                        (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $p->id, $gastosFecha);
+                    }
+                    if (strpos($catnombre,"NOMINA ABONO") || strpos($catnombre,"NOMINA PRESTAMO")) {
+                        if (strpos($catnombre,"NOMINA ABONO")) {
+                            $monto = abs($monto);
+                        }
+                        (new NominaprestamosController)->setPrestamoNomina($ci, $monto, $id_sucursal, $p->id, $gastosFecha);
+                    }
+                    
+                    //(new NominapagosController)->setPagoNomina($personal->nominacedula, , $e["id_sucursal"], $p->id, $gastosFecha);
                 }
             }
         }

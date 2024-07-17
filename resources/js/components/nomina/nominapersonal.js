@@ -51,7 +51,7 @@ export default function NominaPersonal({
 }) {
 
     useEffect(() => {
-        getPersonalNomina()
+       // getPersonalNomina()
         getPersonalCargos()
         getSucursales()
     }, [subViewNominaGestion])

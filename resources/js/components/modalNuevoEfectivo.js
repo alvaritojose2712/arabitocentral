@@ -4,6 +4,8 @@ export default function ModalNuevoEfectivo({
     setControlEfec,
     catselect,
     setcontrolefecNewConcepto,
+    controlefecNewFecha,
+    setcontrolefecNewFecha,
     controlefecNewConcepto,
     controlefecNewMonto,
     setcontrolefecNewMonto,
@@ -139,7 +141,7 @@ export default function ModalNuevoEfectivo({
                                                 <input type="text" className="form-control" placeholder="Buscar proveedor..." value={buscadorProveedor} onChange={e=>setbuscadorProveedor(e.target.value)} />
                                                 <button type="button" className={("btn btn-success")} onClick={()=>getAllProveedores()}><i className="fa fa-search"></i></button>
                                             </div>
-                                            <div className="card card-personal">
+                                            <div className="card card-personal h-400px table-responsive">
 
                                                 <ul className="list-group">
                                                     {allProveedoresCentral.filter(e=>!buscadorProveedor?true: (e.descripcion.toLowerCase().indexOf(buscadorProveedor.toLowerCase())!==-1) ).map(e=>
@@ -163,10 +165,10 @@ export default function ModalNuevoEfectivo({
                                                 <button type="button" className={("btn btn-success")} onClick={()=>getNomina()}><i className="fa fa-search"></i></button>
                                             </div>
 
-                                            <div className="card card-personal">
+                                            <div className="card card-personal h-400px table-responsive">
 
                                                 <ul className="list-group">
-                                                    {personalNomina.filter(e=> !buscadorPersonal?true: (e.nominanombre.toLowerCase().indexOf(buscadorPersonal.toLowerCase())!==-1) ).map(e=>{
+                                                    {personalNomina.personal?personalNomina.personal.filter(e=> !buscadorPersonal?true: (e.nominanombre.toLowerCase().indexOf(buscadorPersonal.toLowerCase())!==-1) ).map(e=>{
                                                         let palabra = ""
                                                         if(catselect.indexOf("NOMINA QUINCENA")!==-1){palabra = "PAGO"} 
                                                         if(catselect.indexOf("NOMINA ADELANTO")!==-1){palabra = "ADELANTO"} 
@@ -191,13 +193,21 @@ export default function ModalNuevoEfectivo({
                                                             setcontrolefecNewMontoMoneda("dolar")
                                                         }}>{desc}</li>
 
-                                                    })}
+                                                    }):null}
                                                 </ul>
                                             </div>
                                         </>
                                     :null}
                                 </>
                             }
+                        </div>
+                        <div className="form-group mb-2">
+                            <label htmlFor="">
+                                FECHA
+                            </label>
+                            <input type="date" className="form-control"
+                                value={controlefecNewFecha} 
+                                onChange={e => setcontrolefecNewFecha(e.target.value)}/>
                         </div>
                         <div className="form-group mb-2">
                             <label htmlFor="">
@@ -294,14 +304,14 @@ export default function ModalNuevoEfectivo({
                             </>:null
                         :
                             <div className="mb-3 d-flex justify-content-center">
-                                <button className={"btn btn-"+(controlefecSelectGeneral==1?"success":"sinapsis")+" btn-lg"}>{(controlefecSelectGeneral==1?"SOLICITAR APROBACIÓN":"GUARDAR")} <i className="fa fa-paper-plane"></i></button>
+                                <button className={"btn btn-"+(controlefecSelectGeneral==1?"success":"sinapsis")+" btn-lg"}>GUARDAR <i className="fa fa-paper-plane"></i></button>
                             </div>
                         }
 
 
-                        <div className="text-center mt-5">
+                        {/* <div className="text-center mt-5">
                             <button className={("btn ")+ (showtranscajatosucursal?"btn-sinapsis":"") + (" btn-sm")} type="button" onClick={()=>setshowtranscajatosucursal(!showtranscajatosucursal)}>Transferir a sucursal... <i className="fa fa-send"></i></button>
-                        </div>
+                        </div> */}
 
                     </form>
 				</div>

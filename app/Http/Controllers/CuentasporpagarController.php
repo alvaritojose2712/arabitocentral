@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\catcajas;
 use App\Models\cuentasporpagar;
 use App\Http\Requests\StorecuentasporpagarRequest;
 use App\Http\Requests\UpdatecuentasporpagarRequest;
@@ -123,7 +124,7 @@ class CuentasporpagarController extends Controller
             }
         }
 
-        if (!$cuentasPagosMetodo) {
+        if (!$cuentasPagosMetodo||$cuentasPagosMetodo=="BANCO") {
             if (
                 $montobs1PagoFact ||
                 $montobs2PagoFact ||
@@ -164,58 +165,52 @@ class CuentasporpagarController extends Controller
             ];
         }
         
-        
+        $admin_id = 13;
+        $pago = $this->setPago([
+            "id_sucursal" => $id_sucursal? $id_sucursal: $admin_id,
+            "idinsucursal_pago" => $id?$id:time(),
 
-        $su = sucursal::updateOrCreate(["codigo"=>"administracion"],[
-            "nombre" => "ADMINISTRACION",
-            "codigo" => "administracion",
+            "id_proveedor_caja" => $id_pro,
+            "numfact_desc" => $cuentasPagosDescripcion,
+            "monto" => $cuentasPagosMonto,
+            "fecha_creada" => $cuentasPagosFecha,
+            "metodo" => $cuentasPagosMetodo,
+            "selectAbonoFact" =>$selectAbonoFact,
+            "aprobado" =>1,
+
+            "montobs1PagoFact" => $montobs1PagoFact,
+            "tasabs1PagoFact" => $tasabs1PagoFact,
+            "metodobs1PagoFact" => $metodobs1PagoFact,
+            "montobs2PagoFact" => $montobs2PagoFact,
+            "tasabs2PagoFact" => $tasabs2PagoFact,
+            "metodobs2PagoFact" => $metodobs2PagoFact,
+            "montobs3PagoFact" => $montobs3PagoFact,
+            "tasabs3PagoFact" => $tasabs3PagoFact,
+            "metodobs3PagoFact" => $metodobs3PagoFact,
+            "montobs4PagoFact" => $montobs4PagoFact,
+            "tasabs4PagoFact" => $tasabs4PagoFact,
+            "metodobs4PagoFact" => $metodobs4PagoFact,
+            "montobs5PagoFact" => $montobs5PagoFact,
+            "tasabs5PagoFact" => $tasabs5PagoFact,
+            "metodobs5PagoFact" => $metodobs5PagoFact,
+
+            "refbs1PagoFact" => $refbs1PagoFact,
+            "refbs2PagoFact" => $refbs2PagoFact,
+            "refbs3PagoFact" => $refbs3PagoFact,
+            "refbs4PagoFact" => $refbs4PagoFact,
+            "refbs5PagoFact" => $refbs5PagoFact,
         ]);
-
-        if ($su) {
-
-            $pago = $this->setPago([
-                "id_sucursal" => $id_sucursal? $id_sucursal: $su->id,
-                "idinsucursal_pago" => $id?$id:time(),
-
-                "id_proveedor_caja" => $id_pro,
-                "numfact_desc" => $cuentasPagosDescripcion,
-                "monto" => $cuentasPagosMonto,
-                "fecha_creada" => $cuentasPagosFecha,
-                "metodo" => $cuentasPagosMetodo,
-                "selectAbonoFact" =>$selectAbonoFact,
-                "aprobado" =>1,
-
-                "montobs1PagoFact" => $montobs1PagoFact,
-                "tasabs1PagoFact" => $tasabs1PagoFact,
-                "metodobs1PagoFact" => $metodobs1PagoFact,
-                "montobs2PagoFact" => $montobs2PagoFact,
-                "tasabs2PagoFact" => $tasabs2PagoFact,
-                "metodobs2PagoFact" => $metodobs2PagoFact,
-                "montobs3PagoFact" => $montobs3PagoFact,
-                "tasabs3PagoFact" => $tasabs3PagoFact,
-                "metodobs3PagoFact" => $metodobs3PagoFact,
-                "montobs4PagoFact" => $montobs4PagoFact,
-                "tasabs4PagoFact" => $tasabs4PagoFact,
-                "metodobs4PagoFact" => $metodobs4PagoFact,
-                "montobs5PagoFact" => $montobs5PagoFact,
-                "tasabs5PagoFact" => $tasabs5PagoFact,
-                "metodobs5PagoFact" => $metodobs5PagoFact,
-
-                "refbs1PagoFact" => $refbs1PagoFact,
-                "refbs2PagoFact" => $refbs2PagoFact,
-                "refbs3PagoFact" => $refbs3PagoFact,
-                "refbs4PagoFact" => $refbs4PagoFact,
-                "refbs5PagoFact" => $refbs5PagoFact,
-            ]);
-            if ($pago) {
-                return [
-                    "estado" => true,
-                    "msj" => "Pago registrado con éxito",
-                    "id_proveedor" => $id_pro
-                ];
-            }
+        if ($pago) {
+            return [
+                "estado" => true,
+                "msj" => "Pago registrado con éxito",
+                "id_proveedor" => $id_pro
+            ];
         }
+        
     }
+
+
     function setCuentaPorPagar($arr,$search) {
 
         return cuentasporpagar::updateOrCreate($search,$arr);
@@ -405,6 +400,25 @@ class CuentasporpagarController extends Controller
         $cuenta = $this->setCuentaPorPagar($arrinsert,$search);        
         
         if ($cuenta) {
+            if ($metodo=="EFECTIVO") {
+                $catpagoproveedor = catcajas::where("nombre","CAJA FUERTE: PAGO PROVEEDOR")->first();
+
+                (new CajasController)->setCajaFun([
+                    "id" => null,
+                    "categoria" => $catpagoproveedor->id,
+                    "tipo" => 1,
+                    "concepto" => $numfact_desc,
+    
+                    "montodolar" => abs($monto)*-1,
+                    "montopeso" => 0,
+                    "montobs" => 0,
+                    "montoeuro" => 0,
+    
+                    "fecha" => $fecha_creada,
+                    //"idinsucursal" => null,
+                ]);
+            }
+
             if ($selectAbonoFact) {
                 if (count($selectAbonoFact)) {
                     $msjAbono = "";
