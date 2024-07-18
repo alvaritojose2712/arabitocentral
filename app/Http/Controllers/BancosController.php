@@ -288,6 +288,7 @@ class BancosController extends Controller
         }
         $xfechaCuadreArr = collect($puntosmascuentas)->groupBy(["fecha_liquidacion","banco"]);
         $xfechaCuadre = [];
+        $sum_cuadre = 0;
         foreach ($xfechaCuadreArr as $KeyfechasGroup => $fechasGroup) {
             foreach ($fechasGroup as $KeybancoGroup => $bancosGroup) {
                 $ingresoBanco = 0;
@@ -301,9 +302,9 @@ class BancosController extends Controller
                 }
                 $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("banco",$KeybancoGroup)->first();
                 $inicial = $this->getSaldoInicialBanco($KeyfechasGroup,$KeybancoGroup);
-                $balance = $ingresoBanco+($egresoBanco)+$inicial;
+                $balance = $ingresoBanco+$egresoBanco+$inicial;
 
-                $cuadre = $q_banco? $q_banco->saldo - $balance: 0;
+                $cuadre = $q_banco? $q_banco->saldo_real_manual - $balance: 0;
                 array_push($xfechaCuadre, [
                     "fecha" => $KeyfechasGroup,
                     "banco" => $KeybancoGroup,
@@ -318,6 +319,7 @@ class BancosController extends Controller
                     
                     "cuadre" => $cuadre, 
                 ]);
+                $sum_cuadre += $cuadre;
 
             }
         }
@@ -326,7 +328,7 @@ class BancosController extends Controller
         return [
             "xfechaCuadre" => $xfechaCuadre,
             "puntosybiopagosxbancos" => $bancosSum,
-            "sum" => 0,
+            "sum" => $sum_cuadre,
             "xliquidar" => $puntosybiopagos->get(), 
             "estado" => true,
             "view" => $subviewAuditoria,
@@ -386,12 +388,22 @@ class BancosController extends Controller
         $banco = $req->banco;
         $fecha = $req->fecha;
         $saldo = $req->saldo;
+
+        $debetenersegunsistema = $req->debetenersegunsistema;
+        $saldo_inicial = $req->saldo_inicial;
+        $ingreso = $req->ingreso;
+        $egreso = $req->egreso;
         
 
         $ban = bancos::updateOrCreate(["banco"=>$banco, "fecha" => $fecha],[
             "id_usuario" => null,
             "descripcion" => null,
-            "saldo" => $saldo,
+            "saldo" => $debetenersegunsistema,
+
+            "saldo_real_manual" =>$saldo,
+            "saldo_inicial" =>$saldo_inicial,
+            "ingreso" =>$ingreso,
+            "egreso" =>$egreso,
         ]);
 
         if ($ban) {

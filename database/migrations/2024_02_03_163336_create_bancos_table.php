@@ -24,6 +24,11 @@ class CreateBancosTable extends Migration
             $table->string("descripcion")->nullable(true);
 
             $table->decimal("saldo",10,2);
+
+            $table->decimal("saldo_real_manual",10,2);
+            $table->decimal("saldo_inicial",10,2);
+            $table->decimal("ingreso",10,2);
+            $table->decimal("egreso",10,2);
             $table->timestamps();
         });
     }

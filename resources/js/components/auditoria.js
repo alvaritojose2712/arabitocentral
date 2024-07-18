@@ -627,6 +627,19 @@ export default function Auditoria({
                             <>
                                 <div className="form-group">
                                     <div className="input-group">
+                                        
+                                        <select className="form-control" value={bancoSelectAuditoria}  onChange={event=>setbancoSelectAuditoria(event.target.value)}>
+                                            <option value="">-BANCO-</option>
+                                            {opcionesMetodosPago.map(e=>
+                                                <option key={e.id} value={e.id}>{e.codigo}</option>
+                                            )}
+                                        </select>
+                                        <select className="form-control" value={sucursalSelectAuditoria}  onChange={event=>setsucursalSelectAuditoria(event.target.value)}>
+                                            <option value="">-SUCURSAL-</option>
+                                            {sucursales.map(e=>
+                                                <option key={e.id} value={e.id}>{e.codigo}</option>
+                                            )}
+                                        </select>
                                         <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
                                         <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
                                         <button className="btn btn-success" onClick={()=>getBancosData()}><i className="fa fa-search"></i></button>
@@ -667,7 +680,7 @@ export default function Auditoria({
                                                             <input type="text" placeholder="Saldo ACTUAL" size={5} className="form-control" value={saldoactualbancofecha} onChange={event=>setsaldoactualbancofecha(event.target.value)} />
                                                             <button className="btn btn-warning" onClick={()=>sendsaldoactualbancofecha(e.banco,e.fecha)}><i className="fa fa-send"></i></button>
                                                         </div>
-                                                    :e.guardado?moneda(e.guardado.saldo):"----"
+                                                    :e.guardado?moneda(e.guardado.saldo_real_manual):"----"
                                                     }
                                                 </th>
                                                 <th className="bg-warning-light">{moneda(e.inicial)}</th>
@@ -678,6 +691,13 @@ export default function Auditoria({
 
                                             </tr>
                                         )}
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td colSpan={6} className={(bancosdata.sum>-200 && bancosdata.sum<200?"bg-success text-light":"bg-danger text-light")+" fs-1 text-right"}>{moneda(bancosdata.sum)}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </>

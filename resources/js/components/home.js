@@ -3795,28 +3795,42 @@ function formatAmount( number, simbol ) {
   const [orderColumnAuditoria,setorderColumnAuditoria] = useState("tipo")
   const [saldoactualbancofecha,setsaldoactualbancofecha] = useState("")
 
+  const [bancocuadres_debetenersegunsistema, setbancocuadres_debetenersegunsistema] = useState("")
+  const [bancocuadres_saldo_inicial, setbancocuadres_saldo_inicial] = useState("")
+  const [bancocuadres_ingreso, setbancocuadres_ingreso] = useState("")
+  const [bancocuadres_egreso, setbancocuadres_egreso] = useState("")
+
   const [selectConciliacionData,setselectConciliacionData] = useState("")
 
   const selectConciliacion = (banco,fecha) => {
+    
     setselectConciliacionData(banco+"-"+fecha)
     let fil = bancosdata.xfechaCuadre.filter(e=>e.banco==banco && e.fecha==fecha)
     if (fil.length) {
+      let data = fil[0]
       let g = fil[0].guardado
+      setbancocuadres_debetenersegunsistema(data.balance)
+      setbancocuadres_saldo_inicial(data.inicial)
+      setbancocuadres_ingreso(data.ingreso)
+      setbancocuadres_egreso(data.egreso)
       if (g) {
-        setsaldoactualbancofecha(g.saldo)
+        setsaldoactualbancofecha(g.saldo_real_manual)
       }else{
         setsaldoactualbancofecha("")
-
-      }
+       }
     }
   }
 
   const sendsaldoactualbancofecha = (banco,fecha) => {
-
     db.sendsaldoactualbancofecha({
       banco,
       fecha,
       saldo: saldoactualbancofecha,
+
+      debetenersegunsistema: bancocuadres_debetenersegunsistema,
+      saldo_inicial: bancocuadres_saldo_inicial,
+      ingreso: bancocuadres_ingreso,
+      egreso: bancocuadres_egreso,
     }).then(res=>{
       getBancosData()
       setselectConciliacionData("")
@@ -3969,8 +3983,10 @@ function formatAmount( number, simbol ) {
       db.getBancosData({
         fechaSelectAuditoria,
         fechaHastaSelectAuditoria,
+
         bancoSelectAuditoria,
         sucursalSelectAuditoria,
+
         qdescripcionbancosdata,
         subviewAuditoria: subviewforced?subviewforced:subviewAuditoria,
         orderAuditoria,

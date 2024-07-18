@@ -249,7 +249,7 @@ export default function ModalNuevoEfectivo({
                             style={{backgroundColor:colorsGastosCat(e.id,"cat","color")}} 
                             className={"list-group-item d-flex align-items-center"} 
                             onClick={()=>{setcontrolefecNewCategoria(e.id)}}>
-                                <input className="form-check-input m-0 me-3 fs-2" readOnly={true} type="radio" defaultChecked={controlefecNewCategoria==e.id?true:false}></input>
+                                <input className="form-check-input m-0 me-3 fs-2" readOnly={true} type="radio" checked={controlefecNewCategoria==e.id?true:false}></input>
                                 {e.nombre}
                             </li>
                         ):null}
