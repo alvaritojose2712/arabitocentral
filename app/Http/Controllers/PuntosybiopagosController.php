@@ -719,4 +719,44 @@ class PuntosybiopagosController extends Controller
             "estado" => true,
         ];
     }
+
+    function getMovBancos(Request $req) {
+        $controlbancoQ = $req->controlbancoQ;
+        $controlbancoQCategoria = $req->controlbancoQCategoria;
+        $controlbancoQDesde = $req->controlbancoQDesde;
+        $controlbancoQHasta = $req->controlbancoQHasta;
+        $controlbancoQBanco = $req->controlbancoQBanco;
+        $controlbancoQSiliquidado = $req->controlbancoQSiliquidado;
+
+        $controlbancoQSucursal = $req->controlbancoQSucursal;
+
+        $data = puntosybiopagos::with([
+            "sucursal",
+            "beneficiario",
+            "cat",
+        ])
+        ->when($controlbancoQ,function($q) use ($controlbancoQ) {
+            $q->orwhere("loteserial","LIKE","%$controlbancoQ%")
+            ->orwhere("monto_liquidado",$controlbancoQ)
+            ->orwhere("monto",$controlbancoQ);
+        })
+        ->when($controlbancoQCategoria,function($q) use ($controlbancoQCategoria) {
+            $q->where("categoria",$controlbancoQCategoria);
+        })
+        ->when($controlbancoQSucursal,function($q) use ($controlbancoQSucursal) {
+            $q->where("id_sucursal",$controlbancoQSucursal);
+        })
+        ->when($controlbancoQBanco,function($q) use ($controlbancoQBanco) {
+            $q->where("banco",$controlbancoQBanco);
+        })
+        ->when($controlbancoQDesde && $controlbancoQHasta,function($q) use ($controlbancoQDesde,$controlbancoQHasta) {
+            $q->whereBetween("fecha_liquidacion",[$controlbancoQDesde,$controlbancoQHasta]);
+        })
+        ->orderBy("updated_at","asc")
+        ->get();
+
+        return [
+            "data" => $data
+        ];
+    }
 }

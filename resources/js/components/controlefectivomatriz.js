@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import ModalNuevoEfectivo  from "./modalNuevoEfectivo";
-export default function ControlEfectivo({
+export default function ControlEfectivoMatriz({
     controlefecQ,    
     setcontrolefecQ,
     controlefecQDesde,    
@@ -47,6 +47,10 @@ export default function ControlEfectivo({
     aprobarRecepcionCaja,
     dolar,
     peso,
+    formatAmount,
+    qbuscarcat,
+    setqbuscarcat,
+    colorsGastosCat,
 }){ 
 
     useEffect(()=>{
@@ -117,14 +121,66 @@ export default function ControlEfectivo({
     
     return (
         <div className="container-fluid">
+
+            <div className="text-center p-3">
+                {openModalNuevoEfectivo?
+                    <button onClick={()=>setopenModalNuevoEfectivo(false)} className="btn btn-outline-sinapsis">OCULTAR NUEVO MOVIMIENTO <i className="fa fa-arrow-up"></i> </button>
+                    :
+                    <button onClick={()=>setopenModalNuevoEfectivo(true)} className="btn btn-outline-success ">NUEVO MOVIMIENTO <i className="fa fa-arrow-down"></i></button>
+                }
+            </div>
+
+            {openModalNuevoEfectivo&&
+                <ModalNuevoEfectivo
+                    colorsGastosCat={colorsGastosCat }
+                    qbuscarcat={qbuscarcat}
+                    setqbuscarcat={setqbuscarcat}
+                    formatAmount={formatAmount}
+                    dolar={dolar}
+                    peso={peso}
+                    getSucursales={getSucursales}
+                    transferirpedidoa={transferirpedidoa}
+                    settransferirpedidoa={settransferirpedidoa}
+                    sucursalesCentral={sucursalesCentral}
+                    allProveedoresCentral={allProveedoresCentral}
+                    getAllProveedores={getAllProveedores}
+                    setopenModalNuevoEfectivo={setopenModalNuevoEfectivo}
+                    openModalNuevoEfectivo={openModalNuevoEfectivo}
+                    setControlEfec={setControlEfec}
+                    catselect={catselect}
+                    setcontrolefecNewConcepto={setcontrolefecNewConcepto}
+                    controlefecNewFecha={controlefecNewFecha}
+                    setcontrolefecNewFecha={setcontrolefecNewFecha}
+                    controlefecNewConcepto={controlefecNewConcepto}
+                    controlefecNewMonto={controlefecNewMonto}
+                    setcontrolefecNewMonto={setcontrolefecNewMonto}
+                    controlefecNewMontoMoneda={controlefecNewMontoMoneda}
+                    setcontrolefecNewMontoMoneda={setcontrolefecNewMontoMoneda}
+                    controlefecNewCategoria={controlefecNewCategoria}
+                    setcontrolefecNewCategoria={setcontrolefecNewCategoria}
+
+                    personalNomina={personalNomina}
+                    categoriasCajas={categoriasCajas}
+                    controlefecSelectGeneral={controlefecSelectGeneral}
+                    setcontrolefecSelectGeneral={setcontrolefecSelectGeneral }
+                    moneda={moneda}
+                    number={number}
+                    alquileresData={alquileresData}
+                    getAlquileres={getAlquileres}
+                    getNomina={getNomina}
+                >
+
+                </ModalNuevoEfectivo>
+            }
+
             <div className="btn-group mb-3">
               <button className={("btn ") + (controlefecSelectGeneral == 1 ?"btn-success":"btn-outline-success")} onClick={()=>setcontrolefecSelectGeneral(1)}>Caja Fuerte</button> 
               <button className={("btn ") + (controlefecSelectGeneral == 0 ? "btn-sinapsis" : "btn-outline-sinapsis")} onClick={() => setcontrolefecSelectGeneral(0)}>Caja Chica</button>
             </div>
 
-            <div className="mb-3 d-flex justify-content-center">
+            {/* <div className="mb-3 d-flex justify-content-center">
                 <button className={"btn btn-outline-"+(controlefecSelectGeneral==1?"success":"sinapsis")+" btn-lg"} onClick={e=>setopenModalNuevoEfectivo(true)}>NUEVO MOVIMIENTO <i className="fa fa-plus"></i></button>
-            </div>
+            </div> */}
 
             <div className="input-group mb-3">
 
@@ -167,7 +223,6 @@ export default function ControlEfectivo({
                     <tr>
                         <th>CREADO</th>
                         <th>FECHA</th>
-                        <th>ESTATUS</th>
                         <th>CAT GENERAL</th>
                         <th className="w-20">CATEGORÍA</th>
                         <th>DESCRIPCIÓN</th>
@@ -188,13 +243,6 @@ export default function ControlEfectivo({
                         controlefecData.data.map((e,i)=><tr key={e.id}>
                             <td className=""><small className="text-muted">{e.created_at}</small></td>
                             <td className=""><small className="text-muted">{e.fecha}</small></td>
-                            <td className="">
-                                <small className="text-muted">
-                                    
-                                    {e.estatus==0?<button className="btn btn-warning btn-sm">PENDIENTE <i className="fa fa-clock-o"></i></button>:null}
-                                    {e.estatus==1?<button className="btn btn-success btn-sm">APROBADO <i className="fa fa-check"></i></button>:null}
-                                </small>
-                            </td>
                             <td className="">
                                 <button className="btn w-100 btn-sm" style={{color:"black",fontWeight:"bold",backgroundColor:getCatGeneralFun(e.categoria).color}}>{getCatGeneralFun(e.categoria).nombre}</button>
                             </td>
@@ -248,44 +296,7 @@ export default function ControlEfectivo({
             </table>
 
 
-            {openModalNuevoEfectivo&&
-                <ModalNuevoEfectivo
-                    dolar={dolar}
-                    peso={peso}
-                    getSucursales={getSucursales}
-                    transferirpedidoa={transferirpedidoa}
-                    settransferirpedidoa={settransferirpedidoa}
-                    sucursalesCentral={sucursalesCentral}
-                    allProveedoresCentral={allProveedoresCentral}
-                    getAllProveedores={getAllProveedores}
-                    setopenModalNuevoEfectivo={setopenModalNuevoEfectivo}
-                    openModalNuevoEfectivo={openModalNuevoEfectivo}
-                    setControlEfec={setControlEfec}
-                    catselect={catselect}
-                    setcontrolefecNewConcepto={setcontrolefecNewConcepto}
-                    controlefecNewFecha={controlefecNewFecha}
-                    setcontrolefecNewFecha={setcontrolefecNewFecha}
-                    controlefecNewConcepto={controlefecNewConcepto}
-                    controlefecNewMonto={controlefecNewMonto}
-                    setcontrolefecNewMonto={setcontrolefecNewMonto}
-                    controlefecNewMontoMoneda={controlefecNewMontoMoneda}
-                    setcontrolefecNewMontoMoneda={setcontrolefecNewMontoMoneda}
-                    controlefecNewCategoria={controlefecNewCategoria}
-                    setcontrolefecNewCategoria={setcontrolefecNewCategoria}
-
-                    personalNomina={personalNomina}
-                    categoriasCajas={categoriasCajas}
-                    controlefecSelectGeneral={controlefecSelectGeneral}
-                    setcontrolefecSelectGeneral={setcontrolefecSelectGeneral }
-                    moneda={moneda}
-                    number={number}
-                    alquileresData={alquileresData}
-                    getAlquileres={getAlquileres}
-                    getNomina={getNomina}
-                >
-
-                </ModalNuevoEfectivo>
-            }
+            
         </div>
     )
 }

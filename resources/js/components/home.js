@@ -425,7 +425,7 @@ function Home() {
                   fecha: controlefecNewFecha,
                   concepto: controlefecNewConcepto,
                   categoria: controlefecNewCategoria,
-                  monto: controlefecNewMonto,
+                  monto: removeMoneda(controlefecNewMonto),
                   controlefecSelectGeneral,
                   controlefecNewMontoMoneda,
                   sendCentralData,
@@ -2326,6 +2326,8 @@ function formatAmount( number, simbol ) {
       setgastosQFechaHasta(today)
       setcontrolefecQDesde(today)
       setcontrolefecQHasta(today)
+      setcontrolbancoQDesde(today)
+      setcontrolbancoQHasta(today)
 
       
       
@@ -4021,6 +4023,32 @@ function formatAmount( number, simbol ) {
   }
 
 
+  const [controlbancoQ,setcontrolbancoQ] = useState("")
+  const [controlbancoQCategoria,setcontrolbancoQCategoria] = useState("")
+  const [controlbancoQDesde,setcontrolbancoQDesde] = useState("")
+  const [controlbancoQHasta,setcontrolbancoQHasta] = useState("")
+  const [controlbancoQBanco,setcontrolbancoQBanco] = useState("")
+  const [controlbancoQSiliquidado,setcontrolbancoQSiliquidado] = useState("")
+  const [controlbancoQSucursal,setcontrolbancoQSucursal] = useState("")
+  
+  const [movBancosData,setmovBancosData] = useState([])
+  
+
+  const getMovBancos = () => {
+    db.getMovBancos({
+      controlbancoQ,
+      controlbancoQCategoria,
+      controlbancoQDesde,
+      controlbancoQHasta,
+      controlbancoQBanco,
+      controlbancoQSiliquidado,
+      controlbancoQSucursal,
+    }).then(res=>{
+      setmovBancosData(res.data)
+    })
+  }
+
+
   const [facturaSelectAddItems, setfacturaSelectAddItems] = useState(null)
 
   const [modeMoneda, setmodeMoneda] = useState("bs")
@@ -5334,6 +5362,7 @@ function formatAmount( number, simbol ) {
                   {
                     subViewCuentasxPagar === "disponible"?
                     <EfectivoDisponibleSucursales
+                      formatAmount={formatAmount}
                       efectivoDisponibleSucursalesData={efectivoDisponibleSucursalesData}
                       setefectivoDisponibleSucursalesData={setefectivoDisponibleSucursalesData}
                       getDisponibleEfectivoSucursal={getDisponibleEfectivoSucursal}
@@ -6124,6 +6153,23 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5,13]) && viewmainPanel === "gastos" && 
             <Gastos
+              colors={colors}
+              setcontrolbancoQ={setcontrolbancoQ}
+              controlbancoQ={controlbancoQ}
+              setcontrolbancoQCategoria={setcontrolbancoQCategoria}
+              controlbancoQCategoria={controlbancoQCategoria}
+              setcontrolbancoQDesde={setcontrolbancoQDesde}
+              controlbancoQDesde={controlbancoQDesde}
+              setcontrolbancoQHasta={setcontrolbancoQHasta}
+              controlbancoQHasta={controlbancoQHasta}
+              controlbancoQBanco={controlbancoQBanco}
+              setcontrolbancoQBanco={setcontrolbancoQBanco}
+              controlbancoQSiliquidado={controlbancoQSiliquidado}
+              setcontrolbancoQSiliquidado={setcontrolbancoQSiliquidado}
+              controlbancoQSucursal={controlbancoQSucursal}
+              setcontrolbancoQSucursal={setcontrolbancoQSucursal}
+              movBancosData={movBancosData}
+              getMovBancos={getMovBancos}
               number={number}
               sendMovimientoBanco={sendMovimientoBanco}
               cuentasPagosDescripcion={cuentasPagosDescripcion}

@@ -78,6 +78,10 @@
 .h-400px{
   max-height: 400px;;
 }
+
+.h-200px{
+  max-height: 200px;;
+}
 .th-sinapsis{
   background-color: var(--sinapsis-color) !important;
   color: white !important;

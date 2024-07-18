@@ -35,6 +35,8 @@ const db = {
   
   getMetodosPago: data=>axios.get(host+"getMetodosPago",{params:data}),
   getBancosData: data=>axios.get(host+"getBancosData",{params:data}),
+  getMovBancos: data=>axios.post(host+"getMovBancos",data),
+  
   sendMovimientoBanco: data=>axios.post(host+"sendMovimientoBanco",data),
   
   sendDescuentoGeneralFats: data=>axios.post(host+"sendDescuentoGeneralFats",data),
@@ -67,6 +69,7 @@ const db = {
   aprobarRecepcionCaja: data=>axios.post(host+"aprobarRecepcionCaja",data),
   reversarMovPendientes: data=>axios.post(host+"reversarMovPendientes",data),
   setControlEfec: data=>axios.post(host+"setControlEfec",data),
+  
 
 
   depositarmatrizalbanco: data=>axios.post(host+"depositarmatrizalbanco",data),

@@ -3,6 +3,7 @@ import Chart from "react-apexcharts";
 
 import CargarTraspasos  from "./cargartraspasos";
 import ControlEfectivoMatriz from './controlefectivomatriz'
+import CargargastosBanco from './cargargastosbanco'
 
 
 export default function Gastos({
@@ -167,6 +168,24 @@ export default function Gastos({
 	dolar,
 	peso,
 
+	setcontrolbancoQ,
+	controlbancoQ,
+	setcontrolbancoQCategoria,
+	controlbancoQCategoria,
+	setcontrolbancoQDesde,
+	controlbancoQDesde,
+	setcontrolbancoQHasta,
+	controlbancoQHasta,
+	controlbancoQBanco,
+	setcontrolbancoQBanco,
+	controlbancoQSiliquidado,
+	setcontrolbancoQSiliquidado,
+	movBancosData,
+	getMovBancos,
+	controlbancoQSucursal,
+	setcontrolbancoQSucursal,
+	colors,
+
 }) {
 
 	
@@ -203,171 +222,76 @@ export default function Gastos({
             </div>
 
 			{subviewGastos=="cargarbanco"?
-				<div className="container">
-					<div className="was-validated">
-						<div className="form-group mb-2">
-							<span className="form-label">Descripción</span>
-							<input type="text" className="form-control form-control-lg" value={gastosDescripcion} onChange={e=>setgastosDescripcion(e.target.value)} placeholder="Descripción" required={true}/>
-						</div>
-
-						{modeMoneda=="dolar"?
-							<div className="form-group mb-2">
-								<span className="form-label text-success">Monto $</span>
-								<div className="input-group">
-									<input type="text" className="form-control text-success fs-2" value={gastosMonto_dolar} onChange={e=>setgastosMonto_dolar(formatAmount(e.target.value,"$ "))} placeholder="Monto $" required={true}/>
-									{/* <button className="btn btn-sinapsis" type="button" onClick={()=>setmodeMoneda("bs")}><i className="fa fa-refresh"></i> Bs</button> */}
-								</div>
-							</div>
-						:null}
-
-						{modeMoneda=="bs"?
-							<div className="form-group mb-2">
-								<span className="form-label text-sinapsis">Monto Bs </span>
-								<div className="row">
-									<div className="col">
-										<input type="text" className="form-control text-sinapsis fs-2" value={gastosMonto} onChange={e=>setgastosMonto(formatAmount(e.target.value,"Bs. "))} placeholder="Monto Bs" required={true} />
-									</div>
-									<div className="col-3">
-										<div className="input-group">
-											<input type="text" className="form-control text-sinapsis fs-2" value={gastosTasa} onChange={e=>setgastosTasa(formatAmount(e.target.value,"Bs/$ "))} placeholder="Tasa" required={true} />
-											{/* <button className="btn btn-success" type="button" onClick={()=>setmodeMoneda("dolar")}><i className="fa fa-refresh"></i> $</button> */}
-										</div>
-									</div>
-								</div>
-								<div className="row">
-									<div className="col">
-										<div className="input-group w-50 mt-1">
-											<button className={("btn btn")+(iscomisiongasto==1?"-success":"-danger")} onClick={()=>setiscomisiongasto(iscomisiongasto==1?0:1)}>Genera Comisión</button>
-											{iscomisiongasto?
-												<input type="text" disabled={true} className="form-control" size={5} placeholder="% Comión" value={comisionpagomovilinterban} onChange={event=>setcomisionpagomovilinterban(event.preventDefault())}/>
-											:null}
-										</div>
-										<small className="text-success fs-4">{moneda(parseFloat(removeMoneda(gastosMonto))/parseFloat(removeMoneda(gastosTasa)))} $</small>
-									</div>
-								</div>
-							</div>
-						:null}
-						<div className="form-group mb-2">
-							<select className="form-control" 
-							value={gastosBanco} 
-							onChange={e=>setgastosBanco(e.target.value)} required={true}>
-								<option value="">-Método-</option>
-								{opcionesMetodosPago.filter(e=>e.codigo!="EFECTIVO").map(e=>
-									<option value={e.codigo} key={e.id}>{e.descripcion}</option>
-								)}
-							</select>
-						</div>
-						<div className="form-group mb-2">
-							<span className="form-label">Fecha</span>
-							<input type="date" className="form-control form-control-lg" value={gastosFecha} onChange={e=>setgastosFecha(e.target.value)} required={true} />
-						</div>
-
-						<div className="form-group mb-2">
-							<span className="form-label">Categoría</span>
-							
-							<input type="text" className="form-control" placeholder="Buscar CATEGORÍA..." value={qbuscarcat} onChange={event=>setqbuscarcat(event.target.value)} />
-
-							<div className="card card-personal h-400px table-responsive">
-								<ul className="list-group">
-									{categoriasCajas.length?categoriasCajas.filter(e=>{
-										if(qbuscarcat==""){return true}
-										else{
-											if ((e.nombre.toLowerCase()).indexOf(qbuscarcat.toLowerCase())!==-1) {return true}else{return false}
-										}
-									}).map(e=>
-										<li key={e.id} style={{backgroundColor:colorsGastosCat(e.id,"cat","color")}} className={"list-group-item "+(gastosCategoria==e.id?" fst-bold text-light bg-dark fs-2 pointer ":"")} onClick={()=>{setgastosCategoria(e.id)}}>{e.nombre}</li>
-									):null}
-								</ul>
-
-								
-							</div>
-						</div>
-
-						<div className="form-group mb-2">
-							<div className="mb-1">
-								<span className="form-label">Asignar a </span>
-								
-								{modeEjecutor=="personal"?<button className="btn btn-sinapsis" type="button" onClick={()=>setmodeEjecutor("sucursal")}><i className="fa fa-user"></i> </button>:null}
-								{modeEjecutor=="sucursal"?<button className="btn btn-success" type="button" onClick={()=>setmodeEjecutor("personal")}><i className="fa fa-home"></i></button>:null}
-							</div>
-
-
-								{modeEjecutor=="personal"?
-									<div className="row">
-										<div className="col-md-2">
-											<div className="input-group">
-												
-												<form onSubmit={event=>{event.preventDefault();getPersonal()}} className="input-group">
-													<input type="text" className="form-control is-invalid" value={qNomina} onChange={e=>setqNomina(e.target.value)} placeholder="Buscar PERSONAL..." />
-													<button className="btn btn-success" type="submit"> <i className="fa fa-search"></i> </button>
-												</form>
-											</div>
-										</div>
-										<div className="col">
-												{/* <button className="btn btn-success" type="button" onClick={()=>addBeneficiarioList("add")}><i className="fa fa-arrow-right"></i></button>*/}
-												{/* <select className={("form-select ")} 
-												value={gastosBeneficiario} 
-												onChange={e=>setgastosBeneficiario(e.target.value)} required={true}>
-													<option value="">-Personal-</option>
-													{nominaData.personal?nominaData.personal.length?nominaData.personal.map(e=>
-														<option value={e.id} key={e.id}>{e.nominanombre} {e.nominacedula}</option>
-													):null:null}
-												</select> */}
-
-											<div className="card card-personal h-400px table-responsive">
-												<ul className="list-group">
-													{nominaData.personal?nominaData.personal.length?nominaData.personal.map(e=>
-														<li key={e.id} className={"list-group-item "+(listBeneficiario.filter(ee=>ee.id==e.id).length?" active pointer ":"")} onClick={()=>{setgastosBeneficiario(e.id);addBeneficiarioList("add",e.id)}}>{e.nominanombre} {e.nominacedula}</li>
-													):null:null}
-												</ul>
-											</div>
-										</div>
-									</div>
-								:null}
-
-								{modeEjecutor=="sucursal"?
-									<div className="row">
-										<div className="col-md-2">
-											<div className="input-group">
-												
-												<form onSubmit={event=>{event.preventDefault();getSucursales(qSucursal)}} className="input-group">
-													<input type="text" className="form-control is-invalid" value={qSucursal} onChange={e=>{setqSucursal(e.target.value);getSucursales(e.target.value)}} placeholder="Buscar SUCURSALES..." />
-												</form>
-											</div>
-										</div>
-										<div className="col">
-											<div className="card card-personal">
-												<ul className="list-group">
-													{sucursales.length?sucursales.map(e=>
-														<li key={e.id} className={"list-group-item "+(listBeneficiario.filter(ee=>ee.id==e.id).length?" active pointer ":"")} onClick={()=>{setgastosBeneficiario(e.id);addBeneficiarioList("add",e.id)}}>{e.codigo}</li>
-													):null}
-												</ul>
-											</div>
-										</div>
-									</div>
-								:null}
-								
-							
-
-							{listBeneficiario.length?
-								<div className="border bg-light p-3 m-2">
-									{listBeneficiario.map(e=>
-										<button key={e.id} className="btn mb-1 me-1" onClick={()=>addBeneficiarioList("del",e.id)} style={{backgroundColor:e.color?e.color:"coral"}} onDoubleClick={()=>addBeneficiarioList("del",e.id)}>
-											{e.codigo?e.codigo:e.nominanombre}
-										</button>	
-									)}
-								</div>
-							:null}
-						</div>
-
-						<div className="text-center">
-							<button className="btn btn-success btn-lg" onClick={()=>saveNewGasto()}><i className="fa fa-save"></i> Guardar</button>
-						</div>
-					</div>	
-				</div>			
+				<CargargastosBanco 
+					setcontrolbancoQ={setcontrolbancoQ}
+					controlbancoQ={controlbancoQ}
+					setcontrolbancoQCategoria={setcontrolbancoQCategoria}
+					controlbancoQCategoria={controlbancoQCategoria}
+					setcontrolbancoQDesde={setcontrolbancoQDesde}
+					controlbancoQDesde={controlbancoQDesde}
+					setcontrolbancoQHasta={setcontrolbancoQHasta}
+					controlbancoQHasta={controlbancoQHasta}
+					controlbancoQBanco={controlbancoQBanco}
+					setcontrolbancoQBanco={setcontrolbancoQBanco}
+					controlbancoQSiliquidado={controlbancoQSiliquidado}
+					setcontrolbancoQSiliquidado={setcontrolbancoQSiliquidado}
+					movBancosData={movBancosData}
+					getMovBancos={getMovBancos}
+					controlbancoQSucursal={controlbancoQSucursal}
+					setcontrolbancoQSucursal={setcontrolbancoQSucursal}
+					gastosDescripcion={gastosDescripcion}
+					setgastosDescripcion={setgastosDescripcion}
+					gastosMonto_dolar={gastosMonto_dolar}
+					setgastosMonto_dolar={setgastosMonto_dolar}
+					gastosMonto={gastosMonto}
+					setgastosMonto={setgastosMonto}
+					gastosTasa={gastosTasa}
+					setgastosTasa={setgastosTasa}
+					comisionpagomovilinterban={comisionpagomovilinterban}
+					setcomisionpagomovilinterban={setcomisionpagomovilinterban}
+					gastosBanco={gastosBanco}
+					setgastosBanco={setgastosBanco}
+					gastosFecha={gastosFecha}
+					setgastosFecha={setgastosFecha}
+					qbuscarcat={qbuscarcat}
+					setqbuscarcat={setqbuscarcat}
+					qNomina={qNomina}
+					setqNomina={setqNomina}
+					gastosBeneficiario={gastosBeneficiario}
+					setgastosBeneficiario={setgastosBeneficiario}
+					qSucursal={qSucursal}
+					setqSucursal={setqSucursal}
+					opcionesMetodosPago={opcionesMetodosPago}
+					categoriasCajas={categoriasCajas}
+					modeEjecutor={modeEjecutor}
+					setmodeEjecutor={setmodeEjecutor}
+					nominaData={nominaData}
+					listBeneficiario={listBeneficiario}
+					getSucursales={getSucursales}
+					sucursales={sucursales}
+					saveNewGasto={saveNewGasto}
+					modeMoneda={modeMoneda}
+					setmodeMoneda={setmodeMoneda}
+					colorsGastosCat={colorsGastosCat}
+					iscomisiongasto={iscomisiongasto}
+    				setiscomisiongasto={setiscomisiongasto}
+					moneda={moneda}
+					removeMoneda={removeMoneda}
+					gastosCategoria={gastosCategoria}
+					formatAmount={formatAmount}
+					setgastosCategoria={setgastosCategoria}
+					getPersonal={getPersonal}
+					addBeneficiarioList={addBeneficiarioList}
+					colors={colors}
+					colorSucursal={colorSucursal}
+				/>	
 			:null}
 			{subviewGastos=="cargarefectivo"?
 				<ControlEfectivoMatriz
+					colorsGastosCat={colorsGastosCat}
+					qbuscarcat={qbuscarcat}
+					setqbuscarcat={setqbuscarcat}
+					formatAmount={formatAmount}
                     controlefecQ={controlefecQ}    
                     setcontrolefecQ={setcontrolefecQ}
                     controlefecQDesde={controlefecQDesde}    
