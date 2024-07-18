@@ -4155,6 +4155,7 @@ function formatAmount( number, simbol ) {
       }).then(res=>{
         if (res.data.estado) {
           getGastos()
+          getMovBancos()
           setNewGastosInput()
           
         }

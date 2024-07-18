@@ -80000,6 +80000,7 @@ function Home() {
       }).then(function (res) {
         if (res.data.estado) {
           getGastos();
+          getMovBancos();
           setNewGastosInput();
         }
         notificar(res.data.msj);
