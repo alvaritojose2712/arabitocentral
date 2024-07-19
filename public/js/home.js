@@ -16735,41 +16735,10 @@ function NominaPersonal(_ref) {
     setIndexSelectNomina(null);
     setnominaid_sucursal_disponible("");
   };
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
-    showInactivoValue = _useState2[0],
-    setshowInactivoValue = _useState2[1];
-  var showInactivos = function showInactivos() {
-    var inicial = null;
-    switch (showInactivoValue) {
-      case 0:
-        inicial = 1;
-        break;
-      case 1:
-        inicial = 2;
-        break;
-      case 2:
-        inicial = 0;
-        break;
-    }
-    setshowInactivoValue(inicial);
-  };
-  var funshowinactivo = function funshowinactivo(activo) {
-    if (showInactivoValue == 0) {
-      if (activo == 0) {
-        return true;
-      }
-    }
-    if (showInactivoValue == 1) {
-      if (activo == 1) {
-        return true;
-      }
-    }
-    if (showInactivoValue == 2) {
-      return true;
-    }
-    return false;
-  };
+    shownewpersonal = _useState2[0],
+    setshownewpersonal = _useState2[1];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       className: "container-fluid",
@@ -17060,14 +17029,6 @@ function NominaPersonal(_ref) {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
                     className: "fa fa-search"
                   })
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                className: "btn " + (showInactivoValue == 0 ? "btn-danger" : showInactivoValue == 1 ? "btn-success" : ""),
-                onClick: function onClick() {
-                  return showInactivos();
-                },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-                  className: "fa fa-eye"
                 })
               })]
             })
@@ -77241,7 +77202,7 @@ function Home() {
     return number;
   }
   var removeMoneda = function removeMoneda(val) {
-    return number(val.replace("Bs/$ ", "").replace("Bs.", "").replace("Bs. ", "").replace("$", "").replace(" ", "").replace(".", "").replace(",", "."));
+    return number(val.replace("Bs/$ ", "").replace("Bs.", "").replace("Bs. ", "").replace("$", "").replace(" ", "").replaceAll(/\./g, "").replace(",", "."));
   };
   function formatAmount(number, simbol) {
     // remove all the characters except the numeric values

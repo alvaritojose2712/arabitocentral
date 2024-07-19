@@ -1822,7 +1822,7 @@ function Home() {
     return number;
   }
   const removeMoneda = val => {
-    return number(val.replace("Bs/$ ","").replace("Bs.","").replace("Bs. ","").replace("$","").replace(" ","").replace(".","").replace(",","."))
+    return number(val.replace("Bs/$ ","").replace("Bs.","").replace("Bs. ","").replace("$","").replace(" ","").replaceAll(/\./g,"").replace(",","."))
   }
 
 function formatAmount( number, simbol ) {

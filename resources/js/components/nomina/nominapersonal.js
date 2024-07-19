@@ -93,42 +93,10 @@ export default function NominaPersonal({
 
 	}
 
-	const [showInactivoValue, setshowInactivoValue] = useState(1)
-	const showInactivos = () => {
-		let inicial = null
-		switch (showInactivoValue) {
-			case 0:
-				inicial = 1
-			break;
-			case 1:
-				inicial = 2
-			break;
-			case 2:
-				inicial = 0
-			break;
-			
-		}
-		setshowInactivoValue(inicial)
-	}
+	const [shownewpersonal, setshownewpersonal] = useState(false)
+	
 
-	const funshowinactivo = activo => {
-		if (showInactivoValue==0) {
-			if (activo==0) {
-				return true
-			}
-		}
-
-		if (showInactivoValue==1) {
-			if (activo==1) {
-				return true
-			}
-		}
-		
-		if (showInactivoValue==2) {
-			return true
-		}
-		return false
-	}
+	
 	return (
 		<>
 			<div className="container-fluid">
@@ -324,7 +292,6 @@ export default function NominaPersonal({
 								<div className="input-group-prepend">
 									<button className="btn btn-outline-secondary" type="button" onClick={getPersonalNomina}><i className="fa fa-search"></i></button>
 								</div>
-								<button className={("btn ") + (showInactivoValue==0?"btn-danger":(showInactivoValue==1?"btn-success":""))} onClick={()=>showInactivos()}><i className="fa fa-eye"></i></button>
 							</div>
 						</form>
 						<table className="table table-bordered">
