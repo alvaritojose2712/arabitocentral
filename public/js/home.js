@@ -75467,18 +75467,8 @@ function Home() {
     var sendCentralData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     if (confirm("¿Realmente desea cargar el movimiento?")) {
       if (!controlefecNewConcepto || !controlefecNewCategoria || !controlefecNewMonto || !controlefecNewMontoMoneda || !controlefecNewFecha) {
-        console.log(controlefecNewConcepto, "controlefecNewConcepto");
-        console.log(controlefecNewCategoria, "controlefecNewCategoria");
-        console.log(controlefecNewMonto, "controlefecNewMonto");
-        console.log(controlefecNewMontoMoneda, "controlefecNewMontoMoneda");
         alert("Error: Campos Vacíos!");
       } else {
-        setopenModalNuevoEfectivo(false);
-        setcontrolefecNewConcepto("");
-        setcontrolefecNewMonto("");
-        setcontrolefecNewMontoMoneda("");
-        setcontrolefecNewCategoria("");
-        setcontrolefecNewFecha("");
         _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].setControlEfec({
           fecha: controlefecNewFecha,
           concepto: controlefecNewConcepto,

@@ -404,21 +404,8 @@ function Home() {
               !controlefecNewMontoMoneda ||
               !controlefecNewFecha
           ) {
-
-              console.log(controlefecNewConcepto, "controlefecNewConcepto")
-              console.log(controlefecNewCategoria, "controlefecNewCategoria")
-              console.log(controlefecNewMonto, "controlefecNewMonto")
-              console.log(controlefecNewMontoMoneda, "controlefecNewMontoMoneda")
               alert("Error: Campos Vacíos!")
           } else {
-              setopenModalNuevoEfectivo(false)
-
-              setcontrolefecNewConcepto("")
-              setcontrolefecNewMonto("")
-              setcontrolefecNewMontoMoneda("")
-              setcontrolefecNewCategoria("")
-              setcontrolefecNewFecha("")
-              
 
               db.setControlEfec({
 
