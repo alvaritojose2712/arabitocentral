@@ -15512,9 +15512,6 @@ function ModalNuevoEfectivo(_ref) {
     _useState24 = _slicedToArray(_useState23, 2),
     maxpagoalquiler = _useState24[0],
     setmaxpagoalquiler = _useState24[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    setcontrolefecNewConcepto("");
-  }, [controlefecNewCategoria]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
     onSubmit: function onSubmit(event) {
       event.preventDefault();
@@ -15533,8 +15530,7 @@ function ModalNuevoEfectivo(_ref) {
         onChange: function onChange(e) {
           return setcontrolefecNewConcepto(e.target.value);
         },
-        placeholder: "Descripci\xF3n",
-        required: true
+        placeholder: "Descripci\xF3n"
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
         children: [catselect.indexOf("ALQUILER") !== -1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "input-group",
@@ -15728,8 +15724,7 @@ function ModalNuevoEfectivo(_ref) {
               }
               setcontrolefecNewMonto(formatAmount(val, ""));
             },
-            placeholder: "Monto " + controlefecNewMontoMoneda,
-            required: true
+            placeholder: "Monto " + controlefecNewMontoMoneda
           })
         })]
       })]
@@ -15744,8 +15739,7 @@ function ModalNuevoEfectivo(_ref) {
         value: controlefecNewFecha,
         onChange: function onChange(e) {
           return setcontrolefecNewFecha(e.target.value);
-        },
-        required: true
+        }
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "card p-3 form-group mb-2",

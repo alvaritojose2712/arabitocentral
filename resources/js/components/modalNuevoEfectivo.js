@@ -54,10 +54,6 @@ export default function ModalNuevoEfectivo({
 
    
 
-    useEffect(()=>{
-        setcontrolefecNewConcepto("")
-    },[controlefecNewCategoria])
-
     
     return (
         <form onSubmit={event=>{event.preventDefault();setControlEfec()}} className="container">
@@ -66,7 +62,7 @@ export default function ModalNuevoEfectivo({
             <div className="card p-3 form-group mb-2">
                 <span className="form-label fw-bold fs-4">Descripción</span>
                 {catselect.indexOf("NOMINA")===-1 && catselect.indexOf("PAGO PROVEEDOR")===-1 && catselect.indexOf("ALQUILER")===-1?
-                    <input type="text" className="form-control form-control-lg" value={controlefecNewConcepto} onChange={e=>setcontrolefecNewConcepto(e.target.value)} placeholder="Descripción" required={true}/>
+                    <input type="text" className="form-control form-control-lg" value={controlefecNewConcepto} onChange={e=>setcontrolefecNewConcepto(e.target.value)} placeholder="Descripción" />
 
                 :   
                     <>
@@ -206,7 +202,7 @@ export default function ModalNuevoEfectivo({
                             }
                             setcontrolefecNewMonto(formatAmount(val,""))
                         }}
-                        placeholder={"Monto "+controlefecNewMontoMoneda} required={true} />
+                        placeholder={"Monto "+controlefecNewMontoMoneda}  />
                     </div>
 
                 </div>
@@ -214,7 +210,7 @@ export default function ModalNuevoEfectivo({
 
             <div className="card p-3 form-group mb-2">
                 <span className="form-label fw-bold fs-4">Fecha</span>
-                <input type="date" className="form-control form-control-lg" value={controlefecNewFecha} onChange={e=>setcontrolefecNewFecha(e.target.value)} required={true} />
+                <input type="date" className="form-control form-control-lg" value={controlefecNewFecha} onChange={e=>setcontrolefecNewFecha(e.target.value)}  />
             </div>
 
             <div className="card p-3 form-group mb-2">
@@ -258,33 +254,6 @@ export default function ModalNuevoEfectivo({
                     
                 </div>
             </div>
-
-            {/* <div className="form-group mb-2">
-                <div className="input-group mb-2">
-                    <select
-                        className="form-control"
-                        value={controlefecNewCategoria}
-                        onChange={e => setcontrolefecNewCategoria(e.target.value)}>
-                        <option value="">CATEGORÍA (NO COLOCAR CUALQUIER COSA)</option>
-
-                        {categoriasCajas.filter(e=>e.tipo==controlefecSelectGeneral).map((e,i)=>
-                            "INGRESO DESDE CIERRE"!=e.nombre && 
-                            "CAJA FUERTE: INGRESO TRANSFERENCIA SUCURSAL"!=e.nombre && 
-                            "CAJA FUERTE: EGRESO TRANSFERENCIA SUCURSAL"!=e.nombre && 
-                            "CAJA FUERTE: INGRESO TRANSFERENCIA TRABAJADOR"!=e.nombre && 
-                            "CAJA FUERTE: EGRESO TRANSFERENCIA TRABAJADOR"!=e.nombre?
-                            <option key={i} value={e.id}>{e.nombre}</option>
-                            :null
-                        )}
-                        
-                    </select>
-                     <input type="text" className="form-control" placeholder="Buscar Categoria..." value={buscadorCategoria} onChange={e=>setbuscadorCategoria(e.target.value)} /> 
-                </div>
-            </div> */}
-           
-
-
-
 
             {selectpersona?
                 <div className="p-3">
@@ -338,11 +307,6 @@ export default function ModalNuevoEfectivo({
                     <button className={"btn btn-"+(controlefecSelectGeneral==1?"success":"sinapsis")+" btn-lg"}><i className="fa fa-save"></i> GUARDAR</button>
                 </div>
             }
-
-
-            {/* <div className="text-center mt-5">
-                <button className={("btn ")+ (showtranscajatosucursal?"btn-sinapsis":"") + (" btn-sm")} type="button" onClick={()=>setshowtranscajatosucursal(!showtranscajatosucursal)}>Transferir a sucursal... <i className="fa fa-send"></i></button>
-            </div> */}
 
         </form>
     )
