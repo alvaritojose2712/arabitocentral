@@ -116,12 +116,12 @@ export default function CargargastosBancos({
                             </div>
                             <div className="col-3">
                                 <div className="input-group">
-                                    <input type="text" className="form-control text-sinapsis fs-2" value={gastosTasa} onChange={e=>setgastosTasa(formatAmount(e.target.value,"Bs/$ "))} placeholder="Tasa" required={true} />
+                                    <input type="text" className="form-control text-sinapsis fs-2" value={gastosTasa} onChange={e=>setgastosTasa(e.target.value)} placeholder="Tasa" required={true} />
                                     {/* <button className="btn btn-success" type="button" onClick={()=>setmodeMoneda("dolar")}><i className="fa fa-refresh"></i> $</button> */}
                                 </div>
                             </div>
                             <div className="col-md-auto text-right">
-                                <small className="text-success fs-3 mt-2">{moneda(parseFloat(removeMoneda(gastosMonto))/parseFloat(removeMoneda(gastosTasa)))} $</small>
+                                <small className="text-success fs-3 mt-2">{moneda(parseFloat(removeMoneda(gastosMonto))/parseFloat((gastosTasa)))} $</small>
 
                             </div>
                         </div>

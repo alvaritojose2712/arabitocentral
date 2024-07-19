@@ -227,6 +227,9 @@ class NominaController extends Controller
             $q->mesantepasado = $mesantepasadoSum;
 
             $q->quincena = $q->cargo->cargossueldo;
+            $diario = $q->cargo->cargossueldo/30;
+            $q->diario = $diario;
+
             $q->mensual = $q->cargo->cargossueldo*2;
 
             $q->sumPagos = $pagos->sum("monto");

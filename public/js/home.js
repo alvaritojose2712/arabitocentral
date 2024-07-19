@@ -5215,7 +5215,7 @@ function CargargastosBancos(_ref) {
                   className: "form-control text-sinapsis fs-2",
                   value: gastosTasa,
                   onChange: function onChange(e) {
-                    return setgastosTasa(formatAmount(e.target.value, "Bs/$ "));
+                    return setgastosTasa(e.target.value);
                   },
                   placeholder: "Tasa",
                   required: true
@@ -5225,7 +5225,7 @@ function CargargastosBancos(_ref) {
               className: "col-md-auto text-right",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("small", {
                 className: "text-success fs-3 mt-2",
-                children: [moneda(parseFloat(removeMoneda(gastosMonto)) / parseFloat(removeMoneda(gastosTasa))), " $"]
+                children: [moneda(parseFloat(removeMoneda(gastosMonto)) / parseFloat(gastosTasa)), " $"]
               })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -80333,7 +80333,7 @@ function Home() {
         gastosBanco: gastosBanco,
         gastosMonto: removeMoneda(gastosMonto),
         gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
-        gastosTasa: removeMoneda(gastosTasa),
+        gastosTasa: gastosTasa,
         selectIdGastos: selectIdGastos,
         modeMoneda: modeMoneda,
         modeEjecutor: modeEjecutor,

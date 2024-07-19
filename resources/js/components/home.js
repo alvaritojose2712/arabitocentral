@@ -4170,7 +4170,7 @@ function formatAmount( number, simbol ) {
         
         gastosMonto: removeMoneda(gastosMonto),
         gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
-        gastosTasa:removeMoneda(gastosTasa),
+        gastosTasa:(gastosTasa),
         selectIdGastos,
         modeMoneda,
         modeEjecutor,
