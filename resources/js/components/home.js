@@ -2228,7 +2228,7 @@ function formatAmount( number, simbol ) {
   const [nominaSucursal, setnominaSucursal] = useState("")
   const [nominaid_sucursal_disponible, setnominaid_sucursal_disponible] = useState("")
 	const [shownewpersonal, setshownewpersonal] = useState(false)
-
+  const [qSucursalNominaFecha,setqSucursalNominaFecha] = useState("")
   
 
   const [indexSelectNomina, setIndexSelectNomina] = useState(null)
@@ -2319,6 +2319,7 @@ function formatAmount( number, simbol ) {
       setcontrolefecQHasta(today)
       setcontrolbancoQDesde(today)
       setcontrolbancoQHasta(today)
+      setqSucursalNominaFecha(today)
 
       
       
@@ -3135,6 +3136,7 @@ function formatAmount( number, simbol ) {
       event.preventDefault()
     }
     db.getPersonalNomina({
+      qSucursalNominaFecha,
       fechasMain1,
       fechasMain2,
       qNomina,
@@ -4814,6 +4816,7 @@ function formatAmount( number, simbol ) {
                   getPersonalCargos={getPersonalCargos}
                   sucursales={sucursales}
                   subViewNominaGestion={subViewNominaGestion}
+                  setsubViewNominaGestion={setsubViewNominaGestion}
                   nominapagodetalles={nominapagodetalles}
                   getSucursales={getSucursales}
 
@@ -4824,6 +4827,8 @@ function formatAmount( number, simbol ) {
                   number={number}
                   setNuevoPersonal={setNuevoPersonal}
                   colorSucursal={colorSucursal}
+                  qSucursalNominaFecha={qSucursalNominaFecha}
+                  setqSucursalNominaFecha={setqSucursalNominaFecha}
                 >
                 </NominaPersonal>
               }
@@ -4843,6 +4848,7 @@ function formatAmount( number, simbol ) {
                   addPersonalCargos={addPersonalCargos}
                   getPersonalCargos={getPersonalCargos}
                   subViewNominaGestion={subViewNominaGestion}
+                  setsubViewNominaGestion={setsubViewNominaGestion}
 
                 >
                 </NominaCargos>

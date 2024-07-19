@@ -45,6 +45,8 @@ export default function NominaPersonal({
 	setqSucursalNominaOrden,
 	qSucursalNominaOrdenCampo,
 	setqSucursalNominaOrdenCampo,
+	qSucursalNominaFecha,
+	setqSucursalNominaFecha,
 	qSucursalNominaEstatus,
 	setqSucursalNominaEstatus,
 	nominaactivo,
@@ -58,7 +60,8 @@ export default function NominaPersonal({
 	shownewpersonal,
 	setshownewpersonal,
 	setNuevoPersonal,
-	colorSucursal
+	colorSucursal,
+	setsubViewNominaGestion,
 }) {
 
     useEffect(() => {
@@ -113,8 +116,13 @@ export default function NominaPersonal({
 				
 				{shownewpersonal?
 					<div className="container card p-3">
+						 <div className="btn-group m-2">
+							<button className={("btn ")+(subViewNominaGestion=="personal"?"btn-sinapsis":"")} onClick={()=>setsubViewNominaGestion("personal")}>Personal</button>
+							<button className={("btn ")+(subViewNominaGestion=="cargos"?"btn-sinapsis":"")} onClick={()=>setsubViewNominaGestion("cargos")}>Cargos</button>
+						</div>
 						<form onSubmit={addPersonalNomina}>
 							<h1>Personal <button className="btn btn-sm btn-success" type='button' onClick={setNuevoPersonal}>Nuevo</button></h1>
+
 
 							<div className="row">
 								<div className="col">
@@ -353,6 +361,7 @@ export default function NominaPersonal({
 							<option value="asc">Ascendente</option>
 							<option value="desc">Descendente</option>
 						</select>
+						<input type="date" className='form-control' value={qSucursalNominaFecha} onChange={e => setqSucursalNominaFecha(e.target.value)} />
 
 
 
@@ -468,12 +477,12 @@ export default function NominaPersonal({
                 </table>
 
 				<div className="d-flex justify-content-center">
-					<div className="card">
-						<table className="table w-50 table-sm m-4">
+					<div className="">
+						<table className="table m-4">
 							<thead>
 								<tr>
 									<th>SUCURSAL</th>
-									<th>CORRESPONDE</th>
+									<th className='text-right'>CORRESPONDE</th>
 									<th>PAGÓ</th>
 									<th>CUADRE</th>
 									<th>PRESTAMOS</th>
@@ -488,7 +497,7 @@ export default function NominaPersonal({
 													{e.codigo}
 												</button>
 											</td>
-											<td>
+											<td className='text-right'>
 												<span className="text-success">{moneda(e.corresponde)}</span>
 											</td>
 											<td>

@@ -149,6 +149,8 @@ class NominaController extends Controller
         $qSucursalNominaOrden = isset($req->qSucursalNominaOrden) ? $req->qSucursalNominaOrden:"desc";
         $qSucursalNominaOrdenCampo = isset($req->qSucursalNominaOrdenCampo) ? $req->qSucursalNominaOrdenCampo:"sumPrestamos";
         $qSucursalNominaEstatus = $req->qSucursalNominaEstatus;
+        $qSucursalNominaFecha = $req->qSucursalNominaFecha;
+        
         
 
         $fechasMain1 = isset($req->fechasMain1)? $req->fechasMain1: "";
@@ -156,7 +158,7 @@ class NominaController extends Controller
 
         $type = isset($req->type)? $req->type: "";
 
-        $today = (new NominaController)->today();
+        $today = $qSucursalNominaFecha? $qSucursalNominaFecha:(new NominaController)->today();
         $mesDate = strtotime($today);
         $mesDate = date('Y-m' , $mesDate);
 
@@ -175,9 +177,9 @@ class NominaController extends Controller
             ->orWhere("nominanombre", "LIKE", "%$qNomina%")
             ->orWhere("nominacedula", "LIKE", "%$qNomina%");
         })
-        ->when($type == "pagos", function ($q) use ($fechasMain1, $fechasMain2) {
-            $q->with(["pagos" => function ($q) {
-                $q->with("sucursal")->orderBy("created_at","asc");
+        ->when($type == "pagos", function ($q) use ($today) {
+            $q->with(["pagos" => function ($q) use ($today){
+                $q->with("sucursal")->where("created_at","<","$today 23:59:59")->orderBy("created_at","asc");
             }]);
         })
         ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
@@ -192,10 +194,10 @@ class NominaController extends Controller
         })
         ->orderBy("activo","desc")
         ->get()
-        ->map(function($q) use ($mes,$mespasado,$mesantepasado) {
+        ->map(function($q) use ($mes,$mespasado,$mesantepasado, $today){
             $cedula = $q->nominacedula;
             $ids = clientes::where("identificacion", "=",  $cedula)->select("id");
-            $creditos = creditos::with("sucursal")->whereIn("id_cliente",$ids); 
+            $creditos = creditos::with("sucursal")->where("created_at","<","$today 23:59:59")->whereIn("id_cliente",$ids); 
 
             $q->pagos = $q->pagos->map(function($q) {
                 $q->created_at = date("d-m-Y", strtotime($q->created_at));
@@ -248,8 +250,8 @@ class NominaController extends Controller
         
         
         foreach ($bysucursalFun as $i => $e) {
-            $corresponde = $e->sum("mensual");
-            $pago = $e->sum("mes");
+            $corresponde = abs($e->sum("mensual"));
+            $pago = abs($e->sum("mes"));
             array_push($bysucursal,[
                 "codigo" => $i,
                 "sum" => count($e),
