@@ -240,7 +240,7 @@ class NominaController extends Controller
             $q->diario = $diario;
 
             if ($date1<$date2) {
-                $tiempotrabajadoVar = $tiempotrabajado->days;
+                $tiempotrabajadoVar = $tiempotrabajado->d;
             }else{
                 $tiempotrabajadoVar = 0;
             }
