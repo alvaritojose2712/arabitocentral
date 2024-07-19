@@ -239,14 +239,14 @@ class NominaController extends Controller
             $diario = $q->cargo->cargossueldo/30;
             $q->diario = $diario;
             if ($date1<$date2) {
-                $tiempotrabajado = $tiempotrabajado->days;
+                $tiempotrabajadoVar = $tiempotrabajado->days;
             }else{
-                $tiempotrabajado = 0;
+                $tiempotrabajadoVar = 0;
             }
             
-            $q->tiempotrabajado = $tiempotrabajado;
-            if ($tiempotrabajado<=30) {
-                $q->mensual = $tiempotrabajado->d*$diario;
+            $q->tiempotrabajado = $tiempotrabajadoVar;
+            if ($tiempotrabajadoVar<=30) {
+                $q->mensual = $tiempotrabajadoVar->d*$diario;
             }else{
                 $q->mensual = $q->cargo->cargossueldo*2;
             }
