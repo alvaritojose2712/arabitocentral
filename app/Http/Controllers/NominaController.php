@@ -204,7 +204,7 @@ class NominaController extends Controller
                 return $q;
             });
 
-            $date1 = new \DateTime($q->nominafechadeingreso);
+            $date1 = new \DateTime(date("$mes-00"));
             $date2 = new \DateTime($today);
             $tiempotrabajado = $date1->diff($date2);
             
@@ -239,7 +239,7 @@ class NominaController extends Controller
             $diario = ($q->cargo->cargossueldo*2)/30;
             $q->diario = $diario;
 
-            if ($date1<$date2) {
+            if ($q->nominafechadeingreso<$today) {
                 $tiempotrabajadoVar = $tiempotrabajado->d;
             }else{
                 $tiempotrabajadoVar = 0;
