@@ -3495,12 +3495,16 @@ function Auditoria(_ref) {
                       children: moneda(e.monto_liquidado)
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                       className: "text-danger",
-                      children: moneda(e.monto_comision)
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
-                      className: "text-muted",
-                      children: [moneda(e.porcentaje), "%"]
+                      children: e.categoria != 50 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                        children: moneda(e.monto_comision)
+                      }) : null
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                      className: "text-muted",
+                      children: e.categoria != 50 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                        children: [moneda(e.porcentaje), "%"]
+                      }) : null
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                      children: e.categoria != 50 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                         className: "btn btn-danger",
                         onClick: function onClick() {
                           return reverserLiquidar(e.id);
@@ -3508,7 +3512,7 @@ function Auditoria(_ref) {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
                           className: "fa fa-arrow-left"
                         })
-                      })
+                      }) : null
                     })]
                   }, e.id);
                 })

@@ -33,6 +33,12 @@ class PuntosybiopagosController extends Controller
         $p = puntosybiopagos::find($id);
         $p->fecha_liquidacion = null;
         $p->monto_liquidado = 0;
+
+        $delcom = puntosybiopagos::find($p->id_comision);
+        if ($delcom) {
+            $delcom->delete();
+        }
+
         $p->save() ;
     }
 
@@ -44,6 +50,32 @@ class PuntosybiopagosController extends Controller
         $p->fecha_liquidacion = $fecha;
         $p->monto_liquidado = $monto;
         if ($p->save()) {
+            $comision = $p->monto - $monto;
+            if ($comision > 0) {
+                $liquidado = puntosybiopagos::find($id);
+                $catcompos = catcajas::where("nombre","CAJA MATRIZ: COMISION PUNTO DE VENTA")->first();
+                $comision_monto = abs($comision)*-1;
+                $com = puntosybiopagos::updateOrCreate([
+                    "id" => null
+                ],[
+                    "loteserial" => $liquidado->loteserial." COMISION POS",
+                    "banco" => $liquidado->banco,
+                    "fecha" => $liquidado->fecha,
+                    "fecha_liquidacion" => $liquidado->fecha_liquidacion,
+                    "monto" => $comision_monto,
+                    "monto_liquidado" => $comision_monto,
+                    
+                    "tipo" => "Transferencia",
+                    "debito_credito" => $liquidado->debito_credito,
+                    "id_usuario" => $liquidado->id_usuario,
+                    "id_sucursal" => $liquidado->id_sucursal,
+                    "origen" => $liquidado->origen,
+
+                    "categoria" => $catcompos->id
+                ]);
+                $liquidado->id_comision = $com->id;
+                $liquidado->save();
+            }
             return [
                 "estado" => true,
                 "msj" => "Éxito al Liquidar",
@@ -72,10 +104,7 @@ class PuntosybiopagosController extends Controller
 
             if ($catingresotras && $categresotras) {
                 $today = new \DateTime((new NominaController)->today());
-                $su = sucursal::updateOrCreate(["codigo"=>"administracion"],[
-                    "nombre" => "ADMINISTRACION",
-                    "codigo" => "administracion",
-                ]);
+                $admin_id = 13;
                 $banco = bancos_list::find($cuentasPagosMetodo);
                 $bancoDestino = bancos_list::find($cuentasPagosMetodoDestino);
 
@@ -93,7 +122,7 @@ class PuntosybiopagosController extends Controller
                         "tipo" => "Transferencia",
                         "fecha_liquidacion" => $cuentasPagosFecha,
                         "id_usuario" => 1,
-                        "id_sucursal" => $su->id,
+                        "id_sucursal" => $admin_id,
                         "origen" => 2,
                         "categoria" => $catingresotras->id
                     ]);
@@ -110,7 +139,7 @@ class PuntosybiopagosController extends Controller
                         "tipo" => "Transferencia",
                         "fecha_liquidacion" => $cuentasPagosFecha,
                         "id_usuario" => 1,
-                        "id_sucursal" => $su->id,
+                        "id_sucursal" => $admin_id,
                         "origen" => 2,
                         "categoria" => $categresotras->id
                     ]);
@@ -128,7 +157,7 @@ class PuntosybiopagosController extends Controller
                         "tipo" => "Transferencia",
                         "fecha_liquidacion" => $cuentasPagosFecha,
                         "id_usuario" => 1,
-                        "id_sucursal" => $su->id,
+                        "id_sucursal" => $admin_id,
                         "origen" => 2,
                         "categoria" => $catcompg->id
                     ]);

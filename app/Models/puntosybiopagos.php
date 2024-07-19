@@ -39,5 +39,6 @@ class puntosybiopagos extends Model
         "origen",
         "monto_dolar",
         "tasa",
+        "id_comision",
     ];
 }

@@ -485,9 +485,26 @@ export default function Auditoria({
                                                         <th>{getCat(e.categoria)}</th>
                                                         <th>{moneda(e.monto)}</th>
                                                         <th>{moneda(e.monto_liquidado)}</th>
-                                                        <th className="text-danger">{moneda(e.monto_comision)}</th>
-                                                        <th className="text-muted">{moneda(e.porcentaje)}%</th>
-                                                        <th><button className="btn btn-danger" onClick={()=>reverserLiquidar(e.id)}><i className="fa fa-arrow-left"></i></button></th>
+                                                        <th className="text-danger">
+                                                            {e.categoria!=50?
+                                                                <>
+                                                                    {moneda(e.monto_comision)}
+                                                                </>
+                                                            :null}
+
+                                                        </th>
+                                                        <th className="text-muted">
+                                                            {e.categoria!=50?
+                                                                <>
+                                                                    {moneda(e.porcentaje)}%
+                                                                </>
+                                                            :null}
+                                                        </th>
+                                                        <th>
+                                                            {e.categoria!=50?
+                                                                <button className="btn btn-danger" onClick={()=>reverserLiquidar(e.id)}><i className="fa fa-arrow-left"></i></button>
+                                                            :null}
+                                                        </th>
                                                     </tr>
                                                 )}
                                                 </tbody>

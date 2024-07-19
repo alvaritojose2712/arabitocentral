@@ -38,6 +38,7 @@ class CreatePuntosybiopagosTable extends Migration
             $table->decimal("tasa",10,2)->nullable(true)->default(0);
             
             $table->integer("id_usuario");
+            $table->integer("id_comision")->nullable(true);
             
             //$table->unique(["fecha","id_sucursal","id_usuario","tipo"]);
             $table->timestamps();
