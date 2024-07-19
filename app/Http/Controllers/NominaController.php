@@ -204,7 +204,7 @@ class NominaController extends Controller
                 return $q;
             });
 
-            $date1 = new \DateTime(date("$mes-00"));
+            $date1 = new \DateTime(date("".date('Y-m' , $q->nominafechadeingreso)."-00"));
             $date2 = new \DateTime($today);
             $tiempotrabajado = $date1->diff($date2);
             
