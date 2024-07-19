@@ -15682,30 +15682,6 @@ function ModalNuevoEfectivo(_ref) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "row",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "col",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-            type: "text",
-            className: "form-control text-sinapsis fs-2",
-            value: controlefecNewMonto,
-            onChange: function onChange(e) {
-              var val = number(e.target.value);
-              var factor = controlefecNewMontoMoneda == "dolar" ? 1 : controlefecNewMontoMoneda == "bs" ? parseFloat(dolar) : controlefecNewMontoMoneda == "peso" ? parseFloat(peso) : 1;
-              if (catselect.indexOf("NOMINA QUINCENA") !== -1) {
-                if (parseFloat(val) > parseFloat(maxpagopersona * factor)) {
-                  val = "";
-                }
-              }
-              if (catselect.indexOf("ALQUILER") !== -1) {
-                if (parseFloat(val) > parseFloat(maxpagoalquiler * factor)) {
-                  val = "";
-                }
-              }
-              setcontrolefecNewMonto(formatAmount(val, ""));
-            },
-            placeholder: "Monto $",
-            required: true
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "col-3",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
             className: "form-control fs-2",
@@ -15730,6 +15706,30 @@ function ModalNuevoEfectivo(_ref) {
               value: "euro",
               children: "EURO"
             })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "col",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "text",
+            className: "form-control text-sinapsis fs-2",
+            value: controlefecNewMonto,
+            onChange: function onChange(e) {
+              var val = number(e.target.value);
+              var factor = controlefecNewMontoMoneda == "dolar" ? 1 : controlefecNewMontoMoneda == "bs" ? parseFloat(dolar) : controlefecNewMontoMoneda == "peso" ? parseFloat(peso) : 1;
+              if (catselect.indexOf("NOMINA QUINCENA") !== -1) {
+                if (parseFloat(val) > parseFloat(maxpagopersona * factor)) {
+                  val = "";
+                }
+              }
+              if (catselect.indexOf("ALQUILER") !== -1) {
+                if (parseFloat(val) > parseFloat(maxpagoalquiler * factor)) {
+                  val = "";
+                }
+              }
+              setcontrolefecNewMonto(formatAmount(val, ""));
+            },
+            placeholder: "Monto " + controlefecNewMontoMoneda,
+            required: true
           })
         })]
       })]

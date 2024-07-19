@@ -168,6 +168,23 @@ export default function ModalNuevoEfectivo({
             <div className="card p-3 form-group mb-2">
                 <span className="form-label fw-bold fs-4 text-sinapsis">Monto </span>
                 <div className="row">
+                    <div className="col-3">
+                        <select
+                            className="form-control fs-2"
+                            value={controlefecNewMontoMoneda}
+                            onChange={e => {
+                                setcontrolefecNewMonto("")
+                                setcontrolefecNewMontoMoneda(e.target.value)
+                            }}>
+                            <option value="">-</option>
+                                
+                            <option value="dolar">$</option>
+                            <option value="peso">PESO</option>
+                            <option value="bs">Bs</option>
+                            <option value="euro">EURO</option>
+                        </select>
+
+                    </div>
                     <div className="col">
                         <input type="text" className="form-control text-sinapsis fs-2" 
                         value={controlefecNewMonto}
@@ -189,26 +206,9 @@ export default function ModalNuevoEfectivo({
                             }
                             setcontrolefecNewMonto(formatAmount(val,""))
                         }}
-                        placeholder="Monto $" required={true} />
+                        placeholder={"Monto "+controlefecNewMontoMoneda} required={true} />
                     </div>
 
-                    <div className="col-3">
-                        <select
-                            className="form-control fs-2"
-                            value={controlefecNewMontoMoneda}
-                            onChange={e => {
-                                setcontrolefecNewMonto("")
-                                setcontrolefecNewMontoMoneda(e.target.value)
-                            }}>
-                            <option value="">-</option>
-                                
-                            <option value="dolar">$</option>
-                            <option value="peso">PESO</option>
-                            <option value="bs">Bs</option>
-                            <option value="euro">EURO</option>
-                        </select>
-
-                    </div>
                 </div>
             </div>
 
