@@ -284,6 +284,7 @@ export default function Gastos({
 					addBeneficiarioList={addBeneficiarioList}
 					colors={colors}
 					colorSucursal={colorSucursal}
+					number={number}
 				/>	
 			:null}
 			{subviewGastos=="cargarefectivo"?

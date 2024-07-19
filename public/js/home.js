@@ -5054,6 +5054,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function CargargastosBancos(_ref) {
   var gastosDescripcion = _ref.gastosDescripcion,
     setgastosDescripcion = _ref.setgastosDescripcion,
@@ -5115,11 +5116,19 @@ function CargargastosBancos(_ref) {
     controlbancoQSucursal = _ref.controlbancoQSucursal,
     setcontrolbancoQSucursal = _ref.setcontrolbancoQSucursal,
     colors = _ref.colors,
-    colorSucursal = _ref.colorSucursal;
+    colorSucursal = _ref.colorSucursal,
+    number = _ref.number;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     newregistro = _useState2[0],
     setnewregistro = _useState2[1];
+  var setComisionFija = function setComisionFija() {
+    var total = parseFloat(removeMoneda(gastosMonto));
+    var fijo = parseFloat(window.prompt("ESCRIBA EL MONTO FIJO DE COMISIÓN"));
+    if (total && fijo && gastosTasa) {
+      setcomisionpagomovilinterban((fijo * 100 / total).toFixed(4));
+    }
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "container-fluid",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
@@ -5212,12 +5221,18 @@ function CargargastosBancos(_ref) {
                   required: true
                 })
               })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: "col-md-auto text-right",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("small", {
+                className: "text-success fs-3 mt-2",
+                children: [moneda(parseFloat(removeMoneda(gastosMonto)) / parseFloat(removeMoneda(gastosTasa))), " $"]
+              })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
             className: "row",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
               className: "col",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
                 className: "input-group w-50 mt-1",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
                   className: "btn btn-outline" + (iscomisiongasto == 1 ? "-success" : "-danger"),
@@ -5225,22 +5240,32 @@ function CargargastosBancos(_ref) {
                     return setiscomisiongasto(iscomisiongasto == 1 ? 0 : 1);
                   },
                   children: "Genera Comisi\xF3n"
-                }), iscomisiongasto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                  type: "text",
-                  disabled: true,
-                  className: "form-control",
-                  size: 5,
-                  placeholder: "% Comi\xF3n",
-                  value: comisionpagomovilinterban,
-                  onChange: function onChange(event) {
-                    return setcomisionpagomovilinterban(event.preventDefault());
-                  }
+                }), iscomisiongasto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                    type: "text",
+                    style: {
+                      border: "none"
+                    },
+                    onDoubleClick: function onDoubleClick() {
+                      return setComisionFija();
+                    },
+                    className: "form-control",
+                    size: 4,
+                    placeholder: "% Comi\xF3n",
+                    value: comisionpagomovilinterban,
+                    onChange: function onChange(event) {
+                      return setcomisionpagomovilinterban(number(event.target.value));
+                    }
+                  }), " %"]
                 }) : null]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("small", {
-                className: "text-success fs-3 mt-2",
-                children: [moneda(parseFloat(removeMoneda(gastosMonto)) / parseFloat(removeMoneda(gastosTasa))), " $"]
-              })]
-            })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: "col text-right",
+              children: iscomisiongasto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("small", {
+                className: "text-danger fs-3 mt-2",
+                children: ["Bs. -", moneda(parseFloat(removeMoneda(gastosMonto)) * (parseFloat(comisionpagomovilinterban) / 100))]
+              }) : null
+            })]
           })]
         }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "card p-3 form-group mb-2",
@@ -10696,9 +10721,9 @@ function CuentasporpagarPagos(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                   value: "EFECTIVO",
                   children: "EFECTIVO"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("option", {
                   value: "BANCO",
-                  children: "BANCO"
+                  children: ["BANCO ", "->", " BCV ", "->", " ", moneda(selectCuentaPorPagarId.tasa_referencial), " Bs / $"]
                 })]
               }), cuentasPagosMetodo == "BANCO" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
                 className: "btn btn-success",
@@ -13300,7 +13325,8 @@ function Gastos(_ref) {
       getPersonal: getPersonal,
       addBeneficiarioList: addBeneficiarioList,
       colors: colors,
-      colorSucursal: colorSucursal
+      colorSucursal: colorSucursal,
+      number: number
     }) : null, subviewGastos == "cargarefectivo" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_controlefectivomatriz__WEBPACK_IMPORTED_MODULE_3__["default"], {
       colorsGastosCat: colorsGastosCat,
       qbuscarcat: qbuscarcat,

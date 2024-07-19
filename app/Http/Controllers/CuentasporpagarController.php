@@ -1005,12 +1005,15 @@ class CuentasporpagarController extends Controller
             }
             return $q;
         }); 
+        $bs = (new CierresController)->getTasa()["bs"];
+        
         $ret =  [
             "detalles" => $detalles_modified, 
             "balance" => $detalles_modified->sum("balance"), 
             "sum" => $detalles->get()->count(), 
             "proveedor" => $id_proveedor?proveedores::find($id_proveedor):null,
-            "fasts_no" => $fasts_no
+            "fasts_no" => $fasts_no,
+            "tasa_referencial" => $bs
         ];
     
         if ($type=="buscar") {

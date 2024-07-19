@@ -65,9 +65,20 @@ export default function CargargastosBancos({
     setcontrolbancoQSucursal,
     colors,
     colorSucursal,
+    number
     
 }){
     const [newregistro, setnewregistro] = useState(false)
+
+    const setComisionFija = () => {
+        let total = parseFloat(removeMoneda(gastosMonto))
+        let fijo = parseFloat(window.prompt("ESCRIBA EL MONTO FIJO DE COMISIÓN"))
+        if (total && fijo && gastosTasa) {
+            setcomisionpagomovilinterban(((fijo*100)/total).toFixed(4))
+        }
+        
+
+    }
     return (
     <div className="container-fluid">
         <div className="text-center p-3">
@@ -109,16 +120,26 @@ export default function CargargastosBancos({
                                     {/* <button className="btn btn-success" type="button" onClick={()=>setmodeMoneda("dolar")}><i className="fa fa-refresh"></i> $</button> */}
                                 </div>
                             </div>
+                            <div className="col-md-auto text-right">
+                                <small className="text-success fs-3 mt-2">{moneda(parseFloat(removeMoneda(gastosMonto))/parseFloat(removeMoneda(gastosTasa)))} $</small>
+
+                            </div>
                         </div>
                         <div className="row">
                             <div className="col">
                                 <div className="input-group w-50 mt-1">
                                     <button className={("btn btn-outline")+(iscomisiongasto==1?"-success":"-danger")} onClick={()=>setiscomisiongasto(iscomisiongasto==1?0:1)}>Genera Comisión</button>
                                     {iscomisiongasto?
-                                        <input type="text" disabled={true} className="form-control" size={5} placeholder="% Comión" value={comisionpagomovilinterban} onChange={event=>setcomisionpagomovilinterban(event.preventDefault())}/>
+                                        <>
+                                            <input type="text" style={{border:"none"}} onDoubleClick={()=>setComisionFija()} className="form-control" size={4} placeholder="% Comión" value={comisionpagomovilinterban} onChange={event=>setcomisionpagomovilinterban(number(event.target.value))}/> %
+                                        </>
                                     :null}
                                 </div>
-                                <small className="text-success fs-3 mt-2">{moneda(parseFloat(removeMoneda(gastosMonto))/parseFloat(removeMoneda(gastosTasa)))} $</small>
+                            </div>
+                            <div className="col text-right">
+                                {iscomisiongasto?
+                                    <small className="text-danger fs-3 mt-2">Bs. -{moneda(parseFloat(removeMoneda(gastosMonto))*(parseFloat(comisionpagomovilinterban)/100))}</small>
+                                :null}
                             </div>
                         </div>
                     </div>

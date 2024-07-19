@@ -265,7 +265,10 @@ export default function CuentasporpagarPagos({
                                     onChange={e=>setcuentasPagosMetodo(e.target.value)} required>
                                         <option value="">-Método-</option>
                                         <option value="EFECTIVO">EFECTIVO</option>
-                                        <option value="BANCO">BANCO</option>
+                                        <option value="BANCO">
+                                            BANCO {"->"} BCV {"->"} {moneda(selectCuentaPorPagarId.tasa_referencial)} Bs / $
+
+                                        </option>
                                     </select>
                                     {cuentasPagosMetodo=="BANCO"?
                                         <button className="btn btn-success" type="button" onClick={()=>setviewMultiplesPagos(viewMultiplesPagos==5?0:viewMultiplesPagos+1)}>
@@ -303,6 +306,9 @@ export default function CuentasporpagarPagos({
                                                         <span className="form-label">REF 1</span>
                                                         <input type="text" className="form-control" value={refbs1PagoFact} placeholder="REF 1"onChange={e=>setrefbs1PagoFact(number(e.target.value))} />
                                                     </div>
+
+                                                  
+                                                    
                                                     
                                                 </div>
                                             :null
