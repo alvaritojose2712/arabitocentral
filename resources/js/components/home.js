@@ -2221,11 +2221,14 @@ function formatAmount( number, simbol ) {
   const [nominaTelefono, setnominaTelefono] = useState("")
   const [nominaDireccion, setnominaDireccion] = useState("")
   const [nominaFechadeNacimiento, setnominaFechadeNacimiento] = useState("")
+  const [nominaactivo,setnominaactivo] = useState("")
   const [nominaFechadeIngreso, setnominaFechadeIngreso] = useState("")
   const [nominaGradoInstruccion, setnominaGradoInstruccion] = useState("")
   const [nominaCargo, setnominaCargo] = useState("")
   const [nominaSucursal, setnominaSucursal] = useState("")
   const [nominaid_sucursal_disponible, setnominaid_sucursal_disponible] = useState("")
+	const [shownewpersonal, setshownewpersonal] = useState(false)
+
   
 
   const [indexSelectNomina, setIndexSelectNomina] = useState(null)
@@ -2235,6 +2238,7 @@ function formatAmount( number, simbol ) {
 
   const [qSucursalNominaOrden,setqSucursalNominaOrden] = useState("desc")
   const [qSucursalNominaOrdenCampo,setqSucursalNominaOrdenCampo] = useState("")
+  const [qSucursalNominaEstatus,setqSucursalNominaEstatus] = useState("1")
 
   const [nominaData, setnominaData] = useState([])
 
@@ -3057,7 +3061,20 @@ function formatAmount( number, simbol ) {
 
   /// Nomina ///
 
-
+  const setNuevoPersonal = () => {
+		setnominaNombre("")
+        setnominaCedula("")
+        setnominaTelefono("")
+        setnominaDireccion("")
+        setnominaFechadeNacimiento("")
+        setnominaFechadeIngreso("")
+        setnominaGradoInstruccion("")
+        setnominaCargo("")
+        setnominaSucursal("")
+		setIndexSelectNomina(null)
+		setnominaid_sucursal_disponible("")
+		setnominaactivo("")
+	}
   const selectNominaDetalles = id => {
     setnominapagodetalles({})
     let personal = nominaData.personal
@@ -3094,11 +3111,14 @@ function formatAmount( number, simbol ) {
       nominaCargo,
       nominaSucursal,
       nominaid_sucursal_disponible,
+      nominaactivo,
 
       id: indexSelectNomina
     }).then(({ data }) => {
       if (data.estado) {
         getPersonalNomina()
+        setshownewpersonal(false)
+        setNuevoPersonal()
       }
       notificar(data.msj)
     })
@@ -3122,6 +3142,7 @@ function formatAmount( number, simbol ) {
       qCargoNomina,
       qSucursalNominaOrden,
       qSucursalNominaOrdenCampo,
+      qSucursalNominaEstatus,
       type: subViewNomina
     }).then(({ data }) => {
       setnominaData(data)
@@ -4732,90 +4753,101 @@ function formatAmount( number, simbol ) {
           }
 
           {permiso([1,2,5]) && viewmainPanel === "nomina" &&
-            <NominaHome
-              subViewNomina={subViewNomina}
-              setsubViewNomina={setsubViewNomina}
-            >
+            <>
 
-              {subViewNomina === "gestion" &&
+              {/* {subViewNomina === "gestion" &&
                 <Nomina
                   subViewNominaGestion={subViewNominaGestion}
                   setsubViewNominaGestion={setsubViewNominaGestion}
                 >
-                  {subViewNominaGestion === "personal" &&
-                    <NominaPersonal
-                      activarPersonal={activarPersonal}
-                      nominaNombre={nominaNombre}
-                      setnominaNombre={setnominaNombre}
-                      nominaCedula={nominaCedula}
-                      setnominaCedula={setnominaCedula}
-                      nominaTelefono={nominaTelefono}
-                      setnominaTelefono={setnominaTelefono}
-                      nominaDireccion={nominaDireccion}
-                      setnominaDireccion={setnominaDireccion}
-                      nominaFechadeNacimiento={nominaFechadeNacimiento}
-                      setnominaFechadeNacimiento={setnominaFechadeNacimiento}
-                      nominaFechadeIngreso={nominaFechadeIngreso}
-                      setnominaFechadeIngreso={setnominaFechadeIngreso}
-                      nominaGradoInstruccion={nominaGradoInstruccion}
-                      setnominaGradoInstruccion={setnominaGradoInstruccion}
-                      nominaCargo={nominaCargo}
-                      setnominaCargo={setnominaCargo}
-                      nominaSucursal={nominaSucursal}
-                      setnominaSucursal={setnominaSucursal}
-                      nominaid_sucursal_disponible={nominaid_sucursal_disponible}
-                      setnominaid_sucursal_disponible={setnominaid_sucursal_disponible}
-                      indexSelectNomina={indexSelectNomina}
-                      setIndexSelectNomina={setIndexSelectNomina}
-
-                      qSucursalNominaOrden={qSucursalNominaOrden}
-                      setqSucursalNominaOrden={setqSucursalNominaOrden}
-                      qSucursalNominaOrdenCampo={qSucursalNominaOrdenCampo}
-                      setqSucursalNominaOrdenCampo={setqSucursalNominaOrdenCampo}
-                      qNomina={qNomina}
-                      setqNomina={setqNomina}
-                      qSucursalNomina={qSucursalNomina}
-                      setqSucursalNomina={setqSucursalNomina}
-                      qCargoNomina={qCargoNomina}
-                      setqCargoNomina={setqCargoNomina}
-                      nominaData={nominaData}
-                      setnominaData={setnominaData}
-                      delPersonalNomina={delPersonalNomina}
-                      addPersonalNomina={addPersonalNomina}
-                      getPersonalNomina={getPersonalNomina}
-
-                      cargosData={cargosData}
-                      getPersonalCargos={getPersonalCargos}
-                      sucursales={sucursales}
-                      subViewNominaGestion={subViewNominaGestion}
-                      nominapagodetalles={nominapagodetalles}
-                      getSucursales={getSucursales}
-                    >
-                    </NominaPersonal>
-                  }
-                  {subViewNominaGestion === "cargos" &&
-                    <NominaCargos
-                      cargosDescripcion={cargosDescripcion}
-                      setcargosDescripcion={setcargosDescripcion}
-                      cargosSueldo={cargosSueldo}
-                      setcargosSueldo={setcargosSueldo}
-                      qCargos={qCargos}
-                      setqCargos={setqCargos}
-                      indexSelectCargo={indexSelectCargo}
-                      setindexSelectCargo={setindexSelectCargo}
-                      cargosData={cargosData}
-                      setcargosData={setcargosData}
-                      delPersonalCargos={delPersonalCargos}
-                      addPersonalCargos={addPersonalCargos}
-                      getPersonalCargos={getPersonalCargos}
-                      subViewNominaGestion={subViewNominaGestion}
-
-                    >
-                    </NominaCargos>
-                  }
                 </Nomina>
+              } */}
+              {subViewNominaGestion === "personal" &&
+                <NominaPersonal
+                  setshownewpersonal={setshownewpersonal}
+                  shownewpersonal={shownewpersonal}
+                  nominaactivo={nominaactivo}
+                  setnominaactivo={setnominaactivo}
+                  activarPersonal={activarPersonal}
+                  nominaNombre={nominaNombre}
+                  setnominaNombre={setnominaNombre}
+                  nominaCedula={nominaCedula}
+                  setnominaCedula={setnominaCedula}
+                  nominaTelefono={nominaTelefono}
+                  setnominaTelefono={setnominaTelefono}
+                  nominaDireccion={nominaDireccion}
+                  setnominaDireccion={setnominaDireccion}
+                  nominaFechadeNacimiento={nominaFechadeNacimiento}
+                  setnominaFechadeNacimiento={setnominaFechadeNacimiento}
+                  nominaFechadeIngreso={nominaFechadeIngreso}
+                  setnominaFechadeIngreso={setnominaFechadeIngreso}
+                  nominaGradoInstruccion={nominaGradoInstruccion}
+                  setnominaGradoInstruccion={setnominaGradoInstruccion}
+                  nominaCargo={nominaCargo}
+                  setnominaCargo={setnominaCargo}
+                  nominaSucursal={nominaSucursal}
+                  setnominaSucursal={setnominaSucursal}
+                  nominaid_sucursal_disponible={nominaid_sucursal_disponible}
+                  setnominaid_sucursal_disponible={setnominaid_sucursal_disponible}
+                  indexSelectNomina={indexSelectNomina}
+                  setIndexSelectNomina={setIndexSelectNomina}
+
+                  qSucursalNominaOrden={qSucursalNominaOrden}
+                  setqSucursalNominaOrden={setqSucursalNominaOrden}
+                  qSucursalNominaOrdenCampo={qSucursalNominaOrdenCampo}
+                  setqSucursalNominaOrdenCampo={setqSucursalNominaOrdenCampo}
+                  qSucursalNominaEstatus={qSucursalNominaEstatus}
+                  setqSucursalNominaEstatus={setqSucursalNominaEstatus}
+                  qNomina={qNomina}
+                  setqNomina={setqNomina}
+                  qSucursalNomina={qSucursalNomina}
+                  setqSucursalNomina={setqSucursalNomina}
+                  qCargoNomina={qCargoNomina}
+                  setqCargoNomina={setqCargoNomina}
+                  nominaData={nominaData}
+                  setnominaData={setnominaData}
+                  delPersonalNomina={delPersonalNomina}
+                  addPersonalNomina={addPersonalNomina}
+                  getPersonalNomina={getPersonalNomina}
+
+                  cargosData={cargosData}
+                  getPersonalCargos={getPersonalCargos}
+                  sucursales={sucursales}
+                  subViewNominaGestion={subViewNominaGestion}
+                  nominapagodetalles={nominapagodetalles}
+                  getSucursales={getSucursales}
+
+                  subViewNomina={subViewNomina}
+                  selectNominaDetalles={selectNominaDetalles}
+                  setnominapagodetalles={setnominapagodetalles}
+                  moneda={moneda}
+                  number={number}
+                  setNuevoPersonal={setNuevoPersonal}
+                  colorSucursal={colorSucursal}
+                >
+                </NominaPersonal>
               }
-              {subViewNomina === "pagos" &&
+              {subViewNominaGestion === "cargos" &&
+                <NominaCargos
+                  cargosDescripcion={cargosDescripcion}
+                  setcargosDescripcion={setcargosDescripcion}
+                  cargosSueldo={cargosSueldo}
+                  setcargosSueldo={setcargosSueldo}
+                  qCargos={qCargos}
+                  setqCargos={setqCargos}
+                  indexSelectCargo={indexSelectCargo}
+                  setindexSelectCargo={setindexSelectCargo}
+                  cargosData={cargosData}
+                  setcargosData={setcargosData}
+                  delPersonalCargos={delPersonalCargos}
+                  addPersonalCargos={addPersonalCargos}
+                  getPersonalCargos={getPersonalCargos}
+                  subViewNominaGestion={subViewNominaGestion}
+
+                >
+                </NominaCargos>
+              }
+              {/* {subViewNomina === "pagos" &&
                 <NominaPagos
                   qSucursalNomina={qSucursalNomina}
                   setqSucursalNomina={setqSucursalNomina}
@@ -4838,8 +4870,8 @@ function formatAmount( number, simbol ) {
 
                 >
                 </NominaPagos>
-              }
-            </NominaHome>
+              } */}
+            </>
           }
 
           {permiso([1,2,5]) && viewmainPanel === "alquileres" &&

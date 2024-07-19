@@ -148,6 +148,8 @@ class NominaController extends Controller
 
         $qSucursalNominaOrden = isset($req->qSucursalNominaOrden) ? $req->qSucursalNominaOrden:"desc";
         $qSucursalNominaOrdenCampo = isset($req->qSucursalNominaOrdenCampo) ? $req->qSucursalNominaOrdenCampo:"sumPrestamos";
+        $qSucursalNominaEstatus = $req->qSucursalNominaEstatus;
+        
 
         $fechasMain1 = isset($req->fechasMain1)? $req->fechasMain1: "";
         $fechasMain2 = isset($req->fechasMain2)? $req->fechasMain2: "";
@@ -179,13 +181,15 @@ class NominaController extends Controller
             }]);
         })
         ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
+        ->when($qSucursalNominaEstatus!="", function ($q) use ($qSucursalNominaEstatus) {
+            $q->where("activo", $qSucursalNominaEstatus);
+        })
         ->when($qCargoNomina, function ($q) use ($qCargoNomina) {
             $q->where("nominacargo", $qCargoNomina);
         })
         ->when($qSucursalNomina, function ($q) use ($qSucursalNomina) {
             $q->where("nominasucursal", $qSucursalNomina);
         })
-        //->where("activo",1)
         ->orderBy("activo","desc")
         ->get()
         ->map(function($q) use ($mes,$mespasado,$mesantepasado) {
@@ -220,6 +224,9 @@ class NominaController extends Controller
             $q->mespasado = $mespasadoSum;
             $q->mesantepasado = $mesantepasadoSum;
 
+            $q->quincena = $q->cargo->cargossueldo;
+            $q->mensual = $q->cargo->cargossueldo*2;
+
             $q->sumPagos = $pagos->sum("monto");
             $q->sumPrestamos = $q->prestamos->sum("monto");
             
@@ -233,12 +240,31 @@ class NominaController extends Controller
         ->toArray();
         
         array_multisort(array_column($personal,$qSucursalNominaOrdenCampo), $qSucursalNominaOrden=="desc"?SORT_DESC:SORT_ASC, $personal);
+        
 
-        $estadisticas = [];
+        $bysucursalFun = collect($personal)->groupBy("sucursal.codigo");
+        $bysucursal = [];
+
+        
+        
+        foreach ($bysucursalFun as $i => $e) {
+            $corresponde = $e->sum("mensual");
+            $pago = $e->sum("mes");
+            array_push($bysucursal,[
+                "codigo" => $i,
+                "sum" => count($e),
+                "corresponde" => $corresponde,
+                "pago" => $pago,
+                "cuadre" =>$corresponde-$pago,
+                "prestamos" =>$e->sum("sumPrestamos")
+            ]);
+        }
+
+
 
         return [
             "personal" => $personal,
-            "estadisticas" => $estadisticas,
+            "estadisticas" => $bysucursal,
         ];
     }
     function setPersonalNomina(Request $req)
@@ -255,6 +281,8 @@ class NominaController extends Controller
             $nominaCargo = $req->nominaCargo;
             $nominaSucursal = $req->nominaSucursal;
             $id_sucursal_disponible = $req->nominaid_sucursal_disponible;
+            $activo = $req->nominaactivo;
+            
             
 
             $id = $req->id;
@@ -270,6 +298,7 @@ class NominaController extends Controller
                 "nominacargo" => $nominaCargo,
                 "nominasucursal" => $nominaSucursal,
                 "id_sucursal_disponible" => $id_sucursal_disponible,
+                "activo" => $activo,
                 "id" => $id,
             ]);
 
@@ -303,6 +332,8 @@ class NominaController extends Controller
             "nominagradoinstruccion" => $arr["nominagradoinstruccion"],
             "nominacargo" => $arr["nominacargo"],
             "nominasucursal" => $arr["nominasucursal"],
+            "activo" => $arr["activo"],
+            
             "id_sucursal_disponible" => isset($arr["id_sucursal_disponible"])?$arr["id_sucursal_disponible"]:""
         ]);
     }
