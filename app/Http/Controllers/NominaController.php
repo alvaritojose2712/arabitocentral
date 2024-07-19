@@ -204,9 +204,7 @@ class NominaController extends Controller
                 return $q;
             });
 
-            $date1 = new \DateTime(date("".date('Y-m' , $q->nominafechadeingreso)."-00"));
-            $date2 = new \DateTime($today);
-            $tiempotrabajado = $date1->diff($date2);
+            
             
 
             $pagos = $q->pagos;
@@ -239,11 +237,29 @@ class NominaController extends Controller
             $diario = ($q->cargo->cargossueldo*2)/30;
             $q->diario = $diario;
 
-            if ($q->nominafechadeingreso<$today) {
+
+
+
+            $today = new \DateTime($today);
+            $iniciodelmes = new \DateTime(date("$mes-00"));
+            $fechaingreso = new \DateTime($q->nominafechadeingreso);
+            $tiempotrabajado = $iniciodelmes->diff($today);
+
+            $tiempotrabajadomes = $fechaingreso->diff($today);
+
+            if ($fechaingreso < $today && $fechaingreso < $iniciodelmes) {
                 $tiempotrabajadoVar = $tiempotrabajado->d;
-            }else{
+            }
+            else if ($fechaingreso <= $today && $fechaingreso > $iniciodelmes) {
+                $tiempotrabajadoVar = $tiempotrabajadomes->days+1;
+            }
+            else{
                 $tiempotrabajadoVar = 0;
             }
+
+
+
+            
             
             $q->tiempotrabajado = $tiempotrabajadoVar;
            // if ($tiempotrabajadoVar<=30) {
