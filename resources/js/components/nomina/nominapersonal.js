@@ -406,8 +406,16 @@ export default function NominaPersonal({
 												</td>
 												<td>{e.sucursal?e.sucursal.nombre:null}</td>
 												<td>{e.nominacedula}</td>
-												<td>{e.nominanombre}</td>
-												<td>{e.cargo.cargosdescripcion}</td>
+												<td>
+													{e.nominanombre}
+													<br />
+													<b>{e.nominafechadenacimiento}</b>
+												</td>
+												<td>
+													{e.cargo.cargosdescripcion}
+													<br />
+													<b>{e.nominafechadeingreso}</b>
+												</td>
 												<td>{moneda(e.mesantepasado)}</td>
 												<td>{moneda(e.mespasado)}</td>
 												<td>{moneda(e.mes)}</td>

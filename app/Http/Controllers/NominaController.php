@@ -204,6 +204,11 @@ class NominaController extends Controller
                 return $q;
             });
 
+            $date1 = new \DateTime($q->nominafechadeingreso);
+            $date2 = new \DateTime($today);
+            $tiempotrabajado = $date1->diff($date2);
+            
+
             $pagos = $q->pagos;
 
             $mesSum = 0;
@@ -221,16 +226,26 @@ class NominaController extends Controller
                     $mesantepasadoSum += $pago["monto"];
                 }
             }
+
+
             
             $q->mes = $mesSum;
             $q->mespasado = $mespasadoSum;
             $q->mesantepasado = $mesantepasadoSum;
 
+
+
             $q->quincena = $q->cargo->cargossueldo;
             $diario = $q->cargo->cargossueldo/30;
             $q->diario = $diario;
 
-            $q->mensual = $q->cargo->cargossueldo*2;
+            $q->tiempotrabajado = $tiempotrabajado->days;
+            if ($tiempotrabajado->days<=30) {
+                $q->mensual = $tiempotrabajado->d*$diario;
+            }else{
+                $q->mensual = $q->cargo->cargossueldo*2;
+            }
+
 
             $q->sumPagos = $pagos->sum("monto");
             $q->sumPrestamos = $q->prestamos->sum("monto");
