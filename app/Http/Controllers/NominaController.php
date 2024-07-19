@@ -236,7 +236,7 @@ class NominaController extends Controller
 
 
             $q->quincena = $q->cargo->cargossueldo;
-            $diario = $q->cargo->cargossueldo/30;
+            $diario = ($q->cargo->cargossueldo*2)/30;
             $q->diario = $diario;
 
             if ($date1<$date2) {
