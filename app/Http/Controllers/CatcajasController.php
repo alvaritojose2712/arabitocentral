@@ -9,6 +9,6 @@ use App\Http\Requests\UpdatecatcajasRequest;
 class CatcajasController extends Controller
 {
     function getCatCajas(){
-        return catcajas::all();
+        return catcajas::orderBy("nombre","asc")->get();
     }
 }
