@@ -4710,49 +4710,6 @@ function CajaMatriz(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               className: (e.montoeuro < 0 ? "text-danger" : "text-success") + " text-right",
               children: moneda(e.montoeuro)
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: selectdepositobanco == e.id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "input-group",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
-                  className: "form-control",
-                  value: bancodepositobanco,
-                  onChange: function onChange(event) {
-                    return setbancodepositobanco(event.target.value);
-                  },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
-                    value: "",
-                    children: "-BANCO-"
-                  }), opcionesMetodosPago.map(function (e) {
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
-                      value: e.id,
-                      children: e.codigo
-                    }, e.id);
-                  })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-                  type: "date",
-                  className: "form-control",
-                  value: fechadepositobanco,
-                  onChange: function onChange(event) {
-                    return setfechadepositobanco(event.target.value);
-                  }
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
-                  className: "btn btn-sinapsis",
-                  onClick: function onClick() {
-                    return depositarmatrizalbanco(e.id);
-                  },
-                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-                    className: "fa fa-paper-plane"
-                  }), " "]
-                })]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
-                className: "btn btn-sinapsis",
-                onClick: function onClick() {
-                  return setselectdepositobanco(e.id);
-                },
-                children: ["Depositar al Banco ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-                  className: "fa fa-arrow-right"
-                })]
-              })
             })]
           }, e.id);
         }) : null
@@ -8139,6 +8096,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function ControlEfectivoMatriz(_ref) {
   var controlefecQ = _ref.controlefecQ,
     setcontrolefecQ = _ref.setcontrolefecQ,
@@ -8189,7 +8147,15 @@ function ControlEfectivoMatriz(_ref) {
     formatAmount = _ref.formatAmount,
     qbuscarcat = _ref.qbuscarcat,
     setqbuscarcat = _ref.setqbuscarcat,
-    colorsGastosCat = _ref.colorsGastosCat;
+    colorsGastosCat = _ref.colorsGastosCat,
+    selectdepositobanco = _ref.selectdepositobanco,
+    bancodepositobanco = _ref.bancodepositobanco,
+    setbancodepositobanco = _ref.setbancodepositobanco,
+    opcionesMetodosPago = _ref.opcionesMetodosPago,
+    fechadepositobanco = _ref.fechadepositobanco,
+    setfechadepositobanco = _ref.setfechadepositobanco,
+    depositarmatrizalbanco = _ref.depositarmatrizalbanco,
+    setselectdepositobanco = _ref.setselectdepositobanco;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getcatsCajas();
     getNomina();
@@ -8415,7 +8381,9 @@ function ControlEfectivoMatriz(_ref) {
       className: "table",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+            children: "ORIGEN"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
             children: "CREADO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
             children: "FECHA"
@@ -8456,6 +8424,8 @@ function ControlEfectivoMatriz(_ref) {
         children: controlefecData ? controlefecData.data ? controlefecData.data.length ? controlefecData.data.map(function (e, i) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+              children: e.sucursal_origen ? e.sucursal_origen.codigo : e.sucursal.codigo
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
               className: "",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("small", {
                 className: "text-muted",
@@ -8537,12 +8507,50 @@ function ControlEfectivoMatriz(_ref) {
               className: "",
               children: moneda(e.eurobalance)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-                className: "fa fa-times text-danger",
-                onClick: function onClick() {
-                  return delCaja(e.id);
-                }
-              })
+              children: e.montobs != "0.00" && e.montobs != 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                children: selectdepositobanco == e.id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+                  className: "input-group",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("select", {
+                    className: "form-control",
+                    value: bancodepositobanco,
+                    onChange: function onChange(event) {
+                      return setbancodepositobanco(event.target.value);
+                    },
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
+                      value: "",
+                      children: "-BANCO-"
+                    }), opcionesMetodosPago.map(function (e) {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
+                        value: e.id,
+                        children: e.codigo
+                      }, e.id);
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+                    type: "date",
+                    className: "form-control",
+                    value: fechadepositobanco,
+                    onChange: function onChange(event) {
+                      return setfechadepositobanco(event.target.value);
+                    }
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+                    className: "btn btn-sinapsis",
+                    onClick: function onClick() {
+                      return depositarmatrizalbanco(e.id);
+                    },
+                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+                      className: "fa fa-paper-plane"
+                    }), " "]
+                  })]
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+                  className: "btn btn-sinapsis",
+                  onClick: function onClick() {
+                    return setselectdepositobanco(e.id);
+                  },
+                  children: ["Depositar al Banco ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+                    className: "fa fa-arrow-right"
+                  })]
+                })
+              }) : null
             })]
           }, e.id);
         }) : null : null : null
@@ -12879,21 +12887,15 @@ function EfectivoDisponibleSucursales(_ref) {
     className: "container-fluid",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "d-flex justify-content-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "btn-group m-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-          className: "btn btn-sm " + (subviewefectivoadministracion == "movdesucursalamatriz" ? "btn-sinapsis" : ""),
-          onClick: function onClick() {
-            setsubviewefectivoadministracion("movdesucursalamatriz");
-          },
-          children: "Transferencias a Matriz"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
           className: "btn btn-sm " + (subviewefectivoadministracion == "cajasucursales" ? "btn-sinapsis" : ""),
           onClick: function onClick() {
             setsubviewefectivoadministracion("cajasucursales");
           },
           children: "Disponible EFECTIVO"
-        })]
+        })
       })
     }), subviewefectivoadministracion == "cajasucursales" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
       className: "table table-striped",
@@ -13005,28 +13007,6 @@ function EfectivoDisponibleSucursales(_ref) {
           }, e.id);
         }) : null
       })]
-    }) : null, subviewefectivoadministracion == "movdesucursalamatriz" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_cajamatriz__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      sucursales: sucursales,
-      datacajamatriz: datacajamatriz,
-      colorsGastosCat: colorsGastosCat,
-      moneda: moneda,
-      depositarmatrizalbanco: depositarmatrizalbanco,
-      getCajaMatriz: getCajaMatriz,
-      qcajamatriz: qcajamatriz,
-      setqcajamatriz: setqcajamatriz,
-      sucursalqcajamatriz: sucursalqcajamatriz,
-      setsucursalqcajamatriz: setsucursalqcajamatriz,
-      fechadesdecajamatriz: fechadesdecajamatriz,
-      setfechadesdecajamatriz: setfechadesdecajamatriz,
-      fechahastacajamatriz: fechahastacajamatriz,
-      setfechahastacajamatriz: setfechahastacajamatriz,
-      bancodepositobanco: bancodepositobanco,
-      setbancodepositobanco: setbancodepositobanco,
-      fechadepositobanco: fechadepositobanco,
-      setfechadepositobanco: setfechadepositobanco,
-      selectdepositobanco: selectdepositobanco,
-      setselectdepositobanco: setselectdepositobanco,
-      opcionesMetodosPago: opcionesMetodosPago
     }) : null]
   });
 }
@@ -13219,7 +13199,14 @@ function Gastos(_ref) {
     getMovBancos = _ref.getMovBancos,
     controlbancoQSucursal = _ref.controlbancoQSucursal,
     setcontrolbancoQSucursal = _ref.setcontrolbancoQSucursal,
-    colors = _ref.colors;
+    colors = _ref.colors,
+    selectdepositobanco = _ref.selectdepositobanco,
+    bancodepositobanco = _ref.bancodepositobanco,
+    setbancodepositobanco = _ref.setbancodepositobanco,
+    fechadepositobanco = _ref.fechadepositobanco,
+    setfechadepositobanco = _ref.setfechadepositobanco,
+    depositarmatrizalbanco = _ref.depositarmatrizalbanco,
+    setselectdepositobanco = _ref.setselectdepositobanco;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getGastos();
   }, [gastosQCategoria, gastoscatgeneral, gastosingreso_egreso, gastosorder, gastosfieldorder, gastosQsucursal]);
@@ -13328,6 +13315,14 @@ function Gastos(_ref) {
       colorSucursal: colorSucursal,
       number: number
     }) : null, subviewGastos == "cargarefectivo" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_controlefectivomatriz__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      selectdepositobanco: selectdepositobanco,
+      bancodepositobanco: bancodepositobanco,
+      setbancodepositobanco: setbancodepositobanco,
+      fechadepositobanco: fechadepositobanco,
+      setfechadepositobanco: setfechadepositobanco,
+      depositarmatrizalbanco: depositarmatrizalbanco,
+      setselectdepositobanco: setselectdepositobanco,
+      opcionesMetodosPago: opcionesMetodosPago,
       colorsGastosCat: colorsGastosCat,
       qbuscarcat: qbuscarcat,
       setqbuscarcat: setqbuscarcat,
@@ -75734,6 +75729,11 @@ function Home() {
           transferirpedidoa: transferirpedidoa
         }).then(function (res) {
           getControlEfec();
+          setopenModalNuevoEfectivo(false);
+          setcontrolefecNewConcepto("");
+          setcontrolefecNewFecha("");
+          setcontrolefecNewCategoria("");
+          setcontrolefecNewMonto("");
           notificar(res.data.msj);
         });
       }
@@ -79775,7 +79775,7 @@ function Home() {
     name: "CONCILIACIÓN"
   }, {
     route: "gastos",
-    name: "GASTOS"
+    name: "FLUJO DE CAJA"
   }, {
     route: "compras",
     name: "COMPRAS"
@@ -82355,6 +82355,13 @@ function Home() {
             marcas: marcas
           }) : null]
         }), permiso([1, 2, 5, 13]) && viewmainPanel === "gastos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_52__["default"], {
+          selectdepositobanco: selectdepositobanco,
+          bancodepositobanco: bancodepositobanco,
+          setbancodepositobanco: setbancodepositobanco,
+          fechadepositobanco: fechadepositobanco,
+          setfechadepositobanco: setfechadepositobanco,
+          depositarmatrizalbanco: depositarmatrizalbanco,
+          setselectdepositobanco: setselectdepositobanco,
           colors: colors,
           setcontrolbancoQ: setcontrolbancoQ,
           controlbancoQ: controlbancoQ,

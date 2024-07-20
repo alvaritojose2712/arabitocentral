@@ -84,7 +84,7 @@ export default function EfectivoDisponibleSucursales({
         <div className="container-fluid">
             <div className="d-flex justify-content-center">
                 <div className="btn-group m-2">
-                    <button className={("btn btn-sm ")+(subviewefectivoadministracion=="movdesucursalamatriz"?"btn-sinapsis":"")} onClick={()=>{setsubviewefectivoadministracion("movdesucursalamatriz")}}>Transferencias a Matriz</button>
+                   {/*  <button className={("btn btn-sm ")+(subviewefectivoadministracion=="movdesucursalamatriz"?"btn-sinapsis":"")} onClick={()=>{setsubviewefectivoadministracion("movdesucursalamatriz")}}>Transferencias a Matriz</button> */}
                     <button className={("btn btn-sm ")+(subviewefectivoadministracion=="cajasucursales"?"btn-sinapsis":"")} onClick={()=>{setsubviewefectivoadministracion("cajasucursales")}}>Disponible EFECTIVO</button>
                   
                 </div>
@@ -156,7 +156,7 @@ export default function EfectivoDisponibleSucursales({
              :null 
             }
 
-            {
+           {/*  {
                 subviewefectivoadministracion=="movdesucursalamatriz" ?
                 <CajaMatriz
                     sucursales={sucursales}
@@ -183,7 +183,7 @@ export default function EfectivoDisponibleSucursales({
                     opcionesMetodosPago={opcionesMetodosPago}
                 />
                 :null 
-            }
+            } */}
 
            
 

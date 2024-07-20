@@ -51,6 +51,15 @@ export default function ControlEfectivoMatriz({
     qbuscarcat,
     setqbuscarcat,
     colorsGastosCat,
+
+    selectdepositobanco,
+    bancodepositobanco,
+    setbancodepositobanco,
+    opcionesMetodosPago,
+    fechadepositobanco,
+    setfechadepositobanco,
+    depositarmatrizalbanco,
+    setselectdepositobanco,
 }){ 
 
     useEffect(()=>{
@@ -221,6 +230,7 @@ export default function ControlEfectivoMatriz({
             <table className="table">
                 <thead>
                     <tr>
+                        <td>ORIGEN</td>
                         <th>CREADO</th>
                         <th>FECHA</th>
                         <th>CAT GENERAL</th>
@@ -241,6 +251,7 @@ export default function ControlEfectivoMatriz({
                 <tbody>
                     {controlefecData ? controlefecData.data ? controlefecData.data.length?
                         controlefecData.data.map((e,i)=><tr key={e.id}>
+                            <td>{e.sucursal_origen?e.sucursal_origen.codigo:e.sucursal.codigo}</td>
                             <td className=""><small className="text-muted">{e.created_at}</small></td>
                             <td className=""><small className="text-muted">{e.fecha}</small></td>
                             <td className="">
@@ -288,7 +299,28 @@ export default function ControlEfectivoMatriz({
                             <td className={("")}>{moneda(e.eurobalance)}</td>
 
 
-                            <td><i className="fa fa-times text-danger" onClick={()=>delCaja(e.id)}></i></td>
+                            <td>
+                            {e.montobs!="0.00"&&e.montobs!=0?
+                                <>
+                                    {selectdepositobanco==e.id?
+                                        <div className="input-group">
+                                            <select className="form-control" value={bancodepositobanco}  onChange={event=>setbancodepositobanco(event.target.value)}>
+                                                <option value="">-BANCO-</option>
+                                                {opcionesMetodosPago.map(e=>
+                                                    <option key={e.id} value={e.id}>{e.codigo}</option>
+                                                )}
+                                            </select>
+                                            <input type="date" className="form-control" value={fechadepositobanco}  onChange={event=>setfechadepositobanco(event.target.value)} />
+                                            <button className="btn btn-sinapsis" onClick={()=>depositarmatrizalbanco(e.id)}> <i className="fa fa-paper-plane"></i> </button>
+                                        </div>
+                                    :  
+                                        <button className="btn btn-sinapsis" onClick={()=>setselectdepositobanco(e.id)}>Depositar al Banco <i className="fa fa-arrow-right"></i></button>
+                                    }
+                                </>
+                            :null}
+
+
+                            </td>
                             
                         </tr>)
                     :null:null:null}

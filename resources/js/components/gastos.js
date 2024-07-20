@@ -185,6 +185,13 @@ export default function Gastos({
 	controlbancoQSucursal,
 	setcontrolbancoQSucursal,
 	colors,
+	selectdepositobanco,
+	bancodepositobanco,
+	setbancodepositobanco,
+	fechadepositobanco,
+	setfechadepositobanco,
+	depositarmatrizalbanco,
+	setselectdepositobanco,
 
 }) {
 
@@ -289,6 +296,15 @@ export default function Gastos({
 			:null}
 			{subviewGastos=="cargarefectivo"?
 				<ControlEfectivoMatriz
+
+					selectdepositobanco={selectdepositobanco}
+					bancodepositobanco={bancodepositobanco}
+					setbancodepositobanco={setbancodepositobanco}
+					fechadepositobanco={fechadepositobanco}
+					setfechadepositobanco={setfechadepositobanco}
+					depositarmatrizalbanco={depositarmatrizalbanco}
+					setselectdepositobanco={setselectdepositobanco}
+					opcionesMetodosPago={opcionesMetodosPago}
 					colorsGastosCat={colorsGastosCat}
 					qbuscarcat={qbuscarcat}
 					setqbuscarcat={setqbuscarcat}

@@ -15,6 +15,11 @@ class cajas extends Model
     public function sucursal() { 
         return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
     }
+    public function sucursal_origen() { 
+        return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal_origen"); 
+    }
+
+    
     
 
      protected function serializeDate(DateTimeInterface $date)
@@ -40,6 +45,7 @@ class cajas extends Model
         "fecha",
         "tipo",
         "id_sucursal",
+        "id_sucursal_origen",
         "idinsucursal",
     ];
     use HasFactory;

@@ -97,26 +97,7 @@ export default function CajaMatriz({
                                 <td className={(e.montopeso<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montopeso)}</td>
 
                                 <td className={(e.montoeuro<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montoeuro)}</td>
-                                <td>
-
-                                    {selectdepositobanco==e.id?
-                                        <div className="input-group">
-                                            <select className="form-control" value={bancodepositobanco}  onChange={event=>setbancodepositobanco(event.target.value)}>
-                                                <option value="">-BANCO-</option>
-                                                {opcionesMetodosPago.map(e=>
-                                                    <option key={e.id} value={e.id}>{e.codigo}</option>
-                                                )}
-                                            </select>
-                                            <input type="date" className="form-control" value={fechadepositobanco}  onChange={event=>setfechadepositobanco(event.target.value)} />
-                                            <button className="btn btn-sinapsis" onClick={()=>depositarmatrizalbanco(e.id)}> <i className="fa fa-paper-plane"></i> </button>
-                                        </div>
-                                    :
-                                    <button className="btn btn-sinapsis" onClick={()=>setselectdepositobanco(e.id)}>Depositar al Banco <i className="fa fa-arrow-right"></i></button>
-
-                                }
-                                
-                                
-                                </td>
+                               
                             </tr>
                         )
                     :null}

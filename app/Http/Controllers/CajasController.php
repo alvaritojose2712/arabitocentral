@@ -95,7 +95,8 @@ class CajasController extends Controller
                     "montoeuro" => abs($data["montoeuro"]),
     
                     "fecha" => $data["fecha"],
-                    "idinsucursal" => $data["id"]
+                    "idinsucursal" => $data["id"],
+                    "id_sucursal_origen" => $id_sucursal
                 ]);
             }
         }
@@ -112,7 +113,8 @@ class CajasController extends Controller
                 "montoeuro" => abs($data["montoeuro"]),
 
                 "fecha" => $data["fecha"],
-                "idinsucursal" => $data["id"]
+                "idinsucursal" => $data["id"],
+                "id_sucursal_origen" => $id_sucursal
             ]);
         }
     }
@@ -514,7 +516,7 @@ class CajasController extends Controller
 
         $controlefecSelectGeneral = $req->controlefecSelectGeneral;
 
-        $data = cajas::where("tipo",$controlefecSelectGeneral)
+        $data = cajas::with(["cat","sucursal","sucursal_origen"])->where("tipo",$controlefecSelectGeneral)
         ->when($controlefecQ,function($q) use ($controlefecQ){
             $q->orWhere("concepto",$controlefecQ);
             $q->orWhere("monto",$controlefecQ);
@@ -539,6 +541,9 @@ class CajasController extends Controller
         $montopeso = isset($arr["montopeso"])?$arr["montopeso"]:0;
         $montobs = isset($arr["montobs"])?$arr["montobs"]:0;
         $montoeuro = isset($arr["montoeuro"])?$arr["montoeuro"]:0;
+        $id_sucursal_origen = isset($arr["id_sucursal_origen"])?$arr["id_sucursal_origen"]:null;
+        
+
         $idinsucursal = isset($arr["idinsucursal"])?$arr["idinsucursal"]:($lastid?$lastid->id + 1:1);
         $fecha = $arr["fecha"];
 
@@ -559,6 +564,7 @@ class CajasController extends Controller
             "eurobalance" => 0,
             "estatus" => 1,
             "id_sucursal" => 13,
+            "id_sucursal_origen" => $id_sucursal_origen,
             "idinsucursal" => $idinsucursal,
         ] ; 
         

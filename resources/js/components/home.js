@@ -419,6 +419,11 @@ function Home() {
                   transferirpedidoa,
               }).then(res => {
                   getControlEfec()
+                  setopenModalNuevoEfectivo(false)
+                  setcontrolefecNewConcepto("")
+                  setcontrolefecNewFecha("")
+                  setcontrolefecNewCategoria("")
+                  setcontrolefecNewMonto("")
                   notificar(res.data.msj)
               })
           }
@@ -3741,7 +3746,7 @@ function formatAmount( number, simbol ) {
     },
     {
       route: "gastos",
-      name: "GASTOS"
+      name: "FLUJO DE CAJA"
     },
     {
       route: "compras",
@@ -6195,6 +6200,13 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5,13]) && viewmainPanel === "gastos" && 
             <Gastos
+              selectdepositobanco={selectdepositobanco}
+              bancodepositobanco={bancodepositobanco}
+              setbancodepositobanco={setbancodepositobanco}
+              fechadepositobanco={fechadepositobanco}
+              setfechadepositobanco={setfechadepositobanco}
+              depositarmatrizalbanco={depositarmatrizalbanco}
+              setselectdepositobanco={setselectdepositobanco}
               colors={colors}
               setcontrolbancoQ={setcontrolbancoQ}
               controlbancoQ={controlbancoQ}
