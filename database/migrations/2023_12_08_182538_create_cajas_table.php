@@ -35,6 +35,7 @@ class CreateCajasTable extends Migration
             $table->integer("tipo"); //0 chica // 1 Fuerte  
             
             $table->integer("id_sucursal_origen")->nullable();
+            $table->integer("id_sucursal_deposito")->nullable();
             $table->integer("idinsucursal");  
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');

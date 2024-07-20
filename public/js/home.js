@@ -76373,6 +76373,22 @@ function Home() {
     61: {
       color: "#ffff00",
       desc: "CAJA FUERTE: NOMINA PRESTACIONES SOCIALES"
+    },
+    62: {
+      color: "#ffff00",
+      desc: "CAJA FUERTE: SERVICIOS: VIGILANCIA"
+    },
+    63: {
+      color: "#ffff00",
+      desc: "CAJA MATRIZ: COMISION DIFERENCIA DE TASA"
+    },
+    64: {
+      color: "#ffff00",
+      desc: "CAJA MATRIZ: COMPRA DE DIVISAS"
+    },
+    65: {
+      color: "#ffff00",
+      desc: "CAJA MATRIZ: DEPOSITO A BANCO"
     }
   };
   var colorCatGeneral = {

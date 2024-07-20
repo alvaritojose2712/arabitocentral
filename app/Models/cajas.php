@@ -47,6 +47,7 @@ class cajas extends Model
         "id_sucursal",
         "id_sucursal_origen",
         "idinsucursal",
+        "id_sucursal_deposito",
     ];
     use HasFactory;
 }
