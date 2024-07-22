@@ -363,6 +363,8 @@ Route::post('setControlEfec', [CajasController::class,"setControlEfec"]);
 Route::get('getMetodosPago', [BancosListController::class,"getMetodosPago"]);
 Route::get('getBancosData', [BancosController::class,"getBancosData"]);
 Route::post('getMovBancos', [PuntosybiopagosController::class,"getMovBancos"]);
+Route::post('saveNewmovnoreportado', [PuntosybiopagosController::class,"saveNewmovnoreportado"]);
+
 
 
 

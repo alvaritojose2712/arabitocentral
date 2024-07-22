@@ -12,6 +12,7 @@ use App\Models\sucursal;
 use App\Http\Requests\StorepuntosybiopagosRequest;
 use App\Http\Requests\UpdatepuntosybiopagosRequest;
 use Illuminate\Http\Request;
+use Response;
 
 
 class PuntosybiopagosController extends Controller
@@ -393,6 +394,42 @@ class PuntosybiopagosController extends Controller
             "distribucionGastosSucursal" => $distribucionGastosSucursalMod,
             "pagoproveedor" => $pagoproveedor,
         ];
+    }
+
+    function saveNewmovnoreportado(Request $req) {
+        try {
+            $newmovnoreportadomonto = $req->newmovnoreportadomonto;
+            $newmovnoreportadobanco = $req->newmovnoreportadobanco;
+            $newmovnoreportadofecha = $req->newmovnoreportadofecha;
+            $newmovnoreportadoref = $req->newmovnoreportadoref;
+    
+            $id_cat_noportada = 66;
+            $newmovnoreportado = puntosybiopagos::updateOrCreate(["id"=>null],[
+                "loteserial" => $newmovnoreportadoref." NO REPORTADA",
+                "banco" => $newmovnoreportadobanco,
+                "categoria" => $id_cat_noportada,
+                "fecha" => null,
+                "fecha_liquidacion" => $newmovnoreportadofecha,
+                "tipo" => "Transferencia",
+    
+                "id_sucursal" => 13,
+                "id_beneficiario" => null,
+                "tasa" => null,
+                
+                "monto" => null,
+                "monto_liquidado" => $newmovnoreportadomonto,
+                "monto_dolar" => null,
+    
+                "origen" => 2,
+                "id_usuario" => 1,
+            ]);
+    
+            if ($newmovnoreportado) {
+                return Response::json(["estado" => true,"msj"=>"Éxito"]);
+            }
+        } catch (\Exception $e) {
+            return Response::json(["estado" => false,"msj"=>"Error: ",$e->getMessage()]);
+        }
     }
 
     function autoliquidarTransferencia(Request $req) {

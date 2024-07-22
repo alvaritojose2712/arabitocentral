@@ -68,6 +68,7 @@ class BancosController extends Controller
 
         $puntosybiopagos = puntosybiopagos::with("sucursal")
         ->whereNotIn("banco",["EFECTIVO"])
+        ->where("categoria","<>",66) //no considerar transferencia no reportada
         ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
             $q->whereIn("banco",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
         })
@@ -92,6 +93,10 @@ class BancosController extends Controller
             $q->where("id_sucursal",$sucursalSelectAuditoria);
         })
         ->orderBy($columnOrder,$order);
+
+        $movsnoreportados = puntosybiopagos::where("categoria",66)->whereNull("fecha")->get();
+        $movsnoreportadossum = $movsnoreportados->sum("monto_liquidado");
+
 
 
 
@@ -300,9 +305,13 @@ class BancosController extends Controller
                         $ingresoBanco += $e["monto_liquidado"];
                     }
                 }
+                $noreportadaList = puntosybiopagos::where("categoria",66)->whereNull("fecha")->where("fecha_liquidacion",$KeyfechasGroup)->get();
+                $noreportadasum = $noreportadaList->sum("monto_liquidado"); 
+
                 $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("banco",$KeybancoGroup)->first();
                 $inicial = $this->getSaldoInicialBanco($KeyfechasGroup,$KeybancoGroup);
-                $balance = $ingresoBanco+$egresoBanco+$inicial;
+                $balance = $ingresoBanco+$egresoBanco+$inicial+$noreportadasum;
+
 
                 $cuadre = $q_banco? $q_banco->saldo_real_manual - $balance: 0;
                 array_push($xfechaCuadre, [
@@ -313,6 +322,8 @@ class BancosController extends Controller
                     "egreso" => $egresoBanco,
                     "inicial" => $inicial, 
                     "balance" => $balance, 
+                    "noreportadaList" => $noreportadaList, 
+                    "noreportadasum" => $noreportadasum, 
 
                     "guardado" => $q_banco, 
                     "saldoactual" => $q_banco? $q_banco->saldo: 0, 
@@ -323,12 +334,17 @@ class BancosController extends Controller
 
             }
         }
+
+        array_multisort(array_column($xfechaCuadre, "fecha"), SORT_ASC, $xfechaCuadre);
+
        
 
         return [
             "xfechaCuadre" => $xfechaCuadre,
             "puntosybiopagosxbancos" => $bancosSum,
             "sum" => $sum_cuadre,
+            "movsnoreportados" => $movsnoreportados,
+            "movsnoreportadossum" => $movsnoreportadossum,
             "xliquidar" => $puntosybiopagos->get(), 
             "estado" => true,
             "view" => $subviewAuditoria,

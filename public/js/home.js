@@ -2950,7 +2950,18 @@ function Auditoria(_ref) {
     setfechahastaauditoriaefec = _ref.setfechahastaauditoriaefec,
     setqcajaauditoriaefectivo = _ref.setqcajaauditoriaefectivo,
     qcajaauditoriaefectivo = _ref.qcajaauditoriaefectivo,
-    dataAuditoriaEfectivo = _ref.dataAuditoriaEfectivo;
+    dataAuditoriaEfectivo = _ref.dataAuditoriaEfectivo,
+    setshownewmovnoreportado = _ref.setshownewmovnoreportado,
+    shownewmovnoreportado = _ref.shownewmovnoreportado,
+    saveNewmovnoreportado = _ref.saveNewmovnoreportado,
+    newmovnoreportadomonto = _ref.newmovnoreportadomonto,
+    setnewmovnoreportadomonto = _ref.setnewmovnoreportadomonto,
+    newmovnoreportadobanco = _ref.newmovnoreportadobanco,
+    setnewmovnoreportadobanco = _ref.setnewmovnoreportadobanco,
+    newmovnoreportadofecha = _ref.newmovnoreportadofecha,
+    setnewmovnoreportadofecha = _ref.setnewmovnoreportadofecha,
+    newmovnoreportadoref = _ref.newmovnoreportadoref,
+    setnewmovnoreportadoref = _ref.setnewmovnoreportadoref;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getMetodosPago();
     getBancosData();
@@ -3585,16 +3596,119 @@ function Auditoria(_ref) {
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
               className: "col-md-auto",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
-                className: "btn btn-success",
-                onClick: function onClick() {
-                  return setshowautoliquidar(!showautoliquidar);
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-                  className: "fa fa-eye"
-                }), " AutoLiquidar"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "btn-group",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                  className: "btn btn-sinapsis",
+                  onClick: function onClick() {
+                    return setshownewmovnoreportado(!shownewmovnoreportado);
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                    className: "fa fa-paper"
+                  }), " MOV. NO REPORTADO"]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                  className: "btn btn-success",
+                  onClick: function onClick() {
+                    return setshowautoliquidar(!showautoliquidar);
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                    className: "fa fa-eye"
+                  }), " AutoLiquidar"]
+                })]
               })
             })]
+          }), shownewmovnoreportado && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "container",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
+              className: "card p-3 m-3",
+              onSubmit: function onSubmit(event) {
+                event.preventDefault();
+                saveNewmovnoreportado();
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "text-center",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "h3",
+                  children: "MOVIMIENTO "
+                }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                  className: " h3 fw-bold",
+                  children: ["NO REPORTADO ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                    className: "fa fa-exclamation-triangle"
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "form-label fw-bold fs-4",
+                  children: "Referencia"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                  type: "text",
+                  placeholder: "REF",
+                  className: "form-control form-control-lg",
+                  value: newmovnoreportadoref,
+                  onChange: function onChange(e) {
+                    return setnewmovnoreportadoref(e.target.value);
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "form-label fw-bold fs-4 text-danger",
+                  children: "Monto Bs "
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                  type: "text",
+                  className: "form-control text-danger fs-2",
+                  value: newmovnoreportadomonto,
+                  onChange: function onChange(e) {
+                    return setnewmovnoreportadomonto(formatAmount(e.target.value, "Bs. "));
+                  },
+                  placeholder: "Monto Bs"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "form-label fw-bold fs-4",
+                  children: "Banco"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
+                  className: "form-control form-control-lg",
+                  value: newmovnoreportadobanco,
+                  onChange: function onChange(e) {
+                    return setnewmovnoreportadobanco(e.target.value);
+                  },
+                  required: true,
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                    value: "",
+                    children: "-"
+                  }), opcionesMetodosPago.filter(function (e) {
+                    return e.codigo != "EFECTIVO";
+                  }).map(function (e) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                      value: e.codigo,
+                      children: e.descripcion
+                    }, e.id);
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "form-label fw-bold fs-4",
+                  children: "Fecha Liquidado"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                  type: "date",
+                  className: "form-control form-control-lg",
+                  value: newmovnoreportadofecha,
+                  onChange: function onChange(e) {
+                    return setnewmovnoreportadofecha(e.target.value);
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "text-center p-3",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                  className: "btn btn-success",
+                  children: "GUARDAR"
+                })
+              })]
+            })
           }), showautoliquidar ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "input-group",
@@ -24628,6 +24742,9 @@ var db = (_db = {
   },
   getMovBancos: function getMovBancos(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "getMovBancos", data);
+  },
+  saveNewmovnoreportado: function saveNewmovnoreportado(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "saveNewmovnoreportado", data);
   },
   sendMovimientoBanco: function sendMovimientoBanco(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "sendMovimientoBanco", data);
@@ -76389,6 +76506,10 @@ function Home() {
     65: {
       color: "#ffff00",
       desc: "CAJA MATRIZ: DEPOSITO A BANCO"
+    },
+    66: {
+      color: "#d9ead3",
+      desc: "CAJA MATRIZ: TRANSFERENCIA ADICIONAL"
     }
   };
   var colorCatGeneral = {
@@ -81012,30 +81133,68 @@ function Home() {
         break;
     }
   };
-  var _useState909 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState909 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
     _useState910 = _slicedToArray(_useState909, 2),
-    qauditoriaefectivo = _useState910[0],
-    setqauditoriaefectivo = _useState910[1];
+    shownewmovnoreportado = _useState910[0],
+    setshownewmovnoreportado = _useState910[1];
   var _useState911 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState912 = _slicedToArray(_useState911, 2),
-    sucursalqauditoriaefectivo = _useState912[0],
-    setsucursalqauditoriaefectivo = _useState912[1];
+    newmovnoreportadoref = _useState912[0],
+    setnewmovnoreportadoref = _useState912[1];
   var _useState913 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState914 = _slicedToArray(_useState913, 2),
-    fechadesdeauditoriaefec = _useState914[0],
-    setfechadesdeauditoriaefec = _useState914[1];
+    newmovnoreportadomonto = _useState914[0],
+    setnewmovnoreportadomonto = _useState914[1];
   var _useState915 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState916 = _slicedToArray(_useState915, 2),
-    fechahastaauditoriaefec = _useState916[0],
-    setfechahastaauditoriaefec = _useState916[1];
-  var _useState917 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    newmovnoreportadobanco = _useState916[0],
+    setnewmovnoreportadobanco = _useState916[1];
+  var _useState917 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState918 = _slicedToArray(_useState917, 2),
-    dataAuditoriaEfectivo = _useState918[0],
-    setdataAuditoriaEfectivo = _useState918[1];
-  var _useState919 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(1),
+    newmovnoreportadofecha = _useState918[0],
+    setnewmovnoreportadofecha = _useState918[1];
+  var saveNewmovnoreportado = function saveNewmovnoreportado() {
+    if (newmovnoreportadoref || newmovnoreportadomonto || newmovnoreportadobanco || newmovnoreportadofecha) {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].saveNewmovnoreportado({
+        newmovnoreportadoref: newmovnoreportadoref,
+        newmovnoreportadomonto: removeMoneda(newmovnoreportadomonto),
+        newmovnoreportadobanco: newmovnoreportadobanco,
+        newmovnoreportadofecha: newmovnoreportadofecha
+      }).then(function (res) {
+        if (res.data.estado) {
+          setnewmovnoreportadomonto("");
+          setnewmovnoreportadobanco("");
+          setnewmovnoreportadofecha("");
+          setshownewmovnoreportado(false);
+        }
+        notificar(res);
+      });
+    }
+  };
+  var _useState919 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState920 = _slicedToArray(_useState919, 2),
-    qcajaauditoriaefectivo = _useState920[0],
-    setqcajaauditoriaefectivo = _useState920[1];
+    qauditoriaefectivo = _useState920[0],
+    setqauditoriaefectivo = _useState920[1];
+  var _useState921 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState922 = _slicedToArray(_useState921, 2),
+    sucursalqauditoriaefectivo = _useState922[0],
+    setsucursalqauditoriaefectivo = _useState922[1];
+  var _useState923 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState924 = _slicedToArray(_useState923, 2),
+    fechadesdeauditoriaefec = _useState924[0],
+    setfechadesdeauditoriaefec = _useState924[1];
+  var _useState925 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState926 = _slicedToArray(_useState925, 2),
+    fechahastaauditoriaefec = _useState926[0],
+    setfechahastaauditoriaefec = _useState926[1];
+  var _useState927 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState928 = _slicedToArray(_useState927, 2),
+    dataAuditoriaEfectivo = _useState928[0],
+    setdataAuditoriaEfectivo = _useState928[1];
+  var _useState929 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(1),
+    _useState930 = _slicedToArray(_useState929, 2),
+    qcajaauditoriaefectivo = _useState930[0],
+    setqcajaauditoriaefectivo = _useState930[1];
   var getAuditoriaEfec = function getAuditoriaEfec() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getAuditoriaEfec({
       qauditoriaefectivo: qauditoriaefectivo,
@@ -81047,22 +81206,22 @@ function Home() {
       setdataAuditoriaEfectivo(res.data);
     });
   };
-  var _useState921 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState922 = _slicedToArray(_useState921, 2),
-    sucursalqcuadregeneral = _useState922[0],
-    setsucursalqcuadregeneral = _useState922[1];
-  var _useState923 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState924 = _slicedToArray(_useState923, 2),
-    fechadesdeqcuadregeneral = _useState924[0],
-    setfechadesdeqcuadregeneral = _useState924[1];
-  var _useState925 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState926 = _slicedToArray(_useState925, 2),
-    fechahastaqcuadregeneral = _useState926[0],
-    setfechahastaqcuadregeneral = _useState926[1];
-  var _useState927 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-    _useState928 = _slicedToArray(_useState927, 2),
-    datacuadregeneral = _useState928[0],
-    setdatacuadregeneral = _useState928[1];
+  var _useState931 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState932 = _slicedToArray(_useState931, 2),
+    sucursalqcuadregeneral = _useState932[0],
+    setsucursalqcuadregeneral = _useState932[1];
+  var _useState933 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState934 = _slicedToArray(_useState933, 2),
+    fechadesdeqcuadregeneral = _useState934[0],
+    setfechadesdeqcuadregeneral = _useState934[1];
+  var _useState935 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState936 = _slicedToArray(_useState935, 2),
+    fechahastaqcuadregeneral = _useState936[0],
+    setfechahastaqcuadregeneral = _useState936[1];
+  var _useState937 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState938 = _slicedToArray(_useState937, 2),
+    datacuadregeneral = _useState938[0],
+    setdatacuadregeneral = _useState938[1];
   var getCuadreGeneral = function getCuadreGeneral() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getCuadreGeneral({
       sucursalqcuadregeneral: sucursalqcuadregeneral,
@@ -81072,22 +81231,22 @@ function Home() {
       setdatacuadregeneral(res.data);
     });
   };
-  var _useState929 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState930 = _slicedToArray(_useState929, 2),
-    sucursalBalanceGeneral = _useState930[0],
-    setsucursalBalanceGeneral = _useState930[1];
-  var _useState931 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState932 = _slicedToArray(_useState931, 2),
-    fechaBalanceGeneral = _useState932[0],
-    setfechaBalanceGeneral = _useState932[1];
-  var _useState933 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState934 = _slicedToArray(_useState933, 2),
-    fechaHastaBalanceGeneral = _useState934[0],
-    setfechaHastaBalanceGeneral = _useState934[1];
-  var _useState935 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-    _useState936 = _slicedToArray(_useState935, 2),
-    balanceGeneralData = _useState936[0],
-    setbalanceGeneralData = _useState936[1];
+  var _useState939 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState940 = _slicedToArray(_useState939, 2),
+    sucursalBalanceGeneral = _useState940[0],
+    setsucursalBalanceGeneral = _useState940[1];
+  var _useState941 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState942 = _slicedToArray(_useState941, 2),
+    fechaBalanceGeneral = _useState942[0],
+    setfechaBalanceGeneral = _useState942[1];
+  var _useState943 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState944 = _slicedToArray(_useState943, 2),
+    fechaHastaBalanceGeneral = _useState944[0],
+    setfechaHastaBalanceGeneral = _useState944[1];
+  var _useState945 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState946 = _slicedToArray(_useState945, 2),
+    balanceGeneralData = _useState946[0],
+    setbalanceGeneralData = _useState946[1];
   var getBalanceGeneral = function getBalanceGeneral() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getBalanceGeneral({
       sucursalBalanceGeneral: sucursalBalanceGeneral,
@@ -81281,6 +81440,17 @@ function Home() {
           setviewmainPanel: setviewmainPanel,
           viewmainPanel: viewmainPanel
         }), permiso([1, 2, 3, 6]) && viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_34__["default"], {
+          newmovnoreportadoref: newmovnoreportadoref,
+          setnewmovnoreportadoref: setnewmovnoreportadoref,
+          setshownewmovnoreportado: setshownewmovnoreportado,
+          shownewmovnoreportado: shownewmovnoreportado,
+          saveNewmovnoreportado: saveNewmovnoreportado,
+          newmovnoreportadomonto: newmovnoreportadomonto,
+          setnewmovnoreportadomonto: setnewmovnoreportadomonto,
+          newmovnoreportadobanco: newmovnoreportadobanco,
+          setnewmovnoreportadobanco: setnewmovnoreportadobanco,
+          newmovnoreportadofecha: newmovnoreportadofecha,
+          setnewmovnoreportadofecha: setnewmovnoreportadofecha,
           getAuditoriaEfec: getAuditoriaEfec,
           qauditoriaefectivo: qauditoriaefectivo,
           setqauditoriaefectivo: setqauditoriaefectivo,

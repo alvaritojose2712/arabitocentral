@@ -109,6 +109,19 @@ export default function Auditoria({
     setqcajaauditoriaefectivo,
     qcajaauditoriaefectivo,
     dataAuditoriaEfectivo,
+
+    setshownewmovnoreportado,
+    shownewmovnoreportado,
+    saveNewmovnoreportado,
+    newmovnoreportadomonto,
+    setnewmovnoreportadomonto,
+    newmovnoreportadobanco,
+    setnewmovnoreportadobanco,
+    newmovnoreportadofecha,
+    setnewmovnoreportadofecha,
+
+    newmovnoreportadoref,
+    setnewmovnoreportadoref,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -544,9 +557,52 @@ export default function Auditoria({
 
                                         </div>
                                         <div className="col-md-auto">
-                                            <button className="btn btn-success" onClick={()=>setshowautoliquidar(!showautoliquidar)}><i className="fa fa-eye"></i> AutoLiquidar</button>
+                                            <div className="btn-group">
+                                                <button className="btn btn-sinapsis" onClick={()=>setshownewmovnoreportado(!shownewmovnoreportado)}><i className="fa fa-paper"></i> MOV. NO REPORTADO</button>
+                                                <button className="btn btn-success" onClick={()=>setshowautoliquidar(!showautoliquidar)}><i className="fa fa-eye"></i> AutoLiquidar</button>
+
+                                            </div>
                                         </div>
                                     </div>
+                                    {shownewmovnoreportado&&
+                                        <div className="container">
+                                            <form className="card p-3 m-3" onSubmit={event=>{event.preventDefault();saveNewmovnoreportado()}}>
+                                                <div className="text-center">
+                                                    <span className="h3">MOVIMIENTO </span> <span className=" h3 fw-bold">NO REPORTADO <i className="fa fa-exclamation-triangle"></i></span>
+                                                </div>
+                                                
+                                                <div className="form-group">
+                                                    <span className="form-label fw-bold fs-4">Referencia</span>
+                                                    <input type="text" placeholder="REF" className="form-control form-control-lg" value={newmovnoreportadoref} onChange={e=>setnewmovnoreportadoref(e.target.value)} />
+                                                </div>
+                                                <div className="form-group">
+                                                    <span className="form-label fw-bold fs-4 text-danger">Monto Bs </span>
+                                                    <input type="text" className="form-control text-danger fs-2" value={newmovnoreportadomonto} onChange={e=>setnewmovnoreportadomonto(formatAmount(e.target.value,"Bs. "))} placeholder="Monto Bs" />
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <span className="form-label fw-bold fs-4">Banco</span>
+                                                    <select className="form-control form-control-lg" 
+                                                    value={newmovnoreportadobanco} 
+                                                    onChange={e=>setnewmovnoreportadobanco(e.target.value)} required={true}>
+                                                        <option value="">-</option>
+                                                        {opcionesMetodosPago.filter(e=>e.codigo!="EFECTIVO").map(e=>
+                                                            <option value={e.codigo} key={e.id}>{e.descripcion}</option>
+                                                        )}
+                                                    </select>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <span className="form-label fw-bold fs-4">Fecha Liquidado</span>
+                                                    <input type="date" className="form-control form-control-lg" value={newmovnoreportadofecha} onChange={e=>setnewmovnoreportadofecha(e.target.value)} />
+                                                </div>
+
+                                                <div className="text-center p-3">
+                                                    <button className="btn btn-success">GUARDAR</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    }
                                     {showautoliquidar?<div>
                                         <hr />
 

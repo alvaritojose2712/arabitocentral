@@ -736,6 +736,9 @@ function Home() {
     63:	{color:"#ffff00", desc:"CAJA MATRIZ: COMISION DIFERENCIA DE TASA"},
     64:	{color:"#ffff00", desc:"CAJA MATRIZ: COMPRA DE DIVISAS"},
     65:	{color:"#ffff00", desc:"CAJA MATRIZ: DEPOSITO A BANCO"},
+
+    66:	{color: "#d9ead3",	desc:"CAJA MATRIZ: TRANSFERENCIA ADICIONAL"},
+    
   }
   
   
@@ -4655,6 +4658,35 @@ function formatAmount( number, simbol ) {
 
   }
 
+  const [shownewmovnoreportado, setshownewmovnoreportado] = useState(false)
+  const [newmovnoreportadoref, setnewmovnoreportadoref] = useState("")
+  const [newmovnoreportadomonto, setnewmovnoreportadomonto] = useState("")
+  const [newmovnoreportadobanco, setnewmovnoreportadobanco] = useState("")
+  const [newmovnoreportadofecha, setnewmovnoreportadofecha] = useState("")
+  
+  const saveNewmovnoreportado = () => {
+    if (
+      newmovnoreportadoref ||
+      newmovnoreportadomonto ||
+      newmovnoreportadobanco ||
+      newmovnoreportadofecha
+    ) {
+      db.saveNewmovnoreportado({
+        newmovnoreportadoref,
+        newmovnoreportadomonto: removeMoneda(newmovnoreportadomonto),
+        newmovnoreportadobanco,
+        newmovnoreportadofecha,
+      }).then(res=>{
+        if (res.data.estado) {
+          setnewmovnoreportadomonto("")
+          setnewmovnoreportadobanco("")
+          setnewmovnoreportadofecha("")
+          setshownewmovnoreportado(false)
+        }
+        notificar(res)
+      })
+    }
+  }
   
   const [qauditoriaefectivo,setqauditoriaefectivo] = useState("")
   const [sucursalqauditoriaefectivo,setsucursalqauditoriaefectivo] = useState("")
@@ -4975,6 +5007,18 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
             <Auditoria
+              newmovnoreportadoref={newmovnoreportadoref}
+              setnewmovnoreportadoref={setnewmovnoreportadoref}
+              setshownewmovnoreportado={setshownewmovnoreportado}
+              shownewmovnoreportado={shownewmovnoreportado}
+              saveNewmovnoreportado={saveNewmovnoreportado}
+              newmovnoreportadomonto={newmovnoreportadomonto}
+              setnewmovnoreportadomonto={setnewmovnoreportadomonto}
+              newmovnoreportadobanco={newmovnoreportadobanco}
+              setnewmovnoreportadobanco={setnewmovnoreportadobanco}
+              newmovnoreportadofecha={newmovnoreportadofecha}
+              setnewmovnoreportadofecha={setnewmovnoreportadofecha}
+
               getAuditoriaEfec={getAuditoriaEfec}
               qauditoriaefectivo={qauditoriaefectivo}
               setqauditoriaefectivo={setqauditoriaefectivo}

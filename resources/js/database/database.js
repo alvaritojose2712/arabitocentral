@@ -36,6 +36,8 @@ const db = {
   getMetodosPago: data=>axios.get(host+"getMetodosPago",{params:data}),
   getBancosData: data=>axios.get(host+"getBancosData",{params:data}),
   getMovBancos: data=>axios.post(host+"getMovBancos",data),
+  saveNewmovnoreportado: data=>axios.post(host+"saveNewmovnoreportado",data),
+  
   
   sendMovimientoBanco: data=>axios.post(host+"sendMovimientoBanco",data),
   
