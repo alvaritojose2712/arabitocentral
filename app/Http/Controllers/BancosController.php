@@ -94,7 +94,7 @@ class BancosController extends Controller
         })
         ->orderBy($columnOrder,$order);
 
-        $movsnoreportados = puntosybiopagos::where("categoria",66)->whereNull("fecha")->get();
+        $movsnoreportados = puntosybiopagos::with("sucursal")->where("categoria",66)->whereNull("fecha")->where("fecha_liquidacion",$qfechabancosdata)->get();
         $movsnoreportadossum = $movsnoreportados->sum("monto_liquidado");
 
 
@@ -300,9 +300,9 @@ class BancosController extends Controller
                 $egresoBanco = 0;
                 foreach ($bancosGroup as $i => $e) {
                     if ($e["monto_liquidado"] < 0) {
-                        $egresoBanco += $e["monto_liquidado"];
+                        $egresoBanco += $e["monto"];
                     }else{
-                        $ingresoBanco += $e["monto_liquidado"];
+                        $ingresoBanco += $e["monto"];
                     }
                 }
                 $noreportadaList = puntosybiopagos::where("categoria",66)->whereNull("fecha")->where("fecha_liquidacion",$KeyfechasGroup)->get();
@@ -345,7 +345,7 @@ class BancosController extends Controller
             "sum" => $sum_cuadre,
             "movsnoreportados" => $movsnoreportados,
             "movsnoreportadossum" => $movsnoreportadossum,
-            "xliquidar" => $puntosybiopagos->get(), 
+            "xliquidar" => $puntosybiopagos->get()->merge($movsnoreportados), 
             "estado" => true,
             "view" => $subviewAuditoria,
         ];

@@ -323,6 +323,8 @@ Route::post('sendComprasFats', [CuentasporpagarFisicasController::class,"sendCom
 Route::post('sendMovimientoBanco', [PuntosybiopagosController::class,"sendMovimientoBanco"]);
 Route::post('sendDescuentoGeneralFats', [CuentasporpagarController::class,"sendDescuentoGeneralFats"]);
 Route::post('liquidarMov', [PuntosybiopagosController::class,"liquidarMov"]);
+Route::post('reportarMov', [PuntosybiopagosController::class,"reportarMov"]);
+
 Route::post('autoliquidarTransferencia', [PuntosybiopagosController::class,"autoliquidarTransferencia"]);
 
 Route::post('changeBank', [PuntosybiopagosController::class,"changeBank"]);

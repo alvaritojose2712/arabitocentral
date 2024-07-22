@@ -3795,6 +3795,7 @@ function formatAmount( number, simbol ) {
     },
 
   ]
+  
 
  
 
@@ -3895,6 +3896,19 @@ function formatAmount( number, simbol ) {
 
       })
     }
+  }
+
+  const [inpmontoNoreportado,setinpmontoNoreportado] = useState("")
+  const [inpfechaNoreportado,setinpfechaNoreportado] = useState("")
+
+  const reportarMov = id => {
+    db.reportarMov({
+      inpmontoNoreportado,
+      inpfechaNoreportado,
+      id,
+    }).then(res=>{
+      
+    })
   }
 
   const changeBank = (id,type) => {
@@ -5007,6 +5021,13 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
             <Auditoria
+
+              inpmontoNoreportado={inpmontoNoreportado}
+              setinpmontoNoreportado={setinpmontoNoreportado}
+              inpfechaNoreportado={inpfechaNoreportado}
+              setinpfechaNoreportado={setinpfechaNoreportado}
+              reportarMov={reportarMov}
+
               newmovnoreportadoref={newmovnoreportadoref}
               setnewmovnoreportadoref={setnewmovnoreportadoref}
               setshownewmovnoreportado={setshownewmovnoreportado}

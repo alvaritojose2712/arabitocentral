@@ -122,6 +122,12 @@ export default function Auditoria({
 
     newmovnoreportadoref,
     setnewmovnoreportadoref,
+
+    inpmontoNoreportado,
+    setinpmontoNoreportado,
+    inpfechaNoreportado,
+    setinpfechaNoreportado,
+    reportarMov,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -664,7 +670,13 @@ export default function Auditoria({
                                                 <th className="pointer" onDoubleClick={()=>changeBank(e.id,"debito_credito")} >
                                                     <span >{e.debito_credito}</span> 
                                                 </th>
-                                                <th>{e.fecha}</th>
+                                                <th>
+                                                    {e.fecha?
+                                                        e.fecha
+                                                        :
+                                                        <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
+                                                    }
+                                                </th>
                                                 <th>{e.fecha_liquidacion}</th>
                                                 <th><button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button></th>
                                                 <th> 
@@ -679,11 +691,20 @@ export default function Auditoria({
                                                 </th>
                                                 <th>{moneda(e.monto_liquidado)}</th>
                                                 <th>
-                                                    {selectTrLiquidar===i?
+
+                                                    {selectTrLiquidar===i && e.fecha?
                                                         <div className="input-group-vertical">
-                                                            <input type="text" className="form-control" value={inpmontoLiquidar} placeholder="Monto Liquidado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
+                                                            <input type="text" className="form-control" value={inpmontoLiquidar} placeholder="Monto Reportado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
                                                             <input type="date" className="form-control" value={inpfechaLiquidar} onChange={event=>setinpfechaLiquidar(event.target.value)}/>
                                                             <button className="btn btn-warning w-100" onClick={()=>liquidarMov(e.id)}>LIQUIDAR <i className="fa fa-send"></i></button>
+                                                        </div>
+                                                    :null}
+
+                                                    {selectTrLiquidar===i && !e.fecha && !e.id_noreportada?
+                                                        <div className="input-group-vertical">
+                                                            <input type="text" className="form-control" value={inpmontoNoreportado} placeholder="Monto Liquidado" onChange={event=>setinpmontoNoreportado(event.target.value)}/>
+                                                            <input type="date" className="form-control" value={inpfechaNoreportado} onChange={event=>setinpfechaNoreportado(event.target.value)}/>
+                                                            <button className="btn btn-danger w-100" onClick={()=>reportarMov(e.id)}>REPORTAR <i className="fa fa-send"></i></button>
                                                         </div>
                                                     :null}
                                                 </th>
@@ -727,7 +748,9 @@ export default function Auditoria({
                                             <th className="bg-success-light">CUADRE REAL</th>
                                             <th>SALDO INCIAL</th>
                                             <th>INGRESO</th>
+                                            <th>NO REPORTADO <i className="fa fa-exclamation-triangle"></i></th>
                                             <th>EGRESO</th>
+                                            
                                             <th className="bg-success-light">CUADRE DIGITAL</th>
                                             <th className="text-right">CONCILIACIÓN</th>
                                         </tr>
@@ -758,7 +781,9 @@ export default function Auditoria({
                                                 </th>
                                                 <th className="bg-warning-light">{moneda(e.inicial)}</th>
                                                 <th className="bg-success-light">{moneda(e.ingreso)}</th>
+                                                <th className="">{moneda(e.noreportadasum)}</th>
                                                 <th className="bg-danger-light">{moneda(e.egreso)}</th>
+                                                
                                                 <th className="bg-success-light">{moneda(e.balance)}</th>
                                                 <th className={(e.cuadre>-200 && e.cuadre<200?"bg-success text-light":"bg-danger text-light")+" fs-3 text-right"}>{moneda(e.cuadre)}</th>
 
@@ -769,7 +794,7 @@ export default function Auditoria({
                                         <tr>
                                             <td></td>
                                             <td></td>
-                                            <td colSpan={6} className={(bancosdata.sum>-200 && bancosdata.sum<200?"bg-success text-light":"bg-danger text-light")+" fs-1 text-right"}>{moneda(bancosdata.sum)}</td>
+                                            <td colSpan={7} className={(bancosdata.sum>-200 && bancosdata.sum<200?"bg-success text-light":"bg-danger text-light")+" fs-1 text-right"}>{moneda(bancosdata.sum)}</td>
                                         </tr>
                                     </tbody>
                                 </table>
