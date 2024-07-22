@@ -340,7 +340,7 @@ Route::post('getAlquileres', [AlquileresController::class,"getAlquileres"]);
 Route::post('setNewAlquiler', [AlquileresController::class,"setNewAlquiler"]);
 Route::post('delAlquiler', [AlquileresController::class,"delAlquiler"]);
 
-Route::get('pos', function() {
+/* Route::get('pos', function() {
 
     $arr = [
         ["0108","2024-07-03","2298.98"],
@@ -418,7 +418,7 @@ Route::get('pos', function() {
     }
     
 });
-
+ */
 
 ///END ALQUILERES
 
