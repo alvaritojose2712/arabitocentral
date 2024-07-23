@@ -314,10 +314,10 @@ class BancosController extends Controller
                         $ingresoBanco += $e["monto"];
                     }
                 }
-                $noreportadaList = puntosybiopagos::where("categoria",66)->where("fecha_liquidacion",$KeyfechasGroup)->get();
+                $noreportadaList = puntosybiopagos::where("categoria",66)->where("banco",$KeybancoGroup)->where("fecha_liquidacion",$KeyfechasGroup)->get();
                 $noreportadasum = $noreportadaList->sum("monto_liquidado"); 
 
-                $sireportadaList = puntosybiopagos::where("categoria",66)->where("fecha",$KeyfechasGroup)->get();
+                $sireportadaList = puntosybiopagos::where("categoria",66)->where("banco",$KeybancoGroup)->where("fecha",$KeyfechasGroup)->get();
                 $sireportadasum = $sireportadaList->sum("monto_liquidado"); 
 
                 $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("banco",$KeybancoGroup)->first();
