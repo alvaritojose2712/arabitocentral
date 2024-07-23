@@ -8876,7 +8876,7 @@ function ControlEfectivoMatriz(_ref) {
               className: "",
               children: moneda(e.eurobalance)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-              children: e.montobs != "0.00" && e.montobs != 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+              children: e.montobs != "0.00" && e.montobs > 0 && !e.id_sucursal_deposito || e.montodolar != "0.00" && e.montodolar > 0 && !e.id_sucursal_deposito ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
                 children: selectdepositobanco == e.id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
                   className: "input-group",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("select", {
@@ -78962,8 +78962,12 @@ function Home() {
       fecha: fechadepositobanco
     }).then(function (res) {
       notificar(res);
-      setbancodepositobanco("");
-      setfechadepositobanco("");
+      if (res.data.estado) {
+        setbancodepositobanco("");
+        setfechadepositobanco("");
+        setselectdepositobanco("");
+        getControlEfec();
+      }
     });
   };
   var getCajaMatriz = function getCajaMatriz() {

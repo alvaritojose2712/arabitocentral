@@ -400,34 +400,58 @@ class CajasController extends Controller
         $cm = cajas::find($id);
         $banco = bancos_list::find($bancoreq);
         $catDepositoAbanco = 65;
-        $cierre = cierres::where("id_sucursal",$cm->id_sucursal)->where("fecha",$fecha)->first();
+        $cierre = cierres::where("fecha",$fecha)->first();
 
         if ($banco) {
             if ($cm) {
-                /* if ($cm->montodolar) {
-                    if ($cierre) {
-                        $monto = abs($cm->montodolar);
-                        $tasa = $cierre->tasa;
-                        $p = puntosybiopagos::updateOrCreate(["id"=>null],[
-                            "loteserial" => $cm->concepto,
-                            "banco" => $banco->codigo,
-                            "categoria" => $cat->id,
-                            "fecha" => $fecha,
-                            "fecha_liquidacion" => $fecha,
-                            "tipo" => "Transferencia",
-                            "id_sucursal" => 13,
-                            "id_beneficiario" => null,
-                            "tasa" => 0,
-                            "monto" => $monto*$tasa,
-                            "monto_liquidado" => $monto*$tasa,
-                            "monto_dolar" => 0,
-                            "origen" => 2,
-                            "id_usuario" => 1,
-                        ]);
-                    }
-                } */
-
                 if (!$cm->id_sucursal_deposito) {
+
+                    if ($cm->montodolar!=0&&$cm->montodolar!="0.00") {
+                        if ($cierre) {
+                            $monto = abs($cm->montodolar);
+                            $tasa = $cierre->tasa;
+                            $p = puntosybiopagos::updateOrCreate(["id"=>null],[
+                                "loteserial" => $cm->concepto,
+                                "banco" => $banco->codigo,
+                                "categoria" => $catDepositoAbanco,
+                                "fecha" => $fecha,
+                                "fecha_liquidacion" => $fecha,
+                                "tipo" => "Transferencia",
+                                "id_sucursal" => 13,
+                                "id_beneficiario" => null,
+                                "tasa" => 0,
+                                "monto" => $monto*$tasa,
+                                "monto_liquidado" => $monto*$tasa,
+                                "monto_dolar" => 0,
+                                "origen" => 2,
+                                "id_usuario" => 1,
+                            ]);
+                            $cm->id_sucursal_deposito = $p->id;
+                            $cm->save();
+
+                            $this->setCajaFun([
+                                "id" => null,
+                                "categoria" => $catDepositoAbanco,
+                                "tipo" => 1,
+                                "concepto" => $cm->concepto,
+                
+                                "montobs" => 0,
+                                "montodolar" => $monto*-1,
+                                "montopeso" => 0,
+                                "montoeuro" => 0,
+                
+                                "fecha" => $fecha,
+                                "id_sucursal_origen" => 13
+                            ]);
+                            return Response::json(["estado"=>true,"msj"=>"Éxito"]);
+
+
+                        }else{
+                            return Response::json(["estado"=>false,"msj"=>"No hay Tasa para la fecha!"]);
+
+                        }
+                    }
+
                     if ($cm->montobs!=0&&$cm->montobs!="0.00") {
                         $monto = abs($cm->montobs);
                         $p = puntosybiopagos::updateOrCreate(["id"=>null],[

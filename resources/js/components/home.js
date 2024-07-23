@@ -2555,8 +2555,14 @@ function formatAmount( number, simbol ) {
       fecha: fechadepositobanco,
     }).then(res=>{
       notificar(res)
-      setbancodepositobanco("")
-      setfechadepositobanco("")
+      if (res.data.estado) {
+        
+        setbancodepositobanco("")
+        setfechadepositobanco("")
+        setselectdepositobanco("")
+        getControlEfec()
+      }
+
     })
   }
   const getCajaMatriz = () => {

@@ -300,7 +300,7 @@ export default function ControlEfectivoMatriz({
 
 
                             <td>
-                            {e.montobs!="0.00"&&e.montobs!=0?
+                            {(e.montobs!="0.00"&&e.montobs>0 && !e.id_sucursal_deposito)|| (e.montodolar!="0.00"&&e.montodolar>0 && !e.id_sucursal_deposito)?
                                 <>
                                     {selectdepositobanco==e.id?
                                         <div className="input-group">
