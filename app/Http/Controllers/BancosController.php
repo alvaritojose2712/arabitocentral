@@ -94,9 +94,18 @@ class BancosController extends Controller
         })
         ->orderBy($columnOrder,$order);
 
-        $movsnoreportados = puntosybiopagos::with("sucursal")->where("categoria",66)->whereNull("fecha")->where("fecha_liquidacion",$qfechabancosdata)->get();
+        $movsnoreportados = puntosybiopagos::with("sucursal")->where("categoria",66)->whereNull("fecha")
+        ->whereBetween("fecha_liquidacion", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria])
+        ->get();
         $movsnoreportadossum = $movsnoreportados->sum("monto_liquidado");
+        
+        $movsyareportados = puntosybiopagos::with("sucursal")->where("categoria",66)
+        ->whereBetween("fecha",[$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria])
+        ->get();
 
+        $movsnoreportadosTotal = puntosybiopagos::with("sucursal")->where("categoria",66)->whereNull("fecha")
+        ->get();
+        $movsnoreportadosTotalsum = $movsnoreportadosTotal->sum("monto_liquidado");
 
 
 
@@ -305,15 +314,18 @@ class BancosController extends Controller
                         $ingresoBanco += $e["monto"];
                     }
                 }
-                $noreportadaList = puntosybiopagos::where("categoria",66)->whereNull("fecha")->where("fecha_liquidacion",$KeyfechasGroup)->get();
+                $noreportadaList = puntosybiopagos::where("categoria",66)->where("fecha_liquidacion",$KeyfechasGroup)->get();
                 $noreportadasum = $noreportadaList->sum("monto_liquidado"); 
+
+                $sireportadaList = puntosybiopagos::where("categoria",66)->where("fecha",$KeyfechasGroup)->get();
+                $sireportadasum = $sireportadaList->sum("monto_liquidado"); 
 
                 $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("banco",$KeybancoGroup)->first();
                 $inicial = $this->getSaldoInicialBanco($KeyfechasGroup,$KeybancoGroup);
                 $balance = $ingresoBanco+$egresoBanco+$inicial+$noreportadasum;
 
 
-                $cuadre = $q_banco? $q_banco->saldo_real_manual - $balance: 0;
+                $cuadre = $q_banco? ($q_banco->saldo_real_manual+$sireportadasum) - $balance: 0;
                 array_push($xfechaCuadre, [
                     "fecha" => $KeyfechasGroup,
                     "banco" => $KeybancoGroup,
@@ -325,10 +337,17 @@ class BancosController extends Controller
                     "noreportadaList" => $noreportadaList, 
                     "noreportadasum" => $noreportadasum, 
 
+                    "sireportadaList" => $sireportadaList, 
+                    "sireportadasum" => $sireportadasum, 
+
+                    
+
                     "guardado" => $q_banco, 
                     "saldoactual" => $q_banco? $q_banco->saldo: 0, 
                     
                     "cuadre" => $cuadre, 
+
+
                 ]);
                 $sum_cuadre += $cuadre;
 
@@ -345,7 +364,10 @@ class BancosController extends Controller
             "sum" => $sum_cuadre,
             "movsnoreportados" => $movsnoreportados,
             "movsnoreportadossum" => $movsnoreportadossum,
-            "xliquidar" => $puntosybiopagos->get()->merge($movsnoreportados), 
+
+            "movsnoreportadosTotal" => $movsnoreportadosTotal, 
+            "movsnoreportadosTotalsum" => $movsnoreportadosTotalsum, 
+            "xliquidar" => $puntosybiopagos->get()->merge($movsnoreportados)->merge($movsyareportados), 
             "estado" => true,
             "view" => $subviewAuditoria,
         ];

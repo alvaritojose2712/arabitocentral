@@ -684,6 +684,12 @@ export default function Auditoria({
                                                 </th>
                                                 <th>{e.loteserial}</th>
                                                 <th>
+                                                    {e.categoria==66?
+                                                        <>
+                                                            <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
+                                                            <br />
+                                                        </>
+                                                    :null}
                                                     {getCat(e.categoria)}
                                                 </th>
                                                 <th>
@@ -692,7 +698,7 @@ export default function Auditoria({
                                                 <th>{moneda(e.monto_liquidado)}</th>
                                                 <th>
 
-                                                    {selectTrLiquidar===i && e.fecha?
+                                                    {selectTrLiquidar===i && e.fecha && e.categoria!=66?
                                                         <div className="input-group-vertical">
                                                             <input type="text" className="form-control" value={inpmontoLiquidar} placeholder="Monto Reportado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
                                                             <input type="date" className="form-control" value={inpfechaLiquidar} onChange={event=>setinpfechaLiquidar(event.target.value)}/>
@@ -700,9 +706,9 @@ export default function Auditoria({
                                                         </div>
                                                     :null}
 
-                                                    {selectTrLiquidar===i && !e.fecha && !e.id_noreportada?
+                                                    {selectTrLiquidar===i && !e.fecha && e.categoria==66?
                                                         <div className="input-group-vertical">
-                                                            <input type="text" className="form-control" value={inpmontoNoreportado} placeholder="Monto Liquidado" onChange={event=>setinpmontoNoreportado(event.target.value)}/>
+                                                            <input type="text" className="form-control" value={inpmontoNoreportado} placeholder="Monto Reportado" onChange={event=>setinpmontoNoreportado(event.target.value)}/>
                                                             <input type="date" className="form-control" value={inpfechaNoreportado} onChange={event=>setinpfechaNoreportado(event.target.value)}/>
                                                             <button className="btn btn-danger w-100" onClick={()=>reportarMov(e.id)}>REPORTAR <i className="fa fa-send"></i></button>
                                                         </div>
@@ -746,6 +752,7 @@ export default function Auditoria({
                                             <th>BANCO</th>
                                             <th>FECHA</th>
                                             <th className="bg-success-light">CUADRE REAL</th>
+                                            <th className="">YA REPORTADO</th>
                                             <th>SALDO INCIAL</th>
                                             <th>INGRESO</th>
                                             <th>NO REPORTADO <i className="fa fa-exclamation-triangle"></i></th>
@@ -779,6 +786,7 @@ export default function Auditoria({
                                                     :e.guardado?moneda(e.guardado.saldo_real_manual):"----"
                                                     }
                                                 </th>
+                                                <th className="">{moneda(e.sireportadasum)}</th>
                                                 <th className="bg-warning-light">{moneda(e.inicial)}</th>
                                                 <th className="bg-success-light">{moneda(e.ingreso)}</th>
                                                 <th className="">{moneda(e.noreportadasum)}</th>
@@ -794,11 +802,94 @@ export default function Auditoria({
                                         <tr>
                                             <td></td>
                                             <td></td>
-                                            <td colSpan={7} className={(bancosdata.sum>-200 && bancosdata.sum<200?"bg-success text-light":"bg-danger text-light")+" fs-1 text-right"}>{moneda(bancosdata.sum)}</td>
+                                            <td colSpan={8} className={(bancosdata.sum>-200 && bancosdata.sum<200?"bg-success text-light":"bg-danger text-light")+" fs-1 text-right"}>{moneda(bancosdata.sum)}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </>
+                        :null
+                    }
+                    {
+                        bancosdata.movsnoreportadosTotal?
+                            bancosdata.movsnoreportadosTotal.length?
+                                <div className="card m-5 p-5">
+                                    <h1 className="text-center">NO REPORTADOS <i className="fa fa-2x fa-exclamation-triangle"></i></h1>
+                                    <table className="table">
+                                        <thead>
+                                            <tr>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="banco"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("banco")}} className="pointer">BANCO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="tipo"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("tipo")}} className="pointer">MÉTODO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="debito_credito"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("debito_credito")}} className="pointer">DÉBITO/CRÉDITO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="fecha"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha")}} className="pointer">FECHA REPORTADO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="fecha_liquidacion"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha_liquidacion")}} className="pointer">FECHA LIQUIDADO</th>
+                                                <th>TIPO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="id_sucursal"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("id_sucursal")}} className="pointer">SUCURSAL</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="loteserial"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("loteserial")}} className="pointer">LOTE / REFERENCIA</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="categoria"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("categoria")}} className="pointer">CATEGORÍA</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="monto"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto")}} className="pointer">MONTO BRUTO</th>
+                                                <th onClick={()=>{if(orderColumnAuditoria=="monto_liquidado"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto_liquidado")}} className="pointer">LIQUIDADO</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {bancosdata.movsnoreportadosTotal.map((e,i)=>
+                                                <tr key={e.id}>
+                                                    <th>
+                                                        <button onDoubleClick={()=>changeBank(e.id,"banco")} className="btn w-100 fw-bolder" 
+                                                        style={{
+                                                            backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
+                                                            color:colors[e.banco]?colors[e.banco][1]:""
+                                                        }}>{e.banco}</button>
+                                                        
+                                                    </th>
+                                                    <th>
+                                                        <button className="btn w-100 fw-bolder" 
+                                                        style={{backgroundColor:colors[e.tipo]}}>{e.tipo}</button> 
+                                                    </th>
+                                                    <th className="pointer" >
+                                                        <span >{e.debito_credito}</span> 
+                                                    </th>
+                                                    <th>
+                                                        {e.fecha?
+                                                            e.fecha
+                                                            :
+                                                            <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
+                                                        }
+                                                    </th>
+                                                    <th>{e.fecha_liquidacion}</th>
+                                                    <th><button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button></th>
+                                                    <th> 
+                                                        <button className="btn w-100 fw-bolder" style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.codigo}</button>
+                                                    </th>
+                                                    <th>{e.loteserial}</th>
+                                                    <th>
+                                                        {e.categoria==66?
+                                                            <>
+                                                                <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
+                                                                <br />
+                                                            </>
+                                                        :null}
+                                                    </th>
+                                                    <th>
+                                                        <span onDoubleClick={()=>changeBank(e.id,"monto")} className="pointer">{moneda(e.monto)}</span> 
+                                                    </th>
+                                                    <th>{moneda(e.monto_liquidado)}</th>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                </tr>
+                                            )}
+                                        </tbody>
+                                        <tbody>
+                                            <tr>
+                                                <th colSpan={13} className="fs-2 bg-danger text-light text-right">
+                                                    {moneda(bancosdata.movsnoreportadosTotalsum)}
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            :null
                         :null
                     }
 

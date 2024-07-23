@@ -3907,6 +3907,9 @@ function formatAmount( number, simbol ) {
       inpfechaNoreportado,
       id,
     }).then(res=>{
+      getBancosData()
+      setinpmontoNoreportado("")
+      setinpfechaNoreportado("")
       
     })
   }

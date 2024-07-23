@@ -3926,8 +3926,15 @@ function Auditoria(_ref) {
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                   children: e.loteserial
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                  children: getCat(e.categoria)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
+                  children: [e.categoria == 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                      className: "btn btn-warning",
+                      children: ["*NO REPORTADO* ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                        className: "fa fa-exclamation-triangle"
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {})]
+                  }) : null, getCat(e.categoria)]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                     onDoubleClick: function onDoubleClick() {
@@ -3939,7 +3946,7 @@ function Auditoria(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                   children: moneda(e.monto_liquidado)
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
-                  children: [selectTrLiquidar === i && e.fecha ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  children: [selectTrLiquidar === i && e.fecha && e.categoria != 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                     className: "input-group-vertical",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
                       type: "text",
@@ -3965,13 +3972,13 @@ function Auditoria(_ref) {
                         className: "fa fa-send"
                       })]
                     })]
-                  }) : null, selectTrLiquidar === i && !e.fecha && !e.id_noreportada ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  }) : null, selectTrLiquidar === i && !e.fecha && e.categoria == 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                     className: "input-group-vertical",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
                       type: "text",
                       className: "form-control",
                       value: inpmontoNoreportado,
-                      placeholder: "Monto Liquidado",
+                      placeholder: "Monto Reportado",
                       onChange: function onChange(event) {
                         return setinpmontoNoreportado(event.target.value);
                       }
@@ -4068,6 +4075,9 @@ function Auditoria(_ref) {
                 className: "bg-success-light",
                 children: "CUADRE REAL"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                className: "",
+                children: "YA REPORTADO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                 children: "SALDO INCIAL"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                 children: "INGRESO"
@@ -4129,6 +4139,9 @@ function Auditoria(_ref) {
                     })]
                   }) : e.guardado ? moneda(e.guardado.saldo_real_manual) : "----"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  className: "",
+                  children: moneda(e.sireportadasum)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                   className: "bg-warning-light",
                   children: moneda(e.inicial)
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
@@ -4152,14 +4165,213 @@ function Auditoria(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                colSpan: 7,
+                colSpan: 8,
                 className: (bancosdata.sum > -200 && bancosdata.sum < 200 ? "bg-success text-light" : "bg-danger text-light") + " fs-1 text-right",
                 children: moneda(bancosdata.sum)
               })]
             })
           })]
         })]
-      }) : null]
+      }) : null, bancosdata.movsnoreportadosTotal ? bancosdata.movsnoreportadosTotal.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "card m-5 p-5",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h1", {
+          className: "text-center",
+          children: ["NO REPORTADOS ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+            className: "fa fa-2x fa-exclamation-triangle"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+          className: "table",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "banco") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("banco");
+                },
+                className: "pointer",
+                children: "BANCO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "tipo") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("tipo");
+                },
+                className: "pointer",
+                children: "M\xC9TODO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "debito_credito") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("debito_credito");
+                },
+                className: "pointer",
+                children: "D\xC9BITO/CR\xC9DITO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "fecha") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("fecha");
+                },
+                className: "pointer",
+                children: "FECHA REPORTADO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "fecha_liquidacion") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("fecha_liquidacion");
+                },
+                className: "pointer",
+                children: "FECHA LIQUIDADO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                children: "TIPO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "id_sucursal") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("id_sucursal");
+                },
+                className: "pointer",
+                children: "SUCURSAL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "loteserial") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("loteserial");
+                },
+                className: "pointer",
+                children: "LOTE / REFERENCIA"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "categoria") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("categoria");
+                },
+                className: "pointer",
+                children: "CATEGOR\xCDA"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "monto") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("monto");
+                },
+                className: "pointer",
+                children: "MONTO BRUTO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                onClick: function onClick() {
+                  if (orderColumnAuditoria == "monto_liquidado") {
+                    setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                  }
+                  ;
+                  setorderColumnAuditoria("monto_liquidado");
+                },
+                className: "pointer",
+                children: "LIQUIDADO"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {})]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+            children: bancosdata.movsnoreportadosTotal.map(function (e, i) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                    onDoubleClick: function onDoubleClick() {
+                      return changeBank(e.id, "banco");
+                    },
+                    className: "btn w-100 fw-bolder",
+                    style: {
+                      backgroundColor: colors[e.banco] ? colors[e.banco][0] : "",
+                      color: colors[e.banco] ? colors[e.banco][1] : ""
+                    },
+                    children: e.banco
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                    className: "btn w-100 fw-bolder",
+                    style: {
+                      backgroundColor: colors[e.tipo]
+                    },
+                    children: e.tipo
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  className: "pointer",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                    children: e.debito_credito
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  children: e.fecha ? e.fecha : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                    className: "btn btn-warning",
+                    children: ["*NO REPORTADO* ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                      className: "fa fa-exclamation-triangle"
+                    })]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  children: e.fecha_liquidacion
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                    className: "btn w-100 " + (e.monto < 0 ? "btn-danger" : "btn-success"),
+                    children: e.monto < 0 ? "EGRESO" : "INGRESO"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                    className: "btn w-100 fw-bolder",
+                    style: {
+                      backgroundColor: colorSucursal(e.sucursal.codigo)
+                    },
+                    children: e.sucursal.codigo
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  children: e.loteserial
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  children: e.categoria == 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                      className: "btn btn-warning",
+                      children: ["*NO REPORTADO* ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                        className: "fa fa-exclamation-triangle"
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {})]
+                  }) : null
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                    onDoubleClick: function onDoubleClick() {
+                      return changeBank(e.id, "monto");
+                    },
+                    className: "pointer",
+                    children: moneda(e.monto)
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                  children: moneda(e.monto_liquidado)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {})]
+              }, e.id);
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tr", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                colSpan: 13,
+                className: "fs-2 bg-danger text-light text-right",
+                children: moneda(bancosdata.movsnoreportadosTotalsum)
+              })
+            })
+          })]
+        })]
+      }) : null : null]
     }) : null, permiso([1, 2, 3]) && subviewAuditoriaGeneral == "efectivo" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_auditoriaefectivo__WEBPACK_IMPORTED_MODULE_4__["default"], {
       getAuditoriaEfec: getAuditoriaEfec,
       qauditoriaefectivo: qauditoriaefectivo,
@@ -80155,7 +80367,11 @@ function Home() {
       inpmontoNoreportado: inpmontoNoreportado,
       inpfechaNoreportado: inpfechaNoreportado,
       id: id
-    }).then(function (res) {});
+    }).then(function (res) {
+      getBancosData();
+      setinpmontoNoreportado("");
+      setinpfechaNoreportado("");
+    });
   };
   var changeBank = function changeBank(id, type) {
     var codigos = opcionesMetodosPago.map(function (e) {
