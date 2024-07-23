@@ -825,7 +825,7 @@ export default function Auditoria({
                                                 <th>TIPO</th>
                                                 <th onClick={()=>{if(orderColumnAuditoria=="id_sucursal"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("id_sucursal")}} className="pointer">SUCURSAL</th>
                                                 <th onClick={()=>{if(orderColumnAuditoria=="loteserial"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("loteserial")}} className="pointer">LOTE / REFERENCIA</th>
-                                                <th onClick={()=>{if(orderColumnAuditoria=="categoria"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("categoria")}} className="pointer">CATEGORÍA</th>
+                                               {/*  <th onClick={()=>{if(orderColumnAuditoria=="categoria"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("categoria")}} className="pointer">CATEGORÍA</th> */}
                                                 <th onClick={()=>{if(orderColumnAuditoria=="monto"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto")}} className="pointer">MONTO BRUTO</th>
                                                 <th onClick={()=>{if(orderColumnAuditoria=="monto_liquidado"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto_liquidado")}} className="pointer">LIQUIDADO</th>
                                                 <th></th>
@@ -850,11 +850,15 @@ export default function Auditoria({
                                                         <span >{e.debito_credito}</span> 
                                                     </th>
                                                     <th>
-                                                        {e.fecha?
-                                                            e.fecha
-                                                            :
-                                                            <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
-                                                        }
+                                                        {e.fecha}
+                                                        {e.categoria==66?
+                                                            <>
+                                                                <br />
+                                                                <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
+                                                            </>
+                                                        :null}
+
+
                                                     </th>
                                                     <th>{e.fecha_liquidacion}</th>
                                                     <th><button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button></th>
@@ -862,14 +866,14 @@ export default function Auditoria({
                                                         <button className="btn w-100 fw-bolder" style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.codigo}</button>
                                                     </th>
                                                     <th>{e.loteserial}</th>
-                                                    <th>
+                                                   {/*  <th>
                                                         {e.categoria==66?
                                                             <>
                                                                 <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
                                                                 <br />
                                                             </>
                                                         :null}
-                                                    </th>
+                                                    </th> */}
                                                     <th>
                                                         <span onDoubleClick={()=>changeBank(e.id,"monto")} className="pointer">{moneda(e.monto)}</span> 
                                                     </th>
