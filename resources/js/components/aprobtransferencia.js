@@ -19,14 +19,19 @@ export default function Aprobtransferencia({
     fechasMain2,
     setfechasMain1,
     setfechasMain2,
+    qfiltroaprotransf,
+    setqfiltroaprotransf,
+    bancoqfiltroaprotransf,
+    setbancoqfiltroaprotransf,
+    opcionesMetodosPago,
 }){
     useEffect(()=>{
         getsucursalDetallesData(null, "aprobtransferencia")
     },[
-        subviewpanelsucursales,
         fechasMain1,
         fechasMain2,
         sucursalSelect,
+        bancoqfiltroaprotransf,
         qestatusaprobaciocaja,
     ])
 
@@ -39,7 +44,16 @@ export default function Aprobtransferencia({
                 setfechasMain2={setfechasMain2}
             />
             <div className="">
-                <div className="input-group mb-2">
+                <form className="input-group mb-2" onSubmit={event=>{event.preventDefault();getsucursalDetallesData(null, "aprobtransferencia")}}>
+                    <button type='button' className={("btn btn-"+(qestatusaprobaciocaja==0?"sinapsis":""))} onClick={e=>{setqestatusaprobaciocaja(0);if(qestatusaprobaciocaja==0){getsucursalDetallesData()}}}><i className="fa fa-clock-o"></i></button>
+                    <button type='button' className={("btn btn-"+(qestatusaprobaciocaja==1?"success":""))} onClick={e=>{setqestatusaprobaciocaja(1);if(qestatusaprobaciocaja==1){getsucursalDetallesData()}}}><i className="fa fa-check"></i></button>
+                    
+                    <select className="form-control" value={bancoqfiltroaprotransf}  onChange={event=>setbancoqfiltroaprotransf(event.target.value)}>
+                        <option value="">-BANCO-</option>
+                        {opcionesMetodosPago.map(e=>
+                            <option key={e.id} value={e.codigo}>{e.codigo}</option>
+                        )}
+                    </select>
                     <select className="form-control" onChange={e=>setsucursalSelect(e.target.value)} value={sucursalSelect===null?"":sucursalSelect}>
                         <option value="">-TODAS SUCURSALES-</option>    
                         {
@@ -48,11 +62,11 @@ export default function Aprobtransferencia({
                             )
                         }
                     </select>
-                    <div className="input-group-prepend">
-                        <button className={("btn btn-"+(qestatusaprobaciocaja==0?"sinapsis":""))} onClick={e=>{setqestatusaprobaciocaja(0);if(qestatusaprobaciocaja==0){getsucursalDetallesData()}}}><i className="fa fa-clock-o"></i></button>
-                        <button className={("btn btn-"+(qestatusaprobaciocaja==1?"success":""))} onClick={e=>{setqestatusaprobaciocaja(1);if(qestatusaprobaciocaja==1){getsucursalDetallesData()}}}><i className="fa fa-check"></i></button>
-                    </div>
-                </div>
+                    <input type="text" className="form-control" value={qfiltroaprotransf} placeholder='Buscar por Ref o Monto...' onChange={event=>setqfiltroaprotransf(event.target.value)}/>    
+                    <button className={"btn btn-success"} type='submit'><i className="fa fa-search"></i></button>
+
+
+                </form>
                 { 
                 sucursalDetallesData.aprobaciontransferenciasdata?sucursalDetallesData.aprobaciontransferenciasdata.length
                 ? sucursalDetallesData.aprobaciontransferenciasdata.map( (e,i) =>

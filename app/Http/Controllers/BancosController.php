@@ -62,18 +62,29 @@ class BancosController extends Controller
         $subviewAuditoria = $arr["subviewAuditoria"];
         $columnOrder = $arr["columnOrder"];
         $order = $arr["order"];
+        $tipoSelectAuditoria = isset($arr["tipoSelectAuditoria"])?$arr["tipoSelectAuditoria"]:"";
+        $showallSelectAuditoria = isset($arr["showallSelectAuditoria"])?$arr["showallSelectAuditoria"]:"";
+        
+        
+
         if (!$qfechabancosdata OR !$fechaHastaSelectAuditoria) {
             return "Fechas de Búsqueda en Blanco";
         }
 
         $puntosybiopagos = puntosybiopagos::with("sucursal")
         ->whereNotIn("banco",["EFECTIVO"])
+        ->when($tipoSelectAuditoria!="",function($q) use ($tipoSelectAuditoria) {
+            $q->where("tipo","LIKE",$tipoSelectAuditoria."%");
+        })
         ->where("categoria","<>",66) //no considerar transferencia no reportada
         ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
             $q->whereIn("banco",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
         })
-        ->when($subviewAuditoria=="liquidar",function($q) {
-            $q->whereNull("fecha_liquidacion");
+        ->when($subviewAuditoria=="liquidar",function($q) use ($showallSelectAuditoria) {
+            if ($showallSelectAuditoria==1) {
+                $q->whereNull("fecha_liquidacion");
+            }
+            
         })
         ->when($qdescripcionbancosdata!="",function($q) use($qdescripcionbancosdata) {
             $q->orwhere("loteserial",$qdescripcionbancosdata)
@@ -85,6 +96,7 @@ class BancosController extends Controller
             if ($subviewAuditoria=="cuadre" || $subviewAuditoria=="conciliacion") {
                 $field = "fecha_liquidacion";
             }else if ($subviewAuditoria=="liquidar") {
+
                 $field = "fecha";
             }
             $q->whereBetween($field, [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
@@ -382,6 +394,7 @@ class BancosController extends Controller
             $subviewAuditoria = $req->subviewAuditoria;
             $columnOrder = $req->orderColumnAuditoria;
             $order = $req->orderAuditoria;
+            $tipoSelectAuditoria = $req->tipoSelectAuditoria;
 
             return $this->bancosDataFun([
                 "qdescripcionbancosdata" => $qdescripcionbancosdata,
@@ -392,6 +405,7 @@ class BancosController extends Controller
                 "subviewAuditoria" => $subviewAuditoria,
                 "columnOrder" => $columnOrder,
                 "order" => $order,
+                "tipoSelectAuditoria" => $tipoSelectAuditoria,
             ]);
             
     

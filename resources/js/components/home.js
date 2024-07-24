@@ -2211,6 +2211,8 @@ function formatAmount( number, simbol ) {
   const [fechasMain2, setfechasMain2] = useState("")
   const [filtros, setfiltros] = useState({})
   const [qestatusaprobaciocaja, setqestatusaprobaciocaja] = useState(0)
+  const [qfiltroaprotransf,setqfiltroaprotransf] = useState("")
+  const [bancoqfiltroaprotransf,setbancoqfiltroaprotransf] = useState("")
   const [qcuentasPorPagar, setqcuentasPorPagar] = useState("")
 
   const [cuentasPagosMetodoDestino,setcuentasPagosMetodoDestino] = useState("")
@@ -3062,6 +3064,9 @@ function formatAmount( number, simbol ) {
         filtronominaq,
         filtronominacargo,
         qestatusaprobaciocaja,
+        qfiltroaprotransf,
+        bancoqfiltroaprotransf,
+
         qcuentasPorPagar,
         controlefecSelectCat,
         controlefecQDescripcion,
@@ -3801,13 +3806,68 @@ function formatAmount( number, simbol ) {
     },
 
   ]
+
+  const [showimportliquidacion,setshowimportliquidacion] = useState(false)
+  const [textimportliquidadcion,settextimportliquidadcion] = useState("")
+  const [dataimportliquidacion,setdataimportliquidacion] = useState([])
   
+  const procesarImportTextliquidacion = () => {
+    
+    //     [CODIGO BANCO] 
+      //     [FECHA yyyy-mm-dd] 
+      //     [REF] 
+      //     [MONTO]
+    
+    let obj = []
+    let rows = textimportliquidadcion.replace("\"","").replace("\'","").split("\n")
+    let cols,row, fecha,codigo,ref,monto;
+    if (textimportliquidadcion) {
+      for(let i in rows){
+        row = rows[i]
+        cols = row.split("\t")
+        
+        if (typeof cols[0]==="undefined") {alert("Col [1] no está definida")}
+        if (typeof cols[1]==="undefined") {alert("Col [2] no está definida")}
+        if (typeof cols[2]==="undefined") {alert("Col [3] no está definida")}
+        if (typeof cols[3]==="undefined") {alert("Col [4] no está definida")}
+
+        if (
+          typeof cols[0]==="undefined"
+          ||typeof cols[1]==="undefined"
+          ||typeof cols[2]==="undefined"
+          ||typeof cols[3]==="undefined"
+        ) {
+          break
+        }
+  
+        codigo = cols[0]?cols[0]:""
+        fecha = cols[1]?cols[1]:""
+        ref = cols[2]?cols[2]:""
+        monto = cols[3]?cols[3]:""
+
+
+  
+        let newObj = [{
+          fecha,
+          codigo,
+          ref,
+          monto,
+        }]
+  
+        obj = newObj.concat(obj)
+      }
+      setdataimportliquidacion(obj)
+      setshowimportliquidacion(false)
+    }
+  }
 
  
 
   const [opcionesMetodosPago,setopcionesMetodosPago] = useState([])
   const [bancosdata,setbancosdata] = useState([])
   const [fechaSelectAuditoria,setfechaSelectAuditoria] = useState("")
+  const [showallSelectAuditoria,setshowallSelectAuditoria] = useState("")
+  const [tipoSelectAuditoria,settipoSelectAuditoria] = useState("")
   const [fechaHastaSelectAuditoria,setfechaHastaSelectAuditoria] = useState("")
   const [bancoSelectAuditoria,setbancoSelectAuditoria] = useState("")
   const [sucursalSelectAuditoria,setsucursalSelectAuditoria] = useState("")
@@ -3878,6 +3938,7 @@ function formatAmount( number, simbol ) {
       notificar(res)
       getBancosData("liquidar")
       setinpmontoLiquidar("")
+      setselectTrLiquidar()
 
     })
   }
@@ -4029,6 +4090,8 @@ function formatAmount( number, simbol ) {
       db.getBancosData({
         fechaSelectAuditoria,
         fechaHastaSelectAuditoria,
+        tipoSelectAuditoria,
+        showallSelectAuditoria,
 
         bancoSelectAuditoria,
         sucursalSelectAuditoria,
@@ -5030,6 +5093,20 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
             <Auditoria
+              qfiltroaprotransf={qfiltroaprotransf}
+              setqfiltroaprotransf={setqfiltroaprotransf}
+              bancoqfiltroaprotransf={bancoqfiltroaprotransf}
+              setbancoqfiltroaprotransf={setbancoqfiltroaprotransf}
+              showallSelectAuditoria={showallSelectAuditoria}
+              setshowallSelectAuditoria={setshowallSelectAuditoria}
+
+              setshowimportliquidacion={setshowimportliquidacion}
+              showimportliquidacion={showimportliquidacion}
+              textimportliquidadcion={textimportliquidadcion}
+              settextimportliquidadcion={settextimportliquidadcion}
+              procesarImportTextliquidacion={procesarImportTextliquidacion}
+              setdataimportliquidacion={setdataimportliquidacion}
+              dataimportliquidacion={dataimportliquidacion}
 
               inpmontoNoreportado={inpmontoNoreportado}
               setinpmontoNoreportado={setinpmontoNoreportado}
@@ -5122,6 +5199,8 @@ function formatAmount( number, simbol ) {
               setopcionesMetodosPago={setopcionesMetodosPago}
               bancosdata={bancosdata}
               setbancosdata={setbancosdata}
+              tipoSelectAuditoria={tipoSelectAuditoria}
+              settipoSelectAuditoria={settipoSelectAuditoria}
               fechaSelectAuditoria={fechaSelectAuditoria}
               setfechaSelectAuditoria={setfechaSelectAuditoria}
               fechaHastaSelectAuditoria={fechaHastaSelectAuditoria}

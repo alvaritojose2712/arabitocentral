@@ -68,10 +68,21 @@ class TransferenciaAprobacionController extends Controller
         }
         function gettransferenciaAprobacion($fechasMain1, $fechasMain2, $id_sucursal, $filtros) {
             $qestatus = $filtros["qestatusaprobaciocaja"];
-            
+            $qfiltroaprotransf = $filtros["qfiltroaprotransf"];
+            $bancoqfiltroaprotransf = $filtros["bancoqfiltroaprotransf"];
+
             $data = transferencia_aprobacion::with(["sucursal"])
             ->when($id_sucursal, function ($q) use ($id_sucursal) {
                 $q->where("id_sucursal", $id_sucursal);
+            })
+            ->when($qfiltroaprotransf, function($q) use ($qfiltroaprotransf){
+                $q->where(function($q)  use ($qfiltroaprotransf) {
+                    $q->orwhere("loteserial","LIKE", "%$qfiltroaprotransf%")
+                    ->orwhere("saldo","LIKE", "%$qfiltroaprotransf%");
+                });
+            })
+            ->when($bancoqfiltroaprotransf, function($q) use ($bancoqfiltroaprotransf){
+                $q->where("banco",$bancoqfiltroaprotransf);
             })
             ->where("estatus", $qestatus)
             ->whereBetween("created_at", [$fechasMain1." 00:00:00", $fechasMain2." 23:59:59"])

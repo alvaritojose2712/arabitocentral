@@ -23,6 +23,8 @@ export default function Auditoria({
 
     sucursalSelectAuditoria,
     setsucursalSelectAuditoria,
+    tipoSelectAuditoria,
+    settipoSelectAuditoria,
     
     getMetodosPago,
     getBancosData,
@@ -63,6 +65,10 @@ export default function Auditoria({
     subviewAuditoriaGeneral,
     setsubviewAuditoriaGeneral,
 
+    qfiltroaprotransf,
+    setqfiltroaprotransf,
+    bancoqfiltroaprotransf,
+    setbancoqfiltroaprotransf,
     setsubviewpanelsucursales,
     subviewpanelsucursales,
     fechasMain1,
@@ -128,6 +134,17 @@ export default function Auditoria({
     inpfechaNoreportado,
     setinpfechaNoreportado,
     reportarMov,
+
+    
+    setshowimportliquidacion,
+    showimportliquidacion,
+    textimportliquidadcion,
+    settextimportliquidadcion,
+    procesarImportTextliquidacion,
+    setdataimportliquidacion,
+    dataimportliquidacion,
+    showallSelectAuditoria,
+    setshowallSelectAuditoria,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -158,7 +175,13 @@ export default function Auditoria({
     }
 
     const [showautoliquidar, setshowautoliquidar] = useState(false)
+   
     const [nummm, setnummm] = useState(0)
+    
+    const [selectindexliquidar, setselectindexliquidar] = useState(null)
+
+
+
 
     let opcionesAuditoria = [
         {
@@ -555,8 +578,18 @@ export default function Auditoria({
                                                         <option key={e.id} value={e.id}>{e.codigo}</option>
                                                     )}
                                                 </select>
+
+                                                <select className="form-control" value={tipoSelectAuditoria}  onChange={event=>settipoSelectAuditoria(event.target.value)}>
+                                                    <option value="">-TODOS-</option>
+                                                    <option value="Transferencia">Transferencia</option>
+                                                    <option value="PUNTO">PUNTO</option>
+                                                    <option value="BIOPAGO">BIOPAGO</option>
+                                                    
+                                                </select>
+
                                                 <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
                                                 <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
+                                                <button className={("btn btn-")+(showallSelectAuditoria==""?"":"success")} onClick={()=>setshowallSelectAuditoria(showallSelectAuditoria==""?1:"")}><i className="fa fa-eye"></i></button>
                                                 <button className="btn btn-success" onClick={()=>getBancosData()}><i className="fa fa-search"></i></button>
                                             
                                             </div>
@@ -566,6 +599,7 @@ export default function Auditoria({
                                             <div className="btn-group">
                                                 <button className="btn btn-sinapsis" onClick={()=>setshownewmovnoreportado(!shownewmovnoreportado)}><i className="fa fa-paper"></i> MOV. NO REPORTADO</button>
                                                 <button className="btn btn-success" onClick={()=>setshowautoliquidar(!showautoliquidar)}><i className="fa fa-eye"></i> AutoLiquidar</button>
+                                                <button className="btn btn-success" onClick={()=>setshowimportliquidacion(!showimportliquidacion)}>IMPORTAR BANCO</button>
 
                                             </div>
                                         </div>
@@ -627,99 +661,150 @@ export default function Auditoria({
                                         </div>
 
                                     </div>:null}
+
+                                    {showimportliquidacion?<div>
+                                    
+                                        <textarea className="form-control" placeholder="IMPORTAR BANCO [FECHA yyyy-mm-dd] [CODIGO BANCO] [REF] [MONTO]" value={textimportliquidadcion} onChange={event=>settextimportliquidadcion(event.target.value)}></textarea>
+                                        <div className="text-center p-3">
+                                            <button className="btn btn-success" onClick={()=>procesarImportTextliquidacion()}>PROCESAR <i className="fa fa-cogs"></i></button>
+                                            <button className="btn btn-sinapsis" onClick={()=>setdataimportliquidacion([])}>LIMPIAR</button>
+                                        </div>
+                                    </div>:null}
+
+
                                 </div> 
-                                    <hr />
-                                <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <th onClick={()=>{if(orderColumnAuditoria=="banco"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("banco")}} className="pointer">BANCO</th>
-                                            <th onClick={()=>{if(orderColumnAuditoria=="tipo"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("tipo")}} className="pointer">MÉTODO</th>
-                                            <th onClick={()=>{if(orderColumnAuditoria=="debito_credito"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("debito_credito")}} className="pointer">DÉBITO/CRÉDITO</th>
-                                            <th onClick={()=>{if(orderColumnAuditoria=="fecha"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha")}} className="pointer">FECHA REPORTADO</th>
-                                            <th onClick={()=>{if(orderColumnAuditoria=="fecha_liquidacion"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha_liquidacion")}} className="pointer">FECHA LIQUIDADO</th>
-                                            <th>TIPO</th>
-                                            <th onClick={()=>{if(orderColumnAuditoria=="id_sucursal"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("id_sucursal")}} className="pointer">SUCURSAL</th>
-                                            <th onClick={()=>{if(orderColumnAuditoria=="loteserial"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("loteserial")}} className="pointer">LOTE / REFERENCIA</th>
-                                            {/* <th onClick={()=>{if(orderColumnAuditoria=="categoria"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("categoria")}} className="pointer">CATEGORÍA</th> */}
-                                            <th onClick={()=>{if(orderColumnAuditoria=="monto"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto")}} className="pointer">MONTO BRUTO</th>
-                                            <th onClick={()=>{if(orderColumnAuditoria=="monto_liquidado"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto_liquidado")}} className="pointer">LIQUIDADO</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {bancosdata.xliquidar.map((e,i)=>
-                                            <tr key={e.id} onClick={()=>{
-                                                setselectTrLiquidar(i)
-                                                if (e.tipo=="Transferencia") {
-                                                    setinpmontoLiquidar(e.monto)
-                                                    setinpfechaLiquidar(e.fecha)
-                                                }
-                                            }}>
-                                                <th>
-                                                    <button onDoubleClick={()=>changeBank(e.id,"banco")} className="btn w-100 fw-bolder" 
-                                                    style={{
-                                                        backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
-                                                        color:colors[e.banco]?colors[e.banco][1]:""
-                                                    }}>{e.banco}</button>
-                                                    
-                                                </th>
-                                                <th>
-                                                    <button className="btn w-100 fw-bolder" 
-                                                    style={{backgroundColor:colors[e.tipo]}}>{e.tipo}</button> 
-                                                </th>
-                                                <th className="pointer" onDoubleClick={()=>changeBank(e.id,"debito_credito")} >
-                                                    <span >{e.debito_credito}</span> 
-                                                </th>
-                                                <th>
-                                                    {e.fecha?e.fecha:""}
-                                                    {e.categoria==66?
-                                                        <>
-                                                            <br />
-                                                            <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
-                                                        </>
-                                                    :null}
-                                                </th>
-                                                <th>{e.fecha_liquidacion}</th>
-                                                <th><button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button></th>
-                                                <th> 
-                                                    <button className="btn w-100 fw-bolder" style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.codigo}</button>
-                                                </th>
-                                                <th>{e.loteserial}</th>
-                                                {/* <th>
-                                                    {e.categoria==66?
-                                                        <>
-                                                            <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
-                                                            <br />
-                                                        </>
-                                                    :null}
-                                                    {getCat(e.categoria)}
-                                                </th> */}
-                                                <th>
-                                                    <span onDoubleClick={()=>changeBank(e.id,"monto")} className="pointer">{moneda(e.monto)}</span> 
-                                                </th>
-                                                <th>{moneda(e.monto_liquidado)}</th>
-                                                <th>
+                                <hr />
 
-                                                    {selectTrLiquidar===i && e.fecha && e.categoria!=66?
-                                                        <div className="input-group-vertical">
-                                                            <input type="text" className="form-control" value={inpmontoLiquidar} placeholder="Monto Reportado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
-                                                            <input type="date" className="form-control" value={inpfechaLiquidar} onChange={event=>setinpfechaLiquidar(event.target.value)}/>
-                                                            <button className="btn btn-warning w-100" onClick={()=>liquidarMov(e.id)}>LIQUIDAR <i className="fa fa-send"></i></button>
-                                                        </div>
-                                                    :null}
+                                <div className="row">
+                                    <div className="col">
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="banco"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("banco")}} className="pointer">BANCO</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="tipo"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("tipo")}} className="pointer">MÉTODO</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="debito_credito"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("debito_credito")}} className="pointer">DÉB/CRÉD</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="fecha"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha")}} className="pointer">REPORTADO</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="fecha_liquidacion"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha_liquidacion")}} className="pointer">LIQUIDADO</th>
+                                                    <th>TIPO</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="id_sucursal"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("id_sucursal")}} className="pointer">SUCURSAL</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="loteserial"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("loteserial")}} className="pointer">REF</th>
+                                                    {/* <th onClick={()=>{if(orderColumnAuditoria=="categoria"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("categoria")}} className="pointer">CATEGORÍA</th> */}
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="monto"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto")}} className="pointer text-right">MONTO REPORTADO</th>
+                                                    {/* <th onClick={()=>{if(orderColumnAuditoria=="monto_liquidado"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto_liquidado")}} className="pointer">LIQUIDADO</th> */}
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {bancosdata.xliquidar.map((e,i)=>
+                                                    <tr 
+                                                    key={e.id} 
+                                                    className={e.fecha_liquidacion?"bg-success-light":""}
+                                                    onClick={()=>{
+                                                        setselectTrLiquidar(selectTrLiquidar==i?"":i)
+                                                        if (e.tipo=="Transferencia") {
+                                                            setinpmontoLiquidar(e.monto)
+                                                            setinpfechaLiquidar(e.fecha)
+                                                        }
+                                                    }}>
+                                                        <th>
+                                                            <button onDoubleClick={()=>changeBank(e.id,"banco")} className="btn w-100 fw-bolder" 
+                                                            style={{
+                                                                backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
+                                                                color:colors[e.banco]?colors[e.banco][1]:""
+                                                            }}>{e.banco}</button>
+                                                            
+                                                        </th>
+                                                        <th>
+                                                            <button className="btn w-100 fw-bolder" 
+                                                            style={{backgroundColor:colors[e.tipo]}}>{e.tipo}</button> 
+                                                        </th>
+                                                        <th className="pointer" onDoubleClick={()=>changeBank(e.id,"debito_credito")} >
+                                                            <span >{e.debito_credito}</span> 
+                                                        </th>
+                                                        <th>
+                                                            {e.fecha?e.fecha:""}
+                                                            {e.categoria==66?
+                                                                <>
+                                                                    <br />
+                                                                    <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
+                                                                </>
+                                                            :null}
+                                                        </th>
+                                                        <th>{e.fecha_liquidacion}</th>
+                                                        <th><button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button></th>
+                                                        <th> 
+                                                            <button className="btn w-100 fw-bolder" style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.codigo}</button>
+                                                        </th>
+                                                        <th>{e.loteserial}</th>
+                                                            {/* <th>
+                                                                {e.categoria==66?
+                                                                    <>
+                                                                        <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
+                                                                        <br />
+                                                                    </>
+                                                                :null}
+                                                                {getCat(e.categoria)}
+                                                            </th> */}
+                                                        <th className="text-right">
+                                                            <span onDoubleClick={()=>changeBank(e.id,"monto")} className="pointer text-success">{moneda(e.monto)}</span> 
+                                                        </th>
+                                                        {/* <th>{moneda(e.monto_liquidado)}</th> */}
+                                                        <th>
 
-                                                    {selectTrLiquidar===i && !e.fecha && e.categoria==66?
-                                                        <div className="input-group-vertical">
-                                                            <input type="text" className="form-control" value={inpmontoNoreportado} placeholder="Monto Reportado" onChange={event=>setinpmontoNoreportado(event.target.value)}/>
-                                                            <input type="date" className="form-control" value={inpfechaNoreportado} onChange={event=>setinpfechaNoreportado(event.target.value)}/>
-                                                            <button className="btn btn-danger w-100" onClick={()=>reportarMov(e.id)}>REPORTAR <i className="fa fa-send"></i></button>
-                                                        </div>
-                                                    :null}
-                                                </th>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
+                                                            {selectTrLiquidar===i && e.fecha && e.categoria!=66?
+                                                                <div className="input-group-vertical">
+                                                                    <input type="text" className="form-control" value={inpmontoLiquidar} placeholder="Monto Reportado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
+                                                                    <input type="date" className="form-control" value={inpfechaLiquidar} onChange={event=>setinpfechaLiquidar(event.target.value)}/>
+                                                                    <button className="btn btn-warning w-100" onClick={()=>liquidarMov(e.id)}>LIQUIDAR <i className="fa fa-send"></i></button>
+                                                                </div>
+                                                            :null}
+
+                                                            {selectTrLiquidar===i && !e.fecha && e.categoria==66?
+                                                                <div className="input-group-vertical">
+                                                                    <input type="text" className="form-control" value={inpmontoNoreportado} placeholder="Monto Reportado" onChange={event=>setinpmontoNoreportado(event.target.value)}/>
+                                                                    <input type="date" className="form-control" value={inpfechaNoreportado} onChange={event=>setinpfechaNoreportado(event.target.value)}/>
+                                                                    <button className="btn btn-danger w-100" onClick={()=>reportarMov(e.id)}>REPORTAR <i className="fa fa-send"></i></button>
+                                                                </div>
+                                                            :null}
+                                                        </th>
+                                                        <th>{i+1}</th>
+
+                                                    </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {dataimportliquidacion.length?
+                                        <div className="col-3">
+                                            <table className="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th colSpan={4}>IMPORTACIÓN BANCO</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {dataimportliquidacion.sort((a,b) => orderAuditoria=="asc"? (parseFloat(a.monto) - parseFloat(b.monto)): (parseFloat(b.monto) - parseFloat(a.monto))  ).map((e,i)=>
+                                                        <tr key={i}>
+                                                            <th>{i+1}</th>
+                                                            <th className="text-success">{moneda(e.monto)}</th>
+                                                            <td>
+                                                                
+                                                                <button className="btn w-100 fw-bolder" 
+                                                                style={{
+                                                                    backgroundColor:colors[e.codigo]?colors[e.codigo][0]:"", 
+                                                                    color:colors[e.codigo]?colors[e.codigo][1]:""
+                                                                }}>{e.codigo}</button>
+                                                            </td>
+                                                            <td>{e.fecha}</td>
+                                                            <td>{e.ref}</td>
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    :null}
+                                </div>
                             </>
                         :null
                     }
@@ -958,6 +1043,11 @@ export default function Auditoria({
                 fechasMain2={fechasMain2}
                 setfechasMain1={setfechasMain1}
                 setfechasMain2={setfechasMain2}
+                qfiltroaprotransf={qfiltroaprotransf}
+                setqfiltroaprotransf={setqfiltroaprotransf}
+                bancoqfiltroaprotransf={bancoqfiltroaprotransf}
+                setbancoqfiltroaprotransf={setbancoqfiltroaprotransf}
+                opcionesMetodosPago={opcionesMetodosPago}
             />
         :null}
        </>
