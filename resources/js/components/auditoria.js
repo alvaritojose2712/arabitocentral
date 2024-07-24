@@ -181,6 +181,16 @@ export default function Auditoria({
     const [selectindexliquidar, setselectindexliquidar] = useState(null)
 
 
+    const [bloquesReportado, setbloquesReportado] = useState([
+       // {num:2,index:1},
+        //{num:2,index:5},
+    ])
+    const [bloquesBanco, setbloquesBanco] = useState([
+       // {num:2,index:1},
+       // {num:1,index:3},
+    ])
+
+
 
 
     let opcionesAuditoria = [
@@ -203,6 +213,37 @@ export default function Auditoria({
         },
     
     ]
+
+    const addBloque = (index,type) => {
+        let num = window.prompt("Número de Saltos")
+        if (num) {
+            let arr = []
+            for (let i = 0; i < num; i++) {
+                arr.push({index})
+            }
+            switch (type) {
+                case "banco":
+                    setbloquesBanco(bloquesBanco.concat(arr))    
+                    break;
+                case "reportado":
+                    setbloquesReportado(bloquesReportado.concat(arr))    
+                    break;
+            }
+        }
+    }
+
+    const delBloque = (index,type) => {
+        switch (type) {
+            case "banco":
+                setbloquesBanco(bloquesBanco.filter(e=>e.index!=index))    
+                break;
+            case "reportado":
+                setbloquesReportado(bloquesBanco.filter(e=>e.index!=index))    
+                break;
+        }
+    }
+
+    
     return (
         <>
 
@@ -581,7 +622,7 @@ export default function Auditoria({
 
                                                 <select className="form-control" value={tipoSelectAuditoria}  onChange={event=>settipoSelectAuditoria(event.target.value)}>
                                                     <option value="">-TODOS-</option>
-                                                    <option value="Transferencia">Transferencia</option>
+                                                    <option value="Transferencia">TRANSFERENCIA</option>
                                                     <option value="PUNTO">PUNTO</option>
                                                     <option value="BIOPAGO">BIOPAGO</option>
                                                     
@@ -679,7 +720,7 @@ export default function Auditoria({
                                     <div className="col">
                                         <table className="table">
                                             <thead>
-                                                <tr>
+                                                <tr className="h-70px">
                                                     <th onClick={()=>{if(orderColumnAuditoria=="banco"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("banco")}} className="pointer w-10">BANCO</th>
                                                     <th onClick={()=>{if(orderColumnAuditoria=="tipo"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("tipo")}} className="pointer w-10">MÉTODO</th>
                                                     <th onClick={()=>{if(orderColumnAuditoria=="debito_credito"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("debito_credito")}} className="pointer w-10">DÉB/CRÉD</th>
@@ -689,16 +730,36 @@ export default function Auditoria({
                                                     <th onClick={()=>{if(orderColumnAuditoria=="id_sucursal"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("id_sucursal")}} className="pointer w-10">SUCURSAL</th>
                                                     <th onClick={()=>{if(orderColumnAuditoria=="loteserial"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("loteserial")}} className="pointer w-10">REF</th>
                                                     {/* <th onClick={()=>{if(orderColumnAuditoria=="categoria"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("categoria")}} className="pointer w-10">CATEGORÍA</th> */}
-                                                    <th onClick={()=>{if(orderColumnAuditoria=="monto_liquidado"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto_liquidado")}} className="pointer w-10">LIQUIDADO</th>
-                                                    <th onClick={()=>{if(orderColumnAuditoria=="monto"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto")}} className="pointer text-right">REPORTADO</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="monto_liquidado"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto_liquidado")}} className="pointer w-10">
+                                                        LIQUIDADO
+
+                                                        <br />
+                                                        <span className="text-success fs-4">
+                                                            {bancosdata.xliquidar?
+                                                                moneda(bancosdata.xliquidar.reduce((a,b)=>{return a+parseFloat(b.monto_liquidado)},0))
+                                                            :null}
+                                                        </span>
+                                                    </th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="monto"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto")}} className="pointer text-right">
+                                                        REPORTADO
+                                                        <br />
+                                                        <span className="text-sinapsis fs-4">
+                                                            {bancosdata.xliquidar?
+                                                                moneda(bancosdata.xliquidar.reduce((a,b)=>{return a+parseFloat(b.monto)},0))
+                                                            :null}
+                                                        </span>
+
+                                                    </th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {bancosdata.xliquidar.map((e,i)=>
+                                                <>
+                                                
                                                     <tr 
                                                     key={e.id} 
-                                                    className={e.fecha_liquidacion?"bg-success-light":""}
+                                                    className={(e.fecha_liquidacion?"bg-success-light":"")+" h-70px"}
                                                     >
                                                         <th className="w-10">
                                                             <button onDoubleClick={()=>changeBank(e.id,"banco")} className="btn w-100 fw-bolder" 
@@ -740,7 +801,7 @@ export default function Auditoria({
                                                                 {getCat(e.categoria)}
                                                             </th> */}
                                                         <th className="w-10">
-                                                            <span className="pointer"
+                                                            <span className="pointer text-success"
                                                                 onClick={()=>{
                                                                     setselectTrLiquidar(selectTrLiquidar===i?"":i)
                                                                     if (e.tipo=="Transferencia") {
@@ -761,7 +822,7 @@ export default function Auditoria({
                                                         </th>
                                                         <th className="w-10 text-right">
                                                             <span 
-                                                            onDoubleClick={()=>changeBank(e.id,"monto")} className="pointer text-success">{moneda(e.monto)}</span> 
+                                                            onDoubleClick={()=>changeBank(e.id,"monto")} className="pointer text-sinapsis">{moneda(e.monto)}</span> 
                                                         </th>
                                                         <th className="w-10">
 
@@ -774,38 +835,86 @@ export default function Auditoria({
                                                                 </div>
                                                             :null}
                                                         </th>
-                                                        <th className="">{i+1}</th>
-
+                                                        <th className="">
+                                                            <span className="pointer" onClick={()=>addBloque(i,"reportado")}>
+                                                                {i+1}
+                                                            </span>
+                                                        </th>
                                                     </tr>
+
+                                                    {bloquesReportado.filter(filbloque=>filbloque.index==i).map(bloque=>
+                                                        <tr onDoubleClick={()=>delBloque(i,"reportado")}>
+                                                            <td colSpan={12} className=" text-center h-70px bg-dark text-light">
+                                                                <h1>AJUSTE</h1>
+                                                            </td>
+                                                        </tr>
+                                                    )}
+                                                </>  
                                                 )}
                                             </tbody>
                                         </table>
                                     </div>
                                     {dataimportliquidacion.length?
-                                        <div className="col-3">
+                                        <div className="col-4">
                                             <table className="table">
                                                 <thead>
-                                                    <tr>
+                                                    <tr className="h-70px">
                                                         <th></th>
-                                                        <th colSpan={4}>IMPORTACIÓN BANCO</th>
+                                                        <th colSpan={4}>
+                                                            IMPORTACIÓN BANCO
+
+                                                            <br />
+                                                            <span className="text-sinapsis fs-4">
+                                                                {bancosdata.xliquidar?
+                                                                    moneda(dataimportliquidacion.reduce((a,b)=>{return a+parseFloat(b.monto)},0))
+                                                                :null}
+                                                            </span>
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {dataimportliquidacion.sort((a,b) => orderAuditoria=="asc"? (parseFloat(a.monto) - parseFloat(b.monto)): (parseFloat(b.monto) - parseFloat(a.monto))  ).map((e,i)=>
-                                                        <tr key={i}>
-                                                            <th>{i+1}</th>
-                                                            <th className="text-success">{moneda(e.monto)}</th>
-                                                            <td>
-                                                                
-                                                                <button className="btn w-100 fw-bolder" 
-                                                                style={{
-                                                                    backgroundColor:colors[e.codigo]?colors[e.codigo][0]:"", 
-                                                                    color:colors[e.codigo]?colors[e.codigo][1]:""
-                                                                }}>{e.codigo}</button>
-                                                            </td>
-                                                            <td>{e.fecha}</td>
-                                                            <td>{e.ref}</td>
-                                                        </tr>
+                                                    {dataimportliquidacion.sort((a,b) =>{ 
+                                                        let field;
+
+                                                        if (orderColumnAuditoria=="monto") {
+                                                            field = "monto"
+                                                            if (orderAuditoria=="asc") {
+                                                                return parseFloat(a[field]) - parseFloat(b[field])
+                                                            }else{
+                                                                return parseFloat(b[field]) - parseFloat(a[field])
+                                                            }
+                                                        }else if (orderColumnAuditoria=="banco") {
+                                                            field = "banco"
+                                                            return 
+                                                        }
+                                                    } ).map((e,i)=>
+                                                        <>
+                                                            <tr key={i} className="h-70px">
+                                                                <th>
+                                                                    <span className="pointer" onClick={()=>addBloque(i,"banco")}>
+                                                                        {i+1}
+                                                                    </span>
+                                                                </th>
+                                                                <th className="text-sinapsis">{moneda(e.monto)}</th>
+                                                                <td>
+                                                                    
+                                                                    <button className="btn w-100 fw-bolder" 
+                                                                    style={{
+                                                                        backgroundColor:colors[e.codigo]?colors[e.codigo][0]:"", 
+                                                                        color:colors[e.codigo]?colors[e.codigo][1]:""
+                                                                    }}>{e.codigo}</button>
+                                                                </td>
+                                                                <td>{e.fecha}</td>
+                                                                <td>{e.ref}</td>
+                                                            </tr>
+                                                            {bloquesBanco.filter(filbloque=>filbloque.index==i).map(bloque=>
+                                                                <tr onDoubleClick={()=>delBloque(i,"banco")}>
+                                                                    <td colSpan={12} className=" text-center h-70px bg-dark text-light">
+                                                                        <h1>AJUSTE</h1>
+                                                                    </td>
+                                                                </tr>
+                                                            )}
+                                                        </>
                                                     )}
                                                 </tbody>
                                             </table>

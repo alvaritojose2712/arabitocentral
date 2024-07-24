@@ -370,6 +370,10 @@ i{
 .w-10{
   width: 10% !important;
 }
+
+.h-70px{
+  height: 70px !important;
+}
 .input_clean{
   outline: none;
   border: 0;
