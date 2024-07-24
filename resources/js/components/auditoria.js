@@ -589,7 +589,7 @@ export default function Auditoria({
 
                                                 <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
                                                 <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
-                                                <button className={("btn btn-")+(showallSelectAuditoria==""?"":"success")} onClick={()=>setshowallSelectAuditoria(showallSelectAuditoria==""?1:"")}><i className="fa fa-eye"></i></button>
+                                                <button className={("btn btn-")+(showallSelectAuditoria==1?"success":"")} onClick={()=>setshowallSelectAuditoria(showallSelectAuditoria==1?"":1)}><i className="fa fa-eye"></i></button>
                                                 <button className="btn btn-success" onClick={()=>getBancosData()}><i className="fa fa-search"></i></button>
                                             
                                             </div>
@@ -680,17 +680,17 @@ export default function Auditoria({
                                         <table className="table">
                                             <thead>
                                                 <tr>
-                                                    <th onClick={()=>{if(orderColumnAuditoria=="banco"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("banco")}} className="pointer">BANCO</th>
-                                                    <th onClick={()=>{if(orderColumnAuditoria=="tipo"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("tipo")}} className="pointer">MÉTODO</th>
-                                                    <th onClick={()=>{if(orderColumnAuditoria=="debito_credito"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("debito_credito")}} className="pointer">DÉB/CRÉD</th>
-                                                    <th onClick={()=>{if(orderColumnAuditoria=="fecha"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha")}} className="pointer">REPORTADO</th>
-                                                    <th onClick={()=>{if(orderColumnAuditoria=="fecha_liquidacion"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha_liquidacion")}} className="pointer">LIQUIDADO</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="banco"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("banco")}} className="pointer w-10">BANCO</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="tipo"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("tipo")}} className="pointer w-10">MÉTODO</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="debito_credito"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("debito_credito")}} className="pointer w-10">DÉB/CRÉD</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="fecha"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha")}} className="pointer w-10">REPORTADO</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="fecha_liquidacion"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("fecha_liquidacion")}} className="pointer w-10">LIQUIDADO</th>
                                                     <th>TIPO</th>
-                                                    <th onClick={()=>{if(orderColumnAuditoria=="id_sucursal"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("id_sucursal")}} className="pointer">SUCURSAL</th>
-                                                    <th onClick={()=>{if(orderColumnAuditoria=="loteserial"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("loteserial")}} className="pointer">REF</th>
-                                                    {/* <th onClick={()=>{if(orderColumnAuditoria=="categoria"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("categoria")}} className="pointer">CATEGORÍA</th> */}
-                                                    <th onClick={()=>{if(orderColumnAuditoria=="monto"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto")}} className="pointer text-right">MONTO REPORTADO</th>
-                                                    {/* <th onClick={()=>{if(orderColumnAuditoria=="monto_liquidado"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto_liquidado")}} className="pointer">LIQUIDADO</th> */}
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="id_sucursal"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("id_sucursal")}} className="pointer w-10">SUCURSAL</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="loteserial"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("loteserial")}} className="pointer w-10">REF</th>
+                                                    {/* <th onClick={()=>{if(orderColumnAuditoria=="categoria"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("categoria")}} className="pointer w-10">CATEGORÍA</th> */}
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="monto_liquidado"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto_liquidado")}} className="pointer w-10">LIQUIDADO</th>
+                                                    <th onClick={()=>{if(orderColumnAuditoria=="monto"){setorderAuditoria(orderAuditoria==="desc"?"asc":"desc")};setorderColumnAuditoria("monto")}} className="pointer text-right">REPORTADO</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -706,7 +706,7 @@ export default function Auditoria({
                                                             setinpfechaLiquidar(e.fecha)
                                                         }
                                                     }}>
-                                                        <th>
+                                                        <th className="w-10">
                                                             <button onDoubleClick={()=>changeBank(e.id,"banco")} className="btn w-100 fw-bolder" 
                                                             style={{
                                                                 backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
@@ -714,14 +714,14 @@ export default function Auditoria({
                                                             }}>{e.banco}</button>
                                                             
                                                         </th>
-                                                        <th>
+                                                        <th className="w-10">
                                                             <button className="btn w-100 fw-bolder" 
                                                             style={{backgroundColor:colors[e.tipo]}}>{e.tipo}</button> 
                                                         </th>
-                                                        <th className="pointer" onDoubleClick={()=>changeBank(e.id,"debito_credito")} >
+                                                        <th className="w-10" onDoubleClick={()=>changeBank(e.id,"debito_credito")} >
                                                             <span >{e.debito_credito}</span> 
                                                         </th>
-                                                        <th>
+                                                        <th className="w-10">
                                                             {e.fecha?e.fecha:""}
                                                             {e.categoria==66?
                                                                 <>
@@ -730,13 +730,13 @@ export default function Auditoria({
                                                                 </>
                                                             :null}
                                                         </th>
-                                                        <th>{e.fecha_liquidacion}</th>
-                                                        <th><button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button></th>
-                                                        <th> 
+                                                        <th className="w-10">{e.fecha_liquidacion}</th>
+                                                        <th className="w-10"><button className={("btn w-100 ")+(e.monto<0?"btn-danger":"btn-success")}>{e.monto<0?"EGRESO":"INGRESO"}</button></th>
+                                                        <th className="w-10"> 
                                                             <button className="btn w-100 fw-bolder" style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.codigo}</button>
                                                         </th>
-                                                        <th>{e.loteserial}</th>
-                                                            {/* <th>
+                                                        <th className="w-10">{e.loteserial}</th>
+                                                            {/* <th className="w-10">
                                                                 {e.categoria==66?
                                                                     <>
                                                                         <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
@@ -745,11 +745,11 @@ export default function Auditoria({
                                                                 :null}
                                                                 {getCat(e.categoria)}
                                                             </th> */}
-                                                        <th className="text-right">
+                                                        <th className="w-10">{moneda(e.monto_liquidado)}</th>
+                                                        <th className="w-10 text-right">
                                                             <span onDoubleClick={()=>changeBank(e.id,"monto")} className="pointer text-success">{moneda(e.monto)}</span> 
                                                         </th>
-                                                        {/* <th>{moneda(e.monto_liquidado)}</th> */}
-                                                        <th>
+                                                        <th className="w-10">
 
                                                             {selectTrLiquidar===i && e.fecha && e.categoria!=66?
                                                                 <div className="input-group-vertical">
@@ -767,7 +767,7 @@ export default function Auditoria({
                                                                 </div>
                                                             :null}
                                                         </th>
-                                                        <th>{i+1}</th>
+                                                        <th className="">{i+1}</th>
 
                                                     </tr>
                                                 )}

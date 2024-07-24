@@ -3653,9 +3653,9 @@ function Auditoria(_ref) {
                     return setfechaHastaSelectAuditoria(event.target.value);
                   }
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
-                  className: "btn btn-" + (showallSelectAuditoria == "" ? "" : "success"),
+                  className: "btn btn-" + (showallSelectAuditoria == 1 ? "success" : ""),
                   onClick: function onClick() {
-                    return setshowallSelectAuditoria(showallSelectAuditoria == "" ? 1 : "");
+                    return setshowallSelectAuditoria(showallSelectAuditoria == 1 ? "" : 1);
                   },
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
                     className: "fa fa-eye"
@@ -3875,7 +3875,7 @@ function Auditoria(_ref) {
                       ;
                       setorderColumnAuditoria("banco");
                     },
-                    className: "pointer",
+                    className: "pointer w-10",
                     children: "BANCO"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                     onClick: function onClick() {
@@ -3885,7 +3885,7 @@ function Auditoria(_ref) {
                       ;
                       setorderColumnAuditoria("tipo");
                     },
-                    className: "pointer",
+                    className: "pointer w-10",
                     children: "M\xC9TODO"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                     onClick: function onClick() {
@@ -3895,7 +3895,7 @@ function Auditoria(_ref) {
                       ;
                       setorderColumnAuditoria("debito_credito");
                     },
-                    className: "pointer",
+                    className: "pointer w-10",
                     children: "D\xC9B/CR\xC9D"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                     onClick: function onClick() {
@@ -3905,7 +3905,7 @@ function Auditoria(_ref) {
                       ;
                       setorderColumnAuditoria("fecha");
                     },
-                    className: "pointer",
+                    className: "pointer w-10",
                     children: "REPORTADO"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                     onClick: function onClick() {
@@ -3915,7 +3915,7 @@ function Auditoria(_ref) {
                       ;
                       setorderColumnAuditoria("fecha_liquidacion");
                     },
-                    className: "pointer",
+                    className: "pointer w-10",
                     children: "LIQUIDADO"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                     children: "TIPO"
@@ -3927,7 +3927,7 @@ function Auditoria(_ref) {
                       ;
                       setorderColumnAuditoria("id_sucursal");
                     },
-                    className: "pointer",
+                    className: "pointer w-10",
                     children: "SUCURSAL"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                     onClick: function onClick() {
@@ -3937,8 +3937,18 @@ function Auditoria(_ref) {
                       ;
                       setorderColumnAuditoria("loteserial");
                     },
-                    className: "pointer",
+                    className: "pointer w-10",
                     children: "REF"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                    onClick: function onClick() {
+                      if (orderColumnAuditoria == "monto_liquidado") {
+                        setorderAuditoria(orderAuditoria === "desc" ? "asc" : "desc");
+                      }
+                      ;
+                      setorderColumnAuditoria("monto_liquidado");
+                    },
+                    className: "pointer w-10",
+                    children: "LIQUIDADO"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                     onClick: function onClick() {
                       if (orderColumnAuditoria == "monto") {
@@ -3948,7 +3958,7 @@ function Auditoria(_ref) {
                       setorderColumnAuditoria("monto");
                     },
                     className: "pointer text-right",
-                    children: "MONTO REPORTADO"
+                    children: "REPORTADO"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {})]
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
@@ -3963,6 +3973,7 @@ function Auditoria(_ref) {
                       }
                     },
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                      className: "w-10",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                         onDoubleClick: function onDoubleClick() {
                           return changeBank(e.id, "banco");
@@ -3975,6 +3986,7 @@ function Auditoria(_ref) {
                         children: e.banco
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                      className: "w-10",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                         className: "btn w-100 fw-bolder",
                         style: {
@@ -3983,7 +3995,7 @@ function Auditoria(_ref) {
                         children: e.tipo
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      className: "pointer",
+                      className: "w-10",
                       onDoubleClick: function onDoubleClick() {
                         return changeBank(e.id, "debito_credito");
                       },
@@ -3991,6 +4003,7 @@ function Auditoria(_ref) {
                         children: e.debito_credito
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
+                      className: "w-10",
                       children: [e.fecha ? e.fecha : "", e.categoria == 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
                           className: "btn btn-warning",
@@ -4000,13 +4013,16 @@ function Auditoria(_ref) {
                         })]
                       }) : null]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                      className: "w-10",
                       children: e.fecha_liquidacion
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                      className: "w-10",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                         className: "btn w-100 " + (e.monto < 0 ? "btn-danger" : "btn-success"),
                         children: e.monto < 0 ? "EGRESO" : "INGRESO"
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                      className: "w-10",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                         className: "btn w-100 fw-bolder",
                         style: {
@@ -4015,9 +4031,13 @@ function Auditoria(_ref) {
                         children: e.sucursal.codigo
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                      className: "w-10",
                       children: e.loteserial
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      className: "text-right",
+                      className: "w-10",
+                      children: moneda(e.monto_liquidado)
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                      className: "w-10 text-right",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                         onDoubleClick: function onDoubleClick() {
                           return changeBank(e.id, "monto");
@@ -4026,6 +4046,7 @@ function Auditoria(_ref) {
                         children: moneda(e.monto)
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
+                      className: "w-10",
                       children: [selectTrLiquidar === i && e.fecha && e.categoria != 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                         className: "input-group-vertical",
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
@@ -4080,6 +4101,7 @@ function Auditoria(_ref) {
                         })]
                       }) : null]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                      className: "",
                       children: i + 1
                     })]
                   }, e.id);

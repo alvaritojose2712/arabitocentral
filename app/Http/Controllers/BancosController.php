@@ -81,7 +81,7 @@ class BancosController extends Controller
             $q->whereIn("banco",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
         })
         ->when($subviewAuditoria=="liquidar",function($q) use ($showallSelectAuditoria) {
-            if ($showallSelectAuditoria==1) {
+            if (!$showallSelectAuditoria) {
                 $q->whereNull("fecha_liquidacion");
             }
             
@@ -395,6 +395,8 @@ class BancosController extends Controller
             $columnOrder = $req->orderColumnAuditoria;
             $order = $req->orderAuditoria;
             $tipoSelectAuditoria = $req->tipoSelectAuditoria;
+            $showallSelectAuditoria = $req->showallSelectAuditoria;
+            
 
             return $this->bancosDataFun([
                 "qdescripcionbancosdata" => $qdescripcionbancosdata,
@@ -406,6 +408,8 @@ class BancosController extends Controller
                 "columnOrder" => $columnOrder,
                 "order" => $order,
                 "tipoSelectAuditoria" => $tipoSelectAuditoria,
+                "showallSelectAuditoria" => $showallSelectAuditoria,
+                
             ]);
             
     
