@@ -100,7 +100,9 @@ class TransferenciaAprobacionController extends Controller
     
             switch ($tipo) {
                 case 'delete':
-                    //$mov = transferencia_aprobacion::find($id)->delete();
+                    $mov = transferencia_aprobacion::find($id);
+                    $mov->estatus = 2;
+                    $mov->save();
                     break;
                     
                 case 'aprobar':
