@@ -3965,13 +3965,6 @@ function Auditoria(_ref) {
                 children: bancosdata.xliquidar.map(function (e, i) {
                   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
                     className: e.fecha_liquidacion ? "bg-success-light" : "",
-                    onClick: function onClick() {
-                      setselectTrLiquidar(selectTrLiquidar == i ? "" : i);
-                      if (e.tipo == "Transferencia") {
-                        setinpmontoLiquidar(e.monto);
-                        setinpfechaLiquidar(e.fecha);
-                      }
-                    },
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                       className: "w-10",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
@@ -4033,21 +4026,19 @@ function Auditoria(_ref) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                       className: "w-10",
                       children: e.loteserial
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      className: "w-10",
-                      children: moneda(e.monto_liquidado)
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      className: "w-10 text-right",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                        onDoubleClick: function onDoubleClick() {
-                          return changeBank(e.id, "monto");
-                        },
-                        className: "pointer text-success",
-                        children: moneda(e.monto)
-                      })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
                       className: "w-10",
-                      children: [selectTrLiquidar === i && e.fecha && e.categoria != 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                        className: "pointer",
+                        onClick: function onClick() {
+                          setselectTrLiquidar(selectTrLiquidar === i ? "" : i);
+                          if (e.tipo == "Transferencia") {
+                            setinpmontoLiquidar(e.monto);
+                            setinpfechaLiquidar(e.fecha);
+                          }
+                        },
+                        children: moneda(e.monto_liquidado)
+                      }), selectTrLiquidar === i && e.fecha && e.categoria != 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                         className: "input-group-vertical",
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
                           type: "text",
@@ -4073,7 +4064,19 @@ function Auditoria(_ref) {
                             className: "fa fa-send"
                           })]
                         })]
-                      }) : null, selectTrLiquidar === i && !e.fecha && e.categoria == 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                      }) : null]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                      className: "w-10 text-right",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                        onDoubleClick: function onDoubleClick() {
+                          return changeBank(e.id, "monto");
+                        },
+                        className: "pointer text-success",
+                        children: moneda(e.monto)
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                      className: "w-10",
+                      children: selectTrLiquidar === i && !e.fecha && e.categoria == 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                         className: "input-group-vertical",
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
                           type: "text",
@@ -4099,7 +4102,7 @@ function Auditoria(_ref) {
                             className: "fa fa-send"
                           })]
                         })]
-                      }) : null]
+                      }) : null
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                       className: "",
                       children: i + 1

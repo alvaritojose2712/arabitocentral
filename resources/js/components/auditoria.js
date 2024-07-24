@@ -699,13 +699,7 @@ export default function Auditoria({
                                                     <tr 
                                                     key={e.id} 
                                                     className={e.fecha_liquidacion?"bg-success-light":""}
-                                                    onClick={()=>{
-                                                        setselectTrLiquidar(selectTrLiquidar==i?"":i)
-                                                        if (e.tipo=="Transferencia") {
-                                                            setinpmontoLiquidar(e.monto)
-                                                            setinpfechaLiquidar(e.fecha)
-                                                        }
-                                                    }}>
+                                                    >
                                                         <th className="w-10">
                                                             <button onDoubleClick={()=>changeBank(e.id,"banco")} className="btn w-100 fw-bolder" 
                                                             style={{
@@ -745,12 +739,18 @@ export default function Auditoria({
                                                                 :null}
                                                                 {getCat(e.categoria)}
                                                             </th> */}
-                                                        <th className="w-10">{moneda(e.monto_liquidado)}</th>
-                                                        <th className="w-10 text-right">
-                                                            <span onDoubleClick={()=>changeBank(e.id,"monto")} className="pointer text-success">{moneda(e.monto)}</span> 
-                                                        </th>
                                                         <th className="w-10">
-
+                                                            <span className="pointer"
+                                                                onClick={()=>{
+                                                                    setselectTrLiquidar(selectTrLiquidar===i?"":i)
+                                                                    if (e.tipo=="Transferencia") {
+                                                                        setinpmontoLiquidar(e.monto)
+                                                                        setinpfechaLiquidar(e.fecha)
+                                                                    }
+                                                                }}
+                                                            >
+                                                                {moneda(e.monto_liquidado)}
+                                                            </span>
                                                             {selectTrLiquidar===i && e.fecha && e.categoria!=66?
                                                                 <div className="input-group-vertical">
                                                                     <input type="text" className="form-control" value={inpmontoLiquidar} placeholder="Monto Reportado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
@@ -758,6 +758,13 @@ export default function Auditoria({
                                                                     <button className="btn btn-warning w-100" onClick={()=>liquidarMov(e.id)}>LIQUIDAR <i className="fa fa-send"></i></button>
                                                                 </div>
                                                             :null}
+                                                        </th>
+                                                        <th className="w-10 text-right">
+                                                            <span 
+                                                            onDoubleClick={()=>changeBank(e.id,"monto")} className="pointer text-success">{moneda(e.monto)}</span> 
+                                                        </th>
+                                                        <th className="w-10">
+
 
                                                             {selectTrLiquidar===i && !e.fecha && e.categoria==66?
                                                                 <div className="input-group-vertical">
