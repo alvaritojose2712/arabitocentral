@@ -80610,42 +80610,44 @@ function Home() {
       return e.codigo;
     });
     var banco = window.prompt("Editar " + type);
-    switch (type) {
-      case "banco":
-        if (codigos.indexOf(banco) != -1) {
+    if (banco) {
+      switch (type) {
+        case "banco":
+          if (codigos.indexOf(banco) != -1) {
+            _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].changeBank({
+              id: id,
+              banco: banco,
+              type: type
+            }).then(function (res) {
+              getBancosData();
+            });
+          } else {
+            alert("Código de Banco no está en la lista. " + banco);
+          }
+          break;
+        case "debito_credito":
+          if (banco == "DEBITO" || banco == "CREDITO") {
+            _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].changeBank({
+              id: id,
+              banco: banco,
+              type: type
+            }).then(function (res) {
+              getBancosData();
+            });
+          } else {
+            alert("Debe ser DEBITO o CREDITO. " + banco);
+          }
+          break;
+        case "monto":
           _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].changeBank({
             id: id,
-            banco: banco,
+            banco: number(banco),
             type: type
           }).then(function (res) {
             getBancosData();
           });
-        } else {
-          alert("Código de Banco no está en la lista. " + banco);
-        }
-        break;
-      case "debito_credito":
-        if (banco == "DEBITO" || banco == "CREDITO") {
-          _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].changeBank({
-            id: id,
-            banco: banco,
-            type: type
-          }).then(function (res) {
-            getBancosData();
-          });
-        } else {
-          alert("Debe ser DEBITO o CREDITO. " + banco);
-        }
-        break;
-      case "monto":
-        _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].changeBank({
-          id: id,
-          banco: number(banco),
-          type: type
-        }).then(function (res) {
-          getBancosData();
-        });
-        break;
+          break;
+      }
     }
   };
   var changeSucursal = function changeSucursal(id) {

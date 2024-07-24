@@ -3984,37 +3984,38 @@ function formatAmount( number, simbol ) {
   const changeBank = (id,type) => {
     let codigos = opcionesMetodosPago.map(e=>e.codigo)
     let banco = window.prompt("Editar "+type)
-
-    switch (type) {
-      case "banco":
-        if (codigos.indexOf(banco)!=-1) {
-          db.changeBank({id,banco,type})
+    if (banco) {
+      switch (type) {
+        case "banco":
+          if (codigos.indexOf(banco)!=-1) {
+            db.changeBank({id,banco,type})
+            .then(res=>{
+              getBancosData()
+            })
+          }else{
+            alert("Código de Banco no está en la lista. "+banco)
+          }
+        break;
+  
+        case "debito_credito":
+          if (banco=="DEBITO" || banco=="CREDITO") {
+            db.changeBank({id,banco,type})
+            .then(res=>{
+              getBancosData()
+            })
+          }else{
+            alert("Debe ser DEBITO o CREDITO. "+banco)
+          }
+        break;
+  
+        case "monto":
+          db.changeBank({id, banco:number(banco), type})
           .then(res=>{
             getBancosData()
           })
-        }else{
-          alert("Código de Banco no está en la lista. "+banco)
-        }
-      break;
-
-      case "debito_credito":
-        if (banco=="DEBITO" || banco=="CREDITO") {
-          db.changeBank({id,banco,type})
-          .then(res=>{
-            getBancosData()
-          })
-        }else{
-          alert("Debe ser DEBITO o CREDITO. "+banco)
-        }
-      break;
-
-      case "monto":
-        db.changeBank({id, banco:number(banco), type})
-        .then(res=>{
-          getBancosData()
-        })
-      break;
-
+        break;
+  
+      }
     }
   }
   const changeSucursal = id => {
