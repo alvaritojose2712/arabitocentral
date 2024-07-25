@@ -851,7 +851,7 @@ export default function Auditoria({
                                                 </tr>
                                                 {reportSistema.map((e,i)=>
                                                     <tr key={i}>
-                                                        <td className="text-right">{e.msj} <b>*{e.ref}*</b> <b>#{e.banco}</b> <b>{moneda(e.monto)}</b></td>
+                                                        <td className="text-right">{e.msj} <b>*{e.banco}*</b> <b>#{e.ref}</b> <b>{moneda(e.monto)}</b></td>
                                                         <th className="text-right">ID {e.id}</th>
                                                     </tr>
                                                 )}
@@ -879,7 +879,7 @@ export default function Auditoria({
                                                 {reportBanco.map((e,i)=>
                                                     <tr key={i}>
                                                         <th>ID {e.id}</th>
-                                                        <td>{e.msj} <b>*{e.ref}*</b> <b>#{e.banco}</b> <b>{moneda(e.monto)}</b></td>
+                                                        <td>{e.msj} <b>*{e.banco}*</b> <b>#{e.ref}</b> <b>{moneda(e.monto)}</b></td>
                                                     </tr>
                                                 )}
 

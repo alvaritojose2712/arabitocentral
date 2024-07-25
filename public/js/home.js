@@ -4063,9 +4063,9 @@ function Auditoria(_ref) {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
                       className: "text-right",
                       children: [e.msj, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("b", {
-                        children: ["*", e.ref, "*"]
+                        children: ["*", e.banco, "*"]
                       }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("b", {
-                        children: ["#", e.banco]
+                        children: ["#", e.ref]
                       }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("b", {
                         children: moneda(e.monto)
                       })]
@@ -4116,9 +4116,9 @@ function Auditoria(_ref) {
                       children: ["ID ", e.id]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
                       children: [e.msj, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("b", {
-                        children: ["*", e.ref, "*"]
+                        children: ["*", e.banco, "*"]
                       }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("b", {
-                        children: ["#", e.banco]
+                        children: ["#", e.ref]
                       }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("b", {
                         children: moneda(e.monto)
                       })]
