@@ -685,8 +685,14 @@ class PuntosybiopagosController extends Controller
         $catcompg = catcajas::where("nombre","CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL")->first();
 
         $factor = 1;
-        if ($gastosCategoria==1||$gastosCategoria==27||$gastosCategoria==66) {
+        if ($gastosCategoria==1||$gastosCategoria==27) {
             $factor = -1;
+        }
+        if ($gastosCategoria==66) {
+            return [
+                "msj" => "CATEGORÍA NO VÁLIDA",
+                "estado" => false,
+            ];
         }
 
         
