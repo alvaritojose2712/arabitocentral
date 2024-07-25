@@ -186,7 +186,7 @@ export default function ModalNuevoEfectivo({
                         value={controlefecNewMonto}
                         onChange={e => {
 
-                            let val = (number(e.target.value))
+                            /* let val = (number(e.target.value))
                             let factor = controlefecNewMontoMoneda=="dolar"?1:(controlefecNewMontoMoneda=="bs"?parseFloat(dolar):(controlefecNewMontoMoneda=="peso"?parseFloat(peso):1))
 
                             if (catselect.indexOf("NOMINA QUINCENA")!==-1) {
@@ -199,7 +199,7 @@ export default function ModalNuevoEfectivo({
                                 if (parseFloat(val)>parseFloat(maxpagoalquiler*factor)) {
                                     val = ""
                                 }
-                            }
+                            } */
                             setcontrolefecNewMonto(formatAmount(e.target.value,""))
                         }}
                         placeholder={"Monto "+controlefecNewMontoMoneda}  />

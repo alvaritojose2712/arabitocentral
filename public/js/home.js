@@ -16612,18 +16612,18 @@ function ModalNuevoEfectivo(_ref) {
             className: "form-control text-sinapsis fs-2",
             value: controlefecNewMonto,
             onChange: function onChange(e) {
-              var val = number(e.target.value);
-              var factor = controlefecNewMontoMoneda == "dolar" ? 1 : controlefecNewMontoMoneda == "bs" ? parseFloat(dolar) : controlefecNewMontoMoneda == "peso" ? parseFloat(peso) : 1;
-              if (catselect.indexOf("NOMINA QUINCENA") !== -1) {
-                if (parseFloat(val) > parseFloat(maxpagopersona * factor)) {
-                  val = "";
-                }
+              /* let val = (number(e.target.value))
+              let factor = controlefecNewMontoMoneda=="dolar"?1:(controlefecNewMontoMoneda=="bs"?parseFloat(dolar):(controlefecNewMontoMoneda=="peso"?parseFloat(peso):1))
+                if (catselect.indexOf("NOMINA QUINCENA")!==-1) {
+                  if (parseFloat(val)>parseFloat(maxpagopersona*factor)) {
+                      val = ""
+                  }
               }
-              if (catselect.indexOf("ALQUILER") !== -1) {
-                if (parseFloat(val) > parseFloat(maxpagoalquiler * factor)) {
-                  val = "";
-                }
-              }
+                if (catselect.indexOf("ALQUILER")!==-1) {
+                  if (parseFloat(val)>parseFloat(maxpagoalquiler*factor)) {
+                      val = ""
+                  }
+              } */
               setcontrolefecNewMonto(formatAmount(e.target.value, ""));
             },
             placeholder: "Monto " + controlefecNewMontoMoneda
