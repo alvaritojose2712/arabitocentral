@@ -76603,28 +76603,24 @@ function Home() {
   var setControlEfec = function setControlEfec() {
     var sendCentralData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     if (confirm("¿Realmente desea cargar el movimiento?")) {
-      if (!controlefecNewConcepto || !controlefecNewCategoria || !controlefecNewMonto || !controlefecNewMontoMoneda || !controlefecNewFecha) {
-        alert("Error: Campos Vacíos!");
-      } else {
-        _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].setControlEfec({
-          fecha: controlefecNewFecha,
-          concepto: controlefecNewConcepto,
-          categoria: controlefecNewCategoria,
-          monto: removeMoneda(controlefecNewMonto),
-          controlefecSelectGeneral: controlefecSelectGeneral,
-          controlefecNewMontoMoneda: controlefecNewMontoMoneda,
-          sendCentralData: sendCentralData,
-          transferirpedidoa: transferirpedidoa
-        }).then(function (res) {
-          getControlEfec();
-          setopenModalNuevoEfectivo(false);
-          setcontrolefecNewConcepto("");
-          setcontrolefecNewFecha("");
-          setcontrolefecNewCategoria("");
-          setcontrolefecNewMonto("");
-          notificar(res.data.msj);
-        });
-      }
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].setControlEfec({
+        fecha: controlefecNewFecha,
+        concepto: controlefecNewConcepto,
+        categoria: controlefecNewCategoria,
+        monto: removeMoneda(controlefecNewMonto),
+        controlefecSelectGeneral: controlefecSelectGeneral,
+        controlefecNewMontoMoneda: controlefecNewMontoMoneda,
+        sendCentralData: sendCentralData,
+        transferirpedidoa: transferirpedidoa
+      }).then(function (res) {
+        getControlEfec();
+        setopenModalNuevoEfectivo(false);
+        setcontrolefecNewConcepto("");
+        setcontrolefecNewFecha("");
+        setcontrolefecNewCategoria("");
+        setcontrolefecNewMonto("");
+        notificar(res.data.msj);
+      });
     }
   };
   var _useState155 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),

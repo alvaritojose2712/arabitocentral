@@ -397,36 +397,29 @@ function Home() {
 
       if (confirm("¿Realmente desea cargar el movimiento?")) {
 
-          if (
-              !controlefecNewConcepto ||
-              !controlefecNewCategoria ||
-              !controlefecNewMonto ||
-              !controlefecNewMontoMoneda ||
-              !controlefecNewFecha
-          ) {
-              alert("Error: Campos Vacíos!")
-          } else {
 
-              db.setControlEfec({
+        db.setControlEfec({
 
-                  fecha: controlefecNewFecha,
-                  concepto: controlefecNewConcepto,
-                  categoria: controlefecNewCategoria,
-                  monto: removeMoneda(controlefecNewMonto),
-                  controlefecSelectGeneral,
-                  controlefecNewMontoMoneda,
-                  sendCentralData,
-                  transferirpedidoa,
-              }).then(res => {
-                  getControlEfec()
-                  setopenModalNuevoEfectivo(false)
-                  setcontrolefecNewConcepto("")
-                  setcontrolefecNewFecha("")
-                  setcontrolefecNewCategoria("")
-                  setcontrolefecNewMonto("")
-                  notificar(res.data.msj)
-              })
-          }
+            fecha: controlefecNewFecha,
+            concepto: controlefecNewConcepto,
+            categoria: controlefecNewCategoria,
+            monto: removeMoneda(controlefecNewMonto),
+            controlefecSelectGeneral,
+            controlefecNewMontoMoneda,
+            sendCentralData,
+            transferirpedidoa,
+        }).then(res => {
+            getControlEfec()
+            setopenModalNuevoEfectivo(false)
+
+            setcontrolefecNewConcepto("")
+            setcontrolefecNewFecha("")
+            setcontrolefecNewCategoria("")
+            setcontrolefecNewMonto("")
+
+            notificar(res.data.msj)
+        })
+          
       }
   }
 
