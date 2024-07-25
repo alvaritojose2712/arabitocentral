@@ -403,7 +403,7 @@ function Home() {
             fecha: controlefecNewFecha,
             concepto: controlefecNewConcepto,
             categoria: controlefecNewCategoria,
-            monto: removeMoneda(controlefecNewMonto),
+            monto: (controlefecNewMonto),
             controlefecSelectGeneral,
             controlefecNewMontoMoneda,
             sendCentralData,

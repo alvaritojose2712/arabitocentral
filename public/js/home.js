@@ -16556,7 +16556,7 @@ function ModalNuevoEfectivo(_ref) {
                   className: "list-group-item " + (controlefecNewConcepto == desc ? " active pointer " : ""),
                   onClick: function onClick() {
                     setcontrolefecNewConcepto(desc);
-                    setcontrolefecNewMonto(e.maxpagopersona > e.quincena ? e.quincena : e.maxpagopersona);
+                    // setcontrolefecNewMonto(e.maxpagopersona>e.quincena?e.quincena:e.maxpagopersona)
                     setmaxpagopersona(e.maxpagopersona);
                     setsumprestamos(e.sumprestamos);
                     setsumcreditos(e.sumCreditos);
@@ -16564,7 +16564,8 @@ function ModalNuevoEfectivo(_ref) {
                     setselectpersonapagosmespasado(e.mespasado);
                     setselectpersona(e.nominanombre);
                     setselectcargopersona(e.cargo.cargosdescripcion);
-                    setcontrolefecNewMontoMoneda("dolar");
+
+                    //setcontrolefecNewMontoMoneda("dolar")
                   },
                   children: desc
                 }, e.id);
@@ -76595,7 +76596,7 @@ function Home() {
         fecha: controlefecNewFecha,
         concepto: controlefecNewConcepto,
         categoria: controlefecNewCategoria,
-        monto: removeMoneda(controlefecNewMonto),
+        monto: controlefecNewMonto,
         controlefecSelectGeneral: controlefecSelectGeneral,
         controlefecNewMontoMoneda: controlefecNewMontoMoneda,
         sendCentralData: sendCentralData,

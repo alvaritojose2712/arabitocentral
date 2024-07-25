@@ -135,7 +135,7 @@ export default function ModalNuevoEfectivo({
                                             let desc =  palabra+"="+e.nominacedula+"="+e.nominanombre  
                                             return <li key={e.id} className={"list-group-item "+(controlefecNewConcepto==(desc)?" active pointer ":"")} onClick={()=>{
                                                 setcontrolefecNewConcepto(desc)
-                                                setcontrolefecNewMonto(e.maxpagopersona>e.quincena?e.quincena:e.maxpagopersona)
+                                               // setcontrolefecNewMonto(e.maxpagopersona>e.quincena?e.quincena:e.maxpagopersona)
                                                 setmaxpagopersona(e.maxpagopersona)
 
                                                 setsumprestamos(e.sumprestamos)
@@ -148,7 +148,7 @@ export default function ModalNuevoEfectivo({
                                                 setselectcargopersona(e.cargo.cargosdescripcion)
                                                 
 
-                                                setcontrolefecNewMontoMoneda("dolar")
+                                                //setcontrolefecNewMontoMoneda("dolar")
                                             }}>{desc}</li>
 
                                         }):null}
