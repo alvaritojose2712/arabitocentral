@@ -6532,13 +6532,15 @@ function CargargastosBancos(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
               children: e.debito_credito
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: e.monto < 0 ? "text-danger" : "text-success",
               children: moneda(e.monto)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              className: e.monto_liquidado < 0 ? "text-danger" : "text-success",
               children: moneda(e.monto_liquidado)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
               children: moneda(e.tasa)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              className: "fs-3 text-success",
+              className: "",
               children: e.monto_dolar ? moneda(e.monto_dolar) : moneda(e.monto_liquidado / e.tasa)
             })]
           }, e.id);
@@ -14340,6 +14342,13 @@ function Gastos(_ref) {
                 setgastosfieldorder("created_at");
                 setgastosorder(gastosorder == "desc" ? "asc" : "desc");
               },
+              children: "CREACI\xD3N"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+              className: "pointer",
+              onClick: function onClick() {
+                setgastosfieldorder("fecha");
+                setgastosorder(gastosorder == "desc" ? "asc" : "desc");
+              },
               children: "FECHA"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
               children: "ORIGEN"
@@ -14391,6 +14400,8 @@ function Gastos(_ref) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
                 children: e.created_at
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                children: e.fecha
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
                 children: e.origen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("b", {
                   children: "ADMINISTRACI\xD3N"

@@ -684,15 +684,20 @@ class PuntosybiopagosController extends Controller
 
         $catcompg = catcajas::where("nombre","CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL")->first();
 
+        $factor = 1;
+        if ($gastosCategoria==1||$gastosCategoria==27||$gastosCategoria==66) {
+            $factor = -1;
+        }
+
         
         $montoDolar = 0;
         $montoBs = 0;
         $taseBs = 0;
         $modeMoneda = $req->modeMoneda;
         if ($modeMoneda=="dolar") {
-            $montoDolar = abs($gastosMonto_dolar)*-1;
+            $montoDolar = abs($gastosMonto_dolar)*-1*$factor;
         }elseif ($modeMoneda=="bs"){
-            $montoBs = abs(floatval($gastosMonto))*-1;
+            $montoBs = abs(floatval($gastosMonto))*-1*$factor;
             $taseBs = abs(floatval($gastosTasa));
         }
         $tipo = "Transferencia";
@@ -837,7 +842,7 @@ class PuntosybiopagosController extends Controller
         ->when($controlbancoQDesde && $controlbancoQHasta,function($q) use ($controlbancoQDesde,$controlbancoQHasta) {
             $q->whereBetween("fecha_liquidacion",[$controlbancoQDesde,$controlbancoQHasta]);
         })
-        ->orderBy("updated_at","asc")
+        ->orderBy("updated_at","desc")
         ->get();
 
         return [

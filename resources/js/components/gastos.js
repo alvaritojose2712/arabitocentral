@@ -419,7 +419,8 @@ export default function Gastos({
 					<table className="table">
 						<thead>
 							<tr>
-								<th className="pointer" onClick={()=>{setgastosfieldorder("created_at");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>FECHA</th>
+								<th className="pointer" onClick={()=>{setgastosfieldorder("created_at");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CREACIÓN</th>
+								<th className="pointer" onClick={()=>{setgastosfieldorder("fecha");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>FECHA</th>
 								<th>ORIGEN</th>
 								<th className="pointer" onClick={()=>{setgastosfieldorder("id_sucursal");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>SUCURSAL / PERSONA</th>
 								<th className="pointer">DESCRIPCIÓN</th>
@@ -445,6 +446,7 @@ export default function Gastos({
 							{gastosData?gastosData.data?gastosData.data.map(e=>
 								<tr key={e.id}>
 									<td>{e.created_at}</td>
+									<td>{e.fecha}</td>
 									<td>
 										{e.origen? <b>ADMINISTRACIÓN</b> :"SUCURSAL"}
 

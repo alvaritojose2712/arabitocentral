@@ -397,10 +397,12 @@ export default function CargargastosBancos({
                         </td>
                         <td>{e.tipo}</td>
                         <td>{e.debito_credito}</td>
-                        <td>{moneda(e.monto)}</td>
-                        <td>{moneda(e.monto_liquidado)}</td>
+                        <td className={(e.monto<0? "text-danger": "text-success")}>
+                            {moneda(e.monto)}
+                        </td>
+                        <td  className={(e.monto_liquidado<0? "text-danger": "text-success")}>{moneda(e.monto_liquidado)}</td>
                         <td>{moneda(e.tasa)}</td>
-                        <td className="fs-3 text-success">{e.monto_dolar?moneda(e.monto_dolar):moneda(e.monto_liquidado/e.tasa)}</td>
+                        <td className="">{e.monto_dolar?moneda(e.monto_dolar):moneda(e.monto_liquidado/e.tasa)}</td>
                     </tr>
                   ):null  
                 }
