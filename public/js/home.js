@@ -16586,7 +16586,6 @@ function ModalNuevoEfectivo(_ref) {
             className: "form-control fs-2",
             value: controlefecNewMontoMoneda,
             onChange: function onChange(e) {
-              setcontrolefecNewMonto("");
               setcontrolefecNewMontoMoneda(e.target.value);
             },
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
@@ -16625,7 +16624,7 @@ function ModalNuevoEfectivo(_ref) {
                   val = "";
                 }
               }
-              setcontrolefecNewMonto(formatAmount(val, ""));
+              setcontrolefecNewMonto(formatAmount(e.target.value, ""));
             },
             placeholder: "Monto " + controlefecNewMontoMoneda
           })

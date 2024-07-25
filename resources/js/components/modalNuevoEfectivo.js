@@ -169,7 +169,7 @@ export default function ModalNuevoEfectivo({
                             className="form-control fs-2"
                             value={controlefecNewMontoMoneda}
                             onChange={e => {
-                                setcontrolefecNewMonto("")
+                                
                                 setcontrolefecNewMontoMoneda(e.target.value)
                             }}>
                             <option value="">-</option>
@@ -200,7 +200,7 @@ export default function ModalNuevoEfectivo({
                                     val = ""
                                 }
                             }
-                            setcontrolefecNewMonto(formatAmount(val,""))
+                            setcontrolefecNewMonto(formatAmount(e.target.value,""))
                         }}
                         placeholder={"Monto "+controlefecNewMontoMoneda}  />
                     </div>
