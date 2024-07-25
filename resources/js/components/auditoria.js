@@ -1,3 +1,5 @@
+import { cloneDeep } from "lodash";
+
 import { useEffect, useState } from "react";
 import PanelOpciones from './panel/panelopciones';
 import Aprobtransferencia from './aprobtransferencia';
@@ -25,6 +27,8 @@ export default function Auditoria({
     setsucursalSelectAuditoria,
     tipoSelectAuditoria,
     settipoSelectAuditoria,
+    ingegreSelectAuditoria,
+    setingegreSelectAuditoria,
     
     getMetodosPago,
     getBancosData,
@@ -145,6 +149,7 @@ export default function Auditoria({
     dataimportliquidacion,
     showallSelectAuditoria,
     setshowallSelectAuditoria,
+    setbancosdata,
 }){
     useEffect(()=>{
         getMetodosPago()
@@ -215,19 +220,28 @@ export default function Auditoria({
     ]
 
     const addBloque = (index,type) => {
-        let num = window.prompt("Número de Saltos")
+        let num = 1
         if (num) {
-            let arr = []
-            for (let i = 0; i < num; i++) {
-                arr.push({index})
-            }
             switch (type) {
                 case "banco":
-                    setbloquesBanco(bloquesBanco.concat(arr))    
-                    break;
-                case "reportado":
-                    setbloquesReportado(bloquesReportado.concat(arr))    
-                    break;
+                    let dataclone = cloneDeep(dataimportliquidacion)
+
+
+                    setdataimportliquidacion(dataclone.toSpliced(index, 0, {
+                        ajuste:true
+                    }))
+                    //setbloquesBanco(bloquesBanco.concat(arr))    
+                break;
+                    case "reportado":
+                        
+                        let bancosdataclone = cloneDeep(bancosdata)
+                        let xliquidarclone = bancosdataclone.xliquidar.toSpliced(index, 0, {
+                            ajuste:true
+                        })
+                        bancosdataclone.xliquidar = xliquidarclone
+                        setbancosdata(bancosdataclone)    
+                    //setbloquesReportado(bloquesReportado.concat(arr))    
+                break;
             }
         }
     }
@@ -235,12 +249,109 @@ export default function Auditoria({
     const delBloque = (index,type) => {
         switch (type) {
             case "banco":
-                setbloquesBanco(bloquesBanco.filter(e=>e.index!=index))    
-                break;
+                let dataclone = cloneDeep(dataimportliquidacion)
+                setdataimportliquidacion(dataclone.filter((e,i)=>i!=index))  
+
+            break;
             case "reportado":
-                setbloquesReportado(bloquesBanco.filter(e=>e.index!=index))    
-                break;
+                let bancosdataclone = cloneDeep(bancosdata)
+                let xliquidarclone = bancosdataclone.xliquidar.filter((e,i)=>i!=index)
+                bancosdataclone.xliquidar = xliquidarclone
+                setbancosdata(bancosdataclone)  
+
+            break;
         }
+    }
+
+    let reportBanco = [
+    ]
+    let sumaReporteBanco = 0
+    
+    let reportSistema = [
+    ]
+    let sumaReporteSistema = 0
+    const getReportLiquidacion = () => {
+        if (bancosdata.xliquidar) {
+            bancosdata.xliquidar.map((e,i)=>{
+                if (e.ajuste) {
+                    if (dataimportliquidacion[i]) {
+    
+                        if (!dataimportliquidacion[i].ajuste) {
+                            let ref = dataimportliquidacion[i].ref
+                            let monto = dataimportliquidacion[i].monto
+                            let banco = dataimportliquidacion[i].codigo
+                            reportBanco.push({
+                                id: i,
+                                msj: "Disponible en BANCO y no reportada ",
+                                monto,
+                                ref,
+                                banco,
+                            })
+                        }
+                    }
+                }
+            })
+        }
+
+        if (dataimportliquidacion.length) {
+            dataimportliquidacion.map((e,i)=>{
+                if (e.ajuste) {
+                    if (bancosdata.xliquidar[i]) {
+    
+                        if (!bancosdata.xliquidar[i].ajuste) {
+                            let ref = bancosdata.xliquidar[i].loteserial
+                            let monto = bancosdata.xliquidar[i].monto
+                            let banco = bancosdata.xliquidar[i].banco
+                            reportSistema.push({
+                                id: i,
+                                msj: "Reportada en SISTEMA y no en BANCO ",
+                                monto,
+                                ref,
+                                banco,
+                            })
+                        }
+                    }
+                }
+            })
+        }
+
+
+    }
+    getReportLiquidacion()
+
+    const getSumReport = () => {
+        if (bancosdata.xliquidar) {
+            let sumsistema = (bancosdata.xliquidar.filter(e=>!e.ajuste).reduce((a,b)=>{return a+parseFloat(b.monto)},0))
+            let sumbanco = (dataimportliquidacion.filter(e=>!e.ajuste).reduce((a,b)=>{return a+parseFloat(b.monto)},0))
+
+            let sumreportsistema = (reportSistema.reduce((a,b)=>{return a+parseFloat(b.monto)},0))
+            let sumreportbanco = (reportBanco.reduce((a,b)=>{return a+parseFloat(b.monto)},0))
+
+            sumaReporteSistema = sumsistema-sumreportsistema
+            sumaReporteBanco =sumbanco-sumreportbanco
+        }
+    }
+    getSumReport()
+
+    const colorPerfect = i => {
+        let banco = dataimportliquidacion[i]
+        let sistema = bancosdata.xliquidar[i]
+        if (banco && sistema) {
+            let resta = parseFloat(banco.monto)-parseFloat(sistema.monto)
+
+            if (resta==0 && banco.ref.indexOf(sistema.loteserial)!=-1) {
+                return "bg-success"
+            }
+
+            if ((resta>=-3 && resta<=3) && banco.ref.indexOf(sistema.loteserial)!=-1) {
+                return "bg-success-light"
+            }
+
+            if ((resta==0) && banco.ref.indexOf(sistema.loteserial)==-1) {
+                return "bg-sinapsis-light"
+            }
+        }
+        return ""
     }
 
     
@@ -613,23 +724,29 @@ export default function Auditoria({
                                                         <option key={e.id} value={e.id}>{e.codigo}</option>
                                                     )}
                                                 </select>
+
+                                                <select className="form-control" value={tipoSelectAuditoria}  onChange={event=>settipoSelectAuditoria(event.target.value)}>
+                                                    <option value="">-MÉTODO-</option>
+                                                    <option value="Transferencia">TRANSFERENCIA</option>
+                                                    <option value="PUNTO">PUNTO</option>
+                                                    <option value="BIOPAGO">BIOPAGO</option>
+                                                </select>
+
+                                                <select className="form-control" value={ingegreSelectAuditoria}  onChange={event=>setingegreSelectAuditoria(event.target.value)}>
+                                                    <option value="">-TIPO-</option>
+                                                    <option value="INGRESO">INGRESO</option>
+                                                    <option value="EGRESO">EGRESO</option>
+                                                </select>
+
+                                                <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
+                                                <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
                                                 <select className="form-control" value={sucursalSelectAuditoria}  onChange={event=>setsucursalSelectAuditoria(event.target.value)}>
                                                     <option value="">-SUCURSAL-</option>
                                                     {sucursales.map(e=>
                                                         <option key={e.id} value={e.id}>{e.codigo}</option>
                                                     )}
                                                 </select>
-
-                                                <select className="form-control" value={tipoSelectAuditoria}  onChange={event=>settipoSelectAuditoria(event.target.value)}>
-                                                    <option value="">-TODOS-</option>
-                                                    <option value="Transferencia">TRANSFERENCIA</option>
-                                                    <option value="PUNTO">PUNTO</option>
-                                                    <option value="BIOPAGO">BIOPAGO</option>
-                                                    
-                                                </select>
-
-                                                <input type="date" className="form-control" value={fechaSelectAuditoria} onChange={event=>setfechaSelectAuditoria(event.target.value)}/>    
-                                                <input type="date" className="form-control" value={fechaHastaSelectAuditoria} onChange={event=>setfechaHastaSelectAuditoria(event.target.value)}/>    
+                                                
                                                 <button className={("btn btn-")+(showallSelectAuditoria==1?"success":"")} onClick={()=>setshowallSelectAuditoria(showallSelectAuditoria==1?"":1)}><i className="fa fa-eye"></i></button>
                                                 <button className="btn btn-success" onClick={()=>getBancosData()}><i className="fa fa-search"></i></button>
                                             
@@ -705,7 +822,7 @@ export default function Auditoria({
 
                                     {showimportliquidacion?<div>
                                     
-                                        <textarea className="form-control" placeholder="IMPORTAR BANCO [FECHA yyyy-mm-dd] [CODIGO BANCO] [REF] [MONTO]" value={textimportliquidadcion} onChange={event=>settextimportliquidadcion(event.target.value)}></textarea>
+                                        <textarea className="form-control" placeholder="[CODIGO BANCO] [FECHA yyyy-mm-dd] [REF] [MONTO]" value={textimportliquidadcion} onChange={event=>settextimportliquidadcion(event.target.value)}></textarea>
                                         <div className="text-center p-3">
                                             <button className="btn btn-success" onClick={()=>procesarImportTextliquidacion()}>PROCESAR <i className="fa fa-cogs"></i></button>
                                             <button className="btn btn-sinapsis" onClick={()=>setdataimportliquidacion([])}>LIMPIAR</button>
@@ -715,6 +832,61 @@ export default function Auditoria({
 
                                 </div> 
                                 <hr />
+                                <div className="row mt-2 mb-2">
+                                    <div className="col">
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                    <th colSpan={2} className="text-center">NOVEDADES SISTEMA <i className="fa fa-exclamation-triangle"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th className="text-right">TOTAL DE MOV SISTEMA</th>
+                                                    <th className="text-right">{bancosdata.xliquidar.filter(e=>!e.ajuste).length}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th className="text-right">TOTAL MONTO MENOS REPORTE</th>
+                                                    <th className="text-sinapsis fs-3 text-right">{moneda(sumaReporteSistema)}</th>
+                                                </tr>
+                                                {reportSistema.map((e,i)=>
+                                                    <tr key={i}>
+                                                        <td className="text-right">{e.msj} <b>*{e.ref}*</b> <b>#{e.banco}</b> <b>{moneda(e.monto)}</b></td>
+                                                        <th className="text-right">ID {e.id}</th>
+                                                    </tr>
+                                                )}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div className="col-4">
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                    <th className=" text-primary">{moneda(sumaReporteBanco-sumaReporteSistema)}</th>
+                                                    <th colSpan={1} className="text-center">NOVEDADES BANCO <i className="fa fa-exclamation-triangle"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>{dataimportliquidacion.filter(e=>!e.ajuste).length}</th>
+                                                    <th>TOTAL MOVS BANCO</th>
+                                                </tr>
+                                                <tr>
+                                                    <th className="text-sinapsis fs-3">{moneda(sumaReporteBanco)}</th>
+                                                    <th>TOTAL MONTO MENOS REPORTE</th>
+                                                </tr>
+                                                {reportBanco.map((e,i)=>
+                                                    <tr key={i}>
+                                                        <th>ID {e.id}</th>
+                                                        <td>{e.msj} <b>*{e.ref}*</b> <b>#{e.banco}</b> <b>{moneda(e.monto)}</b></td>
+                                                    </tr>
+                                                )}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
 
                                 <div className="row">
                                     <div className="col">
@@ -736,7 +908,7 @@ export default function Auditoria({
                                                         <br />
                                                         <span className="text-success fs-4">
                                                             {bancosdata.xliquidar?
-                                                                moneda(bancosdata.xliquidar.reduce((a,b)=>{return a+parseFloat(b.monto_liquidado)},0))
+                                                                moneda(bancosdata.xliquidar.filter(e=>!e.ajuste).reduce((a,b)=>{return a+parseFloat(b.monto_liquidado)},0))
                                                             :null}
                                                         </span>
                                                     </th>
@@ -745,7 +917,7 @@ export default function Auditoria({
                                                         <br />
                                                         <span className="text-sinapsis fs-4">
                                                             {bancosdata.xliquidar?
-                                                                moneda(bancosdata.xliquidar.reduce((a,b)=>{return a+parseFloat(b.monto)},0))
+                                                                moneda(bancosdata.xliquidar.filter(e=>!e.ajuste).reduce((a,b)=>{return a+parseFloat(b.monto)},0))
                                                             :null}
                                                         </span>
 
@@ -757,10 +929,16 @@ export default function Auditoria({
                                                 {bancosdata.xliquidar.map((e,i)=>
                                                 <>
                                                 
-                                                    <tr 
-                                                    key={e.id} 
-                                                    className={(e.fecha_liquidacion?"bg-success-light":"")+" h-70px"}
-                                                    >
+                                                    {e.ajuste?
+                                                        <tr onDoubleClick={()=>delBloque(i,"reportado")} className="pointer">
+                                                            <td colSpan={11} className=" text-center h-70px ">
+                                                            </td>
+                                                            <th>
+                                                                {i}
+                                                            </th>
+                                                        </tr>
+                                                    :
+                                                    <tr key={e.id}className={(e.fecha_liquidacion?"bg-success-light":"")+" h-70px"} >
                                                         <th className="w-10">
                                                             <button onDoubleClick={()=>changeBank(e.id,"banco")} className="btn w-100 fw-bolder" 
                                                             style={{
@@ -837,18 +1015,12 @@ export default function Auditoria({
                                                         </th>
                                                         <th className="">
                                                             <span className="pointer" onClick={()=>addBloque(i,"reportado")}>
-                                                                {i+1}
+                                                                {i}
                                                             </span>
                                                         </th>
-                                                    </tr>
+                                                    </tr>}
 
-                                                    {bloquesReportado.filter(filbloque=>filbloque.index==i).map(bloque=>
-                                                        <tr onDoubleClick={()=>delBloque(i,"reportado")}>
-                                                            <td colSpan={12} className=" text-center h-70px bg-dark text-light">
-                                                                <h1>AJUSTE</h1>
-                                                            </td>
-                                                        </tr>
-                                                    )}
+                                                    
                                                 </>  
                                                 )}
                                             </tbody>
@@ -866,7 +1038,7 @@ export default function Auditoria({
                                                             <br />
                                                             <span className="text-sinapsis fs-4">
                                                                 {bancosdata.xliquidar?
-                                                                    moneda(dataimportliquidacion.reduce((a,b)=>{return a+parseFloat(b.monto)},0))
+                                                                    moneda(dataimportliquidacion.filter(e=>!e.ajuste).reduce((a,b)=>{return a+parseFloat(b.monto)},0))
                                                                 :null}
                                                             </span>
                                                         </th>
@@ -889,31 +1061,53 @@ export default function Auditoria({
                                                         }
                                                     } ).map((e,i)=>
                                                         <>
-                                                            <tr key={i} className="h-70px">
-                                                                <th>
-                                                                    <span className="pointer" onClick={()=>addBloque(i,"banco")}>
-                                                                        {i+1}
-                                                                    </span>
-                                                                </th>
-                                                                <th className="text-sinapsis">{moneda(e.monto)}</th>
-                                                                <td>
-                                                                    
-                                                                    <button className="btn w-100 fw-bolder" 
-                                                                    style={{
-                                                                        backgroundColor:colors[e.codigo]?colors[e.codigo][0]:"", 
-                                                                        color:colors[e.codigo]?colors[e.codigo][1]:""
-                                                                    }}>{e.codigo}</button>
-                                                                </td>
-                                                                <td>{e.fecha}</td>
-                                                                <td>{e.ref}</td>
-                                                            </tr>
-                                                            {bloquesBanco.filter(filbloque=>filbloque.index==i).map(bloque=>
-                                                                <tr onDoubleClick={()=>delBloque(i,"banco")}>
-                                                                    <td colSpan={12} className=" text-center h-70px bg-dark text-light">
-                                                                        <h1>AJUSTE</h1>
+                                                            {e.ajuste?
+                                                                <tr onDoubleClick={()=>delBloque(i,"banco")} className="pointer">
+                                                                    <th>
+                                                                        {i}
+                                                                    </th>
+                                                                    <td colSpan={11} className=" text-center h-70px ">
                                                                     </td>
                                                                 </tr>
-                                                            )}
+                                                            :
+                                                                <tr key={i} className={"h-70px "}>
+                                                                    <th className={colorPerfect(i)}>
+                                                                        <span className="pointer" onClick={()=>addBloque(i,"banco")}>
+                                                                            {i}
+                                                                        </span>
+                                                                    </th>
+                                                                    <th className="text-sinapsis">{moneda(e.monto)}</th>
+                                                                        {bancosdata.xliquidar?
+                                                                            parseFloat(e.monto)&&bancosdata.xliquidar[i]?  
+                                                                                <th className={((parseFloat(e.monto)-parseFloat(bancosdata.xliquidar[i].monto))<-3 || (parseFloat(e.monto)-parseFloat(bancosdata.xliquidar[i].monto))>3?"text-danger":"text-success")+""}>
+                                                                                    {moneda(parseFloat(e.monto)-parseFloat(bancosdata.xliquidar[i].monto))}
+                                                                                </th>
+                                                                            : "---"
+                                                                        :null}
+                                                                    <td>
+                                                                        
+                                                                        <button className="btn w-100 fw-bolder" 
+                                                                        style={{
+                                                                            backgroundColor:colors[e.codigo]?colors[e.codigo][0]:"", 
+                                                                            color:colors[e.codigo]?colors[e.codigo][1]:""
+                                                                        }}>{e.codigo}</button>
+                                                                    </td>
+                                                                    <td>{e.fecha}</td>
+                                                                    <td>
+                                                                        {e.ref}
+
+                                                                        {bancosdata.xliquidar?
+                                                                            bancosdata.xliquidar[i]?
+                                                                                e.ref.indexOf(bancosdata.xliquidar[i].loteserial)!=-1?  
+                                                                                    <span className="text-success fw-bold ms-1">
+                                                                                        {bancosdata.xliquidar[i].loteserial}
+                                                                                    </span>
+                                                                                : ""
+                                                                            :null
+                                                                        :null}
+                                                                    </td>
+                                                                </tr>
+                                                            }
                                                         </>
                                                     )}
                                                 </tbody>

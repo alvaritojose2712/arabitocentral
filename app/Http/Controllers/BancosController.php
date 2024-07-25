@@ -64,6 +64,8 @@ class BancosController extends Controller
         $order = $arr["order"];
         $tipoSelectAuditoria = isset($arr["tipoSelectAuditoria"])?$arr["tipoSelectAuditoria"]:"";
         $showallSelectAuditoria = isset($arr["showallSelectAuditoria"])?$arr["showallSelectAuditoria"]:"";
+        $ingegreSelectAuditoria = isset($arr["ingegreSelectAuditoria"])?$arr["ingegreSelectAuditoria"]:"";
+        
         
         
 
@@ -86,6 +88,15 @@ class BancosController extends Controller
             }
             
         })
+        ->when($ingegreSelectAuditoria!="",function($q) use ($ingegreSelectAuditoria) {
+            if ($ingegreSelectAuditoria=="INGRESO") {
+                $q->where("monto",">=",0);
+            }else{
+                $q->where("monto","<",0);
+            }
+            
+        })
+        
         ->when($qdescripcionbancosdata!="",function($q) use($qdescripcionbancosdata) {
             $q->orwhere("loteserial",$qdescripcionbancosdata)
             ->orwhere("monto",$qdescripcionbancosdata)
@@ -396,6 +407,8 @@ class BancosController extends Controller
             $order = $req->orderAuditoria;
             $tipoSelectAuditoria = $req->tipoSelectAuditoria;
             $showallSelectAuditoria = $req->showallSelectAuditoria;
+            $ingegreSelectAuditoria = $req->ingegreSelectAuditoria;
+            
             
 
             return $this->bancosDataFun([
@@ -409,6 +422,8 @@ class BancosController extends Controller
                 "order" => $order,
                 "tipoSelectAuditoria" => $tipoSelectAuditoria,
                 "showallSelectAuditoria" => $showallSelectAuditoria,
+                "ingegreSelectAuditoria" => $ingegreSelectAuditoria,
+                
                 
             ]);
             

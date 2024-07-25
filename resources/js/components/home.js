@@ -3843,7 +3843,7 @@ function formatAmount( number, simbol ) {
         codigo = cols[0]?cols[0]:""
         fecha = cols[1]?cols[1]:""
         ref = cols[2]?cols[2]:""
-        monto = cols[3]?cols[3]:""
+        monto = cols[3]?cols[3].replace(",","."):""
 
 
   
@@ -3868,6 +3868,7 @@ function formatAmount( number, simbol ) {
   const [fechaSelectAuditoria,setfechaSelectAuditoria] = useState("")
   const [showallSelectAuditoria,setshowallSelectAuditoria] = useState("")
   const [tipoSelectAuditoria,settipoSelectAuditoria] = useState("")
+  const [ingegreSelectAuditoria,setingegreSelectAuditoria] = useState("")
   const [fechaHastaSelectAuditoria,setfechaHastaSelectAuditoria] = useState("")
   const [bancoSelectAuditoria,setbancoSelectAuditoria] = useState("")
   const [sucursalSelectAuditoria,setsucursalSelectAuditoria] = useState("")
@@ -4092,6 +4093,7 @@ function formatAmount( number, simbol ) {
         fechaSelectAuditoria,
         fechaHastaSelectAuditoria,
         tipoSelectAuditoria,
+        ingegreSelectAuditoria,
         showallSelectAuditoria,
 
         bancoSelectAuditoria,
@@ -5094,91 +5096,94 @@ function formatAmount( number, simbol ) {
           }
           {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
             <Auditoria
-              qfiltroaprotransf={qfiltroaprotransf}
-              setqfiltroaprotransf={setqfiltroaprotransf}
-              bancoqfiltroaprotransf={bancoqfiltroaprotransf}
-              setbancoqfiltroaprotransf={setbancoqfiltroaprotransf}
-              showallSelectAuditoria={showallSelectAuditoria}
-              setshowallSelectAuditoria={setshowallSelectAuditoria}
-
-              setshowimportliquidacion={setshowimportliquidacion}
-              showimportliquidacion={showimportliquidacion}
-              textimportliquidadcion={textimportliquidadcion}
-              settextimportliquidadcion={settextimportliquidadcion}
-              procesarImportTextliquidacion={procesarImportTextliquidacion}
-              setdataimportliquidacion={setdataimportliquidacion}
-              dataimportliquidacion={dataimportliquidacion}
-
-              inpmontoNoreportado={inpmontoNoreportado}
-              setinpmontoNoreportado={setinpmontoNoreportado}
-              inpfechaNoreportado={inpfechaNoreportado}
-              setinpfechaNoreportado={setinpfechaNoreportado}
-              reportarMov={reportarMov}
-
-              newmovnoreportadoref={newmovnoreportadoref}
-              setnewmovnoreportadoref={setnewmovnoreportadoref}
-              setshownewmovnoreportado={setshownewmovnoreportado}
-              shownewmovnoreportado={shownewmovnoreportado}
-              saveNewmovnoreportado={saveNewmovnoreportado}
-              newmovnoreportadomonto={newmovnoreportadomonto}
-              setnewmovnoreportadomonto={setnewmovnoreportadomonto}
-              newmovnoreportadobanco={newmovnoreportadobanco}
-              setnewmovnoreportadobanco={setnewmovnoreportadobanco}
-              newmovnoreportadofecha={newmovnoreportadofecha}
-              setnewmovnoreportadofecha={setnewmovnoreportadofecha}
-
-              getAuditoriaEfec={getAuditoriaEfec}
-              qauditoriaefectivo={qauditoriaefectivo}
-              setqauditoriaefectivo={setqauditoriaefectivo}
-              sucursalqauditoriaefectivo={sucursalqauditoriaefectivo}
-              setsucursalqauditoriaefectivo={setsucursalqauditoriaefectivo}
-              fechadesdeauditoriaefec={fechadesdeauditoriaefec}
-              setfechadesdeauditoriaefec={setfechadesdeauditoriaefec}
-              fechahastaauditoriaefec={fechahastaauditoriaefec}
-              setfechahastaauditoriaefec={setfechahastaauditoriaefec}
-              setqcajaauditoriaefectivo={setqcajaauditoriaefectivo}
-              qcajaauditoriaefectivo={qcajaauditoriaefectivo}
-              dataAuditoriaEfectivo={dataAuditoriaEfectivo}
-
-              sucursalqcuadregeneral={sucursalqcuadregeneral}
-              setsucursalqcuadregeneral={setsucursalqcuadregeneral}
-              fechadesdeqcuadregeneral={fechadesdeqcuadregeneral}
-              setfechadesdeqcuadregeneral={setfechadesdeqcuadregeneral}
-              fechahastaqcuadregeneral={fechahastaqcuadregeneral}
-              setfechahastaqcuadregeneral={setfechahastaqcuadregeneral}
-              datacuadregeneral={datacuadregeneral}
-              getCuadreGeneral={getCuadreGeneral}
-              number={number}
-              formatAmount={formatAmount}
-
-              iscomisiongasto={iscomisiongasto}
-              setiscomisiongasto={setiscomisiongasto}
-              comisionpagomovilinterban={comisionpagomovilinterban}
-              setcomisionpagomovilinterban={setcomisionpagomovilinterban}
-              controlefecQDescripcion={controlefecQDescripcion}
-              setcontrolefecQDescripcion={setcontrolefecQDescripcion}
-              controlefecSelectCat={controlefecSelectCat}
-              setcontrolefecSelectCat={setcontrolefecSelectCat}
-              controlefecSelectGeneral={controlefecSelectGeneral}
-              setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
-              fechaAutoLiquidarTransferencia={fechaAutoLiquidarTransferencia}
-              setfechaAutoLiquidarTransferencia={setfechaAutoLiquidarTransferencia}   
-              bancoAutoLiquidarTransferencia={bancoAutoLiquidarTransferencia}
-              setbancoAutoLiquidarTransferencia={setbancoAutoLiquidarTransferencia}
-
-              autoliquidarTransferencia={autoliquidarTransferencia}
-              categoriasCajas={categoriasCajas }
-              permiso={permiso}
-              getBancoName={getBancoName}
-              setqestatusaprobaciocaja={setqestatusaprobaciocaja }
-              sucursalDetallesData={sucursalDetallesData }
-              getsucursalDetallesData={getsucursalDetallesData }
-              getSucursales={getSucursales}
-              setsubviewpanelsucursales={setsubviewpanelsucursales}
-              subviewpanelsucursales={subviewpanelsucursales}
-              fechasMain1={fechasMain1}
-              fechasMain2={fechasMain2}
-              sucursalSelect={sucursalSelect}
+            setbancosdata={setbancosdata}
+            qfiltroaprotransf={qfiltroaprotransf}
+            setqfiltroaprotransf={setqfiltroaprotransf}
+            bancoqfiltroaprotransf={bancoqfiltroaprotransf}
+            setbancoqfiltroaprotransf={setbancoqfiltroaprotransf}
+            showallSelectAuditoria={showallSelectAuditoria}
+            setshowallSelectAuditoria={setshowallSelectAuditoria}
+            
+            setshowimportliquidacion={setshowimportliquidacion}
+            showimportliquidacion={showimportliquidacion}
+            textimportliquidadcion={textimportliquidadcion}
+            settextimportliquidadcion={settextimportliquidadcion}
+            procesarImportTextliquidacion={procesarImportTextliquidacion}
+            setdataimportliquidacion={setdataimportliquidacion}
+            dataimportliquidacion={dataimportliquidacion}
+            
+            inpmontoNoreportado={inpmontoNoreportado}
+            setinpmontoNoreportado={setinpmontoNoreportado}
+            inpfechaNoreportado={inpfechaNoreportado}
+            setinpfechaNoreportado={setinpfechaNoreportado}
+            reportarMov={reportarMov}
+            
+            newmovnoreportadoref={newmovnoreportadoref}
+            setnewmovnoreportadoref={setnewmovnoreportadoref}
+            setshownewmovnoreportado={setshownewmovnoreportado}
+            shownewmovnoreportado={shownewmovnoreportado}
+            saveNewmovnoreportado={saveNewmovnoreportado}
+            newmovnoreportadomonto={newmovnoreportadomonto}
+            setnewmovnoreportadomonto={setnewmovnoreportadomonto}
+            newmovnoreportadobanco={newmovnoreportadobanco}
+            setnewmovnoreportadobanco={setnewmovnoreportadobanco}
+            newmovnoreportadofecha={newmovnoreportadofecha}
+            setnewmovnoreportadofecha={setnewmovnoreportadofecha}
+            
+            getAuditoriaEfec={getAuditoriaEfec}
+            qauditoriaefectivo={qauditoriaefectivo}
+            setqauditoriaefectivo={setqauditoriaefectivo}
+            sucursalqauditoriaefectivo={sucursalqauditoriaefectivo}
+            setsucursalqauditoriaefectivo={setsucursalqauditoriaefectivo}
+            fechadesdeauditoriaefec={fechadesdeauditoriaefec}
+            setfechadesdeauditoriaefec={setfechadesdeauditoriaefec}
+            fechahastaauditoriaefec={fechahastaauditoriaefec}
+            setfechahastaauditoriaefec={setfechahastaauditoriaefec}
+            setqcajaauditoriaefectivo={setqcajaauditoriaefectivo}
+            qcajaauditoriaefectivo={qcajaauditoriaefectivo}
+            dataAuditoriaEfectivo={dataAuditoriaEfectivo}
+            
+            sucursalqcuadregeneral={sucursalqcuadregeneral}
+            setsucursalqcuadregeneral={setsucursalqcuadregeneral}
+            fechadesdeqcuadregeneral={fechadesdeqcuadregeneral}
+            setfechadesdeqcuadregeneral={setfechadesdeqcuadregeneral}
+            fechahastaqcuadregeneral={fechahastaqcuadregeneral}
+            setfechahastaqcuadregeneral={setfechahastaqcuadregeneral}
+            datacuadregeneral={datacuadregeneral}
+            getCuadreGeneral={getCuadreGeneral}
+            number={number}
+            formatAmount={formatAmount}
+            
+            iscomisiongasto={iscomisiongasto}
+            setiscomisiongasto={setiscomisiongasto}
+            comisionpagomovilinterban={comisionpagomovilinterban}
+            setcomisionpagomovilinterban={setcomisionpagomovilinterban}
+            ingegreSelectAuditoria={ingegreSelectAuditoria}
+            setingegreSelectAuditoria={setingegreSelectAuditoria}
+            controlefecQDescripcion={controlefecQDescripcion}
+            setcontrolefecQDescripcion={setcontrolefecQDescripcion}
+            controlefecSelectCat={controlefecSelectCat}
+            setcontrolefecSelectCat={setcontrolefecSelectCat}
+            controlefecSelectGeneral={controlefecSelectGeneral}
+            setcontrolefecSelectGeneral={setcontrolefecSelectGeneral}
+            fechaAutoLiquidarTransferencia={fechaAutoLiquidarTransferencia}
+            setfechaAutoLiquidarTransferencia={setfechaAutoLiquidarTransferencia}   
+            bancoAutoLiquidarTransferencia={bancoAutoLiquidarTransferencia}
+            setbancoAutoLiquidarTransferencia={setbancoAutoLiquidarTransferencia}
+            
+            autoliquidarTransferencia={autoliquidarTransferencia}
+            categoriasCajas={categoriasCajas }
+            permiso={permiso}
+            getBancoName={getBancoName}
+            setqestatusaprobaciocaja={setqestatusaprobaciocaja }
+            sucursalDetallesData={sucursalDetallesData }
+            getsucursalDetallesData={getsucursalDetallesData }
+            getSucursales={getSucursales}
+            setsubviewpanelsucursales={setsubviewpanelsucursales}
+            subviewpanelsucursales={subviewpanelsucursales}
+            fechasMain1={fechasMain1}
+            fechasMain2={fechasMain2}
+            sucursalSelect={sucursalSelect}
               setsucursalSelect={setsucursalSelect}
               qestatusaprobaciocaja={qestatusaprobaciocaja}
               setfechasMain1={setfechasMain1}
@@ -5199,7 +5204,6 @@ function formatAmount( number, simbol ) {
               opcionesMetodosPago={opcionesMetodosPago}
               setopcionesMetodosPago={setopcionesMetodosPago}
               bancosdata={bancosdata}
-              setbancosdata={setbancosdata}
               tipoSelectAuditoria={tipoSelectAuditoria}
               settipoSelectAuditoria={settipoSelectAuditoria}
               fechaSelectAuditoria={fechaSelectAuditoria}
