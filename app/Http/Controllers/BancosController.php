@@ -345,10 +345,10 @@ class BancosController extends Controller
 
                 $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("banco",$KeybancoGroup)->first();
                 $inicial = $this->getSaldoInicialBanco($KeyfechasGroup,$KeybancoGroup);
-                $balance = $ingresoBanco+$egresoBanco+$inicial+$noreportadasum;
+                $balance = $ingresoBanco+$egresoBanco+$inicial+abs($noreportadasum);
 
 
-                $cuadre = $q_banco? ($q_banco->saldo_real_manual+$sireportadasum) - $balance: 0;
+                $cuadre = $q_banco? ($q_banco->saldo_real_manual+abs($sireportadasum)) - $balance: 0;
                 array_push($xfechaCuadre, [
                     "fecha" => $KeyfechasGroup,
                     "banco" => $KeybancoGroup,
