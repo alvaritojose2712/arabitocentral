@@ -75,9 +75,9 @@ export default function ModalNuevoEfectivo({
                                         setcontrolefecNewConcepto(val)
                                         let matchid = val.split("=")[2]
                                         let match = alquileresData.filter(e=>e.id==matchid)[0]
-                                        setcontrolefecNewMonto(match.monto)
-                                        setmaxpagoalquiler(match.monto)
-                                        setcontrolefecNewMontoMoneda("dolar")
+                                        //setcontrolefecNewMonto(match.monto)
+                                        //setmaxpagoalquiler(match.monto)
+                                        //setcontrolefecNewMontoMoneda("dolar")
 
                                     }} >
                                         <option value="">-</option>
@@ -184,24 +184,7 @@ export default function ModalNuevoEfectivo({
                     <div className="col">
                         <input type="text" className="form-control text-sinapsis fs-2" 
                         value={controlefecNewMonto}
-                        onChange={e => {
-
-                            /* let val = (number(e.target.value))
-                            let factor = controlefecNewMontoMoneda=="dolar"?1:(controlefecNewMontoMoneda=="bs"?parseFloat(dolar):(controlefecNewMontoMoneda=="peso"?parseFloat(peso):1))
-
-                            if (catselect.indexOf("NOMINA QUINCENA")!==-1) {
-                                if (parseFloat(val)>parseFloat(maxpagopersona*factor)) {
-                                    val = ""
-                                }
-                            }
-
-                            if (catselect.indexOf("ALQUILER")!==-1) {
-                                if (parseFloat(val)>parseFloat(maxpagoalquiler*factor)) {
-                                    val = ""
-                                }
-                            } */
-                            setcontrolefecNewMonto(formatAmount(e.target.value,""))
-                        }}
+                        onChange={e =>setcontrolefecNewMonto(e.target.value)}
                         placeholder={"Monto "+controlefecNewMontoMoneda}  />
                     </div>
 

@@ -397,7 +397,7 @@ function Home() {
 
       if (confirm("¿Realmente desea cargar el movimiento?")) {
 
-
+        console.log(controlefecNewMonto)
         db.setControlEfec({
 
             fecha: controlefecNewFecha,
@@ -415,7 +415,7 @@ function Home() {
             setcontrolefecNewConcepto("")
             setcontrolefecNewFecha("")
             setcontrolefecNewCategoria("")
-            setcontrolefecNewMonto("")
+            setcontrolefecNewMonto(0)
 
             notificar(res.data.msj)
         })
