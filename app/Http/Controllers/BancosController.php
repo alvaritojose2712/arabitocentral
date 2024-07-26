@@ -102,7 +102,7 @@ class BancosController extends Controller
             ->orwhere("monto",$qdescripcionbancosdata)
             ->orwhere("monto_liquidado",$qdescripcionbancosdata);
         })
-        ->when($qfechabancosdata!="",function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria, $subviewAuditoria) {
+        ->when($qfechabancosdata!="",function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria, $subviewAuditoria, $showallSelectAuditoria) {
             $field = "fecha_liquidacion";
             if ($subviewAuditoria=="cuadre" || $subviewAuditoria=="conciliacion") {
                 $field = "fecha_liquidacion";
@@ -334,7 +334,12 @@ class BancosController extends Controller
                     if ($e["monto_liquidado"] < 0) {
                         $egresoBanco += $e["monto"];
                     }else{
-                        $ingresoBanco += $e["monto"];
+                        if ($e["tipo"]==="Transferencia") {
+                            $ingresoBanco += $e["monto_liquidado"];
+                        }else{
+                            $ingresoBanco += $e["monto"];
+
+                        }
                     }
                 }
                 $noreportadaList = puntosybiopagos::where("categoria",66)->where("banco",$KeybancoGroup)->where("fecha_liquidacion",$KeyfechasGroup)->get();
