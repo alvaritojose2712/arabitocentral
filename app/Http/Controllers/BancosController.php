@@ -106,11 +106,29 @@ class BancosController extends Controller
             $field = "fecha_liquidacion";
             if ($subviewAuditoria=="cuadre" || $subviewAuditoria=="conciliacion") {
                 $field = "fecha_liquidacion";
+                $q->whereBetween($field, [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
+
             }else if ($subviewAuditoria=="liquidar") {
 
-                $field = "fecha";
+                if (!$showallSelectAuditoria) {
+                    $field = "fecha";
+                    $q->whereBetween($field, [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
+                }else{
+                    $q->where(function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria, $subviewAuditoria, $showallSelectAuditoria) {
+                        $q->orwhere(function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria, $subviewAuditoria, $showallSelectAuditoria) {
+                            $q->whereBetween("fecha", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
+                            $q->whereNull("fecha_liquidacion");
+                        })
+    
+                        ->orwhere(function($q) use ($qfechabancosdata, $fechaHastaSelectAuditoria, $subviewAuditoria, $showallSelectAuditoria) {
+                            $q->whereBetween("fecha_liquidacion", [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
+                        });
+                        
+                    });
+                }
+
             }
-            $q->whereBetween($field, [$qfechabancosdata, !$fechaHastaSelectAuditoria?$qfechabancosdata:$fechaHastaSelectAuditoria]);
+
         })
         ->when($sucursalSelectAuditoria!="",function($q) use ($sucursalSelectAuditoria) {
             $q->where("id_sucursal",$sucursalSelectAuditoria);
