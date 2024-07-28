@@ -35,7 +35,7 @@ class CreatePuntosybiopagosTable extends Migration
             //1 Sucursal
             //2 Administracion
             $table->decimal("monto_dolar",10,2)->nullable(true)->default(0);
-            $table->decimal("tasa",10,2)->nullable(true)->default(0);
+            $table->decimal("tasa",10,4)->nullable(true)->default(0);
             
             $table->integer("id_usuario");
             $table->integer("id_comision")->nullable(true);

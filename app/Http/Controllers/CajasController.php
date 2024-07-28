@@ -197,7 +197,7 @@ class CajasController extends Controller
         ->when($id_sucursal, function($q) use ($id_sucursal) {
             $q->where("id_sucursal",$id_sucursal);
         })
-        ->when($qcajaauditoriaefectivo, function($q) use ($qcajaauditoriaefectivo) {
+        ->when($qcajaauditoriaefectivo!="", function($q) use ($qcajaauditoriaefectivo) {
             $q->where("tipo",$qcajaauditoriaefectivo);
         })
         ->when($qauditoriaefectivo, function($q) use ($qauditoriaefectivo){
