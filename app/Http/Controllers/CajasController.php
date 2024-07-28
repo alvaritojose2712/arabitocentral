@@ -311,11 +311,22 @@ class CajasController extends Controller
             
             
             
-            $q->dolarbalance_real = $sumreal->sum("montodolar");
-            $q->bsbalance_real = $sumreal->sum("montobs");
-            $q->pesobalance_real = $sumreal->sum("montopeso");
-            $q->eurobalance_real = $sumreal->sum("montoeuro");
-            $sumbruta = $sumreal->sum("montodolar") + (new CierresController)->dividir($sumreal->sum("montobs"), $tasabs) + (new CierresController)->dividir($sumreal->sum("montopeso"), $tasacop) + $sumreal->sum("montoeuro");
+            $lastSumReal = cajas::where("id_sucursal",$q->id_sucursal)
+            ->where("tipo",$qcajaauditoriaefectivo)
+            ->orderBy("idinsucursal","asc")->first();
+
+            $dolarbalance_real = $sumreal->sum("montodolar") + ($lastSumReal->dolarbalance-$lastSumReal->montodolar);
+            $bsbalance_real = $sumreal->sum("montobs") + ($lastSumReal->bsbalance-$lastSumReal->montobs);
+            $pesobalance_real = $sumreal->sum("montopeso") + ($lastSumReal->pesobalance-$lastSumReal->montopeso);
+            $eurobalance_real = $sumreal->sum("montoeuro") + ($lastSumReal->eurobalance-$lastSumReal->montoeuro);
+
+
+            $q->dolarbalance_real = $dolarbalance_real;
+            $q->bsbalance_real = $bsbalance_real;
+            $q->pesobalance_real = $pesobalance_real;
+            $q->eurobalance_real = $eurobalance_real;
+
+            $sumbruta = $dolarbalance_real + (new CierresController)->dividir($bsbalance_real, $tasabs) + (new CierresController)->dividir($pesobalance_real, $tasacop) + $eurobalance_real;
             
             $q->debestener = $debestener;
             $q->sumasistema = $sumasistema;
