@@ -214,7 +214,12 @@ class CierresController extends Controller
         if (intval($dividendo)==0) {
             return 0;
         }else{
-            return floatval($dividendo)/floatval($divisor);
+            if ($divisor==0) {
+                return 0;
+            }else{
+                return floatval($dividendo)/floatval($divisor);
+
+            }
 
         }
        
