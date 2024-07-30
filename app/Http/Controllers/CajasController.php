@@ -144,7 +144,7 @@ class CajasController extends Controller
                     }
                     
 
-                    //$this->setPagosCajas($e,$id_sucursal);
+                    $this->setPagosCajas($e,$id_sucursal);
 
                     
 

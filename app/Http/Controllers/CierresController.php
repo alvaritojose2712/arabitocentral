@@ -36,7 +36,6 @@ class CierresController extends Controller
         $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
         $id_sucursal = $id_ruta["id_origen"];
         $today = (new NominaController)->today();
-        return (new CajasController)->setEfecFromSucursalToCentral($req->setEfecFromSucursalToCentral, $id_sucursal);
         
         garantias::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
         fallas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
@@ -50,6 +49,7 @@ class CierresController extends Controller
         $sendGarantias = (new GarantiasController)->sendGarantias($req->sendGarantias, $id_sucursal);
         $sendFallas = (new FallasController)->sendFallas($req->sendFallas, $id_sucursal);
         $setCierreFromSucursalToCentral = (new CierresController)->setCierreFromSucursalToCentral($req->setCierreFromSucursalToCentral, $id_sucursal);
+        $setEfecFromSucursalToCentral = (new CajasController)->setEfecFromSucursalToCentral($req->setEfecFromSucursalToCentral, $id_sucursal);
         $sendestadisticasVenta = (new InventarioSucursalEstadisticasController)->sendestadisticasVenta($sendestadisticasVenta, $id_sucursal);
 
         $sendCreditos = (new CreditosController)->sendCreditos($req->sendCreditos, $id_sucursal);
