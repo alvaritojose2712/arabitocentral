@@ -22,7 +22,7 @@ export default function Cajascatdesplegable({
 
                         <tr>
                             <td colSpan={4} className="p-0">
-                                <button className={"btn fw-bolder fs-4"} style={{backgroundColor:colorsGastosCat(ingreso_egreso[0],"ingreso_egreso","color")}}>
+                                <button className={" fw-bolder fs-4"} style={{backgroundColor:colorsGastosCat(ingreso_egreso[0],"ingreso_egreso","color")}}>
                                     {colorsGastosCat(ingreso_egreso[0],"ingreso_egreso","desc")} {filter==1?" EFECTIVO":null}
                                 </button>
                             </td>
@@ -31,7 +31,7 @@ export default function Cajascatdesplegable({
                             <>
                                 <tr className="pointer" style={{backgroundColor:colorsGastosCat(catgeneral[0],"catgeneral","color")}}>
                                     <th colSpan={2} className="w-50">
-                                        <span className="fs-5 btn ms-2"  onClick={()=>{setindexviewvariable_fijo(indexviewvariable_fijo==ii?null:ii);}}>
+                                        <span className="fs-5 ms-2"  onClick={()=>{setindexviewvariable_fijo(indexviewvariable_fijo==ii?null:ii);}}>
                                             {colorsGastosCat(catgeneral[0],"catgeneral","desc")}    
                                         </span>
                                     </th>
@@ -48,13 +48,13 @@ export default function Cajascatdesplegable({
                                         <>
                                          <tr className="pointer">
                                             <th colSpan={3}>
-                                                <span className="fs-6 btn ms-4" style={{backgroundColor:colorsGastosCat(variable_fijo[0],"variable_fijo","color")}} onClick={()=>{setindexviewcatgeneral(indexviewcatgeneral==iii?null:iii);}} >
+                                                <span className="fs-6  ms-4" style={{backgroundColor:colorsGastosCat(variable_fijo[0],"variable_fijo","color")}} onClick={()=>{setindexviewcatgeneral(indexviewcatgeneral==iii?null:iii);}} >
                                                     {colorsGastosCat(variable_fijo[0],"variable_fijo","desc")}    
                                                 </span>
                                             </th>
 
                                             <th>
-                                                <span className="btn" style={{backgroundColor:colorsGastosCat(variable_fijo[0],"variable_fijo","color")}}>
+                                                <span className="" style={{backgroundColor:colorsGastosCat(variable_fijo[0],"variable_fijo","color")}}>
                                                     {moneda(balanceGeneralData["sumArrvariablefijo"][catgeneral[0]][variable_fijo[0]]["sumdolar"])}
                                                 </span>
                                             </th>
@@ -64,13 +64,13 @@ export default function Cajascatdesplegable({
                                                 Object.entries(variable_fijo[1]).map((categoria,iiii)=>
                                                 <>
                                                     <tr>
-                                                        <td colSpan={3}>
-                                                            <button className={"btn fw-bolder fs-6 ms-5 btn-sm"} style={{backgroundColor:colorsGastosCat(categoria[0],"cat","color")}}  onClick={()=>{setindexviewcat(indexviewcat==iiii?null:iiii);}}>
+                                                        <td colSpan={3} style={{backgroundColor:colorsGastosCat(categoria[0],"cat","color")}}>
+                                                            <span className={" fw-bolder fs-6 ms-5"}   onClick={()=>{setindexviewcat(indexviewcat==iiii?null:iiii);}}>
                                                                 {colorsGastosCat(categoria[0],"cat","desc")}
-                                                            </button>
+                                                            </span>
                                                         </td>
                                                         <th>
-                                                            <span className="btn" style={{backgroundColor:colorsGastosCat(categoria[0],"cat","color")}}>
+                                                            <span className="" style={{backgroundColor:colorsGastosCat(categoria[0],"cat","color")}}>
                                                                 {moneda(balanceGeneralData["sumArrcat"][categoria[0]]["sumdolar"])}
                                                             </span>
                                                         </th>
@@ -104,13 +104,92 @@ export default function Cajascatdesplegable({
 
                         <tr className="pointer" style={{backgroundColor:colorsGastosCat(0,"catgeneral","color")}}>
                             <th colSpan={2}  className="w-50">
-                                <span className="fs-5 btn ms-2" onClick={()=>{setviewpagoproveedor(!viewpagoproveedor)}}>
-                                    {colorsGastosCat(0,"catgeneral","desc")}    
+                                <span className="fs-5 ms-2">
+                                    PAGO PROVEEDOR BRUTO     
+                                </span>
+                            </th>
+                            <th colSpan={2} className="w-50">
+                                <span className="fs-3">
+                                    {moneda(balanceGeneralData["sumPagoProveedorBancoEfectivoReal"]?balanceGeneralData["sumPagoProveedorBancoEfectivoReal"]:null)}
+                                </span>
+                            </th>
+                        </tr>
+                        <tr className="pointer">
+                            <th colSpan={2}  className="w-50">
+                                <span className="fs-5 ms-2" onClick={()=>{setviewpagoproveedor(!viewpagoproveedor)}}>
+                                    PAGO PROVEEDOR NETO    
                                 </span>
                             </th>
                             <th colSpan={2} className="w-50">
                                 <span className="fs-3">
                                     {moneda(balanceGeneralData["pagoproveedor"]?balanceGeneralData["pagoproveedor"]["balance"]:null)}
+                                </span>
+                            </th>
+                        </tr>
+
+                        <tr className="pointer bg-danger-light">
+                            <th colSpan={2}  className="w-50">
+                                <span className="fs-5 ms-2">
+                                    PAGO PROVEEDOR PÉDIDA COMISIÓN DE TASAS     
+                                </span>
+                            </th>
+                            <th colSpan={2} className="w-50">
+                                <span className="fs-3">
+                                    {moneda(balanceGeneralData["perdidaPagoProveedor"]?balanceGeneralData["perdidaPagoProveedor"]:null)}
+                                </span>
+                            </th>
+                        </tr>
+
+                        {/* <tr className="pointer">
+                            <th colSpan={2}  className="w-50">
+                                <span className="fs-5 ms-2">
+                                    PAGO PROVEEDOR NETO BANCO    
+                                </span>
+                            </th>
+                            <th colSpan={2} className="w-50">
+                                <span className="fs-3">
+                                    {moneda(balanceGeneralData["sumPagoProveedorBanco"]?balanceGeneralData["sumPagoProveedorBanco"]:null)}
+                                </span>
+                            </th>
+                        </tr>
+                        <tr className="pointer">
+                            <th colSpan={2}  className="w-50">
+                                <span className="fs-5 ms-2">
+                                    PAGO PROVEEDOR NETO EFECTIVO    
+                                </span>
+                            </th>
+                            <th colSpan={2} className="w-50">
+                                <span className="fs-3">
+                                    {moneda(balanceGeneralData["sumPagoProveedorEfectivo"]?balanceGeneralData["sumPagoProveedorEfectivo"]:null)}
+                                </span>
+                            </th>
+                        </tr>
+
+                        <tr className="pointer">
+                            <th colSpan={2}  className="w-50">
+                                <span className="fs-5 ms-2">
+                                    PAGO PROVEEDOR BRUTO BANCO     
+                                </span>
+                            </th>
+                            <th colSpan={2} className="w-50">
+                                <span className="fs-3">
+                                    {moneda(balanceGeneralData["sumPagoProveedorBancoReal"]?balanceGeneralData["sumPagoProveedorBancoReal"]:null)}
+                                </span>
+                            </th>
+                        </tr> */}
+
+
+
+
+                        <tr className="pointer">
+                            <th colSpan={2}  className="w-50">
+                                <span className="fs-5 ms-2">
+                                    FDI    
+                                </span>
+                            </th>
+                            <th colSpan={2} className="w-50">
+                                <span className="fs-3">
+                                    {moneda(balanceGeneralData["fdi"]?balanceGeneralData["fdi"]:null)}
                                 </span>
                             </th>
                         </tr>
@@ -130,8 +209,8 @@ export default function Cajascatdesplegable({
                                                 </span>
                                             </div>
                                         </td>
-                                        <td>
-                                            <button className="btn btn-success">{moneda(pagosproveedor.monto)}</button>
+                                        <td className="bg-success">
+                                            {moneda(pagosproveedor.monto)}
                                         </td>
                                     </tr>
                                 )

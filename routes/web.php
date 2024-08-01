@@ -607,7 +607,7 @@ Route::post('resolveTareaCentral', [TareasController::class,"resolveTareaCentral
 
 Route::post('getsucursalListData', [CierresController::class,"getsucursalListData"]);
 Route::post('getsucursalDetallesData', [CierresController::class,"getsucursalDetallesData"]);
-Route::post('getBalanceGeneral', [CierresController::class,"getBalanceGeneral"]);
+Route::match(array('GET', 'POST'),"getBalanceGeneral", [CierresController::class,"getBalanceGeneral"]);
 Route::get('getCuadreGeneral', [CierresController::class,"getCuadreGeneral"]);
 
 

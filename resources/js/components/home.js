@@ -4809,6 +4809,14 @@ function formatAmount( number, simbol ) {
   const [fechaBalanceGeneral, setfechaBalanceGeneral] = useState("")
   const [fechaHastaBalanceGeneral, setfechaHastaBalanceGeneral] = useState("")
   const [balanceGeneralData, setbalanceGeneralData] = useState([])
+  const [cuantotengobanco,setcuantotengobanco] = useState("")
+  const [cuantotengoefectivo,setcuantotengoefectivo] = useState("")
+
+  const sendCuadreGeneral = () => {
+    if (confirm("Confirme")) {
+        getBalanceGeneral()
+    }
+  }
 
   const getBalanceGeneral = () => {
     db.getBalanceGeneral({
@@ -6669,6 +6677,13 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2]) && viewmainPanel === "comovamos" &&
             <ComoVamos
+
+              sendCuadreGeneral={sendCuadreGeneral}
+              cuantotengobanco={cuantotengobanco}
+              setcuantotengobanco={setcuantotengobanco}
+              cuantotengoefectivo={cuantotengoefectivo}
+              setcuantotengoefectivo={setcuantotengoefectivo}
+
               balanceGeneralData={balanceGeneralData}
               getBalanceGeneral={getBalanceGeneral}
               sucursalBalanceGeneral={sucursalBalanceGeneral}

@@ -1162,14 +1162,14 @@ export default function Auditoria({
                                     <tbody>
                                         {bancosdata.xfechaCuadre.map((e,i)=>
                                             <tr key={i} onClick={()=>selectConciliacion(e.banco,e.fecha)}>
-                                                <th>
-                                                    <button className="btn w-100 fw-bolder" 
-                                                        style={{
-                                                            backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
-                                                            color:colors[e.banco]?colors[e.banco][1]:""
-                                                        }}
-                                                        onClick={()=>selectxMovimientos("banco", e.banco)}
-                                                        >{e.banco}</button>
+                                                <th
+                                                    style={{
+                                                        backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
+                                                        color:colors[e.banco]?colors[e.banco][1]:""
+                                                    }}
+                                                    onClick={()=>selectxMovimientos("banco", e.banco)}
+                                                >
+                                                    {e.banco}
                                                 
                                                 </th>
                                                 <th>{e.fecha}</th>

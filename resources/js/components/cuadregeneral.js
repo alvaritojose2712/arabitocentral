@@ -458,44 +458,98 @@ export default function cuadregeneraltivo({
                                         Object.entries(datacuadregeneral.caja_inicial).map((e,i)=>
                                             <>
                                                 <tr key={i} onClick={()=>setshowsubcaja_inicialdetalles(showsubcaja_inicialdetalles==i?null:i)}>
-                                                    <td className="ps-5">
-                                                        <button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorSucursal(e[0])}}>
+                                                    <td className="ps-5" style={{backgroundColor:colorSucursal(e[0])}}>
+                                                        {/* <button className={"btn w-100 fw-bolder fs-6"} >
+                                                        </button> */}
                                                             {e[0]}
-                                                        </button>
                                                     </td>
                                                     <td className="text-right text-success fs-4 pe-5">$ {moneda(e[1]["sum_cajas"])}</td>
                                                 </tr>
-                                                {showsubcaja_inicialdetalles==i?
+                                                {/* {showsubcaja_inicialdetalles==i? */}
                                                     <>
                                                         <tr>
                                                             <td className="ps-5">CAJA FUERTE</td>
                                                             <td>
-                                                                <span className="text-sinapsis">{moneda(e[1]["caja_fuerte"]["total_dolar"])}</span>
-                                                                <br />
-                                                                <span className="text-success">$ {moneda(e[1]["caja_fuerte"]["dolar"])}</span> / <span className="text-sinapsis">Bs {moneda(e[1]["caja_fuerte"]["bs"])}</span> / <span className="text-muted">Peso {moneda(e[1]["caja_fuerte"]["peso"])}</span> / <span className="text-muted">Euro {moneda(e[1]["caja_fuerte"]["euro"])}</span> 
-                                                                
+                                                                <table className="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <td className="w-20">
+                                                                                <span className="text-sinapsis">{moneda(e[1]["caja_fuerte"]["total_dolar"])}</span>
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-success">$ {moneda(e[1]["caja_fuerte"]["dolar"])}</span>
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-sinapsis">Bs {moneda(e[1]["caja_fuerte"]["bs"])}</span>
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-muted">Peso {moneda(e[1]["caja_fuerte"]["peso"])}</span>
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-muted">Euro {moneda(e[1]["caja_fuerte"]["euro"])}</span> 
+                                                                            </td>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td className="ps-5">CAJA CHICA</td>
                                                             <td>
-                                                                <span className="text-sinapsis">{moneda(e[1]["caja_chica"]["total_dolar"])}</span>
-                                                                <br />
-                                                                <span className="text-success">$ {moneda(e[1]["caja_chica"]["dolar"])}</span> / <span className="text-sinapsis">Bs {moneda(e[1]["caja_chica"]["bs"])}</span> / <span className="text-muted">Peso {moneda(e[1]["caja_chica"]["peso"])}</span> / <span className="text-muted">Euro {moneda(e[1]["caja_chica"]["euro"])}</span> 
-                                                                
+
+                                                                <table className="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <td className="w-20">
+                                                                                <span className="text-sinapsis">{moneda(e[1]["caja_chica"]["total_dolar"])}</span>
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-success">$ {moneda(e[1]["caja_chica"]["dolar"])}</span>
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-sinapsis">Bs {moneda(e[1]["caja_chica"]["bs"])}</span>
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-muted">Peso {moneda(e[1]["caja_chica"]["peso"])}</span>
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-muted">Euro {moneda(e[1]["caja_chica"]["euro"])}</span> 
+                                                                            </td>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td className="ps-5">CAJA REGISTRADORA</td>
                                                             <td>
-                                                                <span className="text-sinapsis">{moneda(e[1]["caja_registradora"]["total_dolar"])}</span>
-                                                                <br />
-                                                                <span className="text-success">$ {moneda(e[1]["caja_registradora"]["dolar"])}</span> / <span className="text-sinapsis">Bs {moneda(e[1]["caja_registradora"]["bs"])}</span> / <span className="text-muted">Peso {moneda(e[1]["caja_registradora"]["peso"])}</span> / <span className="text-muted">Euro {moneda(e[1]["caja_registradora"]["euro"])}</span> 
+
+                                                                <table className="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <td className="w-20">
+                                                                                <span className="text-sinapsis">{moneda(e[1]["caja_registradora"]["total_dolar"])}</span>
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-success">$ {moneda(e[1]["caja_registradora"]["dolar"])}</span>
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-sinapsis">Bs {moneda(e[1]["caja_registradora"]["bs"])}</span> 
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-muted">Peso {moneda(e[1]["caja_registradora"]["peso"])}</span> 
+                                                                            </td>
+                                                                            <td className="w-20">
+                                                                                <span className="text-muted">Euro {moneda(e[1]["caja_registradora"]["euro"])}</span> 
+                                                                            </td>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
                                                                 
                                                             </td>
                                                         </tr>
                                                     </>
-                                                :null}
+                                               {/*  :null} */}
                                             </>
                                         )
                                     :null}

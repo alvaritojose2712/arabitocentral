@@ -17,6 +17,11 @@ export default function ComoVamos({
     fechaHastaBalanceGeneral,
     sucursales,
     colorsGastosCat,
+    sendCuadreGeneral,
+    cuantotengobanco,
+    setcuantotengobanco,
+    cuantotengoefectivo,
+    setcuantotengoefectivo,
 
 
 }) {
@@ -331,6 +336,90 @@ export default function ComoVamos({
                             </tr>
                         </tbody>
                     </table>
+                    <div className="row">
+                        <div className="col">
+                            <table className="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h1>DEBES TENER</h1>
+                                            <span className="text-sinapsis fs-1">{moneda(balanceGeneralData.debetener)}</span>
+                                            
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>CAJA INICIAL</th>
+                                        <td>
+                                            <span className="text-sinapsis fs-1">{moneda(balanceGeneralData.caja_inicial)}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>BANCO</th>
+                                        <td>
+                                            <span className="text-sinapsis fs-1">{moneda(balanceGeneralData.sum_caja_inicial_banco_dolar)}</span>
+                                        </td>
+                                    </tr><tr>
+                                        <th>EFECTIVO</th>
+                                        <td>
+                                            <span className="text-sinapsis fs-1">{moneda(balanceGeneralData.sum_caja_inicial)}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>SUM INGRESOS</th>
+                                        <td>
+                                            <span className="text-sinapsis fs-1">{moneda(balanceGeneralData.total)}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>SUM EGRESOS</th>
+                                        <td>
+                                            <span className="text-sinapsis fs-1">{moneda(balanceGeneralData.sumEgresos)}</span>
+                                        </td>
+                                    </tr>
+                                        
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="col">
+                            <form onSubmit={event=>{event.preventDefault();sendCuadreGeneral()}}>
+                                <table className="table">
+                                    <tbody>
+                                        <tr>
+                                            <td className="fs-1">
+                                                <h1>TENGO</h1>
+                                                {moneda(balanceGeneralData.tengo)}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>BANCO</td>
+                                            <td>
+                                                {moneda(balanceGeneralData.sum_caja_actual_banco_dolar)}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>EFECTIVO</td>
+                                            <td>
+                                                {moneda(balanceGeneralData.sum_caja_actual)}
+                                            </td>
+                                        </tr>
+
+                                        
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col d-flex justify-content-center align-items-center">
+                            <span className="fs-1 p-2 bg-sinapsis">
+                                {moneda(balanceGeneralData.cuadre)}
+
+                            </span>
+                        </div>
+                    </div>
 
                     <h2>% GASTOS / VENTAS</h2>
 

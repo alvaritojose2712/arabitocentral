@@ -579,7 +579,7 @@ class CajasController extends Controller
         })
         ->where("id_sucursal",13)
         ->whereBetween("fecha",[$controlefecQDesde,$controlefecQHasta])
-        ->orderBy("id","desc")
+        ->orderBy("fecha","desc")
         ->get();
 
         return Response::json([

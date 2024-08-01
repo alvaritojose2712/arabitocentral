@@ -1088,16 +1088,40 @@ class CierresController extends Controller
         $fechaBalanceGeneral = $req->fechaBalanceGeneral;
         $fechaHastaBalanceGeneral = $req->fechaHastaBalanceGeneral;
 
+        $cuantotengobanco = floatval($req->cuantotengobanco)? floatval($req->cuantotengobanco): 0;
+        $cuantotengoefectivo = floatval($req->cuantotengoefectivo)? floatval($req->cuantotengoefectivo): 0;
+
         if (!$fechaBalanceGeneral || !$fechaHastaBalanceGeneral) {
             return ["Seleccione ambas Fechas"];
         }
         $bs = $this->getTasa()["bs"];
         $cop = $this->getTasa()["cop"];
 
+
+        
+
         $sumArrcat = [];
         $sumArrcatgeneral = [];
         $sumArringresoegreso = [];
         $sumArrvariablefijo = [];
+        
+        $fdi = array_filter((new PuntosybiopagosController)
+        ->getGastosFun([
+            "gastosQ"=>"",
+            "gastosQFecha"=>$fechaBalanceGeneral,
+            "gastosQFechaHasta"=>$fechaHastaBalanceGeneral,
+            "gastosQCategoria"=>"41",
+            "catgeneral"=>"",
+            "ingreso_egreso"=>"",
+            "typecaja"=>"",
+            "gastosorder"=>"desc",
+            "gastosfieldorder"=>"variable_fijo",
+        ])["data"],function($filter) {
+            return $filter["cat"]["id"]!=40; //No es PAGO A PROVEEDOR
+        });
+        $sumFDI = abs(collect($fdi)->sum("montodolar"));
+
+
         $gastosFun = array_filter((new PuntosybiopagosController)
         ->getGastosFun([
             "gastosQ"=>"",
@@ -1219,13 +1243,67 @@ class CierresController extends Controller
             ],
             "subviewpanelsucursales" => "cierres",
         ]);
+
+        $diaAntesPrimerDia = strtotime('-1 days', strtotime($fechaBalanceGeneral));
+        $diaAntesPrimerDia = date('Y-m-d' , $diaAntesPrimerDia);
+        $cierreDataPrimer = $this->getsucursalDetallesDataFun([
+            "id_sucursal" => $sucursalBalanceGeneral,
+            "fechasMain1" => $diaAntesPrimerDia,
+            "fechasMain2" => $diaAntesPrimerDia,
+            "filtros" => [
+                "controlefecQDescripcion"=>"",
+                "controlefecSelectCat"=>"",
+                "controlefecSelectGeneral"=>1,
+                "exacto"=>"",
+                "filtronominacargo"=>"",
+                "filtronominaq"=>"",
+                "itemCero"=>"",
+                "num"=>"25",
+                "orderBy"=>"desc",
+                "orderColumn"=>"descripcion",
+                "q"=>"",
+                "qcuentasPorPagar"=>"",
+                "qestatusaprobaciocaja"=>0,
+            ],
+            "subviewpanelsucursales" => "cierres",
+        ]);
+        $debitoAntesPrimerDia = $cierreDataPrimer["sum"]["debito_clean"];
+        $biopagoAntesPrimerDia = $cierreDataPrimer["sum"]["biopago_clean"];
+
+
+        $cierreDataUltimo = $this->getsucursalDetallesDataFun([
+            "id_sucursal" => $sucursalBalanceGeneral,
+            "fechasMain1" => $fechaHastaBalanceGeneral,
+            "fechasMain2" => $fechaHastaBalanceGeneral,
+            "filtros" => [
+                "controlefecQDescripcion"=>"",
+                "controlefecSelectCat"=>"",
+                "controlefecSelectGeneral"=>1,
+                "exacto"=>"",
+                "filtronominacargo"=>"",
+                "filtronominaq"=>"",
+                "itemCero"=>"",
+                "num"=>"25",
+                "orderBy"=>"desc",
+                "orderColumn"=>"descripcion",
+                "q"=>"",
+                "qcuentasPorPagar"=>"",
+                "qestatusaprobaciocaja"=>0,
+            ],
+            "subviewpanelsucursales" => "cierres",
+        ]);
+        $debitoUltimoDia = $cierreDataUltimo["sum"]["debito_clean"];
+        $biopagoUltimoDia = $cierreDataUltimo["sum"]["biopago_clean"];
+
+        
         
         $inventario = $cierreData["sum"]["inventariobase_clean"];
+        
         $efectivo = $cierreData["sum"]["efectivo_clean"];
-        $debito = ($cierreData["sum"]["debito_clean"]);
+        $debito = ($cierreData["sum"]["debito_clean"])+$debitoAntesPrimerDia-$debitoUltimoDia;
+        $biopago = $cierreData["sum"]["biopago_clean"]+$biopagoAntesPrimerDia-$biopagoUltimoDia;
         $transferencia = $cierreData["sum"]["transferencia_clean"];
-        $biopago = $cierreData["sum"]["biopago_clean"];
-        $total = $cierreData["sum"]["total_clean"];
+        $total = $cierreData["sum"]["total_clean"]+$debitoAntesPrimerDia-$debitoUltimoDia+$biopagoAntesPrimerDia-$biopagoUltimoDia;
         $ganancia = $cierreData["sum"]["ganancia_clean"];
         
         
@@ -1293,16 +1371,214 @@ class CierresController extends Controller
             "type" => "buscar",
         ]);
 
-        $gastosfijosSum = $sumArrvariablefijo[2][1]["sumdolar"];
-        $gastosvariablesSum = $sumArrvariablefijo[2][0]["sumdolar"];
+        $pagoproveedorBanco = collect($pagoproveedor["detalles"])->where("metodo","Transferencia");
+        
+        $sumPagoProveedorEfectivo = collect($pagoproveedor["detalles"])->where("metodo","<>","Transferencia")->sum("monto");
+        $sumPagoProveedorBanco = 0;
+        $sumPagoProveedorBancoReal = 0;
+
+        foreach ($pagoproveedorBanco as $i => $pagoProveedorBancoVal) {
+
+            $montobs1 = $this->dividir($pagoProveedorBancoVal["montobs1"],$pagoProveedorBancoVal["tasabs1"]);
+            $montobs2 = $this->dividir($pagoProveedorBancoVal["montobs2"],$pagoProveedorBancoVal["tasabs2"]);
+            $montobs3 = $this->dividir($pagoProveedorBancoVal["montobs3"],$pagoProveedorBancoVal["tasabs3"]);
+            $montobs4 = $this->dividir($pagoProveedorBancoVal["montobs4"],$pagoProveedorBancoVal["tasabs4"]);
+            $montobs5 = $this->dividir($pagoProveedorBancoVal["montobs5"],$pagoProveedorBancoVal["tasabs5"]);
+            $sumPagoProveedorBanco += $montobs1+$montobs2+$montobs3+$montobs4+$montobs5;
+
+
+            $tasas = cierres::where("fecha", $pagoProveedorBancoVal["fechaemision"])->orderBy("fecha","desc")->first();
+            $bs = $tasas->tasa;
+            $cop = $tasas->tasacop;
+
+            $montobsReal1 = $this->dividir($pagoProveedorBancoVal["montobs1"],$bs);
+            $montobsReal2 = $this->dividir($pagoProveedorBancoVal["montobs2"],$bs);
+            $montobsReal3 = $this->dividir($pagoProveedorBancoVal["montobs3"],$bs);
+            $montobsReal4 = $this->dividir($pagoProveedorBancoVal["montobs4"],$bs);
+            $montobsReal5 = $this->dividir($pagoProveedorBancoVal["montobs5"],$bs);
+            $sumPagoProveedorBancoReal += $montobsReal1+$montobsReal2+$montobsReal3+$montobsReal4+$montobsReal5;
+        }
+        $pagoProveedorBruto = abs($sumPagoProveedorBancoReal) + abs($sumPagoProveedorEfectivo);
+        $perdidaPagoProveedor = $pagoProveedorBruto - abs($pagoproveedor["balance"]);
+
+        $gastosfijosSum = isset($sumArrvariablefijo[2])? $sumArrvariablefijo[2][1]["sumdolar"]: 0;
+        $gastosvariablesSum = isset($sumArrvariablefijo[2])? $sumArrvariablefijo[2][0]["sumdolar"]: 0;
 
         $sumGastos = $gastosfijosSum + $gastosvariablesSum;
         $gananciaNeta = $ganancia+$sumGastos;
         
-        $porcevbrutanum = round((abs($sumGastos)*100)/$total,2);
-        $porcegbrutanum = round((abs($sumGastos)*100)/$ganancia,2);
-        $porcegnetanum = round((abs($sumGastos)*100)/$gananciaNeta,2);
+        $porcevbrutanum = round( $this->dividir((abs($sumGastos)*100),$total),2);
+        $porcegbrutanum = round( $this->dividir((abs($sumGastos)*100),$ganancia),2);
+        $porcegnetanum = round( $this->dividir((abs($sumGastos)*100),$gananciaNeta),2);
+        $blist = bancos_list::where("codigo","<>","EFECTIVO")->get();
+        $sucursales = sucursal::when($sucursalBalanceGeneral, function ($q) use ($sucursalBalanceGeneral) {
+            $q->where("id", $sucursalBalanceGeneral);
+        })
+        ->get();
+
+
+        /// CAJA INICIAL
+            $caja_inicial = [];
+            $caja_inicial_banco = [];
+            $sum_caja_inicial_banco = 0;
+            $sum_caja_inicial_banco_dolar = 0;
+            $sum_caja_inicial = 0;
+            $sum_caja_regis_inicial = 0;
+            $sum_caja_chica_inicial = 0;
+            $sum_caja_fuerte_inicial = 0;
+            foreach($sucursales as $key => $q){
+                $caja_inicial_suc = cierres::with("sucursal")->where("id_sucursal",$q->id)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
+
+                if ($caja_inicial_suc) {
+                    $caja_chica = cajas::where("id_sucursal",$q->id)->where("tipo",0)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->orderBy("id","desc")->first();
+                    $caja_fuerte = cajas::where("id_sucursal",$q->id)->where("tipo",1)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->orderBy("id","desc")->first();
+                    $bs = $caja_inicial_suc["tasa"];
+                    $cop = $caja_inicial_suc["tasacop"];
+                    
+                    
+                    $sum_caja_registradora = $caja_inicial_suc["dejar_dolar"]+$this->dividir($caja_inicial_suc["dejar_peso"],$cop)+$this->dividir($caja_inicial_suc["dejar_bss"],$bs);
+                    $sum_caja_chica = $caja_chica["dolarbalance"]+ $this->dividir($caja_chica["bsbalance"],$bs)+ $this->dividir($caja_chica["pesobalance"],$cop)+$caja_chica["eurobalance"];
+                    $sum_caja_fuerte = $caja_fuerte["dolarbalance"]+ $this->dividir($caja_fuerte["bsbalance"],$bs)+ $this->dividir($caja_fuerte["pesobalance"],$cop)+$caja_fuerte["eurobalance"];
+    
+                    $sum_cajas = $sum_caja_registradora+$sum_caja_fuerte+$sum_caja_chica;
+                    
+                    $caja_inicial[$caja_inicial_suc["sucursal"]["codigo"]] = [
+                        "caja_registradora" => [
+                            "dolar" => $caja_inicial_suc["dejar_dolar"],
+                            "peso" => $caja_inicial_suc["dejar_peso"],
+                            "bs" => $caja_inicial_suc["dejar_bss"],
+                            "euro" => 0,
+                            "total_dolar" => $sum_caja_registradora,
+                        ],
+                        "caja_fuerte" => [
+                            "dolar" => $caja_fuerte["dolarbalance"],
+                            "bs" => $caja_fuerte["bsbalance"],
+                            "peso" => $caja_fuerte["pesobalance"],
+                            "euro" => $caja_fuerte["eurobalance"],
+                            "total_dolar" => $sum_caja_fuerte,
+                        ],
+                        "caja_chica" => [
+                            "dolar" => $caja_chica["dolarbalance"],
+                            "bs" => $caja_chica["bsbalance"],
+                            "peso" => $caja_chica["pesobalance"],
+                            "euro" => $caja_chica["eurobalance"],
+                            "total_dolar" => $sum_caja_chica,
+                        ],
+                        "sum_cajas" => $sum_cajas,
+                    ];
+                    $sum_caja_inicial += $sum_cajas;
+                    $sum_caja_regis_inicial +=  $sum_caja_registradora;
+                    $sum_caja_chica_inicial +=  $sum_caja_chica;
+                    $sum_caja_fuerte_inicial +=  $sum_caja_fuerte;
+                }
+            }
+            foreach ($blist as $banco) {
+                $tasas = cierres::where("fecha","<=", $fechaBalanceGeneral)->orderBy("fecha","desc")->first();
+                $bs = $tasas->tasa;
+                $cop = $tasas->tasacop;
+
+                $b = bancos::where("banco",$banco->codigo)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->first("saldo_real_manual");
+                $saldo = $b?$b->saldo_real_manual:0;
+                
+                array_push($caja_inicial_banco, [
+                    "banco"=> $banco->codigo,
+                    "saldo" => $banco->codigo=="ZELLE" || $banco->codigo=="BINANCE"? 0: $saldo,
+                    "saldo_dolar" => $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs),
+                ]);
+                $sum_caja_inicial_banco += $banco->codigo!="ZELLE" && $banco->codigo!="BINANCE"? $saldo: 0;
+                $sum_caja_inicial_banco_dolar += $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs);
+            }
+            $total_caja_inicial = $sum_caja_inicial+$sum_caja_inicial_banco_dolar;
+        /// END CAJA INICIAL
+
+        /// CAJA ACTUAL
+            $fechaParaCajaActual = strtotime('+1 day', strtotime($fechaHastaBalanceGeneral));
+            $fechaParaCajaActual = date('Y-m-d' , $fechaParaCajaActual);
+            $caja_actual = [];
+            $caja_actual_banco = [];
+            $sum_caja_actual_banco = 0;
+            $sum_caja_actual_banco_dolar = 0;
+            $sum_caja_actual = 0;
+            $sum_caja_regis_actual = 0;
+            $sum_caja_chica_actual = 0;
+            $sum_caja_fuerte_actual = 0;
+
+            
+            foreach ($sucursales as $key => $q) {
+                $caja_actual_suc = cierres::with("sucursal")->where("id_sucursal",$q->id)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
+                if ($caja_actual_suc) {
+                    $caja_chica = cajas::where("id_sucursal",$q->id)->where("tipo",0)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->orderBy("id","desc")->first();
+                    $caja_fuerte = cajas::where("id_sucursal",$q->id)->where("tipo",1)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->orderBy("id","desc")->first();
+                    
+                    $bs = $caja_actual_suc["tasa"];
+                    $cop = $caja_actual_suc["tasacop"];
+                    $sum_caja_registradora = $caja_actual_suc["dejar_dolar"]+$this->dividir($caja_actual_suc["dejar_peso"],$cop)+$this->dividir($caja_actual_suc["dejar_bss"],$bs);
+                    $sum_caja_chica = $caja_chica["dolarbalance"]+ $this->dividir($caja_chica["bsbalance"],$bs)+ $this->dividir($caja_chica["pesobalance"],$cop)+$caja_chica["eurobalance"];
+                    $sum_caja_fuerte = $caja_fuerte["dolarbalance"]+ $this->dividir($caja_fuerte["bsbalance"],$bs)+ $this->dividir($caja_fuerte["pesobalance"],$cop)+$caja_fuerte["eurobalance"];
+    
+                    $sum_cajas = $sum_caja_registradora+$sum_caja_fuerte+$sum_caja_chica;
+                    
+                    $caja_actual[$caja_actual_suc["sucursal"]["codigo"]] = [
+                        "caja_registradora" => [
+                            "dolar" => $caja_actual_suc["dejar_dolar"],
+                            "peso" => $caja_actual_suc["dejar_peso"],
+                            "bs" => $caja_actual_suc["dejar_bss"],
+                            "euro" => 0,
+                            "total_dolar" => $sum_caja_registradora,
+                        ],
+                        "caja_fuerte" => [
+                            "dolar" => $caja_fuerte["dolarbalance"],
+                            "bs" => $caja_fuerte["bsbalance"],
+                            "peso" => $caja_fuerte["pesobalance"],
+                            "euro" => $caja_fuerte["eurobalance"],
+                            "total_dolar" => $sum_caja_fuerte,
+                        ],
+                        "caja_chica" => [
+                            "dolar" => $caja_chica["dolarbalance"],
+                            "bs" => $caja_chica["bsbalance"],
+                            "peso" => $caja_chica["pesobalance"],
+                            "euro" => $caja_chica["eurobalance"],
+                            "total_dolar" => $sum_caja_chica,
+                        ],
+                        "sum_cajas" => $sum_cajas,
+                    ];
+                    $sum_caja_actual += $sum_cajas;
+                    $sum_caja_regis_actual +=  $sum_caja_registradora;
+                    $sum_caja_chica_actual +=  $sum_caja_chica;
+                    $sum_caja_fuerte_actual +=  $sum_caja_fuerte;
+                }
+            }
+            foreach ($blist as $banco) {
+                $tasas = cierres::where("fecha","<", $fechaParaCajaActual)->orderBy("fecha","desc")->first();
+                $bs = $tasas->tasa;
+                $cop = $tasas->tasacop;
+
+                $b = bancos::where("banco",$banco->codigo)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first("saldo_real_manual");
+                $saldo = $b?$b->saldo_real_manual:0;
+                
+                array_push($caja_actual_banco, [
+                    "banco"=> $banco->codigo,
+                    "saldo" => $banco->codigo=="ZELLE" || $banco->codigo=="BINANCE"? 0: $saldo,
+                    "saldo_dolar" => $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs),
+                ]);
+                $sum_caja_actual_banco += $banco->codigo!="ZELLE" && $banco->codigo!="BINANCE"? $saldo: 0;
+                $sum_caja_actual_banco_dolar += $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs);
+            }
+            $total_caja_actual = $sum_caja_actual+$sum_caja_actual_banco_dolar;
+        /// END CAJA ACTUAL
+
+
+
+        $debetener =  ($total_caja_inicial + $total) - $pagoProveedorBruto - abs($gastosfijosSum) - abs($gastosvariablesSum) - $sumFDI ;
+
+
+        $bsactual = $this->getTasa()["bs"];
+
+        $cuadre = $debetener-$total_caja_actual;
         return [
+            "debetener" => $debetener,
+            "sumEgresos" => $pagoProveedorBruto - $gastosfijosSum - $gastosvariablesSum - $sumFDI,
+            "caja_inicial" => $total_caja_inicial,
             "gastos"=>$gastos,
 
             "sumArrcat" =>$sumArrcat,
@@ -1313,6 +1589,8 @@ class CierresController extends Controller
 
             "gastosfijosSum"=>$gastosfijosSum,
             "gastosvariablesSum"=>$gastosvariablesSum,
+            "fdi" => $sumFDI,
+            
 
             "gananciaNeta" => $gananciaNeta,
             "sumGastos"=>$sumGastos,
@@ -1354,9 +1632,28 @@ class CierresController extends Controller
             "cxcData" =>$cxcData,
             "cxp" =>$cxp,
             "cxpData" =>$cxpData,
+            "sumPagoProveedorEfectivo" => $sumPagoProveedorEfectivo,
+            "sumPagoProveedorBanco" => $sumPagoProveedorBanco,
+            "sumPagoProveedorBancoReal" => $sumPagoProveedorBancoReal, 
+            "perdidaPagoProveedor" => $perdidaPagoProveedor,
+            "sumPagoProveedorBancoEfectivoReal" => $pagoProveedorBruto, 
+            
+            "sum_caja_inicial" => $sum_caja_inicial,
+            "sum_caja_inicial_banco_dolar" => $sum_caja_inicial_banco_dolar,
+            "total_caja_inicial" => $total_caja_inicial,
+            "caja_inicial_banco" => $caja_inicial_banco,
+            
+            "total_caja_actual" => $total_caja_actual,
+            "caja_actual_banco" => $caja_actual_banco,
+            "sum_caja_actual" => $sum_caja_actual,
+            "sum_caja_actual_banco" => $sum_caja_actual_banco,
+            "sum_caja_actual_banco_dolar" => $sum_caja_actual_banco_dolar,
+            
+            "tengo" => $total_caja_actual,
+            "cuadre" => $cuadre,
         ];
     }
-    function getControldeefectivo($fechasMain1, $fechasMain2, $id_sucursal, $filtros)
+    function getControldeefectivo($fechasMain1, $fechasMain2, $sucursalBalanceGeneral, $filtros)
     {
         $controlefecQ = $filtros["controlefecQDescripcion"];
         $controlefecQCategoria = $filtros["controlefecSelectCat"];
