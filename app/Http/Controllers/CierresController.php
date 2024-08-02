@@ -1414,6 +1414,7 @@ class CierresController extends Controller
         $sucursales = sucursal::when($sucursalBalanceGeneral, function ($q) use ($sucursalBalanceGeneral) {
             $q->where("id", $sucursalBalanceGeneral);
         })
+        ->whereNotIn("id",[13,17])
         ->get();
 
 
@@ -1477,10 +1478,12 @@ class CierresController extends Controller
                 $bs = $tasas->tasa;
                 $cop = $tasas->tasacop;
 
-                $b = bancos::where("banco",$banco->codigo)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->first("saldo_real_manual");
+                $b = bancos::where("banco",$banco->codigo)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
                 $saldo = $b?$b->saldo_real_manual:0;
-                
+                $fecha = $b?$b->fecha:"";
+
                 array_push($caja_inicial_banco, [
+                    "fecha" => $fecha,
                     "banco"=> $banco->codigo,
                     "saldo" => $banco->codigo=="ZELLE" || $banco->codigo=="BINANCE"? 0: $saldo,
                     "saldo_dolar" => $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs),
@@ -1553,10 +1556,12 @@ class CierresController extends Controller
                 $bs = $tasas->tasa;
                 $cop = $tasas->tasacop;
 
-                $b = bancos::where("banco",$banco->codigo)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first("saldo_real_manual");
+                $b = bancos::where("banco",$banco->codigo)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
                 $saldo = $b?$b->saldo_real_manual:0;
+                $fecha = $b?$b->fecha:"";
                 
                 array_push($caja_actual_banco, [
+                    "fecha" => $fecha,
                     "banco"=> $banco->codigo,
                     "saldo" => $banco->codigo=="ZELLE" || $banco->codigo=="BINANCE"? 0: $saldo,
                     "saldo_dolar" => $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs),

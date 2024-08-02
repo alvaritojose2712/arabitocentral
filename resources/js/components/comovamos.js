@@ -358,8 +358,22 @@ export default function ComoVamos({
                                         <th>BANCO</th>
                                         <td>
                                             <span className="text-sinapsis fs-1">{moneda(balanceGeneralData.sum_caja_inicial_banco_dolar)}</span>
+                                            <br />
+                                            <table className="table">
+                                                <tbody>
+                                                    {balanceGeneralData.caja_inicial_banco?balanceGeneralData.caja_inicial_banco.map(e=>
+                                                        <tr>
+                                                            <td>{e.fecha}</td>
+                                                            <td>{e.banco}</td>
+                                                            <td>{moneda(e.saldo)}</td>
+                                                            <td className="text-success">{moneda(e.saldo_dolar)}</td>
+                                                        </tr>
+                                                    ):null}
+                                                </tbody>
+                                            </table>
                                         </td>
-                                    </tr><tr>
+                                    </tr>
+                                    <tr>
                                         <th>EFECTIVO</th>
                                         <td>
                                             <span className="text-sinapsis fs-1">{moneda(balanceGeneralData.sum_caja_inicial)}</span>
@@ -397,6 +411,19 @@ export default function ComoVamos({
                                             <td>BANCO</td>
                                             <td>
                                                 {moneda(balanceGeneralData.sum_caja_actual_banco_dolar)}
+                                                <br />
+                                                <table className="table">
+                                                    <tbody>
+                                                        {balanceGeneralData.caja_actual_banco?balanceGeneralData.caja_actual_banco.map(e=>
+                                                            <tr>
+                                                                <td>{e.fecha}</td>
+                                                                <td>{e.banco}</td>
+                                                                <td>{moneda(e.saldo)}</td>
+                                                                <td className="text-success">{moneda(e.saldo_dolar)}</td>
+                                                            </tr>
+                                                        ):null}
+                                                    </tbody>
+                                                </table>
                                             </td>
                                         </tr>
                                         <tr>
