@@ -1387,7 +1387,7 @@ class CierresController extends Controller
             $sumPagoProveedorBanco += $montobs1+$montobs2+$montobs3+$montobs4+$montobs5;
 
 
-            $tasas = cierres::where("fecha", $pagoProveedorBancoVal["fechaemision"])->orderBy("fecha","desc")->first();
+            $tasas = cierres::where("fecha","<=", $pagoProveedorBancoVal["fechaemision"])->orderBy("fecha","desc")->first();
             $bs = $tasas->tasa;
             $cop = $tasas->tasacop;
 
