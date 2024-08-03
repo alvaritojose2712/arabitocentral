@@ -530,11 +530,11 @@ class CierresController extends Controller
             
             array_push($caja_inicial_banco, [
                 "banco"=> $banco->codigo,
-                "saldo" => $banco->codigo=="ZELLE" || $banco->codigo=="BINANCE"? 0: $saldo,
-                "saldo_dolar" => $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs),
+                "saldo" => $banco->moneda=="dolar"? 0: $saldo,
+                "saldo_dolar" => $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs),
             ]);
-            $sum_caja_inicial_banco += $banco->codigo!="ZELLE" && $banco->codigo!="BINANCE"? $saldo: 0;
-            $sum_caja_inicial_banco_dolar += $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs);
+            $sum_caja_inicial_banco += $banco->moneda=="bs"? $saldo: 0;
+            $sum_caja_inicial_banco_dolar += $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs);
         }
 
         $total_ingresos = $sum_debito_dolar+$sum_efectivo+$sum_transferencia_dolar+$sum_caja_biopago_dolar;
@@ -1485,11 +1485,11 @@ class CierresController extends Controller
                 array_push($caja_inicial_banco, [
                     "fecha" => $fecha,
                     "banco"=> $banco->codigo,
-                    "saldo" => $banco->codigo=="ZELLE" || $banco->codigo=="BINANCE"? 0: $saldo,
-                    "saldo_dolar" => $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs),
+                    "saldo" => $banco->moneda=="dolar"? 0: $saldo,
+                    "saldo_dolar" => $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs),
                 ]);
-                $sum_caja_inicial_banco += $banco->codigo!="ZELLE" && $banco->codigo!="BINANCE"? $saldo: 0;
-                $sum_caja_inicial_banco_dolar += $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs);
+                $sum_caja_inicial_banco += $banco->moneda=="bs"? $saldo: 0;
+                $sum_caja_inicial_banco_dolar += $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs);
             }
             $total_caja_inicial = $sum_caja_inicial+$sum_caja_inicial_banco_dolar;
         /// END CAJA INICIAL
@@ -1563,11 +1563,11 @@ class CierresController extends Controller
                 array_push($caja_actual_banco, [
                     "fecha" => $fecha,
                     "banco"=> $banco->codigo,
-                    "saldo" => $banco->codigo=="ZELLE" || $banco->codigo=="BINANCE"? 0: $saldo,
-                    "saldo_dolar" => $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs),
+                    "saldo" => $banco->moneda=="dolar"? 0: $saldo,
+                    "saldo_dolar" => $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs),
                 ]);
-                $sum_caja_actual_banco += $banco->codigo!="ZELLE" && $banco->codigo!="BINANCE"? $saldo: 0;
-                $sum_caja_actual_banco_dolar += $banco->codigo=="ZELLE"||$banco->codigo=="BINANCE"?$saldo:$this->dividir($saldo,$bs);
+                $sum_caja_actual_banco += $banco->moneda=="bs"? $saldo: 0;
+                $sum_caja_actual_banco_dolar += $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs);
             }
             $total_caja_actual = $sum_caja_actual+$sum_caja_actual_banco_dolar;
         /// END CAJA ACTUAL

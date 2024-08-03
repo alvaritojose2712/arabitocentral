@@ -17,6 +17,7 @@ class CreateBancosListsTable extends Migration
             $table->increments("id");
             $table->string("codigo")->unique();
             $table->string("descripcion")->unique();
+            $table->string("moneda")->nullable(true)->default("bs");
             $table->timestamps();
         });
 
