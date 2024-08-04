@@ -1669,8 +1669,8 @@ class CierresController extends Controller
         ->when($controlefecQCategoria, function ($q) use ($controlefecQCategoria) {
             $q->where("categoria", $controlefecQCategoria);
         })
-        ->when($id_sucursal, function ($q) use ($id_sucursal) {
-            $q->where("id_sucursal", $id_sucursal);
+        ->when($sucursalBalanceGeneral, function ($q) use ($sucursalBalanceGeneral) {
+            $q->where("id_sucursal", $sucursalBalanceGeneral);
         })
         ->when($controlefecQ, function ($q) use ($controlefecQ) {
             $q->where("concepto", "LIKE", "%$controlefecQ%");
