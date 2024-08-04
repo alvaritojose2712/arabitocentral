@@ -1083,7 +1083,7 @@ class CierresController extends Controller
 
         /* if ($usuario!="ao"&&$usuario!="omarelh") {
            return ;
-        } */
+        }  */
 
         $sucursalBalanceGeneral = $req->sucursalBalanceGeneral;
         $fechaBalanceGeneral = $req->fechaBalanceGeneral;
@@ -1354,6 +1354,8 @@ class CierresController extends Controller
         ]);
         $cxp = $cxpData["sum"];
 
+        
+
         $pagoproveedor = (new CuentasporpagarController)->selectCuentaPorPagarProveedorDetallesFun([
             "fechasMain1" => $fechaBalanceGeneral,
             "fechasMain2" => $fechaHastaBalanceGeneral,
@@ -1367,10 +1369,32 @@ class CierresController extends Controller
             "qCampocuentasPorPagarDetalles" => "updated_at",
             "qcuentasPorPagarDetalles" => "",
             "qcuentasPorPagarTipoFact" => "abonos",
-            "sucursalcuentasPorPagarDetalles" => "",
+            "sucursalcuentasPorPagarDetalles" => $sucursalBalanceGeneral,
             "tipocuentasPorPagarDetalles" => "",
             "type" => "buscar",
         ]);
+        ////////
+            $byproveedororden = [];
+            $byproveedor = $pagoproveedor["detalles"]->groupBy(["id_proveedor"]);
+
+            foreach ($byproveedor as $id_proveedor => $dataproveedors) {
+                $descripcion = "";
+                $rif = "";
+                if ($dataproveedors->count()) {
+                    $descripcion = $dataproveedors[0]["proveedor"]["descripcion"];
+                    $rif = $dataproveedors[0]["proveedor"]["rif"];
+                }
+                array_push($byproveedororden, [
+                    "id_proveedor" => $id_proveedor,
+                    "sum" => $dataproveedors->sum("monto"),
+                    "descripcion" => $descripcion,
+                    "rif" => $rif,
+                    "data" => $dataproveedors,
+                ]);
+            }
+            array_multisort(array_column($byproveedororden,"sum"),SORT_DESC,$byproveedororden);
+            $pagoproveedor["byproveedor"] = $byproveedororden;
+        ////////
 
         $pagoproveedorBanco = collect($pagoproveedor["detalles"])->where("metodo","Transferencia");
         
@@ -1405,12 +1429,15 @@ class CierresController extends Controller
         $gastosfijosSum = isset($sumArrvariablefijo[2])? $sumArrvariablefijo[2][1]["sumdolar"]: 0;
         $gastosvariablesSum = isset($sumArrvariablefijo[2])? $sumArrvariablefijo[2][0]["sumdolar"]: 0;
 
-        $sumGastos = $gastosfijosSum + $gastosvariablesSum;
-        $gananciaNeta = $ganancia+$sumGastos;
+        $gastosGeneralesfijosSum = isset($sumArrvariablefijo[3])? (isset($sumArrvariablefijo[3][1])? $sumArrvariablefijo[3][1]["sumdolar"]:0): 0;
+        $gastosGeneralesvariablesSum = isset($sumArrvariablefijo[3])? (isset($sumArrvariablefijo[3][0])? $sumArrvariablefijo[3][0]["sumdolar"]:0): 0;
+
+        $sumGastos = abs($gastosfijosSum) + abs($gastosvariablesSum) + abs($gastosGeneralesfijosSum) + abs($gastosGeneralesvariablesSum);
+        $gananciaNeta = $ganancia-$sumGastos;
         
-        $porcevbrutanum = round( $this->dividir((abs($sumGastos)*100),$total),2);
-        $porcegbrutanum = round( $this->dividir((abs($sumGastos)*100),$ganancia),2);
-        $porcegnetanum = round( $this->dividir((abs($sumGastos)*100),$gananciaNeta),2);
+        $porcevbrutanum = round( $this->dividir((abs($sumGastos)*100),($total)),2);
+        $porcegbrutanum = round( $this->dividir((abs($sumGastos)*100),($ganancia)),2);
+        $porcegnetanum = round( $this->dividir((abs($sumGastos)*100),($gananciaNeta)),2);
         $blist = bancos_list::where("codigo","<>","EFECTIVO")->get();
         $sucursales = sucursal::when($sucursalBalanceGeneral, function ($q) use ($sucursalBalanceGeneral) {
             $q->where("id", $sucursalBalanceGeneral);
@@ -1576,16 +1603,65 @@ class CierresController extends Controller
 
 
         $debetener =  ($total_caja_inicial + $total) - $pagoProveedorBruto - abs($gastosfijosSum) - abs($gastosvariablesSum) - $sumFDI ;
-
-
         $bsactual = $this->getTasa()["bs"];
-
         $cuadre = $debetener-$total_caja_actual;
+
+        $inicial_inventariobase = 0;
+        $inicial_inventarioventa = 0;
+        $final_inventariobase = 0;
+        $final_inventarioventa = 0;
+        $aumento_inventariobase = 0;
+        $aumento_inventarioventa = 0;
+
+        $cxc_inicial = 0;
+        $cxc_final = 0;
+        $cxc_aumento = 0;
+
+        $cxp_inicial = 0;
+        $cxp_final = 0;
+        $cxp_aumento = 0;
+
+
+
+        foreach ($sucursales as $i => $e) {
+            $inicial = cierres::where("id_sucursal",$e->id)->where("fecha","<=",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
+            $final = cierres::where("id_sucursal",$e->id)->where("fecha","<=",$fechaHastaBalanceGeneral)->orderBy("fecha","desc")->first();
+            $inicial_inventariobase += $inicial->inventariobase;
+            $inicial_inventarioventa += $inicial->inventarioventa;
+            $final_inventariobase += $final->inventariobase;
+            $final_inventarioventa += $final->inventarioventa;
+
+            $cxc_inicial += $inicial->creditoporcobrartotal;
+            $cxc_final += $final->creditoporcobrartotal;
+
+        }
+
+        $diffbase = $final_inventariobase-$inicial_inventariobase;
+        $diffventa = $final_inventarioventa-$inicial_inventarioventa;
+        $aumento_inventariobase = ($diffbase*100)/$inicial_inventariobase;
+        $aumento_inventarioventa = ($diffventa*100)/$inicial_inventarioventa;
+
+        $diffcxp = $cxc_final-$cxc_inicial;
+        $cxc_aumento = ($diffcxp*100)/$cxc_inicial;
+
+
+
         return [
-            "PRUEBA_pagoProveedorBruto" => $pagoProveedorBruto,
+            "inicial_inventariobase" => $inicial_inventariobase,
+            "inicial_inventarioventa" => $inicial_inventarioventa,
+
+            "final_inventariobase" => $final_inventariobase,
+            "final_inventarioventa" => $final_inventarioventa,
+            "aumento_inventariobase" => $aumento_inventariobase,
+            "aumento_inventarioventa" => $aumento_inventarioventa,
+
+            "cxc_inicial" => $cxc_inicial,
+            "cxc_final" => $cxc_final,
+            "cxc_aumento" => $cxc_aumento,
+           /*  "PRUEBA_pagoProveedorBruto" => $pagoProveedorBruto,
             "PRUEBA_gastosfijosSum" => $gastosfijosSum,
             "PRUEBA_gastosvariablesSum" => $gastosvariablesSum,
-            "PRUEBA_sumFDI" => $sumFDI,
+            "PRUEBA_sumFDI" => $sumFDI, */
             "total_caja_inicial" => $total_caja_inicial,
             "total" => $total,
             "sumEgresos" => abs($pagoProveedorBruto) + abs($gastosfijosSum) + abs($gastosvariablesSum) + abs($sumFDI),
@@ -1610,19 +1686,19 @@ class CierresController extends Controller
 
             "porcevbruta" => [
                 "labels"=>["VENTA BRUTA","GASTOS"],
-                "series"=>[$total,abs($sumGastos)],
+                "series"=>[($total-$sumGastos),$sumGastos],
             ],
             "porcevbrutanum" => $porcevbrutanum,
 
             "porcegbruta" => [
-                "labels"=>["GANANCIA BRUTA","GASTOS"],
-                "series"=>[$ganancia,abs($sumGastos)],
+                "labels"=>["GANANCIA NETA","GASTOS"],
+                "series"=>[($ganancia-$sumGastos),$sumGastos],
             ],
             "porcegbrutanum" => $porcegbrutanum,
 
             "porcegneta" => [
                 "labels"=>["GANANCIA NETA","GASTOS"],
-                "series"=>[$gananciaNeta,abs($sumGastos)],
+                "series"=>[($gananciaNeta-$sumGastos),$sumGastos],
             ],
             "porcegnetanum" => $porcegnetanum,
 
@@ -1637,7 +1713,6 @@ class CierresController extends Controller
             "efectivo" => $efectivo,
             "transferencia" => $transferencia,
             "biopago" => $biopago,
-            "total" => $total,
             "ganancia" =>$ganancia,
 
             "cierresData" =>$cierreData,
@@ -1653,7 +1728,6 @@ class CierresController extends Controller
             
             "sum_caja_inicial" => $sum_caja_inicial,
             "sum_caja_inicial_banco_dolar" => $sum_caja_inicial_banco_dolar,
-            "total_caja_inicial" => $total_caja_inicial,
             "caja_inicial_banco" => $caja_inicial_banco,
             
             "total_caja_actual" => $total_caja_actual,

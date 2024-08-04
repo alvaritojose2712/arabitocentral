@@ -22,7 +22,7 @@ export default function Cajascatdesplegable({
 
                         <tr>
                             <td colSpan={4} className="p-0">
-                                <button className={" fw-bolder fs-4"} style={{backgroundColor:colorsGastosCat(ingreso_egreso[0],"ingreso_egreso","color")}}>
+                                <button className={"btn fw-bolder fs-4"} style={{backgroundColor:colorsGastosCat(ingreso_egreso[0],"ingreso_egreso","color")}}>
                                     {colorsGastosCat(ingreso_egreso[0],"ingreso_egreso","desc")} {filter==1?" EFECTIVO":null}
                                 </button>
                             </td>
