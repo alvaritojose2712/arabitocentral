@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 ini_set('memory_limit', '4095M');
+set_time_limit(60000000);
 
 use App\Models\bancos_list;
 use App\Models\bancos;
@@ -1581,8 +1582,15 @@ class CierresController extends Controller
 
         $cuadre = $debetener-$total_caja_actual;
         return [
+            "PRUEBA_pagoProveedorBruto" => $pagoProveedorBruto,
+            "PRUEBA_gastosfijosSum" => $gastosfijosSum,
+            "PRUEBA_gastosvariablesSum" => $gastosvariablesSum,
+            "PRUEBA_sumFDI" => $sumFDI,
+            "total_caja_inicial" => $total_caja_inicial,
+            "total" => $total,
+            "sumEgresos" => abs($pagoProveedorBruto) + abs($gastosfijosSum) + abs($gastosvariablesSum) + abs($sumFDI),
+            
             "debetener" => $debetener,
-            "sumEgresos" => $pagoProveedorBruto - $gastosfijosSum - $gastosvariablesSum - $sumFDI,
             "caja_inicial" => $total_caja_inicial,
             "gastos"=>$gastos,
 
