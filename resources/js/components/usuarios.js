@@ -151,7 +151,6 @@ export default function Usuarios({
 									<option value="2">DUEÑO</option>
 									<option value="3">AUDITOR</option>
 									<option value="4">ADMINISTRADOR</option>
-									<option value="13">ADMINISTRADOR ASISTENTE</option>
 									<option value="5">GASTOS</option>
 									<option value="6">APROBAR_TRANSF</option>
 									<option value="7">CONSULTA_INVENTARIO</option>
@@ -161,7 +160,9 @@ export default function Usuarios({
 									
 									<option value="11">CAJA DE SUCURSAL</option>
 									<option value="12">SUPERVISORA DE CAJA</option>
+									<option value="13">ADMINISTRADOR ASISTENTE</option>
 									<option value="14">DICI</option>
+									<option value="15">AUDITOR ASISTENTE</option>
 
 								</select>
 							</div>

@@ -366,7 +366,7 @@ export default function Auditoria({
 
             />
         :null}
-        {permiso([1,2,3]) && subviewAuditoriaGeneral=="banco"?
+        {permiso([1,2,3,15]) && subviewAuditoriaGeneral=="banco"?
             <div className="container-fluid">
                     <div className="d-flex justify-content-center">
                         <div className="btn-group m-2">

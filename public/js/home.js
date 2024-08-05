@@ -3211,7 +3211,7 @@ function Auditoria(_ref) {
       viewmainPanel: null,
       setviewmainPanel: setsubviewAuditoriaGeneral,
       opciones: opcionesAuditoria
-    }) : null, permiso([1, 2, 3]) && subviewAuditoriaGeneral == "banco" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    }) : null, permiso([1, 2, 3, 15]) && subviewAuditoriaGeneral == "banco" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "container-fluid",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "d-flex justify-content-center",
@@ -25625,9 +25625,6 @@ function Usuarios(_ref) {
                   value: "4",
                   children: "ADMINISTRADOR"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
-                  value: "13",
-                  children: "ADMINISTRADOR ASISTENTE"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "5",
                   children: "GASTOS"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
@@ -25652,8 +25649,14 @@ function Usuarios(_ref) {
                   value: "12",
                   children: "SUPERVISORA DE CAJA"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "13",
+                  children: "ADMINISTRADOR ASISTENTE"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
                   value: "14",
                   children: "DICI"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                  value: "15",
+                  children: "AUDITOR ASISTENTE"
                 })]
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -82741,7 +82744,7 @@ function Home() {
           permiso: permiso,
           setviewmainPanel: setviewmainPanel,
           viewmainPanel: viewmainPanel
-        }), permiso([1, 2, 3, 6]) && viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_34__["default"], {
+        }), permiso([1, 2, 3, 6, 15]) && viewmainPanel === "auditoria" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_auditoria__WEBPACK_IMPORTED_MODULE_34__["default"], {
           setbancosdata: setbancosdata,
           qfiltroaprotransf: qfiltroaprotransf,
           setqfiltroaprotransf: setqfiltroaprotransf,

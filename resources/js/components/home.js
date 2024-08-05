@@ -5095,7 +5095,7 @@ function formatAmount( number, simbol ) {
               viewmainPanel={viewmainPanel}
             />
           }
-          {permiso([1,2,3,6]) && viewmainPanel === "auditoria" &&
+          {permiso([1,2,3,6,15]) && viewmainPanel === "auditoria" &&
             <Auditoria
             setbancosdata={setbancosdata}
             qfiltroaprotransf={qfiltroaprotransf}
