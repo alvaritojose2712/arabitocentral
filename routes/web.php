@@ -435,6 +435,8 @@ Route::post('depositarmatrizalbanco', [CajasController::class,"depositarmatrizal
 
 
 Route::post('getControlEfec', [CajasController::class,"getControlEfec"]);
+Route::post('setConciliarMovCajaMatriz', [CajasController::class,"setConciliarMovCajaMatriz"]);
+
 Route::post('delCaja', [CajasController::class,"delCaja"]);
 /* Route::post('verificarMovPenControlEfecTRANFTRABAJADOR', [CajasController::class,"verificarMovPenControlEfecTRANFTRABAJADOR"]);
 Route::post('verificarMovPenControlEfec', [CajasController::class,"verificarMovPenControlEfec"]); */

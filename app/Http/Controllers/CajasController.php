@@ -561,6 +561,14 @@ class CajasController extends Controller
 
     }
 
+    function setConciliarMovCajaMatriz(Request $req) {
+        $id = $req->id;
+
+        $c = cajas::find($id);
+        $c->revisado = !$c->revisado?1:0;
+        $c->save();
+    }
+
     public function getControlEfec(Request $req) {
         $controlefecQ = $req->controlefecQ;
         $controlefecQDesde = $req->controlefecQDesde;
@@ -569,7 +577,7 @@ class CajasController extends Controller
 
         $controlefecSelectGeneral = $req->controlefecSelectGeneral;
 
-        $data = cajas::with(["cat","sucursal","sucursal_origen"])->where("tipo",$controlefecSelectGeneral)
+        $data = cajas::with(["cat","sucursal","sucursal_origen","proveedor"])->where("tipo",$controlefecSelectGeneral)
         ->when($controlefecQ,function($q) use ($controlefecQ){
             $q->orWhere("concepto",$controlefecQ);
             $q->orWhere("monto",$controlefecQ);
@@ -578,8 +586,8 @@ class CajasController extends Controller
             $q->where("categoria",$controlefecQCategoria);
         })
         ->where("id_sucursal",13)
-        ->whereBetween("fecha",[$controlefecQDesde,$controlefecQHasta])
-        ->orderBy("id","desc")
+        ->whereBetween("created_at",[$controlefecQDesde." 00:00:00",$controlefecQHasta." 23:59:59"])
+        ->orderBy("created_at","desc")
         ->get();
 
         return Response::json([
@@ -595,6 +603,9 @@ class CajasController extends Controller
         $montobs = isset($arr["montobs"])?$arr["montobs"]:0;
         $montoeuro = isset($arr["montoeuro"])?$arr["montoeuro"]:0;
         $id_sucursal_origen = isset($arr["id_sucursal_origen"])?$arr["id_sucursal_origen"]:null;
+        $id_proveedor = isset($arr["id_proveedor"])?$arr["id_proveedor"]:null;
+
+        
         
 
         $idinsucursal = isset($arr["idinsucursal"])?$arr["idinsucursal"]:($lastid?$lastid->id + 1:1);
@@ -618,6 +629,7 @@ class CajasController extends Controller
             "estatus" => 1,
             "id_sucursal" => 13,
             "id_sucursal_origen" => $id_sucursal_origen,
+            "id_proveedor" => $id_proveedor,
             "idinsucursal" => $idinsucursal,
         ] ; 
         

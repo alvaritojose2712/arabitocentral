@@ -192,6 +192,7 @@ export default function Gastos({
 	setfechadepositobanco,
 	depositarmatrizalbanco,
 	setselectdepositobanco,
+	setConciliarMovCajaMatriz,
 
 }) {
 
@@ -296,6 +297,8 @@ export default function Gastos({
 			:null}
 			{subviewGastos=="cargarefectivo"?
 				<ControlEfectivoMatriz
+					colorSucursal={colorSucursal}
+					setConciliarMovCajaMatriz={setConciliarMovCajaMatriz}
 
 					selectdepositobanco={selectdepositobanco}
 					bancodepositobanco={bancodepositobanco}

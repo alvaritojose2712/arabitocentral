@@ -22,6 +22,7 @@ export default function ComoVamos({
     setcuantotengobanco,
     cuantotengoefectivo,
     setcuantotengoefectivo,
+    colorSucursal,
 
 
 }) {
@@ -46,7 +47,7 @@ export default function ComoVamos({
         <div className="container-fluid">
             <div className="p-3 text-center">
                 <div className="btn-group">
-                    <button className="btn btn-outline-success" onClick={()=>setsubviewcomovamos("comovamos")}>Cómo Vamos</button>
+                    <button className="btn btn-outline-success" onClick={()=>setsubviewcomovamos("comovamos")}>CÓMO VAMOS</button>
                     <button className="btn btn-outline-info" onClick={()=>setsubviewcomovamos("balanceresultados")}>BALANCE DE RESULTADOS</button>
                 </div>
             </div>
@@ -63,7 +64,7 @@ export default function ComoVamos({
                                 <tr>
                                     <td className="w-30 align-middle">
                                         <div className="btn-group w-100 h-100">
-                                            <button className="btn btn-outline-info fs-3">{e.sucursal.nombre}</button>
+                                            <button className="btn w-100 fw-bolder fs-3" style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.nombre}</button>
                                         </div>
                                     </td>
                                     <td className="w-60 align-middle">
@@ -103,8 +104,12 @@ export default function ComoVamos({
                             </td>
                         </tr>
                         <tr>
-                            <td className="w-30 align-middle">
-                                
+                            <td className="w-30 align-middle text-center">
+                                <button className="btn btn-sinapsis fs-2">
+                                    {sucursalDetallesData.comovamos?
+                                        sucursalDetallesData.comovamos.length
+                                    :null}
+                                </button>
                             </td>
                             <td className="w-60 align-middle">
 

@@ -7012,7 +7012,8 @@ function ComoVamos(_ref) {
     cuantotengobanco = _ref.cuantotengobanco,
     setcuantotengobanco = _ref.setcuantotengobanco,
     cuantotengoefectivo = _ref.cuantotengoefectivo,
-    setcuantotengoefectivo = _ref.setcuantotengoefectivo;
+    setcuantotengoefectivo = _ref.setcuantotengoefectivo,
+    colorSucursal = _ref.colorSucursal;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("comovamos"),
     _useState2 = _slicedToArray(_useState, 2),
     subviewcomovamos = _useState2[0],
@@ -7055,7 +7056,7 @@ function ComoVamos(_ref) {
           onClick: function onClick() {
             return setsubviewcomovamos("comovamos");
           },
-          children: "C\xF3mo Vamos"
+          children: "C\xD3MO VAMOS"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
           className: "btn btn-outline-info",
           onClick: function onClick() {
@@ -7083,7 +7084,10 @@ function ComoVamos(_ref) {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "btn-group w-100 h-100",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-                  className: "btn btn-outline-info fs-3",
+                  className: "btn w-100 fw-bolder fs-3",
+                  style: {
+                    backgroundColor: colorSucursal(e.sucursal.codigo)
+                  },
                   children: e.sucursal.nombre
                 })
               })
@@ -7139,7 +7143,11 @@ function ComoVamos(_ref) {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-            className: "w-30 align-middle"
+            className: "w-30 align-middle text-center",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "btn btn-sinapsis fs-2",
+              children: sucursalDetallesData.comovamos ? sucursalDetallesData.comovamos.length : null
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
             className: "w-60 align-middle",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -9391,7 +9399,9 @@ function ControlEfectivoMatriz(_ref) {
     fechadepositobanco = _ref.fechadepositobanco,
     setfechadepositobanco = _ref.setfechadepositobanco,
     depositarmatrizalbanco = _ref.depositarmatrizalbanco,
-    setselectdepositobanco = _ref.setselectdepositobanco;
+    setselectdepositobanco = _ref.setselectdepositobanco,
+    colorSucursal = _ref.colorSucursal,
+    setConciliarMovCajaMatriz = _ref.setConciliarMovCajaMatriz;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getcatsCajas();
     getNomina();
@@ -9418,7 +9428,7 @@ function ControlEfectivoMatriz(_ref) {
   };
   var getCatGeneralFun = function getCatGeneralFun(id_cat) {
     var catgeneralList = [{
-      color: "#ff0000",
+      color: "#ffceb4",
       nombre: "PAGO A PROVEEDORES"
     }, {
       color: "#00ff00",
@@ -9659,15 +9669,31 @@ function ControlEfectivoMatriz(_ref) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
         children: controlefecData ? controlefecData.data ? controlefecData.data.length ? controlefecData.data.map(function (e, i) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+            onDoubleClick: function onDoubleClick() {
+              return setConciliarMovCajaMatriz(e.id);
+            },
+            className: (e.revisado == 1 ? "bg-success-light" : "") + " pointer",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-              children: e.sucursal_origen ? e.sucursal_origen.codigo : e.sucursal.codigo
+              children: e.sucursal_origen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                className: "btn w-100 fw-bolder fs-6",
+                style: {
+                  backgroundColor: colorSucursal(e.sucursal_origen.codigo)
+                },
+                children: e.sucursal_origen.codigo
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                className: "btn w-100 fw-bolder fs-6",
+                style: {
+                  backgroundColor: colorSucursal(e.sucursal.codigo)
+                },
+                children: e.sucursal.codigo
+              })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
               className: "",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("small", {
                 className: "text-muted",
                 children: e.created_at
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
               className: "",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("small", {
                 className: "text-muted",
@@ -9717,6 +9743,10 @@ function ControlEfectivoMatriz(_ref) {
                     })]
                   })
                 })
+              }) : null, e.proveedor ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("b", {
+                  children: ["(", e.proveedor.descripcion, ")"]
+                })]
               }) : null]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
               className: (e.montodolar < 0 ? "text-danger" : "text-success") + " text-right",
@@ -14505,7 +14535,8 @@ function Gastos(_ref) {
     fechadepositobanco = _ref.fechadepositobanco,
     setfechadepositobanco = _ref.setfechadepositobanco,
     depositarmatrizalbanco = _ref.depositarmatrizalbanco,
-    setselectdepositobanco = _ref.setselectdepositobanco;
+    setselectdepositobanco = _ref.setselectdepositobanco,
+    setConciliarMovCajaMatriz = _ref.setConciliarMovCajaMatriz;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getGastos();
   }, [gastosQCategoria, gastoscatgeneral, gastosingreso_egreso, gastosorder, gastosfieldorder, gastosQsucursal]);
@@ -14614,6 +14645,8 @@ function Gastos(_ref) {
       colorSucursal: colorSucursal,
       number: number
     }) : null, subviewGastos == "cargarefectivo" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_controlefectivomatriz__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      colorSucursal: colorSucursal,
+      setConciliarMovCajaMatriz: setConciliarMovCajaMatriz,
       selectdepositobanco: selectdepositobanco,
       bancodepositobanco: bancodepositobanco,
       setbancodepositobanco: setbancodepositobanco,
@@ -25942,6 +25975,9 @@ var db = (_db = {
   },
   reportarMov: function reportarMov(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "reportarMov", data);
+  },
+  setConciliarMovCajaMatriz: function setConciliarMovCajaMatriz(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "setConciliarMovCajaMatriz", data);
   },
   autoliquidarTransferencia: function autoliquidarTransferencia(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "autoliquidarTransferencia", data);
@@ -77699,7 +77735,7 @@ function Home() {
   };
   var colorCatGeneral = {
     0: {
-      color: "#ff0000",
+      color: "#fca7a7",
       desc: "PAGO A PROVEEDORES"
     },
     1: {
@@ -79857,6 +79893,15 @@ function Home() {
   };
   var showFilescxp = function showFilescxp(id) {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].showFilescxp(id);
+  };
+  var setConciliarMovCajaMatriz = function setConciliarMovCajaMatriz(id) {
+    if (confirm("Confirme")) {
+      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].setConciliarMovCajaMatriz({
+        id: id
+      }).then(function (res) {
+        getControlEfec();
+      });
+    }
   };
   var _useState585 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState586 = _slicedToArray(_useState585, 2),
@@ -83868,6 +83913,7 @@ function Home() {
             marcas: marcas
           }) : null]
         }), permiso([1, 2, 5, 13]) && viewmainPanel === "gastos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_gastos__WEBPACK_IMPORTED_MODULE_52__["default"], {
+          setConciliarMovCajaMatriz: setConciliarMovCajaMatriz,
           selectdepositobanco: selectdepositobanco,
           bancodepositobanco: bancodepositobanco,
           setbancodepositobanco: setbancodepositobanco,
@@ -84139,6 +84185,7 @@ function Home() {
             setfechasMain2: setfechasMain2
           })
         }), permiso([1, 2]) && viewmainPanel === "comovamos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_comovamos__WEBPACK_IMPORTED_MODULE_37__["default"], {
+          colorSucursal: colorSucursal,
           sendCuadreGeneral: sendCuadreGeneral,
           cuantotengobanco: cuantotengobanco,
           setcuantotengobanco: setcuantotengobanco,

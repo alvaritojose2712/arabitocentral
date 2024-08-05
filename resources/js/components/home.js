@@ -736,7 +736,7 @@ function Home() {
   
   
   const colorCatGeneral = {
-    0: {color:"#ff0000", desc: "PAGO A PROVEEDORES"},
+    0: {color:"#fca7a7", desc: "PAGO A PROVEEDORES"},
     1: {color:"#00ff00", desc: "INGRESO"},
     2: {color:"#ff9900", desc: "GASTO"},
     3: {color:"#b45f06", desc: "GASTO GENERAL"},
@@ -2532,6 +2532,17 @@ function formatAmount( number, simbol ) {
     db.showFilescxp(id)
   }
 
+
+  const setConciliarMovCajaMatriz = id => {
+    if (confirm("Confirme")) {
+      db.setConciliarMovCajaMatriz({
+        id
+      })
+      .then(res=>{
+        getControlEfec()
+      })
+    }
+  }
 
   const [datacajamatriz, setdatacajamatriz] = useState([])
   const [qcajamatriz,setqcajamatriz] = useState("")
@@ -6364,6 +6375,7 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5,13]) && viewmainPanel === "gastos" && 
             <Gastos
+              setConciliarMovCajaMatriz={setConciliarMovCajaMatriz}
               selectdepositobanco={selectdepositobanco}
               bancodepositobanco={bancodepositobanco}
               setbancodepositobanco={setbancodepositobanco}
@@ -6677,7 +6689,7 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2]) && viewmainPanel === "comovamos" &&
             <ComoVamos
-
+              colorSucursal={colorSucursal}
               sendCuadreGeneral={sendCuadreGeneral}
               cuantotengobanco={cuantotengobanco}
               setcuantotengobanco={setcuantotengobanco}

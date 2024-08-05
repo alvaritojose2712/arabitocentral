@@ -60,6 +60,8 @@ export default function ControlEfectivoMatriz({
     setfechadepositobanco,
     depositarmatrizalbanco,
     setselectdepositobanco,
+    colorSucursal,
+    setConciliarMovCajaMatriz,
 }){ 
 
     useEffect(()=>{
@@ -96,7 +98,7 @@ export default function ControlEfectivoMatriz({
     const getCatGeneralFun = (id_cat) => {
 
         let catgeneralList = [
-            {color:"#ff0000", nombre:"PAGO A PROVEEDORES"}	,
+            {color:"#ffceb4", nombre:"PAGO A PROVEEDORES"}	,
             {color:"#00ff00", nombre:"INGRESO"}	,
             {color:"#ff9900", nombre:"GASTO"}	,
             {color:"#b45f06", nombre:"GASTO GENERAL"}	,
@@ -250,10 +252,22 @@ export default function ControlEfectivoMatriz({
                 </thead>
                 <tbody>
                     {controlefecData ? controlefecData.data ? controlefecData.data.length?
-                        controlefecData.data.map((e,i)=><tr key={e.id}>
-                            <td>{e.sucursal_origen?e.sucursal_origen.codigo:e.sucursal.codigo}</td>
+                        controlefecData.data.map((e,i)=>
+                        <tr key={e.id} onDoubleClick={()=>setConciliarMovCajaMatriz(e.id)} className={(e.revisado==1?"bg-success-light":"")+" pointer"}>
+                            <td>
+                                {e.sucursal_origen?
+                                    <button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorSucursal(e.sucursal_origen.codigo)}}>
+                                        {e.sucursal_origen.codigo}
+                                    </button>
+                                
+                                :
+                                    <button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
+                                        {e.sucursal.codigo}
+                                    </button>
+                                }
+                            </td>
                             <td className=""><small className="text-muted">{e.created_at}</small></td>
-                            <td className=""><small className="text-muted">{e.fecha}</small></td>
+                            <th className=""><small className="text-muted">{e.fecha}</small></th>
                             <td className="">
                                 <button className="btn w-100 btn-sm" style={{color:"black",fontWeight:"bold",backgroundColor:getCatGeneralFun(e.categoria).color}}>{getCatGeneralFun(e.categoria).nombre}</button>
                             </td>
@@ -281,6 +295,17 @@ export default function ControlEfectivoMatriz({
                                         </div>
                                     </div>
                                 :null}
+
+                                {e.proveedor?
+                                    <>
+                                        <br />
+                                        <b>({e.proveedor.descripcion})</b>
+                                    </>
+                                :null}
+
+
+
+                                    
 
 
                                 

@@ -415,6 +415,8 @@ class CuentasporpagarController extends Controller
                     "montoeuro" => 0,
     
                     "fecha" => $fecha_creada,
+                    "id_proveedor" => $id_proveedor_caja,
+
                     //"idinsucursal" => null,
                 ]);
             }
