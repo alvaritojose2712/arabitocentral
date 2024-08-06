@@ -4265,7 +4265,8 @@ function formatAmount( number, simbol ) {
       gastosDescripcion && 
       gastosCategoria &&
       gastosBanco &&
-      gastosFecha
+      gastosFecha &&
+      gastosMonto
     ) {
       db.saveNewGasto({
         gastosDescripcion,
@@ -4273,7 +4274,7 @@ function formatAmount( number, simbol ) {
         gastosBeneficiario,
         gastosFecha,
         gastosBanco,
-        
+        controlefecNewMontoMoneda,
         gastosMonto: removeMoneda(gastosMonto),
         gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
         gastosTasa:(gastosTasa),
@@ -4286,8 +4287,8 @@ function formatAmount( number, simbol ) {
         comisionpagomovilinterban,
       }).then(res=>{
         if (res.data.estado) {
-          getGastos()
-          getMovBancos()
+          /* getGastos()
+          getMovBancos() */
           setNewGastosInput()
           
         }
@@ -4351,6 +4352,7 @@ function formatAmount( number, simbol ) {
     setlistBeneficiario([])
     setqbuscarcat("")
     setiscomisiongasto(0)
+    setcontrolefecNewMontoMoneda("")
   }
   const setEditGastosInput = id => {
     let fil = gastosData.filter(e=>e.id===id)

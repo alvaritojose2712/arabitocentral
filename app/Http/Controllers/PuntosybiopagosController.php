@@ -681,6 +681,15 @@ class PuntosybiopagosController extends Controller
 
         $iscomisiongasto = $req->iscomisiongasto;
         $comisionpagomovilinterban = $req->comisionpagomovilinterban;
+        $controlefecNewMontoMoneda = $req->controlefecNewMontoMoneda;
+
+        if (!$gastosMonto || !$gastosDescripcion || !$gastosFecha || !$gastosCategoria) {
+            return [
+                "msj" => "CAMPOS VACÍOS!",
+                "estado" => false,
+            ];
+        }
+        
 
         $catcompg = catcajas::where("nombre","CAJA MATRIZ: COMISION TRANSFERENCIA INTERBANCARIA O PAGO MOVIL")->first();
 
@@ -745,71 +754,150 @@ class PuntosybiopagosController extends Controller
         
         $selectIdGastos = $req->selectIdGastos;
         $num = 0;
-        foreach ($arr as $e) {
-            $p = puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[
-                "loteserial" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):""),
-                "banco" => $gastosBanco,
-                "categoria" => $gastosCategoria,
-                "fecha" => $gastosFecha,
-                "fecha_liquidacion" => $gastosFecha,
-                "tipo" => $tipo,
 
-                "id_sucursal" => $e["id_sucursal"],
-                "id_beneficiario" => $e["id_beneficiario"],
-                "tasa" => $e["tasa"],
+        if ($gastosBanco==="EFECTIVO") {
+            
+            foreach ($arr as $e) {
                 
-                "monto" => $e["monto"],
-                "monto_liquidado" => $e["monto"],
-                "monto_dolar" => $e["monto_dolar"],
 
-                "origen" => 2,
-                "id_usuario" => 1,
-            ]);
-            if ($p) {
-                $num++;
-
-                if ($iscomisiongasto==1) {
-                    puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[
-                        "loteserial" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):"")." COMISION",
-                        "banco" => $gastosBanco,
-                        "categoria" => $catcompg->id,
-                        "fecha" => $gastosFecha,
-                        "fecha_liquidacion" => $gastosFecha,
-                        "tipo" => $tipo,
-        
-                        "id_sucursal" => $e["id_sucursal"],
-                        "id_beneficiario" => $e["id_beneficiario"],
-                        "tasa" => $e["tasa"],
-                        
-                        "monto" => $e["monto"]*($comisionpagomovilinterban/100),
-                        "monto_liquidado" => $e["monto"]*($comisionpagomovilinterban/100),
-                        "monto_dolar" => $e["monto_dolar"]*($comisionpagomovilinterban/100),
-        
-                        "origen" => 2,
-                        "id_usuario" => 1,
-                    ]);
+                $montodolar = 0;
+                $montopeso = 0;
+                $montobs = 0;
+                $montoeuro = 0;
+                switch ($controlefecNewMontoMoneda) {
+                    case 'dolar':
+                        $montodolar = $e["monto"]*$factor;
+                    break;
+                    case 'peso':
+                        $montopeso = $e["monto"]*$factor;
+                    break;
+                    case 'bs':
+                        $montobs = $e["monto"]*$factor;
+                    break;
+                    case 'euro':
+                        $montoeuro = $e["monto"]*$factor;
+                    break;
                 }
-                if ($e["id_beneficiario"]) {
-                    $personal = nomina::find($id_beneficiario);
-                    $catcajas = catcajas::find($gastosCategoria);
-                    $catnombre = $catcajas->nombre;
-                    $ci = $personal->nominacedula;
-                    $monto = $montoDolar? ($montoDolar/$divisor): (($montoBs/$taseBs)/$divisor);
 
-                    if (strpos($catnombre,"NOMINA QUINCENA")) {
-                        (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $p->id, $gastosFecha);
-                    }
-                    if (strpos($catnombre,"NOMINA ABONO") || strpos($catnombre,"NOMINA PRESTAMO")) {
-                        if (strpos($catnombre,"NOMINA ABONO")) {
-                            $monto = abs($monto);
+
+                $cajas = (new CajasController)->setCajaFun([
+                    "id" => null,
+                    "concepto" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):""),
+                    "categoria" => $gastosCategoria,
+                    "fecha" => $gastosFecha,
+
+                    "montodolar" => $montodolar,
+                    "montopeso" => $montopeso,
+                    "montobs" => $montobs,
+                    "montoeuro" => $montoeuro,
+
+                    "tipo" => 1,
+                    "estatus" => 1,
+                    "id_sucursal_destino" => $e["id_sucursal"],
+                    "id_sucursal" => $e["id_sucursal"],
+
+                    "id_beneficiario" => $e["id_beneficiario"],
+                    "origen" => 2,
+
+                ]);
+               
+                if ($cajas) {
+                    $num++;
+    
+                    if ($e["id_beneficiario"]) {
+                        $personal = nomina::find($id_beneficiario);
+                        $catcajas = catcajas::find($gastosCategoria);
+                        $catnombre = $catcajas->nombre;
+                        $ci = $personal->nominacedula;
+                        $monto = $montoDolar? ($montoDolar/$divisor): (($montoBs/$taseBs)/$divisor);
+    
+                        if (strpos($catnombre,"NOMINA QUINCENA")) {
+                            (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $cajas->id, $gastosFecha);
                         }
-                        (new NominaprestamosController)->setPrestamoNomina($ci, $monto, $id_sucursal, $p->id, $gastosFecha);
+                        if (strpos($catnombre,"NOMINA ABONO") || strpos($catnombre,"NOMINA PRESTAMO")) {
+                            if (strpos($catnombre,"NOMINA ABONO")) {
+                                $monto = abs($monto);
+                            }
+                            (new NominaprestamosController)->setPrestamoNomina($ci, $monto, $id_sucursal, $cajas->id, $gastosFecha);
+                        }
+                        
+                        //(new NominapagosController)->setPagoNomina($personal->nominacedula, , $e["id_sucursal"], $cajas->id, $gastosFecha);
                     }
+                }
+            }
+
+
+
+        }else{
+
+            foreach ($arr as $e) {
+                $p = puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[
+                    "loteserial" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):""),
+                    "banco" => $gastosBanco,
+                    "categoria" => $gastosCategoria,
+                    "fecha" => $gastosFecha,
+                    "fecha_liquidacion" => $gastosFecha,
+                    "tipo" => $tipo,
+    
+                    "id_sucursal" => $e["id_sucursal"],
+                    "id_beneficiario" => $e["id_beneficiario"],
+                    "tasa" => $e["tasa"],
                     
-                    //(new NominapagosController)->setPagoNomina($personal->nominacedula, , $e["id_sucursal"], $p->id, $gastosFecha);
+                    "monto" => $e["monto"],
+                    "monto_liquidado" => $e["monto"],
+                    "monto_dolar" => $e["monto_dolar"],
+    
+                    "origen" => 2,
+                    "id_usuario" => 1,
+                ]);
+                if ($p) {
+                    $num++;
+    
+                    if ($iscomisiongasto==1) {
+                        puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[
+                            "loteserial" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):"")." COMISION",
+                            "banco" => $gastosBanco,
+                            "categoria" => $catcompg->id,
+                            "fecha" => $gastosFecha,
+                            "fecha_liquidacion" => $gastosFecha,
+                            "tipo" => $tipo,
+            
+                            "id_sucursal" => $e["id_sucursal"],
+                            "id_beneficiario" => $e["id_beneficiario"],
+                            "tasa" => $e["tasa"],
+                            
+                            "monto" => $e["monto"]*($comisionpagomovilinterban/100),
+                            "monto_liquidado" => $e["monto"]*($comisionpagomovilinterban/100),
+                            "monto_dolar" => $e["monto_dolar"]*($comisionpagomovilinterban/100),
+            
+                            "origen" => 2,
+                            "id_usuario" => 1,
+                        ]);
+                    }
+                    if ($e["id_beneficiario"]) {
+                        $personal = nomina::find($id_beneficiario);
+                        $catcajas = catcajas::find($gastosCategoria);
+                        $catnombre = $catcajas->nombre;
+                        $ci = $personal->nominacedula;
+                        $monto = $montoDolar? ($montoDolar/$divisor): (($montoBs/$taseBs)/$divisor);
+    
+                        if (strpos($catnombre,"NOMINA QUINCENA")) {
+                            (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $p->id, $gastosFecha);
+                        }
+                        if (strpos($catnombre,"NOMINA ABONO") || strpos($catnombre,"NOMINA PRESTAMO")) {
+                            if (strpos($catnombre,"NOMINA ABONO")) {
+                                $monto = abs($monto);
+                            }
+                            (new NominaprestamosController)->setPrestamoNomina($ci, $monto, $id_sucursal, $p->id, $gastosFecha);
+                        }
+                        
+                        //(new NominapagosController)->setPagoNomina($personal->nominacedula, , $e["id_sucursal"], $p->id, $gastosFecha);
+                    }
                 }
             }
         }
+
+
         return [
             "msj" => $num." movimiento".($num<=1?"":"s")." cargado".($num<=1?"":"s"),
             "estado" => true,

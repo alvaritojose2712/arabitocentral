@@ -133,7 +133,7 @@ export default function ControlEfectivoMatriz({
     return (
         <div className="container-fluid">
 
-            <div className="text-center p-3">
+          {/*   <div className="text-center p-3">
                 {openModalNuevoEfectivo?
                     <button onClick={()=>setopenModalNuevoEfectivo(false)} className="btn btn-outline-sinapsis">OCULTAR NUEVO MOVIMIENTO <i className="fa fa-arrow-up"></i> </button>
                     :
@@ -182,45 +182,45 @@ export default function ControlEfectivoMatriz({
                 >
 
                 </ModalNuevoEfectivo>
-            }
+            } */}
 
-            <div className="btn-group mb-3">
-              <button className={("btn ") + (controlefecSelectGeneral == 1 ?"btn-success":"btn-outline-success")} onClick={()=>setcontrolefecSelectGeneral(1)}>Caja Fuerte</button> 
-              <button className={("btn ") + (controlefecSelectGeneral == 0 ? "btn-sinapsis" : "btn-outline-sinapsis")} onClick={() => setcontrolefecSelectGeneral(0)}>Caja Chica</button>
-            </div>
+           {/*  <div className="btn-group mb-3">
+            </div> */}
 
             {/* <div className="mb-3 d-flex justify-content-center">
                 <button className={"btn btn-outline-"+(controlefecSelectGeneral==1?"success":"sinapsis")+" btn-lg"} onClick={e=>setopenModalNuevoEfectivo(true)}>NUEVO MOVIMIENTO <i className="fa fa-plus"></i></button>
-            </div> */}
+                </div> */}
 
             <div className="input-group mb-3">
 
-                <button className="btn btn-warning" onClick={verificarMovPenControlEfec}>VERIFICAR PENDIENTES <i className="fa fa-clock-o"></i></button>
-                <button className="btn btn-outline-danger" onClick={reversarMovPendientes}>REVERSAR PENDIENTE <i className="fa fa-times"></i></button>
+                <button className={("btn ") + (controlefecSelectGeneral == 1 ?"btn-success":"btn-outline-success")} onClick={()=>setcontrolefecSelectGeneral(1)}>Caja Fuerte</button> 
+                <button className={("btn ") + (controlefecSelectGeneral == 0 ? "btn-sinapsis" : "btn-outline-sinapsis")} onClick={() => setcontrolefecSelectGeneral(0)}>Caja Chica</button>
+                {/* <button className="btn btn-warning" onClick={verificarMovPenControlEfec}>VERIFICAR PENDIENTES <i className="fa fa-clock-o"></i></button>
+                <button className="btn btn-outline-danger" onClick={reversarMovPendientes}>REVERSAR PENDIENTE <i className="fa fa-times"></i></button> */}
                 
-                <input type="text" className="form-control"
+                <input type="text" className="form-control fs-3"
                     placeholder="Buscar..."
                     onChange={e => setcontrolefecQ(e.target.value)}
                     value={controlefecQ} />
                 <select
-                    className="form-control"
+                    className="form-control fs-3"
                     onChange={e => setcontrolefecQCategoria(e.target.value)}
                     value={controlefecQCategoria}>
-                        <option value="">-BUSCAR-</option>
+                        <option value="">-CATEGORÍA-</option>
                     {categoriasCajas.filter(e=>e.tipo==controlefecSelectGeneral).map((e,i)=>
                         <option key={i} value={e.id}>{e.nombre}</option>
                     )}
 
                 </select>
 
-                <input type="date" className="form-control"
+                <input type="date" className="form-control fs-3"
                     onChange={e => setcontrolefecQDesde(e.target.value)}
                     value={controlefecQDesde} />
 
-                <input type="date" className="form-control"
+                <input type="date" className="form-control fs-3"
                     onChange={e => setcontrolefecQHasta(e.target.value)}
                     value={controlefecQHasta} />
-                <button className="btn btn-warning" onClick={verificarMovPenControlEfecTRANFTRABAJADOR}>VERIFICAR TRANSFERENCIAS TRABAJADOR <i className="fa fa-clock-o"></i></button>
+               {/*  <button className="btn btn-warning" onClick={verificarMovPenControlEfecTRANFTRABAJADOR}>VERIFICAR TRANSFERENCIAS TRABAJADOR <i className="fa fa-clock-o"></i></button> */}
 
 
 
@@ -256,18 +256,21 @@ export default function ControlEfectivoMatriz({
                         <tr key={e.id} onDoubleClick={()=>setConciliarMovCajaMatriz(e.id)} className={(e.revisado==1?"bg-success-light":"")+" pointer"}>
                             <td>
                                 {e.sucursal_origen?
-                                    <button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorSucursal(e.sucursal_origen.codigo)}}>
+                                    <button className={"btn w-100 fw-bolder fs-6 "} style={{backgroundColor:colorSucursal(e.sucursal_origen.codigo)}}>
                                         {e.sucursal_origen.codigo}
                                     </button>
                                 
                                 :
-                                    <button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
+                                    <button className={"btn w-100 fw-bolder fs-6 "} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
                                         {e.sucursal.codigo}
                                     </button>
                                 }
                             </td>
-                            <td className=""><small className="text-muted">{e.created_at}</small></td>
-                            <th className=""><small className="text-muted">{e.fecha}</small></th>
+                            <td className="text-center" colSpan={2}>
+                                <b className="text-muted">{e.fecha}</b>
+                                <br />
+                                <small className="text-muted">{e.created_at}</small>
+                            </td>
                             <td className="">
                                 <button className="btn w-100 btn-sm" style={{color:"black",fontWeight:"bold",backgroundColor:getCatGeneralFun(e.categoria).color}}>{getCatGeneralFun(e.categoria).nombre}</button>
                             </td>
@@ -303,12 +306,13 @@ export default function ControlEfectivoMatriz({
                                     </>
                                 :null}
 
+                                {e.beneficiario?
+                                    <>
+                                        <br />
+                                        <b>({e.beneficiario.nominanombre})</b>
+                                    </>
+                                :null}
 
-
-                                    
-
-
-                                
                             </td>
                             
                             <td className={(e.montodolar<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montodolar)}</td>

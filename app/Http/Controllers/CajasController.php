@@ -577,7 +577,7 @@ class CajasController extends Controller
 
         $controlefecSelectGeneral = $req->controlefecSelectGeneral;
 
-        $data = cajas::with(["cat","sucursal","sucursal_origen","proveedor"])->where("tipo",$controlefecSelectGeneral)
+        $data = cajas::with(["cat","sucursal","sucursal_origen","proveedor","beneficiario"])->where("tipo",$controlefecSelectGeneral)
         ->when($controlefecQ,function($q) use ($controlefecQ){
             $q->orWhere("concepto",$controlefecQ);
             $q->orWhere("monto",$controlefecQ);
@@ -585,7 +585,10 @@ class CajasController extends Controller
         ->when($controlefecQCategoria,function($q) use ($controlefecQCategoria) {
             $q->where("categoria",$controlefecQCategoria);
         })
-        ->where("id_sucursal",13)
+        ->where(function($q) {
+            $q->orwhere("id_sucursal",13)
+            ->orwhere("origen",2);
+        })
         ->whereBetween("created_at",[$controlefecQDesde." 00:00:00",$controlefecQHasta." 23:59:59"])
         ->orderBy("created_at","desc")
         ->get();
@@ -604,6 +607,12 @@ class CajasController extends Controller
         $montoeuro = isset($arr["montoeuro"])?$arr["montoeuro"]:0;
         $id_sucursal_origen = isset($arr["id_sucursal_origen"])?$arr["id_sucursal_origen"]:null;
         $id_proveedor = isset($arr["id_proveedor"])?$arr["id_proveedor"]:null;
+        
+        $id_beneficiario = isset($arr["id_beneficiario"])?$arr["id_beneficiario"]:null;
+        $origen = isset($arr["origen"])?$arr["origen"]:1;
+        $id_sucursal = isset($arr["id_sucursal"])?$arr["id_sucursal"]:13;
+        
+
 
         
         
@@ -627,10 +636,14 @@ class CajasController extends Controller
             "bsbalance" => 0,
             "eurobalance" => 0,
             "estatus" => 1,
-            "id_sucursal" => 13,
             "id_sucursal_origen" => $id_sucursal_origen,
             "id_proveedor" => $id_proveedor,
             "idinsucursal" => $idinsucursal,
+            "id_beneficiario" => $id_beneficiario,
+            "origen" => $origen,
+            
+            "id_sucursal" => $id_sucursal,
+
         ] ; 
         
         $arrbusqueda = ["id_sucursal"=>13, "idinsucursal"=>$idinsucursal];

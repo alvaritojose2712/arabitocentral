@@ -21,6 +21,9 @@ class cajas extends Model
     public function proveedor() { 
         return $this->hasOne(\App\Models\proveedores::class,"id","id_proveedor"); 
     }
+    public function beneficiario() { 
+        return $this->hasOne(\App\Models\nomina::class,"id","id_beneficiario"); 
+    }
 
     
     
@@ -53,6 +56,8 @@ class cajas extends Model
         "id_sucursal_deposito",
         "revisado",
         "id_proveedor",
+        "id_beneficiario",
+        "origen",
     ];
     use HasFactory;
 }

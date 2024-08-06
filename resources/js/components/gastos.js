@@ -4,6 +4,7 @@ import Chart from "react-apexcharts";
 import CargarTraspasos  from "./cargartraspasos";
 import ControlEfectivoMatriz from './controlefectivomatriz'
 import CargargastosBanco from './cargargastosbanco'
+import ListBanco from './listBanco'
 
 
 export default function Gastos({
@@ -220,17 +221,20 @@ export default function Gastos({
 	return(
 		<div className="container-fluid">
 			<div className="d-flex justify-content-center">
-                <div className="btn-group m-1">
-                    <button className={("btn btn-sm ")+(subviewGastos=="cargarbanco"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargarbanco")}>BANCO</button>
-                    <button className={("btn btn-sm ")+(subviewGastos=="cargarefectivo"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargarefectivo")}>EFECTIVO</button>
-                    <button className={("btn btn-sm ")+(subviewGastos=="traspasos"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("traspasos")}>Traspasos entre BANCOS</button>
-                    <button className={("btn btn-sm ")+(subviewGastos=="resumen"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("resumen")}>Detalles</button>
-                    <button className={("btn btn-sm ")+(subviewGastos=="distribucion"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("distribucion")}>Estadísticas</button>
+                <div className="btn-group m-2">
+                    <button className={("btn btn-lg ")+(subviewGastos=="cargarbanco"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargarbanco")}>CARGAR</button>
+                    <button className={("btn btn-lg ")+(subviewGastos=="listBanco"?"btn-primary":"")} onClick={()=>setsubviewGastos("listBanco")}>BANCO <i className="fa fa-bank"></i></button>
+                    <button className={("btn btn-lg ")+(subviewGastos=="cargarefectivo"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargarefectivo")}>EFECTIVO <i className="fa fa-money"></i></button>
+                    <button className={("btn btn-lg ")+(subviewGastos=="traspasos"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("traspasos")}>Traspasos entre BANCOS</button>
+                    <button className={("btn btn-lg ")+(subviewGastos=="resumen"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("resumen")}>Detalles</button>
+                    <button className={("btn btn-lg ")+(subviewGastos=="distribucion"?"btn-warning":"")} onClick={()=>setsubviewGastos("distribucion")}>Estadísticas</button>
                 </div>
             </div>
 
 			{subviewGastos=="cargarbanco"?
 				<CargargastosBanco 
+					controlefecNewMontoMoneda={controlefecNewMontoMoneda}
+					setcontrolefecNewMontoMoneda={setcontrolefecNewMontoMoneda}
 					setcontrolbancoQ={setcontrolbancoQ}
 					controlbancoQ={controlbancoQ}
 					setcontrolbancoQCategoria={setcontrolbancoQCategoria}
@@ -290,6 +294,36 @@ export default function Gastos({
 					setgastosCategoria={setgastosCategoria}
 					getPersonal={getPersonal}
 					addBeneficiarioList={addBeneficiarioList}
+					colors={colors}
+					colorSucursal={colorSucursal}
+					number={number}
+				/>	
+			:null}
+
+
+			{subviewGastos=="listBanco"?
+				<ListBanco 
+					opcionesMetodosPago={opcionesMetodosPago}
+					categoriasCajas={categoriasCajas}
+					sucursales={sucursales}
+					colorsGastosCat={colorsGastosCat}
+					moneda={moneda}
+					setcontrolbancoQ={setcontrolbancoQ}
+					controlbancoQ={controlbancoQ}
+					setcontrolbancoQCategoria={setcontrolbancoQCategoria}
+					controlbancoQCategoria={controlbancoQCategoria}
+					setcontrolbancoQDesde={setcontrolbancoQDesde}
+					controlbancoQDesde={controlbancoQDesde}
+					setcontrolbancoQHasta={setcontrolbancoQHasta}
+					controlbancoQHasta={controlbancoQHasta}
+					controlbancoQBanco={controlbancoQBanco}
+					setcontrolbancoQBanco={setcontrolbancoQBanco}
+					controlbancoQSiliquidado={controlbancoQSiliquidado}
+					setcontrolbancoQSiliquidado={setcontrolbancoQSiliquidado}
+					movBancosData={movBancosData}
+					getMovBancos={getMovBancos}
+					controlbancoQSucursal={controlbancoQSucursal}
+					setcontrolbancoQSucursal={setcontrolbancoQSucursal}
 					colors={colors}
 					colorSucursal={colorSucursal}
 					number={number}
