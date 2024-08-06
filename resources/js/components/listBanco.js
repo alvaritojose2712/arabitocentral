@@ -113,7 +113,7 @@ export default function listBanco({
                                 </td> */}
                             <td>
                                 <button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.id,"cat","color")}}>
-                                    {colorsGastosCat(e.cat.id,"cat","desc")}
+                                    {e.cat.nombre}
                                 </button>
                             </td>
                             <td>
