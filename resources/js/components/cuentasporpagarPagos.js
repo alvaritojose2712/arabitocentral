@@ -284,16 +284,16 @@ export default function CuentasporpagarPagos({
                                                 <div className="row mb-2">
                                                     <div className="col-md-auto text-sinapsis">
                                                         <span className="form-label">Monto Bs 1</span>
-                                                        <input type="text" className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 1" value={montobs1PagoFact} onChange={e=>setmontobs1PagoFact(number(e.target.value))} />
+                                                        <input type="text" required className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 1" value={montobs1PagoFact} onChange={e=>setmontobs1PagoFact(number(e.target.value))} />
                                                     </div>
                 
                                                     <div className="col-md-auto">
                                                         <span className="form-label">Tasa</span>
-                                                        <input type="text" className="form-control fs-6" placeholder="Tasa 1" size={4} value={tasabs1PagoFact} onChange={e=>settasabs1PagoFact(number(e.target.value))}/>
+                                                        <input type="text" required className="form-control fs-6" placeholder="Tasa 1" size={4} value={tasabs1PagoFact} onChange={e=>settasabs1PagoFact(number(e.target.value))}/>
                                                     </div>
                                                     <div className="col-md-auto">
                                                         <span className="form-label">Método 1</span>
-                                                        <select className="form-control fs-6" 
+                                                        <select required className="form-control fs-6" 
                                                         value={metodobs1PagoFact} 
                                                         onChange={e=>setmetodobs1PagoFact(e.target.value)} >
                                                             <option value="">-Método 1-</option>
@@ -304,7 +304,7 @@ export default function CuentasporpagarPagos({
                                                     </div>
                                                     <div className="col-md-auto">
                                                         <span className="form-label">REF 1</span>
-                                                        <input type="text" className="form-control" value={refbs1PagoFact} placeholder="REF 1"onChange={e=>setrefbs1PagoFact(number(e.target.value))} />
+                                                        <input type="text" required className="form-control" value={refbs1PagoFact} placeholder="REF 1"onChange={e=>setrefbs1PagoFact(number(e.target.value))} />
                                                     </div>
 
                                                   
@@ -318,16 +318,16 @@ export default function CuentasporpagarPagos({
                                                 <div className="row mb-2">
                                                     <div className="col-md-auto text-sinapsis">
                                                         <span className="form-label">Monto Bs 2</span>
-                                                        <input type="text" className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 2" value={montobs2PagoFact} onChange={e=>setmontobs2PagoFact(number(e.target.value))} />
+                                                        <input type="text" required className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 2" value={montobs2PagoFact} onChange={e=>setmontobs2PagoFact(number(e.target.value))} />
                                                     </div>
                 
                                                     <div className="col-md-auto">
                                                         <span className="form-label">Tasa</span>
-                                                        <input type="text" className="form-control fs-6" placeholder="Tasa 2" size={4} value={tasabs2PagoFact} onChange={e=>settasabs2PagoFact(number(e.target.value))}/>
+                                                        <input type="text" required className="form-control fs-6" placeholder="Tasa 2" size={4} value={tasabs2PagoFact} onChange={e=>settasabs2PagoFact(number(e.target.value))}/>
                                                     </div>
                                                     <div className="col-md-auto">
                                                         <span className="form-label">Método 2</span>
-                                                        <select className="form-control fs-6" 
+                                                        <select required className="form-control fs-6" 
                                                         value={metodobs2PagoFact} 
                                                         onChange={e=>setmetodobs2PagoFact(e.target.value)} >
                                                             <option value="">-Método 2-</option>
@@ -338,7 +338,7 @@ export default function CuentasporpagarPagos({
                                                     </div>
                                                     <div className="col-md-auto">
                                                         <span className="form-label">REF 2</span>
-                                                        <input type="text" className="form-control" value={refbs2PagoFact} placeholder="REF 2"onChange={e=>setrefbs2PagoFact(number(e.target.value))} />
+                                                        <input type="text" required className="form-control" value={refbs2PagoFact} placeholder="REF 2"onChange={e=>setrefbs2PagoFact(number(e.target.value))} />
                                                     </div>
                                                     
                                                 </div>
@@ -349,16 +349,16 @@ export default function CuentasporpagarPagos({
                                                 <div className="row mb-2">
                                                     <div className="col-md-auto text-sinapsis">
                                                         <span className="form-label">Monto Bs 3</span>
-                                                        <input type="text" className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 3" value={montobs3PagoFact} onChange={e=>setmontobs3PagoFact(number(e.target.value))} />
+                                                        <input type="text" required className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 3" value={montobs3PagoFact} onChange={e=>setmontobs3PagoFact(number(e.target.value))} />
                                                     </div>
                 
                                                     <div className="col-md-auto">
                                                         <span className="form-label">Tasa</span>
-                                                        <input type="text" className="form-control fs-6" placeholder="Tasa 3" size={4} value={tasabs3PagoFact} onChange={e=>settasabs3PagoFact(number(e.target.value))}/>
+                                                        <input type="text" required className="form-control fs-6" placeholder="Tasa 3" size={4} value={tasabs3PagoFact} onChange={e=>settasabs3PagoFact(number(e.target.value))}/>
                                                     </div>
                                                     <div className="col-md-auto">
                                                         <span className="form-label">Método 3</span>
-                                                        <select className="form-control fs-6" 
+                                                        <select required className="form-control fs-6" 
                                                         value={metodobs3PagoFact} 
                                                         onChange={e=>setmetodobs3PagoFact(e.target.value)} >
                                                             <option value="">-Método 3-</option>
@@ -369,7 +369,7 @@ export default function CuentasporpagarPagos({
                                                     </div>
                                                     <div className="col-md-auto">
                                                         <span className="form-label">REF 3</span>
-                                                        <input type="text" className="form-control" value={refbs3PagoFact} placeholder="REF 3"onChange={e=>setrefbs3PagoFact(number(e.target.value))} />
+                                                        <input type="text" required className="form-control" value={refbs3PagoFact} placeholder="REF 3"onChange={e=>setrefbs3PagoFact(number(e.target.value))} />
                                                     </div>
                                                     
                                                 </div>
@@ -380,16 +380,16 @@ export default function CuentasporpagarPagos({
                                                 <div className="row mb-2">
                                                     <div className="col-md-auto text-sinapsis">
                                                         <span className="form-label">Monto Bs 4</span>
-                                                        <input type="text" className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 4" value={montobs4PagoFact} onChange={e=>setmontobs4PagoFact(number(e.target.value))} />
+                                                        <input type="text" required className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 4" value={montobs4PagoFact} onChange={e=>setmontobs4PagoFact(number(e.target.value))} />
                                                     </div>
                 
                                                     <div className="col-md-auto">
                                                         <span className="form-label">Tasa</span>
-                                                        <input type="text" className="form-control fs-6" placeholder="Tasa 4" size={4} value={tasabs4PagoFact} onChange={e=>settasabs4PagoFact(number(e.target.value))}/>
+                                                        <input type="text" required className="form-control fs-6" placeholder="Tasa 4" size={4} value={tasabs4PagoFact} onChange={e=>settasabs4PagoFact(number(e.target.value))}/>
                                                     </div>
                                                     <div className="col-md-auto">
                                                         <span className="form-label">Método 4</span>
-                                                        <select className="form-control fs-6" 
+                                                        <select required className="form-control fs-6" 
                                                         value={metodobs4PagoFact} 
                                                         onChange={e=>setmetodobs4PagoFact(e.target.value)} >
                                                             <option value="">-Método 4-</option>
@@ -400,7 +400,7 @@ export default function CuentasporpagarPagos({
                                                     </div>
                                                     <div className="col-md-auto">
                                                         <span className="form-label">REF 4</span>
-                                                        <input type="text" className="form-control" value={refbs4PagoFact} placeholder="REF 4"onChange={e=>setrefbs4PagoFact(number(e.target.value))} />
+                                                        <input type="text" required className="form-control" value={refbs4PagoFact} placeholder="REF 4"onChange={e=>setrefbs4PagoFact(number(e.target.value))} />
                                                     </div>
                                                     
                                                 </div>
@@ -411,16 +411,16 @@ export default function CuentasporpagarPagos({
                                                 <div className="row mb-2">
                                                     <div className="col-md-auto text-sinapsis">
                                                         <span className="form-label">Monto Bs 5</span>
-                                                        <input type="text" className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 5" value={montobs5PagoFact} onChange={e=>setmontobs5PagoFact(number(e.target.value))} />
+                                                        <input type="text" required className="form-control fs-6 text-sinapsis" placeholder="Monto Bs 5" value={montobs5PagoFact} onChange={e=>setmontobs5PagoFact(number(e.target.value))} />
                                                     </div>
                 
                                                     <div className="col-md-auto">
                                                         <span className="form-label">Tasa</span>
-                                                        <input type="text" className="form-control fs-6" placeholder="Tasa 5" size={4} value={tasabs5PagoFact} onChange={e=>settasabs5PagoFact(number(e.target.value))}/>
+                                                        <input type="text" required className="form-control fs-6" placeholder="Tasa 5" size={4} value={tasabs5PagoFact} onChange={e=>settasabs5PagoFact(number(e.target.value))}/>
                                                     </div>
                                                     <div className="col-md-auto">
                                                         <span className="form-label">Método 5</span>
-                                                        <select className="form-control fs-6" 
+                                                        <select required className="form-control fs-6" 
                                                         value={metodobs5PagoFact} 
                                                         onChange={e=>setmetodobs5PagoFact(e.target.value)} >
                                                             <option value="">-Método 5-</option>
@@ -431,7 +431,7 @@ export default function CuentasporpagarPagos({
                                                     </div>
                                                     <div className="col-md-auto">
                                                         <span className="form-label">REF 5</span>
-                                                        <input type="text" className="form-control" value={refbs5PagoFact} placeholder="REF 5"onChange={e=>setrefbs5PagoFact(number(e.target.value))} />
+                                                        <input type="text" required className="form-control" value={refbs5PagoFact} placeholder="REF 5"onChange={e=>setrefbs5PagoFact(number(e.target.value))} />
                                                     </div>
                                                     
                                                 </div>

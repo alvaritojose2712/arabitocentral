@@ -9389,9 +9389,8 @@ function ControlEfectivoMatriz(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
             children: "FECHA"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-            children: "CAT GENERAL"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
             className: "w-20",
+            colSpan: 2,
             children: "CATEGOR\xCDA"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
             children: "DESCRIPCI\xD3N"
@@ -9453,6 +9452,9 @@ function ControlEfectivoMatriz(_ref) {
                 children: e.created_at
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+              className: "w-20",
+              children: getCatFun(e.categoria)
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
               className: "",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
                 className: "btn w-100 btn-sm",
@@ -9463,9 +9465,6 @@ function ControlEfectivoMatriz(_ref) {
                 },
                 children: getCatGeneralFun(e.categoria).nombre
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-              className: "w-20",
-              children: getCatFun(e.categoria)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
               className: "",
               children: [e.concepto, e.id_sucursal_destino ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -11839,6 +11838,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "Monto Bs 1"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control fs-6 text-sinapsis",
                     placeholder: "Monto Bs 1",
                     value: montobs1PagoFact,
@@ -11853,6 +11853,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "Tasa"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control fs-6",
                     placeholder: "Tasa 1",
                     size: 4,
@@ -11867,6 +11868,7 @@ function CuentasporpagarPagos(_ref) {
                     className: "form-label",
                     children: "M\xE9todo 1"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                    required: true,
                     className: "form-control fs-6",
                     value: metodobs1PagoFact,
                     onChange: function onChange(e) {
@@ -11889,6 +11891,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "REF 1"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control",
                     value: refbs1PagoFact,
                     placeholder: "REF 1",
@@ -11906,6 +11909,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "Monto Bs 2"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control fs-6 text-sinapsis",
                     placeholder: "Monto Bs 2",
                     value: montobs2PagoFact,
@@ -11920,6 +11924,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "Tasa"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control fs-6",
                     placeholder: "Tasa 2",
                     size: 4,
@@ -11934,6 +11939,7 @@ function CuentasporpagarPagos(_ref) {
                     className: "form-label",
                     children: "M\xE9todo 2"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                    required: true,
                     className: "form-control fs-6",
                     value: metodobs2PagoFact,
                     onChange: function onChange(e) {
@@ -11956,6 +11962,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "REF 2"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control",
                     value: refbs2PagoFact,
                     placeholder: "REF 2",
@@ -11973,6 +11980,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "Monto Bs 3"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control fs-6 text-sinapsis",
                     placeholder: "Monto Bs 3",
                     value: montobs3PagoFact,
@@ -11987,6 +11995,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "Tasa"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control fs-6",
                     placeholder: "Tasa 3",
                     size: 4,
@@ -12001,6 +12010,7 @@ function CuentasporpagarPagos(_ref) {
                     className: "form-label",
                     children: "M\xE9todo 3"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                    required: true,
                     className: "form-control fs-6",
                     value: metodobs3PagoFact,
                     onChange: function onChange(e) {
@@ -12023,6 +12033,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "REF 3"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control",
                     value: refbs3PagoFact,
                     placeholder: "REF 3",
@@ -12040,6 +12051,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "Monto Bs 4"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control fs-6 text-sinapsis",
                     placeholder: "Monto Bs 4",
                     value: montobs4PagoFact,
@@ -12054,6 +12066,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "Tasa"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control fs-6",
                     placeholder: "Tasa 4",
                     size: 4,
@@ -12068,6 +12081,7 @@ function CuentasporpagarPagos(_ref) {
                     className: "form-label",
                     children: "M\xE9todo 4"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                    required: true,
                     className: "form-control fs-6",
                     value: metodobs4PagoFact,
                     onChange: function onChange(e) {
@@ -12090,6 +12104,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "REF 4"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control",
                     value: refbs4PagoFact,
                     placeholder: "REF 4",
@@ -12107,6 +12122,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "Monto Bs 5"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control fs-6 text-sinapsis",
                     placeholder: "Monto Bs 5",
                     value: montobs5PagoFact,
@@ -12121,6 +12137,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "Tasa"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control fs-6",
                     placeholder: "Tasa 5",
                     size: 4,
@@ -12135,6 +12152,7 @@ function CuentasporpagarPagos(_ref) {
                     className: "form-label",
                     children: "M\xE9todo 5"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                    required: true,
                     className: "form-control fs-6",
                     value: metodobs5PagoFact,
                     onChange: function onChange(e) {
@@ -12157,6 +12175,7 @@ function CuentasporpagarPagos(_ref) {
                     children: "REF 5"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                     type: "text",
+                    required: true,
                     className: "form-control",
                     value: refbs5PagoFact,
                     placeholder: "REF 5",

@@ -98,6 +98,38 @@ class CuentasporpagarController extends Controller
         $metodobs5PagoFact = $req->metodobs5PagoFact;
         $refbs5PagoFact = $req->refbs5PagoFact;
 
+        if ($cuentasPagosMetodo=="BANCO") {
+            if (
+                !$montobs1PagoFact
+                && !$montobs2PagoFact
+                && !$montobs3PagoFact
+                && !$montobs4PagoFact
+                && !$montobs5PagoFact
+                ) {
+                return ["estado"=>false,"msj"=>"Campos vacíos!"];
+            }
+
+            if (
+                !$metodobs1PagoFact
+                && !$metodobs2PagoFact
+                && !$metodobs3PagoFact
+                && !$metodobs4PagoFact
+                && !$metodobs5PagoFact
+                ) {
+                return ["estado"=>false,"msj"=>"Campos vacíos!"];
+            }
+
+            if (
+                !$refbs1PagoFact
+                && !$refbs2PagoFact
+                && !$refbs3PagoFact
+                && !$refbs4PagoFact
+                && !$refbs5PagoFact
+                ) {
+                return ["estado"=>false,"msj"=>"Campos vacíos!"];
+            }
+        }
+
         if ($montobs1PagoFact && $montobs1PagoFact!="0" && $montobs1PagoFact!="0.00") {
             if (!$tasabs1PagoFact || !$metodobs1PagoFact) {
                 return ["estado"=>false ,"msj"=>"Campo Vacío en Pago en montobs 1"];

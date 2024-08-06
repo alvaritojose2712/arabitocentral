@@ -233,8 +233,7 @@ export default function ControlEfectivoMatriz({
                         <td>ORIGEN</td>
                         <th>CREADO</th>
                         <th>FECHA</th>
-                        <th>CAT GENERAL</th>
-                        <th className="w-20">CATEGORÍA</th>
+                        <th className="w-20" colSpan={2}>CATEGORÍA</th>
                         <th>DESCRIPCIÓN</th>
                         <th className="text-right">Monto DOLAR</th>
                         <th className="">Balance DOLAR</th>
@@ -269,10 +268,10 @@ export default function ControlEfectivoMatriz({
                                 <br />
                                 <small className="text-muted">{e.created_at}</small>
                             </td>
+                            <td className="w-20">{getCatFun(e.categoria)}</td>
                             <td className="">
                                 <button className="btn w-100 btn-sm" style={{color:"black",fontWeight:"bold",backgroundColor:getCatGeneralFun(e.categoria).color}}>{getCatGeneralFun(e.categoria).nombre}</button>
                             </td>
-                            <td className="w-20">{getCatFun(e.categoria)}</td>
                             <td className="">
                                 {e.concepto}
                                 {e.id_sucursal_destino?
