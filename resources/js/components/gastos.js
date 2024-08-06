@@ -150,6 +150,8 @@ export default function Gastos({
 	controlefecQCategoria,
 	controlefecNewMontoMoneda,
 	setcontrolefecNewMontoMoneda,
+	gastosBancoDivisaDestino,
+	setgastosBancoDivisaDestino,
 	getcatsCajas,
 	delCaja,
 	personalNomina,
@@ -233,6 +235,8 @@ export default function Gastos({
 
 			{subviewGastos=="cargarbanco"?
 				<CargargastosBanco 
+					gastosBancoDivisaDestino={gastosBancoDivisaDestino}
+					setgastosBancoDivisaDestino={setgastosBancoDivisaDestino}
 					controlefecNewMontoMoneda={controlefecNewMontoMoneda}
 					setcontrolefecNewMontoMoneda={setcontrolefecNewMontoMoneda}
 					setcontrolbancoQ={setcontrolbancoQ}

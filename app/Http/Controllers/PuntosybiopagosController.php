@@ -670,6 +670,14 @@ class PuntosybiopagosController extends Controller
         $iscomisiongasto = $req->iscomisiongasto;
         $comisionpagomovilinterban = $req->comisionpagomovilinterban;
         $controlefecNewMontoMoneda = $req->controlefecNewMontoMoneda;
+        $gastosBancoDivisaDestino = $req->gastosBancoDivisaDestino;
+
+        if ($gastosCategoria==64 && !$gastosBancoDivisaDestino) {
+            return [
+                "msj" => "SELECCIONE BANCO DESTINO PARA DIVISA",
+                "estado" => false,
+            ];
+        }
 
         if (!$gastosMonto || !$gastosDescripcion || !$gastosFecha || !$gastosCategoria) {
             return [
@@ -813,9 +821,6 @@ class PuntosybiopagosController extends Controller
                     }
                 }
             }
-
-
-
         }else{
 
             foreach ($arr as $e) {
@@ -840,6 +845,31 @@ class PuntosybiopagosController extends Controller
                 ]);
                 if ($p) {
                     $num++;
+
+                    if ($gastosCategoria==64) {
+                        $bancos_list = bancos_list::find($gastosBancoDivisaDestino);
+                        $montodivisa =  abs((new CierresController)->dividir($e["monto"],$e["tasa"]));
+
+                        $p = puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[
+                            "loteserial" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):""),
+                            "banco" => $bancos_list->codigo,
+                            "categoria" => $gastosCategoria,
+                            "fecha" => $gastosFecha,
+                            "fecha_liquidacion" => $gastosFecha,
+                            "tipo" => $tipo,
+            
+                            "id_sucursal" => $e["id_sucursal"],
+                            "id_beneficiario" => $e["id_beneficiario"],
+                            "tasa" => $e["tasa"],
+                            
+                            "monto" => ($montodivisa),
+                            "monto_liquidado" => ($montodivisa),
+                            "monto_dolar" => $e["monto_dolar"],
+            
+                            "origen" => 2,
+                            "id_usuario" => 1,
+                        ]);
+                    }
     
                     if ($iscomisiongasto==1) {
                         puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[

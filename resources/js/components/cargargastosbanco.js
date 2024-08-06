@@ -4,6 +4,9 @@ export default function CargargastosBancos({
     controlefecNewMontoMoneda,
     setcontrolefecNewMontoMoneda,
 
+    gastosBancoDivisaDestino,
+    setgastosBancoDivisaDestino,
+
     gastosDescripcion,
     setgastosDescripcion,
     gastosMonto_dolar,
@@ -47,26 +50,6 @@ export default function CargargastosBancos({
     setgastosCategoria,
     getPersonal,
     addBeneficiarioList,
-
-
-    setcontrolbancoQ,
-    controlbancoQ,
-    setcontrolbancoQCategoria,
-    controlbancoQCategoria,
-    setcontrolbancoQDesde,
-    controlbancoQDesde,
-    setcontrolbancoQHasta,
-    controlbancoQHasta,
-    controlbancoQBanco,
-    setcontrolbancoQBanco,
-    controlbancoQSiliquidado,
-    setcontrolbancoQSiliquidado,
-    movBancosData,
-    getMovBancos,
-    controlbancoQSucursal,
-    setcontrolbancoQSucursal,
-    colors,
-    colorSucursal,
     number
     
 }){
@@ -196,6 +179,19 @@ export default function CargargastosBancos({
                                     placeholder={"Monto" + (controlefecNewMontoMoneda==""?" BANCO":" EFECTIVO "+controlefecNewMontoMoneda.toUpperCase())}
                                     required={true} />
                                 </div>
+                                {gastosCategoria==64?
+                                    <div className="input-group">
+                                        <select className="form-control form-control-lg" 
+                                        value={gastosBancoDivisaDestino} 
+                                        onChange={e=>setgastosBancoDivisaDestino(e.target.value)} required={true}>
+                                            <option value="">BANCO EN DIVISAS DESTINO</option>
+                                            {opcionesMetodosPago.filter(e=>e.moneda=="dolar").map(e=>
+                                                <option value={e.id} key={e.id}>{e.descripcion}</option>
+                                            )}
+                                        </select>
+                                    </div>
+                                :null}
+
                             </div>
                             <div className="col-3">
                                 <div className="input-group">

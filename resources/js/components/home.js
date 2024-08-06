@@ -4211,6 +4211,9 @@ function formatAmount( number, simbol ) {
   const [gastosBeneficiario,setgastosBeneficiario] = useState("")
   const [gastosFecha,setgastosFecha] = useState("")
   const [gastosBanco,setgastosBanco] = useState("")
+  const [gastosBancoDivisaDestino,setgastosBancoDivisaDestino] = useState("")
+  
+
 
   const [distribucionGastosCat, setdistribucionGastosCat] = useState([])
 
@@ -4275,6 +4278,7 @@ function formatAmount( number, simbol ) {
         gastosFecha,
         gastosBanco,
         controlefecNewMontoMoneda,
+        gastosBancoDivisaDestino,
         gastosMonto: removeMoneda(gastosMonto),
         gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
         gastosTasa:(gastosTasa),
@@ -6377,6 +6381,8 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5,13]) && viewmainPanel === "gastos" && 
             <Gastos
+              gastosBancoDivisaDestino={gastosBancoDivisaDestino}
+              setgastosBancoDivisaDestino={setgastosBancoDivisaDestino}
               setConciliarMovCajaMatriz={setConciliarMovCajaMatriz}
               selectdepositobanco={selectdepositobanco}
               bancodepositobanco={bancodepositobanco}
