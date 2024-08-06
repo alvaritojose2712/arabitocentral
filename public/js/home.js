@@ -9312,15 +9312,21 @@ function ControlEfectivoMatriz(_ref) {
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "container-fluid",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
       className: "input-group mb-3",
+      onSubmit: function onSubmit(event) {
+        getControlEfec();
+        event.preventDefault();
+      },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+        type: "button",
         className: "btn " + (controlefecSelectGeneral == 1 ? "btn-success" : "btn-outline-success"),
         onClick: function onClick() {
           return setcontrolefecSelectGeneral(1);
         },
         children: "Caja Fuerte"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+        type: "button",
         className: "btn " + (controlefecSelectGeneral == 0 ? "btn-sinapsis" : "btn-outline-sinapsis"),
         onClick: function onClick() {
           return setcontrolefecSelectGeneral(0);
@@ -9365,10 +9371,9 @@ function ControlEfectivoMatriz(_ref) {
           return setcontrolefecQHasta(e.target.value);
         },
         value: controlefecQHasta
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
         className: "btn btn-outline-secondary",
         type: "button",
-        onClick: getControlEfec,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
           className: "fa fa-search"
         })

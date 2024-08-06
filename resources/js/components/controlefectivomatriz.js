@@ -191,10 +191,10 @@ export default function ControlEfectivoMatriz({
                 <button className={"btn btn-outline-"+(controlefecSelectGeneral==1?"success":"sinapsis")+" btn-lg"} onClick={e=>setopenModalNuevoEfectivo(true)}>NUEVO MOVIMIENTO <i className="fa fa-plus"></i></button>
                 </div> */}
 
-            <div className="input-group mb-3">
+            <form className="input-group mb-3" onSubmit={event=>{getControlEfec();event.preventDefault()}}>
 
-                <button className={("btn ") + (controlefecSelectGeneral == 1 ?"btn-success":"btn-outline-success")} onClick={()=>setcontrolefecSelectGeneral(1)}>Caja Fuerte</button> 
-                <button className={("btn ") + (controlefecSelectGeneral == 0 ? "btn-sinapsis" : "btn-outline-sinapsis")} onClick={() => setcontrolefecSelectGeneral(0)}>Caja Chica</button>
+                <button type="button" className={("btn ") + (controlefecSelectGeneral == 1 ?"btn-success":"btn-outline-success")} onClick={()=>setcontrolefecSelectGeneral(1)}>Caja Fuerte</button> 
+                <button type="button" className={("btn ") + (controlefecSelectGeneral == 0 ? "btn-sinapsis" : "btn-outline-sinapsis")} onClick={() => setcontrolefecSelectGeneral(0)}>Caja Chica</button>
                 {/* <button className="btn btn-warning" onClick={verificarMovPenControlEfec}>VERIFICAR PENDIENTES <i className="fa fa-clock-o"></i></button>
                 <button className="btn btn-outline-danger" onClick={reversarMovPendientes}>REVERSAR PENDIENTE <i className="fa fa-times"></i></button> */}
                 
@@ -224,8 +224,8 @@ export default function ControlEfectivoMatriz({
 
 
 
-                <span className="btn btn-outline-secondary" type="button" onClick={getControlEfec}><i className="fa fa-search"></i></span>
-            </div>
+                <button className="btn btn-outline-secondary" type="button"><i className="fa fa-search"></i></button>
+            </form>
 
             <table className="table">
                 <thead>
