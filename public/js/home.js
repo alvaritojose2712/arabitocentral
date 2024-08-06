@@ -9365,15 +9365,12 @@ function ControlEfectivoMatriz(_ref) {
           return setcontrolefecQHasta(e.target.value);
         },
         value: controlefecQHasta
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "input-group-append",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-          className: "btn btn-outline-secondary",
-          type: "button",
-          onClick: getControlEfec,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-            className: "fa fa-search"
-          })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+        className: "btn btn-outline-secondary",
+        type: "button",
+        onClick: getControlEfec,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+          className: "fa fa-search"
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
@@ -14592,29 +14589,28 @@ function Gastos(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
               className: "pointer",
               onClick: function onClick() {
-                setgastosfieldorder("created_at");
-                setgastosorder(gastosorder == "desc" ? "asc" : "desc");
-              },
-              children: "CREACI\xD3N"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
-              className: "pointer",
-              onClick: function onClick() {
-                setgastosfieldorder("fecha");
-                setgastosorder(gastosorder == "desc" ? "asc" : "desc");
-              },
-              children: "FECHA"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
-              children: "ORIGEN"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
-              className: "pointer",
-              onClick: function onClick() {
                 setgastosfieldorder("id_sucursal");
                 setgastosorder(gastosorder == "desc" ? "asc" : "desc");
               },
-              children: "SUCURSAL / PERSONA"
+              children: "SUCURSAL"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
-              className: "pointer",
-              children: "DESCRIPCI\xD3N"
+              className: "text-center",
+              children: "ORIGEN"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
+              className: "pointer text-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                onClick: function onClick() {
+                  setgastosfieldorder("fecha");
+                  setgastosorder(gastosorder == "desc" ? "asc" : "desc");
+                },
+                children: "FECHA"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                onClick: function onClick() {
+                  setgastosfieldorder("created_at");
+                  setgastosorder(gastosorder == "desc" ? "asc" : "desc");
+                },
+                children: "CREACI\xD3N"
+              })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
               className: "pointer text-center",
               onClick: function onClick() {
@@ -14636,6 +14632,9 @@ function Gastos(_ref) {
                 setgastosorder(gastosorder == "desc" ? "asc" : "desc");
               },
               children: "TIPO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+              className: "pointer",
+              children: "DESCRIPCI\xD3N"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
               className: "pointer text-right",
               onClick: function onClick() {
@@ -14652,16 +14651,8 @@ function Gastos(_ref) {
           children: gastosData ? gastosData.data ? gastosData.data.map(function (e) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                children: e.created_at
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                children: e.fecha
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                children: e.origen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("b", {
-                  children: "ADMINISTRACI\xD3N"
-                }) : "SUCURSAL"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
-                className: "text-center",
-                children: [e.sucursal ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                className: "text-center w-10",
+                children: e.sucursal ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
                     className: "btn w-100 fw-bolder fs-6",
                     style: {
@@ -14669,16 +14660,24 @@ function Gastos(_ref) {
                     },
                     children: e.sucursal.codigo
                   })
-                }) : null, e.beneficiario ? " / " + e.beneficiario.nominanombre : null]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                children: e.concepto ? e.concepto : e.loteserial ? e.loteserial : null
+                }) : null
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
+                className: "text-center w-10",
+                children: [e.pago_efectivo ? "EFECTIVO" : "", e.pago_banco ? "BANCO" : "", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), e.origen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("b", {
+                  children: "ADMINISTRACI\xD3N"
+                }) : "SUCURSAL"]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
+                className: "text-center w-10",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("b", {
+                  children: e.fecha
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), e.created_at]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
                 children: e.cat ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
                   className: "btn w-100 fw-bolder fs-6",
                   style: {
                     backgroundColor: colorsGastosCat(e.cat.id, "cat", "color")
                   },
-                  children: colorsGastosCat(e.cat.id, "cat", "desc")
+                  children: e.cat.nombre
                 }) : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
                 children: e.cat ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
@@ -14696,6 +14695,16 @@ function Gastos(_ref) {
                   },
                   children: colorsGastosCat(e.cat.ingreso_egreso, "ingreso_egreso", "desc")
                 }) : null
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
+                children: [e.concepto ? e.concepto : e.loteserial ? e.loteserial : null, e.beneficiario ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("b", {
+                    children: ["(", e.beneficiario.nominanombre, ")"]
+                  })]
+                }) : null, e.proveedor ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("b", {
+                    children: ["(", e.proveedor.descripcion, ")"]
+                  })]
+                }) : null]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
                 className: "fs-6 text-right " + (e.montodolar < 0 || e.monto_liquidado < 0 ? "text-danger" : "text-success"),
                 children: e.montodolar ? moneda(e.montodolar) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {

@@ -494,7 +494,7 @@ class PuntosybiopagosController extends Controller
 
         
         
-        $gastos =  cajas::with(["sucursal","cat"])
+        $gastos =  cajas::with(["sucursal","cat","proveedor","beneficiario"])
         ->when($gastosQ,function($q) use ($gastosQ){
             $q->where("concepto","LIKE","%$gastosQ%");
         })
@@ -522,32 +522,20 @@ class PuntosybiopagosController extends Controller
             if($c){
                 $bs = $c->tasa;
                 $cop = $c->tasacop;
-    
-                $q->ingreso_egreso = $q->cat->ingreso_egreso;
-                $q->catgeneral = $q->cat->catgeneral;
-                $q->variable_fijo = $q->cat->variable_fijo;
-    
-                $montodolar = ($q->montodolar) + ($q->montobs/$bs) + ($q->montopeso/$cop);
-                $q->montodolar = $montodolar; 
-                
-                $q->pago_efectivo = $montodolar;
-                $q->pago_banco = 0;
-
             }else{
-                $bs =1;
+                $bs = 1;
                 $cop = 1;
-    
-                $q->ingreso_egreso = $q->cat->ingreso_egreso;
-                $q->catgeneral = $q->cat->catgeneral;
-                $q->variable_fijo = $q->cat->variable_fijo;
-    
-                $montodolar = ($q->montodolar) + ($q->montobs/$bs) + ($q->montopeso/$cop);
-                $q->montodolar = $montodolar; 
-                
-                $q->pago_efectivo = $montodolar;
-                $q->pago_banco = 0;
             }
 
+            $q->ingreso_egreso = $q->cat->ingreso_egreso;
+            $q->catgeneral = $q->cat->catgeneral;
+            $q->variable_fijo = $q->cat->variable_fijo;
+
+            $montodolar = ($q->montodolar) + ($q->montobs/$bs) + ($q->montopeso/$cop);
+            $q->montodolar = $montodolar; 
+            
+            $q->pago_efectivo = $montodolar;
+            $q->pago_banco = 0;
 
             return $q;
         });

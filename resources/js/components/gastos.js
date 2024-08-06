@@ -456,21 +456,24 @@ export default function Gastos({
 					<table className="table">
 						<thead>
 							<tr>
-								<th className="pointer" onClick={()=>{setgastosfieldorder("created_at");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CREACIÓN</th>
-								<th className="pointer" onClick={()=>{setgastosfieldorder("fecha");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>FECHA</th>
-								<th>ORIGEN</th>
-								<th className="pointer" onClick={()=>{setgastosfieldorder("id_sucursal");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>SUCURSAL / PERSONA</th>
-								<th className="pointer">DESCRIPCIÓN</th>
+								<th className="pointer" onClick={()=>{setgastosfieldorder("id_sucursal");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>SUCURSAL</th>
+								<th className="text-center">ORIGEN</th>
+								<th className="pointer text-center" >
+									<span onClick={()=>{setgastosfieldorder("fecha");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>FECHA</span>
+									<br />
+									<span onClick={()=>{setgastosfieldorder("created_at");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CREACIÓN</span>
+								</th>
 								{/* <th className="bg-warning text-danger fs-6 text-right">
 									{gastosData?gastosData.sum?(
 										<span>
-											{moneda(gastosData.sum)}
+										{moneda(gastosData.sum)}
 										</span>
-									):null:null}
-								</th> */}
+										):null:null}
+										</th> */}
 								<th className="pointer text-center" onClick={()=>{setgastosfieldorder("categoria");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CATEGORÍA</th>
 								<th className="pointer text-center" onClick={()=>{setgastosfieldorder("catgeneral");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CATGENERAL</th>
 								<th className="pointer text-center" onClick={()=>{setgastosfieldorder("ingreso_egreso");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>TIPO</th>
+								<th className="pointer">DESCRIPCIÓN</th>
 								<th className="pointer text-right" onClick={()=>{setgastosfieldorder("montodolar");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>
 									MONTO
 									<br />
@@ -482,13 +485,7 @@ export default function Gastos({
 						<tbody>
 							{gastosData?gastosData.data?gastosData.data.map(e=>
 								<tr key={e.id}>
-									<td>{e.created_at}</td>
-									<td>{e.fecha}</td>
-									<td>
-										{e.origen? <b>ADMINISTRACIÓN</b> :"SUCURSAL"}
-
-									</td>
-									<td className="text-center">
+									<td className="text-center w-10">
 										{e.sucursal?
 											<>
 												<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
@@ -496,14 +493,23 @@ export default function Gastos({
 												</button>
 											</>
 										:null}
-										{e.beneficiario?" / "+e.beneficiario.nominanombre:null}
+										{/* {e.beneficiario?" / "+e.beneficiario.nominanombre:null} */}
 									</td>
-									
-									<td>{e.concepto?e.concepto:(e.loteserial?e.loteserial:null)}</td>
+									<td className="text-center w-10">
+										{e.pago_efectivo?"EFECTIVO":""}
+										{e.pago_banco?"BANCO":""}
+										<br />
+										{e.origen? <b>ADMINISTRACIÓN</b> :"SUCURSAL"}
+									</td>
+									<td className="text-center w-10">
+										<b>{e.fecha}</b>
+										<br />
+										{e.created_at}
+									</td>
 									<td> 
 										{e.cat?
 											<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.id,"cat","color")}}>
-												{colorsGastosCat(e.cat.id,"cat","desc")}
+												{e.cat.nombre}
 											</button>
 										:null}
 									</td>
@@ -519,6 +525,22 @@ export default function Gastos({
 											<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.ingreso_egreso,"ingreso_egreso","color")}}>
 												{colorsGastosCat(e.cat.ingreso_egreso,"ingreso_egreso","desc")}
 											</button>
+										:null}
+									</td>
+									<td>
+										{e.concepto?e.concepto:(e.loteserial?e.loteserial:null)}
+
+										{e.beneficiario?
+											<>
+												<br />
+												<b>({e.beneficiario.nominanombre})</b>
+											</>
+										:null}
+										{e.proveedor?
+											<>
+												<br />
+												<b>({e.proveedor.descripcion})</b>
+											</>
 										:null}
 									</td>
 									

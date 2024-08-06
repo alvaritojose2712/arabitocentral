@@ -224,9 +224,7 @@ export default function ControlEfectivoMatriz({
 
 
 
-                <div className="input-group-append">
-                    <span className="btn btn-outline-secondary" type="button" onClick={getControlEfec}><i className="fa fa-search"></i></span>
-                </div>
+                <span className="btn btn-outline-secondary" type="button" onClick={getControlEfec}><i className="fa fa-search"></i></span>
             </div>
 
             <table className="table">

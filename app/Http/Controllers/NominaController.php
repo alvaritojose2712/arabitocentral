@@ -177,11 +177,9 @@ class NominaController extends Controller
             ->orWhere("nominanombre", "LIKE", "%$qNomina%")
             ->orWhere("nominacedula", "LIKE", "%$qNomina%");
         })
-        ->when($type == "pagos", function ($q) use ($today) {
-            $q->with(["pagos" => function ($q) use ($today){
-                $q->with("sucursal")->where("created_at","<","$today 23:59:59")->orderBy("created_at","asc");
-            }]);
-        })
+        ->with(["pagos" => function ($q) use ($today){
+            $q->with("sucursal")->where("created_at","<","$today 23:59:59")->orderBy("created_at","asc");
+        }])
         ->selectRaw("*, round(DATEDIFF(NOW(), nominas.nominafechadenacimiento)/365.25, 2) as edad, round(DATEDIFF(NOW(), nominas.nominafechadeingreso)/365.25, 2) as tiempolaborado")
         ->when($qSucursalNominaEstatus!="", function ($q) use ($qSucursalNominaEstatus) {
             $q->where("activo", $qSucursalNominaEstatus);
