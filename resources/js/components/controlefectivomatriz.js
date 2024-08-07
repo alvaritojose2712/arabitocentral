@@ -224,7 +224,7 @@ export default function ControlEfectivoMatriz({
 
 
 
-                <button className="btn btn-outline-secondary" type="button"><i className="fa fa-search"></i></button>
+                <button className="btn btn-outline-secondary"><i className="fa fa-search"></i></button>
             </form>
 
             <table className="table">

@@ -517,22 +517,37 @@ class CajasController extends Controller
         $today = (new NominaController)->today();
 
         
-        $inicial = cajas::where("tipo",$tipo)->where("id_sucursal",13)->orderBy("id","asc")->first();
+       /*  $inicial = cajas::where("tipo",$tipo)
+        ->where(function($q) {
+            $q->orwhere("id_sucursal",13)
+            ->orwhere("origen",2);
+        })
+        ->orderBy("fecha","desc")
+        ->orderBy("id","asc")
+        ->first();
         if ($inicial->count()==1) {
             $inicial = null;
-        }
+        } */
         //print_r($inicial);
         
-        $inicial_dolarbalance = $inicial? $inicial->dolarbalance: 0;
+        /* $inicial_dolarbalance = $inicial? $inicial->dolarbalance: 0;
         $inicial_bsbalance = $inicial? $inicial->bsbalance: 0;
         $inicial_pesobalance = $inicial? $inicial->pesobalance: 0;
-        $inicial_eurobalance = $inicial? $inicial->eurobalance: 0;
-        $ajustarlist = cajas::where("id",">",$inicial? $inicial->id: 0)->where("tipo",$tipo)->where("id_sucursal",13)->orderBy("id","asc")->get();
+        $inicial_eurobalance = $inicial? $inicial->eurobalance: 0; */
+
+        $ajustarlist = cajas::where("tipo",$tipo)
+        ->where(function($q) {
+            $q->orwhere("id_sucursal",13)
+            ->orwhere("origen",2);
+        })
+        ->orderBy("fecha","desc")
+        ->orderBy("id","asc")
+        ->get()->reverse()->values();
         
-        $summontodolar = $inicial_dolarbalance;
-        $summontobs = $inicial_bsbalance;
-        $summontopeso = $inicial_pesobalance;
-        $summontoeuro = $inicial_eurobalance;
+        $summontodolar = 0;
+        $summontobs = 0;
+        $summontopeso = 0;
+        $summontoeuro = 0;
 
 
         foreach ($ajustarlist as $i => $e) {
@@ -542,22 +557,29 @@ class CajasController extends Controller
             $summontobs += $e->montobs;
             $summontopeso += $e->montopeso;
             $summontoeuro += $e->montoeuro;
+            if (
+                $ajustar->dolarbalance!=$summontodolar
+                || $ajustar->bsbalance!=$summontobs
+                || $ajustar->pesobalance!=$summontopeso
+                || $ajustar->eurobalance!=$summontoeuro
+            ) {
+                if ($e->montodolar) {
+                    $ajustar->dolarbalance = $summontodolar;
+                }
+                if ($e->montobs) {
+                    $ajustar->bsbalance = $summontobs;
+                }
+                if ($e->montopeso) {
+                    $ajustar->pesobalance = $summontopeso;
+                }
+                if ($e->montoeuro) {
+                    $ajustar->eurobalance = $summontoeuro;
+                }
+                $ajustar->save();
+            }
 
-            if ($e->montodolar) {
-                $ajustar->dolarbalance = $summontodolar;
-            }
-            if ($e->montobs) {
-                $ajustar->bsbalance = $summontobs;
-            }
-            if ($e->montopeso) {
-                $ajustar->pesobalance = $summontopeso;
-            }
-            if ($e->montoeuro) {
-                $ajustar->eurobalance = $summontoeuro;
-            }
-            $ajustar->save();
         }
-        return $inicial;
+        return true;
 
     }
 
@@ -589,8 +611,9 @@ class CajasController extends Controller
             $q->orwhere("id_sucursal",13)
             ->orwhere("origen",2);
         })
-        ->whereBetween("created_at",[$controlefecQDesde." 00:00:00",$controlefecQHasta." 23:59:59"])
-        ->orderBy("created_at","desc")
+        ->whereBetween("fecha",[$controlefecQDesde,$controlefecQHasta])
+        ->orderBy("fecha","desc")
+        ->orderBy("id","asc")
         ->get();
 
         return Response::json([

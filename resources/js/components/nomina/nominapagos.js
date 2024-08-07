@@ -103,6 +103,7 @@ export default function Nominapagos({
                                                 {selectIdPersonal==e.id?
                                                     e.pagos.map(pago=>
                                                         <tr key={pago.id} className={(e.id==selectIdPersonal?"bg-success-superlight":"")}>
+                                                            <td></td>
                                                             <td>COBRÓ POR {pago.sucursal?pago.sucursal.codigo:null}</td>
                                                             <td>PAGO</td>
                                                             <td>{pago.created_at.replace("00:00:00","")}</td>
@@ -120,6 +121,7 @@ export default function Nominapagos({
                                                     e.prestamos.map(prestamo=>
                                                         <tr key={prestamo.id} className={(e.id==selectIdPersonal?"bg-warning":"")}>
                                                             <td></td>
+                                                            <td></td>
                                                             <td>PRÉSTAMO</td>
                                                             <td>{prestamo.created_at?prestamo.created_at.replace("00:00:00",""):null}</td>
                                                             <td>{prestamo.sucursal?prestamo.sucursal.codigo:null}</td>
@@ -136,6 +138,7 @@ export default function Nominapagos({
                                                 {selectIdPersonal==e.id?
                                                     e.creditos.map(credito=>
                                                         <tr key={credito.id} className={(e.id==selectIdPersonal?"bg-danger-light":"")}>
+                                                            <td></td>
                                                             <td></td>
                                                             <td>CRÉDITO</td>
                                                             <td>{credito.created_at?credito.created_at.replace("00:00:00",""):null}</td>
