@@ -88,5 +88,11 @@ class cuentasporpagar extends Model
         "metodobs5",
         "refbs5",
         "conciliada",
+
+        "id_metodobs1",
+        "id_metodobs2",
+        "id_metodobs3",
+        "id_metodobs4",
+        "id_metodobs5",
     ];
 }

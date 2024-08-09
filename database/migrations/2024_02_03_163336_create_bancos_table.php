@@ -17,6 +17,8 @@ class CreateBancosTable extends Migration
             $table->increments("id");
 
             $table->string("banco");
+            $table->integer("id_banco")->nullable(true);
+
             $table->date("fecha");
 
             $table->integer("id_usuario")->nullable(true);

@@ -121,7 +121,7 @@ export default function CargargastosBancos({
                                 <option value="">-</option>
                                 <option value="EFECTIVO">EFECTIVO</option>
                                 {opcionesMetodosPago.map(e=>
-                                    <option value={e.codigo} key={e.id}>{e.descripcion}</option>
+                                    <option value={e.id} key={e.id}>{e.descripcion}</option>
                                 )}
                             </select>
                         </div>

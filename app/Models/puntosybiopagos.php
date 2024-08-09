@@ -27,6 +27,7 @@ class puntosybiopagos extends Model
         "monto",
         "loteserial",
         "banco",
+        "id_banco",
         "fecha",
         "id_sucursal",
         "id_usuario",

@@ -4606,7 +4606,7 @@ function Auditoria(_ref) {
                   onClick: function onClick() {
                     return selectxMovimientos("banco", e.banco);
                   },
-                  children: e.banco
+                  children: e.banco_codigo
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
                   children: e.fecha
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
@@ -6058,7 +6058,7 @@ function CargargastosBancos(_ref) {
                   children: "EFECTIVO"
                 }), opcionesMetodosPago.map(function (e) {
                   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                    value: e.codigo,
+                    value: e.id,
                     children: e.descripcion
                   }, e.id);
                 })]
@@ -11883,7 +11883,7 @@ function CuentasporpagarPagos(_ref) {
                       children: "-M\xE9todo 1-"
                     }), opcionesMetodosPago.map(function (e) {
                       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                        value: e.codigo,
+                        value: e.id,
                         children: e.descripcion
                       }, e.codigo);
                     })]
@@ -11954,7 +11954,7 @@ function CuentasporpagarPagos(_ref) {
                       children: "-M\xE9todo 2-"
                     }), opcionesMetodosPago.map(function (e) {
                       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                        value: e.codigo,
+                        value: e.id,
                         children: e.descripcion
                       }, e.codigo);
                     })]
@@ -12025,7 +12025,7 @@ function CuentasporpagarPagos(_ref) {
                       children: "-M\xE9todo 3-"
                     }), opcionesMetodosPago.map(function (e) {
                       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                        value: e.codigo,
+                        value: e.id,
                         children: e.descripcion
                       }, e.codigo);
                     })]
@@ -12096,7 +12096,7 @@ function CuentasporpagarPagos(_ref) {
                       children: "-M\xE9todo 4-"
                     }), opcionesMetodosPago.map(function (e) {
                       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                        value: e.codigo,
+                        value: e.id,
                         children: e.descripcion
                       }, e.codigo);
                     })]
@@ -12167,7 +12167,7 @@ function CuentasporpagarPagos(_ref) {
                       children: "-M\xE9todo 5-"
                     }), opcionesMetodosPago.map(function (e) {
                       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                        value: e.codigo,
+                        value: e.id,
                         children: e.descripcion
                       }, e.codigo);
                     })]

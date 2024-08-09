@@ -24,6 +24,7 @@ class bancos extends Model
         "saldo_inicial",
         "ingreso",
         "egreso",
+        "id_banco",
     ];
 
     use HasFactory;

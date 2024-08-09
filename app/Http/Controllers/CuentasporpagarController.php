@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bancos_list;
 use App\Models\catcajas;
 use App\Models\cuentasporpagar;
 use App\Http\Requests\StorecuentasporpagarRequest;
@@ -358,18 +359,20 @@ class CuentasporpagarController extends Controller
 
         $montobs1PagoFact = isset($arr["montobs1PagoFact"])? $arr["montobs1PagoFact"]: 0;
         $tasabs1PagoFact = isset($arr["tasabs1PagoFact"])? $arr["tasabs1PagoFact"]: 0;
-        $metodobs1PagoFact = isset($arr["metodobs1PagoFact"])? $arr["metodobs1PagoFact"]: 0;
         $montobs2PagoFact = isset($arr["montobs2PagoFact"])? $arr["montobs2PagoFact"]: 0;
         $tasabs2PagoFact = isset($arr["tasabs2PagoFact"])? $arr["tasabs2PagoFact"]: 0;
-        $metodobs2PagoFact = isset($arr["metodobs2PagoFact"])? $arr["metodobs2PagoFact"]: 0;
         $montobs3PagoFact = isset($arr["montobs3PagoFact"])? $arr["montobs3PagoFact"]: 0;
         $tasabs3PagoFact = isset($arr["tasabs3PagoFact"])? $arr["tasabs3PagoFact"]: 0;
-        $metodobs3PagoFact = isset($arr["metodobs3PagoFact"])? $arr["metodobs3PagoFact"]: 0;
         $montobs4PagoFact = isset($arr["montobs4PagoFact"])? $arr["montobs4PagoFact"]: 0;
         $tasabs4PagoFact = isset($arr["tasabs4PagoFact"])? $arr["tasabs4PagoFact"]: 0;
-        $metodobs4PagoFact = isset($arr["metodobs4PagoFact"])? $arr["metodobs4PagoFact"]: 0;
         $montobs5PagoFact = isset($arr["montobs5PagoFact"])? $arr["montobs5PagoFact"]: 0;
         $tasabs5PagoFact = isset($arr["tasabs5PagoFact"])? $arr["tasabs5PagoFact"]: 0;
+        
+        
+        $metodobs1PagoFact = isset($arr["metodobs1PagoFact"])? $arr["metodobs1PagoFact"]: 0;
+        $metodobs2PagoFact = isset($arr["metodobs2PagoFact"])? $arr["metodobs2PagoFact"]: 0;
+        $metodobs3PagoFact = isset($arr["metodobs3PagoFact"])? $arr["metodobs3PagoFact"]: 0;
+        $metodobs4PagoFact = isset($arr["metodobs4PagoFact"])? $arr["metodobs4PagoFact"]: 0;
         $metodobs5PagoFact = isset($arr["metodobs5PagoFact"])? $arr["metodobs5PagoFact"]: 0;
 
         $refbs1PagoFact = isset($arr["refbs1PagoFact"])? $arr["refbs1PagoFact"]: 0;
@@ -380,6 +383,35 @@ class CuentasporpagarController extends Controller
         
         
         $selectAbonoFact = isset($arr["selectAbonoFact"])?$arr["selectAbonoFact"]:null;
+
+        $sql_metodobs1PagoFact = null;
+        $sql_metodobs2PagoFact = null;
+        $sql_metodobs3PagoFact = null;
+        $sql_metodobs4PagoFact = null;
+        $sql_metodobs5PagoFact = null;
+
+        if ($metodobs1PagoFact) {
+            $sql_metodobs1PagoFact = bancos_list::find($metodobs1PagoFact);
+        }
+        if ($metodobs2PagoFact) {
+            $sql_metodobs2PagoFact = bancos_list::find($metodobs2PagoFact);
+        }
+        if ($metodobs3PagoFact) {
+            $sql_metodobs3PagoFact = bancos_list::find($metodobs3PagoFact);
+        }
+        if ($metodobs4PagoFact) {
+            $sql_metodobs4PagoFact = bancos_list::find($metodobs4PagoFact);
+        }
+        if ($metodobs5PagoFact) {
+            $sql_metodobs5PagoFact = bancos_list::find($metodobs5PagoFact);
+        }
+
+
+        $codigo_metodobs1PagoFact = $sql_metodobs1PagoFact? $sql_metodobs1PagoFact->codigo:null;
+        $codigo_metodobs2PagoFact = $sql_metodobs2PagoFact? $sql_metodobs2PagoFact->codigo:null;
+        $codigo_metodobs3PagoFact = $sql_metodobs3PagoFact? $sql_metodobs3PagoFact->codigo:null;
+        $codigo_metodobs4PagoFact = $sql_metodobs4PagoFact? $sql_metodobs4PagoFact->codigo:null;
+        $codigo_metodobs5PagoFact = $sql_metodobs5PagoFact? $sql_metodobs5PagoFact->codigo:null;
         
         $arrinsert = [
             "id_proveedor" => $id_proveedor_caja,
@@ -403,19 +435,27 @@ class CuentasporpagarController extends Controller
 
             "montobs1" => $montobs1PagoFact,
             "tasabs1" => $tasabs1PagoFact,
-            "metodobs1" => $metodobs1PagoFact,
+            
+            "metodobs1" => $codigo_metodobs1PagoFact,
+            "metodobs2" => $codigo_metodobs2PagoFact,
+            "metodobs3" => $codigo_metodobs3PagoFact,
+            "metodobs4" => $codigo_metodobs4PagoFact,
+            "metodobs5" => $codigo_metodobs5PagoFact,
+
+            "id_metodobs1" => $metodobs1PagoFact,
+            "id_metodobs2" => $metodobs2PagoFact,
+            "id_metodobs3" => $metodobs3PagoFact,
+            "id_metodobs4" => $metodobs4PagoFact,
+            "id_metodobs5" => $metodobs5PagoFact,
+
             "montobs2" => $montobs2PagoFact,
             "tasabs2" => $tasabs2PagoFact,
-            "metodobs2" => $metodobs2PagoFact,
             "montobs3" => $montobs3PagoFact,
             "tasabs3" => $tasabs3PagoFact,
-            "metodobs3" => $metodobs3PagoFact,
             "montobs4" => $montobs4PagoFact,
             "tasabs4" => $tasabs4PagoFact,
-            "metodobs4" => $metodobs4PagoFact,
             "montobs5" => $montobs5PagoFact,
             "tasabs5" => $tasabs5PagoFact,
-            "metodobs5" => $metodobs5PagoFact,
 
             "refbs1" => $refbs1PagoFact,
             "refbs2" => $refbs2PagoFact,

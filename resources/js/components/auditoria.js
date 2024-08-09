@@ -1169,7 +1169,7 @@ export default function Auditoria({
                                                     }}
                                                     onClick={()=>selectxMovimientos("banco", e.banco)}
                                                 >
-                                                    {e.banco}
+                                                    {e.banco_codigo}
                                                 
                                                 </th>
                                                 <th>{e.fecha}</th>

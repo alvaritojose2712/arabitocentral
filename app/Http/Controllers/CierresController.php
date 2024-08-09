@@ -119,6 +119,7 @@ class CierresController extends Controller
                     }
 
                     if ($ispermiso) {
+                        $id_banco = bancos_list::where("codigo",$lote["banco"])->first()->id;
                         $loteSql = puntosybiopagos::updateOrCreate([
                             "fecha" => $lote["fecha"],
                             "id_usuario" => $lote["id_usuario"],
@@ -128,6 +129,7 @@ class CierresController extends Controller
                             "loteserial" => $lote["lote"],
                             "monto" => $lote["monto"],
                             "banco" => $lote["banco"],
+                            "id_banco" => $id_banco,
                             "debito_credito" => isset($lote["categoria"])?$lote["categoria"]:null,
                             "fecha_liquidacion" => /* $lote["tipo"]=="Transferencia"? $lote["fecha"]: */ null,
                             "monto_liquidado" => /* $lote["tipo"]=="Transferencia"? $lote["monto"]: */ null,
@@ -1304,7 +1306,7 @@ class CierresController extends Controller
         $debito = ($cierreData["sum"]["debito_clean"])+$debitoAntesPrimerDia-$debitoUltimoDia;
         $biopago = $cierreData["sum"]["biopago_clean"]+$biopagoAntesPrimerDia-$biopagoUltimoDia;
         $transferencia = $cierreData["sum"]["transferencia_clean"];
-        $total = $cierreData["sum"]["total_clean"]+$debitoAntesPrimerDia-$debitoUltimoDia+$biopagoAntesPrimerDia-$biopagoUltimoDia;
+        $total = $cierreData["sum"]["total_clean"]+($debitoAntesPrimerDia-$debitoUltimoDia)+($biopagoAntesPrimerDia-$biopagoUltimoDia);
         $ganancia = $cierreData["sum"]["ganancia_clean"];
         
         
@@ -1416,11 +1418,11 @@ class CierresController extends Controller
             $bs = $tasas->tasa;
             $cop = $tasas->tasacop;
 
-            $montobsReal1 = $this->dividir($pagoProveedorBancoVal["montobs1"],$bs);
-            $montobsReal2 = $this->dividir($pagoProveedorBancoVal["montobs2"],$bs);
-            $montobsReal3 = $this->dividir($pagoProveedorBancoVal["montobs3"],$bs);
-            $montobsReal4 = $this->dividir($pagoProveedorBancoVal["montobs4"],$bs);
-            $montobsReal5 = $this->dividir($pagoProveedorBancoVal["montobs5"],$bs);
+            $montobsReal1 = $this->dividir($pagoProveedorBancoVal["montobs1"], $bs);
+            $montobsReal2 = $this->dividir($pagoProveedorBancoVal["montobs2"], $bs);
+            $montobsReal3 = $this->dividir($pagoProveedorBancoVal["montobs3"], $bs);
+            $montobsReal4 = $this->dividir($pagoProveedorBancoVal["montobs4"], $bs);
+            $montobsReal5 = $this->dividir($pagoProveedorBancoVal["montobs5"], $bs);
             $sumPagoProveedorBancoReal += $montobsReal1+$montobsReal2+$montobsReal3+$montobsReal4+$montobsReal5;
         }
         $pagoProveedorBruto = abs($sumPagoProveedorBancoReal) + abs($sumPagoProveedorEfectivo);

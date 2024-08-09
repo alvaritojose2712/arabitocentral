@@ -25,12 +25,6 @@ class BancosController extends Controller
         return  cuentasporpagar::with("sucursal")
         ->whereNotIn("metodo",["BINANCE","AirTM","EFECTIVO"])
         ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
-            //$q->whereIn("metodo",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
-            /* ->orwhereIn("metodobs1",bancos_list::where("id",$qbancobancosdata)->select("codigo"))
-            ->orwhereIn("metodobs2",bancos_list::where("id",$qbancobancosdata)->select("codigo"))
-            ->orwhereIn("metodobs3",bancos_list::where("id",$qbancobancosdata)->select("codigo"))
-            ->orwhereIn("metodobs4",bancos_list::where("id",$qbancobancosdata)->select("codigo"))
-            ->orwhereIn("metodobs5",bancos_list::where("id",$qbancobancosdata)->select("codigo")); */
         })
         ->when($qdescripcionbancosdata!="",function($q) use ($qdescripcionbancosdata) {
             $q->orwhere("numfact",$qdescripcionbancosdata)
@@ -80,7 +74,7 @@ class BancosController extends Controller
         })
         ->where("categoria","<>",66) //no considerar transferencia no reportada
         ->when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
-            $q->whereIn("banco",bancos_list::where("id",$qbancobancosdata)->select("codigo"));
+            $q->where("id_banco",$qbancobancosdata);
         })
         ->when($subviewAuditoria=="liquidar",function($q) use ($showallSelectAuditoria) {
             if (!$showallSelectAuditoria) {
@@ -172,18 +166,19 @@ class BancosController extends Controller
 
         $bancoselect = null;
         if ($qbancobancosdata) {
-            $bancoselect =  bancos_list::where("id",$qbancobancosdata)->first(["codigo"])->codigo;
+            $bancoselect =  $qbancobancosdata;
         }
 
         $bs1 = array_filter($cuenta1->map(function ($q) use ($bancoselect,$qbancobancosdata) {
             if ($qbancobancosdata) {
-                if ($q->metodobs1==$bancoselect) {
+                if ($q->id_metodobs1==$bancoselect) {
                     
                 }else{
                     return null;
                 }
             }
             $q->banco = $q->metodobs1;
+            $q->id_banco = $q->id_metodobs1;
             $sum = 0;
             if ($q->montobs1) {$sum += $q->montobs1;}
             $q->monto_liquidado = $sum*-1;
@@ -196,13 +191,14 @@ class BancosController extends Controller
         });
         $bs2 = array_filter($cuenta2->map(function ($q) use ($bancoselect,$qbancobancosdata) {
             if ($qbancobancosdata) {
-                if ($q->metodobs2==$bancoselect) {
+                if ($q->id_metodobs2==$bancoselect) {
                     
                 }else{
                     return null;
                 }
             }
             $q->banco = $q->metodobs2;
+            $q->id_banco = $q->id_metodobs2;
             $sum = 0;
             if ($q->montobs2) {$sum += $q->montobs2;}
             $q->monto_liquidado = $sum*-1;
@@ -215,13 +211,14 @@ class BancosController extends Controller
         });
         $bs3 = array_filter($cuenta3->map(function ($q) use ($bancoselect,$qbancobancosdata) {
             if ($qbancobancosdata) {
-                if ($q->metodobs3==$bancoselect) {
+                if ($q->id_metodobs3==$bancoselect) {
                     
                 }else{
                     return null;
                 }
             }
             $q->banco = $q->metodobs3;
+            $q->id_banco = $q->id_metodobs3;
             $sum = 0;
             if ($q->montobs3) {$sum += $q->montobs3;}
             $q->monto_liquidado = $sum*-1;
@@ -234,13 +231,14 @@ class BancosController extends Controller
         });
         $bs4 = array_filter($cuenta4->map(function ($q) use ($bancoselect,$qbancobancosdata) {
             if ($qbancobancosdata) {
-                if ($q->metodobs4==$bancoselect) {
+                if ($q->id_metodobs4==$bancoselect) {
                     
                 }else{
                     return null;
                 }
             }
             $q->banco = $q->metodobs4;
+            $q->id_banco = $q->id_metodobs4;
             $sum = 0;
             if ($q->montobs4) {$sum += $q->montobs4;}
             $q->monto_liquidado = $sum*-1;
@@ -253,13 +251,14 @@ class BancosController extends Controller
         });
         $bs5 = array_filter($cuenta5->map(function ($q) use ($bancoselect,$qbancobancosdata) {
             if ($qbancobancosdata) {
-                if ($q->metodobs5==$bancoselect) {
+                if ($q->id_metodobs5==$bancoselect) {
                     
                 }else{
                     return null;
                 }
             }
             $q->banco = $q->metodobs5;
+            $q->id_banco = $q->id_metodobs5;
             $sum = 0;
             if ($q->montobs5) {$sum += $q->montobs5;}
             $q->monto_liquidado = $sum*-1;
@@ -341,7 +340,7 @@ class BancosController extends Controller
                 ];
             }
         }
-        $xfechaCuadreArr = collect($puntosmascuentas)->groupBy(["fecha_liquidacion","banco"]);
+        $xfechaCuadreArr = collect($puntosmascuentas)->groupBy(["fecha_liquidacion","id_banco"]);
         $xfechaCuadre = [];
         $sum_cuadre = 0;
         foreach ($xfechaCuadreArr as $KeyfechasGroup => $fechasGroup) {
@@ -360,21 +359,23 @@ class BancosController extends Controller
                         }
                     }
                 }
-                $noreportadaList = puntosybiopagos::where("categoria",66)->where("banco",$KeybancoGroup)->where("fecha_liquidacion",$KeyfechasGroup)->get();
+                $noreportadaList = puntosybiopagos::where("categoria",66)->where("id_banco",$KeybancoGroup)->where("fecha_liquidacion",$KeyfechasGroup)->get();
                 $noreportadasum = $noreportadaList->sum("monto_liquidado"); 
 
-                $sireportadaList = puntosybiopagos::where("categoria",66)->where("banco",$KeybancoGroup)->where("fecha",$KeyfechasGroup)->get();
+                $sireportadaList = puntosybiopagos::where("categoria",66)->where("id_banco",$KeybancoGroup)->where("fecha",$KeyfechasGroup)->get();
                 $sireportadasum = $sireportadaList->sum("monto_liquidado"); 
 
-                $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("banco",$KeybancoGroup)->first();
+                $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("id_banco",$KeybancoGroup)->first();
                 $inicial = $this->getSaldoInicialBanco($KeyfechasGroup,$KeybancoGroup);
                 $balance = $ingresoBanco+$egresoBanco+$inicial+abs($noreportadasum);
 
 
+                $banco_codigo = bancos_list::find($KeybancoGroup)? bancos_list::find($KeybancoGroup)->codigo: null;
                 $cuadre = $q_banco? ($q_banco->saldo_real_manual+abs($sireportadasum)) - $balance: 0;
                 array_push($xfechaCuadre, [
                     "fecha" => $KeyfechasGroup,
                     "banco" => $KeybancoGroup,
+                    "banco_codigo" => $banco_codigo,
                     
                     "ingreso" => $ingresoBanco,
                     "egreso" => $egresoBanco,
@@ -405,6 +406,7 @@ class BancosController extends Controller
        
 
         return [
+            "xfechaCuadreArr"=>$xfechaCuadreArr,
             "xfechaCuadre" => $xfechaCuadre,
             "puntosybiopagosxbancos" => $bancosSum,
             "sum" => $sum_cuadre,
@@ -472,7 +474,7 @@ class BancosController extends Controller
         ];
     }
     function getSaldoInicialBanco($fecha, $banco) {
-        $saldo = bancos::where("banco",$banco)->where("fecha","<",$fecha)->orderBy("fecha","desc")->first("saldo");
+        $saldo = bancos::where("id_banco",$banco)->where("fecha","<",$fecha)->orderBy("fecha","desc")->first("saldo");
         if (! $saldo) {
             return 0;
         }
@@ -510,5 +512,45 @@ class BancosController extends Controller
             "estado" => false,
             "msj" => "Err",
         ];
+    }
+
+
+    function copyBancos() {
+        $list = bancos_list::all();
+
+        foreach ($list as $i => $banco) {
+            puntosybiopagos::where("banco",$banco->codigo)->update([
+                "id_banco"=>$banco->id,
+            ]);
+
+            bancos::where("banco",$banco->codigo)->update([
+                "id_banco"=>$banco->id,
+            ]);
+            
+            cuentasporpagar::where("metodobs1",$banco->codigo)->update([
+                "id_metodobs1"=>$banco->id,
+            ]);
+            
+            
+            cuentasporpagar::where("metodobs2",$banco->codigo)->update([
+                "id_metodobs2"=>$banco->id,
+            ]);
+            
+            
+            cuentasporpagar::where("metodobs3",$banco->codigo)->update([
+                "id_metodobs3"=>$banco->id,
+            ]);
+            
+            
+            cuentasporpagar::where("metodobs4",$banco->codigo)->update([
+                "id_metodobs4"=>$banco->id,
+            ]);
+            
+
+            cuentasporpagar::where("metodobs5",$banco->codigo)->update([
+                "id_metodobs5"=>$banco->id,
+            ]);
+
+        }
     }
 }

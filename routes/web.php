@@ -445,6 +445,7 @@ Route::post('reversarMovPendientes', [CajasController::class,"reversarMovPendien
 Route::post('setControlEfec', [CajasController::class,"setControlEfec"]);
 
 
+Route::get('copyBancos', [BancosController::class,"copyBancos"]);
 Route::get('getMetodosPago', [BancosListController::class,"getMetodosPago"]);
 Route::get('getBancosData', [BancosController::class,"getBancosData"]);
 Route::post('getMovBancos', [PuntosybiopagosController::class,"getMovBancos"]);

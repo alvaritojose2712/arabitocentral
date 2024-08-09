@@ -39,26 +39,31 @@ class CreateCuentasporpagarsTable extends Migration
             $table->decimal("montobs1",10,2)->nullable()->default(0);
             $table->decimal("tasabs1",10,2)->nullable()->default(0);
             $table->string("metodobs1",10,2)->nullable()->default(null);
+            $table->integer("id_metodobs1")->nullable()->default(null);
             $table->string("refbs1")->nullable()->default(null);
 
             $table->decimal("montobs2",10,2)->nullable()->default(0);
             $table->decimal("tasabs2",10,2)->nullable()->default(0);
             $table->string("metodobs2",10,2)->nullable()->default(null);
+            $table->integer("id_metodobs2")->nullable()->default(null);
             $table->string("refbs2")->nullable()->default(null);
 
             $table->decimal("montobs3",10,2)->nullable()->default(0);
             $table->decimal("tasabs3",10,2)->nullable()->default(0);
             $table->string("metodobs3",10,2)->nullable()->default(null);
+            $table->integer("id_metodobs3")->nullable()->default(null);
             $table->string("refbs3")->nullable()->default(null);
 
             $table->decimal("montobs4",10,2)->nullable()->default(0);
             $table->decimal("tasabs4",10,2)->nullable()->default(0);
             $table->string("metodobs4",10,2)->nullable()->default(null);
+            $table->integer("id_metodobs4")->nullable()->default(null);
             $table->string("refbs4")->nullable()->default(null);
 
             $table->decimal("montobs5",10,2)->nullable()->default(0);
             $table->decimal("tasabs5",10,2)->nullable()->default(0);
             $table->string("metodobs5",10,2)->nullable()->default(null);
+            $table->integer("id_metodobs5")->nullable()->default(null);
             $table->string("refbs5")->nullable()->default(null);
 
 

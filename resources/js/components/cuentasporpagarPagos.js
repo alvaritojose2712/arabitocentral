@@ -298,7 +298,7 @@ export default function CuentasporpagarPagos({
                                                         onChange={e=>setmetodobs1PagoFact(e.target.value)} >
                                                             <option value="">-Método 1-</option>
                                                             {opcionesMetodosPago.map(e=>
-                                                                <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
+                                                                <option value={e.id} key={e.codigo}>{e.descripcion}</option>
                                                                 )}
                                                         </select>    
                                                     </div>
@@ -332,7 +332,7 @@ export default function CuentasporpagarPagos({
                                                         onChange={e=>setmetodobs2PagoFact(e.target.value)} >
                                                             <option value="">-Método 2-</option>
                                                             {opcionesMetodosPago.map(e=>
-                                                                <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
+                                                                <option value={e.id} key={e.codigo}>{e.descripcion}</option>
                                                             )}
                                                         </select>    
                                                     </div>
@@ -363,7 +363,7 @@ export default function CuentasporpagarPagos({
                                                         onChange={e=>setmetodobs3PagoFact(e.target.value)} >
                                                             <option value="">-Método 3-</option>
                                                             {opcionesMetodosPago.map(e=>
-                                                                <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
+                                                                <option value={e.id} key={e.codigo}>{e.descripcion}</option>
                                                             )}
                                                         </select>    
                                                     </div>
@@ -394,7 +394,7 @@ export default function CuentasporpagarPagos({
                                                         onChange={e=>setmetodobs4PagoFact(e.target.value)} >
                                                             <option value="">-Método 4-</option>
                                                             {opcionesMetodosPago.map(e=>
-                                                                <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
+                                                                <option value={e.id} key={e.codigo}>{e.descripcion}</option>
                                                             )}
                                                         </select>    
                                                     </div>
@@ -425,7 +425,7 @@ export default function CuentasporpagarPagos({
                                                         onChange={e=>setmetodobs5PagoFact(e.target.value)} >
                                                             <option value="">-Método 5-</option>
                                                             {opcionesMetodosPago.map(e=>
-                                                                <option value={e.codigo} key={e.codigo}>{e.descripcion}</option>
+                                                                <option value={e.id} key={e.codigo}>{e.descripcion}</option>
                                                             )}
                                                         </select>    
                                                     </div>

@@ -630,7 +630,9 @@ class PuntosybiopagosController extends Controller
 
         switch ($type) {
             case 'banco':
+                $id_banco = bancos_list::where("codigo",$req->banco)->first()->id;
                 $upd->banco = $req->banco;
+                $upd->id_banco = $id_banco;
             break;
             case 'debito_credito':
                 $upd->debito_credito = $req->banco;
@@ -822,11 +824,12 @@ class PuntosybiopagosController extends Controller
                 }
             }
         }else{
-
+            $banco_codigo = bancos_list::find($gastosBanco)->codigo;
             foreach ($arr as $e) {
                 $p = puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[
                     "loteserial" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):""),
-                    "banco" => $gastosBanco,
+                    "banco" => $banco_codigo,
+                    "id_banco" => $gastosBanco,
                     "categoria" => $gastosCategoria,
                     "fecha" => $gastosFecha,
                     "fecha_liquidacion" => $gastosFecha,
@@ -853,6 +856,8 @@ class PuntosybiopagosController extends Controller
                         $p = puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[
                             "loteserial" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):""),
                             "banco" => $bancos_list->codigo,
+                            "id_banco" => $gastosBancoDivisaDestino,
+
                             "categoria" => $gastosCategoria,
                             "fecha" => $gastosFecha,
                             "fecha_liquidacion" => $gastosFecha,
@@ -874,7 +879,8 @@ class PuntosybiopagosController extends Controller
                     if ($iscomisiongasto==1) {
                         puntosybiopagos::updateOrCreate(["id"=>$selectIdGastos],[
                             "loteserial" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):"")." COMISION",
-                            "banco" => $gastosBanco,
+                            "banco" => $banco_codigo,
+                            "id_banco" => $gastosBanco,
                             "categoria" => $catcompg->id,
                             "fecha" => $gastosFecha,
                             "fecha_liquidacion" => $gastosFecha,
