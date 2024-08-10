@@ -525,7 +525,7 @@ class CierresController extends Controller
         $gastos_variables = $gastos[0]["data"];
         $sum_gastos_variables = $gastos[0]["sum"];
 
-        $blist = bancos_list::where("codigo","<>","EFECTIVO")->get();
+        $blist = bancos_list::where("codigo","<>","EFECTIVO")->orderBy("codigo","asc")->get();
 
         foreach ($blist as $banco) {
             $b = bancos::where("banco",$banco->codigo)->where("fecha","<",$fechasMain1)->orderBy("fecha","desc")->first("saldo");
@@ -1508,7 +1508,7 @@ class CierresController extends Controller
                 $bs = $tasas->tasa;
                 $cop = $tasas->tasacop;
 
-                $b = bancos::where("banco",$banco->codigo)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
+                $b = bancos::where("id_banco",$banco->id)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
                 $saldo = $b?$b->saldo_real_manual:0;
                 $fecha = $b?$b->fecha:"";
 
@@ -1586,7 +1586,7 @@ class CierresController extends Controller
                 $bs = $tasas->tasa;
                 $cop = $tasas->tasacop;
 
-                $b = bancos::where("banco",$banco->codigo)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
+                $b = bancos::where("id_banco",$banco->id)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
                 $saldo = $b?$b->saldo_real_manual:0;
                 $fecha = $b?$b->fecha:"";
                 
