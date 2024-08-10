@@ -1444,7 +1444,7 @@ class CierresController extends Controller
         $sucursales = sucursal::when($sucursalBalanceGeneral, function ($q) use ($sucursalBalanceGeneral) {
             $q->where("id", $sucursalBalanceGeneral);
         })
-        ->whereNotIn("id",[17])
+        ->whereNotIn("id",[13,17])
         ->get();
 
 
@@ -1550,7 +1550,7 @@ class CierresController extends Controller
                     $cop = $caja_actual_suc["tasacop"];
                     $sum_caja_registradora = $caja_actual_suc["dejar_dolar"]+$this->dividir($caja_actual_suc["dejar_peso"],$cop)+$this->dividir($caja_actual_suc["dejar_bss"],$bs);
                     $sum_caja_chica = $caja_chica["dolarbalance"]+ $this->dividir($caja_chica["bsbalance"],$bs)+ $this->dividir($caja_chica["pesobalance"],$cop)+$caja_chica["eurobalance"];
-                    $sum_caja_fuerte = $caja_fuerte["dolarbalance"]+ ($caja_fuerte["bsbalance"] > 0?$this->dividir($caja_fuerte["bsbalance"],$bs):0)+ $this->dividir($caja_fuerte["pesobalance"],$cop)+$caja_fuerte["eurobalance"];
+                    $sum_caja_fuerte = $caja_fuerte["dolarbalance"]+ $this->dividir($caja_fuerte["bsbalance"],$bs)+ $this->dividir($caja_fuerte["pesobalance"],$cop)+$caja_fuerte["eurobalance"];
     
                     $sum_cajas = $sum_caja_registradora+$sum_caja_fuerte+$sum_caja_chica;
                     
@@ -1602,6 +1602,10 @@ class CierresController extends Controller
                 $sum_caja_actual_banco += $banco->moneda=="bs"? $saldo: 0;
                 $sum_caja_actual_banco_dolar += $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs);
             }
+
+            $matriz = cajas::where("id_sucursal",13)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
+
+            $sum_caja_actual += $matriz->dolarbalance;
             $total_caja_actual = $sum_caja_actual+$sum_caja_actual_banco_dolar;
         /// END CAJA ACTUAL
 
