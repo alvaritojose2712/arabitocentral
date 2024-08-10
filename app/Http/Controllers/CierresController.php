@@ -1605,7 +1605,7 @@ class CierresController extends Controller
 
             $matriz = cajas::where("id_sucursal",13)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
 
-            $sum_caja_actual += $matriz->dolarbalance;
+           // $sum_caja_actual += $matriz->dolarbalance
             $total_caja_actual = $sum_caja_actual+$sum_caja_actual_banco_dolar;
         /// END CAJA ACTUAL
 
