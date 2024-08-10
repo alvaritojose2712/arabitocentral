@@ -18,6 +18,7 @@ class CreateTransferenciaAprobacionsTable extends Migration
 
             $table->string("loteserial");
             $table->string("banco");
+            $table->integer("id_banco")->nullable(true);
 
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');

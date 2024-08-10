@@ -20,6 +20,7 @@ class transferencia_aprobacion extends Model
     protected $fillable = [
         "loteserial",
         "banco",
+        "id_banco",
         "id_sucursal",
         "saldo",
         "estatus",

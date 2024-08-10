@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\transferencia_aprobacion;
+use App\Models\bancos_list;
+
 use App\Http\Requests\Storetransferencia_aprobacionRequest;
 use App\Http\Requests\Updatetransferencia_aprobacionRequest;
 use Illuminate\Http\Request;
@@ -46,6 +48,8 @@ class TransferenciaAprobacionController extends Controller
             }
 
             foreach ($data["refs"] as $ref) {
+                $id_banco = bancos_list::where("codigo",$ref["banco"])->first()->id;
+
                 $transferencia_aprobacion = transferencia_aprobacion::updateOrCreate([
                     "id_sucursal" => $id_sucursal,
                     "idinsucursal" => $ref["id"],
@@ -56,6 +60,7 @@ class TransferenciaAprobacionController extends Controller
                     "saldo" => $ref["monto"],
                     "loteserial"=>$ref["descripcion"],
                     "banco"=>$ref["banco"],
+                    "id_banco"=>$id_banco,
                     "montoretencion" => ($sumRetenciones/$count_refs),
                     "estadoretencion" => 0,
                 ]);

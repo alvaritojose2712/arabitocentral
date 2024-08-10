@@ -2746,7 +2746,7 @@ function Aprobtransferencia(_ref) {
             children: "-BANCO-"
           }), opcionesMetodosPago.map(function (e) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
-              value: e.codigo,
+              value: e.id,
               children: e.codigo
             }, e.id);
           })]

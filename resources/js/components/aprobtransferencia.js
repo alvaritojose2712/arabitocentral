@@ -51,7 +51,7 @@ export default function Aprobtransferencia({
                     <select className="form-control" value={bancoqfiltroaprotransf}  onChange={event=>setbancoqfiltroaprotransf(event.target.value)}>
                         <option value="">-BANCO-</option>
                         {opcionesMetodosPago.map(e=>
-                            <option key={e.id} value={e.codigo}>{e.codigo}</option>
+                            <option key={e.id} value={e.id}>{e.codigo}</option>
                         )}
                     </select>
                     <select className="form-control" onChange={e=>setsucursalSelect(e.target.value)} value={sucursalSelect===null?"":sucursalSelect}>
