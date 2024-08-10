@@ -375,6 +375,7 @@ class BancosController extends Controller
                 array_push($xfechaCuadre, [
                     "fecha" => $KeyfechasGroup,
                     "banco" => $KeybancoGroup,
+                    "id_banco" => $KeybancoGroup,
                     "banco_codigo" => $banco_codigo,
                     
                     "ingreso" => $ingresoBanco,
@@ -490,11 +491,13 @@ class BancosController extends Controller
         $ingreso = $req->ingreso;
         $egreso = $req->egreso;
         
+        $banco_codigo = bancos_list::find($banco)->codigo;
 
-        $ban = bancos::updateOrCreate(["banco"=>$banco, "fecha" => $fecha],[
+        $ban = bancos::updateOrCreate(["id_banco"=>$banco, "fecha" => $fecha],[
             "id_usuario" => null,
             "descripcion" => null,
             "saldo" => $debetenersegunsistema,
+            "banco" => $banco_codigo,
 
             "saldo_real_manual" =>$saldo,
             "saldo_inicial" =>$saldo_inicial,

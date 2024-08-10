@@ -4625,7 +4625,7 @@ function Auditoria(_ref) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
                       className: "btn btn-warning",
                       onClick: function onClick() {
-                        return sendsaldoactualbancofecha(e.banco, e.fecha);
+                        return sendsaldoactualbancofecha(e.id_banco, e.fecha);
                       },
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
                         className: "fa fa-send"
@@ -81421,6 +81421,7 @@ function Home() {
     }
   };
   var sendsaldoactualbancofecha = function sendsaldoactualbancofecha(banco, fecha) {
+    console.log(banco);
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].sendsaldoactualbancofecha({
       banco: banco,
       fecha: fecha,

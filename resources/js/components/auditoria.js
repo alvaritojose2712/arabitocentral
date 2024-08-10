@@ -1178,7 +1178,7 @@ export default function Auditoria({
                                                         <div className="input-group">
                                                             
                                                             <input type="text" placeholder="Saldo ACTUAL" size={5} className="form-control" value={saldoactualbancofecha} onChange={event=>setsaldoactualbancofecha(event.target.value)} />
-                                                            <button className="btn btn-warning" onClick={()=>sendsaldoactualbancofecha(e.banco,e.fecha)}><i className="fa fa-send"></i></button>
+                                                            <button className="btn btn-warning" onClick={()=>sendsaldoactualbancofecha(e.id_banco,e.fecha)}><i className="fa fa-send"></i></button>
                                                         </div>
                                                     :e.guardado?moneda(e.guardado.saldo_real_manual):"----"
                                                     }

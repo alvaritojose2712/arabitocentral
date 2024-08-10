@@ -3917,6 +3917,7 @@ function formatAmount( number, simbol ) {
   }
 
   const sendsaldoactualbancofecha = (banco,fecha) => {
+    console.log(banco)
     db.sendsaldoactualbancofecha({
       banco,
       fecha,
