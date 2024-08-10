@@ -1469,8 +1469,7 @@ class CierresController extends Controller
                     
                     $sum_caja_registradora = $caja_inicial_suc["dejar_dolar"]+$this->dividir($caja_inicial_suc["dejar_peso"],$cop)+$this->dividir($caja_inicial_suc["dejar_bss"],$bs);
                     $sum_caja_chica = $caja_chica["dolarbalance"]+ $this->dividir($caja_chica["bsbalance"],$bs)+ $this->dividir($caja_chica["pesobalance"],$cop)+$caja_chica["eurobalance"];
-
-                    $sum_caja_fuerte = $caja_fuerte["dolarbalance"]+ ($caja_fuerte["bsbalance"] > 0 ?$this->dividir($caja_fuerte["bsbalance"],$bs):0)+ $this->dividir($caja_fuerte["pesobalance"],$cop)+$caja_fuerte["eurobalance"];
+                    $sum_caja_fuerte = $caja_fuerte["dolarbalance"]+ $this->dividir($caja_fuerte["bsbalance"],$bs)+ $this->dividir($caja_fuerte["pesobalance"],$cop)+$caja_fuerte["eurobalance"];
     
                     $sum_cajas = $sum_caja_registradora+$sum_caja_fuerte+$sum_caja_chica;
                     
@@ -1501,8 +1500,6 @@ class CierresController extends Controller
                     $sum_caja_inicial += $sum_cajas;
                     $sum_caja_regis_inicial +=  $sum_caja_registradora;
                     $sum_caja_chica_inicial +=  $sum_caja_chica;
-
-
                     $sum_caja_fuerte_inicial +=  $sum_caja_fuerte;
                 }
             }
@@ -1602,10 +1599,6 @@ class CierresController extends Controller
                 $sum_caja_actual_banco += $banco->moneda=="bs"? $saldo: 0;
                 $sum_caja_actual_banco_dolar += $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs);
             }
-
-            $matriz = cajas::where("id_sucursal",13)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
-
-           // $sum_caja_actual += $matriz->dolarbalance
             $total_caja_actual = $sum_caja_actual+$sum_caja_actual_banco_dolar;
         /// END CAJA ACTUAL
 
@@ -1635,13 +1628,13 @@ class CierresController extends Controller
         foreach ($sucursales as $i => $e) {
             $inicial = cierres::where("id_sucursal",$e->id)->where("fecha","<=",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
             $final = cierres::where("id_sucursal",$e->id)->where("fecha","<=",$fechaHastaBalanceGeneral)->orderBy("fecha","desc")->first();
-            $inicial_inventariobase += $inicial? $inicial->inventariobase:0;
-            $inicial_inventarioventa += $inicial? $inicial->inventarioventa:0;
-            $final_inventariobase += $final? $final->inventariobase: 0;
-            $final_inventarioventa += $final? $final->inventarioventa: 0;
+            $inicial_inventariobase += $inicial->inventariobase;
+            $inicial_inventarioventa += $inicial->inventarioventa;
+            $final_inventariobase += $final->inventariobase;
+            $final_inventarioventa += $final->inventarioventa;
 
-            $cxc_inicial += $inicial? $inicial->creditoporcobrartotal:0;
-            $cxc_final += $final? $final->creditoporcobrartotal: 0;
+            $cxc_inicial += $inicial->creditoporcobrartotal;
+            $cxc_final += $final->creditoporcobrartotal;
 
         }
 
