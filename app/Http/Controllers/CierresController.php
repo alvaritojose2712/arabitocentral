@@ -1444,7 +1444,7 @@ class CierresController extends Controller
         $sucursales = sucursal::when($sucursalBalanceGeneral, function ($q) use ($sucursalBalanceGeneral) {
             $q->where("id", $sucursalBalanceGeneral);
         })
-        ->whereNotIn("id",[13,17])
+        ->whereNotIn("id",[17])
         ->get();
 
 
@@ -1469,7 +1469,8 @@ class CierresController extends Controller
                     
                     $sum_caja_registradora = $caja_inicial_suc["dejar_dolar"]+$this->dividir($caja_inicial_suc["dejar_peso"],$cop)+$this->dividir($caja_inicial_suc["dejar_bss"],$bs);
                     $sum_caja_chica = $caja_chica["dolarbalance"]+ $this->dividir($caja_chica["bsbalance"],$bs)+ $this->dividir($caja_chica["pesobalance"],$cop)+$caja_chica["eurobalance"];
-                    $sum_caja_fuerte = $caja_fuerte["dolarbalance"]+ $this->dividir($caja_fuerte["bsbalance"],$bs)+ $this->dividir($caja_fuerte["pesobalance"],$cop)+$caja_fuerte["eurobalance"];
+
+                    $sum_caja_fuerte = $caja_fuerte["dolarbalance"]+ ($caja_fuerte["bsbalance"] > 0 ?$this->dividir($caja_fuerte["bsbalance"],$bs):0)+ $this->dividir($caja_fuerte["pesobalance"],$cop)+$caja_fuerte["eurobalance"];
     
                     $sum_cajas = $sum_caja_registradora+$sum_caja_fuerte+$sum_caja_chica;
                     
@@ -1500,6 +1501,8 @@ class CierresController extends Controller
                     $sum_caja_inicial += $sum_cajas;
                     $sum_caja_regis_inicial +=  $sum_caja_registradora;
                     $sum_caja_chica_inicial +=  $sum_caja_chica;
+
+
                     $sum_caja_fuerte_inicial +=  $sum_caja_fuerte;
                 }
             }
