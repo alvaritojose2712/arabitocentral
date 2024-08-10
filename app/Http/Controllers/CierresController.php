@@ -1633,11 +1633,11 @@ class CierresController extends Controller
             $final = cierres::where("id_sucursal",$e->id)->where("fecha","<=",$fechaHastaBalanceGeneral)->orderBy("fecha","desc")->first();
             $inicial_inventariobase += $inicial? $inicial->inventariobase:0;
             $inicial_inventarioventa += $inicial? $inicial->inventarioventa:0;
-            $final_inventariobase += $final->inventariobase;
-            $final_inventarioventa += $final->inventarioventa;
+            $final_inventariobase += $final? $final->inventariobase: 0;
+            $final_inventarioventa += $final? $final->inventarioventa: 0;
 
             $cxc_inicial += $inicial? $inicial->creditoporcobrartotal:0;
-            $cxc_final += $final->creditoporcobrartotal;
+            $cxc_final += $final? $final->creditoporcobrartotal: 0;
 
         }
 
