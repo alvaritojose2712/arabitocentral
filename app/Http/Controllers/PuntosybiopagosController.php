@@ -135,6 +135,7 @@ class PuntosybiopagosController extends Controller
                     ],[
                         "loteserial" => $cuentasPagosDescripcion,
                         "banco" => $bancoDestino->codigo,
+                        "id_banco" => $bancoDestino->id,
                         "fecha" => $cuentasPagosFecha,
                         "monto" => $montopositivo,
                         "monto_liquidado" => $montopositivo,
@@ -152,6 +153,7 @@ class PuntosybiopagosController extends Controller
                     ],[
                         "loteserial" => $cuentasPagosDescripcion,
                         "banco" => $banco->codigo,
+                        "id_banco" => $banco->id,
                         "fecha" => $cuentasPagosFecha,
                         "monto" => $montopositivo*-1,
                         "monto_liquidado" => $montopositivo*-1,
@@ -170,6 +172,7 @@ class PuntosybiopagosController extends Controller
                         ],[
                             "loteserial" => $cuentasPagosDescripcion." COMISION",
                             "banco" => $banco->codigo,
+                            "id_banco" => $banco->id,
                             "fecha" => $cuentasPagosFecha,
                             "monto" => ($montopositivo*-1)*($comisionpagomovilinterban/100),
                             "monto_liquidado" => ($montopositivo*-1)*($comisionpagomovilinterban/100),
