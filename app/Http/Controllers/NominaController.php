@@ -460,9 +460,9 @@ class NominaController extends Controller
                 "id_beneficiario" => $id_nomina,
                 "tasa" => $tasa,
                 
-                "monto" => $monto_bs,
-                "monto_liquidado" => $monto_bs,
-                "monto_dolar" => $monto,
+                "monto" => $monto_bs*-1,
+                "monto_liquidado" => $monto_bs*-1,
+                "monto_dolar" => 0,
 
                 "origen" => 2,
                 "id_usuario" => 1,
@@ -486,9 +486,9 @@ class NominaController extends Controller
                 "id_beneficiario" => $id_nomina,
                 "tasa" => $tasa,
                 
-                "monto" => $monto_bs,
-                "monto_liquidado" => $monto_bs,
-                "monto_dolar" => $monto,
+                "monto" => $monto_bs*-1,
+                "monto_liquidado" => $monto_bs*-1,
+                "monto_dolar" => 0,
 
                 "origen" => 2,
                 "id_usuario" => 1,
@@ -512,9 +512,9 @@ class NominaController extends Controller
                 "id_beneficiario" => $id_nomina,
                 "tasa" => $tasa,
                 
-                "monto" => $monto_bs,
-                "monto_liquidado" => $monto_bs,
-                "monto_dolar" => $monto,
+                "monto" => $monto_bs*-1,
+                "monto_liquidado" => $monto_bs*-1,
+                "monto_dolar" => 0,
 
                 "origen" => 2,
                 "id_usuario" => 1,
