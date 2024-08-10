@@ -4600,8 +4600,8 @@ function Auditoria(_ref) {
                 },
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
                   style: {
-                    backgroundColor: colors[e.banco] ? colors[e.banco][0] : "",
-                    color: colors[e.banco] ? colors[e.banco][1] : ""
+                    backgroundColor: e.background,
+                    color: e.color
                   },
                   onClick: function onClick() {
                     return selectxMovimientos("banco", e.banco);
@@ -4635,9 +4635,11 @@ function Auditoria(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
                   className: "",
                   children: moneda(e.sireportadasum)
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
                   className: "bg-warning-light",
-                  children: moneda(e.inicial)
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("b", {
+                    children: moneda(e.inicial)
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), e.fecha_inicial]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
                   className: "bg-success-light",
                   children: moneda(e.ingreso)
@@ -77520,18 +77522,18 @@ function Home() {
     "PUNTO": "rgb(245, 222, 35)",
     "Transferencia": "#0091ff",
     "EFECTIVO": ["#06f977", "#000000"],
-    "0102": ["#d70808", "#fff"],
-    "0108": ["#0c3868", "#fff"],
-    "0105": ["#0091ff", "#000000"],
-    "0134": ["rgb(10, 132, 120)", "#fff"],
-    "0134 - PERSONAL OMAR": ["rgb(10, 132, 120)", "#fff"],
     "0175": ["#ff90b3", "#000000"],
     "0191": ["#ffd102", "#000000"],
     "0151": ["#14ffe7", "#000000"],
     "0114": ["#d8ff14", "#000000"],
-    "ZELLE": ["#6d093b", "#fff"],
     "BINANCE": ["#836901", "#000000"],
-    "AirTM": ["#6d093b", "#000000"]
+    "AirTM": ["#6d093b", "#000000"],
+    "0105": ["#0091ff", "#000000"],
+    "0102": ["#d70808", "#fff"],
+    "0108": ["#0c3868", "#fff"],
+    "0134": ["rgb(10, 132, 120)", "#fff"],
+    "0134 - PERSONAL OMAR": ["rgb(10, 132, 120)", "#fff"],
+    "ZELLE": ["#6d093b", "#fff"]
   };
   var colorCat = {
     1: {

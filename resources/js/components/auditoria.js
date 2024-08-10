@@ -1164,8 +1164,8 @@ export default function Auditoria({
                                             <tr key={i} onClick={()=>selectConciliacion(e.banco,e.fecha)}>
                                                 <th
                                                     style={{
-                                                        backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
-                                                        color:colors[e.banco]?colors[e.banco][1]:""
+                                                        backgroundColor:e.background, 
+                                                        color:e.color
                                                     }}
                                                     onClick={()=>selectxMovimientos("banco", e.banco)}
                                                 >
@@ -1184,7 +1184,11 @@ export default function Auditoria({
                                                     }
                                                 </th>
                                                 <th className="">{moneda(e.sireportadasum)}</th>
-                                                <th className="bg-warning-light">{moneda(e.inicial)}</th>
+                                                <td className="bg-warning-light">
+                                                    <b>{moneda(e.inicial)}</b>
+                                                    <br />
+                                                    {e.fecha_inicial}
+                                                </td>
                                                 <th className="bg-success-light">{moneda(e.ingreso)}</th>
                                                 <th className="">{moneda(e.noreportadasum)}</th>
                                                 <th className="bg-danger-light">{moneda(e.egreso)}</th>

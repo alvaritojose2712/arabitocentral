@@ -367,20 +367,31 @@ class BancosController extends Controller
 
                 $q_banco = bancos::where("fecha",$KeyfechasGroup)->where("id_banco",$KeybancoGroup)->first();
                 $inicial = $this->getSaldoInicialBanco($KeyfechasGroup,$KeybancoGroup);
+                $inicial_fecha = bancos::where("id_banco",$KeybancoGroup)->where("fecha","<",$KeyfechasGroup)->orderBy("fecha","desc")->first();
+                $fecha_inicial = $inicial_fecha? $inicial_fecha->fecha:"";
+
                 $balance = $ingresoBanco+$egresoBanco+$inicial+abs($noreportadasum);
 
+                $ban = bancos_list::find($KeybancoGroup);
 
-                $banco_codigo = bancos_list::find($KeybancoGroup)? bancos_list::find($KeybancoGroup)->codigo: null;
+                $banco_codigo = $ban? $ban->codigo: null;
+                $color = $ban? $ban->color: null;
+                $background = $ban? $ban->background: null;
+
                 $cuadre = $q_banco? ($q_banco->saldo_real_manual+abs($sireportadasum)) - $balance: 0;
                 array_push($xfechaCuadre, [
                     "fecha" => $KeyfechasGroup,
                     "banco" => $KeybancoGroup,
                     "id_banco" => $KeybancoGroup,
                     "banco_codigo" => $banco_codigo,
+                    "color" => $color,
+                    "background" => $background,
+                    
                     
                     "ingreso" => $ingresoBanco,
                     "egreso" => $egresoBanco,
                     "inicial" => $inicial, 
+                    "fecha_inicial" => $fecha_inicial, 
                     "balance" => $balance, 
                     "noreportadaList" => $noreportadaList, 
                     "noreportadasum" => $noreportadasum, 
@@ -401,8 +412,86 @@ class BancosController extends Controller
 
             }
         }
+        $all_bancos = bancos_list::when($qbancobancosdata!="",function($q) use ($qbancobancosdata) {
+            $q->where("id",$qbancobancosdata);
+        })
+        ->get();
+
+
+        $begin = new \DateTime($qfechabancosdata);
+        $end = new \DateTime($fechaHastaSelectAuditoria);
+
+        $interval = \DateInterval::createFromDateString('1 day');
+        $period = new \DatePeriod($begin, $interval, $end);
+
+
+        foreach ($all_bancos as $i => $ban) {
+            
+            foreach ($period as $dt) {
+                $fecha = $dt->format("Y-m-d");
+                $id_banco = $ban->id;
+
+                $fil = array_filter($xfechaCuadre,function($q) use ($fecha,$id_banco) {
+                    return $q["fecha"]==$fecha && $q["id_banco"]==$id_banco;
+                });
+
+                if (!count($fil)) {
+                    $ingresoBanco = 0;
+                    $egresoBanco = 0;
+
+                    $noreportadaList = puntosybiopagos::where("categoria",66)->where("id_banco",$id_banco)->where("fecha_liquidacion",$fecha)->get();
+                    $noreportadasum = $noreportadaList->sum("monto_liquidado"); 
+
+                    $sireportadaList = puntosybiopagos::where("categoria",66)->where("id_banco",$id_banco)->where("fecha",$fecha)->get();
+                    $sireportadasum = $sireportadaList->sum("monto_liquidado"); 
+
+                    $q_banco = bancos::where("fecha",$fecha)->where("id_banco",$id_banco)->first();
+                    $inicial = $this->getSaldoInicialBanco($fecha,$id_banco);
+                    
+                    $inicial_fecha = bancos::where("id_banco",$id_banco)->where("fecha","<",$fecha)->orderBy("fecha","desc")->first();
+                    $fecha_inicial = $inicial_fecha? $inicial_fecha->fecha:"";
+                    
+                    $balance = $ingresoBanco+$egresoBanco+$inicial+abs($noreportadasum);
+                    $cuadre = $q_banco? ($q_banco->saldo_real_manual+abs($sireportadasum)) - $balance: 0;
+                    array_push($xfechaCuadre, [
+                        "fecha" => $fecha,
+                        "banco" => $id_banco,
+                        "id_banco" => $id_banco,
+                        "banco_codigo" => $ban->codigo,
+                        "color" => $ban->color,
+                        "background" => $ban->background,
+                        "fecha_inicial" => $fecha_inicial, 
+                        
+                        "ingreso" => $ingresoBanco,
+                        "egreso" => $egresoBanco,
+                        "inicial" => $inicial, 
+                        "balance" => $balance, 
+                        "noreportadaList" => $noreportadaList, 
+                        "noreportadasum" => $noreportadasum, 
+
+                        "sireportadaList" => $sireportadaList, 
+                        "sireportadasum" => $sireportadasum, 
+
+                        
+
+                        "guardado" => $q_banco, 
+                        "saldoactual" => $q_banco? $q_banco->saldo: 0, 
+                        
+                        "cuadre" => $cuadre, 
+
+
+                    ]);
+
+
+                }
+
+            }
+        }
+
+
 
         array_multisort(array_column($xfechaCuadre, "fecha"), SORT_ASC, $xfechaCuadre);
+        array_multisort(array_column($xfechaCuadre, "banco_codigo"), SORT_ASC, $xfechaCuadre);
 
        
 
