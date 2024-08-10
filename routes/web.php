@@ -322,6 +322,7 @@ Route::post('getFilescxp', [CuentasporpagarFisicasController::class,"getFilescxp
 Route::post('showFilescxp', [CuentasporpagarFisicasController::class,"showFilescxp"]);
 Route::post('sendComprasFats', [CuentasporpagarFisicasController::class,"sendComprasFats"]);
 
+Route::get('cargarNomina2dajulio', [NominaController::class,"cargarNomina2dajulio"]);
 
 Route::post('sendMovimientoBanco', [PuntosybiopagosController::class,"sendMovimientoBanco"]);
 Route::post('sendDescuentoGeneralFats', [CuentasporpagarController::class,"sendDescuentoGeneralFats"]);
