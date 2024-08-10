@@ -164,23 +164,24 @@ class PuntosybiopagosController extends Controller
                         "categoria" => $categresotras->id
                     ]);
 
-
-                    $com = puntosybiopagos::updateOrCreate([
-                        "id" => $id
-                    ],[
-                        "loteserial" => $cuentasPagosDescripcion." COMISION",
-                        "banco" => $banco->codigo,
-                        "fecha" => $cuentasPagosFecha,
-                        "monto" => ($montopositivo*-1)*($comisionpagomovilinterban/100),
-                        "monto_liquidado" => ($montopositivo*-1)*($comisionpagomovilinterban/100),
-    
-                        "tipo" => "Transferencia",
-                        "fecha_liquidacion" => $cuentasPagosFecha,
-                        "id_usuario" => 1,
-                        "id_sucursal" => $admin_id,
-                        "origen" => 2,
-                        "categoria" => $catcompg->id
-                    ]);
+                    if ($iscomisiongasto) {
+                        $com = puntosybiopagos::updateOrCreate([
+                            "id" => $id
+                        ],[
+                            "loteserial" => $cuentasPagosDescripcion." COMISION",
+                            "banco" => $banco->codigo,
+                            "fecha" => $cuentasPagosFecha,
+                            "monto" => ($montopositivo*-1)*($comisionpagomovilinterban/100),
+                            "monto_liquidado" => ($montopositivo*-1)*($comisionpagomovilinterban/100),
+        
+                            "tipo" => "Transferencia",
+                            "fecha_liquidacion" => $cuentasPagosFecha,
+                            "id_usuario" => 1,
+                            "id_sucursal" => $admin_id,
+                            "origen" => 2,
+                            "categoria" => $catcompg->id
+                        ]);
+                    }
             
                     if ($mov1) {
                         return [
