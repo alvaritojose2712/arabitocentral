@@ -1599,6 +1599,10 @@ class CierresController extends Controller
                 $sum_caja_actual_banco += $banco->moneda=="bs"? $saldo: 0;
                 $sum_caja_actual_banco_dolar += $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs);
             }
+
+            $matriz = cajas::where("id_sucursal",13)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
+
+            $sum_caja_actual += $matriz->dolarbalance;
             $total_caja_actual = $sum_caja_actual+$sum_caja_actual_banco_dolar;
         /// END CAJA ACTUAL
 
