@@ -1631,12 +1631,12 @@ class CierresController extends Controller
         foreach ($sucursales as $i => $e) {
             $inicial = cierres::where("id_sucursal",$e->id)->where("fecha","<=",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
             $final = cierres::where("id_sucursal",$e->id)->where("fecha","<=",$fechaHastaBalanceGeneral)->orderBy("fecha","desc")->first();
-            $inicial_inventariobase += $inicial->inventariobase;
-            $inicial_inventarioventa += $inicial->inventarioventa;
+            $inicial_inventariobase += $inicial? $inicial->inventariobase:0;
+            $inicial_inventarioventa += $inicial? $inicial->inventarioventa:0;
             $final_inventariobase += $final->inventariobase;
             $final_inventarioventa += $final->inventarioventa;
 
-            $cxc_inicial += $inicial->creditoporcobrartotal;
+            $cxc_inicial += $inicial? $inicial->creditoporcobrartotal:0;
             $cxc_final += $final->creditoporcobrartotal;
 
         }
