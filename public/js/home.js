@@ -5776,7 +5776,7 @@ function Cajascatdesplegable(_ref) {
                             className: "ms-5",
                             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                               className: "",
-                              children: e.concepto
+                              children: e.concepto ? e.concepto : e.loteserial
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
                               className: " fw-bolder",
                               children: ["(", e.sucursal.codigo, ")"]

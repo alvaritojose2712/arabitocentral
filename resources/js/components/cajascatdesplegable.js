@@ -80,7 +80,7 @@ export default function Cajascatdesplegable({
                                                             <tr key={e.id} className="bg-success-light">
                                                                 <td colSpan={3}>
                                                                     <div className="ms-5">
-                                                                        <span className="">{e.concepto}</span>
+                                                                        <span className="">{e.concepto?e.concepto:e.loteserial}</span>
                                                                         <br />
 
                                                                         <span className=" fw-bolder">({e.sucursal.codigo})</span>
