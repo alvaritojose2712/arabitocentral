@@ -732,6 +732,11 @@ function Home() {
 
     66:	{color:"#d9ead3",	desc:"CAJA MATRIZ: TRANSFERENCIA ADICIONAL"},
     
+    67:	{color:"#d9ead3",	desc:"PERSONAL"},
+    68:	{color:"#d9ead3",	desc:"EQUIPOS DE COMPUTACION Y CONSUMIBLES"},
+    69:	{color:"#d9ead3",	desc:"PÓLIZA DE SEGURO"},
+    70:	{color:"#d9ead3",	desc:"CAJA FUERTE: NOMINA BONO VACACIONAL"},
+
   }
   
   
