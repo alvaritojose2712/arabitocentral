@@ -20,6 +20,9 @@ class CreateCatcajasTable extends Migration
             $table->integer("catgeneral")->nullable(true);
             $table->integer("ingreso_egreso")->nullable(true);
             $table->integer("variable_fijo")->nullable(true)->default(0);
+            
+            $table->string("color",20)->nullable(true);
+            $table->string("background",20)->nullable(true);
 
             $table->timestamps();
 

@@ -308,6 +308,8 @@ Route::post('setPermisoCajas', [CajasAprobacionController::class,"setPermisoCaja
 Route::post('checkDelMovCajaCentral', [CajasAprobacionController::class,"checkDelMovCajaCentral"]);
 
 Route::post('aprobarMovCajaFuerte', [CajasAprobacionController::class,"aprobarMovCajaFuerte"]);
+Route::post('getAprobacionFlujoCaja', [CajasAprobacionController::class,"getAprobacionFlujoCaja"]);
+
 Route::post('verificarMovPenControlEfec', [CajasAprobacionController::class,"verificarMovPenControlEfec"]);
 Route::post('verificarMovPenControlEfecTRANFTRABAJADOR', [CajasAprobacionController::class,"verificarMovPenControlEfecTRANFTRABAJADOR"]);
 

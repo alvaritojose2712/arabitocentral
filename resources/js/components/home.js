@@ -661,52 +661,52 @@ function Home() {
   }
 
   const colorCat = {
-    1:	{color: "#d9ead3",	desc:"CAJA CHICA: EFECTIVO ADICIONAL"},
-    2:	{color: "#c9daf8",	desc:"CAJA CHICA: CENA NOCTURNA"},
-    3:	{color: "#c9daf8",	desc:"CAJA CHICA: TORTA DE CUMPLEAÑOS"},
-    4:	{color: "#c9daf8",	desc:"CAJA CHICA: ALMUERZO DE TRABAJADOR"},
-    5:	{color: "#c9daf8",	desc:"CAJA CHICA: EXAMENES MEDICOS"},
-    6:	{color: "#00ffff",	desc:"CAJA CHICA: LIMPIEZA: CLORO, JABON, AROMATIZANTE, CERA"},
-    7:	{color: "#00ffff",	desc:"CAJA CHICA: LIMPIEZA: COLETO, CEPILLOS, PALAS, TRAPOS, PAPEL HIGIENICO"},
-    8:	{color: "#fff2cc",	desc:"CAJA CHICA: VASOS PARA CAFE"},
-    9:	{color: "#fff2cc",	desc:"CAJA CHICA: VASOS PARA PANELADA"},
-    10:	{color: "#d9ead3",	desc:"CAJA CHICA: BOLSAS"},
-    11:	{color: "#f4cccc",	desc:"CAJA CHICA: AZUCAR"},
-    12:	{color: "#f4cccc",	desc:"CAJA CHICA: CAFE"},
-    13:	{color: "#f4cccc",	desc:"CAJA CHICA: PANELADA O JUGO"},
-    14:	{color: "#fce5cd",	desc:"CAJA CHICA: PAPELERIA: HOJAS, CARTULINA, FOTOCOPIAS, MARCADORES"},
-    15:	{color: "#6d9eeb",	desc:"CAJA CHICA: AGUA: BOTELLON"},
-    16:	{color: "#6d9eeb",	desc:"CAJA CHICA: AGUA: HIELO"},
-    17:	{color: "#6d9eeb",	desc:"CAJA CHICA: AGUA: CISTERNA"},
-    18:	{color: "#d9d2e9",	desc:"CAJA CHICA: SUMINISTROS CASA IMPORTADOS "},
-    19:	{color: "#d9d2e9",	desc:"CAJA CHICA: CALETEROS "},
-    20:	{color: "#d9d2e9",	desc:"CAJA CHICA: COLABORACION SUCURSAL "},
-    21:	{color: "#dd7e6b",	desc:"CAJA CHICA: REPARACIONES Y MANTENIMIENTO"},
-    22:	{color: "#fff2cc",	desc:"CAJA CHICA: TRANSPORTE: TAXI Y MOTOTAXI "},
-    23:	{color: "#fff2cc",	desc:"CAJA CHICA: TRANSPORTE: COMBUSTIBLE "},
-    24:	{color: "#fff2cc",	desc:"CAJA CHICA: TRANSPORTE: REPARACION DE VEHICULOS "},
-    25:	{color: "#f4cccc",	desc:"CAJA CHICA: TRASPASO A CAJA FUERTE"},
-    26:	{color: "#00ff00",	desc:"INGRESO DESDE CIERRE"},
-    27:	{color: "#d9ead3",	desc:"CAJA FUERTE: EFECTIVO ADICIONAL"},
-    28:	{color: "#ffff00",	desc:"CAJA FUERTE: NOMINA ABONO"},
-    29:	{color: "#ffff00",	desc:"CAJA FUERTE: NOMINA QUINCENA "},
-    30:	{color: "#ffff00",	desc:"CAJA FUERTE: NOMINA PRESTAMO "},
-    31:	{color: "#b4a7d6",	desc:"CAJA FUERTE: SERVICIOS: ELECTRICIDAD "},
-    32:	{color: "#b4a7d6",	desc:"CAJA FUERTE: SERVICIOS: AGUA "},
-    33:	{color: "#b4a7d6",	desc:"CAJA FUERTE: SERVICIOS: INTERNET "},
-    34:	{color: "#b6d7a8",	desc:"CAJA FUERTE: ALQUILER "},
-    35:	{color: "#fff2cc",	desc:"CAJA FUERTE: TALONARIOS, SELLOS, ETC "},
-    36:	{color: "#e6b8af",	desc:"CAJA FUERTE: COLABORACIONES GENERAL (TODAS SUCURSALES)"},
-    37:	{color: "#dd7e6b",	desc:"CAJA FUERTE: TRANSPORTE: COMBUSTIBLE (TODAS SUCURSALES)"},
-    38:	{color: "#dd7e6b",	desc:"CAJA FUERTE: TRANSPORTE: REPARACION DE VEHICULOS (TODAS SUCURSALES)"},
-    39:	{color: "#dd7e6b",	desc:"CAJA FUERTE: TRANSPORTE: VIATICOS Y PEAJES (TODAS SUCURSALES)"},
-    40:	{color: "#ff0000",	desc:"CAJA FUERTE: PAGO PROVEEDOR"},
-    41:	{color: "#6aa84f",	desc:"CAJA FUERTE: FDI"},
-    42:	{color: "#fff2cc",	desc:"CAJA FUERTE: TRASPASO A CAJA MATRIZ (RAID RETIRA)"},
-    43:	{color: "#d9d9d9",	desc:"CAJA FUERTE: TRANSFERENCIA TRABAJADOR"},
-    44:	{color: "#f4cccc",	desc:"CAJA FUERTE: TRASPASO A CAJA CHICA"},
-    45:	{color: "#b7b7b7",	desc:"CAJA FUERTE: EGRESO TRANSFERENCIA SUCURSAL"},
-    46:	{color: "#b7b7b7",	desc:"CAJA FUERTE: INGRESO TRANSFERENCIA SUCURSAL"},
+    1:	{color:"#d9ead3",	desc:"CAJA CHICA: EFECTIVO ADICIONAL"},
+    2:	{color:"#c9daf8",	desc:"CAJA CHICA: CENA NOCTURNA"},
+    3:	{color:"#c9daf8",	desc:"CAJA CHICA: TORTA DE CUMPLEAÑOS"},
+    4:	{color:"#c9daf8",	desc:"CAJA CHICA: ALMUERZO DE TRABAJADOR"},
+    5:	{color:"#c9daf8",	desc:"CAJA CHICA: EXAMENES MEDICOS"},
+    6:	{color:"#00ffff",	desc:"CAJA CHICA: LIMPIEZA: CLORO, JABON, AROMATIZANTE, CERA"},
+    7:	{color:"#00ffff",	desc:"CAJA CHICA: LIMPIEZA: COLETO, CEPILLOS, PALAS, TRAPOS, PAPEL HIGIENICO"},
+    8:	{color:"#fff2cc",	desc:"CAJA CHICA: VASOS PARA CAFE"},
+    9:	{color:"#fff2cc",	desc:"CAJA CHICA: VASOS PARA PANELADA"},
+    10:	{color:"#d9ead3",	desc:"CAJA CHICA: BOLSAS"},
+    11:	{color:"#f4cccc",	desc:"CAJA CHICA: AZUCAR"},
+    12:	{color:"#f4cccc",	desc:"CAJA CHICA: CAFE"},
+    13:	{color:"#f4cccc",	desc:"CAJA CHICA: PANELADA O JUGO"},
+    14:	{color:"#fce5cd",	desc:"CAJA CHICA: PAPELERIA: HOJAS, CARTULINA, FOTOCOPIAS, MARCADORES"},
+    15:	{color:"#6d9eeb",	desc:"CAJA CHICA: AGUA: BOTELLON"},
+    16:	{color:"#6d9eeb",	desc:"CAJA CHICA: AGUA: HIELO"},
+    17:	{color:"#6d9eeb",	desc:"CAJA CHICA: AGUA: CISTERNA"},
+    18:	{color:"#d9d2e9",	desc:"CAJA CHICA: SUMINISTROS CASA IMPORTADOS "},
+    19:	{color:"#d9d2e9",	desc:"CAJA CHICA: CALETEROS "},
+    20:	{color:"#d9d2e9",	desc:"CAJA CHICA: COLABORACION SUCURSAL "},
+    21:	{color:"#dd7e6b",	desc:"CAJA CHICA: REPARACIONES Y MANTENIMIENTO"},
+    22:	{color:"#fff2cc",	desc:"CAJA CHICA: TRANSPORTE: TAXI Y MOTOTAXI "},
+    23:	{color:"#fff2cc",	desc:"CAJA CHICA: TRANSPORTE: COMBUSTIBLE "},
+    24:	{color:"#fff2cc",	desc:"CAJA CHICA: TRANSPORTE: REPARACION DE VEHICULOS "},
+    25:	{color:"#f4cccc",	desc:"CAJA CHICA: TRASPASO A CAJA FUERTE"},
+    26:	{color:"#00ff00",	desc:"INGRESO DESDE CIERRE"},
+    27:	{color:"#d9ead3",	desc:"CAJA FUERTE: EFECTIVO ADICIONAL"},
+    28:	{color:"#ffff00",	desc:"CAJA FUERTE: NOMINA ABONO"},
+    29:	{color:"#ffff00",	desc:"CAJA FUERTE: NOMINA QUINCENA "},
+    30:	{color:"#ffff00",	desc:"CAJA FUERTE: NOMINA PRESTAMO "},
+    31:	{color:"#b4a7d6",	desc:"CAJA FUERTE: SERVICIOS: ELECTRICIDAD "},
+    32:	{color:"#b4a7d6",	desc:"CAJA FUERTE: SERVICIOS: AGUA "},
+    33:	{color:"#b4a7d6",	desc:"CAJA FUERTE: SERVICIOS: INTERNET "},
+    34:	{color:"#b6d7a8",	desc:"CAJA FUERTE: ALQUILER "},
+    35:	{color:"#fff2cc",	desc:"CAJA FUERTE: TALONARIOS, SELLOS, ETC "},
+    36:	{color:"#e6b8af",	desc:"CAJA FUERTE: COLABORACIONES GENERAL (TODAS SUCURSALES)"},
+    37:	{color:"#dd7e6b",	desc:"CAJA FUERTE: TRANSPORTE: COMBUSTIBLE (TODAS SUCURSALES)"},
+    38:	{color:"#dd7e6b",	desc:"CAJA FUERTE: TRANSPORTE: REPARACION DE VEHICULOS (TODAS SUCURSALES)"},
+    39:	{color:"#dd7e6b",	desc:"CAJA FUERTE: TRANSPORTE: VIATICOS Y PEAJES (TODAS SUCURSALES)"},
+    40:	{color:"#ff0000",	desc:"CAJA FUERTE: PAGO PROVEEDOR"},
+    41:	{color:"#6aa84f",	desc:"CAJA FUERTE: FDI"},
+    42:	{color:"#fff2cc",	desc:"CAJA FUERTE: TRASPASO A CAJA MATRIZ (RAID RETIRA)"},
+    43:	{color:"#d9d9d9",	desc:"CAJA FUERTE: TRANSFERENCIA TRABAJADOR"},
+    44:	{color:"#f4cccc",	desc:"CAJA FUERTE: TRASPASO A CAJA CHICA"},
+    45:	{color:"#b7b7b7",	desc:"CAJA FUERTE: EGRESO TRANSFERENCIA SUCURSAL"},
+    46:	{color:"#b7b7b7",	desc:"CAJA FUERTE: INGRESO TRANSFERENCIA SUCURSAL"},
     
     
     47: {color:"#fff2cc", desc:"CAJA MATRIZ: ARANCELES MUNICIPALES"},
@@ -730,7 +730,7 @@ function Home() {
     64:	{color:"#ffff00", desc:"CAJA MATRIZ: COMPRA DE DIVISAS"},
     65:	{color:"#ffff00", desc:"CAJA MATRIZ: DEPOSITO A BANCO"},
 
-    66:	{color: "#d9ead3",	desc:"CAJA MATRIZ: TRANSFERENCIA ADICIONAL"},
+    66:	{color:"#d9ead3",	desc:"CAJA MATRIZ: TRANSFERENCIA ADICIONAL"},
     
   }
   
@@ -2329,12 +2329,14 @@ function formatAmount( number, simbol ) {
       setcontrolbancoQHasta(today)
       setqSucursalNominaFecha(today)
 
+      setqfechadesdeAprobaFlujCaja(today)
+      setqfechahastaAprobaFlujCaja(today)
+
       
       
     })
   }
   const getSucursales = (q="",callback=null) => {
-    setLoading(true)
     db.getSucursales({
       q
     }).then(res => {
@@ -2343,7 +2345,6 @@ function formatAmount( number, simbol ) {
         return e
       })
       setsucursales(res.data)
-      setLoading(false)
       let col = {}
       res.data.map(e=>{
         col[e.codigo] =  "#"+colorFun(1575*e.id+(e.codigo).slice(0,6))
@@ -2356,7 +2357,6 @@ function formatAmount( number, simbol ) {
     })
   }
   const getsucursalListData = () => {
-    setLoading(true)
     db.getsucursalListData({
       fechasMain1,
       fechasMain2,
@@ -2365,7 +2365,6 @@ function formatAmount( number, simbol ) {
       subviewpanelsucursales,
     }).then(res => {
       setsucursalListData(res.data)
-      setLoading(false)
     })
   }
   const aprobarMovCajaFuerte = (id,tipo) => {
@@ -2376,6 +2375,29 @@ function formatAmount( number, simbol ) {
       })
     }
   }
+
+  const [dataAprobacionFlujoCaja, setdataAprobacionFlujoCaja] = useState([])
+
+  const [qfechadesdeAprobaFlujCaja, setqfechadesdeAprobaFlujCaja] = useState("")
+  const [qfechahastaAprobaFlujCaja, setqfechahastaAprobaFlujCaja] = useState("")
+  const [qAprobaFlujCaja, setqAprobaFlujCaja] = useState("")
+  const [qCategoriaAprobaFlujCaja, setqCategoriaAprobaFlujCaja] = useState("")
+  const [qSucursalAprobaFlujCaja, setqSucursalAprobaFlujCaja] = useState("")
+  
+
+
+  const getAprobacionFlujoCaja = () => {
+    db.getAprobacionFlujoCaja({
+      qestatusaprobaciocaja,
+      qfechadesdeAprobaFlujCaja,
+      qfechahastaAprobaFlujCaja,
+      qAprobaFlujCaja,
+      qCategoriaAprobaFlujCaja,
+      qSucursalAprobaFlujCaja,
+    }).then(res=>{
+      setdataAprobacionFlujoCaja(res.data)
+    })
+  } 
   const aprobarCreditoFun = (id,tipo) => {
     if (confirm("Confirma ("+tipo+")")) {
       db.aprobarCreditoFun({tipo,id}).then(res=>{
@@ -5303,31 +5325,9 @@ function formatAmount( number, simbol ) {
             >
               
 
-              {subviewpanelsucursales === "aprobacioncajafuerte" &&
-                <>
-                  <FechasMain
-                    fechasMain1={fechasMain1}
-                    fechasMain2={fechasMain2}
-                    setfechasMain1={setfechasMain1}
-                    setfechasMain2={setfechasMain2}
-                  />
-                  <AprobacionCajaFuerte
-                    moneda={moneda}
-                    getsucursalDetallesData={getsucursalDetallesData}
-                    sucursalSelect={sucursalSelect}
-                    setsucursalSelect={setsucursalSelect}
-                    setsucursalDetallesData={setsucursalDetallesData}
-                    sucursalDetallesData={sucursalDetallesData}
-
-                    getSucursales={getSucursales}
-                    sucursales={sucursales}
-                    qestatusaprobaciocaja={qestatusaprobaciocaja}
-                    setqestatusaprobaciocaja={setqestatusaprobaciocaja}
-                    aprobarMovCajaFuerte={aprobarMovCajaFuerte}
-                  >
-                  </AprobacionCajaFuerte>
-                </>
-              }
+              {/* {subviewpanelsucursales === "aprobacioncajafuerte" &&
+                
+              } */}
               {subviewpanelsucursales === "cuentasporpagar" ?
                 <>
                   {subViewCuentasxPagar === "detallado"?
@@ -6382,6 +6382,33 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5,13]) && viewmainPanel === "gastos" && 
             <Gastos
+
+              dataAprobacionFlujoCaja={dataAprobacionFlujoCaja}
+              qfechadesdeAprobaFlujCaja={qfechadesdeAprobaFlujCaja}
+              setqfechadesdeAprobaFlujCaja={setqfechadesdeAprobaFlujCaja}
+              qfechahastaAprobaFlujCaja={qfechahastaAprobaFlujCaja}
+              setqfechahastaAprobaFlujCaja={setqfechahastaAprobaFlujCaja}
+              qAprobaFlujCaja={qAprobaFlujCaja}
+              setqAprobaFlujCaja={setqAprobaFlujCaja}
+              qCategoriaAprobaFlujCaja={qCategoriaAprobaFlujCaja}
+              setqCategoriaAprobaFlujCaja={setqCategoriaAprobaFlujCaja}
+              qSucursalAprobaFlujCaja={qSucursalAprobaFlujCaja}
+              setqSucursalAprobaFlujCaja={setqSucursalAprobaFlujCaja}
+              getAprobacionFlujoCaja={getAprobacionFlujoCaja}
+
+              fechasMain1={fechasMain1}
+              fechasMain2={fechasMain2}
+              setfechasMain1={setfechasMain1}
+              setfechasMain2={setfechasMain2}
+              getsucursalDetallesData={getsucursalDetallesData}
+              sucursalSelect={sucursalSelect}
+              setsucursalSelect={setsucursalSelect}
+              setsucursalDetallesData={setsucursalDetallesData}
+              sucursalDetallesData={sucursalDetallesData}
+              qestatusaprobaciocaja={qestatusaprobaciocaja}
+              setqestatusaprobaciocaja={setqestatusaprobaciocaja}
+              aprobarMovCajaFuerte={aprobarMovCajaFuerte}
+
               gastosBancoDivisaDestino={gastosBancoDivisaDestino}
               setgastosBancoDivisaDestino={setgastosBancoDivisaDestino}
               setConciliarMovCajaMatriz={setConciliarMovCajaMatriz}

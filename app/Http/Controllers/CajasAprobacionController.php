@@ -112,6 +112,40 @@ class CajasAprobacionController extends Controller
         ];
    }
 
+   function getAprobacionFlujoCaja(Request $req){
+        $qestatusaprobaciocaja = $req->qestatusaprobaciocaja;
+        $qfechadesdeAprobaFlujCaja = $req->qfechadesdeAprobaFlujCaja;
+        $qfechahastaAprobaFlujCaja = $req->qfechahastaAprobaFlujCaja;
+        $qAprobaFlujCaja = $req->qAprobaFlujCaja;
+        $qCategoriaAprobaFlujCaja = $req->qCategoriaAprobaFlujCaja;
+        $qSucursalAprobaFlujCaja = $req->qSucursalAprobaFlujCaja;
+
+        $data = cajas_aprobacion::with(["cat","sucursal","destino"])
+        ->when($qSucursalAprobaFlujCaja, function ($q) use ($qSucursalAprobaFlujCaja) {
+            $q->where("id_sucursal", $qSucursalAprobaFlujCaja);
+        })
+        ->where("estatus", $qestatusaprobaciocaja)
+        ->whereBetween("fecha", [$qfechadesdeAprobaFlujCaja, $qfechahastaAprobaFlujCaja])
+        ->orderBy("created_at", "desc")
+        ->get()
+        ->map(function($q) {
+            if ($q["cat"]) {
+                if (strpos($q["cat"]["nombre"],"NOMINA")) {
+                    $split = explode("=",$q["concepto"]);
+                    if (isset($split[1])) {
+                        $ci = $split[1];
+                        $q->trabajador = (new NominapagosController)->getHistoricoNomina($ci);
+                    }
+                }
+            }
+            return $q;    
+        });
+
+        return [
+            "data" => $data,
+        ];
+   }
+
    function aprobarMovCajaFuerte(Request $req) {
     $tipo = $req->tipo;
     $id = $req->id;

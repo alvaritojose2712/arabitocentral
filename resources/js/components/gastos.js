@@ -5,6 +5,9 @@ import CargarTraspasos  from "./cargartraspasos";
 import ControlEfectivoMatriz from './controlefectivomatriz'
 import CargargastosBanco from './cargargastosbanco'
 import ListBanco from './listBanco'
+import AprobacionCajaFuerte from './aprobacioncajafuerte'
+
+
 
 
 export default function Gastos({
@@ -197,6 +200,32 @@ export default function Gastos({
 	setselectdepositobanco,
 	setConciliarMovCajaMatriz,
 
+	fechasMain1,
+	fechasMain2,
+	setfechasMain1,
+	setfechasMain2,
+	getsucursalDetallesData,
+	sucursalSelect,
+	setsucursalSelect,
+	setsucursalDetallesData,
+	sucursalDetallesData,
+	qestatusaprobaciocaja,
+	setqestatusaprobaciocaja,
+	aprobarMovCajaFuerte,
+
+	dataAprobacionFlujoCaja,
+	qfechadesdeAprobaFlujCaja,
+	setqfechadesdeAprobaFlujCaja,
+	qfechahastaAprobaFlujCaja,
+	setqfechahastaAprobaFlujCaja,
+	qAprobaFlujCaja,
+	setqAprobaFlujCaja,
+	qCategoriaAprobaFlujCaja,
+	setqCategoriaAprobaFlujCaja,
+	setqSucursalAprobaFlujCaja,
+	qSucursalAprobaFlujCaja,
+	getAprobacionFlujoCaja,
+
 }) {
 
 	
@@ -228,6 +257,7 @@ export default function Gastos({
                     <button className={("btn btn-lg ")+(subviewGastos=="listBanco"?"btn-primary":"")} onClick={()=>setsubviewGastos("listBanco")}>BANCO <i className="fa fa-bank"></i></button>
                     <button className={("btn btn-lg ")+(subviewGastos=="cargarefectivo"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("cargarefectivo")}>EFECTIVO <i className="fa fa-money"></i></button>
                     <button className={("btn btn-lg ")+(subviewGastos=="traspasos"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("traspasos")}>Traspasos entre BANCOS</button>
+                    <button className={("btn btn-lg ")+(subviewGastos=="aprobacion"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("aprobacion")}>APROBAR</button>
                     <button className={("btn btn-lg ")+(subviewGastos=="resumen"?"btn-sinapsis":"")} onClick={()=>setsubviewGastos("resumen")}>Detalles</button>
                     <button className={("btn btn-lg ")+(subviewGastos=="distribucion"?"btn-warning":"")} onClick={()=>setsubviewGastos("distribucion")}>Estadísticas</button>
                 </div>
@@ -809,6 +839,31 @@ export default function Gastos({
 				</>
 			:null}
 			
+			{subviewGastos=="aprobacion"?
+				<>
+                  <AprobacionCajaFuerte
+                    moneda={moneda}
+                    aprobarMovCajaFuerte={aprobarMovCajaFuerte}
+                    sucursales={sucursales}
+                    qestatusaprobaciocaja={qestatusaprobaciocaja}
+                    setqestatusaprobaciocaja={setqestatusaprobaciocaja}
+					dataAprobacionFlujoCaja={dataAprobacionFlujoCaja}
+					qfechadesdeAprobaFlujCaja={qfechadesdeAprobaFlujCaja}
+					setqfechadesdeAprobaFlujCaja={setqfechadesdeAprobaFlujCaja}
+					qfechahastaAprobaFlujCaja={qfechahastaAprobaFlujCaja}
+					setqfechahastaAprobaFlujCaja={setqfechahastaAprobaFlujCaja}
+					qAprobaFlujCaja={qAprobaFlujCaja}
+					setqAprobaFlujCaja={setqAprobaFlujCaja}
+					qCategoriaAprobaFlujCaja={qCategoriaAprobaFlujCaja}
+					setqCategoriaAprobaFlujCaja={setqCategoriaAprobaFlujCaja}
+					setqSucursalAprobaFlujCaja={setqSucursalAprobaFlujCaja}
+					qSucursalAprobaFlujCaja={qSucursalAprobaFlujCaja}
+					getAprobacionFlujoCaja={getAprobacionFlujoCaja}
+
+                  >
+                  </AprobacionCajaFuerte>
+                </>
+			:null}
 		</div>
 	)
 }

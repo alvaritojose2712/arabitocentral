@@ -21,6 +21,10 @@ class CreateSucursalsTable extends Migration
             $table->string('direccion')->nullable();
             $table->string('gerente')->nullable();
             $table->date('fecha_creacion')->nullable();
+
+            $table->string('color')->nullable();
+            $table->string('background')->nullable();
+
             $table->timestamps();
         });
 

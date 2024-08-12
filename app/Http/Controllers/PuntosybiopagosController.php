@@ -522,7 +522,7 @@ class PuntosybiopagosController extends Controller
         })
         ->get()
         ->map(function($q) {
-            $c = cierres::where("fecha",$q->fecha)->where("id_sucursal",$q->id_sucursal)->first();
+            $c = cierres::where("fecha",$q->fecha)->first();
             if($c){
                 $bs = $c->tasa;
                 $cop = $c->tasacop;
