@@ -152,12 +152,12 @@ export default function AprobacionCajaFuerte({
                                     <td className="text-center align-middle">
                                         {e.id_sucursal_destino?
                                             (e.sucursal_destino_aprobacion==1?
-                                                <button className={("btn btn-sm btn-")+(e.estatus==0?"warning":"success")} onClick={()=>aprobarMovCajaFuerte(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></button>
+                                                <button className={("btn btn-sm btn-")+(e.estatus==0?"sinapsis":"success")} onClick={()=>aprobarMovCajaFuerte(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></button>
                                                 :
                                                 null
                                             )
                                         :
-                                            <button className={("btn btn-sm btn-")+(e.estatus==0?"warning":"success")} onClick={()=>aprobarMovCajaFuerte(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></button>
+                                            <button className={("btn btn-sm btn-")+(e.estatus==0?"sinapsis":"success")} onClick={()=>aprobarMovCajaFuerte(e.id,"aprobar")}>{e.estatus==0?"APROBAR":"REVERSAR"} <i className="fa fa-check"></i></button>
                                         }
                                     </td>
                                 </tr>

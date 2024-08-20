@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Inventariogeneral from "./inventariogeneral";
 import Editarinventario from "./editarinventario";
 import GestionarnombresInventario from "./gestionarnombresinventario";
+import Aprobapedidosanulacion from "./aprobapedidosanulacion";
 
 
 export default function Inventario({
@@ -210,6 +211,22 @@ export default function Inventario({
     setInvnum,
     Invnum,
     newNombres,
+
+    dataPedidoAnulacionAprobacion,
+    qdesdePedidoAnulacionAprobacion,
+    qhastaPedidoAnulacionAprobacion,
+    qnumPedidoAnulacionAprobacion,
+    qestatusPedidoAnulacionAprobacion,
+    getAprobacionPedidoAnulacion,
+    setAprobacionPedidoAnulacion,
+    setqdesdePedidoAnulacionAprobacion,
+    setqhastaPedidoAnulacionAprobacion,
+    setqnumPedidoAnulacionAprobacion,
+    setqestatusPedidoAnulacionAprobacion,
+
+    sucursalPedidoAnulacionAprobacion,
+    setsucursalPedidoAnulacionAprobacion,
+    moneda,
 }){
     useEffect(()=>{
         getDatinputSelectVinculacion()
@@ -224,12 +241,34 @@ export default function Inventario({
     <div className="container-fluid">
         <div className="text-center">
             <div className="btn-group mb-2">
+                <button className={("fs-4 btn btn")+(subviewdici=="pedidos"?"":"-outline")+("-primary")} onClick={()=>setsubviewdici("pedidos")}> PEDIDOS</button>
                 <button className={("fs-4 btn btn")+(subviewdici=="novedades"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("novedades")}> NOVEDADES</button>
                 <button className={("fs-2 btn btn")+(subviewdici=="inventariogeneral"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("inventariogeneral")}> INVENTARIO</button>
                 <button className={("fs-2 btn btn")+(subviewdici=="editarinventario"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("editarinventario")}> EDITAR INVENTARIO</button>
                 <button className={("fs-2 btn btn")+(subviewdici=="gestionarnombres"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("gestionarnombres")}> GESTIONAR NOMBRES</button>
             </div>
         </div>
+
+        {subviewdici=="pedidos"?
+            <Aprobapedidosanulacion 
+                dataPedidoAnulacionAprobacion={dataPedidoAnulacionAprobacion}
+                qdesdePedidoAnulacionAprobacion={qdesdePedidoAnulacionAprobacion}
+                qhastaPedidoAnulacionAprobacion={qhastaPedidoAnulacionAprobacion}
+                qnumPedidoAnulacionAprobacion={qnumPedidoAnulacionAprobacion}
+                qestatusPedidoAnulacionAprobacion={qestatusPedidoAnulacionAprobacion}
+                getAprobacionPedidoAnulacion={getAprobacionPedidoAnulacion}
+                setAprobacionPedidoAnulacion={setAprobacionPedidoAnulacion}
+
+                setqdesdePedidoAnulacionAprobacion={setqdesdePedidoAnulacionAprobacion}
+                setqhastaPedidoAnulacionAprobacion={setqhastaPedidoAnulacionAprobacion}
+                setqnumPedidoAnulacionAprobacion={setqnumPedidoAnulacionAprobacion}
+                setqestatusPedidoAnulacionAprobacion={setqestatusPedidoAnulacionAprobacion}
+                sucursalPedidoAnulacionAprobacion={sucursalPedidoAnulacionAprobacion}
+                setsucursalPedidoAnulacionAprobacion={setsucursalPedidoAnulacionAprobacion}
+                moneda={moneda}
+                sucursales={sucursales}
+            />
+        :null}
 
         {subviewdici=="novedades"?
             <>

@@ -14,6 +14,11 @@ const db = {
   aprobarMovCajaFuerte: data=>axios.post(host+"aprobarMovCajaFuerte",data),
   getAprobacionFlujoCaja: data=>axios.post(host+"getAprobacionFlujoCaja",data),
   
+  getAprobacionPedidoAnulacion: data=>axios.post(host+"getAprobacionPedidoAnulacion",data),
+  setAprobacionPedidoAnulacion: data=>axios.post(host+"setAprobacionPedidoAnulacion",data),
+  
+
+  
   aprobarCreditoFun: data=>axios.post(host+"aprobarCreditoFun",data),
   aprobarTransferenciaFun: data=>axios.post(host+"aprobarTransferenciaFun",data),
   sendComprasFats: data=>axios.post(host+"sendComprasFats",data),

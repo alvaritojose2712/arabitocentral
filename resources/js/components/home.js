@@ -566,6 +566,36 @@ function Home() {
       }
     })
   }
+
+
+  const [dataPedidoAnulacionAprobacion, setdataPedidoAnulacionAprobacion] = useState([])
+  const [qdesdePedidoAnulacionAprobacion, setqdesdePedidoAnulacionAprobacion] = useState("")
+  const [qhastaPedidoAnulacionAprobacion, setqhastaPedidoAnulacionAprobacion] = useState("")
+  const [qnumPedidoAnulacionAprobacion, setqnumPedidoAnulacionAprobacion] = useState("")
+  const [qestatusPedidoAnulacionAprobacion, setqestatusPedidoAnulacionAprobacion] = useState(0)
+  const [sucursalPedidoAnulacionAprobacion, setsucursalPedidoAnulacionAprobacion] = useState("")
+
+  const getAprobacionPedidoAnulacion = () => {
+    db.getAprobacionPedidoAnulacion({
+      qdesdePedidoAnulacionAprobacion,
+      qhastaPedidoAnulacionAprobacion,
+      qnumPedidoAnulacionAprobacion,
+      qestatusPedidoAnulacionAprobacion,
+      sucursalPedidoAnulacionAprobacion,
+    }).then(res=>{
+      setdataPedidoAnulacionAprobacion(res.data)
+    })
+  }
+
+  const setAprobacionPedidoAnulacion = (id,tipo) => {
+    db.setAprobacionPedidoAnulacion({
+      id,
+      tipo,
+    }).then(res=>{
+      notificar(res)
+      getAprobacionPedidoAnulacion()
+    })
+  }
   
   ///Proveedores Props
   
@@ -2336,6 +2366,11 @@ function formatAmount( number, simbol ) {
 
       setqfechadesdeAprobaFlujCaja(today)
       setqfechahastaAprobaFlujCaja(today)
+      
+      setqdesdePedidoAnulacionAprobacion(today)
+      setqhastaPedidoAnulacionAprobacion(today)
+      
+
 
       
       
@@ -2376,7 +2411,7 @@ function formatAmount( number, simbol ) {
     if (confirm("Confirma ("+tipo+")")) {
       db.aprobarMovCajaFuerte({tipo,id}).then(res=>{
         notificar(res.data)
-        getsucursalDetallesData(null,"aprobacioncajafuerte") 
+        getAprobacionFlujoCaja()
       })
     }
   }
@@ -5909,6 +5944,22 @@ function formatAmount( number, simbol ) {
           {permiso([1,2,10,14]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              dataPedidoAnulacionAprobacion={dataPedidoAnulacionAprobacion}
+              qdesdePedidoAnulacionAprobacion={qdesdePedidoAnulacionAprobacion}
+              setqdesdePedidoAnulacionAprobacion={setqdesdePedidoAnulacionAprobacion}
+              qhastaPedidoAnulacionAprobacion={qhastaPedidoAnulacionAprobacion}
+              setqhastaPedidoAnulacionAprobacion={setqhastaPedidoAnulacionAprobacion}
+              qnumPedidoAnulacionAprobacion={qnumPedidoAnulacionAprobacion}
+              setqnumPedidoAnulacionAprobacion={setqnumPedidoAnulacionAprobacion}
+              qestatusPedidoAnulacionAprobacion={qestatusPedidoAnulacionAprobacion}
+              setqestatusPedidoAnulacionAprobacion={setqestatusPedidoAnulacionAprobacion}
+              getAprobacionPedidoAnulacion={getAprobacionPedidoAnulacion}
+              setAprobacionPedidoAnulacion={setAprobacionPedidoAnulacion}
+
+              sucursalPedidoAnulacionAprobacion={sucursalPedidoAnulacionAprobacion}
+              setsucursalPedidoAnulacionAprobacion={setsucursalPedidoAnulacionAprobacion}
+              moneda={moneda}
+
               setInvnum={setInvnum}
               Invnum={Invnum}
               InvorderColumn={InvorderColumn}

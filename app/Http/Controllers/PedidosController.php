@@ -426,7 +426,7 @@ class PedidosController extends Controller
                        $items = items_pedidos::where("id_pedido",$id)->get();
 
                         foreach ($items as $key => $value) {
-                           $this->hacer_pedido($value->id,null,99,"del");
+                           $this->hacer_pedido($value->id,$value->id_producto,99,"del");
                         }
                         pedidos::find($id)->delete();
                         return Response::json(["msj"=>"Éxito al eliminar. Pedido #".$id,"estado"=>true]);

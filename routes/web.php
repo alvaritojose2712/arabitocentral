@@ -12,6 +12,7 @@ use App\Http\Controllers\CuentasporpagarFisicasController;
 use App\Http\Controllers\CuentasporpagarItemsController;
 use App\Http\Controllers\InventarioSucursalEstadisticasController;
 use App\Http\Controllers\NovedadInventarioAprobacionController;
+use App\Http\Controllers\PedidosAprobacionController;
 use App\Http\Controllers\PuntosybiopagosController;
 use App\Http\Controllers\TransferenciaAprobacionController;
 use App\Http\Controllers\UltimainformacioncargadaController;
@@ -564,8 +565,15 @@ Route::post('sendPagoCuentaPorPagar', [CuentasporpagarController::class,"sendPag
 Route::post('aprobarCreditoFun', [CreditoAprobacionController::class,"aprobarCreditoFun"]);
 Route::post('aprobarTransferenciaFun', [TransferenciaAprobacionController::class,"aprobarTransferenciaFun"]);
 
+
+
+
 Route::post('createCreditoAprobacion', [CreditoAprobacionController::class,"createCreditoAprobacion"]);
 Route::post('createTranferenciaAprobacion', [TransferenciaAprobacionController::class,"createTranferenciaAprobacion"]);
+
+Route::post('getAprobacionPedidoAnulacion', [PedidosAprobacionController::class,"getAprobacionPedidoAnulacion"]);
+Route::post('setAprobacionPedidoAnulacion', [PedidosAprobacionController::class,"setAprobacionPedidoAnulacion"]);
+Route::post('createAnulacionPedidoAprobacion', [PedidosAprobacionController::class,"createAnulacionPedidoAprobacion"]);
 
 
 Route::get('unicoinventario', [InventarioController::class,"unicoinventario"]);
