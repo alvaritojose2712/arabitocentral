@@ -533,7 +533,7 @@ export default function Gastos({
 										{e.pago_efectivo?"EFECTIVO":""}
 										{e.pago_banco?"BANCO":""}
 										<br />
-										{e.origen? <b>ADMINISTRACIÓN</b> :"SUCURSAL"}
+										{e.origen==2? <b>ADMINISTRACIÓN</b> :"SUCURSAL"}
 									</td>
 									<td className="text-center w-10">
 										<b>{e.fecha}</b>

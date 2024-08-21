@@ -41,6 +41,7 @@ class puntosybiopagos extends Model
         "monto_dolar",
         "tasa",
         "id_comision",
+        "id_origen_comision",
         "id_noreportada",
         
     ];

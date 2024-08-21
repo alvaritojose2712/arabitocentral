@@ -39,6 +39,7 @@ class CreatePuntosybiopagosTable extends Migration
             $table->decimal("tasa",10,4)->nullable(true)->default(0);
             
             $table->integer("id_usuario");
+            $table->integer("id_origen_comision")->nullable(true);
             $table->integer("id_comision")->nullable(true);
             $table->integer("id_noreportada")->nullable(true);
             

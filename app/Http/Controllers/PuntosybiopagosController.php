@@ -76,7 +76,7 @@ class PuntosybiopagosController extends Controller
                 $catcompos = catcajas::where("nombre","CAJA MATRIZ: COMISION PUNTO DE VENTA")->first();
                 $comision_monto = abs($comision)*-1;
                 $com = puntosybiopagos::updateOrCreate([
-                    "id" => null
+                    "id_origen_comision" => $id
                 ],[
                     "loteserial" => $liquidado->loteserial." COMISION POS",
                     "banco" => $liquidado->banco,
