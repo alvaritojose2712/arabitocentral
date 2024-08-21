@@ -785,7 +785,7 @@ export default function Auditoria({
                                                     onChange={e=>setnewmovnoreportadobanco(e.target.value)} required={true}>
                                                         <option value="">-</option>
                                                         {opcionesMetodosPago.filter(e=>e.codigo!="EFECTIVO").map(e=>
-                                                            <option value={e.codigo} key={e.id}>{e.descripcion}</option>
+                                                            <option value={e.id} key={e.id}>{e.descripcion}</option>
                                                         )}
                                                     </select>
                                                 </div>

@@ -4238,7 +4238,7 @@ function Auditoria(_ref) {
                     return e.codigo != "EFECTIVO";
                   }).map(function (e) {
                     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                      value: e.codigo,
+                      value: e.id,
                       children: e.descripcion
                     }, e.id);
                   })]

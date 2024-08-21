@@ -427,9 +427,13 @@ class PuntosybiopagosController extends Controller
             $newmovnoreportadoref = $req->newmovnoreportadoref;
     
             $id_cat_noportada = 66;
+
+            $banco_codigo = bancos_list::find($newmovnoreportadobanco)->codigo;
+
             $newmovnoreportado = puntosybiopagos::updateOrCreate(["id"=>null],[
                 "loteserial" => $newmovnoreportadoref." NO REPORTADA",
-                "banco" => $newmovnoreportadobanco,
+                "banco" => $banco_codigo,
+                "id_banco" => $newmovnoreportadobanco,
                 "categoria" => $id_cat_noportada,
                 "fecha" => null,
                 "fecha_liquidacion" => $newmovnoreportadofecha,
