@@ -424,6 +424,8 @@ class CajasController extends Controller
                             $p = puntosybiopagos::updateOrCreate(["id"=>null],[
                                 "loteserial" => $cm->concepto,
                                 "banco" => $banco->codigo,
+                                "id_banco" => $bancoreq,
+
                                 "categoria" => $catDepositoAbanco,
                                 "fecha" => $fecha,
                                 "fecha_liquidacion" => $fecha,
@@ -468,6 +470,7 @@ class CajasController extends Controller
                         $p = puntosybiopagos::updateOrCreate(["id"=>null],[
                             "loteserial" => $cm->concepto,
                             "banco" => $banco->codigo,
+                            "id_banco" => $bancoreq,
                             "categoria" => $catDepositoAbanco,
                             "fecha" => $fecha,
                             "fecha_liquidacion" => $fecha,
