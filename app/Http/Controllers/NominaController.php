@@ -465,7 +465,7 @@ class NominaController extends Controller
                 "monto_dolar" => 0,
 
                 "origen" => 2,
-                "id_usuario" => 1,
+                "id_usuario" => session("id_usuario"),
             ]);
             (new NominapagosController)->setPagoNomina($ci, $monto, 13, $p->id, $e[0]);
 
@@ -491,7 +491,7 @@ class NominaController extends Controller
                 "monto_dolar" => 0,
 
                 "origen" => 2,
-                "id_usuario" => 1,
+                "id_usuario" => session("id_usuario"),
             ]);
             (new NominapagosController)->setPagoNomina($ci, $monto, 13, $p->id, $e[0]);
 
@@ -517,7 +517,7 @@ class NominaController extends Controller
                 "monto_dolar" => 0,
 
                 "origen" => 2,
-                "id_usuario" => 1,
+                "id_usuario" => session("id_usuario"),
             ]);
             (new NominapagosController)->setPagoNomina($ci, $monto, 13, $p->id, $e[0]);
         }

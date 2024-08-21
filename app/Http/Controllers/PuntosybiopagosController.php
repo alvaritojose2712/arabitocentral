@@ -142,7 +142,7 @@ class PuntosybiopagosController extends Controller
     
                         "tipo" => "Transferencia",
                         "fecha_liquidacion" => $cuentasPagosFecha,
-                        "id_usuario" => 1,
+                        "id_usuario" => session("id_usuario"),
                         "id_sucursal" => $admin_id,
                         "origen" => 2,
                         "categoria" => $catingresotras->id
@@ -160,7 +160,7 @@ class PuntosybiopagosController extends Controller
     
                         "tipo" => "Transferencia",
                         "fecha_liquidacion" => $cuentasPagosFecha,
-                        "id_usuario" => 1,
+                        "id_usuario" => session("id_usuario"),
                         "id_sucursal" => $admin_id,
                         "origen" => 2,
                         "categoria" => $categresotras->id
@@ -179,7 +179,7 @@ class PuntosybiopagosController extends Controller
         
                             "tipo" => "Transferencia",
                             "fecha_liquidacion" => $cuentasPagosFecha,
-                            "id_usuario" => 1,
+                            "id_usuario" => session("id_usuario"),
                             "id_sucursal" => $admin_id,
                             "origen" => 2,
                             "categoria" => $catcompg->id
@@ -448,7 +448,7 @@ class PuntosybiopagosController extends Controller
                 "monto_dolar" => null,
     
                 "origen" => 2,
-                "id_usuario" => 1,
+                "id_usuario" => session("id_usuario"),
             ]);
     
             if ($newmovnoreportado) {
@@ -852,7 +852,7 @@ class PuntosybiopagosController extends Controller
                     "monto_dolar" => $e["monto_dolar"],
     
                     "origen" => 2,
-                    "id_usuario" => 1,
+                    "id_usuario" => session("id_usuario"),
                 ]);
                 if ($p) {
                     $num++;
@@ -880,7 +880,7 @@ class PuntosybiopagosController extends Controller
                             "monto_dolar" => $e["monto_dolar"],
             
                             "origen" => 2,
-                            "id_usuario" => 1,
+                            "id_usuario" => session("id_usuario"),
                         ]);
                     }
     
@@ -903,7 +903,7 @@ class PuntosybiopagosController extends Controller
                             "monto_dolar" => $e["monto_dolar"]*($comisionpagomovilinterban/100),
             
                             "origen" => 2,
-                            "id_usuario" => 1,
+                            "id_usuario" => session("id_usuario"),
                         ]);
                     }
                     if ($e["id_beneficiario"]) {

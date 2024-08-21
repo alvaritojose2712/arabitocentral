@@ -437,7 +437,7 @@ class CajasController extends Controller
                                 "monto_liquidado" => $monto*$tasa,
                                 "monto_dolar" => 0,
                                 "origen" => 2,
-                                "id_usuario" => 1,
+                                "id_usuario" => session("id_usuario"),
                             ]);
                             $cm->id_sucursal_deposito = $p->id;
                             $cm->save();
@@ -482,7 +482,7 @@ class CajasController extends Controller
                             "monto_liquidado" => $monto,
                             "monto_dolar" => 0,
                             "origen" => 2,
-                            "id_usuario" => 1,
+                            "id_usuario" => session("id_usuario"),
                         ]);
                         $cm->id_sucursal_deposito = $p->id;
                         $cm->save();
