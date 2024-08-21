@@ -2727,6 +2727,20 @@ function Aprobapedidosanulacion(_ref) {
         onChange: function onChange(event) {
           return setqnumPedidoAnulacionAprobacion(event.target.value);
         }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+        type: "date",
+        className: "form-control",
+        value: qdesdePedidoAnulacionAprobacion,
+        onChange: function onChange(event) {
+          return setqdesdePedidoAnulacionAprobacion(event.target.value);
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+        type: "date",
+        className: "form-control",
+        value: qhastaPedidoAnulacionAprobacion,
+        onChange: function onChange(event) {
+          return setqhastaPedidoAnulacionAprobacion(event.target.value);
+        }
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
         className: "form-control form-control-lg",
         value: sucursalPedidoAnulacionAprobacion,
@@ -2742,20 +2756,6 @@ function Aprobapedidosanulacion(_ref) {
             children: e.codigo
           }, e.id);
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-        type: "date",
-        className: "form-control",
-        value: qdesdePedidoAnulacionAprobacion,
-        onChange: function onChange(event) {
-          return setqdesdePedidoAnulacionAprobacion(event.target.value);
-        }
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-        type: "date",
-        className: "form-control",
-        value: qhastaPedidoAnulacionAprobacion,
-        onChange: function onChange(event) {
-          return setqhastaPedidoAnulacionAprobacion(event.target.value);
-        }
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
         className: "btn btn-" + (qestatusPedidoAnulacionAprobacion == 0 ? "sinapsis" : ""),
         onClick: function onClick(e) {

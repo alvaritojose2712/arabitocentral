@@ -47,7 +47,7 @@ class PedidosAprobacionController extends Controller
             "cliente" => $cliente,
         ]);
         
-        return ["estado" =>false, "msj" => "DESDE CENTRAL: $count_createTrans Solicitud enviada. En espera de aprobación..."];
+        return ["estado" =>false, "msj" => "DESDE CENTRAL: Solicitud enviada. En espera de aprobación..."];
         
     }
     function getAprobacionPedidoAnulacion(Request $req) {

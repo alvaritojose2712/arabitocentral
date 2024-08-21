@@ -21,15 +21,15 @@ export default function Aprobapedidosanulacion({
         <div className="container-fluid">
             <form className="input-group" onSubmit={event=>{event.preventDefault();getAprobacionPedidoAnulacion()}}>
                 <input type="text" className="form-control" placeholder="Buscar # Pedido..." value={qnumPedidoAnulacionAprobacion} onChange={event=>setqnumPedidoAnulacionAprobacion(event.target.value)} />
+
+                <input type="date" className="form-control" value={qdesdePedidoAnulacionAprobacion} onChange={event=>setqdesdePedidoAnulacionAprobacion(event.target.value)} />
+                <input type="date" className="form-control" value={qhastaPedidoAnulacionAprobacion} onChange={event=>setqhastaPedidoAnulacionAprobacion(event.target.value)} />
                 <select className="form-control form-control-lg" value={sucursalPedidoAnulacionAprobacion} onChange={e=>setsucursalPedidoAnulacionAprobacion(e.target.value)}>
                     <option value="">-SUCURSAL-</option>
                     {sucursales.map(e=>
                         <option key={e.id} value={e.id}>{e.codigo}</option>
                     )}
                 </select>
-
-                <input type="date" className="form-control" value={qdesdePedidoAnulacionAprobacion} onChange={event=>setqdesdePedidoAnulacionAprobacion(event.target.value)} />
-                <input type="date" className="form-control" value={qhastaPedidoAnulacionAprobacion} onChange={event=>setqhastaPedidoAnulacionAprobacion(event.target.value)} />
 
                 <button className={("btn btn-"+(qestatusPedidoAnulacionAprobacion==0?"sinapsis":""))} onClick={e=>{
                     if (qestatusPedidoAnulacionAprobacion==0) {

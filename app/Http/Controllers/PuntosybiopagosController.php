@@ -535,7 +535,7 @@ class PuntosybiopagosController extends Controller
             $q->catgeneral = $q->cat->catgeneral;
             $q->variable_fijo = $q->cat->variable_fijo;
 
-            $montodolar = ($q->montodolar) + ($q->montobs/$bs) + ($q->montopeso/$cop);
+            $montodolar = ($q->montodolar) + (new CierresController)->dividir($q->montobs,$bs) + (new CierresController)->dividir($q->montopeso,$cop);
             $q->montodolar = $montodolar; 
             
             $q->pago_efectivo = $montodolar;
