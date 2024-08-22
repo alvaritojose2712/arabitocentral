@@ -301,8 +301,9 @@ class PuntosybiopagosController extends Controller
                 $catgeneral = $cat[0]["cat"]["catgeneral"];
                 $ingreso_egreso = $cat[0]["cat"]["ingreso_egreso"];
             }
+            $catgeneral = ($catgeneral==3||$catgeneral==2)?($catgeneral.$tipo):$catgeneral;
             if (!array_key_exists($catgeneral,$distribucionGastosCatMod)) {
-                $distribucionGastosCatMod[$catgeneral==3||$catgeneral==2?($catgeneral.$tipo):$catgeneral] = [
+                $distribucionGastosCatMod[$catgeneral] = [
                     "data"=>[],
                     "sum"=>0,
                 ];
