@@ -78302,6 +78302,22 @@ function Home() {
     10: {
       color: "#999999",
       desc: "TRANSFERENCIA EFECTIVO SUCURSAL"
+    },
+    20: {
+      color: "#ff9900",
+      desc: "GASTO - CAJA CHICA"
+    },
+    30: {
+      color: "#b45f06",
+      desc: "GASTO GENERAL - CAJA CHICA"
+    },
+    21: {
+      color: "#ff9900",
+      desc: "GASTO - CAJA FUERTE"
+    },
+    31: {
+      color: "#b45f06",
+      desc: "GASTO GENERAL - CAJA FUERTE"
     }
   };
   var colorIngresoegre = {

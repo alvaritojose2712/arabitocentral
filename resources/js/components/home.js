@@ -782,6 +782,12 @@ function Home() {
     8: {color:"#6aa84f", desc: "INGRESO EXTERNO"},
     9: {color:"#93c47d", desc: "INGRESO INTERNO"},
     10: {color:"#999999", desc: "TRANSFERENCIA EFECTIVO SUCURSAL"},
+
+    20: {color:"#ff9900", desc: "GASTO - CAJA CHICA"},
+    30: {color:"#b45f06", desc: "GASTO GENERAL - CAJA CHICA"},
+
+    21: {color:"#ff9900", desc: "GASTO - CAJA FUERTE"},
+    31: {color:"#b45f06", desc: "GASTO GENERAL - CAJA FUERTE"},
   }
   const colorIngresoegre = {
     0:	{color:"#f4cccc", desc:"EGRESO"}, 
