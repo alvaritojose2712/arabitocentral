@@ -511,10 +511,13 @@ export default function Gastos({
 								<th className="pointer text-center" onClick={()=>{setgastosfieldorder("ingreso_egreso");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>TIPO</th>
 								<th className="pointer">DESCRIPCIÓN</th>
 								<th className="pointer text-right" onClick={()=>{setgastosfieldorder("montodolar");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>
-									MONTO
+									MONTO ORIGEN
 									<br />
 
 									<span className="text-danger fs-3">{moneda(gastosData.sum?gastosData.sum:0)}</span>
+								</th>
+								<th className="pointer text-right" onClick={()=>{setgastosfieldorder("montodolar");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>
+									MONTO <span className="text-success">DÓLAR</span>
 								</th>
 							</tr>
 						</thead>
@@ -584,12 +587,15 @@ export default function Gastos({
 									</td>
 									
 									<td className={("fs-6 text-right ")+((e.montodolar<0||e.monto_liquidado<0)?"text-danger":"text-success")}>
-										{e.montodolar?
-											moneda(e.montodolar)
-											:
+										{e.monto_liquidado?
 											<span>{moneda(e.monto_liquidado)} Bs</span>
-											
+											:
+											moneda(e.montodolar)
 										}
+									</td>
+
+									<td className={("fs-6 text-right ")+((e.montodolar<0||e.monto_liquidado<0)?"text-danger":"text-success")}>
+										{moneda(e.montodolar)}
 									</td>
 								</tr>
 							):null:null}

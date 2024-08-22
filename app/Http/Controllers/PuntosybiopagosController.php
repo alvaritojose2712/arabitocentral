@@ -571,10 +571,8 @@ class PuntosybiopagosController extends Controller
             $monto_liquidado = $q->monto_liquidado?$q->monto_liquidado:0;
             $monto_dolar = $q->monto_dolar?$q->monto_dolar:0;
             
-            $bs = 0;
-            if ($tasa!=0&&$monto_liquidado!=0) {
-                $bs += $monto_liquidado/($tasa);
-            }
+            $bs = (new CierresController)->dividir($monto_liquidado,$tasa);
+            
             $q->bs = $bs;
             $q->sum = $monto_dolar+$bs;
             
