@@ -4332,7 +4332,8 @@ function formatAmount( number, simbol ) {
       gastosCategoria &&
       gastosBanco &&
       gastosFecha &&
-      gastosMonto
+      gastosMonto && 
+      gastosTasa
     ) {
       db.saveNewGasto({
         gastosDescripcion,

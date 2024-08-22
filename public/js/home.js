@@ -82368,7 +82368,7 @@ function Home() {
     });
   };
   var saveNewGasto = function saveNewGasto() {
-    if (gastosDescripcion && gastosCategoria && gastosBanco && gastosFecha && gastosMonto) {
+    if (gastosDescripcion && gastosCategoria && gastosBanco && gastosFecha && gastosMonto && gastosTasa) {
       _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].saveNewGasto({
         gastosDescripcion: gastosDescripcion,
         gastosCategoria: gastosCategoria,
