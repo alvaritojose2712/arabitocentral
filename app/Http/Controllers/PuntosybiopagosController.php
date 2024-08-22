@@ -268,7 +268,7 @@ class PuntosybiopagosController extends Controller
         $pagoproveedor["byproveedor"] = $byproveedororden;
         //$pagoproveedor["bysucursal"] = $pagoproveedor["detalles"]->groupBy(["id_sucursal"]);
 
-        $all = array_filter($this->getGastosFun([
+        $all = $this->getGastosFun([
             "gastosQ" => $gastosQ,
             "gastosQFecha" => $gastosQFecha,
             "gastosQFechaHasta" => $gastosQFechaHasta,
@@ -279,9 +279,7 @@ class PuntosybiopagosController extends Controller
             "gastosorder" => $gastosorder,
             "gastosfieldorder" => $gastosfieldorder,
             "gastosQsucursal" => $gastosQsucursal,
-        ]),function ($q) {
-            return $q["cat"]["catgeneral"]==2||$q["cat"]["catgeneral"]==3;
-        });
+        ]);
 
         $distribucionGastosCat = collect($all["data"])->groupBy("categoria");
         $distribucionGastosSucursal = collect($all["data"])->groupBy(["id_sucursal","categoria"]);
