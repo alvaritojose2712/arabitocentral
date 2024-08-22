@@ -19,6 +19,9 @@ class puntosybiopagos extends Model
     public function beneficiario() { 
         return $this->hasOne(\App\Models\nomina::class,"id","id_beneficiario"); 
     }
+    public function usuario() { 
+        return $this->hasOne(\App\Models\usuarios::class,"id","id_usuario"); 
+    }
 
     public function cat() { 
         return $this->hasOne('App\Models\catcajas',"id","categoria"); 

@@ -491,7 +491,9 @@ export default function Gastos({
 						<thead>
 							<tr>
 								<th className="pointer" onClick={()=>{setgastosfieldorder("id_sucursal");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>SUCURSAL</th>
+								<th className="text-center">USUARIO</th>
 								<th className="text-center">ORIGEN</th>
+								
 								<th className="pointer text-center" >
 									<span onClick={()=>{setgastosfieldorder("fecha");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>FECHA</span>
 									<br />
@@ -529,11 +531,14 @@ export default function Gastos({
 										:null}
 										{/* {e.beneficiario?" / "+e.beneficiario.nominanombre:null} */}
 									</td>
+									<td className="text-center">
+										{e.usuario?e.usuario.nombre:null}
+									</td>
 									<td className="text-center w-10">
 										{e.pago_efectivo?"EFECTIVO":""}
 										{e.pago_banco?"BANCO":""}
 										<br />
-										{e.origen==2? <b>ADMINISTRACIÓN</b> :"SUCURSAL"}
+										<b>{e.origen==2? "ADMINISTRACIÓN" :"SUCURSAL"}</b>
 									</td>
 									<td className="text-center w-10">
 										<b>{e.fecha}</b>

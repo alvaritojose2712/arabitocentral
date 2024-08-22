@@ -548,7 +548,7 @@ class PuntosybiopagosController extends Controller
             return $q;
         });
 
-        $p =  puntosybiopagos::with(["sucursal","beneficiario","cat"])
+        $p =  puntosybiopagos::with(["sucursal","beneficiario","cat","usuario"])
         ->where("origen", 2)
         ->when($gastosQ,function($q) use ($gastosQ){
             $q->where(function($q) use ($gastosQ) {

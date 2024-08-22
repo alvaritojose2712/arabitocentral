@@ -14940,6 +14940,9 @@ function Gastos(_ref) {
               children: "SUCURSAL"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
               className: "text-center",
+              children: "USUARIO"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
+              className: "text-center",
               children: "ORIGEN"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("th", {
               className: "pointer text-center",
@@ -15006,11 +15009,14 @@ function Gastos(_ref) {
                     children: e.sucursal.codigo
                   })
                 }) : null
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                className: "text-center",
+                children: e.usuario ? e.usuario.nombre : null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("td", {
                 className: "text-center w-10",
-                children: [e.pago_efectivo ? "EFECTIVO" : "", e.pago_banco ? "BANCO" : "", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), e.origen == 2 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("b", {
-                  children: "ADMINISTRACI\xD3N"
-                }) : "SUCURSAL"]
+                children: [e.pago_efectivo ? "EFECTIVO" : "", e.pago_banco ? "BANCO" : "", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("b", {
+                  children: e.origen == 2 ? "ADMINISTRACIÓN" : "SUCURSAL"
+                })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("td", {
                 className: "text-center w-10",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("b", {
