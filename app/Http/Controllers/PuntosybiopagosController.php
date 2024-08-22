@@ -80,6 +80,7 @@ class PuntosybiopagosController extends Controller
                 ],[
                     "loteserial" => $liquidado->loteserial." COMISION POS",
                     "banco" => $liquidado->banco,
+                    "id_banco" => $liquidado->id_banco,
                     "fecha" => $liquidado->fecha,
                     "fecha_liquidacion" => $liquidado->fecha_liquidacion,
                     "monto" => $comision_monto,
