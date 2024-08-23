@@ -282,8 +282,12 @@ class PuntosybiopagosController extends Controller
             "gastosQsucursal" => $gastosQsucursal,
         ]);
 
-        $distribucionGastosCat = collect($all["data"])->groupBy("categoria");
-        $distribucionGastosSucursal = collect($all["data"])->groupBy(["id_sucursal","categoria"]);
+        $fil = array_filter($all["data"],function($q) {
+            return $q["cat"]["catgeneral"]==2||$q["cat"]["catgeneral"]==3;
+        });
+
+        $distribucionGastosCat = collect($fil)->groupBy("categoria");
+        $distribucionGastosSucursal = collect($fil)->groupBy(["id_sucursal","categoria"]);
 
         $distribucionGastosCatMod = [];
         $distribucionGastosSucursalMod = [];
