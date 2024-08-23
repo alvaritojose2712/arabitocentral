@@ -82384,34 +82384,36 @@ function Home() {
     });
   };
   var saveNewGasto = function saveNewGasto() {
-    if (gastosDescripcion && gastosCategoria && gastosBanco && gastosFecha && gastosMonto && gastosTasa) {
-      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].saveNewGasto({
-        gastosDescripcion: gastosDescripcion,
-        gastosCategoria: gastosCategoria,
-        gastosBeneficiario: gastosBeneficiario,
-        gastosFecha: gastosFecha,
-        gastosBanco: gastosBanco,
-        controlefecNewMontoMoneda: controlefecNewMontoMoneda,
-        gastosBancoDivisaDestino: gastosBancoDivisaDestino,
-        gastosMonto: removeMoneda(gastosMonto),
-        gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
-        gastosTasa: gastosTasa,
-        selectIdGastos: selectIdGastos,
-        modeMoneda: modeMoneda,
-        modeEjecutor: modeEjecutor,
-        listBeneficiario: listBeneficiario,
-        iscomisiongasto: iscomisiongasto,
-        comisionpagomovilinterban: comisionpagomovilinterban
-      }).then(function (res) {
-        if (res.data.estado) {
-          /* getGastos()
-          getMovBancos() */
-          setNewGastosInput();
-        }
-        notificar(res.data.msj);
-      });
-    } else {
-      alert("Campos Vacíos");
+    if (confirm("Confirme")) {
+      if (gastosDescripcion && gastosCategoria && gastosBanco && gastosFecha && gastosMonto && gastosTasa) {
+        _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].saveNewGasto({
+          gastosDescripcion: gastosDescripcion,
+          gastosCategoria: gastosCategoria,
+          gastosBeneficiario: gastosBeneficiario,
+          gastosFecha: gastosFecha,
+          gastosBanco: gastosBanco,
+          controlefecNewMontoMoneda: controlefecNewMontoMoneda,
+          gastosBancoDivisaDestino: gastosBancoDivisaDestino,
+          gastosMonto: removeMoneda(gastosMonto),
+          gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
+          gastosTasa: gastosTasa,
+          selectIdGastos: selectIdGastos,
+          modeMoneda: modeMoneda,
+          modeEjecutor: modeEjecutor,
+          listBeneficiario: listBeneficiario,
+          iscomisiongasto: iscomisiongasto,
+          comisionpagomovilinterban: comisionpagomovilinterban
+        }).then(function (res) {
+          if (res.data.estado) {
+            /* getGastos()
+            getMovBancos() */
+            setNewGastosInput();
+          }
+          notificar(res.data.msj);
+        });
+      } else {
+        alert("Campos Vacíos");
+      }
     }
   };
   var getGastosDistribucion = function getGastosDistribucion() {

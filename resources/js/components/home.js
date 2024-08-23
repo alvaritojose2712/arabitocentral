@@ -4333,44 +4333,47 @@ function formatAmount( number, simbol ) {
     })
   }
   const saveNewGasto = () => {
-    if (
-      gastosDescripcion && 
-      gastosCategoria &&
-      gastosBanco &&
-      gastosFecha &&
-      gastosMonto && 
-      gastosTasa
-    ) {
-      db.saveNewGasto({
-        gastosDescripcion,
-        gastosCategoria,
-        gastosBeneficiario,
-        gastosFecha,
-        gastosBanco,
-        controlefecNewMontoMoneda,
-        gastosBancoDivisaDestino,
-        gastosMonto: removeMoneda(gastosMonto),
-        gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
-        gastosTasa:(gastosTasa),
-        selectIdGastos,
-        modeMoneda,
-        modeEjecutor,
-        listBeneficiario,
-
-        iscomisiongasto,
-        comisionpagomovilinterban,
-      }).then(res=>{
-        if (res.data.estado) {
-          /* getGastos()
-          getMovBancos() */
-          setNewGastosInput()
-          
-        }
-        notificar(res.data.msj)
-      })
-    }else{
-      alert("Campos Vacíos")
+    if (confirm("Confirme")) {
+      if (
+        gastosDescripcion && 
+        gastosCategoria &&
+        gastosBanco &&
+        gastosFecha &&
+        gastosMonto && 
+        gastosTasa
+      ) {
+        db.saveNewGasto({
+          gastosDescripcion,
+          gastosCategoria,
+          gastosBeneficiario,
+          gastosFecha,
+          gastosBanco,
+          controlefecNewMontoMoneda,
+          gastosBancoDivisaDestino,
+          gastosMonto: removeMoneda(gastosMonto),
+          gastosMonto_dolar: removeMoneda(gastosMonto_dolar),
+          gastosTasa:(gastosTasa),
+          selectIdGastos,
+          modeMoneda,
+          modeEjecutor,
+          listBeneficiario,
+  
+          iscomisiongasto,
+          comisionpagomovilinterban,
+        }).then(res=>{
+          if (res.data.estado) {
+            /* getGastos()
+            getMovBancos() */
+            setNewGastosInput()
+            
+          }
+          notificar(res.data.msj)
+        })
+      }else{
+        alert("Campos Vacíos")
+      }
     }
+
   }
   const getGastosDistribucion = () => {
     db.getGastosDistribucion({

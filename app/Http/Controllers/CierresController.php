@@ -1418,11 +1418,58 @@ class CierresController extends Controller
             $bs = $tasas->tasa;
             $cop = $tasas->tasacop;
 
-            $montobsReal1 = $this->dividir($pagoProveedorBancoVal["montobs1"], $bs);
-            $montobsReal2 = $this->dividir($pagoProveedorBancoVal["montobs2"], $bs);
-            $montobsReal3 = $this->dividir($pagoProveedorBancoVal["montobs3"], $bs);
-            $montobsReal4 = $this->dividir($pagoProveedorBancoVal["montobs4"], $bs);
-            $montobsReal5 = $this->dividir($pagoProveedorBancoVal["montobs5"], $bs);
+            
+            $bs1 = 1;
+            $bs2 = 1;
+            $bs3 = 1;
+            $bs4 = 1;
+            $bs5 = 1;
+            $id_metodobs1 = bancos_list::find($pagoProveedorBancoVal["id_metodobs1"]);
+            if ($id_metodobs1) {
+                if ($id_metodobs1->moneda=="bs") {
+                    $bs1 = $bs;
+                }else{
+                    $bs1 = 1;
+                }
+            } 
+            $id_metodobs2 = bancos_list::find($pagoProveedorBancoVal["id_metodobs2"]);
+            if ($id_metodobs2) {
+                if ($id_metodobs2->moneda=="bs") {
+                    $bs2 = $bs;
+                }else{
+                    $bs2 = 1;
+                }
+            } 
+            $id_metodobs3 = bancos_list::find($pagoProveedorBancoVal["id_metodobs3"]);
+            if ($id_metodobs3) {
+                if ($id_metodobs3->moneda=="bs") {
+                    $bs3 = $bs;
+                }else{
+                    $bs3 = 1;
+                }
+            } 
+            $id_metodobs4 = bancos_list::find($pagoProveedorBancoVal["id_metodobs4"]);
+            if ($id_metodobs4) {
+                if ($id_metodobs4->moneda=="bs") {
+                    $bs4 = $bs;
+                }else{
+                    $bs4 = 1;
+                }
+            } 
+            $id_metodobs5 = bancos_list::find($pagoProveedorBancoVal["id_metodobs5"]);
+            if ($id_metodobs5) {
+                if ($id_metodobs5->moneda=="bs") {
+                    $bs5 = $bs;
+                }else{
+                    $bs5 = 1;
+                }
+            } 
+
+            $montobsReal1 = $this->dividir($pagoProveedorBancoVal["montobs1"], $bs1);
+            $montobsReal2 = $this->dividir($pagoProveedorBancoVal["montobs2"], $bs2);
+            $montobsReal3 = $this->dividir($pagoProveedorBancoVal["montobs3"], $bs3);
+            $montobsReal4 = $this->dividir($pagoProveedorBancoVal["montobs4"], $bs4);
+            $montobsReal5 = $this->dividir($pagoProveedorBancoVal["montobs5"], $bs5);
             $sumPagoProveedorBancoReal += $montobsReal1+$montobsReal2+$montobsReal3+$montobsReal4+$montobsReal5;
         }
         $pagoProveedorBruto = abs($sumPagoProveedorBancoReal) + abs($sumPagoProveedorEfectivo);
