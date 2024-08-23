@@ -1137,7 +1137,7 @@ class CierresController extends Controller
             "gastosorder"=>"desc",
             "gastosfieldorder"=>"variable_fijo",
         ])["data"],function($filter) {
-            return $filter["cat"]["id"]!=40; //No es PAGO A PROVEEDOR
+            return $filter["cat"]["id"]!=40 && ($filter["cat"]["catgeneral"]==2||$filter["cat"]["catgeneral"]==3); //No es PAGO A PROVEEDOR
         });
         foreach ($gastosFun as $gastoi => $gasto) {
             $ingresoegreso_key = $gasto["ingreso_egreso"];
