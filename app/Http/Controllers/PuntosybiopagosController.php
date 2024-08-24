@@ -3904,7 +3904,7 @@ class PuntosybiopagosController extends Controller
             $cat = $tipo=="PUNTO"?"DEBITO":null;
 
 
-            $loteSql = puntosybiopagos::updateOrCreate([
+            /* $loteSql = puntosybiopagos::updateOrCreate([
                 "id" => null
             ], [
                 "id_usuario" => 1,
@@ -3916,9 +3916,9 @@ class PuntosybiopagosController extends Controller
                 "banco" => $banco,
                 "id_banco" => $id_banco,
                 "debito_credito" => $cat,
-                "fecha_liquidacion" => /* $e["tipo"]=="Transferencia"? $e["fecha"]: */ null,
-                "monto_liquidado" => /* $e["tipo"]=="Transferencia"? $e["monto"]: */ null,
-            ]);
+                "fecha_liquidacion" => null,
+                "monto_liquidado" => null,
+            ]); */
         }
     }
 }
