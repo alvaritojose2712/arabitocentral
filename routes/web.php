@@ -83,6 +83,8 @@ use App\Models\catcajas;
 
 Route::post('login', [home::class,"login"]);
 
+
+Route::get('setmovsjunio', [PuntosybiopagosController::class,"setmovsjunio"]);
 Route::get('logout', [home::class,"logout"]);
 
 Route::post('verificarLogin', [home::class,"verificarLogin"]);

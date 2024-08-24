@@ -1304,10 +1304,10 @@ class CierresController extends Controller
         $inventario = $cierreData["sum"]["inventariobase_clean"];
         
         $efectivo = $cierreData["sum"]["efectivo_clean"];
-        $debito = ($cierreData["sum"]["debito_clean"])/* +$debitoAntesPrimerDia-$debitoUltimoDia */;
-        $biopago = $cierreData["sum"]["biopago_clean"]/* +$biopagoAntesPrimerDia-$biopagoUltimoDia */;
+        $debito = ($cierreData["sum"]["debito_clean"])+$debitoAntesPrimerDia-$debitoUltimoDia;
+        $biopago = $cierreData["sum"]["biopago_clean"]+$biopagoAntesPrimerDia-$biopagoUltimoDia;
         $transferencia = $cierreData["sum"]["transferencia_clean"];
-        $total = $cierreData["sum"]["total_clean"]/* +($debitoAntesPrimerDia-$debitoUltimoDia)+($biopagoAntesPrimerDia-$biopagoUltimoDia) */;
+        $total = $cierreData["sum"]["total_clean"]+($debitoAntesPrimerDia-$debitoUltimoDia)+($biopagoAntesPrimerDia-$biopagoUltimoDia);
         $ganancia = $cierreData["sum"]["ganancia_clean"];
         
         
@@ -1556,7 +1556,7 @@ class CierresController extends Controller
                 $bs = $tasas->tasa;
                 $cop = $tasas->tasacop;
 
-                $b = bancos::where("id_banco",$banco->id)->where("fecha","<=",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
+                $b = bancos::where("id_banco",$banco->id)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
 
                 $ban = (new BancosController)->bancosDataFun([
                     "qdescripcionbancosdata" => "",
@@ -1580,7 +1580,7 @@ class CierresController extends Controller
 
 
 
-                $saldo = $b?$b->saldo_real_manual-$pun:0;
+                $saldo = $b?$b->saldo_real_manual/* -$pun */:0;
                 $fecha = $b?$b->fecha:"";
 
                 array_push($caja_inicial_banco, [
@@ -1661,7 +1661,7 @@ class CierresController extends Controller
                 $bs = $tasas->tasa;
                 $cop = $tasas->tasacop;
 
-                $b = bancos::where("id_banco",$banco->id)->where("fecha","<=",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
+                $b = bancos::where("id_banco",$banco->id)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
                 
 
                 $ban = (new BancosController)->bancosDataFun([
@@ -1682,7 +1682,7 @@ class CierresController extends Controller
                 $negativo = count($ban)?$ban[0]["egreso"]:0;
                 $pun = abs($positivo)-abs($negativo);
 
-                $saldo = $b?$b->saldo_real_manual-$pun:0;
+                $saldo = $b?$b->saldo_real_manual/* -$pun */:0;
                 $fecha = $b?$b->fecha:"";
                 
                 array_push($caja_actual_banco, [
