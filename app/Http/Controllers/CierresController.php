@@ -1558,14 +1558,36 @@ class CierresController extends Controller
 
                 $b = bancos::where("id_banco",$banco->id)->where("fecha","<=",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
 
-                $positivo = puntosybiopagos::where("id_banco",$banco->id)->where("fecha_liquidacion",$fechaBalanceGeneral)->where("monto_liquidado",">","0")->sum("monto_liquidado");
-                $negativo = puntosybiopagos::where("id_banco",$banco->id)->where("fecha_liquidacion",$fechaBalanceGeneral)->where("monto_liquidado","<","0")->sum("monto_liquidado");
-                $pun = $positivo-$negativo;
+                $ban = (new BancosController)->bancosDataFun([
+                    "qdescripcionbancosdata" => "",
+                    "qbancobancosdata" => $banco->id,
+                    "qfechabancosdata" => $fechaBalanceGeneral,
+                    "fechaHastaSelectAuditoria" => $fechaBalanceGeneral,
+                    "sucursalSelectAuditoria" => "",
+                    "subviewAuditoria" => "cuadre",
+                    "columnOrder" => "monto",
+                    "order" => "desc",
+                    "tipoSelectAuditoria" => "",
+                    "showallSelectAuditoria" => false,
+                    "ingegreSelectAuditoria" => "",
+                ])["xfechaCuadre"];
+
+                $positivo = count($ban)?$ban[0]["ingreso"]:0;
+                $negativo = count($ban)?$ban[0]["egreso"]:0;
+                
+                
+                $pun = abs($positivo)-abs($negativo);
+
+
 
                 $saldo = $b?$b->saldo_real_manual-$pun:0;
                 $fecha = $b?$b->fecha:"";
 
                 array_push($caja_inicial_banco, [
+                    "ban" => $ban,
+                    "positivo" => $positivo,
+                    "negativo" => $negativo,
+                    "realmanual" => $b?$b->saldo_real_manual:0,
                     "fecha" => $fecha,
                     "banco"=> $banco->codigo,
                     "saldo" => $banco->moneda=="dolar"? 0: $saldo,
@@ -1642,10 +1664,23 @@ class CierresController extends Controller
                 $b = bancos::where("id_banco",$banco->id)->where("fecha","<=",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
                 
 
-                $positivo = puntosybiopagos::where("id_banco",$banco->id)->where("fecha_liquidacion",$fechaBalanceGeneral)->where("monto_liquidado",">","0")->sum("monto_liquidado");
-                $negativo = puntosybiopagos::where("id_banco",$banco->id)->where("fecha_liquidacion",$fechaBalanceGeneral)->where("monto_liquidado","<","0")->sum("monto_liquidado");
-                $pun = $positivo-$negativo;
+                $ban = (new BancosController)->bancosDataFun([
+                    "qdescripcionbancosdata" => "",
+                    "qbancobancosdata" => $banco->id,
+                    "qfechabancosdata" => $fechaBalanceGeneral,
+                    "fechaHastaSelectAuditoria" => $fechaBalanceGeneral,
+                    "sucursalSelectAuditoria" => "",
+                    "subviewAuditoria" => "cuadre",
+                    "columnOrder" => "monto",
+                    "order" => "desc",
+                    "tipoSelectAuditoria" => "",
+                    "showallSelectAuditoria" => false,
+                    "ingegreSelectAuditoria" => "",
+                ])["xfechaCuadre"];
 
+                $positivo = count($ban)?$ban[0]["ingreso"]:0;
+                $negativo = count($ban)?$ban[0]["egreso"]:0;
+                $pun = abs($positivo)-abs($negativo);
 
                 $saldo = $b?$b->saldo_real_manual-$pun:0;
                 $fecha = $b?$b->fecha:"";
@@ -1662,7 +1697,7 @@ class CierresController extends Controller
 
             $matriz = cajas::where("id_sucursal",13)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
 
-            $sum_caja_actual += $matriz->dolarbalance;
+            $sum_caja_actual += $matriz?$matriz->dolarbalance:0;
             $total_caja_actual = $sum_caja_actual+$sum_caja_actual_banco_dolar;
         /// END CAJA ACTUAL
 
