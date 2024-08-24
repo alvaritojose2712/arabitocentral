@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\catcajas;
 ini_set('memory_limit', '4095M');
 set_time_limit(60000000);
 
@@ -1557,7 +1558,7 @@ class CierresController extends Controller
 
                 $b = bancos::where("id_banco",$banco->id)->where("fecha","<=",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
 
-                $pun = puntosybiopagos::where("id_banco",$banco->id)->where("fecha",$fechaBalanceGeneral)->sum("monto");
+                $pun = puntosybiopagos::where("id_banco",$banco->id)->whereIn("categoria",catcajas::whereIn("catgeneral",[1,2,3])->select("id"))->where("fecha",$fechaBalanceGeneral)->sum("monto");
 
 
                 $saldo = $b?$b->saldo_real_manual-$pun:0;
@@ -1637,8 +1638,10 @@ class CierresController extends Controller
                 $bs = $tasas->tasa;
                 $cop = $tasas->tasacop;
 
-                $b = bancos::where("id_banco",$banco->id)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
-                $saldo = $b?$b->saldo_real_manual:0;
+                $b = bancos::where("id_banco",$banco->id)->where("fecha","<=",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
+                $pun = puntosybiopagos::where("id_banco",$banco->id)->whereIn("categoria",catcajas::whereIn("catgeneral",[1,2,3])->select("id"))->where("fecha",$fechaBalanceGeneral)->sum("monto");
+
+                $saldo = $b?$b->saldo_real_manual-$pun:0;
                 $fecha = $b?$b->fecha:"";
                 
                 array_push($caja_actual_banco, [
