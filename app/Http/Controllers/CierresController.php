@@ -1558,7 +1558,7 @@ class CierresController extends Controller
 
                 $b = bancos::where("id_banco",$banco->id)->where("fecha","<=",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
 
-                $pun = puntosybiopagos::where("id_banco",$banco->id)->whereIn("categoria",catcajas::whereIn("catgeneral",[1,2,3])->select("id"))->where("fecha",$fechaBalanceGeneral)->sum("monto");
+                $pun = puntosybiopagos::where("id_banco",$banco->id)->whereIn("categoria",catcajas::whereIn("catgeneral",[1,2,3,9])->select("id"))->where("fecha",$fechaBalanceGeneral)->sum("monto");
 
 
                 $saldo = $b?$b->saldo_real_manual-$pun:0;
