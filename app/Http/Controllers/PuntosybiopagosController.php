@@ -582,6 +582,10 @@ class PuntosybiopagosController extends Controller
             
             $q->bs = $bs;
             $q->sum = $monto_dolar+$bs;
+
+            if ($q->id_beneficiario) {
+                $q->id_sucursal = $q->beneficiario->nominasucursal;
+            }
             
             $q->montodolar = $monto_dolar+$bs;
             $q->ingreso_egreso = $q->cat->ingreso_egreso;
