@@ -1303,10 +1303,10 @@ class CierresController extends Controller
         $inventario = $cierreData["sum"]["inventariobase_clean"];
         
         $efectivo = $cierreData["sum"]["efectivo_clean"];
-        $debito = ($cierreData["sum"]["debito_clean"])+$debitoAntesPrimerDia-$debitoUltimoDia;
-        $biopago = $cierreData["sum"]["biopago_clean"]+$biopagoAntesPrimerDia-$biopagoUltimoDia;
+        $debito = ($cierreData["sum"]["debito_clean"])/* +$debitoAntesPrimerDia-$debitoUltimoDia */;
+        $biopago = $cierreData["sum"]["biopago_clean"]/* +$biopagoAntesPrimerDia-$biopagoUltimoDia */;
         $transferencia = $cierreData["sum"]["transferencia_clean"];
-        $total = $cierreData["sum"]["total_clean"]+($debitoAntesPrimerDia-$debitoUltimoDia)+($biopagoAntesPrimerDia-$biopagoUltimoDia);
+        $total = $cierreData["sum"]["total_clean"]/* +($debitoAntesPrimerDia-$debitoUltimoDia)+($biopagoAntesPrimerDia-$biopagoUltimoDia) */;
         $ganancia = $cierreData["sum"]["ganancia_clean"];
         
         
