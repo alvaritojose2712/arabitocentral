@@ -988,7 +988,7 @@ class PuntosybiopagosController extends Controller
     }
 
     function setmovsjunio() {
-      $arr = [
+      /* $arr = [
             ["achaguas","3","2024-06-27","0134","5","0901 (DEBITO)","20860.11","PUNTO"],
                 ["achaguas","3","2024-06-27","0134","5","0901 (CREDITO)","252.00","PUNTO"],
                 ["achaguas","3","2024-06-27","0108","3","178 (DEBITO)","16685.13","PUNTO"],
@@ -2309,7 +2309,6 @@ class PuntosybiopagosController extends Controller
                 ["sanfernando3","15","2024-06-28","0108","3","04127789686","214.76","Transferencia"],
                 ["sanfernando3","15","2024-06-28","0108","3","04164171526","309.40","Transferencia"],
                 ["sanfernando3","15","2024-06-29","0134","5","0086 (DEBITO)","53605.82","PUNTO"],
-                ["sanfernando3","15","2024-06-29","0134","5","0025 (DEBITO)","62426.91","PUNTO"],
                 ["sanfernando3","15","2024-06-29","0134","5","0025 (DEBITO)","23549.18","PUNTO"],
                 ["sanfernando3","15","2024-06-29","0134","5","0025 (CREDITO)","415.42","PUNTO"],
                 ["sanfernando3","15","2024-06-29","0134","5","000252 (DEBITO)","31615.79","PUNTO"],
@@ -3890,17 +3889,46 @@ class PuntosybiopagosController extends Controller
                 ["valledelapascua2","10","2024-07-02","0102","2","5964","218.70","Transferencia"],
                 ["valledelapascua2","10","2024-07-02","0102","2","9820","7446.74","Transferencia"],
         ];
+ */
 
-        /* $arr = [
-            ["sanjuandelosmorros2","16","2024-06-29","0134","3","0056 (DEBITO)","86366.39","PUNTO"],
-            ["sanjuandelosmorros2","16","2024-06-29","0134","3","0056 (CREDITO)","963.00","PUNTO"],
-            ["sanjuandelosmorros2","16","2024-06-29","0134","3","0056 (DEBITO)","11879.44","PUNTO"],
-            ["sanjuandelosmorros2","16","2024-06-29","0134","3","0056 (CREDITO)","38542.96","PUNTO"],
-            ["sanjuandelosmorros2","16","2024-06-29","0134","3","0054 (CREDITO)","70.00","PUNTO"],
-            ["sanjuandelosmorros2","16","2024-06-29","0134","3","0054 (DEBITO)","67373.34","PUNTO"],
-            ["sanjuandelosmorros2","16","2024-06-29","0151","3","0100 (DEBITO)","73777.51","PUNTO"],
-            ["sanjuandelosmorros2","16","2024-06-29","0151","3","0047 (CREDITO)","291.52","PUNTO"],
-        ]; */
+
+        $arr = [
+            ["guacara", "14","2024-07-01",  "0134",    "5",   "0114",	"43081.16",	"PUNTO"],
+            ["guacara", "14","2024-07-01",  "0134",    "5",   "00116",	"143.03",	"PUNTO"],
+            ["guacara", "14","2024-07-01",  "0134",    "5",   "0114",	"696.01",	"PUNTO"],
+            ["sanfernando1", "6",    "2024-06-29",  "0134",    "5",   "0237 (DEBITO)",	"70246.12",	"PUNTO"],
+            ["sanfernando3", "15",    "2024-06-30",  "0134",    "5",   "0026 (DEBITO)",	"11295.34",	"PUNTO"],
+            ["sanfernando3", "15",    "2024-07-01",  "0134",    "5",   "0027 (DEBITO)",	"122970.89",	"PUNTO"],
+            ["sanfernando3", "15",    "2024-07-02",  "0134",    "5",   "0028 (DEBITO)",	"15526.10",	"PUNTO"],
+            ["sanjuandelosmorros", "11",  "2024-06-27",  "0134",    "5",   "000233 (CREDITO)",	"58593.54",	"PUNTO"],
+            ["sanjuandelosmorros", "11",  "2024-06-27",  "0151",    "8",   "000122 (CREDITO)",	"2475.86",	"PUNTO"],
+            ["sanjuandelosmorros", "11",  "2024-06-28",  "0134",    "5",   "0235 (DEBITO)",	"2849.66",	"PUNTO"],
+            ["sanjuandelosmorros", "11",  "2024-07-01",  "0151",    "8",   "000124 (CREDITO)",	"550.34",	"PUNTO"],
+            ["sanjuandelosmorros", "11",  "2024-07-01",  "0191",    "7",   "0252 (CREDITO)",	"160.70",	"PUNTO"],
+            ["sanjuandelosmorros", "11",  "2024-07-02",  "0151",    "8",   "000125 (CREDITO)",	"641.56",	"PUNTO"],
+            ["sanjuandelosmorros", "11",  "2024-07-02",  "0191",    "7",   "0253 (CREDITO)",	"328.05",	"PUNTO"],
+            ["sanjuandelosmorros", "11",  "2024-07-02",  "0134",    "5",   "0238 (DEBITO)",	"264.26",	"PUNTO"],
+            ["sanjuandelosmorros", "11",  "2024-07-02",  "0134",    "5",   "0238 (CREDITO)",	"431.18",	"PUNTO"],
+            ["sanjuandelosmorros2", "16", "2024-06-27",  "0134",    "5",   "0054 (DEBITO)",	"71124.96",	"PUNTO"],
+            ["sanjuandelosmorros2", "16", "2024-06-30",  "0134",    "5",   "0057",	"30509.98",	"PUNTO"],
+            ["sanjuandelosmorros2", "16", "2024-07-01",  "0134",    "5",   "0058 (DEBITO)",	"67383.73",	"PUNTO"],
+            ["sanjuandelosmorros2", "16", "2024-07-01",  "0134",    "5",   "0059 (CREDITO)",	"5060.15",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-06-27",  "0134",    "5",   "0005 (DEBITO)",	"29350.39",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-06-27",  "0134",    "5",   "0005 (DEBITO)",	"38563.47",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-06-27",  "0134",    "5",   "0005 (DEBITO)",	"34522.19",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-06-27",  "0134",    "5",   "0005 (CREDITO)",	"6864.23",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-06-30",  "0134",    "5",   "0008 (DEBITO)",	"12275.78",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-06-30",  "0134",    "5",   "0008 (CREDITO)",	"12754.08",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-07-01",  "0134",    "5",   "0009 (DEBITO)",	"168.00",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-07-01",  "0134",    "5",   "0009 (CREDITO)",	"41905.99",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-07-01",  "0134",    "5",   "0009 (DEBITO)",	"29486.23",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-07-01",  "0134",    "5",   "0009 (CREDITO)",	"2465.17",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-07-02",  "0134",    "5",   "0010 (DEBITO)",	"33672.99",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-07-02",  "0134",    "5",   "0010 (CREDITO)",	"153.09",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-07-02",  "0134",    "5",   "0010 (DEBITO)",	"119843.40",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-07-02",  "0134",    "5",   "0010 (DEBITO)",	"51759.20",	"PUNTO"],
+            ["tinaquillo", "18",  "2024-07-02",  "0134",    "5",   "0010 (CREDITO)",	"681.62",	"PUNTO"],
+        ]; 
 
 
         
@@ -3925,27 +3953,23 @@ class PuntosybiopagosController extends Controller
             ->whereNotNull("monto_liquidado")
             ->first();
 
-            if (!$check) {
-               /*  puntosybiopagos::updateOrCreate([
-                   "fecha" => $fecha,
-                   "id_sucursal" => $id_origen,
-                   "id_banco" => $id_banco,
-                   "tipo" => $tipo,
-                   "loteserial" => $lote." EXTRAIDO",
+            //if (!$check) {
+               puntosybiopagos::updateOrCreate([
+                   "id" => null
                ], [
                    "id_usuario" => 1,
                    "fecha" => $fecha,
                    "id_sucursal" => $id_origen,
                    "tipo" => $tipo,
-                   "loteserial" => $lote." EXTRAIDO",
+                   "loteserial" => $lote." EXTRAIDO FINAL",
                    "monto" => $monto,
                    "banco" => $banco,
                    "id_banco" => $id_banco,
                    "debito_credito" => $cat,
                    "fecha_liquidacion" => null,
                    "monto_liquidado" => null,
-               ]);  */
-            }
+               ]);  
+           // }
 
 
         }
