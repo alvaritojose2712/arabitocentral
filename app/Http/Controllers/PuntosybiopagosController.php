@@ -988,7 +988,7 @@ class PuntosybiopagosController extends Controller
     }
 
     function setmovsjunio() {
-       /*  $arr = [
+      $arr = [
             ["achaguas","3","2024-06-27","0134","5","0901 (DEBITO)","20860.11","PUNTO"],
                 ["achaguas","3","2024-06-27","0134","5","0901 (CREDITO)","252.00","PUNTO"],
                 ["achaguas","3","2024-06-27","0108","3","178 (DEBITO)","16685.13","PUNTO"],
@@ -3889,9 +3889,9 @@ class PuntosybiopagosController extends Controller
                 ["valledelapascua2","10","2024-07-02","0102","2","6158","911.25","Transferencia"],
                 ["valledelapascua2","10","2024-07-02","0102","2","5964","218.70","Transferencia"],
                 ["valledelapascua2","10","2024-07-02","0102","2","9820","7446.74","Transferencia"],
-        ]; */
+        ];
 
-        $arr = [
+        /* $arr = [
             ["sanjuandelosmorros2","16","2024-06-29","0134","3","0056 (DEBITO)","86366.39","PUNTO"],
             ["sanjuandelosmorros2","16","2024-06-29","0134","3","0056 (CREDITO)","963.00","PUNTO"],
             ["sanjuandelosmorros2","16","2024-06-29","0134","3","0056 (DEBITO)","11879.44","PUNTO"],
@@ -3900,7 +3900,10 @@ class PuntosybiopagosController extends Controller
             ["sanjuandelosmorros2","16","2024-06-29","0134","3","0054 (DEBITO)","67373.34","PUNTO"],
             ["sanjuandelosmorros2","16","2024-06-29","0151","3","0100 (DEBITO)","73777.51","PUNTO"],
             ["sanjuandelosmorros2","16","2024-06-29","0151","3","0047 (CREDITO)","291.52","PUNTO"],
-        ];
+        ]; */
+
+
+        
 
         foreach ($arr as $key => $e) {
             $id_origen = $e[1];
@@ -3912,23 +3915,39 @@ class PuntosybiopagosController extends Controller
             $tipo = $e[7];
 
             $cat = $tipo=="PUNTO"?"DEBITO":null;
+            
+            $check = puntosybiopagos::where("fecha",$fecha)
+            ->where("tipo",$tipo)
+            ->where("loteserial",$lote." EXTRAIDO")
+            ->where("id_banco",$id_banco)
+            ->where("monto",$monto)
+            ->where("banco",$banco)
+            ->whereNotNull("monto_liquidado")
+            ->first();
+
+            if (!$check) {
+                puntosybiopagos::updateOrCreate([
+                   "fecha" => $fecha,
+                   "id_sucursal" => $id_origen,
+                   "id_banco" => $id_banco,
+                   "tipo" => $tipo,
+                   "loteserial" => $lote." EXTRAIDO",
+               ], [
+                   "id_usuario" => 1,
+                   "fecha" => $fecha,
+                   "id_sucursal" => $id_origen,
+                   "tipo" => $tipo,
+                   "loteserial" => $lote." EXTRAIDO",
+                   "monto" => $monto,
+                   "banco" => $banco,
+                   "id_banco" => $id_banco,
+                   "debito_credito" => $cat,
+                   "fecha_liquidacion" => null,
+                   "monto_liquidado" => null,
+               ]); 
+            }
 
 
-             $loteSql = puntosybiopagos::updateOrCreate([
-                "id" => null
-            ], [
-                "id_usuario" => 1,
-                "fecha" => $fecha,
-                "id_sucursal" => $id_origen,
-                "tipo" => $tipo,
-                "loteserial" => $lote." EXTRAIDO",
-                "monto" => $monto,
-                "banco" => $banco,
-                "id_banco" => $id_banco,
-                "debito_credito" => $cat,
-                "fecha_liquidacion" => null,
-                "monto_liquidado" => null,
-            ]); 
         }
     }
 }
