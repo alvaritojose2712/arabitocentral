@@ -3930,16 +3930,13 @@ class PuntosybiopagosController extends Controller
             ["tinaquillo", "18",  "2024-07-02",  "0134",    "5",   "0010 (CREDITO)",	"681.62",	"PUNTO"],
         ];  */
 
+        $arr = [["elorza", "1",  "2024-06-29",  "0134",    "5",   "004 (DEBITO)",	"22371.84",	"PUNTO"],
+        ["elorza", "1",  "2024-06-30",  "0134",    "5",   "005 (DEBITO)",	"7285.69",	"PUNTO"],
+        ["elorza", "1",  "2024-06-28",  "0134",    "5",   "003 (DEBITO)",	"11081.78",	"PUNTO"],
+        ["elsaman", "4",  "2024-06-28",  "0134",    "5",   "0221 (DEBITO)",	"5331.87",	"PUNTO"],];
 
-        $arr = [["sanjuandelosmorros2", "16", "2024-06-30",    "0134", "5",  "0057 (DEBITO) EXTRAIDO FINAL FINAL",   "30509.98","PUNTO"],
-        ["sanjuandelosmorros2", "16", "2024-06-30",    "0134", "5",     "0057 (CREDITO) EXTRAIDO FINAL FINAL",   "252.00","PUNTO"],
-        ["sanjuandelosmorros2", "16", "2024-06-30",    "0134", "5",     "0055 (CREDITO) EXTRAIDO FINAL FINAL",   "182.20","PUNTO"],
-        ["sanjuandelosmorros2", "16", "2024-06-30",    "0134", "5",  "0055 (DEBITO) EXTRAIDO FINAL FINAL",   "24684.92","PUNTO"],
-        ["sanjuandelosmorros2", "16", "2024-06-30",    "0151", "8",  "0101 (DEBITO) EXTRAIDO FINAL FINAL",   "17777.41","PUNTO"],
-        ["sanjuandelosmorros2", "16", "2024-06-30",    "0151", "8",     "0048 (CREDITO) EXTRAIDO FINAL FINAL",   "540.00","PUNTO"],
-        ["sanjuandelosmorros2", "16", "2024-06-30",    "0134", "5",  "0057 (DEBITO) EXTRAIDO FINAL FINAL",   "11465.88","PUNTO"],];
 
-        /* foreach ($arr as $key => $e) {
+        foreach ($arr as $key => $e) {
             $id_origen = $e[1];
             $fecha = $e[2];
             $banco = $e[3];
