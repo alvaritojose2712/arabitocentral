@@ -3892,7 +3892,7 @@ class PuntosybiopagosController extends Controller
  */
 
 
-        $arr = [
+       /*  $arr = [
             ["guacara", "14","2024-07-01",  "0134",    "5",   "0114",	"43081.16",	"PUNTO"],
             ["guacara", "14","2024-07-01",  "0134",    "5",   "00116",	"143.03",	"PUNTO"],
             ["guacara", "14","2024-07-01",  "0134",    "5",   "0114",	"696.01",	"PUNTO"],
@@ -3928,12 +3928,12 @@ class PuntosybiopagosController extends Controller
             ["tinaquillo", "18",  "2024-07-02",  "0134",    "5",   "0010 (DEBITO)",	"119843.40",	"PUNTO"],
             ["tinaquillo", "18",  "2024-07-02",  "0134",    "5",   "0010 (DEBITO)",	"51759.20",	"PUNTO"],
             ["tinaquillo", "18",  "2024-07-02",  "0134",    "5",   "0010 (CREDITO)",	"681.62",	"PUNTO"],
-        ]; 
+        ];  */
 
 
         
 
-        foreach ($arr as $key => $e) {
+        /* foreach ($arr as $key => $e) {
             $id_origen = $e[1];
             $fecha = $e[2];
             $banco = $e[3];
@@ -3972,6 +3972,6 @@ class PuntosybiopagosController extends Controller
            // }
 
 
-        }
+        } */
     }
 }
