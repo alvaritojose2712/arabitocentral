@@ -3931,9 +3931,15 @@ class PuntosybiopagosController extends Controller
         ];  */
 
 
-        
+        $arr = [["sanjuandelosmorros2", "16", "2024-06-30",    "0134", "5",  "0057 (DEBITO) EXTRAIDO FINAL FINAL",   "30509.98","PUNTO"],
+        ["sanjuandelosmorros2", "16", "2024-06-30",    "0134", "5",     "0057 (CREDITO) EXTRAIDO FINAL FINAL",   "252.00","PUNTO"],
+        ["sanjuandelosmorros2", "16", "2024-06-30",    "0134", "5",     "0055 (CREDITO) EXTRAIDO FINAL FINAL",   "182.20","PUNTO"],
+        ["sanjuandelosmorros2", "16", "2024-06-30",    "0134", "5",  "0055 (DEBITO) EXTRAIDO FINAL FINAL",   "24684.92","PUNTO"],
+        ["sanjuandelosmorros2", "16", "2024-06-30",    "0151", "8",  "0101 (DEBITO) EXTRAIDO FINAL FINAL",   "17777.41","PUNTO"],
+        ["sanjuandelosmorros2", "16", "2024-06-30",    "0151", "8",     "0048 (CREDITO) EXTRAIDO FINAL FINAL",   "540.00","PUNTO"],
+        ["sanjuandelosmorros2", "16", "2024-06-30",    "0134", "5",  "0057 (DEBITO) EXTRAIDO FINAL FINAL",   "11465.88","PUNTO"],];
 
-        /* foreach ($arr as $key => $e) {
+        foreach ($arr as $key => $e) {
             $id_origen = $e[1];
             $fecha = $e[2];
             $banco = $e[3];
@@ -3961,7 +3967,7 @@ class PuntosybiopagosController extends Controller
                    "fecha" => $fecha,
                    "id_sucursal" => $id_origen,
                    "tipo" => $tipo,
-                   "loteserial" => $lote." EXTRAIDO FINAL",
+                   "loteserial" => $lote."",
                    "monto" => $monto,
                    "banco" => $banco,
                    "id_banco" => $id_banco,
@@ -3972,6 +3978,6 @@ class PuntosybiopagosController extends Controller
            // }
 
 
-        } */
+        } 
     }
 }
