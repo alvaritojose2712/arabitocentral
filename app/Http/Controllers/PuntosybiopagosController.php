@@ -3926,7 +3926,7 @@ class PuntosybiopagosController extends Controller
             ->first();
 
             if (!$check) {
-                puntosybiopagos::updateOrCreate([
+               /*  puntosybiopagos::updateOrCreate([
                    "fecha" => $fecha,
                    "id_sucursal" => $id_origen,
                    "id_banco" => $id_banco,
@@ -3944,7 +3944,7 @@ class PuntosybiopagosController extends Controller
                    "debito_credito" => $cat,
                    "fecha_liquidacion" => null,
                    "monto_liquidado" => null,
-               ]); 
+               ]);  */
             }
 
 
