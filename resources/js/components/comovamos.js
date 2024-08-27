@@ -375,6 +375,7 @@ export default function ComoVamos({
                                                                 <td>{e.banco}</td>
                                                                 <td>{moneda(e.saldo)}</td>
                                                                 <td className="text-success">{moneda(e.saldo_dolar)}</td>
+                                                                <td className="text-sinapsis">{moneda(e.puntos_liquidados)}</td>
                                                             </tr>
                                                         ):null}
                                                     </tbody>
