@@ -3936,7 +3936,7 @@ class PuntosybiopagosController extends Controller
         ["elsaman", "4",  "2024-06-28",  "0134",    "5",   "0221 (DEBITO)",	"5331.87",	"PUNTO"],]; */
 
 
-        foreach ($arr as $key => $e) {
+       /*  foreach ($arr as $key => $e) {
             $id_origen = $e[1];
             $fecha = $e[2];
             $banco = $e[3];
@@ -3975,6 +3975,6 @@ class PuntosybiopagosController extends Controller
            // }
 
 
-        } 
+        }  */
     }
 }
