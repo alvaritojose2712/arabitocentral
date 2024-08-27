@@ -1682,7 +1682,7 @@ class CierresController extends Controller
                 $positivo = count($ban)?$ban[0]["ingreso"]:0;
                 $negativo = count($ban)?$ban[0]["egreso"]:0;
                 $pun = abs($positivo)-abs($negativo); */
-                $puntos = puntosybiopagos::where("fecha_liquidacion",$fechaBalanceGeneral)->where("id_banco",$banco->id)->where("tipo","LIKE","%PUNTO%")->sum("monto_liquidado");
+                $puntos = puntosybiopagos::where("fecha_liquidacion",$fechaParaCajaActual)->where("id_banco",$banco->id)->where("tipo","LIKE","%PUNTO%")->sum("monto_liquidado");
 
 
                 $saldo = $b?$b->saldo_real_manual + $puntos :0;
