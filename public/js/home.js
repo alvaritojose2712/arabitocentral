@@ -7681,6 +7681,9 @@ function ComoVamos(_ref) {
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                               className: "text-success",
                               children: moneda(e.saldo_dolar)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              className: "text-sinapsis",
+                              children: moneda(e.puntos_liquidados)
                             })]
                           });
                         }) : null
