@@ -1558,7 +1558,7 @@ class CierresController extends Controller
 
                 $b = bancos::where("id_banco",$banco->id)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
 
-                $ban = (new BancosController)->bancosDataFun([
+                /* $ban = (new BancosController)->bancosDataFun([
                     "qdescripcionbancosdata" => "",
                     "qbancobancosdata" => $banco->id,
                     "qfechabancosdata" => $fechaBalanceGeneral,
@@ -1576,11 +1576,11 @@ class CierresController extends Controller
                 $negativo = count($ban)?$ban[0]["egreso"]:0;
                 
                 
-                $pun = abs($positivo)-abs($negativo);
+                $pun = abs($positivo)-abs($negativo); */
 
 
-
-                $saldo = $b?$b->saldo_real_manual/* -$pun */:0;
+                $puntos = puntosybiopagos::where("fecha_liquidacion",$fechaBalanceGeneral)->where("id_banco",$banco->id)->where("tipo","LIKE","PUNTO")->sum("monto_liquidado");
+                $saldo = $b?$b->saldo_real_manual +$puntos :0;
                 $fecha = $b?$b->fecha:"";
 
                 array_push($caja_inicial_banco, [
@@ -1588,6 +1588,7 @@ class CierresController extends Controller
                     "positivo" => $positivo,
                     "negativo" => $negativo,
                     "realmanual" => $b?$b->saldo_real_manual:0,
+                    "puntos_liquidados" => $puntos,
                     "fecha" => $fecha,
                     "banco"=> $banco->codigo,
                     "saldo" => $banco->moneda=="dolar"? 0: $saldo,
@@ -1664,7 +1665,7 @@ class CierresController extends Controller
                 $b = bancos::where("id_banco",$banco->id)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
                 
 
-                $ban = (new BancosController)->bancosDataFun([
+                /* $ban = (new BancosController)->bancosDataFun([
                     "qdescripcionbancosdata" => "",
                     "qbancobancosdata" => $banco->id,
                     "qfechabancosdata" => $fechaBalanceGeneral,
@@ -1680,14 +1681,17 @@ class CierresController extends Controller
 
                 $positivo = count($ban)?$ban[0]["ingreso"]:0;
                 $negativo = count($ban)?$ban[0]["egreso"]:0;
-                $pun = abs($positivo)-abs($negativo);
+                $pun = abs($positivo)-abs($negativo); */
+                $puntos = puntosybiopagos::where("fecha_liquidacion",$fechaBalanceGeneral)->where("id_banco",$banco->id)->where("tipo","LIKE","PUNTO")->sum("monto_liquidado");
 
-                $saldo = $b?$b->saldo_real_manual/* -$pun */:0;
+
+                $saldo = $b?$b->saldo_real_manual + $puntos :0;
                 $fecha = $b?$b->fecha:"";
                 
                 array_push($caja_actual_banco, [
                     "fecha" => $fecha,
                     "banco"=> $banco->codigo,
+                    "puntos_liquidados" => $puntos,
                     "saldo" => $banco->moneda=="dolar"? 0: $saldo,
                     "saldo_dolar" => $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs),
                 ]);
