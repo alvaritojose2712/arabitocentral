@@ -1584,7 +1584,7 @@ class CierresController extends Controller
                 $fecha = $b?$b->fecha:"";
 
                 array_push($caja_inicial_banco, [
-                    "ban" => $ban,
+                    //"ban" => $ban,
                     "positivo" => $positivo,
                     "negativo" => $negativo,
                     "realmanual" => $b?$b->saldo_real_manual:0,
