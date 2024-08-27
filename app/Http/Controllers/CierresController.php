@@ -1585,8 +1585,8 @@ class CierresController extends Controller
 
                 array_push($caja_inicial_banco, [
                     //"ban" => $ban,
-                    "positivo" => $positivo,
-                    "negativo" => $negativo,
+                    /* "positivo" => $positivo,
+                    "negativo" => $negativo, */
                     "realmanual" => $b?$b->saldo_real_manual:0,
                     "puntos_liquidados" => $puntos,
                     "fecha" => $fecha,
