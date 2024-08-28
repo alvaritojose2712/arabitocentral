@@ -4010,7 +4010,7 @@ function formatAmount( number, simbol ) {
       fecha: inpfechaLiquidar,
     }).then(res=>{
       notificar(res)
-      getBancosData("liquidar")
+      getBancosData("liquidar",true)
       setinpmontoLiquidar("")
       setselectTrLiquidar()
 
@@ -4160,7 +4160,7 @@ function formatAmount( number, simbol ) {
     })
   }
 
-  const getBancosData = (subviewforced=null) => {
+  const getBancosData = (subviewforced=null, recoveryAjuste=false) => {
     if (fechaSelectAuditoria && fechaHastaSelectAuditoria) {
       db.getBancosData({
         fechaSelectAuditoria,
@@ -4180,7 +4180,32 @@ function formatAmount( number, simbol ) {
         setmovimientoAuditoria([])
 
         if (res.data.estado) {
-          setbancosdata(res.data)
+
+          if (recoveryAjuste) {
+            let ajustesbanco = bancosdata.xliquidar.filter(e=>e.ajuste).length        
+            let ajustesreportado = bancosdata.xliquidar.filter(e=>e.ajuste).length  
+                
+            if (ajustesbanco || ajustesreportado) {
+
+              let bancosdataclone = cloneDeep(bancosdata)
+              let xliquidarclone = bancosdataclone.xliquidar.map(e=>{
+                if (!e.ajuste) {
+                  let fil = res.data.xliquidar.filter(ee=>ee.id==e.id)
+                  if (fil.length) {
+                    e = fil[0]
+                  }
+                }
+                return e
+              })
+              bancosdataclone.xliquidar = xliquidarclone
+
+              setbancosdata(bancosdataclone) 
+            }else{
+              setbancosdata(res.data)
+            }
+          }else{
+            setbancosdata(res.data)
+          }
         }else{
           notificar(res.data)
         }

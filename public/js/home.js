@@ -3344,7 +3344,10 @@ function Auditoria(_ref) {
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     getBancosData();
-  }, [qdescripcionbancosdata, fechaSelectAuditoria, fechaHastaSelectAuditoria, bancoSelectAuditoria, sucursalSelectAuditoria, orderColumnAuditoria, orderAuditoria]);
+  }, [qdescripcionbancosdata,
+  /* fechaSelectAuditoria,
+  fechaHastaSelectAuditoria, */
+  bancoSelectAuditoria, sucursalSelectAuditoria, orderColumnAuditoria, orderAuditoria]);
   var getCat = function getCat(id) {
     return id;
   };
@@ -3387,6 +3390,33 @@ function Auditoria(_ref) {
     route: "aprobtransferencia",
     name: "APROBAR TRANSFERENCIAS"
   }];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    _useState12 = _slicedToArray(_useState11, 2),
+    movermovbancodesde = _useState12[0],
+    setmovermovbancodesde = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+    _useState14 = _slicedToArray(_useState13, 2),
+    movermovbancohasta = _useState14[0],
+    setmovermovbancohasta = _useState14[1];
+  var movermovbanco = function movermovbanco(index) {
+    if (movermovbancodesde !== null) {
+      if (movermovbancohasta !== null) {
+        //mover
+        var c = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.cloneDeep)(dataimportliquidacion);
+        var desde = c[movermovbancodesde];
+        var hasta = c[movermovbancohasta];
+        c[movermovbancohasta] = desde;
+        c[movermovbancodesde] = hasta;
+        setdataimportliquidacion(c);
+        setmovermovbancodesde(null);
+        setmovermovbancohasta(null);
+      } else {
+        setmovermovbancohasta(index);
+      }
+    } else {
+      setmovermovbancodesde(index);
+    }
+  };
   var addBloque = function addBloque(index, type) {
     var num = 1;
     if (num) {
@@ -4788,9 +4818,12 @@ function Auditoria(_ref) {
                         children: moneda(parseFloat(e.monto) - parseFloat(bancosdata.xliquidar[i].monto))
                       }) : "---" : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+                          onDoubleClick: function onDoubleClick() {
+                            return movermovbanco(i);
+                          },
                           className: "btn w-100 fw-bolder",
                           style: {
-                            backgroundColor: colors[e.codigo] ? colors[e.codigo][0] : "",
+                            backgroundColor: colors[e.codigo] ? movermovbancodesde == i ? "#FFFF00" : movermovbancohasta == i ? "#ADFF2F" : colors[e.codigo][0] : "",
                             color: colors[e.codigo] ? colors[e.codigo][1] : ""
                           },
                           children: e.codigo
@@ -81960,7 +81993,7 @@ function Home() {
       fecha: inpfechaLiquidar
     }).then(function (res) {
       notificar(res);
-      getBancosData("liquidar");
+      getBancosData("liquidar", true);
       setinpmontoLiquidar("");
       setselectTrLiquidar();
     });
@@ -82123,6 +82156,7 @@ function Home() {
   };
   var getBancosData = function getBancosData() {
     var subviewforced = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var recoveryAjuste = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     if (fechaSelectAuditoria && fechaHastaSelectAuditoria) {
       _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getBancosData({
         fechaSelectAuditoria: fechaSelectAuditoria,
@@ -82139,7 +82173,34 @@ function Home() {
       }).then(function (res) {
         setmovimientoAuditoria([]);
         if (res.data.estado) {
-          setbancosdata(res.data);
+          if (recoveryAjuste) {
+            var ajustesbanco = bancosdata.xliquidar.filter(function (e) {
+              return e.ajuste;
+            }).length;
+            var ajustesreportado = bancosdata.xliquidar.filter(function (e) {
+              return e.ajuste;
+            }).length;
+            if (ajustesbanco || ajustesreportado) {
+              var bancosdataclone = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.cloneDeep)(bancosdata);
+              var xliquidarclone = bancosdataclone.xliquidar.map(function (e) {
+                if (!e.ajuste) {
+                  var fil = res.data.xliquidar.filter(function (ee) {
+                    return ee.id == e.id;
+                  });
+                  if (fil.length) {
+                    e = fil[0];
+                  }
+                }
+                return e;
+              });
+              bancosdataclone.xliquidar = xliquidarclone;
+              setbancosdata(bancosdataclone);
+            } else {
+              setbancosdata(res.data);
+            }
+          } else {
+            setbancosdata(res.data);
+          }
         } else {
           notificar(res.data);
         }

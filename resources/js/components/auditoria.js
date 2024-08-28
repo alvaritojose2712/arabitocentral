@@ -165,8 +165,8 @@ export default function Auditoria({
         getBancosData()
     },[
         qdescripcionbancosdata,
-        fechaSelectAuditoria,
-        fechaHastaSelectAuditoria,
+        /* fechaSelectAuditoria,
+        fechaHastaSelectAuditoria, */
         bancoSelectAuditoria,
         sucursalSelectAuditoria, 
         orderColumnAuditoria,
@@ -180,6 +180,7 @@ export default function Auditoria({
     }
 
     const [showautoliquidar, setshowautoliquidar] = useState(false)
+  
    
     const [nummm, setnummm] = useState(0)
     
@@ -218,6 +219,32 @@ export default function Auditoria({
         },
     
     ]
+
+    const [movermovbancodesde, setmovermovbancodesde] = useState(null)
+    const [movermovbancohasta, setmovermovbancohasta] = useState(null)
+
+    const movermovbanco = index => {
+        if (movermovbancodesde!==null) {
+            if (movermovbancohasta!==null) {
+                //mover
+                let c = cloneDeep(dataimportliquidacion)
+
+                let desde = c[movermovbancodesde]
+                let hasta = c[movermovbancohasta]
+                
+                c[movermovbancohasta] = desde
+                c[movermovbancodesde] = hasta
+
+                setdataimportliquidacion(c)
+                setmovermovbancodesde(null)
+                setmovermovbancohasta(null)
+            }else{
+                setmovermovbancohasta(index)
+            }
+        }else{
+            setmovermovbancodesde(index)
+        }
+    }
 
     const addBloque = (index,type) => {
         let num = 1
@@ -1085,11 +1112,10 @@ export default function Auditoria({
                                                                             : "---"
                                                                         :null}
                                                                     <td>
-                                                                        
-                                                                        <button className="btn w-100 fw-bolder" 
+                                                                        <button onDoubleClick={()=>movermovbanco(i)} className="btn w-100 fw-bolder" 
                                                                         style={{
-                                                                            backgroundColor:colors[e.codigo]?colors[e.codigo][0]:"", 
-                                                                            color:colors[e.codigo]?colors[e.codigo][1]:""
+                                                                            backgroundColor:colors[e.codigo]?  movermovbancodesde==i? "#FFFF00" : movermovbancohasta==i ? "#ADFF2F":colors[e.codigo][0]   :"", 
+                                                                            color:colors[e.codigo]?   colors[e.codigo][1]   :""
                                                                         }}>{e.codigo}</button>
                                                                     </td>
                                                                     <td>{e.fecha}</td>
