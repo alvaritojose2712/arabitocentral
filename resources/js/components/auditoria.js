@@ -1063,7 +1063,21 @@ export default function Auditoria({
                                                             IMPORTACIÓN BANCO
 
                                                             <br />
-                                                            <span className="text-sinapsis fs-4">
+                                                            <span className="text-sinapsis fs-4" onDoubleClick={()=> setdataimportliquidacion(cloneDeep(dataimportliquidacion).sort((a,b) =>{ 
+                                                                let field;
+
+                                                                if (orderColumnAuditoria=="monto") {
+                                                                    field = "monto"
+                                                                    if (orderAuditoria=="asc") {
+                                                                        return parseFloat(a[field]) - parseFloat(b[field])
+                                                                    }else{
+                                                                        return parseFloat(b[field]) - parseFloat(a[field])
+                                                                    }
+                                                                }else if (orderColumnAuditoria=="banco") {
+                                                                    field = "banco"
+                                                                    return 
+                                                                }
+                                                            } ))}>
                                                                 {bancosdata.xliquidar?
                                                                     moneda(dataimportliquidacion.filter(e=>!e.ajuste).reduce((a,b)=>{return a+parseFloat(b.monto)},0))
                                                                 :null}
@@ -1072,21 +1086,7 @@ export default function Auditoria({
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {dataimportliquidacion.sort((a,b) =>{ 
-                                                        let field;
-
-                                                        if (orderColumnAuditoria=="monto") {
-                                                            field = "monto"
-                                                            if (orderAuditoria=="asc") {
-                                                                return parseFloat(a[field]) - parseFloat(b[field])
-                                                            }else{
-                                                                return parseFloat(b[field]) - parseFloat(a[field])
-                                                            }
-                                                        }else if (orderColumnAuditoria=="banco") {
-                                                            field = "banco"
-                                                            return 
-                                                        }
-                                                    } ).map((e,i)=>
+                                                    {dataimportliquidacion.map((e,i)=>
                                                         <>
                                                             {e.ajuste?
                                                                 <tr onDoubleClick={()=>delBloque(i,"banco")} className="pointer">

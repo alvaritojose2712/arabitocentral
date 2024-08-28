@@ -4764,6 +4764,22 @@ function Auditoria(_ref) {
                     colSpan: 4,
                     children: ["IMPORTACI\xD3N BANCO", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
                       className: "text-sinapsis fs-4",
+                      onDoubleClick: function onDoubleClick() {
+                        return setdataimportliquidacion((0,lodash__WEBPACK_IMPORTED_MODULE_0__.cloneDeep)(dataimportliquidacion).sort(function (a, b) {
+                          var field;
+                          if (orderColumnAuditoria == "monto") {
+                            field = "monto";
+                            if (orderAuditoria == "asc") {
+                              return parseFloat(a[field]) - parseFloat(b[field]);
+                            } else {
+                              return parseFloat(b[field]) - parseFloat(a[field]);
+                            }
+                          } else if (orderColumnAuditoria == "banco") {
+                            field = "banco";
+                            return;
+                          }
+                        }));
+                      },
                       children: bancosdata.xliquidar ? moneda(dataimportliquidacion.filter(function (e) {
                         return !e.ajuste;
                       }).reduce(function (a, b) {
@@ -4773,20 +4789,7 @@ function Auditoria(_ref) {
                   })]
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tbody", {
-                children: dataimportliquidacion.sort(function (a, b) {
-                  var field;
-                  if (orderColumnAuditoria == "monto") {
-                    field = "monto";
-                    if (orderAuditoria == "asc") {
-                      return parseFloat(a[field]) - parseFloat(b[field]);
-                    } else {
-                      return parseFloat(b[field]) - parseFloat(a[field]);
-                    }
-                  } else if (orderColumnAuditoria == "banco") {
-                    field = "banco";
-                    return;
-                  }
-                }).map(function (e, i) {
+                children: dataimportliquidacion.map(function (e, i) {
                   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
                     children: e.ajuste ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
                       onDoubleClick: function onDoubleClick() {
