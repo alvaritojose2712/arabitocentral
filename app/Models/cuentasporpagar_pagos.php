@@ -22,7 +22,8 @@ class cuentasporpagar_pagos extends Model
     protected $fillable = [
         "id_factura",
         "id_pago",
-        "monto"
+        "monto",
+        "tipo",
     ];
     use HasFactory;
 }

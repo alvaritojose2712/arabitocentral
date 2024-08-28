@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-set_time_limit(6000000);    
+set_time_limit(60000);
 
 use App\Models\bancos_list;
 use App\Models\cajas;
@@ -988,7 +988,7 @@ class PuntosybiopagosController extends Controller
     }
 
     function setmovsjunio() {
-      /* $arr = [
+        $arr = [
             ["achaguas","3","2024-06-27","0134","5","0901 (DEBITO)","20860.11","PUNTO"],
                 ["achaguas","3","2024-06-27","0134","5","0901 (CREDITO)","252.00","PUNTO"],
                 ["achaguas","3","2024-06-27","0108","3","178 (DEBITO)","16685.13","PUNTO"],
@@ -3889,7 +3889,7 @@ class PuntosybiopagosController extends Controller
                 ["valledelapascua2","10","2024-07-02","0102","2","5964","218.70","Transferencia"],
                 ["valledelapascua2","10","2024-07-02","0102","2","9820","7446.74","Transferencia"],
         ];
- */
+ 
 
 
        /*  $arr = [
@@ -3936,7 +3936,7 @@ class PuntosybiopagosController extends Controller
         ["elsaman", "4",  "2024-06-28",  "0134",    "5",   "0221 (DEBITO)",	"5331.87",	"PUNTO"],]; */
 
 
-       /*  foreach ($arr as $key => $e) {
+        foreach ($arr as $key => $e) {
             $id_origen = $e[1];
             $fecha = $e[2];
             $banco = $e[3];
@@ -3947,34 +3947,45 @@ class PuntosybiopagosController extends Controller
 
             $cat = $tipo=="PUNTO"?"DEBITO":null;
             
-            $check = puntosybiopagos::where("fecha",$fecha)
+          /*   $check = puntosybiopagos::where("fecha",$fecha)
             ->where("tipo",$tipo)
             ->where("loteserial",$lote." EXTRAIDO")
             ->where("id_banco",$id_banco)
             ->where("monto",$monto)
             ->where("banco",$banco)
             ->whereNotNull("monto_liquidado")
-            ->first();
+            ->first(); */
 
-            //if (!$check) {
+            if ($tipo=="Transferencia") {
                puntosybiopagos::updateOrCreate([
-                   "id" => null
+                   "id_usuario" => 1,
+                   "fecha" => $fecha,
+                   "id_sucursal" => $id_origen,
+                   "tipo" => $tipo,
+                   "loteserial" => $lote." EXTRAIDO TRANSFERENCIA",
+                   "monto" => $monto,
+                   "banco" => $banco,
+                   "id_banco" => $id_banco,
+                   "debito_credito" => $cat,
+                   "created_at" => "2024-08-28 12:59:59"
+
                ], [
                    "id_usuario" => 1,
                    "fecha" => $fecha,
                    "id_sucursal" => $id_origen,
                    "tipo" => $tipo,
-                   "loteserial" => $lote." EXTRAIDO FINAL",
+                   "loteserial" => $lote." EXTRAIDO TRANSFERENCIA",
                    "monto" => $monto,
                    "banco" => $banco,
                    "id_banco" => $id_banco,
                    "debito_credito" => $cat,
                    "fecha_liquidacion" => null,
                    "monto_liquidado" => null,
+                   "created_at" => "2024-08-28 12:59:59"
                ]);  
-           // }
+            }
 
 
-        }  */
+        } 
     }
 }

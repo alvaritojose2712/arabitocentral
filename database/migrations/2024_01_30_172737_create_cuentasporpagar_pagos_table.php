@@ -18,8 +18,10 @@ class CreateCuentasporpagarPagosTable extends Migration
             $table->integer("id_factura")->unsigned();
             $table->foreign('id_factura')->references('id')->on('cuentasporpagars');
 
-            $table->integer("id_pago")->unsigned();
-            $table->foreign('id_pago')->references('id')->on('cuentasporpagars');
+            $table->integer("id_pago");
+
+            $table->integer("tipo")->nullable(); //1 BANCO //2 EFECTIVO
+
             $table->decimal("monto",10,2);
 
             $table->timestamps();
