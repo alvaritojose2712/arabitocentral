@@ -3956,7 +3956,7 @@ class PuntosybiopagosController extends Controller
             ->whereNotNull("monto_liquidado")
             ->first(); */
 
-            if ($tipo=="Transferencia") {
+            /* if ($tipo=="Transferencia") {
                puntosybiopagos::updateOrCreate([
                    "id_usuario" => 1,
                    "fecha" => $fecha,
@@ -3983,7 +3983,7 @@ class PuntosybiopagosController extends Controller
                    "monto_liquidado" => null,
                    "created_at" => "2024-08-28 12:59:59"
                ]);  
-            }
+            } */
 
 
         } 
