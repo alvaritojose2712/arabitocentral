@@ -3947,16 +3947,16 @@ class PuntosybiopagosController extends Controller
 
             $cat = $tipo=="PUNTO"?"DEBITO":null;
             
-          /*   $check = puntosybiopagos::where("fecha",$fecha)
+            $check = puntosybiopagos::where("fecha",$fecha)
             ->where("tipo",$tipo)
             ->where("loteserial",$lote." EXTRAIDO")
             ->where("id_banco",$id_banco)
             ->where("monto",$monto)
             ->where("banco",$banco)
             ->whereNotNull("monto_liquidado")
-            ->first(); */
+            ->first();
 
-            /* if ($tipo=="Transferencia") {
+            if ($tipo=="Transferencia") {
                puntosybiopagos::updateOrCreate([
                    "id_usuario" => 1,
                    "fecha" => $fecha,
@@ -3979,11 +3979,11 @@ class PuntosybiopagosController extends Controller
                    "banco" => $banco,
                    "id_banco" => $id_banco,
                    "debito_credito" => $cat,
-                   "fecha_liquidacion" => null,
-                   "monto_liquidado" => null,
+                   /* "fecha_liquidacion" => null,
+                   "monto_liquidado" => null, */
                    "created_at" => "2024-08-28 12:59:59"
                ]);  
-            } */
+            } 
 
 
         } 
