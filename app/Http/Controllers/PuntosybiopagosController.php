@@ -3947,14 +3947,14 @@ class PuntosybiopagosController extends Controller
 
             $cat = $tipo=="PUNTO"?"DEBITO":null;
             
-            $check = puntosybiopagos::where("fecha",$fecha)
+           /*  $check = puntosybiopagos::where("fecha",$fecha)
             ->where("tipo",$tipo)
             ->where("loteserial",$lote." EXTRAIDO")
             ->where("id_banco",$id_banco)
             ->where("monto",$monto)
             ->where("banco",$banco)
             ->whereNotNull("monto_liquidado")
-            ->first();
+            ->first(); */
 
             if ($tipo=="Transferencia") {
                puntosybiopagos::updateOrCreate([
