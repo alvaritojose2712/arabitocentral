@@ -73,7 +73,7 @@ class PuntosybiopagosController extends Controller
         $p->monto_liquidado = $monto;
         if ($p->save()) {
             $comision = $p->monto - $monto;
-            if ($comision > 0) {
+            if ($comision > 0 && $p->tipo != "Transferencia") {
                 $liquidado = puntosybiopagos::find($id);
                 $catcompos = catcajas::where("nombre","CAJA MATRIZ: COMISION PUNTO DE VENTA")->first();
                 $comision_monto = abs($comision)*-1;
@@ -3957,7 +3957,7 @@ class PuntosybiopagosController extends Controller
             ->first(); */
 
             if ($tipo=="Transferencia") {
-               puntosybiopagos::updateOrCreate([
+              /*  puntosybiopagos::updateOrCreate([
                    "id_usuario" => 1,
                    "fecha" => $fecha,
                    "id_sucursal" => $id_origen,
@@ -3979,10 +3979,10 @@ class PuntosybiopagosController extends Controller
                    "banco" => $banco,
                    "id_banco" => $id_banco,
                    "debito_credito" => $cat,
-                   /* "fecha_liquidacion" => null,
-                   "monto_liquidado" => null, */
+                    //"fecha_liquidacion" => null,
+                   //"monto_liquidado" => null, 
                    "created_at" => "2024-08-28 12:59:59"
-               ]);  
+               ]);   */
             } 
 
 
