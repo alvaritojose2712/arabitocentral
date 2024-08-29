@@ -995,7 +995,7 @@ export default function Auditoria({
                                                         <th className="w-10"> 
                                                             <button className="btn w-100 fw-bolder" style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>{e.sucursal.codigo}</button>
                                                         </th>
-                                                        <th className="w-10">{e.loteserial}</th>
+                                                        <th className="w-10" title={e.loteserial}>{e.loteserial.substr(1, 15)}</th>
                                                             {/* <th className="w-10">
                                                                 {e.categoria==66?
                                                                     <>
