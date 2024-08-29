@@ -587,7 +587,7 @@ class BancosController extends Controller
         $ban = bancos::updateOrCreate(["id_banco"=>$banco, "fecha" => $fecha],[
             "id_usuario" => null,
             "descripcion" => null,
-            "saldo" => $debetenersegunsistema-$debetenersegunsistema,
+            "saldo" => $debetenersegunsistema-$bancocuadres_sireportadasum,
             "banco" => $banco_codigo,
 
             "saldo_real_manual" =>$saldo,
