@@ -3962,6 +3962,7 @@ function formatAmount( number, simbol ) {
   const [bancocuadres_saldo_inicial, setbancocuadres_saldo_inicial] = useState("")
   const [bancocuadres_ingreso, setbancocuadres_ingreso] = useState("")
   const [bancocuadres_egreso, setbancocuadres_egreso] = useState("")
+  const [bancocuadres_sireportadasum, setbancocuadres_sireportadasum] = useState("")
 
   const [selectConciliacionData,setselectConciliacionData] = useState("")
 
@@ -3976,6 +3977,8 @@ function formatAmount( number, simbol ) {
       setbancocuadres_saldo_inicial(data.inicial)
       setbancocuadres_ingreso(data.ingreso)
       setbancocuadres_egreso(data.egreso)
+      setbancocuadres_sireportadasum(data.sireportadasum)
+      
       if (g) {
         setsaldoactualbancofecha(g.saldo_real_manual)
       }else{
@@ -3995,6 +3998,8 @@ function formatAmount( number, simbol ) {
       saldo_inicial: bancocuadres_saldo_inicial,
       ingreso: bancocuadres_ingreso,
       egreso: bancocuadres_egreso,
+      egreso: bancocuadres_egreso,
+      bancocuadres_sireportadasum,
     }).then(res=>{
       getBancosData()
       setselectConciliacionData("")

@@ -579,13 +579,15 @@ class BancosController extends Controller
         $saldo_inicial = $req->saldo_inicial;
         $ingreso = $req->ingreso;
         $egreso = $req->egreso;
+        $bancocuadres_sireportadasum = $req->bancocuadres_sireportadasum;
+        
         
         $banco_codigo = bancos_list::find($banco)->codigo;
 
         $ban = bancos::updateOrCreate(["id_banco"=>$banco, "fecha" => $fecha],[
             "id_usuario" => null,
             "descripcion" => null,
-            "saldo" => $debetenersegunsistema,
+            "saldo" => $debetenersegunsistema-$debetenersegunsistema,
             "banco" => $banco_codigo,
 
             "saldo_real_manual" =>$saldo,
