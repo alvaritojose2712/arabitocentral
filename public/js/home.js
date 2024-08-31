@@ -4663,7 +4663,7 @@ function Auditoria(_ref) {
                         title: e.loteserial,
                         children: e.loteserial.substr(1, 15)
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
-                        className: "w-10",
+                        className: "w-10 d-flex justify-content-between",
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
                           className: "pointer text-success",
                           onClick: function onClick() {
@@ -4700,7 +4700,10 @@ function Auditoria(_ref) {
                               className: "fa fa-send"
                             })]
                           })]
-                        }) : null]
+                        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                          className: e.monto - e.monto_liquidado ? "text-danger" : "text-muted",
+                          children: moneda(e.monto - e.monto_liquidado)
+                        })]
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
                         className: "w-10 text-right",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {

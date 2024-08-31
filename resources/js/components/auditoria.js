@@ -1004,7 +1004,7 @@ export default function Auditoria({
                                                                 :null}
                                                                 {getCat(e.categoria)}
                                                             </th> */}
-                                                        <th className="w-10">
+                                                        <th className="w-10 d-flex justify-content-between">
                                                             <span className="pointer text-success"
                                                                 onClick={()=>{
                                                                     setselectTrLiquidar(selectTrLiquidar===i?"":i)
@@ -1023,6 +1023,10 @@ export default function Auditoria({
                                                                     <button className="btn btn-warning w-100" onClick={()=>liquidarMov(e.id)}>LIQUIDAR <i className="fa fa-send"></i></button>
                                                                 </div>
                                                             :null}
+
+                                                            <span className={(e.monto-e.monto_liquidado?"text-danger": "text-muted")}>{moneda(e.monto-e.monto_liquidado)}</span>
+
+
                                                         </th>
                                                         <th className="w-10 text-right">
                                                             <span 
