@@ -505,7 +505,7 @@ class BancosController extends Controller
 
             "movsnoreportadosTotal" => $movsnoreportadosTotal, 
             "movsnoreportadosTotalsum" => $movsnoreportadosTotalsum, 
-            "xliquidar" => array_merge($puntosmascuentas,$movsnoreportados,$movsyareportados), 
+            "xliquidar" => array_merge($puntosmascuentas,$movsnoreportados->toArray(),$movsyareportados->toArray()), 
             "estado" => true,
             "view" => $subviewAuditoria,
         ];
