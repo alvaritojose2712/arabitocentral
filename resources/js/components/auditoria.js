@@ -985,8 +985,7 @@ export default function Auditoria({
                                                             {e.fecha?e.fecha:""}
                                                             {e.categoria==66?
                                                                 <>
-                                                                    <br />
-                                                                    <button className="btn btn-warning">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></button>
+                                                                    <small className="text-sinapsis">*NO REPORTADO* <i className="fa fa-exclamation-triangle"></i></small>
                                                                 </>
                                                             :null}
                                                         </th>
