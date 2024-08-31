@@ -1004,29 +1004,30 @@ export default function Auditoria({
                                                                 :null}
                                                                 {getCat(e.categoria)}
                                                             </th> */}
-                                                        <th className="w-10 d-flex justify-content-between">
-                                                            <span className="pointer text-success"
-                                                                onClick={()=>{
-                                                                    setselectTrLiquidar(selectTrLiquidar===i?"":i)
-                                                                    if (e.tipo=="Transferencia") {
-                                                                        setinpmontoLiquidar(e.monto)
-                                                                        setinpfechaLiquidar(e.fecha)
-                                                                    }
-                                                                }}
-                                                            >
-                                                                {moneda(e.monto_liquidado)}
-                                                            </span>
-                                                            {selectTrLiquidar===i && e.fecha && e.categoria!=66?
-                                                                <div className="input-group-vertical">
-                                                                    <input type="text" className="form-control" value={inpmontoLiquidar} placeholder="Monto Reportado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
-                                                                    <input type="date" className="form-control" value={inpfechaLiquidar} onChange={event=>setinpfechaLiquidar(event.target.value)}/>
-                                                                    <button className="btn btn-warning w-100" onClick={()=>liquidarMov(e.id)}>LIQUIDAR <i className="fa fa-send"></i></button>
-                                                                </div>
-                                                            :null}
+                                                        <th className="w-10">
+                                                            <div className="w-100 d-flex justify-content-between">
 
-                                                            <span className={(e.monto-e.monto_liquidado?"text-danger": "text-muted")}>{moneda(e.monto-e.monto_liquidado)}</span>
+                                                                <span className="pointer text-success"
+                                                                    onClick={()=>{
+                                                                        setselectTrLiquidar(selectTrLiquidar===i?"":i)
+                                                                        if (e.tipo=="Transferencia") {
+                                                                            setinpmontoLiquidar(e.monto)
+                                                                            setinpfechaLiquidar(e.fecha)
+                                                                        }
+                                                                    }}
+                                                                >
+                                                                    {moneda(e.monto_liquidado)}
+                                                                </span>
+                                                                {selectTrLiquidar===i && e.fecha && e.categoria!=66?
+                                                                    <div className="input-group-vertical">
+                                                                        <input type="text" className="form-control" value={inpmontoLiquidar} placeholder="Monto Reportado" onChange={event=>setinpmontoLiquidar(event.target.value)}/>
+                                                                        <input type="date" className="form-control" value={inpfechaLiquidar} onChange={event=>setinpfechaLiquidar(event.target.value)}/>
+                                                                        <button className="btn btn-warning w-100" onClick={()=>liquidarMov(e.id)}>LIQUIDAR <i className="fa fa-send"></i></button>
+                                                                    </div>
+                                                                :null}
 
-
+                                                                <span className={(e.monto-e.monto_liquidado?"text-danger": "text-muted")}>{moneda(e.monto-e.monto_liquidado)}</span>
+                                                            </div>
                                                         </th>
                                                         <th className="w-10 text-right">
                                                             <span 

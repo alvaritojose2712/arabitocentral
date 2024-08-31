@@ -4662,48 +4662,51 @@ function Auditoria(_ref) {
                         className: "w-10",
                         title: e.loteserial,
                         children: e.loteserial.substr(1, 15)
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
-                        className: "w-10 d-flex justify-content-between",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                          className: "pointer text-success",
-                          onClick: function onClick() {
-                            setselectTrLiquidar(selectTrLiquidar === i ? "" : i);
-                            if (e.tipo == "Transferencia") {
-                              setinpmontoLiquidar(e.monto);
-                              setinpfechaLiquidar(e.fecha);
-                            }
-                          },
-                          children: moneda(e.monto_liquidado)
-                        }), selectTrLiquidar === i && e.fecha && e.categoria != 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                          className: "input-group-vertical",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-                            type: "text",
-                            className: "form-control",
-                            value: inpmontoLiquidar,
-                            placeholder: "Monto Reportado",
-                            onChange: function onChange(event) {
-                              return setinpmontoLiquidar(event.target.value);
-                            }
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-                            type: "date",
-                            className: "form-control",
-                            value: inpfechaLiquidar,
-                            onChange: function onChange(event) {
-                              return setinpfechaLiquidar(event.target.value);
-                            }
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
-                            className: "btn btn-warning w-100",
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+                        className: "w-10",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                          className: "w-100 d-flex justify-content-between",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                            className: "pointer text-success",
                             onClick: function onClick() {
-                              return liquidarMov(e.id);
+                              setselectTrLiquidar(selectTrLiquidar === i ? "" : i);
+                              if (e.tipo == "Transferencia") {
+                                setinpmontoLiquidar(e.monto);
+                                setinpfechaLiquidar(e.fecha);
+                              }
                             },
-                            children: ["LIQUIDAR ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
-                              className: "fa fa-send"
+                            children: moneda(e.monto_liquidado)
+                          }), selectTrLiquidar === i && e.fecha && e.categoria != 66 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                            className: "input-group-vertical",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                              type: "text",
+                              className: "form-control",
+                              value: inpmontoLiquidar,
+                              placeholder: "Monto Reportado",
+                              onChange: function onChange(event) {
+                                return setinpmontoLiquidar(event.target.value);
+                              }
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                              type: "date",
+                              className: "form-control",
+                              value: inpfechaLiquidar,
+                              onChange: function onChange(event) {
+                                return setinpfechaLiquidar(event.target.value);
+                              }
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
+                              className: "btn btn-warning w-100",
+                              onClick: function onClick() {
+                                return liquidarMov(e.id);
+                              },
+                              children: ["LIQUIDAR ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+                                className: "fa fa-send"
+                              })]
                             })]
+                          }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                            className: e.monto - e.monto_liquidado ? "text-danger" : "text-muted",
+                            children: moneda(e.monto - e.monto_liquidado)
                           })]
-                        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                          className: e.monto - e.monto_liquidado ? "text-danger" : "text-muted",
-                          children: moneda(e.monto - e.monto_liquidado)
-                        })]
+                        })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
                         className: "w-10 text-right",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
