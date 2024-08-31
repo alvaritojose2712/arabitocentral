@@ -494,6 +494,8 @@ class BancosController extends Controller
         array_multisort(array_column($xfechaCuadre, "banco_codigo"), SORT_ASC, $xfechaCuadre);
 
        
+        $porliquidar = array_merge($puntosybiopagos->get()->marge($movsnoreportados)->merge($movsyareportados)->toArray(), $mergebs);
+        array_multisort(array_column($porliquidar, $columnOrder), $order=="desc"? SORT_DESC: SORT_ASC, $porliquidar);
 
         return [
             "xfechaCuadreArr"=>$xfechaCuadreArr,
@@ -505,7 +507,7 @@ class BancosController extends Controller
 
             "movsnoreportadosTotal" => $movsnoreportadosTotal, 
             "movsnoreportadosTotalsum" => $movsnoreportadosTotalsum, 
-            "xliquidar" => array_merge($puntosmascuentas,$movsnoreportados->toArray(),$movsyareportados->toArray()), 
+            "xliquidar" => $porliquidar, 
             "estado" => true,
             "view" => $subviewAuditoria,
         ];
