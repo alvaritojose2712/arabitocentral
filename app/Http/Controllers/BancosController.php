@@ -278,7 +278,7 @@ class BancosController extends Controller
         $puntosmascuentas = array_merge($puntosybiopagos->get()->toArray(), $mergebs);
         array_multisort(array_column($puntosmascuentas, $columnOrder), $order=="desc"? SORT_DESC: SORT_ASC, $puntosmascuentas);
         
-        $xbanco = collect($puntosmascuentas)->map(function ($q) {
+        $xbanco = collect($puntosmascuentas)->merge($movsnoreportados)->map(function ($q) {
             if (str_contains($q["tipo"], "PUNTO")) {
                 $q["tipo"] = "PUNTO";
             }
