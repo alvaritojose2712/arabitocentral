@@ -275,7 +275,7 @@ class BancosController extends Controller
 
         $mergebs = array_merge($bs1,$bs2, array_merge($bs3,$bs4,$bs5));
 
-        $puntosmascuentas = array_merge($puntosybiopagos->get()->merge($movsnoreportados)->merge($movsyareportados)->toArray(), $mergebs);
+        $puntosmascuentas = array_merge($puntosybiopagos->get()->toArray(), $mergebs);
         array_multisort(array_column($puntosmascuentas, $columnOrder), $order=="desc"? SORT_DESC: SORT_ASC, $puntosmascuentas);
         
         $xbanco = collect($puntosmascuentas)->map(function ($q) {
@@ -505,7 +505,7 @@ class BancosController extends Controller
 
             "movsnoreportadosTotal" => $movsnoreportadosTotal, 
             "movsnoreportadosTotalsum" => $movsnoreportadosTotalsum, 
-            "xliquidar" => $puntosmascuentas, 
+            "xliquidar" => array_merge($puntosmascuentas,$movsnoreportados,$movsyareportados), 
             "estado" => true,
             "view" => $subviewAuditoria,
         ];
