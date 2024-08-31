@@ -275,10 +275,10 @@ class BancosController extends Controller
 
         $mergebs = array_merge($bs1,$bs2, array_merge($bs3,$bs4,$bs5));
 
-        $puntosmascuentas = array_merge($puntosybiopagos->get()->toArray(), $mergebs);
+        $puntosmascuentas = array_merge($puntosybiopagos->get()->merge($movsnoreportados)->toArray(), $mergebs);
         array_multisort(array_column($puntosmascuentas, $columnOrder), $order=="desc"? SORT_DESC: SORT_ASC, $puntosmascuentas);
         
-        $xbanco = collect($puntosmascuentas)->merge($movsnoreportados)->map(function ($q) {
+        $xbanco = collect($puntosmascuentas)->map(function ($q) {
             if (str_contains($q["tipo"], "PUNTO")) {
                 $q["tipo"] = "PUNTO";
             }
@@ -494,7 +494,7 @@ class BancosController extends Controller
         array_multisort(array_column($xfechaCuadre, "banco_codigo"), SORT_ASC, $xfechaCuadre);
 
        
-        $porliquidar = $puntosybiopagos->get()->merge($movsnoreportados)->merge($movsyareportados)->toArray();
+        $porliquidar = $puntosybiopagos->get()->merge($movsnoreportados)->toArray();
         array_multisort(array_column($porliquidar, $columnOrder), $order=="desc"? SORT_DESC: SORT_ASC, $porliquidar);
 
         return [
