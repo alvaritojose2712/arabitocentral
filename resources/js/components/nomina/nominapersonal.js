@@ -384,7 +384,7 @@ export default function NominaPersonal({
                             <th>Sucursal</th>
                             <th>Cédula</th>
                             <th>Nombres y Apellidos</th>
-							<td>F. NACIMINETO</td>
+							<td>F. NACIMIENTO</td>
                             <th>Cargo</th>
 							<td>F. INGRESO</td>
                             <th>MES ANTEPASADO</th>
@@ -415,10 +415,10 @@ export default function NominaPersonal({
 													<b>{e.nominafechadenacimiento}</b>
 												</td>
 												<td>
-													{e.cargo.cargosdescripcion} 
+													{e.cargo.cargosdescripcion} ({e.diario.toFixed(2)} /DIA)
 												</td>
 												<td>
-													<b>{e.nominafechadeingreso}</b> ({e.diario.toFixed(2)} /DIA)
+													<b>{e.nominafechadeingreso}</b> 
 												</td>
 												<td>{moneda(e.mesantepasado)}</td>
 												<td>{moneda(e.mespasado)}</td>
