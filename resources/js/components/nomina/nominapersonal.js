@@ -427,7 +427,7 @@ export default function NominaPersonal({
 												<td className={("bg-warning-light ")+(e.id==selectIdPersonal?"fs-3":"fs-4")}>{moneda(e.sumPrestamos)}</td>
 												<td className={("bg-danger-light ")+(e.id==selectIdPersonal?"fs-3":"fs-4")}>{moneda(e.sumCreditos)}</td>
 												<td>
-													<button className="btn btn-sinapsis" onClick={()=>setIndexSelectPersonalFun(e.id)}><i className="fa fa-pencil"></i></button>
+													<span className="text text-sinapsis" onClick={()=>setIndexSelectPersonalFun(e.id)}><i className="fa fa-pencil"></i></span>
 												</td>
 											</tr>
 											{selectIdPersonal==e.id?

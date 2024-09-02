@@ -19077,8 +19077,8 @@ function NominaPersonal(_ref) {
                   className: "bg-danger-light " + (e.id == selectIdPersonal ? "fs-3" : "fs-4"),
                   children: moneda(e.sumCreditos)
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                    className: "btn btn-sinapsis",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    className: "text text-sinapsis",
                     onClick: function onClick() {
                       return setIndexSelectPersonalFun(e.id);
                     },
