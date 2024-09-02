@@ -664,7 +664,7 @@ class NominaController extends Controller
                 "created_at" => "2024-07-31 23:59:59",
             ]);
             if ($monto && $tasa) {
-                (new NominapagosController)->setPagoNomina($ci, $monto, 13, 173932, "2024-07-30");
+                (new NominapagosController)->setPagoNomina($ci, $monto, 13, $p->id, "2024-07-30");
             }
 
 
@@ -692,7 +692,7 @@ class NominaController extends Controller
                 "created_at" => "2024-07-31 23:59:59",
             ]);
             if ($monto && $tasa) {
-                (new NominapagosController)->setPagoNomina($ci, $monto, 13, 173932, "2024-07-30");
+                (new NominapagosController)->setPagoNomina($ci, $monto, 13, $p->id, "2024-07-30");
             }
 
 
@@ -720,7 +720,7 @@ class NominaController extends Controller
                 "created_at" => "2024-07-31 23:59:59",
             ]);
             if ($monto && $tasa) {
-                (new NominapagosController)->setPagoNomina($ci, $monto, 13, 173932, "2024-07-30");
+                (new NominapagosController)->setPagoNomina($ci, $monto, 13, $p->id, "2024-07-30");
             }
         }
     }
