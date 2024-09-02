@@ -384,7 +384,9 @@ export default function NominaPersonal({
                             <th>Sucursal</th>
                             <th>Cédula</th>
                             <th>Nombres y Apellidos</th>
+							<td>F. NACIMINETO</td>
                             <th>Cargo</th>
+							<td>F. INGRESO</td>
                             <th>MES ANTEPASADO</th>
                             <th>MES PASADO</th>
                             <th>MES ACTUAL</th>
@@ -402,19 +404,21 @@ export default function NominaPersonal({
 										<>
 											<tr key={e.id} className={('pointer ')+(e.id==selectIdPersonal?"bg-success-light":"")} onClick={()=>setselectIdPersonal(selectIdPersonal==e.id? null: e.id)}>
 												<td>
-													<button className={"btn "+(e.activo?"btn-success":"btn-danger")}>{e.activo?"ACTIVO":"INACTIVO"}</button>
+													<span className={"text "+(e.activo?"text-success":"text-danger")}>{e.activo?"ACTIVO":"INACTIVO"}</span>
 												</td>
 												<td>{e.sucursal?e.sucursal.nombre:null}</td>
 												<td>{e.nominacedula}</td>
 												<td>
 													{e.nominanombre}
-													<br />
+												</td>
+												<td>
 													<b>{e.nominafechadenacimiento}</b>
 												</td>
 												<td>
-													{e.cargo.cargosdescripcion} ({e.diario.toFixed(2)} /DIA)
-													<br />
-													<b>{e.nominafechadeingreso}</b>
+													{e.cargo.cargosdescripcion} 
+												</td>
+												<td>
+													<b>{e.nominafechadeingreso}</b> ({e.diario.toFixed(2)} /DIA)
 												</td>
 												<td>{moneda(e.mesantepasado)}</td>
 												<td>{moneda(e.mespasado)}</td>
