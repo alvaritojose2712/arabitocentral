@@ -579,6 +579,12 @@ class PuntosybiopagosController extends Controller
             $tasa = $q->tasa?abs($q->tasa):0;
             $monto_liquidado = $q->monto_liquidado?$q->monto_liquidado:0;
             $monto_dolar = $q->monto_dolar?$q->monto_dolar:0;
+            $b = bancos_list::find($q->id_banco);
+            if ($b) {
+                if ($b->moneda=="dolar") {
+                    $tasa = 1;
+                }
+            }
             
             $bs = (new CierresController)->dividir($monto_liquidado,$tasa);
             
