@@ -19024,6 +19024,8 @@ function NominaPersonal(_ref) {
               children: "MES PASADO"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
               children: "MES ACTUAL"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+              children: "DIAS TRABAJADOS"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
               children: "PAGOS TOT."
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
@@ -19065,8 +19067,10 @@ function NominaPersonal(_ref) {
                   children: moneda(e.mesantepasado)
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   children: moneda(e.mespasado)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  children: moneda(e.mes)
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-                  children: [moneda(e.mes), " (", e.tiempotrabajado.toFixed(2), " DIAS)"]
+                  children: ["(", e.tiempotrabajado.toFixed(2), " DIAS)"]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   className: "bg-success-light " + (e.id == selectIdPersonal ? "fs-3" : "fs-4"),
                   children: moneda(e.sumPagos)
