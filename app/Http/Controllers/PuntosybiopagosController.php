@@ -464,7 +464,7 @@ class PuntosybiopagosController extends Controller
                 return Response::json(["estado" => true,"msj"=>"Éxito"]);
             }
         } catch (\Exception $e) {
-            return Response::json(["estado" => false,"msj"=>"Error: ",$e->getMessage()]);
+            return Response::json(["estado" => false,"msj"=>"Error: ".$e->getMessage()]);
         }
     }
 
