@@ -194,27 +194,80 @@ export default function Cajascatdesplegable({
                             </th>
                         </tr>
                         {viewpagoproveedor?
-                            balanceGeneralData["pagoproveedor"]?
-                                balanceGeneralData["pagoproveedor"]["detalles"].map(pagosproveedor=>
-                                    <tr key={pagosproveedor.id}>
-                                        <td colSpan={3}>
-                                            <div className="ms-3">
+                            <tr>
+                                <td colSpan={3}>
+                                    <table className="table table-bordered">
+                                        <tbody>
+                                            {
+                                                balanceGeneralData["pagoproveedor"]?
+                                                    balanceGeneralData["pagoproveedor"]["detalles"].map((pagosproveedor,i)=>
+                                                        <tr>
+                                                            <td>{i+1}</td>
+                                                            <th>
+                                                                {pagosproveedor.proveedor.descripcion}
+                                                            </th>
+                                                            <td>
+                                                                {pagosproveedor.fechaemision}
+                                                            </td>
+                                                            <td>
+                                                                <table className="table">
+                                                                {pagosproveedor.montobs1&&pagosproveedor.montobs1!="0.00"?
+                                                                        <tr>
+                                                                            <td className="w-25">Bs. {moneda(pagosproveedor.montobs1)}</td>
+                                                                            <td className="w-25 text-success">{moneda(pagosproveedor.tasabs1)}</td>
+                                                                            <td className="w-25">{(pagosproveedor.metodobs1)}</td>
+                                                                            <td className="w-25 text-muted">{(pagosproveedor.refbs1)}</td>
+                                                                        </tr>
+                                                                :null}
 
-                                                <span className="fw-bolder">
-                                                    {pagosproveedor.proveedor.descripcion}
-                                                </span>
-                                                <br />
-                                                <span className="text-muted">
-                                                    {pagosproveedor.created_at}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td className="bg-success">
-                                            {moneda(pagosproveedor.monto)}
-                                        </td>
-                                    </tr>
-                                )
-                            :null
+                                                                {pagosproveedor.montobs2&&pagosproveedor.montobs2!="0.00"?
+                                                                        <tr>
+                                                                            <td className="w-25">Bs. {moneda(pagosproveedor.montobs2)}</td>
+                                                                            <td className="w-25 text-success">{moneda(pagosproveedor.tasabs2)}</td>
+                                                                            <td className="w-25">{(pagosproveedor.metodobs2)}</td>
+                                                                            <td className="w-25 text-muted">{(pagosproveedor.refbs2)}</td>
+                                                                        </tr>
+                                                                        :null}
+                                                                {pagosproveedor.montobs3&&pagosproveedor.montobs3!="0.00"?
+                                                                        <tr>
+                                                                            <td className="w-25">Bs. {moneda(pagosproveedor.montobs3)}</td>
+                                                                            <td className="w-25 text-success">{moneda(pagosproveedor.tasabs3)}</td>
+                                                                            <td className="w-25">{(pagosproveedor.metodobs3)}</td>
+                                                                            <td className="w-25 text-muted">{(pagosproveedor.refbs3)}</td>
+                                                                        </tr>
+                                                                        :null}
+                                                                {pagosproveedor.montobs4&&pagosproveedor.montobs4!="0.00"?
+                                                                        <tr>
+                                                                            <td className="w-25">Bs. {moneda(pagosproveedor.montobs4)}</td>
+                                                                            <td className="w-25 text-success">{moneda(pagosproveedor.tasabs4)}</td>
+                                                                            <td className="w-25">{(pagosproveedor.metodobs4)}</td>
+                                                                            <td className="w-25 text-muted">{(pagosproveedor.refbs4)}</td>
+                                                                        </tr>
+                                                                        :null}
+
+                                                                {pagosproveedor.montobs5&&pagosproveedor.montobs5!="0.00"?
+                                                                        <tr>
+                                                                            <td className="w-25">Bs. {moneda(pagosproveedor.montobs5)}</td>
+                                                                            <td className="w-25 text-success">{moneda(pagosproveedor.tasabs5)}</td>
+                                                                            <td className="w-25">{(pagosproveedor.metodobs5)}</td>
+                                                                            <td className="w-25 text-muted">{(pagosproveedor.refbs5)}</td>
+                                                                        </tr>
+                                                                :null}
+                                                                    </table>
+
+
+                                                            </td>
+                                                            <td>
+                                                                $ {moneda(pagosproveedor.monto)}
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                :null
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
                         :null}
                     </tbody>
                 )

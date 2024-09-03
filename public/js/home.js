@@ -6192,26 +6192,104 @@ function Cajascatdesplegable(_ref) {
               children: moneda(balanceGeneralData["fdi"] ? balanceGeneralData["fdi"] : null)
             })
           })]
-        }), viewpagoproveedor ? balanceGeneralData["pagoproveedor"] ? balanceGeneralData["pagoproveedor"]["detalles"].map(function (pagosproveedor) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              colSpan: 3,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-                className: "ms-3",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                  className: "fw-bolder",
-                  children: pagosproveedor.proveedor.descripcion
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                  className: "text-muted",
-                  children: pagosproveedor.created_at
-                })]
+        }), viewpagoproveedor ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+            colSpan: 3,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
+              className: "table table-bordered",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+                children: balanceGeneralData["pagoproveedor"] ? balanceGeneralData["pagoproveedor"]["detalles"].map(function (pagosproveedor, i) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                      children: i + 1
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                      children: pagosproveedor.proveedor.descripcion
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                      children: pagosproveedor.fechaemision
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
+                        className: "table",
+                        children: [pagosproveedor.montobs1 && pagosproveedor.montobs1 != "0.00" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                            className: "w-25",
+                            children: ["Bs. ", moneda(pagosproveedor.montobs1)]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25 text-success",
+                            children: moneda(pagosproveedor.tasabs1)
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25",
+                            children: pagosproveedor.metodobs1
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25 text-muted",
+                            children: pagosproveedor.refbs1
+                          })]
+                        }) : null, pagosproveedor.montobs2 && pagosproveedor.montobs2 != "0.00" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                            className: "w-25",
+                            children: ["Bs. ", moneda(pagosproveedor.montobs2)]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25 text-success",
+                            children: moneda(pagosproveedor.tasabs2)
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25",
+                            children: pagosproveedor.metodobs2
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25 text-muted",
+                            children: pagosproveedor.refbs2
+                          })]
+                        }) : null, pagosproveedor.montobs3 && pagosproveedor.montobs3 != "0.00" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                            className: "w-25",
+                            children: ["Bs. ", moneda(pagosproveedor.montobs3)]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25 text-success",
+                            children: moneda(pagosproveedor.tasabs3)
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25",
+                            children: pagosproveedor.metodobs3
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25 text-muted",
+                            children: pagosproveedor.refbs3
+                          })]
+                        }) : null, pagosproveedor.montobs4 && pagosproveedor.montobs4 != "0.00" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                            className: "w-25",
+                            children: ["Bs. ", moneda(pagosproveedor.montobs4)]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25 text-success",
+                            children: moneda(pagosproveedor.tasabs4)
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25",
+                            children: pagosproveedor.metodobs4
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25 text-muted",
+                            children: pagosproveedor.refbs4
+                          })]
+                        }) : null, pagosproveedor.montobs5 && pagosproveedor.montobs5 != "0.00" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                            className: "w-25",
+                            children: ["Bs. ", moneda(pagosproveedor.montobs5)]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25 text-success",
+                            children: moneda(pagosproveedor.tasabs5)
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25",
+                            children: pagosproveedor.metodobs5
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                            className: "w-25 text-muted",
+                            children: pagosproveedor.refbs5
+                          })]
+                        }) : null]
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                      children: ["$ ", moneda(pagosproveedor.monto)]
+                    })]
+                  });
+                }) : null
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              className: "bg-success",
-              children: moneda(pagosproveedor.monto)
-            })]
-          }, pagosproveedor.id);
-        }) : null : null]
+            })
+          })
+        }) : null]
       }, i);
     }) : null
   });
