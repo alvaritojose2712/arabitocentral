@@ -494,7 +494,7 @@ class BancosController extends Controller
         array_multisort(array_column($xfechaCuadre, "banco_codigo"), SORT_ASC, $xfechaCuadre);
 
        
-        $porliquidar = $puntosybiopagos->get()->merge($movsnoreportados)->merge($movsyareportados)->toArray();
+        $porliquidar = $puntosybiopagos->get()->merge($movsnoreportados->where("id_banco",$sucursalSelectAuditoria))->merge($movsyareportados->where("id_banco",$sucursalSelectAuditoria))->toArray();
         array_multisort(array_column($porliquidar, $columnOrder), $order=="desc"? SORT_DESC: SORT_ASC, $porliquidar);
 
         return [
