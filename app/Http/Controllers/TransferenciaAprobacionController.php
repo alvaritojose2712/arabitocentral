@@ -34,7 +34,7 @@ class TransferenciaAprobacionController extends Controller
             }
 
             if ($count_refs==$count_apro) {
-                return ["estado" =>true, "msj" => "APROBADO", "count_refs"=>$count_refs, "count_apro"=>$count_apro];
+                return ["estado" =>true, "msj" => "APROBADO", "count_refs"=>$count_refs, "count_apro"=>$count_apro,"idinsucursal"=>$ref["id"],"id_sucursal"=>$id_sucursal,"dataRef"=>$data["refs"]];
             }
 
             $count_createTrans = 0;
