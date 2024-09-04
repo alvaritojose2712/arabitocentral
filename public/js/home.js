@@ -4611,7 +4611,7 @@ function Auditoria(_ref) {
                             backgroundColor: colors[e.banco] ? colors[e.banco][0] : "",
                             color: colors[e.banco] ? colors[e.banco][1] : ""
                           },
-                          children: e.banco
+                          children: e.banco.substr(0, 8)
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
                         className: "w-10",

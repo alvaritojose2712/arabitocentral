@@ -971,7 +971,7 @@ export default function Auditoria({
                                                             style={{
                                                                 backgroundColor:colors[e.banco]?colors[e.banco][0]:"", 
                                                                 color:colors[e.banco]?colors[e.banco][1]:""
-                                                            }}>{e.banco}</button>
+                                                            }}>{e.banco.substr(0,8)}</button>
                                                             
                                                         </th>
                                                         <th className="w-10">
