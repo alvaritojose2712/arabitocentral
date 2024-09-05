@@ -7,6 +7,7 @@ export default function Header({
 	setsucursalSelect,
 	viewmainPanel,
 	setviewmainPanel,
+	logout
 }) {
 	return (
 	<header className="container mt-1 mb-1">
@@ -28,6 +29,8 @@ export default function Header({
 					:
 					null
 				}
+
+				<i className="fa fa-times text-danger" onClick={()=> logout()}></i>
 			</div>
 		</div>
 		{/* {sucursalSelect===null?

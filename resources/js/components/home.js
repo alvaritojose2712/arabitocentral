@@ -4968,6 +4968,11 @@ function formatAmount( number, simbol ) {
           } 
       }
   }
+  const logout = () => {
+    db.logout({}).then(res=>{
+      location.reload()
+    })
+  }
   
   return (
     <>
@@ -4981,6 +4986,7 @@ function formatAmount( number, simbol ) {
 
         <Panel>
           <Header
+            logout={logout}
             viewmainPanel={viewmainPanel}
             setviewmainPanel={setviewmainPanel}
             sucursalSelect={sucursalSelect}

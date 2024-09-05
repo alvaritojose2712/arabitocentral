@@ -15731,7 +15731,8 @@ function Header(_ref) {
     sucursalSelect = _ref.sucursalSelect,
     setsucursalSelect = _ref.setsucursalSelect,
     viewmainPanel = _ref.viewmainPanel,
-    setviewmainPanel = _ref.setviewmainPanel;
+    setviewmainPanel = _ref.setviewmainPanel,
+    logout = _ref.logout;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("header", {
     className: "container mt-1 mb-1",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -15754,9 +15755,9 @@ function Header(_ref) {
             }
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "col d-flex justify-content-center align-items-center",
-        children: sucursales.filter(function (e) {
+        children: [sucursales.filter(function (e) {
           return e.id == sucursalSelect;
         }).length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
           className: "btn btn-secondary h2",
@@ -15766,7 +15767,12 @@ function Header(_ref) {
           children: sucursales.filter(function (e) {
             return e.id == sucursalSelect;
           })[0].nombre
-        }) : null
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+          className: "fa fa-times text-danger",
+          onClick: function onClick() {
+            return logout();
+          }
+        })]
       })]
     })
   });
@@ -83383,6 +83389,11 @@ function Home() {
       }
     }
   }
+  var logout = function logout() {
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].logout({}).then(function (res) {
+      location.reload();
+    });
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
     children: !loginActive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_components_login__WEBPACK_IMPORTED_MODULE_9__["default"], {
       loginRes: loginRes
@@ -83394,6 +83405,7 @@ function Home() {
         active: loading
       }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsxs)(_panel_panel__WEBPACK_IMPORTED_MODULE_11__["default"], {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          logout: logout,
           viewmainPanel: viewmainPanel,
           setviewmainPanel: setviewmainPanel,
           sucursalSelect: sucursalSelect,
