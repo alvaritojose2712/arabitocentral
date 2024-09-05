@@ -26499,6 +26499,9 @@ var host = "";
 // const host = "http://localhost/arabitoapp"
 
 var db = (_db = {
+  logout: function logout(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().get(host + "logout", data);
+  },
   aprobarMovCajaFuerte: function aprobarMovCajaFuerte(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "aprobarMovCajaFuerte", data);
   },

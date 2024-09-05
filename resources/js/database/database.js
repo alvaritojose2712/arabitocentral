@@ -11,6 +11,7 @@ const host = ""
 
 const db = {
   
+  logout: data=>axios.get(host+"logout",data),
   aprobarMovCajaFuerte: data=>axios.post(host+"aprobarMovCajaFuerte",data),
   getAprobacionFlujoCaja: data=>axios.post(host+"getAprobacionFlujoCaja",data),
   
