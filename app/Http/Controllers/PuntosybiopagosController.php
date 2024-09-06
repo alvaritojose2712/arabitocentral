@@ -650,7 +650,7 @@ class PuntosybiopagosController extends Controller
         ];
     }
     function changeBank(Request $req) {
-        $type = $req->type;
+        /* $type = $req->type;
         $upd = puntosybiopagos::find($req->id);
 
         switch ($type) {
@@ -666,7 +666,7 @@ class PuntosybiopagosController extends Controller
                 $upd->monto = $req->banco;
             break;
         }
-        $upd->save();
+        $upd->save(); */
         
     }
     function delGasto(Request $req) {
