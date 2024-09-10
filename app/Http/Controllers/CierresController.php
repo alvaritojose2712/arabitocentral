@@ -1766,7 +1766,9 @@ class CierresController extends Controller
         $prestamos_sum = abs($prestamos_sum);
         $abonos_sum = abs($abonos_sum);
 
-        $sumEgresos = abs($pagoProveedorBruto) + abs($gastosfijosSum) + abs($gastosvariablesSum) + abs($sumFDI) + $cuota_credito_sum + $comision_credito_sum + $interes_credito_sum + ($prestamos_sum-$abonos_sum);
+       
+
+        $sumEgresos = abs($pagoProveedorBruto) + $sumGastos + abs($sumFDI) + $cuota_credito_sum + $comision_credito_sum + $interes_credito_sum + ($prestamos_sum-$abonos_sum);
 
         $debetener =  ($total_caja_inicial + $total + $ingreso_credito_sum ) - $sumEgresos  ;
         $bsactual = $this->getTasa()["bs"];
