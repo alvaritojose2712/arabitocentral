@@ -1552,26 +1552,6 @@ class CierresController extends Controller
 
                 $b = bancos::where("id_banco",$banco->id)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
 
-                /* $ban = (new BancosController)->bancosDataFun([
-                    "qdescripcionbancosdata" => "",
-                    "qbancobancosdata" => $banco->id,
-                    "qfechabancosdata" => $fechaBalanceGeneral,
-                    "fechaHastaSelectAuditoria" => $fechaBalanceGeneral,
-                    "sucursalSelectAuditoria" => "",
-                    "subviewAuditoria" => "cuadre",
-                    "columnOrder" => "monto",
-                    "order" => "desc",
-                    "tipoSelectAuditoria" => "",
-                    "showallSelectAuditoria" => false,
-                    "ingegreSelectAuditoria" => "",
-                ])["xfechaCuadre"];
-
-                $positivo = count($ban)?$ban[0]["ingreso"]:0;
-                $negativo = count($ban)?$ban[0]["egreso"]:0;
-                
-                
-                $pun = abs($positivo)-abs($negativo); */
-
 
                 $puntos = puntosybiopagos::where("fecha_liquidacion",$fechaBalanceGeneral)->where("id_banco",$banco->id)->where("tipo","LIKE","%PUNTO%")->sum("monto_liquidado");
                 $saldo = $b?$b->saldo_real_manual +$puntos :0;
@@ -1591,6 +1571,10 @@ class CierresController extends Controller
                 $sum_caja_inicial_banco += $banco->moneda=="bs"? $saldo: 0;
                 $sum_caja_inicial_banco_dolar += $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs);
             }
+
+            $matriz_inicial = cajas::where("id_sucursal",13)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
+            $total_caja_inicial += $matriz_inicial?$matriz_inicial->dolarbalance:0;
+
             $total_caja_inicial = $sum_caja_inicial+$sum_caja_inicial_banco_dolar;
         /// END CAJA INICIAL
 
@@ -1693,9 +1677,9 @@ class CierresController extends Controller
                 $sum_caja_actual_banco_dolar += $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs);
             }
 
-            $matriz = cajas::where("id_sucursal",13)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
+            $matriz_actual = cajas::where("id_sucursal",13)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
 
-            $sum_caja_actual += $matriz?$matriz->dolarbalance:0;
+            $sum_caja_actual += $matriz_actual?$matriz_actual->dolarbalance:0;
             $total_caja_actual = $sum_caja_actual+$sum_caja_actual_banco_dolar;
         /// END CAJA ACTUAL
 
@@ -1824,6 +1808,9 @@ class CierresController extends Controller
             
             "interes_credito_data" => $interes_credito_data,  //74
             "interes_credito_sum" => $interes_credito_sum,
+
+            "matriz_inicial" => $matriz_inicial ? $matriz_inicial->dolarbalance:0,
+            "matriz_actual" => $matriz_actual ? $matriz_actual->dolarbalance:0,
 
 
             "prestamos" => $prestamos,

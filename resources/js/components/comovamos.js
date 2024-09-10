@@ -396,6 +396,14 @@ export default function ComoVamos({
                                                 <span className="text-sinapsis fs-1">{moneda(balanceGeneralData.caja_inicial)}</span>
                                             </td>
                                         </tr>
+
+                                        <tr>
+                                            <th>CAJA INICIAL MATRIZ</th>
+                                            <td>
+                                                <span className="text-sinapsis fs-1">{moneda(balanceGeneralData.matriz_inicial)}</span>
+                                            </td>
+                                        </tr>
+                                        
                                         <tr>
                                             <th>BANCO</th>
                                             <td>
@@ -448,6 +456,12 @@ export default function ComoVamos({
                                                 <td className="fs-1">
                                                     <h1>TENGO</h1>
                                                     {moneda(balanceGeneralData.tengo)}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>CAJA ACTUAL MATRIZ</th>
+                                                <td>
+                                                    <span className="text-sinapsis fs-1">{moneda(balanceGeneralData.matriz_actual)}</span>
                                                 </td>
                                             </tr>
                                             <tr>
