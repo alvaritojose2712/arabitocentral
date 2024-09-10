@@ -680,6 +680,91 @@ class PuntosybiopagosController extends Controller
             ];
         }
     }
+
+    function recoverycreditos() {
+
+        $movs = [
+            ["CUOTA CREDITO PROVINCIAL 663974.65","0108","2024-07-11","663974.65","36.51","CUOTA","18186.10"],
+            ["COBRO AUT REC (CREDITO PROVINCIAL)","0108","2024-07-16","65573.24","36.50","CUOTA","1796.53"],
+            ["CREDITO PROVINCIAL 9600306913AF.I2024-07-11 ASESORIA FINANCIERA","0108","2024-07-16","9737.05","36.50","GASTO","266.77"],
+            ["CREDITO PROVINCIAL 9600306913AF.I2024-07-11 ASESORIA FINANCIERA","0108","2024-07-17","63331.75","36.51","GASTO","1734.64"],
+            ["CREDITO PROVINCIAL 9600306441AF.I2024-07-16 ASESORIA FINANCIERA","0108","2024-07-17","7183.42","36.51","GASTO","196.75"],
+            ["CREDITO PROVINCIAL COBRO AUT REC","0108","2024-07-18","29534.84","36.54","CUOTA","808.29"],
+            ["CUOTA CREDITO BANESCO","0134","2024-07-22","1816085.05","36.57","CUOTA","49660.52"],
+            ["CUOTA CREDITO BANESCO","0134","2024-07-22","12535.01","36.57","CUOTA","342.77"],
+            ["INTERESE CUOTA CREDITO BANESCO","0134","2024-07-22","72643.41","36.57","GASTO INTERES","1986.42"],
+            ["INTERESES CUOTA CREDITO BANESCO","0134","2024-07-22","275.22","36.57","GASTO INTERES","7.53"],
+            ["CUOTA CREDITO CAMIONETA AMER","0108","2024-07-31","64544.93","36.61","CUOTA","1763.04"],
+            ["CUOTA CREDITO PROVINCIAL","0108","2024-08-11","666987.08","36.68","CUOTA","18182.61"],
+            ["CUOTA CAMIONETA AMER AGOSTO 2024","0108","2024-08-16","65891.88","36.68","CUOTA","1796.55"],
+            ["COBRO AUT REC PROVINCIAL","0108","2024-08-18","29656.57","36.68","CUOTA","808.59"],
+            ["CUOTA CREDITO ASESORIA FINANCIERA","0108","2024-08-16","73068.80","36.68","CUOTA","1992.23"],
+            ["CUOTA CREDITO ASESORIA FINANCIERA","0108","2024-08-16","7183.42","36.68","CUOTA","195.86"],
+            ["PRINCIPAL PYMNT BANECO","0134","2024-08-20","1816085.05","36.68","CUOTA","49505.11"],
+            ["PRINCIPAL PYMNT BANESCO","0134","2024-08-20","17754.95","36.68","CUOTA","483.99"],
+            ["CUOTA CREDITO BNC","0191","2024-08-28","1277153.27","36.59","CUOTA","34906.06"],
+            ["INTEREST PYMNT BANESCO","0134","2024-08-20","48428.92","36.68","GASTO INTERES","1320.14"],
+            ["INTEREST PYMNT BANESCO","0134","2024-08-20","406.72","36.67","GASTO INTERES","11.09"],
+            ["IMPUESTO POR CREDITO BANESCO","0134","2024-08-23","9174.17","36.70","GASTO","250.00"],
+            ["COMISION CREDITO BANESCO","0134","2024-08-23","45870.87","36.70","GASTO","1250.00"],
+            ["COMISION CREDITO BANESCO","0134","2024-08-23","45870.87","36.70","GASTO","1250.00"],
+            ["IMPUESTO POR CREDITO BANESCO","0134","2024-08-23","9174.17","36.70","GASTO","250.00"],
+            ["NOTA DE DEBITO COMISION 3% POR CREDITO BANESCO COMISION","0134","2024-08-27","275225.25","36.56","GASTO","7527.36"],
+            ["COM. CUST. VAL COMISION PROVINCIAL","0108","2024-08-30","4060.52","36.63","GASTO","110.86"],
+        ];
+
+      /*   74 	CAJA MATRIZ: INTERESES DE CREDITO BANCARIO
+        75	CAJA MATRIZ: COMISION DE CREDITO BANCARIO */
+
+
+        foreach ($movs as $i => $e) {
+            $cat = null;
+            
+            $loteserial = $e[0];
+            $banco = $e[1];
+            $fecha = $e[2];
+            $monto = $e[3];
+            $tasa = $e[4];
+            $tipo = $e[5];
+            $montodolar = $e[6];
+
+            if ($tipo=="GASTO") {
+                $cat = 75;
+            }
+            if ($tipo=="GASTO INTERES") {
+                $cat = 74;
+            }
+            if ($tipo=="CUOTA") {
+                $cat = 40;
+            }
+
+            $id_banco = bancos_list::where("codigo",$banco)->first()->id;
+            $banco = puntosybiopagos::updateOrCreate([
+                "id"=> null
+            ],[
+                "loteserial" => $loteserial,
+                "banco" => $banco,
+                "id_banco" => $id_banco,
+                "categoria" => $cat,
+
+                "fecha" => $fecha,
+                "fecha_liquidacion" => $fecha,
+                "tipo" => "Transferencia",
+    
+                "id_sucursal" => 13,
+                "id_beneficiario" => null,
+                "tasa" => $tasa,
+                "monto_liquidado" => $monto*-1,
+                "monto" => $monto*-1,
+                "monto_dolar" => null,
+                "origen" => 2,
+                "id_usuario" => session("id_usuario"),
+                "id_cxp" => null,
+                "created_at" => "2024-09-10 12:59:59"
+            ]);
+
+        }
+    }
     function saveNewGasto(Request $req) {
         $gastosDescripcion = $req->gastosDescripcion;
         $gastosCategoria = $req->gastosCategoria;
