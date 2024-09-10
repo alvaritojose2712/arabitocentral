@@ -1580,9 +1580,9 @@ class CierresController extends Controller
             ->orderBy("fecha","desc")
             ->orderBy("id","asc")
             ->first();
-            $sum_caja_inicial += $matriz_inicial?$matriz_inicial->dolarbalance:0;
+            $matriz_sum = $matriz_inicial?$matriz_inicial->dolarbalance:0;
 
-            $total_caja_inicial = $sum_caja_inicial+$sum_caja_inicial_banco_dolar;
+            $total_caja_inicial = $matriz_sum + $sum_caja_inicial+$sum_caja_inicial_banco_dolar;
         /// END CAJA INICIAL
 
         /// CAJA ACTUAL
@@ -1693,8 +1693,8 @@ class CierresController extends Controller
             ->orderBy("id","asc")
             ->first();
 
-            $sum_caja_actual += $matriz_actual?$matriz_actual->dolarbalance:0;
-            $total_caja_actual = $sum_caja_actual+$sum_caja_actual_banco_dolar;
+            $matriz_actual_sum = $matriz_actual?$matriz_actual->dolarbalance:0;
+            $total_caja_actual = $matriz_actual_sum + $sum_caja_actual+$sum_caja_actual_banco_dolar;
         /// END CAJA ACTUAL
 
 
