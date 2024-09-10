@@ -259,6 +259,33 @@ export default function Cajascatdesplegable({
                                 </td>
                             </tr>
                         :null}
+
+
+                        <tr className="pointer">
+                            <th colSpan={2}  className="w-50">
+                                <span className="fs-5 ms-2">
+                                    PRESTAMOS    
+                                </span>
+                            </th>
+                            <th colSpan={2} className="w-50">
+                                <span className="fs-3">
+                                    {moneda(balanceGeneralData["prestamos_sum"]?balanceGeneralData["prestamos_sum"]:null)}
+                                </span>
+                            </th>
+                        </tr>
+
+                        <tr className="pointer">
+                            <th colSpan={2}  className="w-50">
+                                <span className="fs-5 ms-2">
+                                    ABONOS PRESTAMOS    
+                                </span>
+                            </th>
+                            <th colSpan={2} className="w-50">
+                                <span className="fs-3">
+                                    {moneda(balanceGeneralData["abonos_sum"]?balanceGeneralData["abonos_sum"]:null)}
+                                </span>
+                            </th>
+                        </tr>
                     </tbody>
                 )
             :null}

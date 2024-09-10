@@ -1138,7 +1138,7 @@ class CierresController extends Controller
             "gastosorder"=>"desc",
             "gastosfieldorder"=>"variable_fijo",
         ])["data"],function($filter) {
-            return $filter["cat"]["id"]!=40 && ($filter["cat"]["catgeneral"]==2||$filter["cat"]["catgeneral"]==3); //No es PAGO A PROVEEDOR
+            return $filter["cat"]["id"]!=30 && $filter["cat"]["id"]!=40 && $filter["cat"]["id"]!=77 && $filter["cat"]["id"]!=76 && $filter["cat"]["id"]!=75 && $filter["cat"]["id"]!=74 && ($filter["cat"]["catgeneral"]==2||$filter["cat"]["catgeneral"]==3); //No es PAGO A PROVEEDOR
         });
         foreach ($gastosFun as $gastoi => $gasto) {
             $ingresoegreso_key = $gasto["ingreso_egreso"];
@@ -1192,6 +1192,50 @@ class CierresController extends Controller
         }
         $gastos = collect($gastosFun)->groupBy(["ingreso_egreso","catgeneral","variable_fijo","categoria"]);
 
+        ///Prestamos y abonos
+
+        $prestamos = array_filter((new PuntosybiopagosController)
+        ->getGastosFun([
+            "gastosQ"=>"",
+            "gastosQFecha"=>$fechaBalanceGeneral,
+            "gastosQFechaHasta"=>$fechaHastaBalanceGeneral,
+            "gastosQCategoria"=>"30",
+            "catgeneral"=>"",
+            "ingreso_egreso"=>"",
+            "typecaja"=>"",
+            "gastosorder"=>"desc",
+            "gastosfieldorder"=>"variable_fijo",
+        ])["data"],function($filter) {
+            return $filter["cat"]["id"]==30; //ES PRESTAMO
+        });
+        foreach ($prestamos as $iprestamos => $prestamo) {
+            $monto =  (isset($gasto["montodolar"])?$gasto["montodolar"]:0)+((isset($gasto["montobs"])?$gasto["montobs"]:0)/$bs)+((isset($gasto["montopeso"])?$gasto["montopeso"]:0)/$cop);
+            $prestamos[$iprestamos]["montofull"] = $monto;
+        }
+        $prestamos_sum = array_sum(array_column($prestamos,"montofull"));
+
+       
+
+        $abonos = array_filter((new PuntosybiopagosController)
+        ->getGastosFun([
+            "gastosQ"=>"",
+            "gastosQFecha"=>$fechaBalanceGeneral,
+            "gastosQFechaHasta"=>$fechaHastaBalanceGeneral,
+            "gastosQCategoria"=>"28",
+            "catgeneral"=>"",
+            "ingreso_egreso"=>"",
+            "typecaja"=>"",
+            "gastosorder"=>"desc",
+            "gastosfieldorder"=>"variable_fijo",
+        ])["data"],function($filter) {
+            return $filter["cat"]["id"]==28; //ES ABONO NOMINA
+        });
+        foreach ($abonos as $iabonos => $abono) {
+            $monto =  (isset($gasto["montodolar"])?$gasto["montodolar"]:0)+((isset($gasto["montobs"])?$gasto["montobs"]:0)/$bs)+((isset($gasto["montopeso"])?$gasto["montopeso"]:0)/$cop);
+            $abonos[$iabonos]["montofull"] = $monto;
+        }
+
+        $abonos_sum = array_sum(array_column($abonos,"montofull"));
 
 
         $arr = [];
@@ -1298,8 +1342,6 @@ class CierresController extends Controller
         ]);
         $debitoUltimoDia = $cierreDataUltimo["sum"]["debito_clean"];
         $biopagoUltimoDia = $cierreDataUltimo["sum"]["biopago_clean"];
-
-        
         
         $inventario = $cierreData["sum"]["inventariobase_clean"];
         
@@ -1309,7 +1351,6 @@ class CierresController extends Controller
         $transferencia = $cierreData["sum"]["transferencia_clean"];
         $total = $cierreData["sum"]["total_clean"]/* +($debitoAntesPrimerDia-$debitoUltimoDia)+($biopagoAntesPrimerDia-$biopagoUltimoDia) */;
         $ganancia = $cierreData["sum"]["ganancia_clean"];
-        
         
         $cxcData = $this->getsucursalDetallesDataFun([
             "id_sucursal" => $sucursalBalanceGeneral,
@@ -1356,8 +1397,6 @@ class CierresController extends Controller
             "subviewpanelsucursales" => "cuentasporpagar",
         ]);
         $cxp = $cxpData["sum"];
-
-        
 
         $pagoproveedor = (new CuentasporpagarController)->selectCuentaPorPagarProveedorDetallesFun([
             "fechasMain1" => $fechaBalanceGeneral,
@@ -1706,8 +1745,75 @@ class CierresController extends Controller
         /// END CAJA ACTUAL
 
 
+        ///CREDITOS
 
-        $debetener =  ($total_caja_inicial + $total) - $pagoProveedorBruto - abs($gastosfijosSum) - abs($gastosvariablesSum) - $sumFDI ;
+
+        $ingreso_credito_data = []; //76
+        $ingreso_credito_sum = 0;
+        
+        //76 	INGRESO POR CREDITO BANCARIO
+        $ingreso_credito = puntosybiopagos::where("categoria",76)->whereBetween("fecha", [$fechaBalanceGeneral, !$fechaHastaBalanceGeneral?$fechaBalanceGeneral:$fechaHastaBalanceGeneral]);
+        $ingreso_credito_sum = $ingreso_credito
+        ->get()
+        ->map(function($q) {
+            $q->monto_dolar = $q->monto_liquidado / $q->tasa;
+            return $q;
+        })
+        ->sum("monto_dolar");
+        $ingreso_credito_data = $ingreso_credito->get();
+
+        $cuota_credito_data = []; //77
+        $cuota_credito_sum = 0;
+        
+        //77 	CUOTA POR CREDITO BANCARIO
+        $cuota_credito = puntosybiopagos::where("categoria",77)->whereBetween("fecha", [$fechaBalanceGeneral, !$fechaHastaBalanceGeneral?$fechaBalanceGeneral:$fechaHastaBalanceGeneral]);
+        $cuota_credito_sum = $cuota_credito
+        ->get()
+        ->map(function($q) {
+            $q->monto_dolar = $q->monto_liquidado / $q->tasa;
+            return $q;
+        })
+        ->sum("monto_dolar");
+        $cuota_credito_data = $cuota_credito->get();
+
+        $comision_credito_data = []; //75
+        $comision_credito_sum = 0;
+        
+        //75 	COMISION POR CREDITO BANCARIO
+        $comision_credito = puntosybiopagos::where("categoria",75)->whereBetween("fecha", [$fechaBalanceGeneral, !$fechaHastaBalanceGeneral?$fechaBalanceGeneral:$fechaHastaBalanceGeneral]);
+        $comision_credito_sum = $comision_credito
+        ->get()
+        ->map(function($q) {
+            $q->monto_dolar = $q->monto_liquidado / $q->tasa;
+            return $q;
+        })
+        ->sum("monto_dolar");
+        $comision_credito_data = $comision_credito->get();
+
+        $interes_credito_data = []; //74
+        $interes_credito_sum = 0;
+        
+        //74 	INTERES POR CREDITO BANCARIO
+        $interes_credito = puntosybiopagos::where("categoria",74)->whereBetween("fecha", [$fechaBalanceGeneral, !$fechaHastaBalanceGeneral?$fechaBalanceGeneral:$fechaHastaBalanceGeneral]);
+        $interes_credito_sum = $interes_credito
+        ->get()
+        ->map(function($q) {
+            $q->monto_dolar = $q->monto_liquidado / $q->tasa;
+            return $q;
+        })
+        ->sum("monto_dolar");
+        $interes_credito_data = $interes_credito->get();
+
+        $ingreso_credito_sum = abs($ingreso_credito_sum);
+        $cuota_credito_sum = abs($cuota_credito_sum);
+        $comision_credito_sum = abs($comision_credito_sum);
+        $interes_credito_sum = abs($interes_credito_sum);
+        ///END CREDITOS
+
+        $prestamos_sum = abs($prestamos_sum);
+        $abonos_sum = abs($abonos_sum);
+
+        $debetener =  ($total_caja_inicial + $total + $ingreso_credito_sum ) - $pagoProveedorBruto - abs($gastosfijosSum) - abs($gastosvariablesSum) - $sumFDI - $cuota_credito_sum- $comision_credito_sum- $interes_credito_sum - ($prestamos_sum-$abonos_sum) ;
         $bsactual = $this->getTasa()["bs"];
         $cuadre = $debetener-$total_caja_actual;
 
@@ -1718,15 +1824,14 @@ class CierresController extends Controller
         $aumento_inventariobase = 0;
         $aumento_inventarioventa = 0;
 
+        
         $cxc_inicial = 0;
         $cxc_final = 0;
         $cxc_aumento = 0;
-
+        
         $cxp_inicial = 0;
         $cxp_final = 0;
         $cxp_aumento = 0;
-
-
 
         foreach ($sucursales as $i => $e) {
             $inicial = cierres::where("id_sucursal",$e->id)->where("fecha","<=",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
@@ -1752,6 +1857,29 @@ class CierresController extends Controller
 
 
         return [
+
+            "ingreso_credito_data" => $ingreso_credito_data,  //76
+            "ingreso_credito_sum" => $ingreso_credito_sum,
+
+            "cuota_credito_data" => $cuota_credito_data,  //77
+            "cuota_credito_sum" => $cuota_credito_sum,
+            
+            "comision_credito_data" => $comision_credito_data,  //75
+            "comision_credito_sum" => $comision_credito_sum,
+            
+            "interes_credito_data" => $interes_credito_data,  //74
+            "interes_credito_sum" => $interes_credito_sum,
+
+
+            "prestamos" => $prestamos,
+            "abonos" => $abonos,
+
+            "prestamos_sum" => $prestamos_sum,
+            "abonos_sum" => $abonos_sum,
+
+
+
+
             "inicial_inventariobase" => $inicial_inventariobase,
             "inicial_inventarioventa" => $inicial_inventarioventa,
 

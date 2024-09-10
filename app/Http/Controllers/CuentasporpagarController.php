@@ -904,10 +904,7 @@ class CuentasporpagarController extends Controller
             
             if ($ee->montobs1 && $ee->montobs1!=0.00) {
                 $banco = puntosybiopagos::updateOrCreate([
-                        "loteserial" => $numfact_desc." #".$ee["refbs1"],
-                        "id_banco" => $ee["id_metodobs1"],
-                        "fecha" => $fecha_creada,
-                        "id_cxp" => $id_cxp,
+                        "id" => null
                     ],[
                         "loteserial" => $numfact_desc." #".$ee["refbs1"],
                         "banco" => $ee["metodobs1"],
@@ -927,14 +924,13 @@ class CuentasporpagarController extends Controller
                         "origen" => 2,
                         "id_usuario" => session("id_usuario"),
                         "id_cxp" => $id_cxp,
+                        "created_at" => "2024-09-10 11:50:50"
                     ]);
             }
             if ($ee->metodobs2 && $ee->metodobs2!=0.00) {
                 $banco = puntosybiopagos::updateOrCreate([
-                        "loteserial" => $numfact_desc." #".$ee["refbs2"],
-                        "id_banco" => $ee["id_metodobs2"],
-                        "fecha" => $fecha_creada,
-                        "id_cxp" => $id_cxp,
+                    "id" => null
+
                     ],[
                         "loteserial" => $numfact_desc." #".$ee["refbs2"],
                         "banco" => $ee["metodobs2"],
@@ -954,14 +950,13 @@ class CuentasporpagarController extends Controller
                         "origen" => 2,
                         "id_usuario" => session("id_usuario"),
                         "id_cxp" => $id_cxp,
+                        "created_at" => "2024-09-10 11:50:50"
                     ]);
             }
             if ($ee->metodobs3 && $ee->metodobs3!=0.00) {
                 $banco = puntosybiopagos::updateOrCreate([
-                        "loteserial" => $numfact_desc." #".$ee["refbs3"],
-                        "id_banco" => $ee["id_metodobs3"],
-                        "fecha" => $fecha_creada,
-                        "id_cxp" => $id_cxp,
+                    "id" => null
+
                     ],[
                         "loteserial" => $numfact_desc." #".$ee["refbs3"],
                         "banco" => $ee["metodobs3"],
@@ -981,14 +976,13 @@ class CuentasporpagarController extends Controller
                         "origen" => 2,
                         "id_usuario" => session("id_usuario"),
                         "id_cxp" => $id_cxp,
+                        "created_at" => "2024-09-10 11:50:50"
                     ]);
             }
             if ($ee->metodobs4 && $ee->metodobs4!=0.00) {
                 $banco = puntosybiopagos::updateOrCreate([
-                        "loteserial" => $numfact_desc." #".$ee["refbs4"],
-                        "id_banco" => $ee["id_metodobs4"],
-                        "fecha" => $fecha_creada,
-                        "id_cxp" => $id_cxp,
+                    "id" => null
+
                     ],[
                         "loteserial" => $numfact_desc." #".$ee["refbs4"],
                         "banco" => $ee["metodobs4"],
@@ -1008,14 +1002,13 @@ class CuentasporpagarController extends Controller
                         "origen" => 2,
                         "id_usuario" => session("id_usuario"),
                         "id_cxp" => $id_cxp,
+                        "created_at" => "2024-09-10 11:50:50"
                     ]);
             }
             if ($ee->metodobs5 && $ee->metodobs5!=0.00) {
                 $banco = puntosybiopagos::updateOrCreate([
-                        "loteserial" => $numfact_desc." #".$ee["refbs5"],
-                        "id_banco" => $ee["id_metodobs5"],
-                        "fecha" => $fecha_creada,
-                        "id_cxp" => $id_cxp,
+                    "id" => null
+
                     ],[
                         "loteserial" => $numfact_desc." #".$ee["refbs5"],
                         "banco" => $ee["metodobs5"],
@@ -1035,6 +1028,7 @@ class CuentasporpagarController extends Controller
                         "origen" => 2,
                         "id_usuario" => session("id_usuario"),
                         "id_cxp" => $id_cxp,
+                        "created_at" => "2024-09-10 11:50:50"
                     ]);
             }
             

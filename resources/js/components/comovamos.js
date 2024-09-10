@@ -319,6 +319,40 @@ export default function ComoVamos({
                                                     </td>
                                                     <th className="fs-3">{moneda(balanceGeneralData.ganancia)}</th>
                                                 </tr>
+
+                                                <tr>
+                                                    <td className="p-0 w-50">
+                                                        <button className={"btn fw-bolder fs-4 btn-info"}>
+                                                            INGRESO POR CREDITO
+                                                        </button>
+                                                    </td>
+                                                    <th className="fs-3">{moneda(balanceGeneralData.ingreso_credito_sum)}</th>
+                                                </tr>
+
+                                                <tr>
+                                                    <td className="p-0 w-50">
+                                                        <button className={"btn fw-bolder fs-4 btn-primary"}>
+                                                            CUOTAS POR CREDITO
+                                                        </button>
+                                                    </td>
+                                                    <th className="fs-3">{moneda(balanceGeneralData.cuota_credito_sum)}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td className="p-0 w-50">
+                                                        <button className={"btn fw-bolder fs-4 btn-sinapsis"}>
+                                                            INTERÉS POR CREDITO
+                                                        </button>
+                                                    </td>
+                                                    <th className="fs-3">{moneda(balanceGeneralData.interes_credito_sum)}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td className="p-0 w-50">
+                                                        <button className={"btn fw-bolder fs-4 btn-sinapsis"}>
+                                                            COMISIÓN POR CREDITO
+                                                        </button>
+                                                    </td>
+                                                    <th className="fs-3">{moneda(balanceGeneralData.comision_credito_sum)}</th>
+                                                </tr>
                                             </tbody>
                                         </table>
                                         <Cajascatdesplegable
