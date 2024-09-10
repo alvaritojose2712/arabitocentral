@@ -1209,12 +1209,10 @@ class CierresController extends Controller
             return $filter["cat"]["id"]==30; //ES PRESTAMO
         });
         foreach ($prestamos as $iprestamos => $prestamo) {
-            $monto =  (isset($gasto["montodolar"])?$gasto["montodolar"]:0)+((isset($gasto["montobs"])?$gasto["montobs"]:0)/$bs)+((isset($gasto["montopeso"])?$gasto["montopeso"]:0)/$cop);
+            $monto =  (isset($prestamo["montodolar"])?$prestamo["montodolar"]:0)+((isset($prestamo["montobs"])?$prestamo["montobs"]:0)/$bs)+((isset($prestamo["montopeso"])?$prestamo["montopeso"]:0)/$cop);
             $prestamos[$iprestamos]["montofull"] = $monto;
         }
         $prestamos_sum = array_sum(array_column($prestamos,"montofull"));
-
-       
 
         $abonos = array_filter((new PuntosybiopagosController)
         ->getGastosFun([
@@ -1231,7 +1229,7 @@ class CierresController extends Controller
             return $filter["cat"]["id"]==28; //ES ABONO NOMINA
         });
         foreach ($abonos as $iabonos => $abono) {
-            $monto =  (isset($gasto["montodolar"])?$gasto["montodolar"]:0)+((isset($gasto["montobs"])?$gasto["montobs"]:0)/$bs)+((isset($gasto["montopeso"])?$gasto["montopeso"]:0)/$cop);
+            $monto =  (isset($abono["montodolar"])?$abono["montodolar"]:0)+((isset($abono["montobs"])?$abono["montobs"]:0)/$bs)+((isset($abono["montopeso"])?$abono["montopeso"]:0)/$cop);
             $abonos[$iabonos]["montofull"] = $monto;
         }
 
