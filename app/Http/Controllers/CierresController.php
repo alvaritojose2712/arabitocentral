@@ -1573,7 +1573,7 @@ class CierresController extends Controller
             }
 
             $matriz_inicial = cajas::where("id_sucursal",13)->where("fecha","<",$fechaBalanceGeneral)->orderBy("fecha","desc")->first();
-            $total_caja_inicial += $matriz_inicial?$matriz_inicial->dolarbalance:0;
+            $sum_caja_inicial += $matriz_inicial?$matriz_inicial->dolarbalance:0;
 
             $total_caja_inicial = $sum_caja_inicial+$sum_caja_inicial_banco_dolar;
         /// END CAJA INICIAL
