@@ -210,52 +210,42 @@ export default function Cajascatdesplegable({
                                                                 {pagosproveedor.fechaemision}
                                                             </td>
                                                             <td>
-                                                                <table className="table">
-                                                                {pagosproveedor.montobs1&&pagosproveedor.montobs1!="0.00"?
-                                                                        <tr>
-                                                                            <td className="w-25">Bs. {moneda(pagosproveedor.montobs1)}</td>
-                                                                            <td className="w-25 text-success">{moneda(pagosproveedor.tasabs1)}</td>
-                                                                            <td className="w-25">{(pagosproveedor.metodobs1)}</td>
-                                                                            <td className="w-25 text-muted">{(pagosproveedor.refbs1)}</td>
-                                                                        </tr>
-                                                                :null}
-
-                                                                {pagosproveedor.montobs2&&pagosproveedor.montobs2!="0.00"?
-                                                                        <tr>
-                                                                            <td className="w-25">Bs. {moneda(pagosproveedor.montobs2)}</td>
-                                                                            <td className="w-25 text-success">{moneda(pagosproveedor.tasabs2)}</td>
-                                                                            <td className="w-25">{(pagosproveedor.metodobs2)}</td>
-                                                                            <td className="w-25 text-muted">{(pagosproveedor.refbs2)}</td>
-                                                                        </tr>
+                                                                <table className="table w-100">
+                                                                    <tbody>
+                                                                        {pagosproveedor.banco?
+                                                                            pagosproveedor.banco.map(ee=>
+                                                                                <tr className="fs-5">
+                                                                                    <th className="text-right w-10">BANCO</th>
+                                                                                    <td className="text-muted w-30">
+                                                                                        {ee.loteserial}
+                                                                                    </td>
+                                                                                    <td className="w-10">
+                                                                                        {ee.banco}
+                                                                                    </td>
+                                                                                    <td className="w-10">
+                                                                                        <span className="text-sinapsis">{moneda(ee.tasa)}</span>
+                                                                                    </td>
+                                                                                    <td className="w-30">
+                                                                                        <span className="text-success">Bs. {moneda(ee.monto)}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            )
                                                                         :null}
-                                                                {pagosproveedor.montobs3&&pagosproveedor.montobs3!="0.00"?
-                                                                        <tr>
-                                                                            <td className="w-25">Bs. {moneda(pagosproveedor.montobs3)}</td>
-                                                                            <td className="w-25 text-success">{moneda(pagosproveedor.tasabs3)}</td>
-                                                                            <td className="w-25">{(pagosproveedor.metodobs3)}</td>
-                                                                            <td className="w-25 text-muted">{(pagosproveedor.refbs3)}</td>
-                                                                        </tr>
+                                                                        {pagosproveedor.efectivo?
+                                                                            pagosproveedor.efectivo.map(ee=>
+                                                                                <tr className="fs-5">
+                                                                                    <th className="text-right w-10">EFECTIVO </th>
+                                                                                    <td className="text-muted w-40">
+                                                                                        {ee.concepto}
+                                                                                    </td>
+                                                                                    <td className="w-40">
+                                                                                        {ee.montodolar}
+                                                                                    </td>
+                                                                                </tr>
+                                                                            )
                                                                         :null}
-                                                                {pagosproveedor.montobs4&&pagosproveedor.montobs4!="0.00"?
-                                                                        <tr>
-                                                                            <td className="w-25">Bs. {moneda(pagosproveedor.montobs4)}</td>
-                                                                            <td className="w-25 text-success">{moneda(pagosproveedor.tasabs4)}</td>
-                                                                            <td className="w-25">{(pagosproveedor.metodobs4)}</td>
-                                                                            <td className="w-25 text-muted">{(pagosproveedor.refbs4)}</td>
-                                                                        </tr>
-                                                                        :null}
-
-                                                                {pagosproveedor.montobs5&&pagosproveedor.montobs5!="0.00"?
-                                                                        <tr>
-                                                                            <td className="w-25">Bs. {moneda(pagosproveedor.montobs5)}</td>
-                                                                            <td className="w-25 text-success">{moneda(pagosproveedor.tasabs5)}</td>
-                                                                            <td className="w-25">{(pagosproveedor.metodobs5)}</td>
-                                                                            <td className="w-25 text-muted">{(pagosproveedor.refbs5)}</td>
-                                                                        </tr>
-                                                                :null}
-                                                                    </table>
-
-
+                                                                    </tbody>
+                                                                </table>
                                                             </td>
                                                             <td>
                                                                 $ {moneda(pagosproveedor.monto)}

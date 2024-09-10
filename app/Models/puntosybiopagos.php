@@ -46,6 +46,7 @@ class puntosybiopagos extends Model
         "id_comision",
         "id_origen_comision",
         "id_noreportada",
+        "id_cxp",
         "created_at",
         
     ];

@@ -43,6 +43,9 @@ class CreateCajasTable extends Migration
             $table->integer("id_beneficiario")->nullable(true)->default(null);
             $table->integer("origen")->nullable(true)->default(1);
 
+            $table->integer("id_cxp")->nullable(true);
+
+
             
             
             $table->integer("idinsucursal");  

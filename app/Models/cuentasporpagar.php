@@ -32,6 +32,13 @@ class cuentasporpagar extends Model
         return $this->hasMany('App\Models\cuentasporpagar_items',"id_cuenta","id"); 
     }
 
+    public function banco() { 
+        return $this->hasMany('App\Models\puntosybiopagos',"id_cxp","id"); 
+    }
+    public function efectivo() { 
+        return $this->hasMany('App\Models\cajas',"id_cxp","id"); 
+    }
+
     public function pagos() { 
         return $this->belongsToMany(\App\Models\cuentasporpagar::class, 'cuentasporpagar_pagos', 'id_factura', 'id_pago')->withPivot('monto');
     }

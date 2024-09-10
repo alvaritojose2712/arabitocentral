@@ -57,6 +57,7 @@ class cajas extends Model
         "revisado",
         "id_proveedor",
         "id_beneficiario",
+        "id_cxp",
         "origen",
     ];
     use HasFactory;

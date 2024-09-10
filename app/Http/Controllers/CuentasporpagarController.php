@@ -15,6 +15,8 @@ use App\Models\sucursal;
 use App\Models\pedidos;
 use App\Models\items_pedidos;
 use App\Models\inventario_sucursal;
+use App\Models\puntosybiopagos;
+
 
 
 
@@ -412,7 +414,84 @@ class CuentasporpagarController extends Controller
         $codigo_metodobs3PagoFact = $sql_metodobs3PagoFact? $sql_metodobs3PagoFact->codigo:null;
         $codigo_metodobs4PagoFact = $sql_metodobs4PagoFact? $sql_metodobs4PagoFact->codigo:null;
         $codigo_metodobs5PagoFact = $sql_metodobs5PagoFact? $sql_metodobs5PagoFact->codigo:null;
-        
+
+        $montobs1 = $montobs1PagoFact;
+        $tasabs1 = $tasabs1PagoFact;
+        $metodobs1 = $codigo_metodobs1PagoFact;
+        $metodobs2 = $codigo_metodobs2PagoFact;
+        $metodobs3 = $codigo_metodobs3PagoFact;
+        $metodobs4 = $codigo_metodobs4PagoFact;
+        $metodobs5 = $codigo_metodobs5PagoFact;
+        $id_metodobs1 = $metodobs1PagoFact;
+        $id_metodobs2 = $metodobs2PagoFact;
+        $id_metodobs3 = $metodobs3PagoFact;
+        $id_metodobs4 = $metodobs4PagoFact;
+        $id_metodobs5 = $metodobs5PagoFact;
+        $montobs2 = $montobs2PagoFact;
+        $tasabs2 = $tasabs2PagoFact;
+        $montobs3 = $montobs3PagoFact;
+        $tasabs3 = $tasabs3PagoFact;
+        $montobs4 = $montobs4PagoFact;
+        $tasabs4 = $tasabs4PagoFact;
+        $montobs5 = $montobs5PagoFact;
+        $tasabs5 = $tasabs5PagoFact;
+        $refbs1 = $refbs1PagoFact;
+        $refbs2 = $refbs2PagoFact;
+        $refbs3 = $refbs3PagoFact;
+        $refbs4 = $refbs4PagoFact;
+        $refbs5 = $refbs5PagoFact;
+
+        $search = [
+            "id_sucursal" => $id_sucursal,
+            "idinsucursal" => $idinsucursal_pago
+        ];
+
+        $pagos_bancos = [
+            [
+                "montobs" => $montobs1,
+                "tasabs" => $tasabs1,
+                "metodobs" => $metodobs1,
+                "id_metodobs" => $id_metodobs1,
+                "refbs" => $refbs1,
+            ],
+
+            [
+                "montobs" => $montobs2,
+                "tasabs" => $tasabs2,
+                "metodobs" => $metodobs2,
+                "id_metodobs" => $id_metodobs2,
+                "refbs" => $refbs2,
+            ],
+
+            [
+                "montobs" => $montobs3,
+                "tasabs" => $tasabs3,
+                "metodobs" => $metodobs3,
+                "id_metodobs" => $id_metodobs3,
+                "refbs" => $refbs3,
+            ],
+
+            [
+                "montobs" => $montobs4,
+                "tasabs" => $tasabs4,
+                "metodobs" => $metodobs4,
+                "id_metodobs" => $id_metodobs4,
+                "refbs" => $refbs4,
+            ],
+
+            [
+                "montobs" => $montobs5,
+                "tasabs" => $tasabs5,
+                "metodobs" => $metodobs5,
+                "id_metodobs" => $id_metodobs5,
+                "refbs" => $refbs5,
+            ],
+        ];
+        $search = [
+            "id_sucursal" => $id_sucursal,
+            "idinsucursal" => $idinsucursal_pago
+        ];
+
         $arrinsert = [
             "id_proveedor" => $id_proveedor_caja,
             "tipo" => 1, //COMPRAS
@@ -432,94 +511,88 @@ class CuentasporpagarController extends Controller
             "nota" => "",
             "metodo" => $metodo,
             "aprobado" => $aprobado,
+        ];
+        $cuenta = cuentasporpagar::updateOrCreate($search,$arrinsert);
+        
 
-            "montobs1" => $montobs1PagoFact,
-            "tasabs1" => $tasabs1PagoFact,
+        if ($metodo=="EFECTIVO") {
+
+            $pago = (new CajasController)->setCajaFun([
+                "id" => null,
+                "categoria" => 40, //CAJA FUERTE: PAGO PROVEEDOR
+                "tipo" => 1,
+                "concepto" => $numfact_desc,
+
+                "montodolar" => abs($monto)*-1,
+                "montopeso" => 0,
+                "montobs" => 0,
+                "montoeuro" => 0,
+
+                "fecha" => $fecha_creada,
+                "id_proveedor" => $id_proveedor_caja,
+                "id_cxp" => $cuenta->id,
+                //"idinsucursal" => null,
+            ]);
+        }else{
+            foreach ($pagos_bancos as $i => $e) {
+                if ($e["refbs"] && $e["metodobs"] && $e["id_metodobs"] && $e["montobs"] && $e["tasabs"]) {
+                    $banco = puntosybiopagos::updateOrCreate([
+                        "loteserial" => $numfact_desc." #".$e["refbs"],
+                        "id_banco" => $e["id_metodobs"],
+                        "fecha" => $fecha_creada,
+                        "id_cxp" => $cuenta->id,
+                    ],[
+                        "loteserial" => $numfact_desc." #".$e["refbs"],
+                        "banco" => $e["metodobs"],
+                        "id_banco" => $e["id_metodobs"],
+                        "categoria" => 40,
+        
+                        "fecha" => $fecha_creada,
+                        "fecha_liquidacion" => $fecha_creada,
+                        "tipo" => "Transferencia",
             
-            "metodobs1" => $codigo_metodobs1PagoFact,
-            "metodobs2" => $codigo_metodobs2PagoFact,
-            "metodobs3" => $codigo_metodobs3PagoFact,
-            "metodobs4" => $codigo_metodobs4PagoFact,
-            "metodobs5" => $codigo_metodobs5PagoFact,
-
-            "id_metodobs1" => $metodobs1PagoFact,
-            "id_metodobs2" => $metodobs2PagoFact,
-            "id_metodobs3" => $metodobs3PagoFact,
-            "id_metodobs4" => $metodobs4PagoFact,
-            "id_metodobs5" => $metodobs5PagoFact,
-
-            "montobs2" => $montobs2PagoFact,
-            "tasabs2" => $tasabs2PagoFact,
-            "montobs3" => $montobs3PagoFact,
-            "tasabs3" => $tasabs3PagoFact,
-            "montobs4" => $montobs4PagoFact,
-            "tasabs4" => $tasabs4PagoFact,
-            "montobs5" => $montobs5PagoFact,
-            "tasabs5" => $tasabs5PagoFact,
-
-            "refbs1" => $refbs1PagoFact,
-            "refbs2" => $refbs2PagoFact,
-            "refbs3" => $refbs3PagoFact,
-            "refbs4" => $refbs4PagoFact,
-            "refbs5" => $refbs5PagoFact,
-        ];
-
-        $search = [
-            "id_sucursal" => $id_sucursal,
-            "idinsucursal" => $idinsucursal_pago
-        ];
-        
-        $cuenta = $this->setCuentaPorPagar($arrinsert,$search);        
-        
-        if ($cuenta) {
-            if ($metodo=="EFECTIVO") {
-                $catpagoproveedor = catcajas::where("nombre","CAJA FUERTE: PAGO PROVEEDOR")->first();
-
-                (new CajasController)->setCajaFun([
-                    "id" => null,
-                    "categoria" => $catpagoproveedor->id,
-                    "tipo" => 1,
-                    "concepto" => $numfact_desc,
-    
-                    "montodolar" => abs($monto)*-1,
-                    "montopeso" => 0,
-                    "montobs" => 0,
-                    "montoeuro" => 0,
-    
-                    "fecha" => $fecha_creada,
-                    "id_proveedor" => $id_proveedor_caja,
-
-                    //"idinsucursal" => null,
-                ]);
+                        "id_sucursal" => 13,
+                        "id_beneficiario" => null,
+                        "tasa" => $e["tasabs"],
+                        "monto_liquidado" => $e["montobs"],
+                        "monto" => $e["montobs"],
+                        "monto_dolar" => null,
+                        "origen" => 2,
+                        "id_usuario" => session("id_usuario"),
+                        "id_cxp" => $cuenta->id,
+                    ]);
+                }
             }
+        }
 
-            if ($selectAbonoFact) {
-                if (count($selectAbonoFact)) {
-                    $msjAbono = "";
-                    cuentasporpagar_pagos::where("id_pago",$cuenta->id)->delete();
-                    foreach ($selectAbonoFact as $e) {
-                        $update_cuenta = cuentasporpagar_pagos::updateOrCreate([
-                            "id_factura" => $e["id"],
-                            "id_pago" => $cuenta->id,
-                        ],[
-                            "id_factura" => $e["id"],
-                            "id_pago" => $cuenta->id,
-                            "monto" => $e["val"],
-                        ]);
-                        
-                        $this->setEstatusFact($e["id"]);
+        if ($selectAbonoFact) {
+            if (count($selectAbonoFact)) {
+                $msjAbono = "";
+                cuentasporpagar_pagos::where("id_pago",$cuenta->id)->delete();
+                foreach ($selectAbonoFact as $e) {
+                    $update_cuenta = cuentasporpagar_pagos::updateOrCreate([
+                        "id_factura" => $e["id"],
+                        "id_pago" => $cuenta->id,
+                    ],[
+                        "id_factura" => $e["id"],
+                        "id_pago" => $cuenta->id,
+                        "monto" => $e["val"],
+                        "tipo" => $metodo=="EFECTIVO" ? 2 : 1
+                    ]);
+                    //$table->integer("tipo")->nullable(); //1 BANCO //2 EFECTIVO
+                    
+                    $this->setEstatusFact($e["id"]);
 
-                        
-                        if ($update_cuenta) {
-                            $msjAbono .= $e["val"]." | ";
-                        }else{
-                            $msjAbono .= "ERROR: " . $e["val"]." | ";
-                        }
-                        
+                    
+                    if ($update_cuenta) {
+                        $msjAbono .= $e["val"]." | ";
+                    }else{
+                        $msjAbono .= "ERROR: " . $e["val"]." | ";
                     }
-                    return $msjAbono;
                     
                 }
+                return $msjAbono;
+                
             }
         }
     }
@@ -653,7 +726,7 @@ class CuentasporpagarController extends Controller
     }
     function changeSucursal(Request $req) {
         
-        $su = $req->sucursal;        
+        /* $su = $req->sucursal;        
         $sucursal = sucursal::where("codigo",$su)->first();
         if ($sucursal) {
             $upd = cuentasporpagar::find($req->id);
@@ -661,7 +734,7 @@ class CuentasporpagarController extends Controller
             return $upd->save();
         }else{
             return "No se encontró Sucursal";
-        }
+        } */
         
     }
 
@@ -815,6 +888,159 @@ class CuentasporpagarController extends Controller
         }
     }
 
+    function recoverypagos() {
+        $c = cuentasporpagar::where("monto",">",0)->get();
+
+        foreach ($c as $i => $ee) {
+            $numfact_desc = $ee->numfact;
+            $fecha_creada = $ee->fechaemision;
+            $id_cxp = $ee->id;
+            
+            
+            
+            
+            
+
+            
+            if ($ee->montobs1 && $ee->montobs1!=0.00) {
+                $banco = puntosybiopagos::updateOrCreate([
+                        "loteserial" => $numfact_desc." #".$ee["refbs1"],
+                        "id_banco" => $ee["id_metodobs1"],
+                        "fecha" => $fecha_creada,
+                        "id_cxp" => $id_cxp,
+                    ],[
+                        "loteserial" => $numfact_desc." #".$ee["refbs1"],
+                        "banco" => $ee["metodobs1"],
+                        "id_banco" => $ee["id_metodobs1"],
+                        "categoria" => 40,
+        
+                        "fecha" => $fecha_creada,
+                        "fecha_liquidacion" => $fecha_creada,
+                        "tipo" => "Transferencia",
+            
+                        "id_sucursal" => 13,
+                        "id_beneficiario" => null,
+                        "tasa" => $ee["tasabs1"],
+                        "monto_liquidado" => $ee["montobs1"]*-1,
+                        "monto" => $ee["montobs1"]*-1,
+                        "monto_dolar" => null,
+                        "origen" => 2,
+                        "id_usuario" => session("id_usuario"),
+                        "id_cxp" => $id_cxp,
+                    ]);
+            }
+            if ($ee->metodobs2 && $ee->metodobs2!=0.00) {
+                $banco = puntosybiopagos::updateOrCreate([
+                        "loteserial" => $numfact_desc." #".$ee["refbs2"],
+                        "id_banco" => $ee["id_metodobs2"],
+                        "fecha" => $fecha_creada,
+                        "id_cxp" => $id_cxp,
+                    ],[
+                        "loteserial" => $numfact_desc." #".$ee["refbs2"],
+                        "banco" => $ee["metodobs2"],
+                        "id_banco" => $ee["id_metodobs2"],
+                        "categoria" => 40,
+        
+                        "fecha" => $fecha_creada,
+                        "fecha_liquidacion" => $fecha_creada,
+                        "tipo" => "Transferencia",
+            
+                        "id_sucursal" => 13,
+                        "id_beneficiario" => null,
+                        "tasa" => $ee["tasabs2"],
+                        "monto_liquidado" => $ee["montobs2"]*-1,
+                        "monto" => $ee["montobs2"]*-1,
+                        "monto_dolar" => null,
+                        "origen" => 2,
+                        "id_usuario" => session("id_usuario"),
+                        "id_cxp" => $id_cxp,
+                    ]);
+            }
+            if ($ee->metodobs3 && $ee->metodobs3!=0.00) {
+                $banco = puntosybiopagos::updateOrCreate([
+                        "loteserial" => $numfact_desc." #".$ee["refbs3"],
+                        "id_banco" => $ee["id_metodobs3"],
+                        "fecha" => $fecha_creada,
+                        "id_cxp" => $id_cxp,
+                    ],[
+                        "loteserial" => $numfact_desc." #".$ee["refbs3"],
+                        "banco" => $ee["metodobs3"],
+                        "id_banco" => $ee["id_metodobs3"],
+                        "categoria" => 40,
+        
+                        "fecha" => $fecha_creada,
+                        "fecha_liquidacion" => $fecha_creada,
+                        "tipo" => "Transferencia",
+            
+                        "id_sucursal" => 13,
+                        "id_beneficiario" => null,
+                        "tasa" => $ee["tasabs3"],
+                        "monto_liquidado" => $ee["montobs3"]*-1,
+                        "monto" => $ee["montobs3"]*-1,
+                        "monto_dolar" => null,
+                        "origen" => 2,
+                        "id_usuario" => session("id_usuario"),
+                        "id_cxp" => $id_cxp,
+                    ]);
+            }
+            if ($ee->metodobs4 && $ee->metodobs4!=0.00) {
+                $banco = puntosybiopagos::updateOrCreate([
+                        "loteserial" => $numfact_desc." #".$ee["refbs4"],
+                        "id_banco" => $ee["id_metodobs4"],
+                        "fecha" => $fecha_creada,
+                        "id_cxp" => $id_cxp,
+                    ],[
+                        "loteserial" => $numfact_desc." #".$ee["refbs4"],
+                        "banco" => $ee["metodobs4"],
+                        "id_banco" => $ee["id_metodobs4"],
+                        "categoria" => 40,
+        
+                        "fecha" => $fecha_creada,
+                        "fecha_liquidacion" => $fecha_creada,
+                        "tipo" => "Transferencia",
+            
+                        "id_sucursal" => 13,
+                        "id_beneficiario" => null,
+                        "tasa" => $ee["tasabs4"],
+                        "monto_liquidado" => $ee["montobs4"]*-1,
+                        "monto" => $ee["montobs4"]*-1,
+                        "monto_dolar" => null,
+                        "origen" => 2,
+                        "id_usuario" => session("id_usuario"),
+                        "id_cxp" => $id_cxp,
+                    ]);
+            }
+            if ($ee->metodobs5 && $ee->metodobs5!=0.00) {
+                $banco = puntosybiopagos::updateOrCreate([
+                        "loteserial" => $numfact_desc." #".$ee["refbs5"],
+                        "id_banco" => $ee["id_metodobs5"],
+                        "fecha" => $fecha_creada,
+                        "id_cxp" => $id_cxp,
+                    ],[
+                        "loteserial" => $numfact_desc." #".$ee["refbs5"],
+                        "banco" => $ee["metodobs5"],
+                        "id_banco" => $ee["id_metodobs5"],
+                        "categoria" => 40,
+        
+                        "fecha" => $fecha_creada,
+                        "fecha_liquidacion" => $fecha_creada,
+                        "tipo" => "Transferencia",
+            
+                        "id_sucursal" => 13,
+                        "id_beneficiario" => null,
+                        "tasa" => $ee["tasabs5"],
+                        "monto_liquidado" => $ee["montobs5"]*-1,
+                        "monto" => $ee["montobs5"]*-1,
+                        "monto_dolar" => null,
+                        "origen" => 2,
+                        "id_usuario" => session("id_usuario"),
+                        "id_cxp" => $id_cxp,
+                    ]);
+            }
+            
+        }
+    }
+
     function selectCuentaPorPagarProveedorDetallesFun($arr) {
         $id_proveedor = $arr["id_proveedor"];
         $qcampoBusquedacuentasPorPagarDetalles = isset($arr["qcampoBusquedacuentasPorPagarDetalles"])?$arr["qcampoBusquedacuentasPorPagarDetalles"]:"numfact";
@@ -840,7 +1066,7 @@ class CuentasporpagarController extends Controller
         
         $todayWithoutDateTime = (new NominaController)->today();
         $today = new \DateTime($todayWithoutDateTime);
-        $detalles = cuentasporpagar::with(["items"=>function($q){
+        $detalles = cuentasporpagar::with(["banco","efectivo","items"=>function($q){
             $q->with("producto");
         },"sucursal","proveedor","pagos"=>function($q) {
             

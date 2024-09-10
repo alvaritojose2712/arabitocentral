@@ -635,6 +635,7 @@ class CajasController extends Controller
         $id_proveedor = isset($arr["id_proveedor"])?$arr["id_proveedor"]:null;
         
         $id_beneficiario = isset($arr["id_beneficiario"])?$arr["id_beneficiario"]:null;
+        $id_cxp = isset($arr["id_cxp"])?$arr["id_cxp"]:null;
         $origen = isset($arr["origen"])?$arr["origen"]:1;
         $id_sucursal = isset($arr["id_sucursal"])?$arr["id_sucursal"]:13;
         
@@ -666,8 +667,8 @@ class CajasController extends Controller
             "id_proveedor" => $id_proveedor,
             "idinsucursal" => $idinsucursal,
             "id_beneficiario" => $id_beneficiario,
+            "id_cxp" => $id_cxp,
             "origen" => $origen,
-            
             "id_sucursal" => $id_sucursal,
 
         ] ; 
