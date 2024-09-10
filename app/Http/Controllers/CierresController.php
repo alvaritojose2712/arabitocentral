@@ -1446,7 +1446,7 @@ class CierresController extends Controller
 
         foreach ($pagoproveedorBanco as $i => $pagoProveedorBancoVal) {
             foreach ($pagoProveedorBancoVal["banco"] as $i => $ban) {
-                $sumPagoProveedorBanco += $this->dividir($ban["monto_liquidado"],$ban["tasa"]);
+                $sumPagoProveedorBanco += $this->dividir(abs($ban["monto_liquidado"]),$ban["tasa"]);
             }
 
             $tasas = cierres::where("fecha","<=", $pagoProveedorBancoVal["fechaemision"])->orderBy("fecha","desc")->first();
@@ -1456,7 +1456,7 @@ class CierresController extends Controller
             foreach ($pagoProveedorBancoVal["banco"] as $i => $ban) {
                 $bss = 1;
 
-                $id_banco = bancos_list::find($pagoProveedorBancoVal["id_banco"]);
+                $id_banco = bancos_list::find($ban["id_banco"]);
                 if ($id_banco) {
                     if ($id_banco->moneda=="bs") {
                         $bss = $bs;
@@ -1464,7 +1464,7 @@ class CierresController extends Controller
                         $bss = 1;
                     }
                 } 
-                $montobsReal = $this->dividir($pagoProveedorBancoVal["monto_liquidado"], $bss);
+                $montobsReal = $this->dividir(abs($ban["monto_liquidado"]), $bss);
 
                 $sumPagoProveedorBancoReal += $montobsReal;
             }
