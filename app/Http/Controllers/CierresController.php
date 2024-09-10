@@ -1572,7 +1572,11 @@ class CierresController extends Controller
                 $sum_caja_inicial_banco_dolar += $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs);
             }
 
-            $matriz_inicial = cajas::where("id_sucursal",13)->where("fecha","<",$fechaBalanceGeneral)
+            $matriz_inicial = cajas::where(function($q) {
+                $q->orwhere("id_sucursal",13)
+                ->orwhere("origen",2);
+            })
+            ->where("fecha","<",$fechaBalanceGeneral)
             ->orderBy("fecha","desc")
             ->orderBy("id","asc")
             ->first();
@@ -1680,7 +1684,11 @@ class CierresController extends Controller
                 $sum_caja_actual_banco_dolar += $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs);
             }
 
-            $matriz_actual = cajas::where("id_sucursal",13)->where("fecha","<",$fechaParaCajaActual)
+            $matriz_actual = cajas::where(function($q) {
+                $q->orwhere("id_sucursal",13)
+                ->orwhere("origen",2);
+            })
+            ->where("fecha","<",$fechaParaCajaActual)
             ->orderBy("fecha","desc")
             ->orderBy("id","asc")
             ->first();
