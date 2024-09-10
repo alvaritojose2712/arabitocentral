@@ -1454,6 +1454,8 @@ class CierresController extends Controller
             $cop = $tasas->tasacop;
 
             foreach ($pagoProveedorBancoVal["banco"] as $i => $ban) {
+                $bss = 1;
+
                 $id_banco = bancos_list::find($pagoProveedorBancoVal["id_banco"]);
                 if ($id_banco) {
                     if ($id_banco->moneda=="bs") {
