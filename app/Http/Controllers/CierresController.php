@@ -1445,72 +1445,27 @@ class CierresController extends Controller
         $sumPagoProveedorBancoReal = 0;
 
         foreach ($pagoproveedorBanco as $i => $pagoProveedorBancoVal) {
-
-            $montobs1 = $this->dividir($pagoProveedorBancoVal["montobs1"],$pagoProveedorBancoVal["tasabs1"]);
-            $montobs2 = $this->dividir($pagoProveedorBancoVal["montobs2"],$pagoProveedorBancoVal["tasabs2"]);
-            $montobs3 = $this->dividir($pagoProveedorBancoVal["montobs3"],$pagoProveedorBancoVal["tasabs3"]);
-            $montobs4 = $this->dividir($pagoProveedorBancoVal["montobs4"],$pagoProveedorBancoVal["tasabs4"]);
-            $montobs5 = $this->dividir($pagoProveedorBancoVal["montobs5"],$pagoProveedorBancoVal["tasabs5"]);
-            $sumPagoProveedorBanco += $montobs1+$montobs2+$montobs3+$montobs4+$montobs5;
-
+            foreach ($pagoProveedorBancoVal["banco"] as $i => $ban) {
+                $sumPagoProveedorBanco += $this->dividir($ban["monto_liquidado"],$ban["tasa"]);
+            }
 
             $tasas = cierres::where("fecha","<=", $pagoProveedorBancoVal["fechaemision"])->orderBy("fecha","desc")->first();
             $bs = $tasas->tasa;
             $cop = $tasas->tasacop;
 
-            
-            $bs1 = 1;
-            $bs2 = 1;
-            $bs3 = 1;
-            $bs4 = 1;
-            $bs5 = 1;
-            $id_metodobs1 = bancos_list::find($pagoProveedorBancoVal["id_metodobs1"]);
-            if ($id_metodobs1) {
-                if ($id_metodobs1->moneda=="bs") {
-                    $bs1 = $bs;
-                }else{
-                    $bs1 = 1;
-                }
-            } 
-            $id_metodobs2 = bancos_list::find($pagoProveedorBancoVal["id_metodobs2"]);
-            if ($id_metodobs2) {
-                if ($id_metodobs2->moneda=="bs") {
-                    $bs2 = $bs;
-                }else{
-                    $bs2 = 1;
-                }
-            } 
-            $id_metodobs3 = bancos_list::find($pagoProveedorBancoVal["id_metodobs3"]);
-            if ($id_metodobs3) {
-                if ($id_metodobs3->moneda=="bs") {
-                    $bs3 = $bs;
-                }else{
-                    $bs3 = 1;
-                }
-            } 
-            $id_metodobs4 = bancos_list::find($pagoProveedorBancoVal["id_metodobs4"]);
-            if ($id_metodobs4) {
-                if ($id_metodobs4->moneda=="bs") {
-                    $bs4 = $bs;
-                }else{
-                    $bs4 = 1;
-                }
-            } 
-            $id_metodobs5 = bancos_list::find($pagoProveedorBancoVal["id_metodobs5"]);
-            if ($id_metodobs5) {
-                if ($id_metodobs5->moneda=="bs") {
-                    $bs5 = $bs;
-                }else{
-                    $bs5 = 1;
-                }
-            } 
+            foreach ($pagoProveedorBancoVal["banco"] as $i => $ban) {
+                $id_banco = bancos_list::find($pagoProveedorBancoVal["id_banco"]);
+                if ($id_banco) {
+                    if ($id_banco->moneda=="bs") {
+                        $bss = $bs;
+                    }else{
+                        $bss = 1;
+                    }
+                } 
+                $montobsReal = $this->dividir($pagoProveedorBancoVal["monto_liquidado"], $bss);
 
-            $montobsReal1 = $this->dividir($pagoProveedorBancoVal["montobs1"], $bs1);
-            $montobsReal2 = $this->dividir($pagoProveedorBancoVal["montobs2"], $bs2);
-            $montobsReal3 = $this->dividir($pagoProveedorBancoVal["montobs3"], $bs3);
-            $montobsReal4 = $this->dividir($pagoProveedorBancoVal["montobs4"], $bs4);
-            $montobsReal5 = $this->dividir($pagoProveedorBancoVal["montobs5"], $bs5);
-            $sumPagoProveedorBancoReal += $montobsReal1+$montobsReal2+$montobsReal3+$montobsReal4+$montobsReal5;
+                $sumPagoProveedorBancoReal += $montobsReal;
+            }
         }
         $pagoProveedorBruto = abs($sumPagoProveedorBancoReal) + abs($sumPagoProveedorEfectivo);
         $perdidaPagoProveedor = $pagoProveedorBruto - abs($pagoproveedor["balance"]);
