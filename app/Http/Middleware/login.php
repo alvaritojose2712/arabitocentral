@@ -21,7 +21,7 @@ class login
         if ($id) {
             return $next($request);
         }else{
-            return Response::json(["msj"=>"Error: Debe volver a iniciar sesión", "estado"=>false]);
+            return "Error: Debe volver a iniciar sesión";
 
         }
     }
