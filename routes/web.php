@@ -84,7 +84,7 @@ use App\Models\catcajas;
 Route::post('login', [home::class,"login"]);
 Route::get('', [home::class,"index"]);
 
-Route::group(['middleware' => ['login']],function () {
+//Route::group(['middleware' => ['login']],function () {
    
 
     Route::get('setmovsjunio', [PuntosybiopagosController::class,"setmovsjunio"]);
@@ -648,7 +648,7 @@ Route::group(['middleware' => ['login']],function () {
     Route::post('setUsuario', [UsuariosController::class,"setUsuario"]);
     Route::post('delUsuario', [UsuariosController::class,"delUsuario"]);
 
-});
+//});
 
 
 
