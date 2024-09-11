@@ -17,12 +17,12 @@ class login
      */
     public function handle(Request $request, Closure $next)
     {
-        $id = session('id_usuario');
+        /* $id = session('id_usuario');
         if ($id) {
             return $next($request);
         }else{
             return "Error: Debe volver a iniciar sesión";
 
-        }
+        } */
     }
 }
