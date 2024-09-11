@@ -82,6 +82,7 @@ use App\Models\catcajas;
 */
 
 Route::post('login', [home::class,"login"]);
+Route::get('', [home::class,"index"]);
 
 Route::middleware(['middleware' => ['login']])->group(function () {
    
@@ -112,7 +113,6 @@ Route::middleware(['middleware' => ['login']])->group(function () {
     Route::get('getMoneda', [MonedaController::class,"getMoneda"]);
     Route::get('getVersionRemote', [LocalsVersionController::class,"getVersion"]);
     
-    Route::get('', [home::class,"index"]);
     Route::get('today', [home::class,"today"]);
     Route::get('getSucursales', [SucursalController::class,"getSucursales"]);
     Route::post('setEstadisticas', [InventarioSucursalController::class,"setEstadisticas"]);
