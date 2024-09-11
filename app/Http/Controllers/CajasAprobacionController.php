@@ -157,24 +157,16 @@ class CajasAprobacionController extends Controller
                 $mov->delete();
             }
             break;
-            
         case 'aprobar':
             $mov = cajas_aprobacion::find($id);
-            $usuario = session("usuario");
-            $cat = catcajas::find($mov->categoria);
-            /* if ($cat) {
-                if (str_contains($cat->nombre,"TRASPASO A CAJA MATRIZ")) {
-                    if ($usuario!=="raidh") {
-                        return "CAJA MATRIZ SOLO APRUEBA RAID";
-                    }
-                }
-            } */
-
-            $mov->estatus = $mov->estatus==0?1:0;
+            $estatus = $mov->estatus==0?1:0;
+            if ($mov->sucursal_destino_aprobacion==1 && $mov->estatus==1) {
+                return "No puede modificar!";
+            }
+            $mov->estatus = $estatus;
             $mov->save();
         break;
     }
-
     if ($mov) {
         return "Éxito al ($tipo)";
     }
