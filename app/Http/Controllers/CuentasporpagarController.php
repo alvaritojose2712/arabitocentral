@@ -558,7 +558,7 @@ class CuentasporpagarController extends Controller
                         "monto" => $e["montobs"],
                         "monto_dolar" => null,
                         "origen" => 2,
-                        "id_usuario" => session("id_usuario"),
+                        "id_usuario" => session("id_usuario")?session("id_usuario"):1,
                         "id_cxp" => $cuenta->id,
                     ]);
                 }

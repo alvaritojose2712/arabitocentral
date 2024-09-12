@@ -53,7 +53,7 @@ class CreateCajasTable extends Migration
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
             $table->timestamps();
 
-            $table->unique(["idinsucursal","id_sucursal"]);
+            $table->unique(["idinsucursal","id_sucursal","id_sucursal_origen"]);
         });
     }
 

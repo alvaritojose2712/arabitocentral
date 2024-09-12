@@ -673,7 +673,11 @@ class CajasController extends Controller
 
         ] ; 
         
-        $arrbusqueda = ["id_sucursal"=>13, "idinsucursal"=>$idinsucursal];
+        $arrbusqueda = [
+            "id_sucursal"=>13, 
+            "idinsucursal"=>$idinsucursal,
+            "id_sucursal_origen" => $id_sucursal_origen,
+        ];
         
         $cc =  cajas::updateOrCreate($arrbusqueda,$arr_insert);
         if ($cc) {
