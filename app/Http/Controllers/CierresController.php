@@ -41,8 +41,8 @@ class CierresController extends Controller
         
         garantias::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
         fallas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
-        cajas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
-        puntosybiopagos::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->whereNull("fecha_liquidacion")->delete();
+        cajas::where("id_sucursal",$id_sucursal)->where("origen",1)->where("created_at","LIKE",$today."%")->delete();
+        puntosybiopagos::where("id_sucursal",$id_sucursal)->where("origen",1)->where("created_at","LIKE",$today."%")->whereNull("fecha_liquidacion")->delete();
         cierres::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
         inventario_sucursal_estadisticas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
         
