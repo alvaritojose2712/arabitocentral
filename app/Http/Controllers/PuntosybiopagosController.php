@@ -554,6 +554,31 @@ class PuntosybiopagosController extends Controller
             $q->pago_efectivo = $montodolar;
             $q->pago_banco = 0;
 
+            if ($e->categoria == 29) {
+                $split = explode("=",$e["concepto"]);
+                $id_nom = null;
+                if (isset($split[1])) {
+                    $ci = $split[1];
+                    $id_nomina = nomina::where("nominacedula",$ci)->first("id");
+                    if ($id_nomina) {
+                       $id_nom = $id_nomina->id; 
+                    }
+                }
+                if ($e->id_beneficiario) {
+                    $id_nom = $e->id_beneficiario;
+                }
+                if ($id_nom) {
+                    $nom = nomina::with("sucursal")->find("nominacedula",$ci);
+                    if ($nom) {
+                        if ($nom->nominasucursal==13 || $nom->nominasucursal==17) {
+                            
+                            $q->id_sucursal = $nom->nominasucursal;
+                            $q->sucursal = $nom->sucursal;
+                        }
+                    }
+                }
+            }
+
             return $q;
         });
 
@@ -602,6 +627,24 @@ class PuntosybiopagosController extends Controller
 
             $q->pago_efectivo = 0;
             $q->pago_banco = $monto_dolar+$bs;
+
+            if ($e->categoria == 29) {
+                $id_nom = null;
+                
+                if ($e->id_beneficiario) {
+                    $id_nom = $e->id_beneficiario;
+                }
+                if ($id_nom) {
+                    $nom = nomina::with("sucursal")->find("nominacedula",$ci);
+                    if ($nom) {
+                        if ($nom->nominasucursal==13 || $nom->nominasucursal==17) {
+                            
+                            $q->id_sucursal = $nom->nominasucursal;
+                            $q->sucursal = $nom->sucursal;
+                        }
+                    }
+                }
+            }
 
             return $q;  
         });
