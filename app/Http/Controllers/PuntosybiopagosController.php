@@ -554,8 +554,8 @@ class PuntosybiopagosController extends Controller
             $q->pago_efectivo = $montodolar;
             $q->pago_banco = 0;
 
-            if ($e->categoria == 29) {
-                $split = explode("=",$e["concepto"]);
+            if ($q->categoria == 29) {
+                $split = explode("=",$q->concepto);
                 $id_nom = null;
                 if (isset($split[1])) {
                     $ci = $split[1];
@@ -564,8 +564,8 @@ class PuntosybiopagosController extends Controller
                        $id_nom = $id_nomina->id; 
                     }
                 }
-                if ($e->id_beneficiario) {
-                    $id_nom = $e->id_beneficiario;
+                if ($q->id_beneficiario) {
+                    $id_nom = $q->id_beneficiario;
                 }
                 if ($id_nom) {
                     $nom = nomina::with("sucursal")->find("nominacedula",$ci);
