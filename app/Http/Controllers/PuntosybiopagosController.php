@@ -628,11 +628,11 @@ class PuntosybiopagosController extends Controller
             $q->pago_efectivo = 0;
             $q->pago_banco = $monto_dolar+$bs;
 
-            if ($e->categoria == 29) {
+            if ($q->categoria == 29) {
                 $id_nom = null;
                 
-                if ($e->id_beneficiario) {
-                    $id_nom = $e->id_beneficiario;
+                if ($q->id_beneficiario) {
+                    $id_nom = $q->id_beneficiario;
                 }
                 if ($id_nom) {
                     $nom = nomina::with("sucursal")->find($id_nom);
