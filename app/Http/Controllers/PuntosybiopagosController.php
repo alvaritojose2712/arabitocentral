@@ -568,7 +568,7 @@ class PuntosybiopagosController extends Controller
                     $id_nom = $q->id_beneficiario;
                 }
                 if ($id_nom) {
-                    $nom = nomina::with("sucursal")->find("nominacedula",$ci);
+                    $nom = nomina::with("sucursal")->find($id_nom);
                     if ($nom) {
                         if ($nom->nominasucursal==13 || $nom->nominasucursal==17) {
                             
@@ -635,7 +635,7 @@ class PuntosybiopagosController extends Controller
                     $id_nom = $e->id_beneficiario;
                 }
                 if ($id_nom) {
-                    $nom = nomina::with("sucursal")->find("nominacedula",$ci);
+                    $nom = nomina::with("sucursal")->find($id_nom);
                     if ($nom) {
                         if ($nom->nominasucursal==13 || $nom->nominasucursal==17) {
                             
