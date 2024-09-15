@@ -194,6 +194,7 @@ export default function PanelSucursales({
 
                         {permiso([1,2,3,5]) && subviewpanelsucursales == "controldeefectivo" ?
                             <Controldeefectivo
+                                sucursales={sucursales}
                                 controlefecQDescripcion={controlefecQDescripcion}
                                 setcontrolefecQDescripcion={setcontrolefecQDescripcion}
                                 controlefecSelectCat={controlefecSelectCat}

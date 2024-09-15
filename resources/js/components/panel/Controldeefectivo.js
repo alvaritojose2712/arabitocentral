@@ -11,6 +11,7 @@ export default function Controldeefectivo({
     colorsGastosCat,
     getCatCajas,
     getsucursalDetallesData,
+    sucursales,
 }){
     const [subviewCajasResDet, setsubviewCajasResDet] = useState("resumen")
     useEffect(()=>{
@@ -155,6 +156,63 @@ export default function Controldeefectivo({
                                 :null:null:null}
                             </tbody>
                         </table>
+                                            
+                        {sucursales.map(sucursal=>
+                            <div key={sucursal.id}>
+                                <br />
+                                <br />
+                                
+                                <b>{sucursal.codigo.toUpperCase()}</b>
+                                <br />
+                                {sucursalDetallesData ? sucursalDetallesData.cajas? sucursalDetallesData.cajas.length?
+                                    sucursalDetallesData.cajas.filter(ee=>ee.sucursal.codigo==sucursal.codigo).map(e=>
+                                    e.cat?
+                                    <>
+
+                                        <p  key={e.id}>
+                                            <b>FECHA: </b> {e.created_at.substr(0,10)}
+                                            <br />
+                                            <b>DESC: </b> {e.concepto}
+                                            <br />
+                                            <b>CAT: </b> {e.cat.nombre}
+                                            <br />
+                                            {e.montodolar?<><b>DOLAR: </b> <span className={e.montodolar<0?"text-danger":"text-success"}>{moneda(e.montodolar)}</span> <br /></>:null}
+                                            {e.montobs?<><b>BS: </b> <span className={e.montobs<0?"text-danger":"text-success"}>{moneda(e.montobs)}</span> <br /></>:null}
+                                            {e.montopeso?<><b>PESO: </b> <span className={e.montopeso<0?"text-danger":"text-success"}>{moneda(e.montopeso)}</span> <br /></>:null}
+                                            {/* <tr key={e.id}>
+                                                <td>{e.sucursal.codigo}</td>
+                                                <td className=""><small className="text-muted">{e.created_at}</small></td>
+                                                <td className="">
+                                                    <button className="btn w-100 btn-sm" 
+                                                        style={{color:"black",fontWeight:"bold",backgroundColor:colorsGastosCat(e.categoria,"cat","color")}}>
+                                                            {colorsGastosCat(e.categoria,"cat","desc")}
+                                                    </button>
+                                                </td> 
+                                                <td className="w-20">{e.cat.nombre}</td>
+                                                <td className=""></td>
+                                                
+                                                <td className={(e.montodolar<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montodolar)}</td>
+                                                <td className={("")}>{moneda(e.dolarbalance)}</td>
+                                                
+                                                <td className={(e.montobs<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montobs)}</td>
+                                                <td className={("")}>{moneda(e.bsbalance)}</td>
+                                                
+                                                <td className={(e.montopeso<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montopeso)}</td>
+                                                <td className={("")}>{moneda(e.pesobalance)}</td>
+
+                                                <td className={(e.montoeuro<0? "text-danger": "text-success")+(" text-right")}>{moneda(e.montoeuro)}</td>
+                                                <td className={("")}>{moneda(e.eurobalance)}</td>
+                                                
+                                            </tr> */}
+                                        </p>
+                                    </>
+
+                                    :null)
+                                :null:null:null}
+                            </div>
+
+
+                        )}
                     </div>
                 :null}
 

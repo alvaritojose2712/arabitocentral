@@ -19620,6 +19620,7 @@ function PanelSucursales(_ref) {
             SaldoActualSelectAuditoria: SaldoActualSelectAuditoria,
             setSaldoActualSelectAuditoria: setSaldoActualSelectAuditoria
           }) : null, permiso([1, 2, 3, 5]) && subviewpanelsucursales == "controldeefectivo" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_panel_Controldeefectivo__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            sucursales: sucursales,
             controlefecQDescripcion: controlefecQDescripcion,
             setcontrolefecQDescripcion: setcontrolefecQDescripcion,
             controlefecSelectCat: controlefecSelectCat,
@@ -19684,6 +19685,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Controldeefectivo(_ref) {
   var sucursalDetallesData = _ref.sucursalDetallesData,
     controlefecSelectGeneral = _ref.controlefecSelectGeneral,
@@ -19695,7 +19697,8 @@ function Controldeefectivo(_ref) {
     moneda = _ref.moneda,
     colorsGastosCat = _ref.colorsGastosCat,
     getCatCajas = _ref.getCatCajas,
-    getsucursalDetallesData = _ref.getsucursalDetallesData;
+    getsucursalDetallesData = _ref.getsucursalDetallesData,
+    sucursales = _ref.sucursales;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("resumen"),
     _useState2 = _slicedToArray(_useState, 2),
     subviewCajasResDet = _useState2[0],
@@ -19953,6 +19956,47 @@ function Controldeefectivo(_ref) {
               }, e.id) : null;
             }) : null : null : null
           })]
+        }), sucursales.map(function (sucursal) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("b", {
+              children: sucursal.codigo.toUpperCase()
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), sucursalDetallesData ? sucursalDetallesData.cajas ? sucursalDetallesData.cajas.length ? sucursalDetallesData.cajas.filter(function (ee) {
+              return ee.sucursal.codigo == sucursal.codigo;
+            }).map(function (e) {
+              return e.cat ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("b", {
+                    children: "FECHA: "
+                  }), " ", e.created_at.substr(0, 10), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("b", {
+                    children: "DESC: "
+                  }), " ", e.concepto, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("b", {
+                    children: "CAT: "
+                  }), " ", e.cat.nombre, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), e.montodolar ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("b", {
+                      children: "DOLAR: "
+                    }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                      className: e.montodolar < 0 ? "text-danger" : "text-success",
+                      children: moneda(e.montodolar)
+                    }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
+                  }) : null, e.montobs ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("b", {
+                      children: "BS: "
+                    }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                      className: e.montobs < 0 ? "text-danger" : "text-success",
+                      children: moneda(e.montobs)
+                    }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
+                  }) : null, e.montopeso ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("b", {
+                      children: "PESO: "
+                    }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                      className: e.montopeso < 0 ? "text-danger" : "text-success",
+                      children: moneda(e.montopeso)
+                    }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {})]
+                  }) : null]
+                }, e.id)
+              }) : null;
+            }) : null : null : null]
+          }, sucursal.id);
         })]
       }) : null]
     })]
