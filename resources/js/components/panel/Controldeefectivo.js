@@ -169,7 +169,7 @@ export default function Controldeefectivo({
                                     e.cat?
                                     <>
 
-                                        <p  key={e.id}>
+                                        <p  key={e.id} className="ms-4">
                                             <b>FECHA: </b> {e.created_at.substr(0,10)}
                                             <br />
                                             <b>DESC: </b> {e.concepto}
