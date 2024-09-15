@@ -176,9 +176,9 @@ export default function Controldeefectivo({
                                             <br />
                                             <b>CAT: </b> {e.cat.nombre}
                                             <br />
-                                            {e.montodolar?<><b>DOLAR: </b> <span className={e.montodolar<0?"text-danger":"text-success"}>{moneda(e.montodolar)}</span> <br /></>:null}
-                                            {e.montobs?<><b>BS: </b> <span className={e.montobs<0?"text-danger":"text-success"}>{moneda(e.montobs)}</span> <br /></>:null}
-                                            {e.montopeso?<><b>PESO: </b> <span className={e.montopeso<0?"text-danger":"text-success"}>{moneda(e.montopeso)}</span> <br /></>:null}
+                                            {e.montodolar&&e.montodolar!="0.00"?<><b>DOLAR: </b> <span className={e.montodolar<0?"text-danger":"text-success"}>{moneda(e.montodolar)}</span> <br /></>:null}
+                                            {e.montobs&&e.montobs!="0.00"?<><b>BS: </b> <span className={e.montobs<0?"text-danger":"text-success"}>{moneda(e.montobs)}</span> <br /></>:null}
+                                            {e.montopeso&&e.montopeso!="0.00"?<><b>PESO: </b> <span className={e.montopeso<0?"text-danger":"text-success"}>{moneda(e.montopeso)}</span> <br /></>:null}
                                             {/* <tr key={e.id}>
                                                 <td>{e.sucursal.codigo}</td>
                                                 <td className=""><small className="text-muted">{e.created_at}</small></td>
