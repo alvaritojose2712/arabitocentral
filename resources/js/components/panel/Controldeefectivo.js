@@ -170,15 +170,15 @@ export default function Controldeefectivo({
                                     <>
 
                                         <p  key={e.id} className="ms-4">
-                                            <b>*FECHA:* </b> {e.created_at.substr(0,10)}
+                                            <b>*FEC:* </b> {e.created_at.substr(0,10)}
                                             <br />
-                                            <b>*DESC:* </b> {e.concepto}
+                                            <b>*DES:* </b> {e.concepto}
                                             <br />
                                             <b>*CAT:* </b> {e.cat.nombre}
                                             <br />
-                                            {e.montodolar&&e.montodolar!="0.00"?<><b>*DOLAR:* </b> <span className={e.montodolar<0?"text-danger":"text-success"}>{moneda(e.montodolar)}</span> <br /></>:null}
-                                            {e.montobs&&e.montobs!="0.00"?<><b>*BS:* </b> <span className={e.montobs<0?"text-danger":"text-success"}>{moneda(e.montobs)}</span> <br /></>:null}
-                                            {e.montopeso&&e.montopeso!="0.00"?<><b>*PESO:* </b> <span className={e.montopeso<0?"text-danger":"text-success"}>{moneda(e.montopeso)}</span> <br /></>:null}
+                                            {e.montodolar&&e.montodolar!="0.00"?<><b>*$$$:* </b> <span className={e.montodolar<0?"text-danger":"text-success"}>_{moneda(e.montodolar)}_</span> <br /></>:null}
+                                            {e.montobs&&e.montobs!="0.00"?<><b>*BSS:* </b> <span className={e.montobs<0?"text-danger":"text-success"}>_{moneda(e.montobs)}_</span> <br /></>:null}
+                                            {e.montopeso&&e.montopeso!="0.00"?<><b>*PES:* </b> <span className={e.montopeso<0?"text-danger":"text-success"}>_{moneda(e.montopeso)}_</span> <br /></>:null}
                                             {/* <tr key={e.id}>
                                                 <td>{e.sucursal.codigo}</td>
                                                 <td className=""><small className="text-muted">{e.created_at}</small></td>
