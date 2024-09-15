@@ -107,7 +107,7 @@ export default function Controldeefectivo({
                                 <tr>
                                     <th>SUCURSAL</th>
                                     <th>FECHA</th>
-                                    <th>CAT GENERAL</th>
+                                   {/*  <th>CAT GENERAL</th> */}
                                     <th className="w-20">CATEGORÍA</th>
                                     <th>DESCRIPCIÓN</th>
                                     <th className="text-right">Monto DOLAR</th>
@@ -129,12 +129,12 @@ export default function Controldeefectivo({
                                         <tr key={e.id}>
                                             <td>{e.sucursal.codigo}</td>
                                             <td className=""><small className="text-muted">{e.created_at}</small></td>
-                                            <td className="">
+                                           {/*  <td className="">
                                                 <button className="btn w-100 btn-sm" 
                                                     style={{color:"black",fontWeight:"bold",backgroundColor:colorsGastosCat(e.categoria,"cat","color")}}>
                                                         {colorsGastosCat(e.categoria,"cat","desc")}
                                                 </button>
-                                            </td>
+                                            </td> */}
                                             <td className="w-20">{e.cat.nombre}</td>
                                             <td className="">{e.concepto}</td>
                                             

@@ -19878,8 +19878,6 @@ function Controldeefectivo(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 children: "FECHA"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                children: "CAT GENERAL"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
                 className: "w-20",
                 children: "CATEGOR\xCDA"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
@@ -19920,17 +19918,6 @@ function Controldeefectivo(_ref) {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("small", {
                     className: "text-muted",
                     children: e.created_at
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  className: "",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-                    className: "btn w-100 btn-sm",
-                    style: {
-                      color: "black",
-                      fontWeight: "bold",
-                      backgroundColor: colorsGastosCat(e.categoria, "cat", "color")
-                    },
-                    children: colorsGastosCat(e.categoria, "cat", "desc")
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   className: "w-20",
