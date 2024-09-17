@@ -23,6 +23,8 @@ class CreateCatcajasTable extends Migration
             
             $table->string("color",20)->nullable(true);
             $table->string("background",20)->nullable(true);
+            $table->integer("showsucursal")->default(0);
+
 
             $table->timestamps();
 

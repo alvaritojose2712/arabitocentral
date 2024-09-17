@@ -506,7 +506,6 @@ Route::get('', [home::class,"index"]);
     Route::post('newNombres',  [InventarioController::class,"newNombres"]);
     
     
-    Route::get('recoverypagos',  [CuentasporpagarController::class,"recoverypagos"]);
     Route::get('removeDuplicatesCXP',  [CuentasporpagarController::class,"removeDuplicatesCXP"]);
     Route::get('removeDuplicatesItemsEstadisticas',  [InventarioSucursalEstadisticasController::class,"removeDuplicatesItemsEstadisticas"]);
     

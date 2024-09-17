@@ -516,6 +516,7 @@ class CuentasporpagarController extends Controller
         
 
         if ($metodo=="EFECTIVO") {
+            cajas::where("id_cxp", $cuenta->id)->delete();
 
             $pago = (new CajasController)->setCajaFun([
                 "id" => null,
@@ -534,6 +535,7 @@ class CuentasporpagarController extends Controller
                 //"idinsucursal" => null,
             ]);
         }else{
+            puntosybiopagos::where("id_cxp", $cuenta->id)->delete();
             foreach ($pagos_bancos as $i => $e) {
                 if ($e["refbs"] && $e["metodobs"] && $e["id_metodobs"] && $e["montobs"] && $e["tasabs"]) {
                     $banco = puntosybiopagos::updateOrCreate([
@@ -888,152 +890,6 @@ class CuentasporpagarController extends Controller
         }
     }
 
-    function recoverypagos() {
-        $c = cuentasporpagar::where("monto",">",0)->get();
-
-        foreach ($c as $i => $ee) {
-            $numfact_desc = $ee->numfact;
-            $fecha_creada = $ee->fechaemision;
-            $id_cxp = $ee->id;
-            
-            
-            
-            
-            
-
-            
-            if ($ee->montobs1 && $ee->montobs1!=0.00) {
-                $banco = puntosybiopagos::updateOrCreate([
-                        "id" => null
-                    ],[
-                        "loteserial" => $numfact_desc." #".$ee["refbs1"],
-                        "banco" => $ee["metodobs1"],
-                        "id_banco" => $ee["id_metodobs1"],
-                        "categoria" => 40,
-        
-                        "fecha" => $fecha_creada,
-                        "fecha_liquidacion" => $fecha_creada,
-                        "tipo" => "Transferencia",
-            
-                        "id_sucursal" => 13,
-                        "id_beneficiario" => null,
-                        "tasa" => $ee["tasabs1"],
-                        "monto_liquidado" => $ee["montobs1"]*-1,
-                        "monto" => $ee["montobs1"]*-1,
-                        "monto_dolar" => null,
-                        "origen" => 2,
-                        "id_usuario" => session("id_usuario"),
-                        "id_cxp" => $id_cxp,
-                        "created_at" => "2024-09-10 11:50:50"
-                    ]);
-            }
-            if ($ee->metodobs2 && $ee->metodobs2!=0.00) {
-                $banco = puntosybiopagos::updateOrCreate([
-                    "id" => null
-
-                    ],[
-                        "loteserial" => $numfact_desc." #".$ee["refbs2"],
-                        "banco" => $ee["metodobs2"],
-                        "id_banco" => $ee["id_metodobs2"],
-                        "categoria" => 40,
-        
-                        "fecha" => $fecha_creada,
-                        "fecha_liquidacion" => $fecha_creada,
-                        "tipo" => "Transferencia",
-            
-                        "id_sucursal" => 13,
-                        "id_beneficiario" => null,
-                        "tasa" => $ee["tasabs2"],
-                        "monto_liquidado" => $ee["montobs2"]*-1,
-                        "monto" => $ee["montobs2"]*-1,
-                        "monto_dolar" => null,
-                        "origen" => 2,
-                        "id_usuario" => session("id_usuario"),
-                        "id_cxp" => $id_cxp,
-                        "created_at" => "2024-09-10 11:50:50"
-                    ]);
-            }
-            if ($ee->metodobs3 && $ee->metodobs3!=0.00) {
-                $banco = puntosybiopagos::updateOrCreate([
-                    "id" => null
-
-                    ],[
-                        "loteserial" => $numfact_desc." #".$ee["refbs3"],
-                        "banco" => $ee["metodobs3"],
-                        "id_banco" => $ee["id_metodobs3"],
-                        "categoria" => 40,
-        
-                        "fecha" => $fecha_creada,
-                        "fecha_liquidacion" => $fecha_creada,
-                        "tipo" => "Transferencia",
-            
-                        "id_sucursal" => 13,
-                        "id_beneficiario" => null,
-                        "tasa" => $ee["tasabs3"],
-                        "monto_liquidado" => $ee["montobs3"]*-1,
-                        "monto" => $ee["montobs3"]*-1,
-                        "monto_dolar" => null,
-                        "origen" => 2,
-                        "id_usuario" => session("id_usuario"),
-                        "id_cxp" => $id_cxp,
-                        "created_at" => "2024-09-10 11:50:50"
-                    ]);
-            }
-            if ($ee->metodobs4 && $ee->metodobs4!=0.00) {
-                $banco = puntosybiopagos::updateOrCreate([
-                    "id" => null
-
-                    ],[
-                        "loteserial" => $numfact_desc." #".$ee["refbs4"],
-                        "banco" => $ee["metodobs4"],
-                        "id_banco" => $ee["id_metodobs4"],
-                        "categoria" => 40,
-        
-                        "fecha" => $fecha_creada,
-                        "fecha_liquidacion" => $fecha_creada,
-                        "tipo" => "Transferencia",
-            
-                        "id_sucursal" => 13,
-                        "id_beneficiario" => null,
-                        "tasa" => $ee["tasabs4"],
-                        "monto_liquidado" => $ee["montobs4"]*-1,
-                        "monto" => $ee["montobs4"]*-1,
-                        "monto_dolar" => null,
-                        "origen" => 2,
-                        "id_usuario" => session("id_usuario"),
-                        "id_cxp" => $id_cxp,
-                        "created_at" => "2024-09-10 11:50:50"
-                    ]);
-            }
-            if ($ee->metodobs5 && $ee->metodobs5!=0.00) {
-                $banco = puntosybiopagos::updateOrCreate([
-                    "id" => null
-
-                    ],[
-                        "loteserial" => $numfact_desc." #".$ee["refbs5"],
-                        "banco" => $ee["metodobs5"],
-                        "id_banco" => $ee["id_metodobs5"],
-                        "categoria" => 40,
-        
-                        "fecha" => $fecha_creada,
-                        "fecha_liquidacion" => $fecha_creada,
-                        "tipo" => "Transferencia",
-            
-                        "id_sucursal" => 13,
-                        "id_beneficiario" => null,
-                        "tasa" => $ee["tasabs5"],
-                        "monto_liquidado" => $ee["montobs5"]*-1,
-                        "monto" => $ee["montobs5"]*-1,
-                        "monto_dolar" => null,
-                        "origen" => 2,
-                        "id_usuario" => session("id_usuario"),
-                        "id_cxp" => $id_cxp,
-                        "created_at" => "2024-09-10 11:50:50"
-                    ]);
-            }
-            
-        }
-    }
 
     function selectCuentaPorPagarProveedorDetallesFun($arr) {
         $id_proveedor = $arr["id_proveedor"];
