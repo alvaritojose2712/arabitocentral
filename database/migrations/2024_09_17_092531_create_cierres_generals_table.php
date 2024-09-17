@@ -51,6 +51,13 @@ class CreateCierresGeneralsTable extends Migration
             $table->decimal("bancobs",10,3);
             $table->decimal("bancodivisa",10,3);
             
+            $table->decimal("inventariobase",10,3);
+            $table->decimal("inventarioventa",10,3);
+            
+            $table->integer("numventas");
+            $table->integer("nomina");
+            
+            
             
             $table->integer("numsucursales");
             $table->date("fecha");
