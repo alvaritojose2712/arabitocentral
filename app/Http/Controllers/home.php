@@ -57,7 +57,7 @@ class home extends Controller
             $d = usuarios::where('usuario', $req->usuario)->first();
             
             if ($d) {
-                if (\\Hash::check($req->clave, $d->clave)) {
+                if (\Hash::check($req->clave, $d->clave)) {
                     session([
                        "id_usuario" => $d->id,
                        "tipo_usuario" => $d->tipo_usuario,
