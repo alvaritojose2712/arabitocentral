@@ -12,7 +12,7 @@ if (! function_exists('moneda')) {
     function moneda($val) {
         $val = $val ? $val : 0;
         
-        return number_format(floatval($val),2,".",",");
+        return number_format(floatval($val),2,",",".");
     }
 }
 if (! function_exists('removemoneda')) {

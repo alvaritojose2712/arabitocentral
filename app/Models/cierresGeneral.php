@@ -10,6 +10,7 @@ class cierresGeneral extends Model
     use HasFactory;
 
     protected $fillable = [
+        "fecha",
         "cxp",
         "cxc",
         "prestamos",
@@ -20,6 +21,9 @@ class cierresGeneral extends Model
         "perdidatasa",
         "pagoproveedor",
         "pagoproveedorbs",
+        "pagoproveedorbancodivisa",
+        "pagoproveedorbsbs",
+        "pagoproveedortasapromedio",
         "ingreso_credito",
         "debito",
         "debitobs",
@@ -36,7 +40,11 @@ class cierresGeneral extends Model
         "cajamatriz",
         "bancobs",
         "bancodivisa",
+        "inventariobase",
+        "inventarioventa",
+        "numventas",
+        "nomina",
         "numsucursales",
-        "fecha",
+        "estado",
     ];
 }

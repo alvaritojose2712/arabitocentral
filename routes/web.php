@@ -48,6 +48,8 @@ use App\Http\Controllers\FallasController;
 
 use App\Http\Controllers\InventarioSucursalController;
 use App\Http\Controllers\CierresController;
+use App\Http\Controllers\CierresGeneralController;
+
 
 use App\Http\Controllers\NominacargosController;
 use App\Http\Controllers\NominaController;
@@ -506,6 +508,7 @@ Route::get('', [home::class,"index"]);
     Route::post('newNombres',  [InventarioController::class,"newNombres"]);
     
     
+    Route::get('sendReporteDiario',  [CierresGeneralController::class,"sendReporteDiario"]);
     Route::get('removeDuplicatesCXP',  [CuentasporpagarController::class,"removeDuplicatesCXP"]);
     Route::get('removeDuplicatesItemsEstadisticas',  [InventarioSucursalEstadisticasController::class,"removeDuplicatesItemsEstadisticas"]);
     

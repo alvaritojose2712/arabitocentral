@@ -679,6 +679,11 @@ class CierresController extends Controller
         $sumtransferencia = $array->sum("transferencia");
         $sumbiopago = $array->sum("caja_biopago");
 
+        $debitobs = $array->sum("puntodeventa_actual_bs");
+        $transferenciabs = $sumtransferencia*$array->avg("tasa");
+        $biopagobs = $array->sum("biopagoserialmontobs");
+        
+
         $sum = [
             "numventas" => $array->sum("numventas"),
             "numero" => $array->count(),
@@ -692,6 +697,11 @@ class CierresController extends Controller
             "efectivo_clean" => ($sumefectivo),
             "transferencia_clean" => ($sumtransferencia),
             "biopago_clean" => ($sumbiopago),
+
+            "debitobs" => $debitobs,
+            "transferenciabs" => $transferenciabs,
+            "biopagobs" => $biopagobs,
+
             "total_clean" => ($sumdebito + $sumefectivo + $sumtransferencia + $sumbiopago),
             "ganancia_clean" => ($array->sum("ganancia")),
 
@@ -1081,28 +1091,19 @@ class CierresController extends Controller
             "cop" => $cop,
         ];
     }
-    function getBalanceGeneral(Request $req) {
+
+    function balanceGeneralFun(
+        $sucursalBalanceGeneral,
+        $fechaBalanceGeneral,
+        $fechaHastaBalanceGeneral
+    ) {
         $usuario = session("usuario");
-
-        /* if ($usuario!="ao"&&$usuario!="omarelh") {
-           return ;
-        }  */
-
-        $sucursalBalanceGeneral = $req->sucursalBalanceGeneral;
-        $fechaBalanceGeneral = $req->fechaBalanceGeneral;
-        $fechaHastaBalanceGeneral = $req->fechaHastaBalanceGeneral;
-
-        $cuantotengobanco = floatval($req->cuantotengobanco)? floatval($req->cuantotengobanco): 0;
-        $cuantotengoefectivo = floatval($req->cuantotengoefectivo)? floatval($req->cuantotengoefectivo): 0;
 
         if (!$fechaBalanceGeneral || !$fechaHastaBalanceGeneral) {
             return ["Seleccione ambas Fechas"];
         }
         $bs = $this->getTasa()["bs"];
         $cop = $this->getTasa()["cop"];
-
-
-        
 
         $sumArrcat = [];
         $sumArrcatgeneral = [];
@@ -1347,6 +1348,13 @@ class CierresController extends Controller
         $debito = ($cierreData["sum"]["debito_clean"]);
         $biopago = $cierreData["sum"]["biopago_clean"]/* +$biopagoAntesPrimerDia-$biopagoUltimoDia */;
         $transferencia = $cierreData["sum"]["transferencia_clean"];
+        $numventas = $cierreData["sum"]["numventas"];
+        
+        
+        $debitobs = $cierreData["sum"]["debitobs"];
+        $transferenciabs = $cierreData["sum"]["transferenciabs"];
+        $biopagobs = $cierreData["sum"]["biopagobs"];
+        
         $total = $cierreData["sum"]["total_clean"]/* +($debitoAntesPrimerDia-$debitoUltimoDia)+($biopagoAntesPrimerDia-$biopagoUltimoDia) */;
         $ganancia = $cierreData["sum"]["ganancia_clean"];
         
@@ -1442,9 +1450,27 @@ class CierresController extends Controller
         $sumPagoProveedorBanco = 0;
         $sumPagoProveedorBancoReal = 0;
 
+
+        $sumPagoProveedorBancoDivisa = 0;
+        $sumPagoProveedorBancoBs = 0;
+        $sumPagoProveedorBancoBsBs = 0;
+
         foreach ($pagoproveedorBanco as $i => $pagoProveedorBancoVal) {
             foreach ($pagoProveedorBancoVal["banco"] as $i => $ban) {
                 $sumPagoProveedorBanco += $this->dividir(abs($ban["monto_liquidado"]),$ban["tasa"]);
+
+                $id_banco = bancos_list::find($ban["id_banco"]);
+                if ($id_banco) {
+                    if ($id_banco->moneda=="bs") {
+                        $sumPagoProveedorBancoBs += $this->dividir(abs($ban["monto_liquidado"]),$ban["tasa"]);
+                        $sumPagoProveedorBancoBsBs += abs($ban["monto_liquidado"]);
+
+                    }else{
+                        $sumPagoProveedorBancoDivisa += $this->dividir(abs($ban["monto_liquidado"]),$ban["tasa"]);
+
+                    }
+                } 
+
             }
 
             $tasas = cierres::where("fecha","<=", $pagoProveedorBancoVal["fechaemision"])->orderBy("fecha","desc")->first();
@@ -1467,6 +1493,8 @@ class CierresController extends Controller
                 $sumPagoProveedorBancoReal += $montobsReal;
             }
         }
+        $sumPagoProveedorBancoTasaPromedio = $this->dividir($sumPagoProveedorBancoBsBs,$sumPagoProveedorBancoBs);
+
         $pagoProveedorBruto = abs($sumPagoProveedorBancoReal) + abs($sumPagoProveedorEfectivo);
         $perdidaPagoProveedor = $pagoProveedorBruto - abs($pagoproveedor["balance"]);
 
@@ -1811,9 +1839,10 @@ class CierresController extends Controller
         $diffcxp = $cxc_final-$cxc_inicial;
         $cxc_aumento = ($diffcxp*100)/$cxc_inicial;
 
-
+        $numnomina = nomina::where("activo",1)->count();
 
         return [
+            "numnomina" => $numnomina,
 
             "ingreso_credito_data" => $ingreso_credito_data,  //76
             "ingreso_credito_sum" => $ingreso_credito_sum,
@@ -1867,57 +1896,83 @@ class CierresController extends Controller
             "sumArrcatgeneral" =>$sumArrcatgeneral,
             "sumArringresoegreso" =>$sumArringresoegreso,
             "sumArrvariablefijo" =>$sumArrvariablefijo,
-            "pagoproveedor" => $pagoproveedor,
-
+            
             "gastosfijosSum"=>$gastosfijosSum,
             "gastosvariablesSum"=>$gastosvariablesSum,
+
+            "gastosGeneralesfijosSum" => $gastosGeneralesfijosSum,
+            "gastosGeneralesvariablesSum" => $gastosGeneralesvariablesSum,
             "fdi" => $sumFDI,
             
-
+            
             "gananciaNeta" => $gananciaNeta,
             "sumGastos"=>$sumGastos,
-
+            
             "porcevbruta" => [
                 "labels"=>["VENTA BRUTA","GASTOS"],
                 "series"=>[($total-$sumGastos),$sumGastos],
             ],
             "porcevbrutanum" => $porcevbrutanum,
-
+            
             "porcegbruta" => [
                 "labels"=>["GANANCIA NETA","GASTOS"],
                 "series"=>[($ganancia-$sumGastos),$sumGastos],
             ],
             "porcegbrutanum" => $porcegbrutanum,
-
+            
             "porcegneta" => [
                 "labels"=>["GANANCIA NETA","GASTOS"],
                 "series"=>[($gananciaNeta-$sumGastos),$sumGastos],
             ],
             "porcegnetanum" => $porcegnetanum,
-
-
+            
+            
             "efectivodolar" =>$dolarbalance,
             "efectivoData" =>$efectivoData,
             "banco" =>$banco,
             "bancoData" =>$bancoData,
             "inventario" =>$inventario,
-
+            
             "debito" => $debito,
             "efectivo" => $efectivo,
             "transferencia" => $transferencia,
             "biopago" => $biopago,
             "ganancia" =>$ganancia,
-
+            "numventas" =>$numventas,
+            
+            
+            "debitobs" => $debitobs, 
+            "transferenciabs" => $transferenciabs, 
+            "biopagobs" => $biopagobs, 
+            
             "cierresData" =>$cierreData,
             "cxc" =>$cxc,
             "cxcData" =>$cxcData,
             "cxp" =>$cxp,
             "cxpData" =>$cxpData,
+            "pagoproveedor" => $pagoproveedor,
             "sumPagoProveedorEfectivo" => $sumPagoProveedorEfectivo,
             "sumPagoProveedorBanco" => $sumPagoProveedorBanco,
+            "sumPagoProveedorBancoDivisa" => $sumPagoProveedorBancoDivisa,
+            "sumPagoProveedorBancoBs" => $sumPagoProveedorBancoBs,
+            "sumPagoProveedorBancoBsBs" => $sumPagoProveedorBancoBsBs,
+            "sumPagoProveedorBancoTasaPromedio" => $sumPagoProveedorBancoTasaPromedio,
+            
+            
             "sumPagoProveedorBancoReal" => $sumPagoProveedorBancoReal, 
             "perdidaPagoProveedor" => $perdidaPagoProveedor,
-            "sumPagoProveedorBancoEfectivoReal" => $pagoProveedorBruto, 
+            "sumPagoProveedorBancoEfectivoReal" => $pagoProveedorBruto,
+            
+            "sum_caja_regis_inicial" => $sum_caja_regis_inicial,
+            "sum_caja_chica_inicial" => $sum_caja_chica_inicial,
+            "sum_caja_fuerte_inicial" => $sum_caja_fuerte_inicial,
+
+            "sum_caja_regis_actual" => $sum_caja_regis_actual,
+            "sum_caja_chica_actual" => $sum_caja_chica_actual,
+            "sum_caja_fuerte_actual" => $sum_caja_fuerte_actual,
+            "sum_caja_actual_banco" => $sum_caja_actual_banco,
+            "sum_caja_actual_banco_dolar" => $sum_caja_actual_banco_dolar,
+
             
             "sum_caja_inicial" => $sum_caja_inicial,
             "sum_caja_inicial_banco_dolar" => $sum_caja_inicial_banco_dolar,
@@ -1931,6 +1986,129 @@ class CierresController extends Controller
             
             "tengo" => $total_caja_actual,
             "cuadre" => $cuadre,
+            "sucursales" => $sucursales,
+            
+
+        ];
+    }
+
+    function getBalanceGeneral(Request $req) {
+        $sucursalBalanceGeneral = $req->sucursalBalanceGeneral;
+        $fechaBalanceGeneral = $req->fechaBalanceGeneral;
+        $fechaHastaBalanceGeneral = $req->fechaHastaBalanceGeneral;
+        
+        $balance = $this->balanceGeneralFun(
+            $sucursalBalanceGeneral,
+            $fechaBalanceGeneral,
+            $fechaHastaBalanceGeneral  
+        );
+
+
+        return [
+
+            "ingreso_credito_data" => $balance["ingreso_credito_data"],
+            "ingreso_credito_sum" => $balance["ingreso_credito_sum"],
+
+            "cuota_credito_data" => $balance["cuota_credito_data"],
+            "cuota_credito_sum" => $balance["cuota_credito_sum"],
+            
+            "comision_credito_data" => $balance["comision_credito_data"],
+            "comision_credito_sum" => $balance["comision_credito_sum"],
+            
+            "interes_credito_data" => $balance["interes_credito_data"],
+            "interes_credito_sum" => $balance["interes_credito_sum"],
+
+            "matriz_inicial" => $balance["matriz_inicial"],
+            "matriz_actual" => $balance["matriz_actual"],
+
+
+            "prestamos" => $balance["prestamos"],
+            "abonos" => $balance["abonos"],
+
+            "prestamos_sum" => $balance["prestamos_sum"],
+            "abonos_sum" => $balance["abonos_sum"],
+
+            "inicial_inventariobase" => $balance["inicial_inventariobase"],
+            "inicial_inventarioventa" => $balance["inicial_inventarioventa"],
+
+            "final_inventariobase" => $balance["final_inventariobase"],
+            "final_inventarioventa" => $balance["final_inventarioventa"],
+            "aumento_inventariobase" => $balance["aumento_inventariobase"],
+            "aumento_inventarioventa" => $balance["aumento_inventarioventa"],
+
+            "cxc_inicial" => $balance["cxc_inicial"],
+            "cxc_final" => $balance["cxc_final"],
+            "cxc_aumento" => $balance["cxc_aumento"],
+            "total_caja_inicial" => $balance["total_caja_inicial"],
+            "total" => $balance["total"],
+            "sumEgresos" => $balance["sumEgresos"],
+            
+            "debetener" => $balance["debetener"],
+            "caja_inicial" => $balance["caja_inicial"],
+            "gastos"=> $balance["gastos"],
+
+            "sumArrcat" => $balance["sumArrcat"],
+            "sumArrcatgeneral" => $balance["sumArrcatgeneral"],
+            "sumArringresoegreso" => $balance["sumArringresoegreso"],
+            "sumArrvariablefijo" => $balance["sumArrvariablefijo"],
+            "pagoproveedor" => $balance["pagoproveedor"],
+
+            "gastosfijosSum"=> $balance["gastosfijosSum"],
+            "gastosvariablesSum"=> $balance["gastosvariablesSum"],
+            "fdi" => $balance["fdi"],
+            
+
+            "gananciaNeta" => $balance["gananciaNeta"],
+            "sumGastos"=> $balance["sumGastos"],
+
+            "porcevbruta" => $balance["porcevbruta"],
+            "porcevbrutanum" => $balance["porcevbrutanum"],
+
+            "porcegbruta" => $balance["porcegbruta"],
+            "porcegbrutanum" => $balance["porcegbrutanum"],
+
+            "porcegneta" => $balance["porcegneta"],
+            "porcegnetanum" => $balance["porcegnetanum"],
+
+
+            "efectivodolar" => $balance["efectivodolar"],
+            "efectivoData" => $balance["efectivoData"],
+            "banco" => $balance["banco"],
+            "bancoData" => $balance["bancoData"],
+            "inventario" => $balance["inventario"],
+
+            "debito" => $balance["debito"],
+            "efectivo" => $balance["efectivo"],
+            "transferencia" => $balance["transferencia"],
+            "biopago" => $balance["biopago"],
+            "ganancia" => $balance["ganancia"],
+            
+
+            "cierresData" => $balance["cierresData"],
+            "cxc" => $balance["cxc"],
+            "cxcData" => $balance["cxcData"],
+            "cxp" => $balance["cxp"],
+            "cxpData" => $balance["cxpData"],
+            "sumPagoProveedorEfectivo" => $balance["sumPagoProveedorEfectivo"],
+            "sumPagoProveedorBanco" => $balance["sumPagoProveedorBanco"],
+            "sumPagoProveedorBancoReal" => $balance["sumPagoProveedorBancoReal"],
+            "perdidaPagoProveedor" => $balance["perdidaPagoProveedor"],
+            "sumPagoProveedorBancoEfectivoReal" => $balance["sumPagoProveedorBancoEfectivoReal"],
+            
+            "sum_caja_inicial" => $balance["sum_caja_inicial"],
+            "sum_caja_inicial_banco_dolar" => $balance["sum_caja_inicial_banco_dolar"],
+            "caja_inicial_banco" => $balance["caja_inicial_banco"],
+            
+            "total_caja_actual" => $balance["total_caja_actual"],
+            "caja_actual_banco" => $balance["caja_actual_banco"],
+            "sum_caja_actual" => $balance["sum_caja_actual"],
+            "sum_caja_actual_banco" => $balance["sum_caja_actual_banco"],
+            "sum_caja_actual_banco_dolar" => $balance["sum_caja_actual_banco_dolar"],
+            
+            "tengo" => $balance["tengo"],
+            "cuadre" => $balance["cuadre"],
+            "sucursales" => $balance["sucursales"],
+            
         ];
     }
     function getControldeefectivo($fechasMain1, $fechasMain2, $sucursalBalanceGeneral, $filtros)

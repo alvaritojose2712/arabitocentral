@@ -54,41 +54,40 @@ class home extends Controller
     {
         try {
 
-            $d = usuarios::where(function($query) use ($req){
-                $query->orWhere('usuario', $req->usuario);
-            })
-            ->first();
+            $d = usuarios::where('usuario', $req->usuario)->first();
             
-            if ($d&&\Hash::check($req->clave, $d->clave)) {
-                 session([
-                    "id_usuario" => $d->id,
-                    "tipo_usuario" => $d->tipo_usuario,
-                    "usuario" => $d->usuario,
-                    "nombre" => $d->nombre,
-                    "id_sucursal" => $d->id_sucursal,
-                ]);
-                
-                $estado = $this->selectRedirect();
+            if ($d) {
+                if (Hash::check($req->clave, $d->clave)) {
+                    session([
+                       "id_usuario" => $d->id,
+                       "tipo_usuario" => $d->tipo_usuario,
+                       "usuario" => $d->usuario,
+                       "nombre" => $d->nombre,
+                       "id_sucursal" => $d->id_sucursal,
+                    ]);
+                   
+                   $estado = $this->selectRedirect();
+                   return Response::json( [
+                       "id_usuario" => $d->id,
+                       "id_sucursal" => $d->id_sucursal,
+                       "tipo_usuario" => $d->tipo_usuario,
+                       "usuario" => $d->usuario,
+                       "nombre" => $d->nombre,
+                       "estado"=>true,
+                       "msj"=>"¡Inicio exitoso! Bienvenido/a, ".$d->nombre
+                   ] );
+                }else{
+                    throw new \Exception("Clave Incorrecta!", 1);
+                }
             }else{
-                throw new \Exception("¡Datos Incorrectos!", 1);
-                
+                throw new \Exception("Usuario Incorrecto!", 1);
             } 
             
-            return Response::json( [
-                "id_usuario" => $d->id,
-                "id_sucursal" => $d->id_sucursal,
-                "tipo_usuario" => $d->tipo_usuario,
-                "usuario" => $d->usuario,
-                "nombre" => $d->nombre,
-                "estado"=>true,
-                "msj"=>"¡Inicio exitoso! Bienvenido/a, ".$d->nombre
-            ] );
         } catch (\Exception $e) {
+            $req->session()->flush();
+
             return Response::json(["msj"=>"Error: ".$e->getMessage(),"estado"=>false]);
         }
-        
-        
-        return Response::json(["estado"=>$estado,"user"=>$d]);
        
     }
 

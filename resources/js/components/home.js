@@ -4923,6 +4923,12 @@ function formatAmount( number, simbol ) {
       setdatacuadregeneral(res.data)
     })
   }
+  
+  const [fechareportediario, setfechareportediario] = useState("")
+  
+  const sendReporteDiario = (type) => {
+    db.sendReporteDiario({type,fecha:fechareportediario})
+  }
 
   
   const [sucursalBalanceGeneral, setsucursalBalanceGeneral] = useState("")
@@ -6827,6 +6833,10 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2]) && viewmainPanel === "comovamos" &&
             <ComoVamos
+              sendReporteDiario={sendReporteDiario}
+              fechareportediario={fechareportediario}
+              setfechareportediario={setfechareportediario}
+
               colorSucursal={colorSucursal}
               sendCuadreGeneral={sendCuadreGeneral}
               cuantotengobanco={cuantotengobanco}

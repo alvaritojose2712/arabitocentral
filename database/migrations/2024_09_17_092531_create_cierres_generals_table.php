@@ -27,6 +27,13 @@ class CreateCierresGeneralsTable extends Migration
             $table->decimal("perdidatasa",10,3);
             $table->decimal("pagoproveedor",10,3);
             $table->decimal("pagoproveedorbs",10,3);
+            $table->decimal("pagoproveedorbancodivisa",10,3);
+            
+            $table->decimal("pagoproveedorbsbs",10,3);
+            $table->decimal("pagoproveedortasapromedio",10,3);
+            
+
+            
             
 
             
@@ -60,7 +67,8 @@ class CreateCierresGeneralsTable extends Migration
             
             
             $table->integer("numsucursales");
-            $table->date("fecha");
+            $table->integer("estado");
+            $table->date("fecha")->unique();
             $table->timestamps();
         });
     }

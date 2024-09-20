@@ -18,6 +18,7 @@ const db = {
   getAprobacionPedidoAnulacion: data=>axios.post(host+"getAprobacionPedidoAnulacion",data),
   setAprobacionPedidoAnulacion: data=>axios.post(host+"setAprobacionPedidoAnulacion",data),
   
+  sendReporteDiario: ({ type,fecha }) => window.open(host + "sendReporteDiario?type=" + type + "&fecha=" + fecha,"targed=blank"),
 
   
   aprobarCreditoFun: data=>axios.post(host+"aprobarCreditoFun",data),

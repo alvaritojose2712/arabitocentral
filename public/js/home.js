@@ -7285,7 +7285,10 @@ function ComoVamos(_ref) {
     setcuantotengobanco = _ref.setcuantotengobanco,
     cuantotengoefectivo = _ref.cuantotengoefectivo,
     setcuantotengoefectivo = _ref.setcuantotengoefectivo,
-    colorSucursal = _ref.colorSucursal;
+    colorSucursal = _ref.colorSucursal,
+    sendReporteDiario = _ref.sendReporteDiario,
+    fechareportediario = _ref.fechareportediario,
+    setfechareportediario = _ref.setfechareportediario;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("comovamos"),
     _useState2 = _slicedToArray(_useState, 2),
     subviewcomovamos = _useState2[0],
@@ -7324,17 +7327,23 @@ function ComoVamos(_ref) {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "btn-group",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-          className: "btn btn-outline-success",
+          className: "btn btn-success",
           onClick: function onClick() {
             return setsubviewcomovamos("comovamos");
           },
           children: "C\xD3MO VAMOS"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-          className: "btn btn-outline-info",
+          className: "btn btn-info",
           onClick: function onClick() {
             return setsubviewcomovamos("balanceresultados");
           },
           children: "BALANCE DE RESULTADOS"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "btn btn-warning",
+          onClick: function onClick() {
+            return setsubviewcomovamos("reportediario");
+          },
+          children: "REPORTE DIARIO"
         })]
       })
     }), subviewcomovamos == "comovamos" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
@@ -8232,7 +8241,38 @@ function ComoVamos(_ref) {
           }) : null : null]
         })
       })]
-    }) : null : null]
+    }) : null : null, subviewcomovamos == "reportediario" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "container",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "form-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "text-label",
+          children: "FECHA"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          type: "date",
+          className: "form-control",
+          value: fechareportediario,
+          onChange: function onChange(event) {
+            return setfechareportediario(event.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "form-group text-center",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "btn m-2 btn-warning",
+          onClick: function onClick() {
+            return sendReporteDiario("ver");
+          },
+          children: "VER"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "btn m-2 btn-sinapsis",
+          onClick: function onClick() {
+            return sendReporteDiario("enviar");
+          },
+          children: "ENVIAR"
+        })]
+      })]
+    }) : null]
   });
 }
 
@@ -26558,6 +26598,11 @@ var db = (_db = {
   },
   setAprobacionPedidoAnulacion: function setAprobacionPedidoAnulacion(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "setAprobacionPedidoAnulacion", data);
+  },
+  sendReporteDiario: function sendReporteDiario(_ref) {
+    var type = _ref.type,
+      fecha = _ref.fecha;
+    return window.open(host + "sendReporteDiario?type=" + type + "&fecha=" + fecha, "targed=blank");
   },
   aprobarCreditoFun: function aprobarCreditoFun(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "aprobarCreditoFun", data);
@@ -83387,28 +83432,38 @@ function Home() {
   };
   var _useState987 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState988 = _slicedToArray(_useState987, 2),
-    sucursalBalanceGeneral = _useState988[0],
-    setsucursalBalanceGeneral = _useState988[1];
+    fechareportediario = _useState988[0],
+    setfechareportediario = _useState988[1];
+  var sendReporteDiario = function sendReporteDiario(type) {
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].sendReporteDiario({
+      type: type,
+      fecha: fechareportediario
+    });
+  };
   var _useState989 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState990 = _slicedToArray(_useState989, 2),
-    fechaBalanceGeneral = _useState990[0],
-    setfechaBalanceGeneral = _useState990[1];
+    sucursalBalanceGeneral = _useState990[0],
+    setsucursalBalanceGeneral = _useState990[1];
   var _useState991 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState992 = _slicedToArray(_useState991, 2),
-    fechaHastaBalanceGeneral = _useState992[0],
-    setfechaHastaBalanceGeneral = _useState992[1];
-  var _useState993 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    fechaBalanceGeneral = _useState992[0],
+    setfechaBalanceGeneral = _useState992[1];
+  var _useState993 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState994 = _slicedToArray(_useState993, 2),
-    balanceGeneralData = _useState994[0],
-    setbalanceGeneralData = _useState994[1];
-  var _useState995 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    fechaHastaBalanceGeneral = _useState994[0],
+    setfechaHastaBalanceGeneral = _useState994[1];
+  var _useState995 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState996 = _slicedToArray(_useState995, 2),
-    cuantotengobanco = _useState996[0],
-    setcuantotengobanco = _useState996[1];
+    balanceGeneralData = _useState996[0],
+    setbalanceGeneralData = _useState996[1];
   var _useState997 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState998 = _slicedToArray(_useState997, 2),
-    cuantotengoefectivo = _useState998[0],
-    setcuantotengoefectivo = _useState998[1];
+    cuantotengobanco = _useState998[0],
+    setcuantotengobanco = _useState998[1];
+  var _useState999 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState1000 = _slicedToArray(_useState999, 2),
+    cuantotengoefectivo = _useState1000[0],
+    setcuantotengoefectivo = _useState1000[1];
   var sendCuadreGeneral = function sendCuadreGeneral() {
     if (confirm("Confirme")) {
       getBalanceGeneral();
@@ -85029,6 +85084,9 @@ function Home() {
             setfechasMain2: setfechasMain2
           })
         }), permiso([1, 2]) && viewmainPanel === "comovamos" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_comovamos__WEBPACK_IMPORTED_MODULE_37__["default"], {
+          sendReporteDiario: sendReporteDiario,
+          fechareportediario: fechareportediario,
+          setfechareportediario: setfechareportediario,
           colorSucursal: colorSucursal,
           sendCuadreGeneral: sendCuadreGeneral,
           cuantotengobanco: cuantotengobanco,

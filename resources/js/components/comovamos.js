@@ -24,6 +24,10 @@ export default function ComoVamos({
     setcuantotengoefectivo,
     colorSucursal,
 
+    sendReporteDiario,
+    fechareportediario,
+    setfechareportediario,
+
 
 }) {
     const [subviewcomovamos, setsubviewcomovamos] = useState("comovamos")
@@ -47,8 +51,9 @@ export default function ComoVamos({
         <div className="container-fluid">
             <div className="p-3 text-center">
                 <div className="btn-group">
-                    <button className="btn btn-outline-success" onClick={()=>setsubviewcomovamos("comovamos")}>CÓMO VAMOS</button>
-                    <button className="btn btn-outline-info" onClick={()=>setsubviewcomovamos("balanceresultados")}>BALANCE DE RESULTADOS</button>
+                    <button className="btn btn-success" onClick={()=>setsubviewcomovamos("comovamos")}>CÓMO VAMOS</button>
+                    <button className="btn btn-info" onClick={()=>setsubviewcomovamos("balanceresultados")}>BALANCE DE RESULTADOS</button>
+                    <button className="btn btn-warning" onClick={()=>setsubviewcomovamos("reportediario")}>REPORTE DIARIO</button>
                 </div>
             </div>
             {subviewcomovamos=="comovamos"?
@@ -821,6 +826,25 @@ export default function ComoVamos({
                     </>
                 :null
             :null}
+
+            {subviewcomovamos=="reportediario"?
+                <div className="container">
+                    <div className="form-group">
+                        <span className="text-label">
+                            FECHA
+                        </span>
+
+                        <input type="date" className="form-control" value={fechareportediario} onChange={event=>setfechareportediario(event.target.value)} />
+                    </div>
+                    <div className="form-group text-center">
+                        <button className="btn m-2 btn-warning" onClick={()=>sendReporteDiario("ver")}>VER</button>
+                        <button className="btn m-2 btn-sinapsis" onClick={()=>sendReporteDiario("enviar")}>ENVIAR</button>
+                    </div>
+
+                </div> 
+            :null}
+
+
 
 
         </div>
