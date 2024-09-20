@@ -1025,7 +1025,7 @@ class PuntosybiopagosController extends Controller
                             "monto_dolar" => $e["monto_dolar"],
             
                             "origen" => 2,
-                            "id_usuario" => session("id_usuario"),
+                            "id_usuario" => session("id_usuario")?session("id_usuario"):1,
                         ]);
                     }
     
@@ -1048,7 +1048,7 @@ class PuntosybiopagosController extends Controller
                             "monto_dolar" => $e["monto_dolar"]*($comisionpagomovilinterban/100),
             
                             "origen" => 2,
-                            "id_usuario" => session("id_usuario"),
+                            "id_usuario" => session("id_usuario")?session("id_usuario"):1,
                         ]);
                     }
                     if ($e["id_beneficiario"]) {
