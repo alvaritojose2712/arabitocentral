@@ -16,6 +16,7 @@ use App\Models\pedidos;
 use App\Models\items_pedidos;
 use App\Models\inventario_sucursal;
 use App\Models\puntosybiopagos;
+use App\Models\cajas;
 
 
 

@@ -21,6 +21,13 @@ class CreateCierresGeneralsTable extends Migration
             $table->decimal("prestamos",10,3);
             $table->decimal("abono",10,3);
 
+            
+
+
+            $table->decimal("cuotacredito",10,3);
+            $table->decimal("comisioncredito",10,3);
+            $table->decimal("interescredito",10,3);
+
             $table->decimal("gastofijo",10,3);
             $table->decimal("gastovariable",10,3);
             $table->decimal("fdi",10,3);

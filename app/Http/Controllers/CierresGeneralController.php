@@ -34,6 +34,10 @@ class CierresGeneralController extends Controller
     
             $gastofijo = abs($b["gastosfijosSum"]) + abs($b["gastosGeneralesfijosSum"]);
             $gastovariable = abs($b["gastosvariablesSum"]) + abs($b["gastosGeneralesvariablesSum"]);
+
+            $cuotacredito = abs($b["cuota_credito_sum"]);
+            $comisioncredito = abs($b["comision_credito_sum"]);
+            $interescredito = abs($b["interes_credito_sum"]);
     
             $utilidadbruta = abs($b["ganancia"]);
             $debito = abs($b["debito"]);
@@ -78,6 +82,9 @@ class CierresGeneralController extends Controller
                 "abono" => $abono,
                 "gastofijo" => $gastofijo,
                 "gastovariable" => $gastovariable,
+                "cuotacredito" => $cuotacredito,
+                "comisioncredito" => $comisioncredito,
+                "interescredito" => $interescredito,
                 "fdi" => $fdi,
                 "perdidatasa" => $perdidatasa,
                 "pagoproveedor" => $pagoproveedor,

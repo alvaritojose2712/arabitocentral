@@ -58,6 +58,10 @@
 		.text-warning{
 			background: yellow;
 		}
+		.text-primary{
+			background: rgb(109, 172, 255);
+		}
+		
 		.text-success{
 			background: green;
 			color: white;
@@ -164,7 +168,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td class="text-warning">$ {{moneda($ingreso_credito)}}</td>
+				<td class="text-primary">$ {{moneda($ingreso_credito)}}</td>
 				<td class="text-success">$ {{moneda($efectivo)}}</td>
 				<td class="text-success">$ {{moneda($debito)}}</td>
 				<td class="text-success">$ {{moneda($transferencia)}}</td>
@@ -179,6 +183,17 @@
 				<td class="text-sinapsis">Bs. {{moneda($biopagobs)}}</td>
 				<td class="text-sinapsis">Bs. {{moneda($debitobs+$transferenciabs+$biopagobs)}}</td>
 			</tr>
+			
+			<tr>
+
+				<th colspan="3">GANANCIA BRUTA</th>
+				<th colspan="3">GANANCIA NETA</th>
+			</tr>
+			<tr>
+				<td colspan="3">{{moneda($utilidadbruta)}}</td>
+				<td colspan="3">{{moneda($utilidadneta)}}</td>
+			</tr>
+
 		</tbody>
 	</table>
 
@@ -187,6 +202,13 @@
 	</div>
 	<table class="table">
 		<thead>
+			<tr>
+				<th colspan="6">
+					<span class="text-warning">
+						FDI, GASTOS, INTERESES
+					</span>
+				</th>
+			</tr>
 			<tr>
 				<th>FDI</th>
 				<th class="text-warning">GASTOS FIJOS</th>
@@ -201,10 +223,25 @@
 				<td>$ {{moneda($gastovariable)}}</td>
 				<td>$ {{moneda($gastofijo+$gastovariable)}}</td>
 			</tr>
-
+			<tr>
+				<th class="text-primary">CUOTA CRÉDITO</th>
+				<th class="text-primary">COMISIÓN CRÉDITO</th>
+				<th class="text-primary">INTERÉS CRÉDITO</th>
+				<th class="text-primary">TOTAL</th>
+			</tr>
+			<tr>
+				<td>$ {{moneda($cuotacredito)}}</td>
+				<td>$ {{moneda($comisioncredito)}}</td>
+				<td>$ {{moneda($interescredito)}}</td>
+				<td>$ {{moneda($cuotacredito+$comisioncredito+$interescredito)}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="table">
+		<tbody>
 			<tr>
 				<th colspan="6">
-					<span class="text-danger h2">
+					<span class="text-danger">
 						PAGO A PROVEEDOR
 					</span>
 				</th>
@@ -217,7 +254,7 @@
 				<th>TOTAL BRUTO</th>
 				<th>TOTAL NETO</th>
 
-				<th class="text-danger">PERDIDA</th>
+				<th class="text-danger">PÉRDIDA</th>
 			</tr>
 			<tr>
 				<td>$ {{moneda($pagoproveedor)}}</td>
@@ -233,5 +270,27 @@
 			</tr>
 		</tbody>
 	</table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th colspan="3">
+					<span class="text-warning">
+						PRÉSTAMOS
+					</span>
+				</th>
+			</tr>
+			<tr>
+				<th>PRÉSTAMOS</th>
+				<th>ABONOS</th>
+				<th>TOTAL</th>
+			</tr>
+			<tr>
+				<td>$ {{moneda($prestamos)}}</td>
+				<td>$ {{moneda($abono)}}</td>
+				<td>$ {{moneda($prestamos-$abono)}}</td>
+			</tr>
+		</tbody>
+	</table>
+	
 </body>
 </html>
