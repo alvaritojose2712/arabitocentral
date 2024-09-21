@@ -171,7 +171,7 @@ class CierresGeneralController extends Controller
             $from = "ARABITO CENTRAL";
             $subject = "ARABITO CENTRAL | " . $fecha;
             $data = ($c)->toArray();
-            $arr_send = ["alvaroospino79@gmail.com"];
+            $arr_send = ["omarelhenaoui@gmail.com","alvaroospino79@gmail.com"];
             try {
     
                 Mail::to($arr_send)->send(new enviarCierre($data, $from1, $from, $subject));
