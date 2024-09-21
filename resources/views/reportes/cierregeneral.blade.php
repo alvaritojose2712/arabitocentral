@@ -55,6 +55,9 @@
 		.sin-borde{
 			border:none;
 		}
+		.text-sinapsis{
+			background: #ed8207;
+		}
 		.text-warning{
 			background: yellow;
 		}
@@ -108,48 +111,29 @@
 
 </head>
 <body>
-	{{-- 
-	cxp
-	cxc
-	prestamos
-	abono
-	
-	perdidatasa
-	pagoproveedor
-	pagoproveedorbs
-	pagoproveedorbancodivisa
-	gastofijo
-	gastovariable
-	fdi
-	ingreso_credito
-	efectivo
-	debito
-	debitobs
-	transferencia
-	transferenciabs
-	biopago
-	biopagobs
-	
-	utilidadbruta
-	utilidadneta
-	cajaregistradora
-	cajachica
-	cajafuerte
-	cajamatriz
-	bancobs
-	bancodivisa
-	inventariobase
-	inventarioventa
-	numventas
-	nomina
-	numsucursales
-	estado 
-	--}}
-
     <div class="text-center">
-        <h1>CIERRE DIARIO CENTRAL</h1>
+        <h2>CIERRE DIARIO CENTRAL </h2>
         <h3>{{$fecha}}</h3>
+        <h3>{{$numsucursales}} SUCURSALES</h3>
     </div>
+	<div class="text-sinapsis text-center">
+		<h2>INVENTARIO</h2>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-sinapsis">INVENTARIO BASE</th>
+				<th class="text-success">INVENTARIO VENTA</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="text-sinapsis">{{moneda($inventariobase)}}</td>
+				<td class="text-success">{{moneda($inventarioventa)}}</td>
+			</tr>
+		</tbody>
+	</table>
+
 
 	<div class="bg-success-light text-center">
 		<h2>INGRESOS</h2>
@@ -164,6 +148,7 @@
 				<th>TRANSFERENCIA</th>
 				<th>BIOPAGO</th>
 				<th>TOTAL</th>
+				<td>VENTAS</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -174,6 +159,14 @@
 				<td class="text-success">$ {{moneda($transferencia)}}</td>
 				<td class="text-success">$ {{moneda($biopago)}}</td>
 				<td class="text-success">$ {{moneda($efectivo+$debito+$transferencia+$biopago)}}</td>
+
+				<td rowspan="4">
+					{{$numventas}}
+					<br>
+					<b>
+						{{moneda(($efectivo+$debito+$transferencia+$biopago)/$numventas)}}
+					</b>
+				</td>
 			</tr>
 			<tr>
 				<td></td>
@@ -195,6 +188,51 @@
 			</tr>
 
 		</tbody>
+		<tbody>
+			@foreach ($ingresosData as $e)
+				<tr>
+					<th rowspan="2" class="text-right">{{$e["sucursal"]["codigo"]}}</th>
+					<td class="text-success">
+						$ {{moneda($e["efectivo"])}}
+					</td>
+					<td class="text-success">
+						$ {{moneda($e["debito"])}} <br>
+					</td>
+					<td class="text-success">
+						$ {{moneda($e["transferencia"])}} <br>
+					</td>
+					<td class="text-success">
+						$ {{moneda($e["caja_biopago"])}} <br>
+					</td>
+	
+					<td class="text-success">
+						$ {{moneda($e["total"])}} <br>
+					</td>
+					<td></td>
+					
+				</tr>
+				<tr>
+					<td></td>
+					<td class="text-sinapsis">
+						Bs. {{moneda($e["puntodeventa_actual_bs"])}}
+					</td>
+					<td class="text-sinapsis">
+						Bs. {{moneda($e["transferenciabs"])}}
+					</td>
+					<td class="text-sinapsis">
+						Bs. {{moneda($e["biopagoserialmontobs"])}}
+					</td>
+					<td class="text-sinapsis">
+						Bs. {{moneda($e["biopagoserialmontobs"]+$e["puntodeventa_actual_bs"]+$e["transferenciabs"])}}
+					</td>
+					<td>
+						{{$e["numventas"]}} <br>
+						<b>{{moneda($e["total"]/$e["numventas"])}}</b>
+					</td>
+
+				</tr>
+			@endforeach
+		</tbody>
 	</table>
 
 	<div class="text-danger text-center">
@@ -215,14 +253,62 @@
 				<th class="text-warning">GASTOS VARIABLES</th>
 				<th class="text-warning">TOTAL GASTO</th>
 			</tr>
-		</thead>
-		<tbody>
 			<tr>
 				<td>$ {{moneda($fdi)}}</td>
 				<td>$ {{moneda($gastofijo)}}</td>
 				<td>$ {{moneda($gastovariable)}}</td>
 				<td>$ {{moneda($gastofijo+$gastovariable)}}</td>
 			</tr>
+		</thead>
+		<tbody>
+			@foreach ($gastos as $ingreso_egresokey => $ingreso_egreso)
+				{{-- <tr>
+					<td>{{$ingreso_egresokey}}</td>
+				</tr> --}}
+
+				@foreach ($ingreso_egreso as $catgeneralkey => $catgeneral)
+					{{-- <tr>
+						<td></td>
+						<td>{{$catgeneralkey}}</td>
+					</tr> --}}
+					@foreach ($catgeneral as $variable_fijokey => $variable_fijo)
+						<tr>
+							<td></td>
+							<td>FIJOS {{$variable_fijokey}}</td>
+							<td>VARIABLE {{$variable_fijokey}}</td>
+							<td></td>
+						</tr>
+						@if (isset($variable_fijo[1]))
+
+							@foreach ($variable_fijo[1] as $catkey => $cat)
+								<tr>
+									<td></td>
+									<td>{{$catkey}}</td>
+									<td></td>
+									<td></td>
+								</tr>
+							@endforeach
+						@endif
+
+						@if (isset($variable_fijo[0]))
+							@foreach ($variable_fijo[0] as $catkey => $cat)
+								<tr>
+									<td></td>
+									<td></td>
+									<td>{{$catkey}}</td>
+									<td></td>
+								</tr>
+							@endforeach
+							
+						@endif
+					@endforeach
+				
+				
+				@endforeach
+			@endforeach
+		</tbody>
+		<tbody>
+			
 			<tr>
 				<th class="text-primary">CUOTA CRÉDITO</th>
 				<th class="text-primary">COMISIÓN CRÉDITO</th>
@@ -236,6 +322,7 @@
 				<td>$ {{moneda($cuotacredito+$comisioncredito+$interescredito)}}</td>
 			</tr>
 		</tbody>
+		
 	</table>
 	<table class="table">
 		<tbody>
@@ -291,6 +378,6 @@
 			</tr>
 		</tbody>
 	</table>
-	
+
 </body>
 </html>

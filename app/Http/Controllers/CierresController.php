@@ -667,12 +667,14 @@ class CierresController extends Controller
     {
         //debug_to_console($id_sucursal);
         $array = cierres::with("sucursal")
-            ->when($id_sucursal, function ($q) use ($id_sucursal) {
-                $q->where("id_sucursal", $id_sucursal);
-            })
-            ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
-            ->orderBy("fecha","desc")
-            ->get();
+        ->when($id_sucursal, function ($q) use ($id_sucursal) {
+            $q->where("id_sucursal", $id_sucursal);
+        })
+        ->selectRaw("*, tasa*transferencia as transferenciabs, (debito+efectivo+transferencia+caja_biopago) as total")
+        ->whereBetween("fecha", [$fechasMain1, $fechasMain2])
+        ->orderBy("fecha","desc")
+        ->orderBy("total","desc")
+        ->get();
 
         $sumdebito = $array->sum("debito");
         $sumefectivo = $array->sum("efectivo");
@@ -680,7 +682,7 @@ class CierresController extends Controller
         $sumbiopago = $array->sum("caja_biopago");
 
         $debitobs = $array->sum("puntodeventa_actual_bs");
-        $transferenciabs = $sumtransferencia*$array->avg("tasa");
+        $transferenciabs = $array->sum("transferenciabs");
         $biopagobs = $array->sum("biopagoserialmontobs");
         
 
@@ -743,52 +745,6 @@ class CierresController extends Controller
             
 
         ];
-
-
-        $array = $array->map(function ($q) {
-            $q->total = moneda($q->debito + $q->efectivo + $q->transferencia + $q->caja_biopago);
-
-            $q->debito = moneda($q->debito);
-            $q->efectivo = moneda($q->efectivo);
-            $q->transferencia = moneda($q->transferencia);
-            $q->dejar_dolar = moneda($q->dejar_dolar);
-            $q->dejar_peso = moneda($q->dejar_peso);
-            $q->dejar_bss = moneda($q->dejar_bss);
-            $q->efectivo_guardado = moneda($q->efectivo_guardado);
-            $q->efectivo_guardado_cop = moneda($q->efectivo_guardado_cop);
-            $q->efectivo_guardado_bs = moneda($q->efectivo_guardado_bs);
-            $q->efectivo_actual = moneda($q->efectivo_actual);
-            $q->efectivo_actual_cop = moneda($q->efectivo_actual_cop);
-            $q->efectivo_actual_bs = moneda($q->efectivo_actual_bs);
-            $q->caja_biopago = moneda($q->caja_biopago);
-            $q->puntodeventa_actual_bs = moneda($q->puntodeventa_actual_bs);
-            $q->tasa = moneda($q->tasa);
-            $q->precio = moneda($q->precio);
-            $q->precio_base = moneda($q->precio_base);
-            $q->ganancia = moneda($q->ganancia);
-            $q->porcentaje = moneda($q->porcentaje);
-            $q->desc_total = moneda($q->desc_total);
-            $q->tasacop = moneda($q->tasacop);
-            $q->inventariobase = moneda($q->inventariobase);
-            $q->inventarioventa = moneda($q->inventarioventa);
-            $q->ventaexcento = moneda($q->ventaexcento);
-            $q->ventagravadas = moneda($q->ventagravadas);
-            $q->ivaventa = moneda($q->ivaventa);
-            $q->totalventa = moneda($q->totalventa);
-            $q->credito = moneda($q->credito);
-            $q->creditoporcobrartotal = moneda($q->creditoporcobrartotal);
-            $q->vueltostotales = moneda($q->vueltostotales);
-            $q->abonosdeldia = moneda($q->abonosdeldia);
-            $q->efecadiccajafbs = moneda($q->efecadiccajafbs);
-            $q->efecadiccajafcop = moneda($q->efecadiccajafcop);
-            $q->efecadiccajafdolar = moneda($q->efecadiccajafdolar);
-            $q->efecadiccajafeuro = moneda($q->efecadiccajafeuro);
-
-
-            return $q;
-        })
-        ;
-
 
 
         return [
@@ -1845,16 +1801,14 @@ class CierresController extends Controller
             "numnomina" => $numnomina,
 
             "ingreso_credito_data" => $ingreso_credito_data,  //76
-            "ingreso_credito_sum" => $ingreso_credito_sum,
-
             "cuota_credito_data" => $cuota_credito_data,  //77
-            "cuota_credito_sum" => $cuota_credito_sum,
-            
             "comision_credito_data" => $comision_credito_data,  //75
-            "comision_credito_sum" => $comision_credito_sum,
-            
             "interes_credito_data" => $interes_credito_data,  //74
-            "interes_credito_sum" => $interes_credito_sum,
+            
+            "ingreso_credito_sum" => $ingreso_credito_sum,//76
+            "cuota_credito_sum" => $cuota_credito_sum, //77
+            "comision_credito_sum" => $comision_credito_sum,  //75
+            "interes_credito_sum" => $interes_credito_sum, //74
 
             "matriz_inicial" => $matriz_inicial ? $matriz_inicial->dolarbalance:0,
             "matriz_actual" => $matriz_actual ? $matriz_actual->dolarbalance:0,
@@ -1865,9 +1819,6 @@ class CierresController extends Controller
 
             "prestamos_sum" => $prestamos_sum,
             "abonos_sum" => $abonos_sum,
-
-
-
 
             "inicial_inventariobase" => $inicial_inventariobase,
             "inicial_inventarioventa" => $inicial_inventarioventa,
@@ -1904,34 +1855,15 @@ class CierresController extends Controller
             "gastosGeneralesvariablesSum" => $gastosGeneralesvariablesSum,
             "fdi" => $sumFDI,
             
-            
             "gananciaNeta" => $gananciaNeta,
             "sumGastos"=>$sumGastos,
-            
-            "porcevbruta" => [
-                "labels"=>["VENTA BRUTA","GASTOS"],
-                "series"=>[($total-$sumGastos),$sumGastos],
-            ],
-            "porcevbrutanum" => $porcevbrutanum,
-            
-            "porcegbruta" => [
-                "labels"=>["GANANCIA NETA","GASTOS"],
-                "series"=>[($ganancia-$sumGastos),$sumGastos],
-            ],
-            "porcegbrutanum" => $porcegbrutanum,
-            
-            "porcegneta" => [
-                "labels"=>["GANANCIA NETA","GASTOS"],
-                "series"=>[($gananciaNeta-$sumGastos),$sumGastos],
-            ],
-            "porcegnetanum" => $porcegnetanum,
-            
             
             "efectivodolar" =>$dolarbalance,
             "efectivoData" =>$efectivoData,
             "banco" =>$banco,
             "bancoData" =>$bancoData,
             "inventario" =>$inventario,
+            "cierresUltimo" => $cierreDataUltimo,
             
             "debito" => $debito,
             "efectivo" => $efectivo,
@@ -1966,13 +1898,13 @@ class CierresController extends Controller
             "sum_caja_regis_inicial" => $sum_caja_regis_inicial,
             "sum_caja_chica_inicial" => $sum_caja_chica_inicial,
             "sum_caja_fuerte_inicial" => $sum_caja_fuerte_inicial,
-
+            
             "sum_caja_regis_actual" => $sum_caja_regis_actual,
             "sum_caja_chica_actual" => $sum_caja_chica_actual,
             "sum_caja_fuerte_actual" => $sum_caja_fuerte_actual,
             "sum_caja_actual_banco" => $sum_caja_actual_banco,
             "sum_caja_actual_banco_dolar" => $sum_caja_actual_banco_dolar,
-
+            
             
             "sum_caja_inicial" => $sum_caja_inicial,
             "sum_caja_inicial_banco_dolar" => $sum_caja_inicial_banco_dolar,
@@ -1988,10 +1920,27 @@ class CierresController extends Controller
             "cuadre" => $cuadre,
             "sucursales" => $sucursales,
             
-
+            "porcevbruta" => [
+                "labels"=>["VENTA BRUTA","GASTOS"],
+                "series"=>[($total-$sumGastos),$sumGastos],
+            ],
+            "porcevbrutanum" => $porcevbrutanum,
+            
+            "porcegbruta" => [
+                "labels"=>["GANANCIA NETA","GASTOS"],
+                "series"=>[($ganancia-$sumGastos),$sumGastos],
+            ],
+            "porcegbrutanum" => $porcegbrutanum,
+            
+            "porcegneta" => [
+                "labels"=>["GANANCIA NETA","GASTOS"],
+                "series"=>[($gananciaNeta-$sumGastos),$sumGastos],
+            ],
+            "porcegnetanum" => $porcegnetanum,
+            
         ];
     }
-
+    
     function getBalanceGeneral(Request $req) {
         $sucursalBalanceGeneral = $req->sucursalBalanceGeneral;
         $fechaBalanceGeneral = $req->fechaBalanceGeneral;
