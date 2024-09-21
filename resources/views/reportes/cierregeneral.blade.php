@@ -5,12 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Reporte Diario | CENTRAL</title>
 	<style type="text/css">
+		body{
+			zoom: 0.6;
+		}
 		table, td, th {  
 			border: 1px solid #ddd;
 			text-align: center;
-		}
-		th{
-			font-size:15px;
 		}
 
 		table {
@@ -21,9 +21,7 @@
 			background-color: white;
 		}
 		
-		.long-text{
-			width: 400px;
-		}
+		
 		.border-top{
 			border-top: 5px solid #000000;
 
@@ -76,19 +74,13 @@
 		.text-success-only{
 			color: green;
 		}
-		.fs-3{
-			font-size: xx-large;
-			font-weight: bold;
-		}
+	
 
 		.table-dark{
 			background-color: #f2f2f2;
 		}
 		.container{
 			width: 100%;
-		}
-		h1{
-			font-size:3em;
 		}
 		.d-flex div{
 			display: inline-block;

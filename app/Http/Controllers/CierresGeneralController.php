@@ -8,6 +8,10 @@ use App\Models\catcajas;
 use App\Http\Requests\StorecierresGeneralRequest;
 use App\Http\Requests\UpdatecierresGeneralRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\enviarCierre;
+
+use Response;
 
 
 class CierresGeneralController extends Controller
@@ -163,7 +167,22 @@ class CierresGeneralController extends Controller
         if ($type=="ver") {
             return view("reportes.cierregeneral", $c);
         }else if($type=="enviar"){
-
+            $from1 = "arabitoferreteria@gmail.com";
+            $from = "ARABITO CENTRAL";
+            $subject = "ARABITO CENTRAL | " . $fecha;
+            $data = ($c)->toArray();
+            $arr_send = ["alvaroospino79@gmail.com"];
+            try {
+    
+                Mail::to($arr_send)->send(new enviarCierre($data, $from1, $from, $subject));
+    
+                return Response::json(["msj" => "Cierre enviado", "estado" => true]);
+    
+            } catch (\Exception $e) {
+    
+                return Response::json(["msj" => "Error: " . $e->getMessage(), "estado" => false]);
+    
+            }
         }
     }
 
