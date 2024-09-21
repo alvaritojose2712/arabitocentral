@@ -104,8 +104,15 @@
 			background-color: #c4f7c7 !important; 
 		}
 
-		
-
+		.w-10{
+			width: 10% !important;
+		}
+		.w-30{
+			width: 30% !important;
+		}
+		.w-40{
+			width: 40% !important;
+		}
 	</style>
 
 
@@ -406,7 +413,7 @@
 				<td>
 					$ {{moneda($pagoproveedorbs)}} <br>
 					Bs. {{moneda($pagoproveedorbsbs)}} <br>
-					Bs/$ PROM. {{moneda($pagoproveedortasapromedio)}}
+					Bs/$ PROM. {{moneda($pagoproveedortasapromedio,4)}}
 				</td>
 				<td>$ {{moneda($pagoproveedorbancodivisa)}}</td>
 				<td>$ {{moneda($pagoproveedor+$pagoproveedorbs+$pagoproveedorbancodivisa)}}</td>
@@ -416,12 +423,88 @@
 		</tbody>
 	</table>
 	<hr>
+	<table class="table table-bordered">
+		<tbody>
+			@foreach ($pagoproveedorData["detalles"] as $i => $pagosproveedor)
+				
+				<tr>
+					<td>{{$i+1}}</td>
+					<th>
+						{{$pagosproveedor["proveedor"]["descripcion"]}}
+					</th>
+					<td>
+						{{$pagosproveedor["fechaemision"]}}
+					</td>
+					<td>
+						<table class="table w-100">
+							<tbody>
+								@if (isset($pagosproveedor["banco"]))
+									@foreach ($pagosproveedor["banco"] as $ee)
+										<tr class="fs-5">
+											<th class="text-right w-10">BANCO</th>
+											<td class="text-muted w-30">
+												{{$ee["loteserial"]}}
+											</td>
+											<td class="w-10">
+												{{$ee["banco"]}}
+											</td>
+											<td class="w-10">
+												<span class="text-sinapsis">{{moneda($ee["tasa"])}}</span>
+											</td>
+											<td class="w-30">
+												<span class="text-success">Bs. {{moneda($ee["monto"])}}</span>
+											</td>
+										</tr>
+
+									@endforeach
+								@endif
+
+								@if (isset($pagosproveedor["efectivo"]))
+									@foreach ($pagosproveedor["efectivo"] as $ee)
+										<tr class="fs-5">
+											<th class="text-right w-10">EFECTIVO </th>
+											<td class="text-muted w-40">
+												{{$ee["concepto"]}}
+											</td>
+											<td class="w-40">
+												{{$ee["montodolar"]}}
+											</td>
+										</tr>
+									@endforeach
+								@endif
+							</tbody>
+						</table>
+					</td>
+					<td>
+						$ {{moneda($pagosproveedor["monto"])}}
+					</td>
+				</tr>
+			
+			@endforeach
+		</tbody>
+	</table>
+	<hr>
 	<table class="table">
 		<tbody>
 			<tr>
 				<th colspan="3">
 					<span class="text-warning">
-						PRÉSTAMOS
+						CUENTAS POR PAGAR (CxP)
+					</span>
+				</th>
+			</tr>
+			<tr>
+				<td>$ {{moneda($cxp)}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<hr>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th colspan="3">
+					<span class="text-warning">
+						CUENTAS POR COBRAR (CxC)
 					</span>
 				</th>
 			</tr>
@@ -436,7 +519,197 @@
 				<td>$ {{moneda($prestamos-$abono)}}</td>
 			</tr>
 		</tbody>
+		<tbody>
+			<tr>
+				<th colspan="3">
+					CRÉDITOS (CxC)
+				</th>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>$ {{moneda($cxc)}}</td>
+
+			</tr>
+		</tbody>
 	</table>
 
+	<br>
+	<hr>
+	<br>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th colspan="10">
+					<span class="text-warning">
+						CONCILIACIÓN BANCO
+					</span>
+				</th>
+			</tr>
+			<tr>
+				<th>BANCO</th>
+				<th>FECHA</th>
+				<th class="bg-success-light">CUADRE REAL</th>
+				<th class="">YA REPORTADO</th>
+				<th>SALDO INCIAL</th>
+				<th>INGRESO</th>
+				<th>NO REPORTADO <i class="fa fa-exclamation-triangle"></i></th>
+				<th>EGRESO</th>
+				
+				<th class="bg-success-light">CUADRE DIGITAL</th>
+				<th class="text-right">CONCILIACIÓN</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach ($bancoData["xfechaCuadre"] as $e)
+				<tr>
+					<th
+						style="background-color:{{$e["background"]}}, color:{{$e["color"]}}"
+					>
+						{{$e["banco_codigo"]}}
+					</th>
+					<th>{{$e["fecha"]}}</th>
+					<th class="bg-success-light">
+						{{$e["guardado"]?moneda($e["guardado"]["saldo_real_manual"]):"----"}}
+					</th>
+					<th class="">{{moneda($e["sireportadasum"])}}</th>
+					<td class="bg-warning-light">
+						<b>{{moneda($e["inicial"])}}</b>
+						<br />
+						{{$e["fecha_inicial"]}}
+					</td>
+					<th class="bg-success-light">{{moneda($e["ingreso"])}}</th>
+					<th class="">{{moneda($e["noreportadasum"])}}</th>
+					<th class="bg-danger-light">{{moneda($e["egreso"])}}</th>
+					
+					<th class="bg-success-light">{{moneda($e["balance"])}}</th>
+					<th class={{ ($e["cuadre"]>-200 && $e["cuadre"]<200?"text-success text-light":"text-danger text-light")." fs-3 text-right"}}> {{moneda($e["cuadre"])}} </th>
+
+				</tr>
+			@endforeach
+		</tbody>
+	</table>
+	<hr>
+		
+		<table className="table">
+			<thead>
+				<tr>
+					<td colspan="4"></td>
+					<th>
+						<span class="text-warning">
+							BANCO
+						</span>
+					</th>
+				</tr>
+				<tr>
+					<th></th>
+					<th></th>
+					<th>{{moneda($bancobs)}}</th>
+					<th>{{moneda($bancodivisa)}}</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach ($caja_actual_banco as $e)
+					<tr>
+						<td>{{$e["fecha"]}}</td>
+						<td>{{$e["banco"]}}</td>
+						<td>{{moneda($e["saldo"])}}</td>
+						<td className="text-success">{{moneda($e["saldo_dolar"])}}</td>
+						<td className="text-sinapsis">{{moneda($e["puntos_liquidados"])}}</td>
+
+					</tr>
+					
+				@endforeach
+			</tbody>
+		</table>
+	<hr>
+	<table class="table">
+		<thead>
+			<tr>
+				<th colspan="8">
+					<span class="text-warning">
+						EFECTIVO
+					</span>
+				</th>
+			</tr>
+			<tr>
+				<th colspan="7" class="text-primary">CAJA MATRIZ</th>
+				<td><h3>{{moneda($matriz_actual)}}</h3></td>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach ($caja_actual as $su => $e)
+				<tr>
+					<td rowspan="4">{{$su}}</td>
+					<td></td>
+					<th>DÓLAR</th>
+					<th>BS</th>
+					<th>PESO</th>
+					<th>EURO</th>
+					<th>TOTAL $</th>
+					<td rowspan="4">{{moneda($e["sum_cajas"])}}</td>
+				</tr>
+				<tr>
+					<td class="text-warning">CAJA REGISTRADORA</td>
+					<td>{{moneda($e["caja_registradora"]["dolar"])}}</td>
+					<td>{{moneda($e["caja_registradora"]["bs"])}}</td>
+					<td>{{moneda($e["caja_registradora"]["peso"])}}</td>
+					<td>{{moneda($e["caja_registradora"]["euro"])}}</td>
+					<td>{{moneda($e["caja_registradora"]["total_dolar"])}}</td>
+				</tr>
+				<tr>
+					<td class="text-sinapsis">CAJA CHICA</td>
+					<td>{{moneda($e["caja_chica"]["dolar"])}}</td>
+					<td>{{moneda($e["caja_chica"]["bs"])}}</td>
+					<td>{{moneda($e["caja_chica"]["peso"])}}</td>
+					<td>{{moneda($e["caja_chica"]["euro"])}}</td>
+					<td>{{moneda($e["caja_chica"]["total_dolar"])}}</td>
+				</tr>
+				<tr>
+					<td class="text-success">CAJA FUERTE</td>
+					<td>{{moneda($e["caja_fuerte"]["dolar"])}}</td>
+					<td>{{moneda($e["caja_fuerte"]["bs"])}}</td>
+					<td>{{moneda($e["caja_fuerte"]["peso"])}}</td>
+					<td>{{moneda($e["caja_fuerte"]["euro"])}}</td>
+					<td>{{moneda($e["caja_fuerte"]["total_dolar"])}}</td>
+				</tr>
+			@endforeach
+			<tr>
+				<td rowspan="5"></td>
+				<td></td>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th rowspan="5">{{moneda($sum_caja_actual+$matriz_actual)}}</th>
+			</tr>
+			<tr>
+				<th colspan="5" class="text-warning">CAJA REGISTRADORA</th>
+							
+				<th>{{moneda($sum_caja_regis_actual)}}</th>
+			</tr>
+			<tr>
+
+				<th colspan="5" class="text-sinapsis">CAJA CHICA</th>
+				
+				<th>{{moneda($sum_caja_chica_actual)}}</th>
+			</tr>
+			<tr>
+				<th colspan="5" class="text-success">CAJA FUERTE</th>
+				
+				<th>{{moneda($sum_caja_fuerte_actual)}}</th>
+			</tr>
+			<tr>
+				<th colspan="5" class="text-primary">CAJA MATRIZ</th>
+				
+				<th>{{moneda($matriz_actual)}}</th>
+			</tr>
+			
+			
+		</tbody>
+	</table>
 </body>
 </html>

@@ -386,8 +386,6 @@ class BancosController extends Controller
                     "banco_codigo" => $banco_codigo,
                     "color" => $color,
                     "background" => $background,
-                    
-                    
                     "ingreso" => $ingresoBanco,
                     "egreso" => $egresoBanco,
                     "inicial" => $inicial, 
@@ -395,15 +393,10 @@ class BancosController extends Controller
                     "balance" => $balance, 
                     "noreportadaList" => $noreportadaList, 
                     "noreportadasum" => $noreportadasum, 
-
                     "sireportadaList" => $sireportadaList, 
                     "sireportadasum" => $sireportadasum, 
-
-                    
-
                     "guardado" => $q_banco, 
                     "saldoactual" => $q_banco? $q_banco->saldo: 0, 
-                    
                     "cuadre" => $cuadre, 
 
 
@@ -461,25 +454,17 @@ class BancosController extends Controller
                         "color" => $ban->color,
                         "background" => $ban->background,
                         "fecha_inicial" => $fecha_inicial, 
-                        
                         "ingreso" => $ingresoBanco,
                         "egreso" => $egresoBanco,
                         "inicial" => $inicial, 
                         "balance" => $balance, 
                         "noreportadaList" => $noreportadaList, 
                         "noreportadasum" => $noreportadasum, 
-
                         "sireportadaList" => $sireportadaList, 
                         "sireportadasum" => $sireportadasum, 
-
-                        
-
                         "guardado" => $q_banco, 
                         "saldoactual" => $q_banco? $q_banco->saldo: 0, 
-                        
                         "cuadre" => $cuadre, 
-
-
                     ]);
 
 

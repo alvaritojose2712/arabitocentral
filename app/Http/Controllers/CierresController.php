@@ -1897,17 +1897,16 @@ class CierresController extends Controller
             "sum_caja_fuerte_actual" => $sum_caja_fuerte_actual,
             "sum_caja_actual_banco" => $sum_caja_actual_banco,
             "sum_caja_actual_banco_dolar" => $sum_caja_actual_banco_dolar,
-            
-            
             "sum_caja_inicial" => $sum_caja_inicial,
             "sum_caja_inicial_banco_dolar" => $sum_caja_inicial_banco_dolar,
             "caja_inicial_banco" => $caja_inicial_banco,
+            "caja_actual" => $caja_actual,
+            
+            
             
             "total_caja_actual" => $total_caja_actual,
             "caja_actual_banco" => $caja_actual_banco,
             "sum_caja_actual" => $sum_caja_actual,
-            "sum_caja_actual_banco" => $sum_caja_actual_banco,
-            "sum_caja_actual_banco_dolar" => $sum_caja_actual_banco_dolar,
             
             "tengo" => $total_caja_actual,
             "cuadre" => $cuadre,

@@ -39,7 +39,7 @@ class CierresGeneralController extends Controller
         $comisioncredito = abs($b["comision_credito_sum"]);
         $interescredito = abs($b["interes_credito_sum"]);
         
-        $utilidadbruta = abs($b["ganancia"]);
+        $utilidadbruta = ($b["ganancia"]);
         $debito = abs($b["debito"]);
         $transferencia = abs($b["transferencia"]);
         $biopago = abs($b["biopago"]);
@@ -50,7 +50,7 @@ class CierresGeneralController extends Controller
         $biopagobs = abs($b["biopagobs"]);
         
         $cxp = abs($b["cxp"]);
-        $utilidadneta = abs($b["gananciaNeta"]);
+        $utilidadneta = ($b["gananciaNeta"]);
         
         $pagoproveedor = abs($b["sumPagoProveedorEfectivo"]);
         $pagoproveedorbancodivisa = abs($b["sumPagoProveedorBancoDivisa"]);
@@ -137,6 +137,20 @@ class CierresGeneralController extends Controller
         $c->cuota_credito_data = $b["cuota_credito_data"];
         $c->comision_credito_data = $b["comision_credito_data"];
         $c->interes_credito_data = $b["interes_credito_data"];
+        $c->pagoproveedorData = $b["pagoproveedor"];
+
+        $c->matriz_actual = $b["matriz_actual"];
+        $c->bancoData = $b["bancoData"];
+        
+        $c->caja_actual = $b["caja_actual"];
+
+        $c->sum_caja_regis_actual = $b["sum_caja_regis_actual"];
+        $c->sum_caja_chica_actual = $b["sum_caja_chica_actual"];
+        $c->sum_caja_fuerte_actual = $b["sum_caja_fuerte_actual"];
+        
+        $c->sum_caja_actual = $b["sum_caja_actual"];
+        $c->caja_actual_banco = $b["caja_actual_banco"];
+        
         
         
         

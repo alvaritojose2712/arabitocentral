@@ -9,10 +9,10 @@ if (! function_exists('zero_fill')) {
 }
 
 if (! function_exists('moneda')) {
-    function moneda($val) {
+    function moneda($val,$num=2) {
         $val = $val ? $val : 0;
         
-        return number_format(floatval($val),2,",",".");
+        return number_format(floatval($val),$num,",",".");
     }
 }
 if (! function_exists('removemoneda')) {
