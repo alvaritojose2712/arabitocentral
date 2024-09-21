@@ -595,8 +595,7 @@
 		<table className="table">
 			<thead>
 				<tr>
-					<td colspan="4"></td>
-					<th>
+					<th colspan="6">
 						<span class="text-warning">
 							BANCO
 						</span>
@@ -605,9 +604,10 @@
 				<tr>
 					<th></th>
 					<th></th>
-					<th>{{moneda($bancobs)}}</th>
-					<th>{{moneda($bancodivisa)}}</th>
-					<th></th>
+					<th>SALDO REAL BS</th>
+					<th>PUNTOS LIQUIDADOS BS</th>
+					<th>TOTAL Bs.</th>
+					<th>$</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -615,13 +615,23 @@
 					<tr>
 						<td>{{$e["fecha"]}}</td>
 						<td>{{$e["banco"]}}</td>
+						
+						<td className="text-sinapsis">{{moneda($e["saldo_real"])}}</td>
+						<td className="text-sinapsis">{{moneda($e["puntos_liquidados"])}}</td>
 						<td>{{moneda($e["saldo"])}}</td>
 						<td className="text-success">{{moneda($e["saldo_dolar"])}}</td>
-						<td className="text-sinapsis">{{moneda($e["puntos_liquidados"])}}</td>
 
 					</tr>
 					
 				@endforeach
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th class="text-sinapsis">{{moneda($bancobs)}}</th>
+					<th class="text-success">{{moneda($bancodivisa)}}</th>
+				</tr>
 			</tbody>
 		</table>
 	<hr>

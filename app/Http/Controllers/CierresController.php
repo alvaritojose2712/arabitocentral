@@ -1633,27 +1633,10 @@ class CierresController extends Controller
 
                 $b = bancos::where("id_banco",$banco->id)->where("fecha","<",$fechaParaCajaActual)->orderBy("fecha","desc")->first();
                 
-
-                /* $ban = (new BancosController)->bancosDataFun([
-                    "qdescripcionbancosdata" => "",
-                    "qbancobancosdata" => $banco->id,
-                    "qfechabancosdata" => $fechaBalanceGeneral,
-                    "fechaHastaSelectAuditoria" => $fechaBalanceGeneral,
-                    "sucursalSelectAuditoria" => "",
-                    "subviewAuditoria" => "cuadre",
-                    "columnOrder" => "monto",
-                    "order" => "desc",
-                    "tipoSelectAuditoria" => "",
-                    "showallSelectAuditoria" => false,
-                    "ingegreSelectAuditoria" => "",
-                ])["xfechaCuadre"];
-
-                $positivo = count($ban)?$ban[0]["ingreso"]:0;
-                $negativo = count($ban)?$ban[0]["egreso"]:0;
-                $pun = abs($positivo)-abs($negativo); */
                 $puntos = puntosybiopagos::where("fecha_liquidacion",$fechaParaCajaActual)->where("id_banco",$banco->id)->where("tipo","LIKE","%PUNTO%")->sum("monto_liquidado");
 
 
+                $saldo_real = $b?$b->saldo_real_manual :0;
                 $saldo = $b?$b->saldo_real_manual + $puntos :0;
                 $fecha = $b?$b->fecha:"";
                 
@@ -1661,6 +1644,7 @@ class CierresController extends Controller
                     "fecha" => $fecha,
                     "banco"=> $banco->codigo,
                     "puntos_liquidados" => $puntos,
+                    "saldo_real" => $saldo_real,
                     "saldo" => $banco->moneda=="dolar"? 0: $saldo,
                     "saldo_dolar" => $banco->moneda=="dolar"?$saldo:$this->dividir($saldo,$bs),
                 ]);
