@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\cierresGeneral;
+use App\Models\catcajas;
+
 use App\Http\Requests\StorecierresGeneralRequest;
 use App\Http\Requests\UpdatecierresGeneralRequest;
 use Illuminate\Http\Request;
@@ -121,8 +123,27 @@ class CierresGeneralController extends Controller
 
         $c = cierresGeneral::where("fecha",$fecha)->first();
         
+        $c->catcajas = catcajas::all()->groupBy("id");
         $c->ingresosData = $b["cierresUltimo"]["data"];
         $c->gastos = $b["gastos"];
+        $c->sumArrcat = $b["sumArrcat"];
+        $c->sumArrcatgeneral = $b["sumArrcatgeneral"];
+        $c->sumArringresoegreso = $b["sumArringresoegreso"];
+        $c->sumArrvariablefijo = $b["sumArrvariablefijo"];
+
+        $c->fdidata = $b["fdidata"];
+
+        $c->ingreso_credito_data = $b["ingreso_credito_data"];
+        $c->cuota_credito_data = $b["cuota_credito_data"];
+        $c->comision_credito_data = $b["comision_credito_data"];
+        $c->interes_credito_data = $b["interes_credito_data"];
+        
+        
+        
+        
+                
+
+
 
 
         if ($type=="ver") {

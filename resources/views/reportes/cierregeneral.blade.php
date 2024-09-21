@@ -239,25 +239,42 @@
 		<h2>EGRESOS</h2>
 	</div>
 	<table class="table">
+		<tbody>
+			<tr>
+				<th>FDI</th>
+				<th>$ {{moneda($fdi)}}</th>
+			</tr>
+			@foreach ($fdidata as $e)
+				<tr>
+					<td>
+						{{@$e["concepto"]}}
+					</td>
+					<td>
+						{{moneda(abs(@$e["montodolar"]))}}
+					</td>
+				</tr>
+			@endforeach
+		</tbody>
+	</table>
+	<hr>
+	<table class="table">
 		<thead>
 			<tr>
 				<th colspan="6">
 					<span class="text-warning">
-						FDI, GASTOS, INTERESES
+						GASTOS, CUOTAS, INTERESES
 					</span>
 				</th>
 			</tr>
 			<tr>
-				<th>FDI</th>
 				<th class="text-warning">GASTOS FIJOS</th>
 				<th class="text-warning">GASTOS VARIABLES</th>
 				<th class="text-warning">TOTAL GASTO</th>
 			</tr>
 			<tr>
-				<td>$ {{moneda($fdi)}}</td>
-				<td>$ {{moneda($gastofijo)}}</td>
-				<td>$ {{moneda($gastovariable)}}</td>
-				<td>$ {{moneda($gastofijo+$gastovariable)}}</td>
+				<th>$ {{moneda($gastofijo)}}</th>
+				<th>$ {{moneda($gastovariable)}}</th>
+				<th>$ {{moneda($gastofijo+$gastovariable)}}</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -272,58 +289,99 @@
 						<td>{{$catgeneralkey}}</td>
 					</tr> --}}
 					@foreach ($catgeneral as $variable_fijokey => $variable_fijo)
-						<tr>
+						{{-- <tr>
 							<td></td>
 							<td>FIJOS {{$variable_fijokey}}</td>
 							<td>VARIABLE {{$variable_fijokey}}</td>
 							<td></td>
-						</tr>
-						@if (isset($variable_fijo[1]))
+						</tr> --}}
+						@foreach ($variable_fijo as $catkey => $cat)
+							<tr>
 
-							@foreach ($variable_fijo[1] as $catkey => $cat)
-								<tr>
+								@if ($variable_fijokey==0)
 									<td></td>
-									<td>{{$catkey}}</td>
-									<td></td>
-									<td></td>
-								</tr>
-							@endforeach
-						@endif
+								@endif
 
-						@if (isset($variable_fijo[0]))
-							@foreach ($variable_fijo[0] as $catkey => $cat)
-								<tr>
+								<td>
+
+									{{@$catcajas[$catkey][0]["nombre"]}}
+								</td>
+
+								@if ($variable_fijokey==1)
 									<td></td>
-									<td></td>
-									<td>{{$catkey}}</td>
-									<td></td>
-								</tr>
-							@endforeach
+								@endif
+
+								<td>
+									{{moneda(abs(@$sumArrcat[$catkey]["sumdolar"]))}}
+
+									
+								</td>
+							</tr>
+						@endforeach
 							
-						@endif
 					@endforeach
 				
 				
 				@endforeach
 			@endforeach
 		</tbody>
+	</table>
+	<hr>
+	<table class="table">
 		<tbody>
-			
 			<tr>
+				<td></td>
 				<th class="text-primary">CUOTA CRÉDITO</th>
 				<th class="text-primary">COMISIÓN CRÉDITO</th>
 				<th class="text-primary">INTERÉS CRÉDITO</th>
 				<th class="text-primary">TOTAL</th>
 			</tr>
 			<tr>
-				<td>$ {{moneda($cuotacredito)}}</td>
-				<td>$ {{moneda($comisioncredito)}}</td>
-				<td>$ {{moneda($interescredito)}}</td>
-				<td>$ {{moneda($cuotacredito+$comisioncredito+$interescredito)}}</td>
+				<td></td>
+				<th>$ {{moneda($cuotacredito)}}</th>
+				<th>$ {{moneda($comisioncredito)}}</th>
+				<th>$ {{moneda($interescredito)}}</th>
+				<th>$ {{moneda($cuotacredito+$comisioncredito+$interescredito)}}</th>
 			</tr>
+			@foreach ($cuota_credito_data as $e)
+				<tr>
+					<td>
+						{{@$e["loteserial"]}}
+					</td>
+					<td>
+						{{moneda(abs(@$e["monto_dolar"]))}}
+					</td>
+				</tr>
+			@endforeach
+
+			@foreach ($comision_credito_data as $e)
+				<tr>
+					<td>
+						{{@$e["loteserial"]}}
+					</td>
+					<td></td>
+					<td>
+						{{moneda(abs(@$e["monto_dolar"]))}}
+					</td>
+				</tr>
+			@endforeach
+
+			@foreach ($interes_credito_data as $e)
+				<tr>
+					<td>
+						{{@$e["loteserial"]}}
+					</td>
+					<td></td>
+					<td></td>
+					<td>
+						{{moneda(abs(@$e["monto_dolar"]))}}
+					</td>
+				</tr>
+			@endforeach
 		</tbody>
-		
+
 	</table>
+	<hr>
 	<table class="table">
 		<tbody>
 			<tr>
@@ -357,6 +415,7 @@
 			</tr>
 		</tbody>
 	</table>
+	<hr>
 	<table class="table">
 		<tbody>
 			<tr>

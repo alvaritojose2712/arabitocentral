@@ -1691,11 +1691,9 @@ class CierresController extends Controller
         //76 	INGRESO POR CREDITO BANCARIO
         $ingreso_credito = puntosybiopagos::where("categoria",76)->whereBetween("fecha", [$fechaBalanceGeneral, !$fechaHastaBalanceGeneral?$fechaBalanceGeneral:$fechaHastaBalanceGeneral]);
         $ingreso_credito_sum = $ingreso_credito
+        ->selectRaw("*, monto_liquidado/tasa as monto_dolar")
         ->get()
-        ->map(function($q) {
-            $q->monto_dolar = $q->monto_liquidado / $q->tasa;
-            return $q;
-        })
+        
         ->sum("monto_dolar");
         $ingreso_credito_data = $ingreso_credito->get();
 
@@ -1705,11 +1703,9 @@ class CierresController extends Controller
         //77 	CUOTA POR CREDITO BANCARIO
         $cuota_credito = puntosybiopagos::where("categoria",77)->whereBetween("fecha", [$fechaBalanceGeneral, !$fechaHastaBalanceGeneral?$fechaBalanceGeneral:$fechaHastaBalanceGeneral]);
         $cuota_credito_sum = $cuota_credito
+        ->selectRaw("*, monto_liquidado/tasa as monto_dolar")
         ->get()
-        ->map(function($q) {
-            $q->monto_dolar = $q->monto_liquidado / $q->tasa;
-            return $q;
-        })
+        
         ->sum("monto_dolar");
         $cuota_credito_data = $cuota_credito->get();
 
@@ -1719,11 +1715,9 @@ class CierresController extends Controller
         //75 	COMISION POR CREDITO BANCARIO
         $comision_credito = puntosybiopagos::where("categoria",75)->whereBetween("fecha", [$fechaBalanceGeneral, !$fechaHastaBalanceGeneral?$fechaBalanceGeneral:$fechaHastaBalanceGeneral]);
         $comision_credito_sum = $comision_credito
+        ->selectRaw("*, monto_liquidado/tasa as monto_dolar")
         ->get()
-        ->map(function($q) {
-            $q->monto_dolar = $q->monto_liquidado / $q->tasa;
-            return $q;
-        })
+        
         ->sum("monto_dolar");
         $comision_credito_data = $comision_credito->get();
 
@@ -1733,11 +1727,9 @@ class CierresController extends Controller
         //74 	INTERES POR CREDITO BANCARIO
         $interes_credito = puntosybiopagos::where("categoria",74)->whereBetween("fecha", [$fechaBalanceGeneral, !$fechaHastaBalanceGeneral?$fechaBalanceGeneral:$fechaHastaBalanceGeneral]);
         $interes_credito_sum = $interes_credito
+        ->selectRaw("*, monto_liquidado/tasa as monto_dolar")
         ->get()
-        ->map(function($q) {
-            $q->monto_dolar = $q->monto_liquidado / $q->tasa;
-            return $q;
-        })
+        
         ->sum("monto_dolar");
         $interes_credito_data = $interes_credito->get();
 
@@ -1854,6 +1846,7 @@ class CierresController extends Controller
             "gastosGeneralesfijosSum" => $gastosGeneralesfijosSum,
             "gastosGeneralesvariablesSum" => $gastosGeneralesvariablesSum,
             "fdi" => $sumFDI,
+            "fdidata" => $fdi,
             
             "gananciaNeta" => $gananciaNeta,
             "sumGastos"=>$sumGastos,
