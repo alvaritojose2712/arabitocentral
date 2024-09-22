@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\NominaController;
+use App\Http\Controllers\CierresGeneralController;
+
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,7 +18,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        return $schedule->call(function () {
+            
+            $fecha = (new NominaController)->today();
+            (new CierresGeneralController)->sendReporteFun($fecha,"enviar","");
+        })
+        ->dailyAt('23:30');
     }
 
     /**

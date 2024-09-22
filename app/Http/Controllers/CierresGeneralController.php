@@ -20,6 +20,10 @@ class CierresGeneralController extends Controller
         $fecha = $req->fecha;
         $type = $req->type;
         $sucursal = $req->sucursal;
+        $this->sendReporteFun($fecha,$type,$sucursal);
+        
+    }
+    function sendReporteFun($fecha,$type,$sucursal) {
 
         
         $b = (new CierresController)->balanceGeneralFun(
@@ -61,7 +65,7 @@ class CierresGeneralController extends Controller
         
         
         $perdidatasa = abs($b["perdidaPagoProveedor"]);
-        $numsucursales = count($b["ingresosData"]);
+        $numsucursales = count($b["cierresUltimo"]["data"]);
         
         $cajaregistradora = abs($b["sum_caja_regis_actual"]);
         $cajachica = abs($b["sum_caja_chica_actual"]);
