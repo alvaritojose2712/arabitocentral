@@ -61,7 +61,7 @@ class CierresGeneralController extends Controller
         
         
         $perdidatasa = abs($b["perdidaPagoProveedor"]);
-        $numsucursales = count($b["sucursales"]);
+        $numsucursales = count($b["ingresosData"]);
         
         $cajaregistradora = abs($b["sum_caja_regis_actual"]);
         $cajachica = abs($b["sum_caja_chica_actual"]);
