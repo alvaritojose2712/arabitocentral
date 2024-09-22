@@ -1454,8 +1454,8 @@ class CierresController extends Controller
         $pagoProveedorBruto = abs($sumPagoProveedorBancoReal) + abs($sumPagoProveedorEfectivo);
         $perdidaPagoProveedor = $pagoProveedorBruto - abs($pagoproveedor["balance"]);
 
-        $gastosfijosSum = isset($sumArrvariablefijo[2])? $sumArrvariablefijo[2][1]["sumdolar"]: 0;
-        $gastosvariablesSum = isset($sumArrvariablefijo[2])? $sumArrvariablefijo[2][0]["sumdolar"]: 0;
+        $gastosfijosSum = isset($sumArrvariablefijo[2])? @$sumArrvariablefijo[2][1]["sumdolar"]: 0;
+        $gastosvariablesSum = isset($sumArrvariablefijo[2])? @$sumArrvariablefijo[2][0]["sumdolar"]: 0;
 
         $gastosGeneralesfijosSum = isset($sumArrvariablefijo[3])? (isset($sumArrvariablefijo[3][1])? $sumArrvariablefijo[3][1]["sumdolar"]:0): 0;
         $gastosGeneralesvariablesSum = isset($sumArrvariablefijo[3])? (isset($sumArrvariablefijo[3][0])? $sumArrvariablefijo[3][0]["sumdolar"]:0): 0;
