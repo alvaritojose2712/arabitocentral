@@ -231,7 +231,7 @@ class NominaController extends Controller
             $q->mes = $mesSum;
             $q->mespasado = $mespasadoSum;
             $q->mesantepasado = $mesantepasadoSum;
-            $q->corresponde = ($q->cargo->cargossueldo*2)-$mesSum;
+            $q->corresponde = ($q->cargo->cargossueldo*2)-abs($mesSum);
             
 
 
