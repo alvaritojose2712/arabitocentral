@@ -21450,7 +21450,7 @@ function ComprascargarFactsItems(_ref) {
                       className: " fw-bolder",
                       children: facturaSelectAddItemsSelect.proveedor ? facturaSelectAddItemsSelect.proveedor.descripcion : null
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                      className: returnCondicion(facturaSelectAddItemsSelect.condicion) + " btn  pointer fw-bolder text-light ms-1 ",
+                      className: returnCondicion(facturaSelectAddItemsSelect.condicion, "text") + "  pointer fw-bolder text-light ms-1 ",
                       children: facturaSelectAddItemsSelect.numfact
                     })]
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -83311,24 +83311,25 @@ function Home() {
     }
   };
   var returnCondicion = function returnCondicion(condicion) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "btn";
     switch (condicion) {
       case "pagadas":
-        return "btn-medsuccess";
+        return type + "-medsuccess";
         break;
       case "vencidas":
-        return "btn-danger";
+        return type + "-danger";
         break;
       case "porvencer":
-        return "btn-sinapsis";
+        return type + "-sinapsis";
         break;
       case "semipagadas":
-        return "btn-primary";
+        return type + "-primary";
         break;
       case "abonos":
-        return "btn-success";
+        return type + "-success";
         break;
       default:
-        return "btn-secondary";
+        return type + "-secondary";
         break;
     }
   };

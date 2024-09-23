@@ -4835,26 +4835,26 @@ function formatAmount( number, simbol ) {
     }
   }
 
-  const returnCondicion = (condicion) => {
+  const returnCondicion = (condicion,type="btn") => {
 
     switch (condicion) {
       case "pagadas":
-        return "btn-medsuccess";  
+        return type+"-medsuccess";  
       break;
       case "vencidas":
-        return "btn-danger";  
+        return type+"-danger";  
       break;
       case "porvencer":
-        return "btn-sinapsis";  
+        return type+"-sinapsis";  
       break;
       case "semipagadas":
-        return "btn-primary";  
+        return type+"-primary";  
       break;
       case "abonos":
-        return "btn-success";  
+        return type+"-success";  
       break;
       default:
-        return "btn-secondary"
+        return type+"-secondary"
       break;
     }
 

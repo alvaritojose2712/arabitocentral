@@ -20,7 +20,7 @@ class CierresGeneralController extends Controller
         $fecha = $req->fecha;
         $type = $req->type;
         $sucursal = $req->sucursal;
-        $this->sendReporteFun($fecha,$type,$sucursal);
+        return $this->sendReporteFun($fecha,$type,$sucursal);
         
     }
     function sendReporteFun($fecha,$type,$sucursal) {
@@ -159,15 +159,6 @@ class CierresGeneralController extends Controller
         $c->sum_caja_actual = $b["sum_caja_actual"];
         $c->caja_actual_banco = $b["caja_actual_banco"];
         
-        
-        
-        
-        
-                
-
-
-
-
         if ($type=="ver") {
             return view("reportes.cierregeneral", $c);
         }else if($type=="enviar"){

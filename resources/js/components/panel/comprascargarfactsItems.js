@@ -411,7 +411,7 @@ export default function ComprascargarFactsItems({
                                             <div>
                                                 <span className=" fw-bolder">{facturaSelectAddItemsSelect.proveedor?facturaSelectAddItemsSelect.proveedor.descripcion:null}</span>
                                                 <br />
-                                                <span className={(returnCondicion(facturaSelectAddItemsSelect.condicion))+(" btn  pointer fw-bolder text-light ms-1 ")}> 
+                                                <span className={(returnCondicion(facturaSelectAddItemsSelect.condicion,"text"))+("  pointer fw-bolder text-light ms-1 ")}> 
                                                     {facturaSelectAddItemsSelect.numfact}
                                                 </span>
                                             </div>
@@ -512,80 +512,6 @@ export default function ComprascargarFactsItems({
                                                 <th className=" pointer"><span onClick={() => setInvorderColumn("iva")}>IVA</span></th> 
                                                 <th className=""></th>
                                             </tr>
-                                            {/* {showInputGeneral?<tr className="bg-sinapsis-light">
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div className="form-group">
-                                                        <input type="text" className="form-control" value={qvinculacion1General} onChange={event=>setqvinculacion1General(event.target.value)} placeholder="BUSCAR VIN 1General" />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <select type="text" className="form-control text-primary" value={inputselectvinculacion1General} onChange={()=>setinputselectvinculacion1General} placeholder="VIN 1General">
-                                                            <option value=""></option>
-                                                            {datavinculacion1.map(data=>
-                                                                <option value={data.nombre} key={data.id}>{data.nombre}</option>
-                                                            )}
-                                                        </select>
-                                                    </div>
-                                                </td>
-
-                                                <td>
-                                                    <div className="form-group">
-                                                        <input type="text" className="form-control" value={qvinculacion2General} onChange={event=>setqvinculacion2General(event.target.value)} placeholder="BUSCAR VIN 2General" />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <select type="text" className="form-control text-info" value={inputselectvinculacion2General} onChange={()=>setinputselectvinculacion2General} placeholder="VIN 2General">
-                                                            <option value=""></option>
-                                                            {datavinculacion2.map(data=>
-                                                                <option value={data.nombre} key={data.id}>{data.nombre}</option>
-                                                            )}
-                                                        </select>
-                                                    </div>
-                                                </td>
-
-                                                <td>
-                                                    <div className="form-group">
-                                                        <input type="text" className="form-control" value={qvinculacion3General} onChange={event=>setqvinculacion3General(event.target.value)} placeholder="BUSCAR VIN 3General" />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <select type="text" className="form-control text-sinapsis" value={inputselectvinculacion3General} onChange={()=>setinputselectvinculacion3General} placeholder="VIN 3General">
-                                                            <option value=""></option>
-                                                            {datavinculacion3.map(data=>
-                                                                <option value={data.nombre} key={data.id}>{data.nombre}</option>
-                                                            )}
-                                                        </select>
-                                                    </div>
-                                                </td>
-
-                                                <td>
-                                                    <div className="form-group">
-                                                        <input type="text" className="form-control" value={qvinculacion4General} onChange={event=>setqvinculacion4General(event.target.value)} placeholder="BUSCAR VIN 4General" />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <select type="text" className="form-control text-danger" value={inputselectvinculacion4General} onChange={()=>setinputselectvinculacion4General} placeholder="VIN 4General">
-                                                            <option value=""></option>
-                                                            {datavinculacion4.map(data=>
-                                                                <option value={data.nombre} key={data.id}>{data.nombre}</option>
-                                                            )}
-                                                        </select>
-                                                    </div>
-                                                </td>
-
-                                                <td>
-                                                    <div className="form-group">
-                                                        <input type="text" className="form-control" value={qvinculacionmarcaGeneral} onChange={event=>setqvinculacionmarcaGeneral(event.target.value)} placeholder="BUSCAR VIN marcaGeneral" />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <select type="text" className="form-control text-success" value={inputselectvinculacionmarcaGeneral} onChange={()=>setinputselectvinculacionmarca} placeholder="VIN marcaGeneral">
-                                                            <option value=""></option>
-                                                            {datavinculacionmarca.map(data=>
-                                                                <option value={data.descripcion} key={data.id}>{data.descripcion}</option>
-                                                            )}
-                                                        </select>
-                                                    </div>
-                                                </td>
-                                            </tr>:null} */}
                                         </thead>
                                             {productosInventario.length?productosInventario.map((e,i)=>
                                                 <tbody key={i}>
@@ -874,17 +800,6 @@ export default function ComprascargarFactsItems({
                                                         :null
                                                     }
 
-                                                    {/*{e.sucursales?e.sucursales.length?
-                                                        e.sucursales.map(su=>
-                                                            <tr key={su.id}>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td>{e.codigo_barras}</td>
-                                                                <td></td>
-                                                                <td colSpan={4}>{e.descripcion}</td>
-                                                            </tr>
-                                                        )
-                                                    :null:null} */}
                                                 </tbody>
                                             ):null}
                                     </table>
