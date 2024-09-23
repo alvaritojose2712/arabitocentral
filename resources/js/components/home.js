@@ -4714,7 +4714,8 @@ function formatAmount( number, simbol ) {
   const sendlistdistribucionselect = () => {
     if (listdistribucionselect.length) {
       db.sendlistdistribucionselect({
-        listdistribucionselect
+        listdistribucionselect,
+        id:facturaSelectAddItems,
       }).then(res=>{
         notificar(res)
         setlistdistribucionselect([])

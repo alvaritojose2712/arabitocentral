@@ -18418,6 +18418,8 @@ function Nominapagos(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "MES ACTUAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+            children: "CORRESPONDE"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "PAGOS TOT."
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: "PR\xC9STAMOS"
@@ -18447,6 +18449,9 @@ function Nominapagos(_ref) {
                 children: moneda(e.mespasado)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 children: moneda(e.mes)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                className: e.corresponde < 40 ? "bg-danger" : "",
+                children: moneda(e.corresponde)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                 className: "bg-success-light " + (e.id == selectIdPersonal ? "fs-3" : "fs-4"),
                 children: moneda(e.sumPagos)
@@ -83213,7 +83218,8 @@ function Home() {
   var sendlistdistribucionselect = function sendlistdistribucionselect() {
     if (listdistribucionselect.length) {
       _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].sendlistdistribucionselect({
-        listdistribucionselect: listdistribucionselect
+        listdistribucionselect: listdistribucionselect,
+        id: facturaSelectAddItems
       }).then(function (res) {
         notificar(res);
         setlistdistribucionselect([]);

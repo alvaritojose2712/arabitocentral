@@ -75,6 +75,7 @@ export default function Nominapagos({
                             <th>MES ANTEPASADO</th>
                             <th>MES PASADO</th>
                             <th>MES ACTUAL</th>
+                            <th>CORRESPONDE</th>
                             <th>PAGOS TOT.</th>
                             <th>PRÉSTAMOS</th>
                             <th>CRÉDITOS TOT.</th>
@@ -96,6 +97,8 @@ export default function Nominapagos({
                                                     <td>{moneda(e.mesantepasado)}</td>
                                                     <td>{moneda(e.mespasado)}</td>
                                                     <td>{moneda(e.mes)}</td>
+                                                    <td className={e.corresponde<40?"bg-danger":""}>{moneda(e.corresponde)}</td>
+                                                    
                                                     <td className={("bg-success-light ")+(e.id==selectIdPersonal?"fs-3":"fs-4")}>{moneda(e.sumPagos)}</td>
                                                     <td className={("bg-warning-light ")+(e.id==selectIdPersonal?"fs-3":"fs-4")}>{moneda(e.sumPrestamos)}</td>
                                                     <td className={("bg-danger-light ")+(e.id==selectIdPersonal?"fs-3":"fs-4")}>{moneda(e.sumCreditos)}</td>

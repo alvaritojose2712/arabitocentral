@@ -765,49 +765,44 @@ class CuentasporpagarController extends Controller
     
             $id = $req->id;
 
-            $su = sucursal::updateOrCreate(["codigo"=>"administracion"],[
-                "nombre" => "ADMINISTRACION",
-                "codigo" => "administracion",
-            ]);
+            
 
-            if ($su) {
-                $factor = -1;
-                if ($id) {
-                    $checkabonocred = cuentasporpagar::find($id);
-                    if ($checkabonocred) {
-                        if ($checkabonocred->monto<0) {
-                            $factor = -1;
-                        }
+            $factor = -1;
+            if ($id) {
+                $checkabonocred = cuentasporpagar::find($id);
+                if ($checkabonocred) {
+                    if ($checkabonocred->monto<0) {
+                        $factor = -1;
                     }
                 }
-                $arrinsert = [
-                    "numfact" => $newfactnumfact,
-                    "numnota" => $newfactnumnota,
-                    "descripcion" => $newfactdescripcion,
-                    
-                    "subtotal" => $newfactsubtotal*$factor,
-                    "descuento" => $newfactdescuento,
-                    "monto_exento" => $newfactmonto_exento*$factor,
-                    "monto_gravable" => $newfactmonto_gravable*$factor,
-                    "iva" => $newfactiva*$factor,
-                    "monto" => $newfactmonto*$factor,
-                    
-                    "nota" => $newfactnota,
-                    "tipo" => $newfacttipo,
-                    "frecuencia" => $newfactfrecuencia,
-                ];
-                
-                $arrinsert["fechaemision"] = $newfactfechaemision;
-                $arrinsert["fechavencimiento"] = $newfactfechavencimiento;
-                $arrinsert["fecharecepcion"] = $newfactfecharecepcion;
-                if (!$id) {
-                    $arrinsert["id_proveedor"] = $newfactid_proveedor;
-                    $arrinsert["id_sucursal"] = $su->id;
-                }
-                $search = ["id" => $id];
-                $cu = $this->setCuentaPorPagar($arrinsert,$search);
-                $this->setEstatusFact($cu->id);
             }
+            $arrinsert = [
+                "numfact" => $newfactnumfact,
+                "numnota" => $newfactnumnota,
+                "descripcion" => $newfactdescripcion,
+                
+                "subtotal" => $newfactsubtotal*$factor,
+                "descuento" => $newfactdescuento,
+                "monto_exento" => $newfactmonto_exento*$factor,
+                "monto_gravable" => $newfactmonto_gravable*$factor,
+                "iva" => $newfactiva*$factor,
+                "monto" => $newfactmonto*$factor,
+                
+                "nota" => $newfactnota,
+                "tipo" => $newfacttipo,
+                "frecuencia" => $newfactfrecuencia,
+            ];
+            
+            $arrinsert["fechaemision"] = $newfactfechaemision;
+            $arrinsert["fechavencimiento"] = $newfactfechavencimiento;
+            $arrinsert["fecharecepcion"] = $newfactfecharecepcion;
+            if (!$id) {
+                $arrinsert["id_proveedor"] = $newfactid_proveedor;
+                $arrinsert["id_sucursal"] = 13;
+            }
+            $search = ["id" => $id];
+            $cu = $this->setCuentaPorPagar($arrinsert,$search);
+            $this->setEstatusFact($cu->id);
             
             if ($cu) {
                 return ["estado" => true, "msj"=>"Éxito al registar"];
@@ -1216,6 +1211,7 @@ class CuentasporpagarController extends Controller
     function sendlistdistribucionselect(Request $req) {
         //return;
         $listdistribucionselect = $req->listdistribucionselect;
+        $id_cxp = $req->id;
         $groupListbyIdItem = [];
         foreach ($listdistribucionselect as $i => $item_su) {
             if (array_key_exists($item_su["id_item"], $groupListbyIdItem)) {
@@ -1261,9 +1257,17 @@ class CuentasporpagarController extends Controller
                         ];
                     }
                 }
-                $administracion = sucursal::where("codigo","administracion")->first();
-                if ($administracion) {
-                    $count = 0;
+                
+                $count = 0;
+                //0 "Pediente"
+                //1 "Procesado"
+                //2 "Extraído"
+
+                //3 "En Revision"
+                //4 "Revisado"
+
+                $check_no_proce = pedidos::where("id_cxp",$id_cxp)->where("estado","<>","1")->get();
+                if (!$check_no_proce) {
                     foreach ($groupListbyIdSucursal as $id_sucursal => $e) {
                         $lastid = pedidos::orderBy("id","desc")->first("id");
                         if (!$lastid) {
@@ -1274,9 +1278,10 @@ class CuentasporpagarController extends Controller
                         
                             $lastid = ($lastid)+1;
                             $ped = new pedidos;
+                            $ped->id_cxp = $id_cxp;
                             $ped->idinsucursal = $lastid;
                             $ped->estado = 1;
-                            $ped->id_origen = $administracion->id;
+                            $ped->id_origen = 13;
                             $ped->id_destino = $id_sucursal;//id Destino
                             if ($ped->save()) {
                                 foreach ($e as $ii => $ee) {
@@ -1301,9 +1306,13 @@ class CuentasporpagarController extends Controller
                         
                         
                     }
-    
                     return Response::json(["msj"=>"$count Items Procesados".$codeError,"estado"=>true]);
+
+                }else{
+                    return Response::json(["msj"=>"Error: Algún PEDIDO procesado","estado"=>false]);
                 }
+
+                
             }else{
                 return Response::json(["msj"=>"Cantidad no coincide ".$codeError,"estado"=>false]);
             }
