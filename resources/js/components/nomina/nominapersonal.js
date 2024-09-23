@@ -390,6 +390,7 @@ export default function NominaPersonal({
                             <th>MES ANTEPASADO</th>
                             <th>MES PASADO</th>
                             <th>MES ACTUAL</th>
+							<th>CORRESPONDE</th>
 							<td>DIAS TRABAJADOS</td>
                             <th>PAGOS TOT.</th>
                             <th>PRÉSTAMOS</th>
@@ -424,6 +425,8 @@ export default function NominaPersonal({
 												<td>{moneda(e.mesantepasado)}</td>
 												<td>{moneda(e.mespasado)}</td>
 												<td>{moneda(e.mes)}</td>
+												<td className={e.corresponde<40?"bg-danger":""}>{moneda(e.corresponde)}</td>
+
 												<td>
 													 ({e.tiempotrabajado.toFixed(2)} DIAS)
 												</td>
