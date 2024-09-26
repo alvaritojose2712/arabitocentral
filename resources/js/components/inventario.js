@@ -4,6 +4,7 @@ import Inventariogeneral from "./inventariogeneral";
 import Editarinventario from "./editarinventario";
 import GestionarnombresInventario from "./gestionarnombresinventario";
 import Aprobapedidosanulacion from "./aprobapedidosanulacion";
+import Garantias from "./panel/garantias";
 
 
 export default function Inventario({
@@ -227,6 +228,12 @@ export default function Inventario({
     sucursalPedidoAnulacionAprobacion,
     setsucursalPedidoAnulacionAprobacion,
     moneda,
+    garantiasData,
+    garantiaq,
+    setgarantiaq,
+    garantiaqsucursal,
+    setgarantiaqsucursal,
+    getGarantias,
 }){
     useEffect(()=>{
         getDatinputSelectVinculacion()
@@ -242,6 +249,7 @@ export default function Inventario({
         <div className="text-center">
             <div className="btn-group mb-2">
                 <button className={("fs-4 btn btn")+(subviewdici=="pedidos"?"":"-outline")+("-primary")} onClick={()=>setsubviewdici("pedidos")}> PEDIDOS</button>
+                <button className={("fs-4 btn btn")+(subviewdici=="garantias"?"":"-outline")+("-primary")} onClick={()=>setsubviewdici("garantias")}> GARANTÍAS</button>
                 <button className={("fs-4 btn btn")+(subviewdici=="novedades"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("novedades")}> NOVEDADES</button>
                 <button className={("fs-2 btn btn")+(subviewdici=="inventariogeneral"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("inventariogeneral")}> INVENTARIO</button>
                 <button className={("fs-2 btn btn")+(subviewdici=="editarinventario"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("editarinventario")}> EDITAR INVENTARIO</button>
@@ -554,6 +562,20 @@ export default function Inventario({
                 newNombres={newNombres}
             />
         :null}
+
+        {subviewdici=="garantias"?
+            <Garantias
+                garantiasData={garantiasData}
+                garantiaq={garantiaq}
+                setgarantiaq={setgarantiaq}
+                garantiaqsucursal={garantiaqsucursal}
+                setgarantiaqsucursal={setgarantiaqsucursal}
+                getGarantias={getGarantias}
+                sucursales={sucursales}
+            />
+        :null}
+
+
 
 
 

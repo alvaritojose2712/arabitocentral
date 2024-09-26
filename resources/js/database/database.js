@@ -20,7 +20,8 @@ const db = {
   
   sendReporteDiario: ({ type,fecha }) => window.open(host + "sendReporteDiario?type=" + type + "&fecha=" + fecha,"targed=blank"),
 
-  
+    
+  getGarantias: data=>axios.post(host+"getGarantias",data),
   aprobarCreditoFun: data=>axios.post(host+"aprobarCreditoFun",data),
   aprobarTransferenciaFun: data=>axios.post(host+"aprobarTransferenciaFun",data),
   sendComprasFats: data=>axios.post(host+"sendComprasFats",data),

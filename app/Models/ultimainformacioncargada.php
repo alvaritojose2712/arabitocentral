@@ -17,6 +17,7 @@ class ultimainformacioncargada extends Model
         "id_last_fallas",
         "id_last_efec",
         "id_last_estadisticas",
+        "id_last_movs",
         
     ];
 }

@@ -493,6 +493,7 @@ export default function Gastos({
 								<th className="pointer" onClick={()=>{setgastosfieldorder("id_sucursal");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>SUCURSAL</th>
 								<th className="text-center">USUARIO</th>
 								<th className="text-center">ORIGEN</th>
+								<th className="text-center">TIPO</th>
 								
 								<th className="pointer text-center" >
 									<span onClick={()=>{setgastosfieldorder("fecha");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>FECHA</span>
@@ -512,12 +513,12 @@ export default function Gastos({
 								<th className="pointer">DESCRIPCIÓN</th>
 								<th className="pointer text-right" onClick={()=>{setgastosfieldorder("montodolar");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>
 									MONTO ORIGEN
-									<br />
-
-									<span className="text-danger fs-3">{moneda(gastosData.sum?gastosData.sum:0)}</span>
 								</th>
 								<th className="pointer text-right" onClick={()=>{setgastosfieldorder("montodolar");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>
 									MONTO <span className="text-success">DÓLAR</span>
+									<br />
+
+									<span className="text-danger fs-3">{moneda(gastosData.sum?gastosData.sum:0)}</span>
 								</th>
 							</tr>
 						</thead>
@@ -527,9 +528,9 @@ export default function Gastos({
 									<td className="text-center w-10">
 										{e.sucursal?
 											<>
-												<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
+												<span className={" fw-bolder fs-6"} style={{color:colorSucursal(e.sucursal.codigo)}}>
 													{e.sucursal.codigo}
-												</button>
+												</span>
 											</>
 										:null}
 										{/* {e.beneficiario?" / "+e.beneficiario.nominanombre:null} */}
@@ -537,36 +538,38 @@ export default function Gastos({
 									<td className="text-center">
 										{e.usuario?e.usuario.nombre:null}
 									</td>
+									<td>
+										<b>{e.origen==2? "ADMINISTRACIÓN" :"SUCURSAL"}</b>
+									</td>
 									<td className="text-center w-10">
 										{e.pago_efectivo?"EFECTIVO":""}
 										{e.pago_banco?"BANCO":""}
 										<br />
-										<b>{e.origen==2? "ADMINISTRACIÓN" :"SUCURSAL"}</b>
 									</td>
 									<td className="text-center w-10">
 										<b>{e.fecha}</b>
-										<br />
-										{e.created_at}
+										{/* <br /> */}
+										{/* {e.created_at} */}
 									</td>
 									<td> 
 										{e.cat?
-											<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.id,"cat","color")}}>
+											<span className={"fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.id,"cat","color")}}>
 												{e.cat.nombre}
-											</button>
+											</span>
 										:null}
 									</td>
 									<td> 
 										{e.cat?
-											<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.catgeneral,"catgeneral","color")}}>
+											<span className={"fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.catgeneral,"catgeneral","color")}}>
 												{colorsGastosCat(e.cat.catgeneral,"catgeneral","desc")}
-											</button>
+											</span>
 										:null}
 									</td>
 									<td> 
 										{e.cat?
-											<button className={"btn w-100 fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.ingreso_egreso,"ingreso_egreso","color")}}>
+											<span className={"fw-bolder fs-6"} style={{backgroundColor:colorsGastosCat(e.cat.ingreso_egreso,"ingreso_egreso","color")}}>
 												{colorsGastosCat(e.cat.ingreso_egreso,"ingreso_egreso","desc")}
-											</button>
+											</span>
 										:null}
 									</td>
 									<td>

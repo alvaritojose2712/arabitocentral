@@ -31,6 +31,7 @@ use App\Models\productonombre5s;
 use App\Http\Requests\Storeinventario_sucursalRequest;
 use App\Http\Requests\Updateinventario_sucursalRequest;
 use Response;
+use DB;
 
 
 
@@ -487,52 +488,54 @@ class InventarioSucursalController extends Controller
         
     }
 
-    function setInventarioSucursalFun($arr,$id_sucursal) {
-        
-        return inventario_sucursal::updateOrCreate([
-            "id_sucursal" => $id_sucursal,
-            "idinsucursal" => $arr["id"],
-        ],[
-
-            "idinsucursal" => $arr["id"],
-            "id_sucursal" => $id_sucursal,
-            "codigo_barras" => $arr["codigo_barras"],
-            "codigo_proveedor" => $arr["codigo_proveedor"],
-            /* "id_proveedor" => $arr["id_proveedor"],
-            "id_categoria" => $arr["id_categoria"],
-            "id_marca" => $arr["id_marca"], */
-            "unidad" => $arr["unidad"],
-            "id_deposito" => $arr["id_deposito"],
-            "descripcion" => $arr["descripcion"],
-            "iva" => $arr["iva"],
-            "porcentaje_ganancia" => $arr["porcentaje_ganancia"],
-            "precio_base" => $arr["precio_base"],
-            "precio" => $arr["precio"],
-            "precio1" => $arr["precio1"],
-            "precio2" => $arr["precio2"],
-            "precio3" => $arr["precio3"],
-            "bulto" => $arr["bulto"],
-            "stockmin" => $arr["stockmin"],
-            "stockmax" => $arr["stockmax"],
-            "cantidad" => $arr["cantidad"],
-            "push" => $arr["push"],
-            "id_vinculacion" => $arr["id_vinculacion"],
-        ]);
-    }
-
+    
     
 
 
-    public function sendInventarioCt($inventariodeldia,$id_origen) {
+    public function sendInventarioCt($inventariodeldia,$id_sucursal) {
         try {
+            inventario_sucursal::where("id_sucursal",$id_sucursal)->delete();
+            $all = json_decode(gzuncompress(base64_decode($inventariodeldia)),true);
             $num = 0;
-            foreach ($inventariodeldia as $i => $producto) {
-                $insert = $this->setInventarioSucursalFun($producto, $id_origen);
-                if ($insert) {
-                    $num++;
+            $splitItems = array_chunk($all,500);
+            foreach ($splitItems as $i => $e) {
+                $tempArr = [];
+                foreach ($e as $producto) {
+                    $productoMod = [];
+                    $productoMod["id"] = null;
+                    $productoMod["id_sucursal"] = $id_sucursal;
+                    $productoMod["idinsucursal"] = $producto["id"];
+
+                    $productoMod["codigo_proveedor"] = $producto["codigo_proveedor"];
+                    $productoMod["codigo_barras"] = $producto["codigo_barras"];
+                    $productoMod["id_proveedor"] = $producto["id_proveedor"];
+                    $productoMod["id_categoria"] = $producto["id_categoria"];
+                    $productoMod["id_marca"] = $producto["id_marca"];
+                    $productoMod["unidad"] = $producto["unidad"];
+                    $productoMod["id_deposito"] = $producto["id_deposito"];
+                    $productoMod["descripcion"] = $producto["descripcion"];
+                    $productoMod["iva"] = $producto["iva"];
+                    $productoMod["porcentaje_ganancia"] = $producto["porcentaje_ganancia"];
+                    $productoMod["precio_base"] = $producto["precio_base"];
+                    $productoMod["precio"] = $producto["precio"];
+                    $productoMod["cantidad"] = $producto["cantidad"];
+                    $productoMod["bulto"] = $producto["bulto"];
+                    $productoMod["precio1"] = $producto["precio1"];
+                    $productoMod["precio2"] = $producto["precio2"];
+                    $productoMod["precio3"] = $producto["precio3"];
+                    $productoMod["stockmin"] = $producto["stockmin"];
+                    $productoMod["stockmax"] = $producto["stockmax"];
+                    $productoMod["id_vinculacion"] = $producto["id_vinculacion"];
+                    $productoMod["push"] = $producto["push"];
+
+
+
+                    array_push($tempArr,$productoMod);
                 }
+                DB::table("inventario_sucursals")->insert($tempArr);
             }
-            return "OK INVENTARIO ".$num." / ".count($inventariodeldia);
+
+            return "OK INVENTARIO";
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -598,99 +601,152 @@ class InventarioSucursalController extends Controller
         try {
             $msj = "";
             $num = 0;
+
+            $id_factura = $req->id_factura;
+
+            $cuentasporpagar = cuentasporpagar::find($id_factura);
+            if ($cuentasporpagar->aprobado==1) {
+                return ["msj"=>"Error: Cuenta ya aprobada, no se puede modificar", "estado"=>false];
+            }else{
+                foreach ($req->lotes as $i => $ee) {
+
+
+                    if (!$ee["codigo_barras"]) {
+                        return ["msj"=>"Error: codigo_barras NO VALIDO","estado"=>false];
+                    }
+                    if (!$ee["codigo_proveedor"]) {
+                        return ["msj"=>"Error: codigo_proveedor NO VALIDO","estado"=>false];
+                    }
+                    if (!$ee["descripcion"]) {
+                        return ["msj"=>"Error: descripcion NO VALIDO","estado"=>false];
+                    }
+                    if (!$ee["id_categoria"]) {
+                        return ["msj"=>"Error: id_categoria NO VALIDO","estado"=>false];
+                    }
+                    if (!$ee["id_catgeneral"]) {
+                        return ["msj"=>"Error: id_catgeneral NO VALIDO","estado"=>false];
+                    }
+                    if (!$ee["unidad"]) {
+                        return ["msj"=>"Error: unidad NO VALIDO","estado"=>false];
+                    }
+                     
+                    if ($ee["precio"]=="") {
+                        return ["msj"=>"Error: precio NO VALIDO","estado"=>false];
+                    }
+                    if ($ee["precio_base"]=="") {
+                        return ["msj"=>"Error: precio_base NO VALIDO","estado"=>false];
+                    }
+                    if ($ee["cantidad"]=="") {
+                        return ["msj"=>"Error: cantidad NO VALIDO","estado"=>false];
+                    } 
+                     
+                    
+
+
+
+                    $sum_subtotal = 0;
+                    $fact_monto = 0;
+                    $Getfactmonto = cuentasporpagar::find($id_factura);
+                    if ($Getfactmonto) {
+                        $fact_monto = abs($Getfactmonto->monto);
+                    }
+                    cuentasporpagar_items::where("id_cuenta",$id_factura)->get()
+                    ->map(function($q) use (&$sum_subtotal){
+                        $sum_subtotal += $q->basef*$q->cantidad;
+                    });
+    
+                    $sum_subtotal += $ee["cantidad"]*$ee["basef"];
+    
+                    if ($sum_subtotal<=$fact_monto) {
+                    }else{
+                        return ["msj"=>"Valor de Items supera monto de factura [$ee[codigo_barras]]", "estado"=>false];
+                    }
+                    if (!$ee["id"]) {
+                        $barras = inventario_sucursal::where("codigo_barras",$ee["codigo_barras"])->first();
+                        $codigo_proveedor = inventario_sucursal::where("codigo_proveedor",$ee["codigo_proveedor"])->first();
+                        $descripcion = inventario_sucursal::where("descripcion",$ee["descripcion"])->first();
+    
+                        if(!preg_match("/^[A-Za-z\\-0-9]*$/", $ee["codigo_barras"])){
+                            return ["msj"=>"CÓDIGO DE BARRAS SOLO DEBE CONTENER LETRAS, NÚMEROS O GUIONES [$ee[codigo_barras]]", "estado"=>false];   
+                        }
+                        if(!preg_match("/^[A-Za-z\\-0-9]*$/", $ee["codigo_proveedor"])){
+                            return ["msj"=>"CÓDIGO ALTERNO SOLO DEBE CONTENER LETRAS, NÚMEROS O GUIONES [$ee[codigo_proveedor]]", "estado"=>false];   
+                        }
+    
+    
+                        if ($barras) {
+                            return ["msj"=>"CÓDIGO DE BARRAS YA EXISTE [$ee[codigo_barras]]", "estado"=>false];   
+                        }
+                        if ($codigo_proveedor) {
+                            return ["msj"=>"CÓDIGO ALTERNO YA EXISTE [$ee[codigo_proveedor]]", "estado"=>false];   
+                        }
+                        if ($descripcion) {
+                            return ["msj"=>"DESCRIPCIÓN YA EXISTE [$ee[descripcion]]", "estado"=>false];   
+                        }
+                    }
+                }
+            }
+
+
+
+
             foreach ($req->lotes as $i => $ee) {
                 if (isset($ee["type"])) {
                     if ($ee["type"]==="update"||$ee["type"]==="new") {
-                        $ee["id_factura"] = $req->id_factura;
-
-                        $guardar = $this->guardarProducto($ee);
-                        if ($guardar["estado"]) {
-                            $num++;
-                        }
-                        //array_push($msj, $guardar["msj"]);
-
-                        if (!$guardar["estado"]) {
-                            return Response::json(["msj"=>$msj, "estado"=>false]);   
-                        }
+                        $ee["id_factura"] = $id_factura;
+                        $this->guardarProducto($ee);
                     }else if ($ee["type"]==="delete") {
-                        $this->delProductoFun($ee["id"]);
+                        //$this->delProductoFun($ee["id"]);
                     }
                 }   
             }
-            return Response::json(["msj"=> "PROCESADOS: ".count($req->lotes)." / ".$num, "estado"=>true]);   
+            return Response::json(["msj"=> "PROCESADOS: ".count($req->lotes), "estado"=>true]);   
         } catch (\Exception $e) {
             return Response::json(["msj"=>"Error: ".$e->getMessage()." LINEA ".$e->getLine(),"estado"=>false]);
         }  
     }
     public function guardarProducto($arr){
         $id_factura = $arr["id_factura"];
+        
+        $crearProducto = inventario_sucursal::updateOrCreate([
+            "id" => $arr["id"]? $arr["id"]:null
+        ],[
+            "id_sucursal" => 13,
+            "codigo_barras" => $arr["codigo_barras"],
+            "codigo_proveedor" => $arr["codigo_proveedor"],
+            "descripcion" => strtoupper($arr["descripcion"]),
+            "unidad" => $arr["unidad"],
+            "id_categoria" => $arr["id_categoria"],
+            "id_catgeneral" => $arr["id_catgeneral"],
+            "iva" => $arr["iva"],
+            "precio" => $arr["precio"],
+            "precio_base" => $arr["precio_base"],
+            "cantidad" => 0,
+        ]); 
+        if ($crearProducto) {
+            $i = inventario_sucursal::find($crearProducto->id);
+            $i->idinsucursal = $crearProducto->id;
+            $i->save();
 
-        $cuentasporpagar = cuentasporpagar::find($id_factura);
-        if ($cuentasporpagar->aprobado==1) {
-            return ["msj"=>"Error: Cuenta ya aprobada, no se puede modificar", "estado"=>true];   
-        }else{
-            $sum_subtotal = 0;
-            $fact_monto = 0;
-            $Getfactmonto = cuentasporpagar::find($id_factura);
-            if ($Getfactmonto) {
-                $fact_monto = abs($Getfactmonto->monto);
+            $cargarItem = cuentasporpagar_items::updateOrCreate([
+                "id_cuenta" => $id_factura,
+                "id_producto" => $crearProducto->id, 
+            ],[
+                "id_cuenta" => $id_factura,
+                "id_producto" => $crearProducto->id,
+                "cantidad" => $arr["cantidad"],
+                "basef" => $arr["basef"],
+                "base" => $arr["precio_base"],
+                "venta" => $arr["precio"],
+                "estado" => 0,
+            ]);
+            if ($cargarItem) {
+                return ["msj"=>"OK item ".$arr["codigo_barras"], "estado"=>true];   
             }
-            cuentasporpagar_items::where("id_cuenta",$id_factura)->get()
-            ->map(function($q) use (&$sum_subtotal){
-                $sum_subtotal += $q->basef*$q->cantidad;
-            });
-
-            $sum_subtotal += $arr["cantidad"]*$arr["basef"];
-
-            if ($sum_subtotal<=$fact_monto) {
-                $check = true;
-            }else{
-                $check = false;
-                return ["msj"=>"Valor de Items supera monto de factura [$arr[codigo_barras]]", "estado"=>false];   
-
-            }
-            //return ["msj"=>$sum_subtotal."______".$fact_monto, "estado"=>false];   
-
-            if ($check) {
-                $crearProducto = inventario_sucursal::updateOrCreate([
-                    "id" => $arr["id"]? $arr["id"]:null
-                ],[
-                    "id_sucursal" => 13,
-                    "codigo_barras" => $arr["codigo_barras"],
-                    "codigo_proveedor" => $arr["codigo_proveedor"],
-                    "descripcion" => $arr["descripcion"],
-                    "unidad" => $arr["unidad"],
-                    "id_categoria" => $arr["id_categoria"],
-                    "id_catgeneral" => $arr["id_catgeneral"],
-                    "iva" => $arr["iva"],
-                    "precio" => $arr["precio"],
-                    "precio_base" => $arr["precio_base"],
-                    "cantidad" => 0,
-                ]); 
-                if ($crearProducto) {
-                    $i = inventario_sucursal::find($crearProducto->id);
-                    $i->idinsucursal = $crearProducto->id;
-                    $i->save();
-                    $cargarItem = cuentasporpagar_items::updateOrCreate([
-                        "id_cuenta" => $id_factura,
-                        "id_producto" => $crearProducto->id, 
-                    ],[
-                        "id_cuenta" => $id_factura,
-                        "id_producto" => $crearProducto->id,
-                        "cantidad" => $arr["cantidad"],
-                        "basef" => $arr["basef"],
-                        "base" => $arr["precio_base"],
-                        "venta" => $arr["precio"],
-                        "estado" => 0,
-                    ]);
-                    if ($cargarItem) {
-                        return ["msj"=>"OK item ".$arr["codigo_barras"], "estado"=>true];   
-                    }
-                    
-                }
-            }
-            return ["msj"=>"NO item ".$arr["codigo_barras"], "estado"=>false];   
+            
         }
+        
+        
     }
 
     function autovincular() {

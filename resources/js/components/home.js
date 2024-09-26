@@ -568,6 +568,24 @@ function Home() {
   }
 
 
+
+
+  /////GARANTIAS
+  const [garantiasData,setgarantiasData] = useState([])
+  const [garantiaq,setgarantiaq] = useState("")
+  const [garantiaqsucursal,setgarantiaqsucursal] = useState("")
+  const getGarantias = () => {
+
+    db.getGarantias({
+      garantiaq,
+      garantiaqsucursal,
+    }).then(res=>{
+      setgarantiasData(res.data)
+    })
+  }
+  ///END GARANTIAS
+
+
   const [dataPedidoAnulacionAprobacion, setdataPedidoAnulacionAprobacion] = useState([])
   const [qdesdePedidoAnulacionAprobacion, setqdesdePedidoAnulacionAprobacion] = useState("")
   const [qhastaPedidoAnulacionAprobacion, setqhastaPedidoAnulacionAprobacion] = useState("")
@@ -1274,11 +1292,7 @@ function Home() {
 
       db.guardarNuevoProductoLote({ lotes: lotesFil, id_factura }).then(res => {
         selectCuentaPorPagarProveedorDetallesFun()
-        if (typeof res.data === "string") {
-          notificar(res.data, false);
-        }else{
-          notificar(res.data.msj.join("\n"), false);
-        }
+        notificar(res);
         if (res.data.estado) {
           buscarInventario()
         }
@@ -1296,6 +1310,7 @@ function Home() {
       case "update":
         if (obj[i].type != "new") {
           obj[i].type = "update"
+          obj[i].cantidad = ""
         }
         break;
       case "delModeUpdateDelete":
@@ -4329,7 +4344,26 @@ function formatAmount( number, simbol ) {
   const [listBeneficiario, setlistBeneficiario] = useState([])
 
   
-  
+  const selectFactToDistribuirFun = (id_fact,id_sucursal) => {
+    setfacturaSelectAddItems(id_fact);
+    setsubviewDistribuir("distribuir")
+    
+    const myPromise = new Promise((resolve, reject) => {
+        resolve("foo");
+        setdistribucionSelectSucursal(id_sucursal)
+    });
+    myPromise
+      .then(()=>{
+        addlistdistribucionselect()
+      })
+      .then(()=>{
+        autorepartircantidades("general",null)
+      });
+
+      
+      
+  }
+
   const addBeneficiarioList = (type,id=null) => {
     let fil = []
     if (modeEjecutor=="personal") {
@@ -5869,6 +5903,7 @@ function formatAmount( number, simbol ) {
               permiso={permiso}
             />
             <ComprasDistribuirFacts
+              selectFactToDistribuirFun={selectFactToDistribuirFun}
               setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
               qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}
               setqinvertircuentasPorPagarDetalles={setqinvertircuentasPorPagarDetalles}
@@ -5997,6 +6032,13 @@ function formatAmount( number, simbol ) {
           {permiso([1,2,10,14]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              garantiasData={garantiasData}
+              garantiaq={garantiaq}
+              setgarantiaq={setgarantiaq}
+              garantiaqsucursal={garantiaqsucursal}
+              setgarantiaqsucursal={setgarantiaqsucursal}
+              getGarantias={getGarantias}
+
               dataPedidoAnulacionAprobacion={dataPedidoAnulacionAprobacion}
               qdesdePedidoAnulacionAprobacion={qdesdePedidoAnulacionAprobacion}
               setqdesdePedidoAnulacionAprobacion={setqdesdePedidoAnulacionAprobacion}

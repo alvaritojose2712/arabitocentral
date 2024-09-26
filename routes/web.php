@@ -144,6 +144,8 @@ Route::get('', [home::class,"index"]);
     
     Route::get('getLast', [UltimainformacioncargadaController::class,"getLast"]);
     
+    Route::post('getGarantias', [GarantiasController::class,"getGarantias"]);
+    
     /* Route::post('sendInventarioCt', [InventarioSucursalController::class,"sendInventarioCt"]);
     Route::post('sendGarantias', [GarantiasController::class,"sendGarantias"]);
     Route::post('sendFallas', [FallasController::class,"sendFallas"]);
@@ -311,6 +313,8 @@ Route::get('', [home::class,"index"]);
     
     
     Route::post('setAll', [CierresController::class,"setAll"]);
+    Route::post('sendAllLotes', [CierresController::class,"sendAllLotes"]);
+    
     Route::post('setPermisoCajas', [CajasAprobacionController::class,"setPermisoCajas"]);
     Route::post('checkDelMovCajaCentral', [CajasAprobacionController::class,"checkDelMovCajaCentral"]);
     

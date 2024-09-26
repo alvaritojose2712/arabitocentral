@@ -13,6 +13,7 @@ class garantias extends Model
         return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
     }
 
+
     protected $fillable = [
         "id_sucursal",
         "id_producto",
@@ -20,5 +21,18 @@ class garantias extends Model
         "cantidad",
         "motivo",
         "id_cliente",
+
+        "cantidad_salida",
+        "motivo_salida",
+        "ci_cajero",
+        "ci_autorizo",
+        "dias_desdecompra",
+        "ci_cliente",
+        "telefono_cliente",
+        "nombre_cliente",
+        "nombre_cajero",
+        "nombre_autorizo",
+        "trajo_factura",
+        "motivonotrajofact",
     ];
 }

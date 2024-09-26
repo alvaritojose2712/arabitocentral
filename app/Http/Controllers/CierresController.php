@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\catcajas;
+set_time_limit(9000000);
 ini_set('memory_limit', '4095M');
-set_time_limit(60000000);
 
 use App\Models\bancos_list;
 use App\Models\bancos;
@@ -19,7 +19,12 @@ use App\Models\sucursal;
 use App\Models\ultimainformacioncargada;
 use App\Models\garantias;
 use App\Models\fallas;
+use App\Models\movsinventario;
+use App\Models\vinculossucursales;
 
+
+
+use DB;
 
 use DateTime;
 use Illuminate\Http\Request;
@@ -27,13 +32,97 @@ use Illuminate\Http\Request;
 
 class CierresController extends Controller
 {
+    function sendAllLotes(Request $req) {
+        $data = $req->data;
+        $codigo_origen = $req->codigo_origen;
+        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
+        $id_sucursal = $id_ruta["id_origen"];
+
+        $all = json_decode(gzuncompress(base64_decode($data)),true);
+        
+        $items = $all["items"];
+        $movs = $all["movs"];
+        $vinculos = $all["vinculos"];
+        $id_last_movs = $all["id_last_movs"];
+        $id_last_items = $all["id_last_items"];
+
+
+        inventario_sucursal_estadisticas::truncate();
+        movsinventario::truncate();
+        vinculossucursales::truncate();
+
+        $update = ultimainformacioncargada::where("id_sucursal",$id_sucursal)->update([
+            "id_last_estadisticas" => null,
+            "id_last_movs" => null,
+        ]);
+
+        $today = (new NominaController)->today();
+
+        ///ESTADISTICAS
+        $splitItems = array_chunk($items,500);
+        foreach ($splitItems as $i => $e) {
+            $tempArr = [];
+            foreach ($e as $key => $item) {
+                array_push($tempArr,[
+                    "id_itempedido_insucursal" => $item["id"],
+                    "id_pedido_insucursal" => $item["id_pedido"],
+                    "id_producto_insucursal" => $item["id_producto"],
+                    
+                    "id_sucursal" => $id_sucursal,
+                    "cantidad" => $item["cantidad"],
+                    "fecha" => substr($item["created_at"],0,10),
+                    "created_at" => $today,
+                ]);
+            }
+            DB::table("inventario_sucursal_estadisticas")->insert($tempArr);
+        }
+
+        ///MOVS INVE
+        $splitMovs = array_chunk($movs,500);
+        foreach ($splitMovs as $i => $e) {
+            $tempArr = [];
+            foreach ($e as $key => $item) {
+                array_push($tempArr,[
+                    "id_sucursal" => $id_sucursal,
+                    "idinsucursal" => $item["id"],
+                    
+                    "id_producto" => $item["id_producto"],
+                    "id_pedido" => $item["id_pedido"],
+                    "id_usuario" => $item["id_usuario"],
+                    "cantidad" => $item["cantidad"],
+                    "cantidadafter" => $item["cantidadafter"],
+                    "origen" => $item["origen"],
+                    "created_at" => substr($item["created_at"],0,10),
+                ]);
+            }
+            DB::table("movsinventarios")->insert($tempArr);
+        }
+
+
+        ///vinculos
+        foreach ($vinculos as $i => $e) {
+            vinculossucursales::updateOrCreate([
+                "idinsucursal" => $e["id"],
+                "id_sucursal" => $id_sucursal,
+            ],[
+                "id_producto_local" => $e["id_producto"],
+                "idinsucursal_fore" => $e["idinsucursal"],
+                "id_sucursal_fore" => $e["id_sucursal"],
+            ]);
+        }
+
+
+        $last = ultimainformacioncargada::where("id_sucursal",$id_sucursal)->orderBy("fecha","desc")->first();
+
+        $lastEdit = ultimainformacioncargada::find($last->id);
+        $lastEdit->id_last_estadisticas = $id_last_items;
+        $lastEdit->id_last_movs = $id_last_movs;
+        $lastEdit->save();
+
+        
+    }
 
     function setAll(Request $req) {
-        $sendestadisticasVentareq = $req->sendestadisticasVenta;
-        $sendestadisticasVenta = json_decode(gzuncompress(base64_decode($sendestadisticasVentareq)),true);
-        //return $sendestadisticasVenta;
-
-
         $codigo_origen = $req->codigo_origen;
         $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
         $id_sucursal = $id_ruta["id_origen"];
@@ -44,7 +133,7 @@ class CierresController extends Controller
         cajas::where("id_sucursal",$id_sucursal)->where("origen",1)->where("created_at","LIKE",$today."%")->delete();
         puntosybiopagos::where("id_sucursal",$id_sucursal)->where("origen",1)->where("created_at","LIKE",$today."%")->whereNull("fecha_liquidacion")->delete();
         cierres::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
-        inventario_sucursal_estadisticas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
+       // inventario_sucursal_estadisticas::where("id_sucursal",$id_sucursal)->where("created_at","LIKE",$today."%")->delete();
         
 
         $sendInventarioCt = (new InventarioSucursalController)->sendInventarioCt($req->sendInventarioCt, $id_sucursal);
@@ -52,7 +141,9 @@ class CierresController extends Controller
         $sendFallas = (new FallasController)->sendFallas($req->sendFallas, $id_sucursal);
         $setCierreFromSucursalToCentral = (new CierresController)->setCierreFromSucursalToCentral($req->setCierreFromSucursalToCentral, $id_sucursal);
         $setEfecFromSucursalToCentral = (new CajasController)->setEfecFromSucursalToCentral($req->setEfecFromSucursalToCentral, $id_sucursal);
-        $sendestadisticasVenta = (new InventarioSucursalEstadisticasController)->sendestadisticasVenta($sendestadisticasVenta, $id_sucursal);
+        $sendestadisticasVenta = (new InventarioSucursalEstadisticasController)->sendestadisticasVenta($req->sendestadisticasVenta, $id_sucursal);
+        $sendlasmovs_movs = (new MovsinventarioController)->sendlasmovs_movs($req->movsinventario, $id_sucursal);
+        
 
         $sendCreditos = (new CreditosController)->sendCreditos($req->sendCreditos, $id_sucursal);
 
@@ -62,6 +153,7 @@ class CierresController extends Controller
         if (!isset($sendFallas["last"])) {return "sendFallas: ".$sendFallas;}
         if (!isset($sendCreditos["last"])) {return "sendCreditos: ".$sendCreditos;}
         if (!isset($sendestadisticasVenta["last"])) {return "sendestadisticasVenta: ".$sendestadisticasVenta;}
+        if (!isset($sendlasmovs_movs["last"])) {return "sendlasmovs_movs: ".$sendlasmovs_movs;}
 
         ultimainformacioncargada::updateOrCreate([
             "id_sucursal" =>$id_sucursal,
@@ -75,7 +167,7 @@ class CierresController extends Controller
             "id_last_garantias" => $sendGarantias["last"],
             "id_last_fallas" => $sendFallas["last"],
             "id_last_estadisticas" => $sendestadisticasVenta["last"],
-            
+            "id_last_movs" => $sendlasmovs_movs["last"]
         ]);
         return [
             $sendInventarioCt,
@@ -85,6 +177,7 @@ class CierresController extends Controller
             $setEfecFromSucursalToCentral["msj"],
             $sendCreditos["msj"],
             $sendestadisticasVenta["msj"],
+            $sendlasmovs_movs["msj"],
         ];
        
     }

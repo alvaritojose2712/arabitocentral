@@ -395,8 +395,8 @@
 				<th>BANCO BS</th>
 				<th>BANCO DIVISA</th>
 
-				<th>TOTAL BRUTO</th>
 				<th>TOTAL NETO</th>
+				<th>TOTAL BRUTO</th>
 
 				<th class="text-danger">PÉRDIDA</th>
 			</tr>

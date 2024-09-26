@@ -43,6 +43,7 @@ export default function ComprasDistribuirFacts({
     autorepartircantidades,
     numcuentasPorPagarDetalles,
     setnumcuentasPorPagarDetalles,
+    selectFactToDistribuirFun,
 }){
     
 
@@ -160,7 +161,7 @@ export default function ComprasDistribuirFacts({
                                         </td>  
                                         <td className="">
                                             
-                                            <span onClick={()=>{if (e.aprobado) { setfacturaSelectAddItems(e.id);setsubviewDistribuir("distribuir") }}} className={(returnCondicion(e.condicion))+(" w-100 btn fs-2 pointer fw-bolder text-light ")}> 
+                                            <span onClick={()=>{if (e.aprobado) { selectFactToDistribuirFun(e.id, e.id_sucursal) }}} className={(returnCondicion(e.condicion))+(" w-100 btn fs-2 pointer fw-bolder text-light ")}> 
                                                 {e.numfact}
                                             </span>
                                         </td>  
@@ -198,13 +199,13 @@ export default function ComprasDistribuirFacts({
                                 <tr>
                                     <th colSpan={2}>
                                         <div className="input-group">
-                                            <select className="form-control form-control-lg" value={distribucionSelectSucursal} onChange={e=>setdistribucionSelectSucursal(e.target.value)}>
+                                            <select disabled={true} className="form-control form-control-lg" value={distribucionSelectSucursal} onChange={e=>setdistribucionSelectSucursal(e.target.value)}>
                                                 <option value="">-SUCURSAL-</option>
                                                 {sucursales.map(e=>
                                                     <option key={e.id} value={e.id}>{e.codigo}</option>
                                                 )}
                                             </select>
-                                            <button className="btn btn-success" onClick={()=>addlistdistribucionselect()}><i className="fa fa-plus"></i></button>
+                                            {/* <button className="btn btn-success" onClick={()=>addlistdistribucionselect()}><i className="fa fa-plus"></i></button> */}
                                         </div>
                                     </th>
                                     <th colSpan={5}></th>
@@ -212,7 +213,7 @@ export default function ComprasDistribuirFacts({
                                 <tr>
                                     <th className="bg-ct">
                                         CT
-                                        <button className="btn btn-sinapsis pull-right" onClick={()=>autorepartircantidades("general",null)}>AUTO REPARTIR</button>
+                                        {/* <button className="btn btn-sinapsis pull-right" onClick={()=>autorepartircantidades("general",null)}>AUTO REPARTIR</button> */}
                                     </th>
                                     <th>BARRAS</th>
                                     <th>DESCRIPCION</th>

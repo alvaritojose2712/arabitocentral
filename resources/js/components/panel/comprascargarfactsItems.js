@@ -337,12 +337,22 @@ export default function ComprascargarFactsItems({
 
                         {facturaSelectAddItemsSelect.id?
                         <>
-                            <div className="row">
+                            <div className="row mt-3 mb-3">
+                                <div className="col-3">
+                                    <div className="d-flex justify-content-between">
+                                        <i className="fa fa-times text-danger fa-2x" onClick={()=>{setfacturaSelectAddItems({});setsubviewcargaritemsfact("selectfacts")}}></i> 
+                                    </div>
+                                </div>
                                 <div className="col">
-                                    <div className="d-flex justify-content-center">
-                                        <button className="btn btn-danger text-light m-3" onClick={()=>{setfacturaSelectAddItems({});setsubviewcargaritemsfact("selectfacts")}}>
-                                            <i className="fa fa-arrow-left"></i> SELECCIONAR FACTURA 
+                                    <div className="btn-group">
+                                        <button className={"fs-2 btn fw-bolder "} style={{backgroundColor:colorSucursal(facturaSelectAddItemsSelect.sucursal? facturaSelectAddItemsSelect.sucursal.codigo:"")}}>
+                                            {facturaSelectAddItemsSelect.sucursal?facturaSelectAddItemsSelect.sucursal.codigo:null}
                                         </button>
+
+                                        <button className={(returnCondicion(facturaSelectAddItemsSelect.condicion,"text"))+("  fw-bolder text-dark btn fs-2")}> 
+                                            {facturaSelectAddItemsSelect.numfact}
+                                        </button>
+
                                     </div>
                                 </div>
                             </div>
@@ -399,21 +409,13 @@ export default function ComprascargarFactsItems({
                                 <div className="col-3">
                                     <div className="h-100 d-flex justify-content-center align-items-end ">
                                         <div className="text-center">
-                                            <div className="mb-2">
-                                                <button className={"btn fw-bolder "} style={{backgroundColor:colorSucursal(facturaSelectAddItemsSelect.sucursal? facturaSelectAddItemsSelect.sucursal.codigo:"")}}>
-                                                    {facturaSelectAddItemsSelect.sucursal?facturaSelectAddItemsSelect.sucursal.codigo:null}
-                                                </button>
-                                            </div>
+                                            
                                             <img src={facturaSelectAddItemsSelect.descripcion} width={200} onClick={()=>showFilescxp(facturaSelectAddItemsSelect.descripcion)} className="pointer mb-2"/>
                                             <div>
                                                 <span className="text-muted fst-italic">{facturaSelectAddItemsSelect.created_at}</span>
                                             </div>
                                             <div>
                                                 <span className=" fw-bolder">{facturaSelectAddItemsSelect.proveedor?facturaSelectAddItemsSelect.proveedor.descripcion:null}</span>
-                                                <br />
-                                                <span className={(returnCondicion(facturaSelectAddItemsSelect.condicion,"text"))+("  pointer fw-bolder text-light ms-1 ")}> 
-                                                    {facturaSelectAddItemsSelect.numfact}
-                                                </span>
                                             </div>
                                             <div className="p-3">
                                                 <span className="fs-1 fw-bolder text-danger mt-2">{moneda(facturaSelectAddItemsSelect.monto)}</span>
