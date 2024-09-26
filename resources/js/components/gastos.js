@@ -515,17 +515,17 @@ export default function Gastos({
 									MONTO ORIGEN
 								</th>
 								<th className="pointer text-right" onClick={()=>{setgastosfieldorder("montodolar");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>
-									MONTO <span className="text-success">DÓLAR</span>
-									<br />
-
 									<span className="text-danger fs-3">{moneda(gastosData.sum?gastosData.sum:0)}</span>
+									<br />
+									MONTO <span className="text-success">DÓLAR</span>
+
 								</th>
 							</tr>
 						</thead>
 						<tbody>
 							{gastosData?gastosData.data?gastosData.data.map(e=>
 								<tr key={e.id}>
-									<td className="text-center w-10">
+									<td className="w-10">
 										{e.sucursal?
 											<>
 												<span className={" fw-bolder fs-6"} style={{color:colorSucursal(e.sucursal.codigo)}}>
@@ -535,18 +535,18 @@ export default function Gastos({
 										:null}
 										{/* {e.beneficiario?" / "+e.beneficiario.nominanombre:null} */}
 									</td>
-									<td className="text-center">
+									<td className="">
 										{e.usuario?e.usuario.nombre:null}
 									</td>
 									<td>
 										<b>{e.origen==2? "ADMINISTRACIÓN" :"SUCURSAL"}</b>
 									</td>
-									<td className="text-center w-10">
+									<td className=" w-10">
 										{e.pago_efectivo?"EFECTIVO":""}
 										{e.pago_banco?"BANCO":""}
 										<br />
 									</td>
-									<td className="text-center w-10">
+									<td className=" w-10">
 										<b>{e.fecha}</b>
 										{/* <br /> */}
 										{/* {e.created_at} */}
