@@ -491,11 +491,11 @@ export default function Gastos({
 						<thead>
 							<tr>
 								<th className="pointer" onClick={()=>{setgastosfieldorder("id_sucursal");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>SUCURSAL</th>
-								<th className="text-center">USUARIO</th>
-								<th className="text-center">ORIGEN</th>
-								<th className="text-center">TIPO</th>
+								<th className="">USUARIO</th>
+								<th className="">ORIGEN</th>
+								<th className="">TIPO</th>
 								
-								<th className="pointer text-center" >
+								<th className="pointer " >
 									<span onClick={()=>{setgastosfieldorder("fecha");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>FECHA</span>
 									<br />
 									<span onClick={()=>{setgastosfieldorder("created_at");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CREACIÓN</span>
@@ -507,9 +507,9 @@ export default function Gastos({
 										</span>
 										):null:null}
 										</th> */}
-								<th className="pointer text-center" onClick={()=>{setgastosfieldorder("categoria");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CATEGORÍA</th>
-								<th className="pointer text-center" onClick={()=>{setgastosfieldorder("catgeneral");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CATGENERAL</th>
-								<th className="pointer text-center" onClick={()=>{setgastosfieldorder("ingreso_egreso");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>TIPO</th>
+								<th className="pointer " onClick={()=>{setgastosfieldorder("categoria");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CATEGORÍA</th>
+								<th className="pointer " onClick={()=>{setgastosfieldorder("catgeneral");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CATGENERAL</th>
+								<th className="pointer " onClick={()=>{setgastosfieldorder("ingreso_egreso");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>TIPO</th>
 								<th className="pointer">DESCRIPCIÓN</th>
 								<th className="pointer text-right" onClick={()=>{setgastosfieldorder("montodolar");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>
 									MONTO ORIGEN

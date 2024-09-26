@@ -15161,16 +15161,16 @@ function Gastos(_ref) {
               },
               children: "SUCURSAL"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
-              className: "text-center",
+              className: "",
               children: "USUARIO"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
-              className: "text-center",
+              className: "",
               children: "ORIGEN"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
-              className: "text-center",
+              className: "",
               children: "TIPO"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("th", {
-              className: "pointer text-center",
+              className: "pointer ",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                 onClick: function onClick() {
                   setgastosfieldorder("fecha");
@@ -15185,21 +15185,21 @@ function Gastos(_ref) {
                 children: "CREACI\xD3N"
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
-              className: "pointer text-center",
+              className: "pointer ",
               onClick: function onClick() {
                 setgastosfieldorder("categoria");
                 setgastosorder(gastosorder == "desc" ? "asc" : "desc");
               },
               children: "CATEGOR\xCDA"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
-              className: "pointer text-center",
+              className: "pointer ",
               onClick: function onClick() {
                 setgastosfieldorder("catgeneral");
                 setgastosorder(gastosorder == "desc" ? "asc" : "desc");
               },
               children: "CATGENERAL"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
-              className: "pointer text-center",
+              className: "pointer ",
               onClick: function onClick() {
                 setgastosfieldorder("ingreso_egreso");
                 setgastosorder(gastosorder == "desc" ? "asc" : "desc");
