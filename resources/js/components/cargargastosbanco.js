@@ -50,7 +50,11 @@ export default function CargargastosBancos({
     setgastosCategoria,
     getPersonal,
     addBeneficiarioList,
-    number
+    number,
+    gastosct,
+    setgastosct,
+    gastosunidad,
+    setgastosunidad,
     
 }){
     const [newregistro, setnewregistro] = useState(false)
@@ -268,6 +272,27 @@ export default function CargargastosBancos({
                         </ul>
 
                         
+                    </div>
+                </div>
+
+                <div className="card p-3 form-group">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-3">
+                                <input type="text" value={gastosct} onChange={event=>setgastosct(number(event.target.value))} placeholder="CANTIDAD" className="form-control" />
+                                
+                            
+                            </div>
+                            <div className="col-3">
+                                <select value={gastosunidad} onChange={event=>setgastosunidad(event.target.value)} className="form-control">
+                                    <option value="">-UNIDAD-</option>
+                                    <option value="KG">KG</option>
+                                    <option value="LTS">LTS</option>
+                                    <option value="PQTE">PQTE</option>
+                                    <option value="UND">UND</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

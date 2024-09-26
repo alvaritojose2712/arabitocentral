@@ -48,6 +48,9 @@ class puntosybiopagos extends Model
         "id_noreportada",
         "id_cxp",
         "created_at",
+
+        "unidad",
+        "ct",
         
     ];
 }

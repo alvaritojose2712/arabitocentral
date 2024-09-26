@@ -225,6 +225,10 @@ export default function Gastos({
 	setqSucursalAprobaFlujCaja,
 	qSucursalAprobaFlujCaja,
 	getAprobacionFlujoCaja,
+	gastosct,
+	setgastosct,
+	gastosunidad,
+	setgastosunidad,
 
 }) {
 
@@ -265,6 +269,10 @@ export default function Gastos({
 
 			{subviewGastos=="cargarbanco"?
 				<CargargastosBanco 
+					gastosct={gastosct}
+					setgastosct={setgastosct}
+					gastosunidad={gastosunidad}
+					setgastosunidad={setgastosunidad}
 					gastosBancoDivisaDestino={gastosBancoDivisaDestino}
 					setgastosBancoDivisaDestino={setgastosBancoDivisaDestino}
 					controlefecNewMontoMoneda={controlefecNewMontoMoneda}
@@ -511,6 +519,17 @@ export default function Gastos({
 								<th className="pointer " onClick={()=>{setgastosfieldorder("catgeneral");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>CATGENERAL</th>
 								<th className="pointer " onClick={()=>{setgastosfieldorder("ingreso_egreso");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>TIPO</th>
 								<th className="pointer">DESCRIPCIÓN</th>
+								<th className="pointer">
+									{gastosData.sumCt?
+									<>
+										<span className="text-danger fs-3">{moneda(gastosData.sumCt?gastosData.sumCt:0)}</span>
+										<br />
+									</>
+									:null}
+									CT
+
+								</th>
+								<th className="pointer">UNIDAD</th>
 								<th className="pointer text-right" onClick={()=>{setgastosfieldorder("montodolar");setgastosorder(gastosorder=="desc"?"asc":"desc")}}>
 									MONTO ORIGEN
 								</th>
@@ -588,6 +607,8 @@ export default function Gastos({
 											</>
 										:null}
 									</td>
+									<td>{e.ct}</td>
+									<td>{e.unidad}</td>
 									
 									<td className={("fs-6 text-right ")+((e.montodolar<0||e.monto_liquidado<0)?"text-danger":"text-success")}>
 										{e.monto_liquidado?

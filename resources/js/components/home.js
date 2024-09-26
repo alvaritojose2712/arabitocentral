@@ -4326,6 +4326,9 @@ function formatAmount( number, simbol ) {
   const [gastosFecha,setgastosFecha] = useState("")
   const [gastosBanco,setgastosBanco] = useState("")
   const [gastosBancoDivisaDestino,setgastosBancoDivisaDestino] = useState("")
+
+  const [gastosct,setgastosct] = useState("")
+  const [gastosunidad,setgastosunidad] = useState("")
   
 
 
@@ -4407,6 +4410,8 @@ function formatAmount( number, simbol ) {
         gastosTasa
       ) {
         db.saveNewGasto({
+          gastosct,
+          gastosunidad,
           gastosDescripcion,
           gastosCategoria,
           gastosBeneficiario,
@@ -4494,6 +4499,9 @@ function formatAmount( number, simbol ) {
     setqbuscarcat("")
     setiscomisiongasto(0)
     setcontrolefecNewMontoMoneda("")
+
+    setgastosct("")
+    setgastosunidad("")
   }
   const setEditGastosInput = id => {
     let fil = gastosData.filter(e=>e.id===id)
@@ -6533,7 +6541,10 @@ function formatAmount( number, simbol ) {
 
           {permiso([1,2,5,13]) && viewmainPanel === "gastos" && 
             <Gastos
-
+              gastosct={gastosct}
+              setgastosct={setgastosct}
+              gastosunidad={gastosunidad}
+              setgastosunidad={setgastosunidad}
               dataAprobacionFlujoCaja={dataAprobacionFlujoCaja}
               qfechadesdeAprobaFlujCaja={qfechadesdeAprobaFlujCaja}
               setqfechadesdeAprobaFlujCaja={setqfechadesdeAprobaFlujCaja}

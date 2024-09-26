@@ -654,7 +654,9 @@ class PuntosybiopagosController extends Controller
 
         return [
             "data" => $alldata,
-            "sum" => array_sum(array_column($alldata,"montodolar"))
+            "sum" => array_sum(array_column($alldata,"montodolar")),
+            "sumCt" => array_sum(array_column($alldata,"ct"))
+            
         ];
     }
 
@@ -690,6 +692,8 @@ class PuntosybiopagosController extends Controller
         return [
             "data" => $alldata["data"],
             "sum" => $alldata["sum"],
+            "sumCt" => $alldata["sumCt"],
+            
         ];
     }
     function changeBank(Request $req) {
@@ -826,6 +830,9 @@ class PuntosybiopagosController extends Controller
         $comisionpagomovilinterban = $req->comisionpagomovilinterban;
         $controlefecNewMontoMoneda = $req->controlefecNewMontoMoneda;
         $gastosBancoDivisaDestino = $req->gastosBancoDivisaDestino;
+        
+        $gastosunidad = $req->gastosunidad;
+        $gastosct = $req->gastosct;
 
         if ($gastosCategoria==64 && !$gastosBancoDivisaDestino) {
             return [
@@ -899,6 +906,7 @@ class PuntosybiopagosController extends Controller
                 "tasa" => $taseBs,
                 "monto_dolar" => $montoDolar? ($montoDolar/$divisor): 0,
                 "monto" => $montoBs? ($montoBs/$divisor): 0,
+                
 
             ]);
         }
@@ -936,6 +944,9 @@ class PuntosybiopagosController extends Controller
                     "concepto" => $gastosDescripcion.($divisor>1?(" 1/".$divisor):""),
                     "categoria" => $gastosCategoria,
                     "fecha" => $gastosFecha,
+
+                    "gastosunidad" => $gastosunidad,
+                    "gastosct" => $gastosct,
 
                     "montodolar" => $montodolar,
                     "montopeso" => $montopeso,
@@ -987,6 +998,9 @@ class PuntosybiopagosController extends Controller
                     "fecha" => $gastosFecha,
                     "fecha_liquidacion" => $gastosFecha,
                     "tipo" => $tipo,
+                    
+                    "gastosunidad" => $gastosunidad,
+                    "gastosct" => $gastosct,
     
                     "id_sucursal" => $e["id_sucursal"],
                     "id_beneficiario" => $e["id_beneficiario"],
@@ -998,6 +1012,8 @@ class PuntosybiopagosController extends Controller
     
                     "origen" => 2,
                     "id_usuario" => session("id_usuario")?session("id_usuario"):1,
+                    "unidad" => $gastosunidad,
+                    "ct" => $gastosct,
                 ]);
                 if ($p) {
                     $num++;

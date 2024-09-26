@@ -51,6 +51,10 @@ class CreateCajasTable extends Migration
             $table->integer("idinsucursal");  
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
+
+            $table->string("unidad")->nullable(true);
+            $table->decimal("ct",12,3)->nullable(true);
+            
             $table->timestamps();
 
             $table->unique(["idinsucursal","id_sucursal","id_sucursal_origen"]);

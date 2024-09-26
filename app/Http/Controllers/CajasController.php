@@ -639,6 +639,11 @@ class CajasController extends Controller
         $origen = isset($arr["origen"])?$arr["origen"]:1;
         $id_sucursal = isset($arr["id_sucursal"])?$arr["id_sucursal"]:13;
         
+        $gastosunidad = isset($arr["gastosunidad"])?$arr["gastosunidad"]:null;
+        $gastosct = isset($arr["gastosct"])?$arr["gastosct"]:null;
+        
+
+        
 
 
         
@@ -670,6 +675,9 @@ class CajasController extends Controller
             "id_cxp" => $id_cxp,
             "origen" => $origen,
             "id_sucursal" => $id_sucursal,
+
+            "unidad" => $gastosunidad,
+            "ct" => $gastosct,
 
         ] ; 
         

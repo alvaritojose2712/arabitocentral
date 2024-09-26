@@ -49,6 +49,11 @@ class GarantiasController extends Controller
                   "nombre_autorizo"=>isset($e["nombre_autorizo"])?$e["nombre_autorizo"]:null,
                   "trajo_factura"=>isset($e["trajo_factura"])?$e["trajo_factura"]:null,
                   "motivonotrajofact"=>isset($e["motivonotrajofact"])?$e["motivonotrajofact"]:null,
+                  "numfactoriginal"=>isset($e["numfactoriginal"])?$e["numfactoriginal"]:null,
+                  "numfactgarantia"=>isset($e["numfactgarantia"])?$e["numfactgarantia"]:null,
+
+                  
+
             ]);
             if ($uoc) {
                   $arr_ok[] = $e["id"];

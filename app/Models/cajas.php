@@ -59,6 +59,9 @@ class cajas extends Model
         "id_beneficiario",
         "id_cxp",
         "origen",
+        "unidad",
+        "ct",
     ];
+
     use HasFactory;
 }

@@ -34,5 +34,7 @@ class garantias extends Model
         "nombre_autorizo",
         "trajo_factura",
         "motivonotrajofact",
+        "numfactoriginal",
+        "numfactgarantia",
     ];
 }

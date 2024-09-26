@@ -34,13 +34,16 @@ class CreateGarantiasTable extends Migration
             $table->integer("ci_autorizo")->nullable();
             $table->integer("dias_desdecompra")->nullable();
             $table->integer("ci_cliente")->nullable();
-            $table->integer("telefono_cliente")->nullable();
+            $table->string("telefono_cliente",20)->nullable();
             
             $table->string("nombre_cliente")->nullable();
             $table->string("nombre_cajero")->nullable();
             $table->string("nombre_autorizo")->nullable();
             $table->string("trajo_factura")->nullable();
             $table->string("motivonotrajofact")->nullable();
+
+            $table->integer("numfactoriginal")->nullable();
+            $table->integer("numfactgarantia")->nullable();
             
 
             $table->timestamps();
