@@ -47,9 +47,9 @@ class CierresController extends Controller
         $id_last_items = $all["id_last_items"];
 
 
-        inventario_sucursal_estadisticas::truncate();
-        movsinventario::truncate();
-        vinculossucursales::truncate();
+        inventario_sucursal_estadisticas::where("id_sucursal",$id_sucursal)->delete();
+        movsinventario::where("id_sucursal",$id_sucursal)->delete();
+        vinculossucursales::where("id_sucursal",$id_sucursal)->delete();
 
         $update = ultimainformacioncargada::where("id_sucursal",$id_sucursal)->update([
             "id_last_estadisticas" => null,
