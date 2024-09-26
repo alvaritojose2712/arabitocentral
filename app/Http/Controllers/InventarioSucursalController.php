@@ -528,8 +528,6 @@ class InventarioSucursalController extends Controller
                     $productoMod["id_vinculacion"] = $producto["id_vinculacion"];
                     $productoMod["push"] = $producto["push"];
 
-
-
                     array_push($tempArr,$productoMod);
                 }
                 DB::table("inventario_sucursals")->insert($tempArr);
