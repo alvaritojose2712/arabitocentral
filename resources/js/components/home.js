@@ -2476,6 +2476,63 @@ function formatAmount( number, simbol ) {
       })
     }
   }
+
+  const [modalmovilx, setmodalmovilx] = useState(0);
+  const [modalmovily, setmodalmovily] = useState(0);
+  const [modalmovilshow, setmodalmovilshow] = useState(false);
+  const [idselectproductoinsucursalforvicular,setidselectproductoinsucursalforvicular] = useState({ index: null, id: null });
+
+  const inputbuscarcentralforvincular = useRef(null);
+  const modalmovilRef = useRef(null)
+  const openVincularSucursalwithCentral = (e, idinsucursal) => {
+      setmodalmovilshow(true);
+      /* console.log(idinsucursal,"idinsucursal")
+      console.log(e,"idinsucursal e") */
+      if (
+          idinsucursal.index == idselectproductoinsucursalforvicular.index &&
+          modalmovilshow
+      ) {
+          //setmodalmovilshow(false);
+      } else {
+          //setmodalmovilshow(true);
+
+          if (modalmovilRef) {
+              if (modalmovilRef.current) {
+                  modalmovilRef.current?.scrollIntoView({ block: "nearest", behavior: 'smooth' });
+              }
+          }
+      }
+
+
+      let p = e.currentTarget.getBoundingClientRect();
+      let y = p.top + window.scrollY;
+      let x = p.left;
+      setmodalmovily(y);
+      setmodalmovilx(x);
+
+      setidselectproductoinsucursalforvicular({
+          index: idinsucursal.index,
+          id: idinsucursal.id,
+      });
+  };
+
+  const linkproductocentralsucursal = (idincentral) => {
+      if (!inventarioSucursalFromCentral.filter(e => e.id_vinculacion == idincentral).length) {
+          changeInventarioFromSucursalCentral(
+              idincentral,
+              idselectproductoinsucursalforvicular.index,
+              idselectproductoinsucursalforvicular.id,
+              "changeInput",
+              "id_vinculacion"
+          );
+
+          setmodalmovilshow(false);
+      } else {
+          alert("¡Error: Éste ID ya se ha vinculado!")
+      }
+  };
+
+
   const [subviewAuditoria, setsubviewAuditoria] = useState("cuadre") 
   const [subviewAuditoriaGeneral, setsubviewAuditoriaGeneral] = useState("") //efectivo banco transferencias 
 
@@ -6351,6 +6408,19 @@ function formatAmount( number, simbol ) {
               />
               {subViewInventario == "gestion" ?
                 <ComprascargarFactsItems
+
+                  modalmovilx={modalmovilx}
+                  setmodalmovilx={setmodalmovilx}
+                  modalmovily={modalmovily}
+                  setmodalmovily={setmodalmovily}
+                  modalmovilshow={modalmovilshow}
+                  setmodalmovilshow={setmodalmovilshow}
+                  inputbuscarcentralforvincular={inputbuscarcentralforvincular}
+                  modalmovilRef={modalmovilRef}
+                  idselectproductoinsucursalforvicular={idselectproductoinsucursalforvicular}
+                  setidselectproductoinsucursalforvicular={setidselectproductoinsucursalforvicular}
+                  openVincularSucursalwithCentral={openVincularSucursalwithCentral}
+                  linkproductocentralsucursal={linkproductocentralsucursal}
 
                   setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
                   qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}

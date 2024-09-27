@@ -4,6 +4,9 @@ import { cloneDeep } from "lodash";
 import  SearchBarFacturas  from "../searchBarFacturas";
 import Modalselectfile from "../modalselectfile";
 
+import Modalmovil from "../modalmovil";
+
+
 
 export default function ComprascargarFactsItems({
     setqcampoBusquedacuentasPorPagarDetalles,
@@ -146,6 +149,19 @@ export default function ComprascargarFactsItems({
 
     getBarrasCargaItems,
 
+    modalmovilx,
+    setmodalmovilx,
+    modalmovily,
+    setmodalmovily,
+    modalmovilshow,
+    setmodalmovilshow,
+    inputbuscarcentralforvincular,
+    idselectproductoinsucursalforvicular,
+    setidselectproductoinsucursalforvicular,
+    modalmovilRef,
+    openVincularSucursalwithCentral,
+    linkproductocentralsucursal,
+
 }){
 
    /*  useEffect(()=>{
@@ -287,9 +303,28 @@ export default function ComprascargarFactsItems({
             }
         }
     }
+
+   
+
+
     
     return (
         <>
+            {modalmovilshow ? (
+                <Modalmovil
+                    margin={1}
+                    x={modalmovilx}
+                    y={modalmovily}
+                    setmodalmovilshow={setmodalmovilshow}
+                    modalmovilshow={modalmovilshow}
+                    inputbuscarcentralforvincular={inputbuscarcentralforvincular}
+                    modalmovilRef={modalmovilRef}
+                    getProductos={buscarInventario}
+                    productos={productosInventario}
+                    linkproductocentralsucursal={linkproductocentralsucursal}
+                />
+            ) : null}
+
             {subviewcargaritemsfact=="cargar"?
                 <>
                     <Modalselectfile
@@ -380,10 +415,21 @@ export default function ComprascargarFactsItems({
                                                 <tr key={item.id}>
                                                     {item.producto?
                                                         <>
-                                                            <td>{i+1}</td>
+                                                            <td>{i+1} 
+
+                                                            </td>
                                                             <td><i className="fa fa-times text-danger" onClick={()=>delItemFact(item.id)}></i></td>
                                                             <td>{item.producto.codigo_barras}</td>
-                                                            <td>{item.producto.descripcion}</td>
+                                                            <td>
+                                                                {item.producto.descripcion}
+                                                                <button
+                                                                    type="button"
+                                                                    className={(idselectproductoinsucursalforvicular.index==i?"btn-warning":"btn-warning")+(" btn fs-10px btn-sm")}
+                                                                    onClick={(event)=>openVincularSucursalwithCentral(event,{id: item.producto.idinsucursal ? item.producto.idinsucursal: item.producto.id , index: i,})}
+                                                                >
+                                                                    <i className="fa fa-link"></i>
+                                                                </button>
+                                                            </td>
                                                             <td onClick={()=>modItemFact(item.id, "cantidad")} className="bg-ct">{item.cantidad}</td>
                                                             <td onClick={()=>modItemFact(item.id, "basef")} >{moneda(item.basef)}</td>
                                                             <td onClick={()=>modItemFact(item.id, "base")} className="bg-base">{moneda(item.base)}</td>
@@ -432,22 +478,22 @@ export default function ComprascargarFactsItems({
                             <div className="col">
                                 {showInputGeneral?<div className="boton-fijo-inferiorizq shadow">
                                     <div className="row">
-                                            <div className="btn-group">
-                                                <input type="text" className="fs-3" size={7} value={newNombre1} onChange={e=>setnewNombre1(e.target.value.toUpperCase())} />
-                                                <button className="btn btn-primary me-3 form-control-sm" placeholder="n1" onClick={()=>addnewNombre(newNombre1.toUpperCase(),"n1")}>n1</button>
-                                            
-                                                <input type="text" className="fs-3" size={7} value={newNombre2} onChange={e=>setnewNombre2(e.target.value.toUpperCase())} />
-                                                <button className="btn btn-info me-3 form-control-sm" placeholder="n2" onClick={()=>addnewNombre(newNombre2.toUpperCase(),"n2")}>n2</button>
+                                        <div className="btn-group">
+                                            <input type="text" className="fs-3" size={7} value={newNombre1} onChange={e=>setnewNombre1(e.target.value.toUpperCase())} />
+                                            <button className="btn btn-primary me-3 form-control-sm" placeholder="n1" onClick={()=>addnewNombre(newNombre1.toUpperCase(),"n1")}>n1</button>
                                         
-                                                <input type="text" className="fs-3" size={7} value={newNombre3} onChange={e=>setnewNombre3(e.target.value.toUpperCase())} />
-                                                <button className="btn btn-sinapsis me-3 form-control-sm" placeholder="n3" onClick={()=>addnewNombre(newNombre3.toUpperCase(),"n3")}>n3</button>
-                                            
-                                                {/* <input type="text" className="fs-3" size={7} value={newNombre4} onChange={e=>setnewNombre4(e.target.value.toUpperCase())} />
-                                                <button className="btn btn-danger me-3 form-control-sm" placeholder="n4" onClick={()=>addnewNombre(newNombre4.toUpperCase(),"n4")}>n4</button> */}
-                                            
-                                                <input type="text" className="fs-3" size={7} value={newNombremarca} onChange={e=>setnewNombremarca(e.target.value.toUpperCase())} />
-                                                <button className="btn btn-success me-3 form-control-sm" placeholder="marca" onClick={()=>addnewNombre(newNombremarca.toUpperCase(),"marca")}>marca</button>
-                                            </div>
+                                            <input type="text" className="fs-3" size={7} value={newNombre2} onChange={e=>setnewNombre2(e.target.value.toUpperCase())} />
+                                            <button className="btn btn-info me-3 form-control-sm" placeholder="n2" onClick={()=>addnewNombre(newNombre2.toUpperCase(),"n2")}>n2</button>
+                                    
+                                            <input type="text" className="fs-3" size={7} value={newNombre3} onChange={e=>setnewNombre3(e.target.value.toUpperCase())} />
+                                            <button className="btn btn-sinapsis me-3 form-control-sm" placeholder="n3" onClick={()=>addnewNombre(newNombre3.toUpperCase(),"n3")}>n3</button>
+                                        
+                                            {/* <input type="text" className="fs-3" size={7} value={newNombre4} onChange={e=>setnewNombre4(e.target.value.toUpperCase())} />
+                                            <button className="btn btn-danger me-3 form-control-sm" placeholder="n4" onClick={()=>addnewNombre(newNombre4.toUpperCase(),"n4")}>n4</button> */}
+                                        
+                                            <input type="text" className="fs-3" size={7} value={newNombremarca} onChange={e=>setnewNombremarca(e.target.value.toUpperCase())} />
+                                            <button className="btn btn-success me-3 form-control-sm" placeholder="marca" onClick={()=>addnewNombre(newNombremarca.toUpperCase(),"marca")}>marca</button>
+                                        </div>
                                     </div>
                                 </div>:null}
                                 <form className="input-group" onSubmit={e=>{e.preventDefault();buscarInventario()}}>
