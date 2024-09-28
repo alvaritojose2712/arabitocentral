@@ -205,7 +205,7 @@ export default function ComprasDistribuirFacts({
                                                     <option key={e.id} value={e.id}>{e.codigo}</option>
                                                 )}
                                             </select>
-                                            {/* <button className="btn btn-success" onClick={()=>addlistdistribucionselect()}><i className="fa fa-plus"></i></button> */}
+                                            <button className="btn btn-success" onClick={()=>addlistdistribucionselect()}><i className="fa fa-plus"></i></button> 
                                         </div>
                                     </th>
                                     <th colSpan={5}></th>
@@ -213,7 +213,7 @@ export default function ComprasDistribuirFacts({
                                 <tr>
                                     <th className="bg-ct">
                                         CT
-                                        {/* <button className="btn btn-sinapsis pull-right" onClick={()=>autorepartircantidades("general",null)}>AUTO REPARTIR</button> */}
+                                         <button className="btn btn-sinapsis pull-right" onClick={()=>autorepartircantidades("general",null)}>AUTO REPARTIR</button> 
                                     </th>
                                     <th>BARRAS</th>
                                     <th>DESCRIPCION</th>
