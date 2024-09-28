@@ -632,7 +632,7 @@ class InventarioSucursalController extends Controller
                         }
     
     
-                        if ($barras) {
+                       /*  if ($barras) {
                             return ["msj"=>"CÓDIGO DE BARRAS YA EXISTE [$ee[codigo_barras]]", "estado"=>false];   
                         }
                         if ($codigo_proveedor) {
@@ -640,7 +640,7 @@ class InventarioSucursalController extends Controller
                         }
                         if ($descripcion) {
                             return ["msj"=>"DESCRIPCIÓN YA EXISTE [$ee[descripcion]]", "estado"=>false];   
-                        }
+                        } */
                     }
                 }
             }
