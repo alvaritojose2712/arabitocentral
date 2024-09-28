@@ -455,46 +455,45 @@ class InventarioSucursalController extends Controller
 
     public function sendInventarioCt($inventariodeldia,$id_sucursal) {
         try {
-            inventario_sucursal::where("id_sucursal",$id_sucursal)->delete();
+            //inventario_sucursal::where("id_sucursal",$id_sucursal)->delete();
             $all = json_decode(gzuncompress(base64_decode($inventariodeldia)),true);
             $num = 0;
-            $splitItems = array_chunk($all,500);
+           /*  $splitItems = array_chunk($all,500);
             foreach ($splitItems as $i => $e) {
-                $tempArr = [];
-                foreach ($e as $producto) {
-                    $productoMod = [];
-                    $productoMod["id"] = null;
-                    $productoMod["id_sucursal"] = $id_sucursal;
-                    $productoMod["idinsucursal"] = $producto["id"];
-
-                    $productoMod["codigo_proveedor"] = $producto["codigo_proveedor"];
-                    $productoMod["codigo_barras"] = $producto["codigo_barras"];
-                    $productoMod["id_proveedor"] = $producto["id_proveedor"];
-                    $productoMod["id_categoria"] = $producto["id_categoria"];
-                    $productoMod["id_marca"] = $producto["id_marca"];
-                    $productoMod["unidad"] = $producto["unidad"];
-                    $productoMod["id_deposito"] = $producto["id_deposito"];
-                    $productoMod["descripcion"] = $producto["descripcion"];
-                    $productoMod["iva"] = $producto["iva"];
-                    $productoMod["porcentaje_ganancia"] = $producto["porcentaje_ganancia"];
-                    $productoMod["precio_base"] = $producto["precio_base"];
-                    $productoMod["precio"] = $producto["precio"];
-                    $productoMod["cantidad"] = $producto["cantidad"];
-                    $productoMod["bulto"] = $producto["bulto"];
-                    $productoMod["precio1"] = $producto["precio1"];
-                    $productoMod["precio2"] = $producto["precio2"];
-                    $productoMod["precio3"] = $producto["precio3"];
-                    $productoMod["stockmin"] = $producto["stockmin"];
-                    $productoMod["stockmax"] = $producto["stockmax"];
-                    $productoMod["id_vinculacion"] = $producto["id_vinculacion"];
-                    $productoMod["push"] = $producto["push"];
-
-                    array_push($tempArr,$productoMod);
+                $tempArr = []; */
+                foreach ($all as $producto) {
+                    inventario_sucursal::updateOrCreate([
+                        "id_sucursal" => $id_sucursal,
+                        "idinsucursal" => $producto["id"],
+                    ],[
+                        "codigo_proveedor" => $producto["codigo_proveedor"],
+                        "codigo_barras" => $producto["codigo_barras"],
+                        "id_proveedor" => $producto["id_proveedor"],
+                        "id_categoria" => $producto["id_categoria"],
+                        "id_marca" => $producto["id_marca"],
+                        "unidad" => $producto["unidad"],
+                        "id_deposito" => $producto["id_deposito"],
+                        "descripcion" => $producto["descripcion"],
+                        "iva" => $producto["iva"],
+                        "porcentaje_ganancia" => $producto["porcentaje_ganancia"],
+                        "precio_base" => $producto["precio_base"],
+                        "precio" => $producto["precio"],
+                        "cantidad" => $producto["cantidad"],
+                        "bulto" => $producto["bulto"],
+                        "precio1" => $producto["precio1"],
+                        "precio2" => $producto["precio2"],
+                        "precio3" => $producto["precio3"],
+                        "stockmin" => $producto["stockmin"],
+                        "stockmax" => $producto["stockmax"],
+                        "id_vinculacion" => $producto["id_vinculacion"],
+                        "push" => $producto["push"],
+                    ]);
+                    /* array_push($tempArr,$productoMod); */
                 }
-                DB::table("inventario_sucursals")->insert($tempArr);
-            }
+              /*   DB::table("inventario_sucursals")->insert($tempArr);
+            } */
 
-            return "OK INVENTARIO";
+            return "OK INVENTARIO ".count($all);
         } catch (\Exception $e) {
             return $e->getMessage();
         }
