@@ -120,7 +120,7 @@ class InventarioSucursalController extends Controller
             $q->where("id_sucursal",$qBuscarInventarioSucursal);
         })
         ->when($qProductosMain!="", function($q) use ($itemCero,$qProductosMain,$exacto) {
-            $q->where(function($e) use($itemCero,$q,$exacto){
+            $q->where(function($e) use($itemCero,$q,$exacto,$qProductosMain){
                 if ($exacto=="si") {
                     $e->orWhere("codigo_barras","LIKE","$qProductosMain")
                     ->orWhere("codigo_proveedor","LIKE","$qProductosMain");
