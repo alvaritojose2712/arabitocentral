@@ -17,6 +17,8 @@ use App\Models\items_pedidos;
 use App\Models\inventario_sucursal;
 use App\Models\puntosybiopagos;
 use App\Models\cajas;
+use App\Models\vinculossucursales;
+
 
 
 
@@ -1097,6 +1099,7 @@ class CuentasporpagarController extends Controller
             $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
             $monto = $q->monto;
             $balance = $q->balance;
+            $id_sucursal_destino = $q->id_sucursal;
             
             $hoy = new \DateTime($todayWithoutDateTime);
             $vence = new \DateTime($q->fechavencimiento);
@@ -1104,8 +1107,19 @@ class CuentasporpagarController extends Controller
             
             $q->dias = $interval->format('%R%a');
             $subtotal = 0;
-            $q->items->map(function($item) use (&$subtotal) {
+            $q->items->map(function($item) use (&$subtotal,$id_sucursal_destino) {
                 $subtotal += $item->cantidad * $item->basef;
+                $item->id_producto_insucursal = null;
+                $item->producto_insucursal = null;
+
+                $vin = vinculossucursales::where("id_sucursal",13)->where("id_producto_local",$item->id_producto)->where("id_sucursal_fore",$id_sucursal_destino)->first();
+                if ($vin) {
+                    $item->id_producto_insucursal = $vin->idinsucursal_fore;
+
+                    $producto_sucursal = inventario_sucursal::with("sucursal")->where("id_sucursal",$id_sucursal_destino)->where("idinsucursal",$vin->idinsucursal_fore)->first();
+                    $item->producto_insucursal = $producto_sucursal;
+                }
+
             });
             $q->sumitems = $subtotal;
             

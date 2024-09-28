@@ -106,75 +106,36 @@ class InventarioSucursalController extends Controller
     }
     public function index(Request $req)
     {
-        $exacto = false;
-
-        if (isset($req->exacto)) {
-            if ($req->exacto=="si") {
-                $exacto = "si";
-            }
-            if ($req->exacto=="id_only") {
-                $exacto = "id_only";
-            }
-        }
-        /* $cop = moneda::where("tipo",2)->orderBy("id","desc")->first();
-        $bs = moneda::where("tipo",1)->orderBy("id","desc")->first(); */
-
-
-        $data = [];
-
-        $q = $req->qProductosMain;
+        
+        $qProductosMain = $req->qProductosMain;
         $itemCero = $req->itemCero;
         $qBuscarInventarioSucursal = $req->qBuscarInventarioSucursal;
-        
         $orderColumn = $req->orderColumn;
         $orderBy = $req->orderBy;
         $num = $req->num;
-
-        if ($q=="") {
-            $data = inventario_sucursal::with([
-                "categoria",
-                "catgeneral",
-                "sucursales",
-                "sucursal",
-                "proveedor"
-            ])
-            ->when($qBuscarInventarioSucursal, function($q) use($qBuscarInventarioSucursal) {
-                $q->where("id_sucursal",$qBuscarInventarioSucursal);
-            })
-            ->limit($num)
-            ->orderBy($orderColumn,$orderBy)
-            ->get();
-        }else{
-            $data = inventario_sucursal::with([
-                "categoria",
-                "catgeneral",
-                "sucursales",
-                "sucursal",
-                "proveedor",
-                
-            ])
-            ->when($qBuscarInventarioSucursal, function($q) use($qBuscarInventarioSucursal) {
-                $q->where("id_sucursal",$qBuscarInventarioSucursal);
-            })
-            ->where(function($e) use($itemCero,$q,$exacto){
-
+        $exacto = $req->exacto;
+        
+        $data = inventario_sucursal::with(["categoria","catgeneral","sucursales","sucursal","proveedor"])
+        ->when($qBuscarInventarioSucursal, function($q) use($qBuscarInventarioSucursal) {
+            $q->where("id_sucursal",$qBuscarInventarioSucursal);
+        })
+        ->when($qProductosMain!="", function($q) use ($itemCero,$qProductosMain,$exacto) {
+            $q->where(function($e) use($itemCero,$q,$exacto){
                 if ($exacto=="si") {
-                    $e->orWhere("codigo_barras","LIKE","$q")
-                    ->orWhere("codigo_proveedor","LIKE","$q");
+                    $e->orWhere("codigo_barras","LIKE","$qProductosMain")
+                    ->orWhere("codigo_proveedor","LIKE","$qProductosMain");
                 }elseif($exacto=="id_only"){
-
-                    $e->where("id","$q");
+                    $e->where("id","$qProductosMain");
                 }else{
-                    $e->orWhere("descripcion","LIKE","%$q%")
-                    ->orWhere("codigo_proveedor","LIKE","%$q%")
-                    ->orWhere("codigo_barras","LIKE","%$q%");
+                    $e->orWhere("descripcion","LIKE","%$qProductosMain%")
+                    ->orWhere("codigo_proveedor","LIKE","%$qProductosMain%")
+                    ->orWhere("codigo_barras","LIKE","%$qProductosMain%");
                 }
-
-            })
-            ->limit($num)
-            ->orderBy($orderColumn,$orderBy)
-            ->get();
-        }
+            });
+        })
+        ->limit($num)
+        ->orderBy($orderColumn,$orderBy)
+        ->get();
     
         return $data;
         

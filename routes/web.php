@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\VinculossucursalesController;
 use App\Http\Controllers\AlquileresController;
 use App\Http\Controllers\BancosController;
 use App\Http\Controllers\BancosListController;
@@ -501,6 +503,8 @@ Route::get('', [home::class,"index"]);
     
     Route::post('guardarNuevoProductoLote', [InventarioSucursalController::class,"guardarNuevoProductoLote"]);
     Route::post('guardarmodificarInventarioDici', [InventarioSucursalController::class,"guardarmodificarInventarioDici"]);
+    
+    Route::post('sendVinculoCentralToSucursal', [VinculossucursalesController::class,"sendVinculoCentralToSucursal"]);
     
     Route::post('getinventario', [InventarioSucursalController::class,"index"]);
     Route::post('getInventarioGeneral',  [InventarioSucursalController::class,"getInventarioGeneral"]);

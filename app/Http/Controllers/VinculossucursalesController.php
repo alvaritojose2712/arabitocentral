@@ -5,82 +5,35 @@ namespace App\Http\Controllers;
 use App\Models\vinculossucursales;
 use App\Http\Requests\StorevinculossucursalesRequest;
 use App\Http\Requests\UpdatevinculossucursalesRequest;
+use Illuminate\Http\Request;
+use Response;
 
 class VinculossucursalesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    function sendVinculoCentralToSucursal(Request $req) {
+        $idinsucursal = $req->idinsucursal;
+        $id_sucursal = $req->id_sucursal;
+        $id_producto_central = $req->id_producto_central;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $last_id = vinculossucursales::orderBy("id","desc")->first();
+        $v = vinculossucursales::updateOrCreate([
+            "id_producto_local" => $id_producto_central, //PROD CENTRAL
+            "id_sucursal" => 13, //CENTRAL
+            "idinsucursal_fore" => $idinsucursal, //PROD SUC
+            "id_sucursal_fore" => $id_sucursal, //SUC
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorevinculossucursalesRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorevinculossucursalesRequest $request)
-    {
-        //
-    }
+        ],[
+            "id_producto_local" => $id_producto_central, //PROD CENTRAL
+            "id_sucursal" => 13, //CENTRAL
+            "idinsucursal_fore" => $idinsucursal, //PROD SUC
+            "id_sucursal_fore" => $id_sucursal, //SUC
+            
+            "idinsucursal" => ($last_id->id)+1, // INSUCURSAl, SOLO REF
+        ]);
+        if ($v) {
+            return ["estado"=>1,"msj"=>"Éxito al Vincular"];
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\vinculossucursales  $vinculossucursales
-     * @return \Illuminate\Http\Response
-     */
-    public function show(vinculossucursales $vinculossucursales)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\vinculossucursales  $vinculossucursales
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(vinculossucursales $vinculossucursales)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatevinculossucursalesRequest  $request
-     * @param  \App\Models\vinculossucursales  $vinculossucursales
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatevinculossucursalesRequest $request, vinculossucursales $vinculossucursales)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\vinculossucursales  $vinculossucursales
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(vinculossucursales $vinculossucursales)
-    {
-        //
     }
 }

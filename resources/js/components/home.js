@@ -1636,7 +1636,7 @@ function Home() {
     }
   }
   
-  const buscarInventario = e => {
+  const buscarInventario = (e=null,id_sucursalForce=false) => {
     setLoading(true)
     if (time != 0) {
         clearTimeout(typingTimeout)
@@ -1648,7 +1648,7 @@ function Home() {
           qProductosMain: qBuscarInventario,
           orderColumn: InvorderColumn,
           orderBy: InvorderBy,
-          qBuscarInventarioSucursal,
+          qBuscarInventarioSucursal: (!id_sucursalForce?qBuscarInventarioSucursal:id_sucursalForce),
 
 
         }).then(res => {
@@ -2480,21 +2480,21 @@ function formatAmount( number, simbol ) {
   const [modalmovilx, setmodalmovilx] = useState(0);
   const [modalmovily, setmodalmovily] = useState(0);
   const [modalmovilshow, setmodalmovilshow] = useState(false);
-  const [idselectproductoinsucursalforvicular,setidselectproductoinsucursalforvicular] = useState({ index: null, id: null });
+  const [idselectproductoinsucursalforvicular,setidselectproductoinsucursalforvicular] = useState({ index: null, id_producto_central: null });
 
   const inputbuscarcentralforvincular = useRef(null);
   const modalmovilRef = useRef(null)
-  const openVincularSucursalwithCentral = (e, idinsucursal) => {
-      setmodalmovilshow(true);
+  const openVincularSucursalwithCentral = (e, id_producto_central) => {
+      //setmodalmovilshow(true);
       /* console.log(idinsucursal,"idinsucursal")
       console.log(e,"idinsucursal e") */
       if (
-          idinsucursal.index == idselectproductoinsucursalforvicular.index &&
+        id_producto_central.index == idselectproductoinsucursalforvicular.index &&
           modalmovilshow
       ) {
-          //setmodalmovilshow(false);
+          setmodalmovilshow(false);
       } else {
-          //setmodalmovilshow(true);
+          setmodalmovilshow(true);
 
           if (modalmovilRef) {
               if (modalmovilRef.current) {
@@ -2510,26 +2510,35 @@ function formatAmount( number, simbol ) {
       setmodalmovily(y);
       setmodalmovilx(x);
 
-      setidselectproductoinsucursalforvicular({
-          index: idinsucursal.index,
-          id: idinsucursal.id,
-      });
+      setidselectproductoinsucursalforvicular(id_producto_central);
   };
 
-  const linkproductocentralsucursal = (idincentral) => {
-      if (!inventarioSucursalFromCentral.filter(e => e.id_vinculacion == idincentral).length) {
-          changeInventarioFromSucursalCentral(
-              idincentral,
+  const linkproductocentralsucursal = (idinsucursal,id_sucursal) => {
+      //if (!inventarioSucursalFromCentral.filter(e => e.id_vinculacion == idinsucursal).length) {
+          /* changeInventarioFromSucursalCentral(
+              idinsucursal,
               idselectproductoinsucursalforvicular.index,
               idselectproductoinsucursalforvicular.id,
               "changeInput",
               "id_vinculacion"
-          );
+          ); */
+          db.sendVinculoCentralToSucursal({
+            idinsucursal,
+            id_sucursal,
+            id_producto_central: idselectproductoinsucursalforvicular.id_producto_central,
+          })
+          .then(res=>{
+              notificar(res)
+              if (res.data.estado) {
+                selectCuentaPorPagarProveedorDetallesFun()
+                
+              }
+          })
 
           setmodalmovilshow(false);
-      } else {
+     /*  } else {
           alert("¡Error: Éste ID ya se ha vinculado!")
-      }
+      } */
   };
 
 
@@ -6408,6 +6417,7 @@ function formatAmount( number, simbol ) {
               />
               {subViewInventario == "gestion" ?
                 <ComprascargarFactsItems
+                  
 
                   modalmovilx={modalmovilx}
                   setmodalmovilx={setmodalmovilx}

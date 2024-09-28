@@ -162,11 +162,8 @@ export default function ComprascargarFactsItems({
     openVincularSucursalwithCentral,
     linkproductocentralsucursal,
 
-}){
 
-   /*  useEffect(()=>{
-       
-    },[]) */
+}){
 
     const [showInputGeneral, setshowInputGeneral] = useState(false)
 
@@ -312,16 +309,18 @@ export default function ComprascargarFactsItems({
         <>
             {modalmovilshow ? (
                 <Modalmovil
+                    inputbuscarcentralforvincular={inputbuscarcentralforvincular}
+                    getProductos={buscarInventario}
+
                     margin={1}
                     x={modalmovilx}
                     y={modalmovily}
                     setmodalmovilshow={setmodalmovilshow}
                     modalmovilshow={modalmovilshow}
-                    inputbuscarcentralforvincular={inputbuscarcentralforvincular}
                     modalmovilRef={modalmovilRef}
-                    getProductos={buscarInventario}
                     productos={productosInventario}
                     linkproductocentralsucursal={linkproductocentralsucursal}
+                    facturaSelectAddItemsSelect={facturaSelectAddItemsSelect}
                 />
             ) : null}
 
@@ -400,6 +399,7 @@ export default function ComprascargarFactsItems({
                                             <tr>
                                                 <th></th>
                                                 <th></th>
+                                                <th>ALTERNO</th>
                                                 <th>BARRAS</th>
                                                 <th>DESCRIPCION</th>
                                                 <th className="bg-ct">CT</th>
@@ -412,33 +412,46 @@ export default function ComprascargarFactsItems({
                                         </thead>
                                         <tbody>
                                             {facturaSelectAddItemsSelect.items.map((item,i)=>
-                                                <tr key={item.id}>
-                                                    {item.producto?
-                                                        <>
-                                                            <td>{i+1} 
+                                                <>
+                                                    <tr key={item.id} title={item.id_producto}>
+                                                        {item.producto?
+                                                            <>
+                                                                <td>{i+1}</td>
+                                                                <td><i className="fa fa-times text-danger" onClick={()=>delItemFact(item.id)}></i></td>
+                                                                <td>{item.producto.codigo_proveedor}</td>
+                                                                <td>{item.producto.codigo_barras}</td>
+                                                                <td>
+                                                                    {item.producto.descripcion} <button
+                                                                        type="button"
+                                                                        className={(idselectproductoinsucursalforvicular.index==i?"btn-warning":"btn-warning")+(" btn fs-10px btn-sm")}
+                                                                        onClick={(event)=>openVincularSucursalwithCentral(event,{id_producto_central: item.id_producto , index: i,})}
+                                                                        >
+                                                                        <i className="fa fa-link"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td onClick={()=>modItemFact(item.id, "cantidad")} className="bg-ct">{item.cantidad}</td>
+                                                                <td onClick={()=>modItemFact(item.id, "basef")} >{moneda(item.basef)}</td>
+                                                                <td onClick={()=>modItemFact(item.id, "base")} className="bg-base">{moneda(item.base)}</td>
+                                                                <td onClick={()=>modItemFact(item.id, "venta")} className="bg-venta">{moneda(item.venta)}</td>
+                                                                <td className="text-right">{moneda(item.basef*item.cantidad)}</td>
+                                                            </>
+                                                        :null}
+                                                    </tr>
 
-                                                            </td>
-                                                            <td><i className="fa fa-times text-danger" onClick={()=>delItemFact(item.id)}></i></td>
-                                                            <td>{item.producto.codigo_barras}</td>
-                                                            <td>
-                                                                {item.producto.descripcion}
-                                                                <button
-                                                                    type="button"
-                                                                    className={(idselectproductoinsucursalforvicular.index==i?"btn-warning":"btn-warning")+(" btn fs-10px btn-sm")}
-                                                                    onClick={(event)=>openVincularSucursalwithCentral(event,{id: item.producto.idinsucursal ? item.producto.idinsucursal: item.producto.id , index: i,})}
-                                                                >
-                                                                    <i className="fa fa-link"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td onClick={()=>modItemFact(item.id, "cantidad")} className="bg-ct">{item.cantidad}</td>
-                                                            <td onClick={()=>modItemFact(item.id, "basef")} >{moneda(item.basef)}</td>
-                                                            <td onClick={()=>modItemFact(item.id, "base")} className="bg-base">{moneda(item.base)}</td>
-                                                            <td onClick={()=>modItemFact(item.id, "venta")} className="bg-venta">{moneda(item.venta)}</td>
-                                                            <td className="text-right">{moneda(item.basef*item.cantidad)}</td>
+                                                    {item.producto_insucursal?
+                                                        <tr className="bg-success-light">
+                                                            <td></td>
+                                                            <td></td>
+                                                            
+                                                            <td>{item.producto_insucursal.codigo_proveedor}</td>
+                                                            <td>{item.producto_insucursal.codigo_barras}</td>
+                                                            <td>{item.producto_insucursal.descripcion}</td>
+                                                        </tr>
 
-                                                        </>
                                                     :null}
-                                                </tr>
+                                                </>
+
+
                                             )}
                                             <tr>
                                                 <td colSpan={7} className="p-0"></td>
