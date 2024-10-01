@@ -18,7 +18,6 @@ use App\Http\Controllers\PedidosAprobacionController;
 use App\Http\Controllers\PuntosybiopagosController;
 use App\Http\Controllers\TransferenciaAprobacionController;
 use App\Http\Controllers\UltimainformacioncargadaController;
-use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\ProductoxproveedorController;
@@ -57,10 +56,14 @@ use App\Http\Controllers\NominacargosController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\NominapagosController;
 use App\Http\Controllers\ComovamosController;
+use App\Http\Controllers\TareasSucursalesController;
+
 
 use App\Models\puntosybiopagos;
 use App\Models\catcajas;
 
+
+use Illuminate\Support\Facades\Route;
 
 
 
@@ -316,6 +319,8 @@ Route::get('', [home::class,"index"]);
     
     Route::post('setAll', [CierresController::class,"setAll"]);
     Route::post('sendAllLotes', [CierresController::class,"sendAllLotes"]);
+    Route::post('invsucursal', [InventarioSucursalController::class,"invsucursal"]);
+    
     
     Route::post('setPermisoCajas', [CajasAprobacionController::class,"setPermisoCajas"]);
     Route::post('checkDelMovCajaCentral', [CajasAprobacionController::class,"checkDelMovCajaCentral"]);
@@ -503,6 +508,12 @@ Route::get('', [home::class,"index"]);
     
     Route::post('guardarNuevoProductoLote', [InventarioSucursalController::class,"guardarNuevoProductoLote"]);
     Route::post('guardarmodificarInventarioDici', [InventarioSucursalController::class,"guardarmodificarInventarioDici"]);
+
+    Route::post('getTareasPendientes', [TareasSucursalesController::class,"getTareasPendientes"]);
+    Route::get('getTareasCentral', [TareasSucursalesController::class,"getTareasCentral"]);
+    Route::post('resolveTareaCentral', [TareasSucursalesController::class,"resolveTareaCentral"]);
+    Route::post('sendTareaRemoverDuplicado', [TareasSucursalesController::class,"sendTareaRemoverDuplicado"]);
+
     
     Route::post('sendVinculoCentralToSucursal', [VinculossucursalesController::class,"sendVinculoCentralToSucursal"]);
     
@@ -629,9 +640,7 @@ Route::get('', [home::class,"index"]);
     Route::post('setnewtasainsucursal', [MonedaController::class,"setnewtasainsucursal"]);
     Route::post('getMonedaSucursal', [MonedaController::class,"getMonedaSucursal"]);
     
-    Route::get('getTareasCentral', [TareasController::class,"getTareasCentral"]);
     
-    Route::post('resolveTareaCentral', [TareasController::class,"resolveTareaCentral"]);
     
     
     Route::post('getsucursalListData', [CierresController::class,"getsucursalListData"]);

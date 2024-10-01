@@ -5,6 +5,8 @@ import Editarinventario from "./editarinventario";
 import GestionarnombresInventario from "./gestionarnombresinventario";
 import Aprobapedidosanulacion from "./aprobapedidosanulacion";
 import Garantias from "./panel/garantias";
+import TareasSucursalesPendientes from "./tareassucursalespendientes";
+
 
 
 export default function Inventario({
@@ -234,6 +236,22 @@ export default function Inventario({
     garantiaqsucursal,
     setgarantiaqsucursal,
     getGarantias,
+
+    setqTareaPendienteFecha,
+    qTareaPendienteFecha,
+    qTareaPendienteSucursal,
+    setqTareaPendienteSucursal,
+    getTareasPendientes,
+    tareasPendientesData,
+    qTareaPendienteEstado,
+    setqTareaPendienteEstado,
+    qTareaPendienteNum,
+    setqTareaPendienteNum,
+    number,
+
+    listselectEliminarDuplicados,
+    selectEliminarDuplicados,
+    sendTareaRemoverDuplicado,
 }){
     useEffect(()=>{
         getDatinputSelectVinculacion()
@@ -253,6 +271,9 @@ export default function Inventario({
                 <button className={("fs-4 btn btn")+(subviewdici=="novedades"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("novedades")}> NOVEDADES</button>
                 <button className={("fs-2 btn btn")+(subviewdici=="inventariogeneral"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("inventariogeneral")}> INVENTARIO</button>
                 <button className={("fs-2 btn btn")+(subviewdici=="editarinventario"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("editarinventario")}> EDITAR INVENTARIO</button>
+                <button className={("fs-2 btn btn")+(subviewdici=="tareaspendientes"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("tareaspendientes")}> TAREAS PENDIENTES INVENTARIO</button>
+                
+
                 <button className={("fs-2 btn btn")+(subviewdici=="gestionarnombres"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("gestionarnombres")}> GESTIONAR NOMBRES</button>
             </div>
         </div>
@@ -400,6 +421,10 @@ export default function Inventario({
 
         {subviewdici=="editarinventario"?
             <Editarinventario
+                sendTareaRemoverDuplicado={sendTareaRemoverDuplicado}
+                listselectEliminarDuplicados={listselectEliminarDuplicados}
+                selectEliminarDuplicados={selectEliminarDuplicados}
+                number={number}
                 setInvnum={setInvnum}
                 Invnum={Invnum}
                 InvorderColumn={InvorderColumn}
@@ -547,6 +572,24 @@ export default function Inventario({
                 qvinculacion3General={qvinculacion3General}
                 qvinculacion4General={qvinculacion4General}
                 qvinculacionmarcaGeneral={qvinculacionmarcaGeneral}
+            />
+        :null}
+
+        {subviewdici=="tareaspendientes"?
+            <TareasSucursalesPendientes
+
+                sucursales={sucursales}
+                setqTareaPendienteFecha={setqTareaPendienteFecha}
+                qTareaPendienteFecha={qTareaPendienteFecha}
+                qTareaPendienteSucursal={qTareaPendienteSucursal}
+                setqTareaPendienteSucursal={setqTareaPendienteSucursal}
+                getTareasPendientes={getTareasPendientes}
+                tareasPendientesData={tareasPendientesData}
+
+                qTareaPendienteEstado={qTareaPendienteEstado}
+                setqTareaPendienteEstado={setqTareaPendienteEstado}
+                qTareaPendienteNum={qTareaPendienteNum}
+                setqTareaPendienteNum={setqTareaPendienteNum}
             />
         :null}
 

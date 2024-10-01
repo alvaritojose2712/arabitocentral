@@ -23,6 +23,8 @@ use App\Models\productonombre2;
 use App\Models\productonombre3;
 use App\Models\productonombre4s;
 use App\Models\productonombre5s;
+use App\Models\tareasSucursales;
+
 
 
 
@@ -38,7 +40,58 @@ use DB;
 class InventarioSucursalController extends Controller
 {
 
-    
+    function invsucursal(Request $req) {
+
+        $data = $req->data;
+        $codigo_origen = $req->codigo_origen;
+        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
+        $id_sucursal = $id_ruta["id_origen"];
+
+        try {
+            //inventario_sucursal::where("id_sucursal",$id_sucursal)->delete();
+            $all = json_decode(gzuncompress(base64_decode($data)),true);
+            $num = 0;
+           /*  $splitItems = array_chunk($all,500);
+            foreach ($splitItems as $i => $e) {
+                $tempArr = []; */
+                foreach ($all as $producto) {
+                    inventario_sucursal::updateOrCreate([
+                        "id_sucursal" => $id_sucursal,
+                        "idinsucursal" => $producto["id"],
+                    ],[
+                        "codigo_proveedor" => $producto["codigo_proveedor"],
+                        "codigo_barras" => $producto["codigo_barras"],
+                        "id_proveedor" => $producto["id_proveedor"],
+                        "id_categoria" => $producto["id_categoria"],
+                        "id_marca" => $producto["id_marca"],
+                        "unidad" => $producto["unidad"],
+                        "id_deposito" => $producto["id_deposito"],
+                        "descripcion" => $producto["descripcion"],
+                        "iva" => $producto["iva"],
+                        "porcentaje_ganancia" => $producto["porcentaje_ganancia"],
+                        "precio_base" => $producto["precio_base"],
+                        "precio" => $producto["precio"],
+                        "cantidad" => $producto["cantidad"],
+                        "bulto" => $producto["bulto"],
+                        "precio1" => $producto["precio1"],
+                        "precio2" => $producto["precio2"],
+                        "precio3" => $producto["precio3"],
+                        "stockmin" => $producto["stockmin"],
+                        "stockmax" => $producto["stockmax"],
+                        "id_vinculacion" => $producto["id_vinculacion"],
+                        "push" => $producto["push"],
+                    ]);
+                    /* array_push($tempArr,$productoMod); */
+                }
+              /*   DB::table("inventario_sucursals")->insert($tempArr);
+            } */
+
+            return "OK INVENTARIO ".count($all);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+        
+    }
     function getDistinctNs() {
         $n1s = inventario_sucursal::selectRaw("DISTINCT(n1)")->get();
             foreach ($n1s as $i => $n1) {
@@ -135,7 +188,11 @@ class InventarioSucursalController extends Controller
         })
         ->limit($num)
         ->orderBy($orderColumn,$orderBy)
-        ->get();
+        ->get()
+        ->map(function($q) {
+            $q->tarea = tareasSucursales::where("id_sucursal",$q->id_sucursal)->where("idinsucursal",$q->idinsucursal)->where("estado",0)->first();
+            return $q;
+        });
     
         return $data;
         
@@ -521,24 +578,7 @@ class InventarioSucursalController extends Controller
                     if ($ee["type"]==="update"||$ee["type"]==="new") {
 
 
-                       $guardar = inventario_sucursal::updateOrCreate([
-                            "id" => $ee["id"]? $ee["id"]:null
-                        ],[
-                            "n1" => $ee["n1"],
-                            "n2" => $ee["n2"],
-                            "n3" => $ee["n3"],
-                            "n4" => $ee["n4"],
-                            "n5" => $ee["n5"],
-                            "id_marca" => $ee["id_marca"],
-                            "id_categoria" => $ee["id_categoria"],
-                            "id_catgeneral" => $ee["id_catgeneral"],
-                            "id_proveedor" => $ee["id_proveedor"],
-
-                            "stockmin" => $ee["stockmin"],
-                            "stockmax" => $ee["stockmax"],
-                            
-
-                        ]); 
+                       $guardar = (new TareasSucursalesController)->setTarea($ee,1); 
                         if ($guardar) {
                             $num++;
                         }else{
@@ -551,7 +591,7 @@ class InventarioSucursalController extends Controller
             }
             return Response::json(["msj"=> "PROCESADOS: ".count($req->lotes)." / ".$num, "estado"=>true]);   
         } catch (\Exception $e) {
-            return Response::json(["msj"=>"Error: ".$e->getMessage()." LINEA ".$e->getLine(),"estado"=>false]);
+            return Response::json(["msj"=>"Error: ".$e->getMessage()." LINEA ".$e->getLine()." FILE ".$e->getFile(),"estado"=>false]);
         } 
     }
     public function guardarNuevoProductoLote(Request $req)

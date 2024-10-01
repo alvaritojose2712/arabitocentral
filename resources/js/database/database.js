@@ -147,6 +147,9 @@ const db = {
   openReporteInventario: data=>axios.post(host+"openReporteInventario",data),
   guardarNuevoProductoLote: data=>axios.post(host+"guardarNuevoProductoLote",data),
   guardarmodificarInventarioDici: data=>axios.post(host+"guardarmodificarInventarioDici",data),
+  getTareasPendientes: data=>axios.post(host+"getTareasPendientes",data),
+  sendTareaRemoverDuplicado: data=>axios.post(host+"sendTareaRemoverDuplicado",data),
+  
   
   getEstaInventario: data=>axios.post(host+"getEstaInventario",data),
   getinventario: data=>axios.post(host+"getinventario",data),

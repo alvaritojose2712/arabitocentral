@@ -152,6 +152,11 @@ export default function Editarinventario({
     InvorderBy,
     setInvorderColumn,
     setInvorderBy,
+    number,
+
+    listselectEliminarDuplicados,
+    selectEliminarDuplicados,
+    sendTareaRemoverDuplicado,
 }){
     
     const [stockminvaluegeneral, setstockminvaluegeneral] = useState("")
@@ -295,6 +300,18 @@ export default function Editarinventario({
        
     }
 
+    const funcolorselect = id => {
+        if (listselectEliminarDuplicados[0]) {
+            if (listselectEliminarDuplicados[0].id==id) {
+                return "btn btn-success"
+            }
+        }
+        
+        if (listselectEliminarDuplicados.filter((ee,ii)=>ee.id==id&&ii!=0).length) {
+            return "btn btn-danger"
+        }
+    }
+
 
     return <div className="container-fluid">
                 <div className="row">
@@ -328,7 +345,15 @@ export default function Editarinventario({
             <table className="table">
                 <thead>
                     <tr>
-                        <th className="pointer" onClick={()=>{setInvorderColumn("id");if(InvorderColumn=="id"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>ID</th>
+                        <th className="pointer" onClick={()=>{setInvorderColumn("id");if(InvorderColumn=="id"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>
+                            ID
+                            {listselectEliminarDuplicados.length?
+                                <>
+                                    <br />
+                                    <button className="btn btn-sinapsis" onClick={()=>sendTareaRemoverDuplicado()}>REMOVER DUPLICADOS</button>
+                                </>
+                            :null}
+                        </th>
                         <th className="pointer" onClick={()=>{setInvorderColumn("id_sucursal");if(InvorderColumn=="id_sucursal"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>SUCURSAL</th>
                         <th className="pointer" onClick={()=>{setInvorderColumn("codigo_proveedor");if(InvorderColumn=="codigo_proveedor"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>ALTERNO</th>
                         <th className="pointer" onClick={()=>{setInvorderColumn("codigo_barras");if(InvorderColumn=="codigo_barras"){setInvorderBy(InvorderBy=="desc"?"asc":"desc")}}}>BARRAS</th>
@@ -450,18 +475,50 @@ export default function Editarinventario({
                                 e.stockmax,
                                 e.stockmin,
                             )} onDoubleClick={() => changeInventarioModificarDici(null, i, "update")}>
-                            <td>
-                                <small className="text-muted">{e.id}</small>
+                            <td className="fs-4" onClick={()=>selectEliminarDuplicados(e.id,e.idinsucursal)}>
+                                <small className={("text-muted pointer ")+(funcolorselect(e.id))}>
+                                    {e.id}
+                                </small>
                             </td>
                             <td>
                                 <button className={"btn w-100 fw-bolder fs-5"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
                                     {e.sucursal.codigo}
                                 </button>
                             </td>
-                            <td>{e.codigo_proveedor}</td>
-                            <td>{e.codigo_barras}</td>
-                            <td>{e.unidad}</td>
-                            <td className="text">{e.descripcion}</td>
+                            <td>
+                                {type(e.type)?
+                                    e.codigo_proveedor
+                                :
+                                    <input type="text" className="form-control" onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "codigo_proveedor")} value={e.codigo_proveedor} />
+                                }
+                            </td>
+                            <td>
+                                {type(e.type)?
+                                    e.codigo_barras
+                                :
+                                    <input type="text" className="form-control" onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "codigo_barras")} value={e.codigo_barras} />
+                                }
+                            </td>
+                            <td>
+                                {type(e.type)?
+                                    e.unidad
+                                :
+                                    <select onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "unidad")} className="form-control" value={e.unidad}>
+                                        <option value=""></option>
+                                        <option value="UND">UND</option>
+                                        <option value="KG">KG</option>
+                                        <option value="LTS">LTS</option>
+                                        <option value="PQTE">PQTE</option>
+                                    </select>   
+                                }
+                            </td>
+                            <td className="text">
+                                {type(e.type)?
+                                    e.descripcion
+                                :
+                                    <input type="text" className="form-control" onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "descripcion")} value={e.descripcion} />
+                                }
+                            </td>
 
                             <td>
                                 {type(e.type)?
@@ -578,9 +635,30 @@ export default function Editarinventario({
                             </td>
 
 
-                            <td className="bg-ct">{e.cantidad}</td>
-                            <td className="bg-base">{e.precio_base}</td>
-                            <td className="bg-venta">{e.precio}</td>
+                            <td className="bg-ct">
+                                
+                                {type(e.type)?
+                                    e.cantidad
+                                :
+                                    <input type="text" className="form-control" onChange={event=>changeInventarioModificarDici(number(event.target.value), i, "changeInput", "cantidad")} value={e.cantidad} />
+                                }
+                            </td>
+                            <td className="bg-base">
+                                
+                                {type(e.type)?
+                                    e.precio_base
+                                :
+                                    <input type="text" className="form-control" onChange={event=>changeInventarioModificarDici(number(event.target.value), i, "changeInput", "precio_base")} value={e.precio_base} />
+                                }
+                            </td>
+                            <td className="bg-venta">
+                                
+                                {type(e.type)?
+                                    e.precio
+                                :
+                                    <input type="text" className="form-control" onChange={event=>changeInventarioModificarDici(number(event.target.value), i, "changeInput", "precio")} value={e.precio} />
+                                }
+                            </td>
 
 
                             <td className="">

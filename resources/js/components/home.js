@@ -1412,6 +1412,20 @@ function Home() {
     setProductosInventario(obj)
   }
 
+  
+  
+  /////TAREAS PEN
+
+  
+  const [listselectEliminarDuplicados, setlistselectEliminarDuplicados] = useState([])
+  const [qTareaPendienteFecha,setqTareaPendienteFecha] = useState("")
+  const [qTareaPendienteSucursal,setqTareaPendienteSucursal] = useState("")
+  
+  const [qTareaPendienteEstado,setqTareaPendienteEstado] = useState(0)
+  const [qTareaPendienteNum,setqTareaPendienteNum] = useState(50)
+
+  const [tareasPendientesData,settareasPendientesData] = useState([])
+  
   const guardarmodificarInventarioDici = () => {
     let lotesFil = productosInventario.filter(e => e.type)
 
@@ -1428,6 +1442,54 @@ function Home() {
       })
     }
   }
+  const sendTareaRemoverDuplicado = () => {
+    if (confirm("Confirme")) {
+      db.sendTareaRemoverDuplicado({
+        listselectEliminarDuplicados
+      })
+      .then(res=>{
+        if (res.data.estado) {
+          setlistselectEliminarDuplicados([])
+        }
+        notificar(res)
+      })
+    }
+  }
+
+  const getTareasPendientes = () => {
+    db.getTareasPendientes({
+    qTareaPendienteFecha,
+    qTareaPendienteSucursal,
+    qTareaPendienteEstado,
+    qTareaPendienteNum,
+    }).then(res=>{
+      settareasPendientesData(res.data)
+    })
+  }
+
+  const selectEliminarDuplicados = (id,idinsucursal) => {
+
+    if (listselectEliminarDuplicados.filter(ee=>ee.id==id).length) {
+      if (listselectEliminarDuplicados.filter((ee,ii)=> ii==0 && ee.id==id).length) {
+        setlistselectEliminarDuplicados([])
+      }
+  
+      if (listselectEliminarDuplicados.filter((ee,ii)=> ii!=0 && ee.id==id ).length) {
+        setlistselectEliminarDuplicados(listselectEliminarDuplicados.filter(ee=>ee.id!=id))
+      }
+    }else{
+      let add = [
+        {id,idinsucursal}
+      ]
+      if (!listselectEliminarDuplicados[0]) {
+        setlistselectEliminarDuplicados(add)
+      }else{
+        setlistselectEliminarDuplicados(listselectEliminarDuplicados.concat(add))
+      }
+
+    }
+  }
+ ///// END TAREAS PEN
 
 
   const getBarrasCargaItems = id => {
@@ -2692,6 +2754,9 @@ function formatAmount( number, simbol ) {
       })
     }
   }
+
+
+ 
 
   const [datacajamatriz, setdatacajamatriz] = useState([])
   const [qcajamatriz,setqcajamatriz] = useState("")
@@ -6106,6 +6171,21 @@ function formatAmount( number, simbol ) {
           {permiso([1,2,10,14]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              sendTareaRemoverDuplicado={sendTareaRemoverDuplicado}
+              listselectEliminarDuplicados={listselectEliminarDuplicados}
+              selectEliminarDuplicados={selectEliminarDuplicados}
+              number={number}
+              setqTareaPendienteFecha={setqTareaPendienteFecha}
+              qTareaPendienteFecha={qTareaPendienteFecha}
+              qTareaPendienteSucursal={qTareaPendienteSucursal}
+              setqTareaPendienteSucursal={setqTareaPendienteSucursal}
+              getTareasPendientes={getTareasPendientes}
+              tareasPendientesData={tareasPendientesData}
+              qTareaPendienteEstado={qTareaPendienteEstado}
+              setqTareaPendienteEstado={setqTareaPendienteEstado}
+              qTareaPendienteNum={qTareaPendienteNum}
+              setqTareaPendienteNum={setqTareaPendienteNum}
+
               garantiasData={garantiasData}
               garantiaq={garantiaq}
               setgarantiaq={setgarantiaq}
