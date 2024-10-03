@@ -26,6 +26,94 @@ class TareasSucursalesController extends Controller
             unset($ee["sucursal"]);
             unset($ee["tarea"]);
             unset($ee["sucursales"]);
+
+            if ($ee["codigo_barras"]==$antes["codigo_barras"]) {
+                unset($ee["codigo_barras"]);
+            }
+            if ($ee["codigo_proveedor"]==$antes["codigo_proveedor"]) {
+                unset($ee["codigo_proveedor"]);
+            }
+            if ($ee["codigo_proveedor2"]==$antes["codigo_proveedor2"]) {
+                unset($ee["codigo_proveedor2"]);
+            }
+            if ($ee["id_deposito"]==$antes["id_deposito"]) {
+                unset($ee["id_deposito"]);
+            }
+            if ($ee["unidad"]==$antes["unidad"]) {
+                unset($ee["unidad"]);
+            }
+            if ($ee["descripcion"]==$antes["descripcion"]) {
+                unset($ee["descripcion"]);
+            }
+            if ($ee["iva"]==$antes["iva"]) {
+                unset($ee["iva"]);
+            }
+            if ($ee["porcentaje_ganancia"]==$antes["porcentaje_ganancia"]) {
+                unset($ee["porcentaje_ganancia"]);
+            }
+            if ($ee["precio_base"]==$antes["precio_base"]) {
+                unset($ee["precio_base"]);
+            }
+            if ($ee["precio"]==$antes["precio"]) {
+                unset($ee["precio"]);
+            }
+            if ($ee["precio1"]==$antes["precio1"]) {
+                unset($ee["precio1"]);
+            }
+            if ($ee["precio2"]==$antes["precio2"]) {
+                unset($ee["precio2"]);
+            }
+            if ($ee["precio3"]==$antes["precio3"]) {
+                unset($ee["precio3"]);
+            }
+            if ($ee["bulto"]==$antes["bulto"]) {
+                unset($ee["bulto"]);
+            }
+            if ($ee["cantidad"]==$antes["cantidad"]) {
+                unset($ee["cantidad"]);
+            }
+            if ($ee["push"]==$antes["push"]) {
+                unset($ee["push"]);
+            }
+            if ($ee["id_vinculacion"]==$antes["id_vinculacion"]) {
+                unset($ee["id_vinculacion"]);
+            }
+            if ($ee["n1"]==$antes["n1"]) {
+                unset($ee["n1"]);
+            }
+            if ($ee["n2"]==$antes["n2"]) {
+                unset($ee["n2"]);
+            }
+            if ($ee["n3"]==$antes["n3"]) {
+                unset($ee["n3"]);
+            }
+            if ($ee["n4"]==$antes["n4"]) {
+                unset($ee["n4"]);
+            }
+            if ($ee["n5"]==$antes["n5"]) {
+                unset($ee["n5"]);
+            }
+            if ($ee["id_proveedor"]==$antes["id_proveedor"]) {
+                unset($ee["id_proveedor"]);
+            }
+            if ($ee["id_categoria"]==$antes["id_categoria"]) {
+                unset($ee["id_categoria"]);
+            }
+            if ($ee["id_catgeneral"]==$antes["id_catgeneral"]) {
+                unset($ee["id_catgeneral"]);
+            }
+            if ($ee["id_marca"]==$antes["id_marca"]) {
+                unset($ee["id_marca"]);
+            }
+            if ($ee["id_marca"]==$antes["id_marca"]) {
+                unset($ee["id_marca"]);
+            }
+            if ($ee["stockmin"]==$antes["stockmin"]) {
+                unset($ee["stockmin"]);
+            }
+            if ($ee["stockmax"]==$antes["stockmax"]) {
+                unset($ee["stockmax"]);
+            }
             
             $new->cambiarproducto = json_encode($ee);
             $new->idinsucursal = $ee["idinsucursal"];
