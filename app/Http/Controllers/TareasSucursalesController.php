@@ -90,13 +90,14 @@ class TareasSucursalesController extends Controller
     function resolveTareaCentral(Request $req) {
         $id_tarea = $req->id_tarea;
         $re = tareasSucursales::find($id_tarea);
-        $re->estado = 1;
-        if ($re->save()) {
-            return [
-                "estado" => true
-            ];
+        if ($re->estado==0) {
+            $re->estado = 1;
+            if ($re->save()) {
+                return ["estado" => true];
+            }
+        }else{
+            return ["estado" => false];
         }
-
     }
 
     function sendTareaRemoverDuplicado(Request $req) {

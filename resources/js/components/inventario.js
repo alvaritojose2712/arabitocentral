@@ -252,6 +252,37 @@ export default function Inventario({
     listselectEliminarDuplicados,
     selectEliminarDuplicados,
     sendTareaRemoverDuplicado,
+    openVincularSucursalwithCentral,
+
+    inputbuscarcentralforvincular,
+    modalmovilx,
+    modalmovily,
+    setmodalmovilshow,
+    modalmovilshow,
+    modalmovilRef,
+    linkproductocentralsucursal,
+
+    id_sucursal_select_internoModal,
+    setid_sucursal_select_internoModal,
+    productosInventarioModal,
+    setproductosInventarioModal,
+    InvnumModal,
+    setInvnumModal,
+    qBuscarInventarioModal,
+    setqBuscarInventarioModal,
+    InvorderColumnModal,
+    setInvorderColumnModal,
+    InvorderByModal,
+    setInvorderByModal,
+    buscarInventarioModal,
+
+    inventariogeneralSelectProEsta,
+    setinventariogeneralSelectProEsta,
+    inventariogeneralProEsta,
+    setinventariogeneralProEsta,
+    getEstadiscaSelectProducto,
+    idselectproductoinsucursalforvicular,
+    delVinculoSucursal,
 }){
     useEffect(()=>{
         getDatinputSelectVinculacion()
@@ -266,15 +297,13 @@ export default function Inventario({
     <div className="container-fluid">
         <div className="text-center">
             <div className="btn-group mb-2">
-                <button className={("fs-4 btn btn")+(subviewdici=="pedidos"?"":"-outline")+("-primary")} onClick={()=>setsubviewdici("pedidos")}> PEDIDOS</button>
-                <button className={("fs-4 btn btn")+(subviewdici=="garantias"?"":"-outline")+("-primary")} onClick={()=>setsubviewdici("garantias")}> GARANTÍAS</button>
-                <button className={("fs-4 btn btn")+(subviewdici=="novedades"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("novedades")}> NOVEDADES</button>
-                <button className={("fs-2 btn btn")+(subviewdici=="inventariogeneral"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("inventariogeneral")}> INVENTARIO</button>
-                <button className={("fs-2 btn btn")+(subviewdici=="editarinventario"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("editarinventario")}> EDITAR INVENTARIO</button>
-                <button className={("fs-2 btn btn")+(subviewdici=="tareaspendientes"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("tareaspendientes")}> TAREAS PENDIENTES INVENTARIO</button>
-                
-
-                <button className={("fs-2 btn btn")+(subviewdici=="gestionarnombres"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("gestionarnombres")}> GESTIONAR NOMBRES</button>
+                <button className={("fs-5 btn btn")+(subviewdici=="pedidos"?"":"-outline")+("-primary")} onClick={()=>setsubviewdici("pedidos")}> PEDIDOS</button>
+                <button className={("fs-5 btn btn")+(subviewdici=="garantias"?"":"-outline")+("-primary")} onClick={()=>setsubviewdici("garantias")}> GARANTÍAS</button>
+            {/*     <button className={("fs-5 btn btn")+(subviewdici=="novedades"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("novedades")}> NOVEDADES</button> */}
+                <button className={("fs-5 btn btn")+(subviewdici=="inventariogeneral"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("inventariogeneral")}> INVENTARIO</button>
+                <button className={("fs-5 btn btn")+(subviewdici=="editarinventario"?"":"-outline")+("-secondary")} onClick={()=>setsubviewdici("editarinventario")}> EDITAR INVENTARIO</button>
+                <button className={("fs-5 btn btn")+(subviewdici=="gestionarnombres"?"":"-outline")+("-secondary")} onClick={()=>setsubviewdici("gestionarnombres")}> EDITAR NOMBRES</button>
+                <button className={("fs-5 btn btn")+(subviewdici=="tareaspendientes"?"":"-outline")+("-secondary")} onClick={()=>setsubviewdici("tareaspendientes")}> TAREAS PENDIENTES</button>
             </div>
         </div>
 
@@ -387,6 +416,7 @@ export default function Inventario({
 
         {subviewdici=="inventariogeneral"?
             <Inventariogeneral
+                delVinculoSucursal={delVinculoSucursal}
                 selectcampobusquedaestadistica={selectcampobusquedaestadistica}
                 setselectcampobusquedaestadistica={setselectcampobusquedaestadistica}
                 dataCamposBusquedaEstadisticas={dataCamposBusquedaEstadisticas}
@@ -416,11 +446,25 @@ export default function Inventario({
                 inventariogeneralData={inventariogeneralData}
                 getInventarioGeneral={getInventarioGeneral}
                 sucursales={sucursales}
+
+                inventariogeneralSelectProEsta={inventariogeneralSelectProEsta}
+                setinventariogeneralSelectProEsta={setinventariogeneralSelectProEsta}
+                inventariogeneralProEsta={inventariogeneralProEsta}
+                setinventariogeneralProEsta={setinventariogeneralProEsta}
+                getEstadiscaSelectProducto={getEstadiscaSelectProducto}
             />
         :null}
 
         {subviewdici=="editarinventario"?
             <Editarinventario
+                inputbuscarcentralforvincular={inputbuscarcentralforvincular}
+                modalmovilx={modalmovilx}
+                modalmovily={modalmovily}
+                setmodalmovilshow={setmodalmovilshow}
+                modalmovilshow={modalmovilshow}
+                modalmovilRef={modalmovilRef}
+                linkproductocentralsucursal={linkproductocentralsucursal}
+                openVincularSucursalwithCentral={openVincularSucursalwithCentral}
                 sendTareaRemoverDuplicado={sendTareaRemoverDuplicado}
                 listselectEliminarDuplicados={listselectEliminarDuplicados}
                 selectEliminarDuplicados={selectEliminarDuplicados}
@@ -572,6 +616,20 @@ export default function Inventario({
                 qvinculacion3General={qvinculacion3General}
                 qvinculacion4General={qvinculacion4General}
                 qvinculacionmarcaGeneral={qvinculacionmarcaGeneral}
+                id_sucursal_select_internoModal={id_sucursal_select_internoModal}
+                setid_sucursal_select_internoModal={setid_sucursal_select_internoModal}
+                productosInventarioModal={productosInventarioModal}
+                setproductosInventarioModal={setproductosInventarioModal}
+                InvnumModal={InvnumModal}
+                setInvnumModal={setInvnumModal}
+                qBuscarInventarioModal={qBuscarInventarioModal}
+                setqBuscarInventarioModal={setqBuscarInventarioModal}
+                InvorderColumnModal={InvorderColumnModal}
+                setInvorderColumnModal={setInvorderColumnModal}
+                InvorderByModal={InvorderByModal}
+                setInvorderByModal={setInvorderByModal}
+                buscarInventarioModal={buscarInventarioModal}
+                idselectproductoinsucursalforvicular={idselectproductoinsucursalforvicular}
             />
         :null}
 

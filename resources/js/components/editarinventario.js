@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+
+import Modalmovil from "./modalmovil";
+
 export default function Editarinventario({
     productosInventario,
     changeInventarioModificarDici,
@@ -157,6 +160,29 @@ export default function Editarinventario({
     listselectEliminarDuplicados,
     selectEliminarDuplicados,
     sendTareaRemoverDuplicado,
+    openVincularSucursalwithCentral,
+
+    inputbuscarcentralforvincular,
+    modalmovilx,
+    modalmovily,
+    setmodalmovilshow,
+    modalmovilshow,
+    modalmovilRef,
+    linkproductocentralsucursal,
+    id_sucursal_select_internoModal,
+    setid_sucursal_select_internoModal,
+    productosInventarioModal,
+    setproductosInventarioModal,
+    InvnumModal,
+    setInvnumModal,
+    qBuscarInventarioModal,
+    setqBuscarInventarioModal,
+    InvorderColumnModal,
+    setInvorderColumnModal,
+    InvorderByModal,
+    setInvorderByModal,
+    buscarInventarioModal,
+    idselectproductoinsucursalforvicular,
 }){
     
     const [stockminvaluegeneral, setstockminvaluegeneral] = useState("")
@@ -314,6 +340,42 @@ export default function Editarinventario({
 
 
     return <div className="container-fluid">
+
+            {modalmovilshow ? (
+                <Modalmovil
+                    getProductos={buscarInventarioModal}
+                    productos={productosInventarioModal}
+
+
+                    
+                    setproductosInventarioModal={setproductosInventarioModal}
+                    InvnumModal={InvnumModal}
+                    setInvnumModal={setInvnumModal}
+                    qBuscarInventarioModal={qBuscarInventarioModal}
+                    setqBuscarInventarioModal={setqBuscarInventarioModal}
+                    InvorderColumnModal={InvorderColumnModal}
+                    setInvorderColumnModal={setInvorderColumnModal}
+                    InvorderByModal={InvorderByModal}
+                    setInvorderByModal={setInvorderByModal}
+                    
+
+
+                    margin={1}
+                    inputbuscarcentralforvincular={inputbuscarcentralforvincular}
+                    x={modalmovilx}
+                    y={modalmovily}
+                    setmodalmovilshow={setmodalmovilshow}
+                    modalmovilshow={modalmovilshow}
+                    modalmovilRef={modalmovilRef}
+                    linkproductocentralsucursal={linkproductocentralsucursal}
+                    id_sucursal_select={null}
+                    sucursales={sucursales}
+                    id_sucursal_select_internoModal={id_sucursal_select_internoModal}
+                    setid_sucursal_select_internoModal={setid_sucursal_select_internoModal}
+
+                    idselectproductoinsucursalforvicular={idselectproductoinsucursalforvicular}
+                />
+            ) : null}
                 <div className="row">
                     <div className="col">
                         <form className="input-group" onSubmit={e=>{e.preventDefault();buscarInventario()}}>
@@ -455,6 +517,7 @@ export default function Editarinventario({
                                 <input type="text" className="form-control form-control-sm"  value={stockmaxvaluegeneral} onChange={e=>setstockmaxvaluegeneral(e.target.value)}/>
                             </form>
                         </th>
+                        <th>INV</th>
                     </tr>
                 </thead>
                 {productosInventario.length?productosInventario.map((e,i)=>
@@ -514,9 +577,31 @@ export default function Editarinventario({
                             </td>
                             <td className="text">
                                 {type(e.type)?
-                                    e.descripcion
+                                <>
+                                    {e.descripcion+" "}
+                                    {e.id_sucursal==13?
+                                        <span
+                                            className={("text-muted")+(" fs-10px")}
+                                            onClick={(event)=>openVincularSucursalwithCentral(event,{id_producto_central: e.id , index: i, vinculados:e.vinculados})}
+                                        >
+                                            <i className="fa fa-link fa-2x"></i>
+                                        </span>
+                                    :null}
+                                </>
                                 :
-                                    <input type="text" className="form-control" onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "descripcion")} value={e.descripcion} />
+                                    <div className="d-flex justify-content-between">
+                                        <textarea className="form-control" onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "descripcion")} value={e.descripcion}></textarea>
+                                        {e.id_sucursal==13?
+                                            <button
+                                                type="button"
+                                                className={("btn-warning")+(" btn fs-10px btn-sm")}
+                                                onClick={(event)=>openVincularSucursalwithCentral(event,{id_producto_central: e.id , index: i, vinculados:e.vinculados})}
+                                            >
+                                                <i className="fa fa-link"></i>
+                                            </button>
+                                        :null}
+                                    </div>
+
                                 }
                             </td>
 
@@ -675,6 +760,18 @@ export default function Editarinventario({
                                     e.stockmax
                                 :
                                     <input type="text" className="form-control" placeholder="stockmax" size={5} onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "stockmax")} value={e.stockmax} />   
+                                
+                                }
+
+                            </td> 
+                            <td className="">
+                                {type(e.type)?
+                                    e.push
+                                :
+                                    <select className="form-control" onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "push")} value={e.push}>
+                                        <option value="0">NO</option>
+                                        <option value="1">SI</option>
+                                    </select>   
                                 
                                 }
 

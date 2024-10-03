@@ -502,8 +502,16 @@ function Home() {
   const [subviewAlquileres, setsubviewAlquileres] = useState("list")
   
   const [inventariogeneralData, setinventariogeneralData] = useState("list")
+  const [inventariogeneralSelectProEsta, setinventariogeneralSelectProEsta] = useState(null)
+  const [inventariogeneralProEsta, setinventariogeneralProEsta] = useState(null)
   
-  
+  const getEstadiscaSelectProducto = id =>{
+    db.getEstadiscaSelectProducto({
+      id
+    }).then(res=>{
+      setinventariogeneralProEsta(res.data)
+    })
+  }
   const getInventarioGeneral = () => {
     db.getInventarioGeneral({
       invsuc_q,
@@ -517,6 +525,47 @@ function Home() {
     .then(res=>{
       setinventariogeneralData(res.data)
     })
+  }
+  const [productosInventarioModal, setproductosInventarioModal] = useState([])
+
+  const [InvnumModal, setInvnumModal] = useState("100")
+  const [qBuscarInventarioModal, setqBuscarInventarioModal] = useState("")
+  const [InvorderColumnModal, setInvorderColumnModal] = useState("descripcion")
+  const [InvorderByModal, setInvorderByModal] = useState("asc")
+  const [id_sucursal_select_internoModal, setid_sucursal_select_internoModal] = useState(null)
+
+  const buscarInventarioModal = (e=null,id_sucursalForce=false) => {
+    setLoading(true)
+    if (time != 0) {
+        clearTimeout(typingTimeout)
+      }
+      let time = window.setTimeout(() => {
+        db.getinventario({
+          itemCero: true,
+          num: InvnumModal,
+          qProductosMain: qBuscarInventarioModal,
+          orderColumn: InvorderColumnModal,
+          orderBy: InvorderByModal,
+          qBuscarInventarioSucursal: (!id_sucursalForce?id_sucursal_select_internoModal:id_sucursalForce),
+        }).then(res => {
+          setproductosInventarioModal(res.data)
+          setLoading(false)
+        })
+      }, 150)
+      setTypingTimeout(time)
+  }
+
+  const delVinculoSucursal = id_vinculo => {
+    if (confirm("Confirme")) {
+      if (confirm("Confirme DE NUEVO")) {
+        db.delVinculoSucursal({id_vinculo}).then(res=>{
+          if (res.data.estado) {
+            getInventarioGeneral()
+            notificar(res)
+          }
+        })
+      }
+    }
   }
 
   
@@ -1727,6 +1776,11 @@ function Home() {
       setTypingTimeout(time)
   }
 
+  
+
+
+  
+
   const getFallas = () => {
     setLoading(true)
     db.getFallas({ qFallas, orderCatFallas, orderSubCatFallas, ascdescFallas }).then(res => {
@@ -2584,20 +2638,24 @@ function formatAmount( number, simbol ) {
               "changeInput",
               "id_vinculacion"
           ); */
-          db.sendVinculoCentralToSucursal({
-            idinsucursal,
-            id_sucursal,
-            id_producto_central: idselectproductoinsucursalforvicular.id_producto_central,
-          })
-          .then(res=>{
-              notificar(res)
-              if (res.data.estado) {
-                selectCuentaPorPagarProveedorDetallesFun()
-                
-              }
-          })
 
-          setmodalmovilshow(false);
+          if (confirm("Confirme VINCULO")) {
+            
+            db.sendVinculoCentralToSucursal({
+              idinsucursal,
+              id_sucursal,
+              id_producto_central: idselectproductoinsucursalforvicular.id_producto_central,
+            })
+            .then(res=>{
+                notificar(res)
+                if (res.data.estado) {
+                  selectCuentaPorPagarProveedorDetallesFun()
+                  
+                }
+            })
+  
+            //setmodalmovilshow(false);
+          }
      /*  } else {
           alert("¡Error: Éste ID ya se ha vinculado!")
       } */
@@ -6171,6 +6229,31 @@ function formatAmount( number, simbol ) {
           {permiso([1,2,10,14]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              delVinculoSucursal={delVinculoSucursal}
+              id_sucursal_select_internoModal={id_sucursal_select_internoModal}
+              setid_sucursal_select_internoModal={setid_sucursal_select_internoModal}
+              productosInventarioModal={productosInventarioModal}
+              setproductosInventarioModal={setproductosInventarioModal}
+              InvnumModal={InvnumModal}
+              setInvnumModal={setInvnumModal}
+              qBuscarInventarioModal={qBuscarInventarioModal}
+              setqBuscarInventarioModal={setqBuscarInventarioModal}
+              InvorderColumnModal={InvorderColumnModal}
+              setInvorderColumnModal={setInvorderColumnModal}
+              InvorderByModal={InvorderByModal}
+              setInvorderByModal={setInvorderByModal}
+              buscarInventarioModal={buscarInventarioModal}
+
+              inputbuscarcentralforvincular={inputbuscarcentralforvincular}
+              modalmovilx={modalmovilx}
+              modalmovily={modalmovily}
+              setmodalmovilshow={setmodalmovilshow}
+              modalmovilshow={modalmovilshow}
+              modalmovilRef={modalmovilRef}
+              linkproductocentralsucursal={linkproductocentralsucursal}
+              idselectproductoinsucursalforvicular={idselectproductoinsucursalforvicular}
+
+              openVincularSucursalwithCentral={openVincularSucursalwithCentral}
               sendTareaRemoverDuplicado={sendTareaRemoverDuplicado}
               listselectEliminarDuplicados={listselectEliminarDuplicados}
               selectEliminarDuplicados={selectEliminarDuplicados}
@@ -6403,6 +6486,12 @@ function formatAmount( number, simbol ) {
               setinvsuc_orderColumn={setinvsuc_orderColumn}
               inventariogeneralData={inventariogeneralData}
               getInventarioGeneral={getInventarioGeneral}
+
+              inventariogeneralSelectProEsta={inventariogeneralSelectProEsta}
+              setinventariogeneralSelectProEsta={setinventariogeneralSelectProEsta}
+              inventariogeneralProEsta={inventariogeneralProEsta}
+              setinventariogeneralProEsta={setinventariogeneralProEsta}
+              getEstadiscaSelectProducto={getEstadiscaSelectProducto}
             />
           </>
           }

@@ -34,6 +34,11 @@ class inventario_sucursal extends Model
 
     public function sucursales() { 
         return $this->hasMany('App\Models\inventario_sucursal',"id_vinculacion","id"); 
+    }
+
+
+    public function vinculados() { 
+        return $this->hasMany('App\Models\vinculossucursales',"id_producto_local","id"); 
 
     }
 

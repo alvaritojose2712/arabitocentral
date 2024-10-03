@@ -756,8 +756,8 @@ only screen and (max-width: 900px),
   padding: 10px;
   border-radius: 5px;
   border: solid darkgray 2px;
-  width: 1000px;
-  height: 500px;
+  width: auto;
+  height: 700px;
   z-index: 99999;
   position: absolute;
   overflow-y: auto;

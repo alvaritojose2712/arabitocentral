@@ -24,6 +24,7 @@ use App\Models\productonombre3;
 use App\Models\productonombre4s;
 use App\Models\productonombre5s;
 use App\Models\tareasSucursales;
+use App\Models\vinculossucursales;
 
 
 
@@ -168,7 +169,9 @@ class InventarioSucursalController extends Controller
         $num = $req->num;
         $exacto = $req->exacto;
         
-        $data = inventario_sucursal::with(["categoria","catgeneral","sucursales","sucursal","proveedor"])
+        $data = inventario_sucursal::with(["categoria","catgeneral","sucursales","sucursal","proveedor","vinculados"=>function($q) {
+            $q->orderBy("id_sucursal_fore","asc");
+        }])
         ->when($qBuscarInventarioSucursal, function($q) use($qBuscarInventarioSucursal) {
             $q->where("id_sucursal",$qBuscarInventarioSucursal);
         })
@@ -865,10 +868,123 @@ class InventarioSucursalController extends Controller
             ['n1','LLAVE','n2','TUBO','n3','','n4','','n5','12P'],  /**/
         ];
     }
+    function getEstadiscaSelectProducto(Request $req) {
 
+        $meses = [
+            "Dec" => "Dic",
+            "Nov" => "Nov",
+            "Oct" => "Oct",
+            "Aug" => "Ago",
+            "Jul" => "Jul",
+            "Jun" => "Jun",
+            "Sep" => "Sep",
+            "May" => "May",
+            "Apr" => "Abr",
+            "Mar" => "Mar",
+            "Feb" => "Feb",
+            "Jan" => "Ene",
+        ];
+
+        $mesNum = [
+            "Dic" => "12",
+            "Nov" => "11",
+            "Oct" => "10",
+            "Ago" => "9",
+            "Jul" => "8",
+            "Jun" => "7",
+            "Sep" => "6",
+            "May" => "5",
+            "Abr" => "4",
+            "Mar" => "3",
+            "Feb" => "2",
+            "Ene" => "1",
+        ];
+
+        $today = (new NominaController)->today();
+        $mesDate = date('Y-m' , strtotime($today));
+        $añoDate = date('Y' , strtotime($today));
+
+        $id = $req->id;
+        $producto_master = inventario_sucursal::with("vinculados")->find($id);
+        $producto_master->vinculados = $producto_master->vinculados
+        ->map(function($q) use ($añoDate,$meses){
+            $p = inventario_sucursal::with("sucursal")->where("id_sucursal",$q->id_sucursal_fore)->where("idinsucursal",$q->idinsucursal_fore)->first();
+            $q->producto = $p;
+
+
+            $estadisticas = inventario_sucursal_estadisticas::where("id_sucursal",$q->id_sucursal_fore)
+            ->where("id_producto_insucursal",$q->idinsucursal_fore)
+            ->where("fecha","LIKE",$añoDate."%")
+            ->orderBy("fecha","desc")
+            ->get();
+            $anual = [];
+            foreach ($estadisticas as $i => $estadistica) {
+                $fecha = $estadistica["fecha"];
+
+                $año = date('Y' , strtotime($fecha));
+                $mes = $meses[date('M' , strtotime($fecha))];
+                $ct = $estadistica["cantidad"];
+
+
+                if (!array_key_exists($año, $anual)) {
+                    $anual[$año][$mes] = [
+                        "ct" => $ct,
+                        "dias" => 1
+                    ];
+                }else{
+                    if (array_key_exists($mes,$anual[$año])) {
+                        $anual[$año][$mes] = [
+                            "ct" => $anual[$año][$mes]["ct"]+$ct,
+                            "dias" => $anual[$año][$mes]["dias"]+1,
+                        ];
+                    }else{
+                        $anual[$año][$mes] = [
+                            "ct" => $ct,
+                            "dias" => 1,
+                        ];
+                    }
+                }
+
+            }
+            $q->anual = $anual;
+            
+            return $q;
+        });
+
+        $sumas = [];
+        $totalmismoproducto = 0;
+        foreach ($producto_master->vinculados as $fullname => $e) {
+
+            foreach ($e["anual"] as $año => $databyano) {
+                $totalaño = 0;
+                foreach ($databyano as $mes => $ctydias) {
+                    $key_anomes = $año."-".$mes;
+                    $totalaño += $ctydias["ct"];
+
+                    $sumas[$key_anomes] = isset($sumas[$key_anomes])?$sumas[$key_anomes]+$ctydias["ct"]:$ctydias["ct"];
+                }
+                $totalmismoproducto += $totalaño;
+                $sumas[$año] = isset($sumas[$año])?$sumas[$año]+$totalaño:$totalaño;
+            }
+        } 
+        $sumReor = [];
+        foreach ($sumas as $anomes => $ct) {
+            $div = explode("-",$anomes);
+            array_push($sumReor,[
+                "ano" => $div[0],
+                "mes" => isset($div[1])?$div[1]:"",
+                "ct" => $ct,
+                "mesnum" => isset($div[1])?$mesNum[$div[1]]:13 
+            ]);
+        }
+        usort($sumReor, function ($a, $b) {return $a['mesnum'] < $b['mesnum'];});
+        $producto_master->sumas = $sumReor;
+
+        return $producto_master;
+    }
     function getInventarioGeneral(Request $req) {
 
-        $arr = $this->clavesinve();
+     /*    $arr = $this->clavesinve(); */
         
         $today = (new NominaController)->today();
         $mesDate = date('Y-m' , strtotime($today));
@@ -879,125 +995,125 @@ class InventarioSucursalController extends Controller
         $invsuc_orderBy = $req->invsuc_orderBy;
         $inventarioGeneralqsucursal = $req->inventarioGeneralqsucursal;
 
-        $camposAgregadosBusquedaEstadisticas = $req->camposAgregadosBusquedaEstadisticas;
+        /* $camposAgregadosBusquedaEstadisticas = $req->camposAgregadosBusquedaEstadisticas;
         $sucursalesAgregadasBusquedaEstadisticas = !count($req->sucursalesAgregadasBusquedaEstadisticas)? [] :$req->sucursalesAgregadasBusquedaEstadisticas->map(function($q) {
             return $q["id"]; 
         });
 
 
-        $estadisticas = [];
+        $estadisticas = []; */
         
-        foreach ($this->clavesinve() as $i => $val) {
-            $n1 = $val[1];
-            $n2 = $val[3];
-            $n3 = $val[5];
-            $n4 = $val[7];
-            $n5 = $val[9];
-            
-            $merge = inventario_sucursal::with(["sucursal"])
-            ->when($sucursalesAgregadasBusquedaEstadisticas,function($q) use($sucursalesAgregadasBusquedaEstadisticas) {
-                $q->whereIn("id_sucursal",$sucursalesAgregadasBusquedaEstadisticas);
-            })
-            ->where(function($q) use ($n1,$n2,$n3,$n4,$n5) {
-                if ($n1) {
-                    $q->where("n1",$n1);
-                }
-                if ($n2) {
-                    $q->where("n2",$n2);
-                }
-                if ($n3) {
-                    $q->where("n3",$n3);
-                }
-                if ($n4) {
-                    $q->where("n4",$n4);
-                }
-                if ($n5) {
-                    $q->where("n5",$n5);
-                }
-            })
-            /* ->when($camposAgregadosBusquedaEstadisticas,function($q) use($camposAgregadosBusquedaEstadisticas) {
-                foreach ($camposAgregadosBusquedaEstadisticas as $i => $e) {
-                    $q->where($e["campo"], $e["valor"]);
-                }
-            }) */
-           /*  ->limit($invsuc_num) */
-            ->orderBy("n1","desc")
-            ->orderBy("id_sucursal","asc")
-            ->orderBy("descripcion","asc")
-            ->get()
-            ->map(function($q) use ($today,$mesDate,$añoDate, $camposAgregadosBusquedaEstadisticas,$n1,$n2,$n3,$n4,$n5){
-                $nombrefull = "";
-    
-                /* foreach ($camposAgregadosBusquedaEstadisticas as $i => $e) {
-                    $nombrefull .= ($q[$e["campo"]]?($q[$e["campo"]]." "):"");
-                    } */
-                if ($n1) {
-                    $nombrefull .=  $q["n1"]? ($q["n1"]." "): "";
-                }
-                if ($n2) {
-                    $nombrefull .=  $q["n2"]? ($q["n2"]." "): "";
-                }
-                if ($n3) {
-                    $nombrefull .=  $q["n3"]? ($q["n3"]." "): "";
-                }
-                if ($n4) {
-                    $nombrefull .=  $q["n4"]? ($q["n4"]." "): "";
-                }
-                if ($n5) {
-                    $nombrefull .=  $q["n5"]? ($q["n5"]." "): "";
-                }
-                
-                $q->nombrefull = $nombrefull? $nombrefull: "SIN ESPECIFICAR"; 
-        
-                $estadisticas = inventario_sucursal_estadisticas::where("id_sucursal",$q->id_sucursal)
-                ->where("id_producto_insucursal",$q->idinsucursal)
-                ->where("fecha","LIKE",$añoDate."%")
-                ->orderBy("fecha","desc")
-                ->get();
-                $anual = [];
-                foreach ($estadisticas as $i => $estadistica) {
-                    $fecha = $estadistica["fecha"];
-    
-                    $año = date('Y' , strtotime($fecha));
-                    $mes = date('M' , strtotime($fecha));
-                    $ct = $estadistica["cantidad"];
-    
-    
-                    if (!array_key_exists($año, $anual)) {
-                        $anual[$año][$mes] = [
-                            "ct" => $ct,
-                            "dias" => 1
-                        ];
-                    }else{
-                        if (array_key_exists($mes,$anual[$año])) {
-                            $anual[$año][$mes] = [
-                                "ct" => $anual[$año][$mes]["ct"]+$ct,
-                                "dias" => $anual[$año][$mes]["dias"]+1,
-                            ];
-                        }else{
-                            $anual[$año][$mes] = [
-                                "ct" => $ct,
-                                "dias" => 1,
-                            ];
-                        }
-                    }
-    
-                }
-                $q->anual = $anual;
-                
-                return $q;
-            }) ;
-            //$estadisticas = $estadisticas->merge($merge);
-            $estadisticas = array_merge($estadisticas,$merge->toArray());
-        }
-        
-        $estadisticas = collect($estadisticas)->groupBy(["nombrefull","sucursal.codigo"]);
+        //foreach ($this->clavesinve() as $i => $val) {
+            //$n1 = $val[1];
+            //$n2 = $val[3];
+            //$n3 = $val[5];
+            //$n4 = $val[7];
+            //$n5 = $val[9];
+//            
+            //$merge = inventario_sucursal::with(["sucursal"])
+            //->when($sucursalesAgregadasBusquedaEstadisticas,function($q) use($sucursalesAgregadasBusquedaEstadisticas) {
+                //$q->whereIn("id_sucursal",$sucursalesAgregadasBusquedaEstadisticas);
+            //})
+            //->where(function($q) use ($n1,$n2,$n3,$n4,$n5) {
+                //if ($n1) {
+                    //$q->where("n1",$n1);
+//                }
+                //if ($n2) {
+                    //$q->where("n2",$n2);
+//                }
+                //if ($n3) {
+                    //$q->where("n3",$n3);
+//                }
+                //if ($n4) {
+                    //$q->where("n4",$n4);
+//                }
+                //if ($n5) {
+                    //$q->where("n5",$n5);
+//                }
+            //})
+            ///* ->when($camposAgregadosBusquedaEstadisticas,function($q) use($camposAgregadosBusquedaEstadisticas) {
+                //foreach ($camposAgregadosBusquedaEstadisticas as $i => $e) {
+                    //$q->where($e["campo"], $e["valor"]);
+//                }
+            //}) */
+           ///*  ->limit($invsuc_num) */
+            //->orderBy("n1","desc")
+            //->orderBy("id_sucursal","asc")
+            //->orderBy("descripcion","asc")
+            //->get()
+            //->map(function($q) use ($today,$mesDate,$añoDate, $camposAgregadosBusquedaEstadisticas,$n1,$n2,$n3,$n4,$n5){
+                //$nombrefull = "";
+//    
+                ///* foreach ($camposAgregadosBusquedaEstadisticas as $i => $e) {
+                    //$nombrefull .= ($q[$e["campo"]]?($q[$e["campo"]]." "):"");
+                    //} */
+                //if ($n1) {
+                    //$nombrefull .=  $q["n1"]? ($q["n1"]." "): "";
+//                }
+                //if ($n2) {
+                    //$nombrefull .=  $q["n2"]? ($q["n2"]." "): "";
+//                }
+                //if ($n3) {
+                    //$nombrefull .=  $q["n3"]? ($q["n3"]." "): "";
+//                }
+                //if ($n4) {
+                    //$nombrefull .=  $q["n4"]? ($q["n4"]." "): "";
+//                }
+                //if ($n5) {
+                    //$nombrefull .=  $q["n5"]? ($q["n5"]." "): "";
+//                }
+//                
+                //$q->nombrefull = $nombrefull? $nombrefull: "SIN ESPECIFICAR"; 
+//        
+                //$estadisticas = inventario_sucursal_estadisticas::where("id_sucursal",$q->id_sucursal)
+                //->where("id_producto_insucursal",$q->idinsucursal)
+                //->where("fecha","LIKE",$añoDate."%")
+                //->orderBy("fecha","desc")
+                //->get();
+                //$anual = [];
+                //foreach ($estadisticas as $i => $estadistica) {
+                    //$fecha = $estadistica["fecha"];
+//    
+                    //$año = date('Y' , strtotime($fecha));
+                    //$mes = date('M' , strtotime($fecha));
+                    //$ct = $estadistica["cantidad"];
+//    
+//    
+                    //if (!array_key_exists($año, $anual)) {
+                        //$anual[$año][$mes] = [
+                            //"ct" => $ct,
+                            //"dias" => 1
+                        //];
+                    //}else{
+                        //if (array_key_exists($mes,$anual[$año])) {
+                            //$anual[$año][$mes] = [
+                                //"ct" => $anual[$año][$mes]["ct"]+$ct,
+                                //"dias" => $anual[$año][$mes]["dias"]+1,
+                            //];
+                        //}else{
+                            //$anual[$año][$mes] = [
+                                //"ct" => $ct,
+                                //"dias" => 1,
+                            //];
+//                        }
+//                    }
+//    
+//                }
+                //$q->anual = $anual;
+//                
+                //return $q;
+            //}) ;
+            ////$estadisticas = $estadisticas->merge($merge);
+            //$estadisticas = array_merge($estadisticas,$merge->toArray());
+//        }
+//        
+        //$estadisticas = collect($estadisticas)->groupBy(["nombrefull","sucursal.codigo"]);
 
 
 
         $sumas = [];
         
-        foreach ($estadisticas as $fullname => $byscursales) {
+        /* foreach ($estadisticas as $fullname => $byscursales) {
             $sumas[$fullname] = [];
             $sumas[$fullname]["totalsucursales"] = [];
 
@@ -1023,7 +1139,30 @@ class InventarioSucursalController extends Controller
                 $sumas[$fullname][$sucursalcode]["totalsucursal"] = $totalsucursal;
             }
 
-        }
+        } */
+
+        $estadisticas = inventario_sucursal::with(["sucursal","vinculados"=>function($q) {
+            $q->orderBy("id_sucursal_fore","asc");
+        }])
+        ->when($invsuc_q, function($q) use ($invsuc_q) {
+            $q->where(function($q) use ($invsuc_q) {
+                $q->orwhere("codigo_barras","LIKE","%$invsuc_q%")
+                ->orwhere("codigo_proveedor","LIKE","%$invsuc_q%")
+                ->orwhere("descripcion","LIKE","%$invsuc_q%");
+            });
+        })
+        ->where("id_sucursal",13)
+        ->limit($invsuc_num)
+        ->get()
+        ->map(function($q) {
+            $q->vinculados = $q->vinculados
+            ->map(function($q) {
+                $q->producto = inventario_sucursal::with("sucursal")->where("id_sucursal",$q->id_sucursal_fore)->where("idinsucursal",$q->idinsucursal_fore)->first();
+                return $q;
+            });
+            return $q;
+        });
+
 
         return [
             "data" => $estadisticas,

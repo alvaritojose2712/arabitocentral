@@ -160,7 +160,10 @@ const db = {
   
   
   
+  getEstadiscaSelectProducto: data=>axios.post(host+"getEstadiscaSelectProducto",data),
   getInventarioGeneral: data=>axios.post(host+"getInventarioGeneral",data),
+  delVinculoSucursal: data=>axios.post(host+"delVinculoSucursal",data),
+  
   getBarrasCargaItems: data=>axios.post(host+"getBarrasCargaItems",data),
   
   

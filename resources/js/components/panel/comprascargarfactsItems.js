@@ -320,7 +320,7 @@ export default function ComprascargarFactsItems({
                     modalmovilRef={modalmovilRef}
                     productos={productosInventario}
                     linkproductocentralsucursal={linkproductocentralsucursal}
-                    facturaSelectAddItemsSelect={facturaSelectAddItemsSelect}
+                    id_sucursal_select={facturaSelectAddItemsSelect?facturaSelectAddItemsSelect.id_sucursal:null}
                 />
             ) : null}
 

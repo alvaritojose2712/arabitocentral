@@ -33,7 +33,12 @@ class VinculossucursalesController extends Controller
         if ($v) {
             return ["estado"=>1,"msj"=>"Éxito al Vincular"];
         }
+    }
 
-
+    function delVinculoSucursal(Request $req) {
+        $id_vinculo = $req->id_vinculo;
+        if (vinculossucursales::find($id_vinculo)->delete()) {
+            return ["estado"=>true,"msj"=>"Éxito"];
+        }
     }
 }

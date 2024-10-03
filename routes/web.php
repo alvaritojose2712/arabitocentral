@@ -518,7 +518,11 @@ Route::get('', [home::class,"index"]);
     Route::post('sendVinculoCentralToSucursal', [VinculossucursalesController::class,"sendVinculoCentralToSucursal"]);
     
     Route::post('getinventario', [InventarioSucursalController::class,"index"]);
+    
+    Route::post('getEstadiscaSelectProducto',  [InventarioSucursalController::class,"getEstadiscaSelectProducto"]);
     Route::post('getInventarioGeneral',  [InventarioSucursalController::class,"getInventarioGeneral"]);
+    Route::post('delVinculoSucursal',  [VinculossucursalesController::class,"delVinculoSucursal"]);
+    
     Route::post('getBarrasCargaItems',  [InventarioSucursalController::class,"getBarrasCargaItems"]);
     Route::get('delduplicateItemsEstadisticas',  [InventarioSucursalEstadisticasController::class,"delduplicateItemsEstadisticas"]);
     
