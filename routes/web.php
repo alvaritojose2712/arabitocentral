@@ -513,7 +513,8 @@ Route::get('', [home::class,"index"]);
     Route::get('getTareasCentral', [TareasSucursalesController::class,"getTareasCentral"]);
     Route::post('resolveTareaCentral', [TareasSucursalesController::class,"resolveTareaCentral"]);
     Route::post('sendTareaRemoverDuplicado', [TareasSucursalesController::class,"sendTareaRemoverDuplicado"]);
-
+    Route::post('notiNewInv', [TareasSucursalesController::class,"notiNewInv"]);
+    
     
     Route::post('sendVinculoCentralToSucursal', [VinculossucursalesController::class,"sendVinculoCentralToSucursal"]);
     

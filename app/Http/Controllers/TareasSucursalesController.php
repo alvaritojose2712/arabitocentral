@@ -72,9 +72,7 @@ class TareasSucursalesController extends Controller
             if (@$ee["cantidad"]==@$antes["cantidad"]) {
                 unset($ee["cantidad"]);
             }
-            if (@$ee["push"]==@$antes["push"]) {
-                unset($ee["push"]);
-            }
+            
             if (@$ee["id_vinculacion"]==@$antes["id_vinculacion"]) {
                 unset($ee["id_vinculacion"]);
             }
@@ -121,6 +119,41 @@ class TareasSucursalesController extends Controller
             $new->id_producto_verde = null;
             $new->id_producto_rojo = null;
             return $new->save();
+        }
+    }
+
+    function notiNewInv(Request $req) {
+        $idinsucursal_producto = $req->idinsucursal_producto;
+        $type = $req->type;
+        $data = $req->data;
+        $codigo_origen = $req->codigo_origen;
+        $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
+        $id_sucursal = $id_ruta["id_origen"];
+
+        if ($type=="modificar") {
+            $get = inventario_sucursal::where("id_sucursal",$id_sucursal)->where("idinsucursal",$idinsucursal_producto)->update([
+                "cantidad" => $data["cantidad"],
+                "codigo_barras" => $data["codigo_barras"],
+                "codigo_proveedor" => $data["codigo_proveedor"],
+                "unidad" => $data["unidad"],
+                "id_categoria" => $data["id_categoria"],
+                "descripcion" => $data["descripcion"],
+                "precio_base" => $data["precio_base"],
+                "precio" => $data["precio"],
+                "iva" => $data["iva"],
+                "id_proveedor" => $data["id_proveedor"],
+                "id_marca" => $data["id_marca"],
+                "precio1" => $data["precio1"],
+                "precio2" => $data["precio2"],
+                "precio3" => $data["precio3"],
+                "stockmin" => $data["stockmin"],
+                "stockmax" => $data["stockmax"],
+                "push" => $data["push"],
+            ]);
+
+        }else if($type=="eliminar"){
+
+            inventario_sucursal::where("id_sucursal",$id_sucursal)->where("idinsucursal",$idinsucursal_producto)->delete();
         }
     }
 

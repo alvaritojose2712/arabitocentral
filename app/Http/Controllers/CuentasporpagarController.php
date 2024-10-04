@@ -1281,7 +1281,6 @@ class CuentasporpagarController extends Controller
                 //4 "Revisado"
 
                 $check_no_proce = pedidos::where("id_cxp",$id_cxp)->where("estado","1")->get();
-
                 if (!$check_no_proce) { 
                     foreach ($groupListbyIdSucursal as $id_sucursal => $e) {
                         $lastid = pedidos::orderBy("id","desc")->first("id");
