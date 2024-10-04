@@ -113,6 +113,12 @@ export default function Modalmovil({
                                     <i className="fa fa-link fa-2x"></i> <br /> #{e.idinsucursal}
                                 </button>
                             :null}
+
+                            {id_sucursal_select?
+                                <button className="btn btn-outline-success" onClick={()=>linkproductocentralsucursal(e.idinsucursal,e.id_sucursal)}>
+                                    <i className="fa fa-link fa-2x"></i> <br /> #{e.idinsucursal}
+                                </button>
+                            :null}
                         </td>
                         <td>{e.codigo_proveedor}</td>
                         <td>{e.codigo_barras}</td>

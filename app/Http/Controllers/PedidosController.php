@@ -375,6 +375,8 @@ class PedidosController extends Controller
 
         return pedidos::with(["origen","destino","sucursal","items"=>function($q){
             $q->with("producto");
+        },"cxp"=>function($q){
+            $q->with(["proveedor"]);
         }])
         ->when($qpedido, function($q) use ($qpedido) {
             $q->where(function($q) use($qpedido) {
@@ -398,7 +400,7 @@ class PedidosController extends Controller
         ->get()
         ->map(function($q){
             $q->base = $q->items->map(function($q){
-                return $q->producto->precio_base*$q->cantidad;
+                return $q->producto?$q->producto->precio_base*$q->cantidad:0;
             })->sum();
             $q->venta = $q->items->sum("monto");
             return $q;
@@ -419,21 +421,16 @@ class PedidosController extends Controller
         try {
             $id = $req->id;
             $ped = pedidos::find($id);
-
             if ($ped) {
-                if ($ped["estado"]!=2) {
-                    if ($id) {
-                       $items = items_pedidos::where("id_pedido",$id)->get();
+                if ($ped->estado==1) {
+                    items_pedidos::where("id_pedido",$id)->delete();
+                    pedidos::find($id)->delete();
 
-                        foreach ($items as $key => $value) {
-                           $this->hacer_pedido($value->id,$value->id_producto,99,"del");
-                        }
-                        pedidos::find($id)->delete();
-                        return Response::json(["msj"=>"Éxito al eliminar. Pedido #".$id,"estado"=>true]);
-                    }
+                    return Response::json(["msj"=>"Éxito al eliminar. Pedido #".$id,"estado"=>true]);
+                }else{
+                    return Response::json(["msj"=>"Error: Pedido ha sido RECIBIDO".$id,"estado"=>false]);
                 }
             }
-            
         } catch (\Exception $e) {
             return Response::json(["msj"=>"Error: ".$e->getMessage(),"estado"=>false]);
             

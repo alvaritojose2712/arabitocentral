@@ -45,6 +45,7 @@ export default function Comprascargarfactsdigitales({
     setfactInpImagen,
     numcuentasPorPagarDetalles,
     setnumcuentasPorPagarDetalles,
+    changeAprobarFact,
     
 }){
     /* useEffect(()=>{
@@ -311,6 +312,13 @@ export default function Comprascargarfactsdigitales({
                                     </td>
                                     <td className=" ">
                                         <span className={(e.monto<0? "text-danger": "text-success")+(" fs-3 fw-bold ")}>{moneda(e.monto)}</span>
+                                    </td>
+                                    <td>
+                                            {e.aprobado==0?
+                                                <button className="btn btn-success btn-sm" onClick={()=>changeAprobarFact(e.id, e.proveedor.id)}>APROBAR <i className="fa fa-check"></i></button>
+                                                :
+                                                <button className="btn btn-danger btn-sm" onClick={()=>changeAprobarFact(e.id, e.proveedor.id)}>DESAPROBAR <i className="fa fa-times"></i></button>
+                                            }
                                     </td>
                                 </>    
                             :null}

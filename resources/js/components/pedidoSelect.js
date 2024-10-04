@@ -10,92 +10,126 @@ export default function PedidoSelect({
 	aprobarRevisionPedido,
 }) {
 	return(
-		<div className="container">
-			<div className="text-center"><i className="text-danger fa fa-times" onClick={()=>setshowCantidadCarrito("procesar")}></i></div>
+		<div className="container-fluid p-3">
+			{/* <div className="text-center"><i className="text-danger fa fa-times" onClick={()=>setshowCantidadCarrito("procesar")}></i></div> */}
 			{pedidoData?
 				pedidoData.sucursal?
-					<div className="d-flex justify-content-between border p-1">
-            <div className="w-50">
-            	<div>
-            		<small className="text-muted fst-italic">{pedidoData.created_at}</small>
-            	</div>
-            	<div className="d-flex align-items-center">
-	            	<span className="fs-3 fw-bold">{pedidoData.sucursal.nombre}</span>
-	            	<span className="btn btn-secondary m-1">{pedidoData.id}</span>
-            		
-            	</div>
-            </div>
-            <div className="w-50 text-right">
-	            <span>
-            		<span className="h6 text-muted font-italic">Base. </span>
-            		<span className="h6 text-arabito">{moneda(pedidoData.base)}</span>
-	            </span>
-            	<br/>
+					<div className="card p-3">
 
-	            <span>
-            		<span className="h6 text-muted font-italic">Venta. </span>
-            		<span className="h3 text-success">{moneda(pedidoData.venta)}</span>
-	            </span>
-            	
-            	<br/><span className="h6 text-muted">Items. <b>{pedidoData.items.length}</b></span>
-            </div>
-          </div>
+						<table className="table">
+							<thead>
+								<tr>
+									<th>FECHA</th>
+									<th>CXP</th>
+									<th>ESTADO</th>
+									<th>ORIGEN</th>
+									<th>DESTINO</th>
+									<th>ID PED</th>
+									<th>ID PED IN SUC</th>
+									<th># ITEMS</th>
+									<th className="text-right">BASE</th>
+									<th className="text-right">VENTA</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<small className="text-muted">{pedidoData.created_at}</small>
+									</td>
+									<td>
+										{pedidoData.cxp?
+										<>
+											{pedidoData.cxp.numfact}
+											<br />
+											<b>{pedidoData.cxp.proveedor.descripcion}</b>
+										</>
+										:null}
+									</td>
+									<td className={(pedidoData.estado==1?"bg-danger":"")+(pedidoData.estado==3?"bg-warning":"")+(pedidoData.estado==4?"bg-info":"")+(pedidoData.estado==2?"bg-success":"")}>
+										{pedidoData.estado==1?"PENDIENTE":null}
+										{pedidoData.estado==3?"EN REVISIÓN":null}
+										{pedidoData.estado==4?"REVISADO":null}
+										{pedidoData.estado==2?"PROCESADO":null}
+									</td>
+									<td style={{backgroundColor:pedidoData.origen.background}}>
+										{pedidoData.origen.codigo}  
+									</td>
+									<td style={{backgroundColor:pedidoData.destino.background}}>
+										{pedidoData.destino.codigo}
+									</td>
+									<td>
+										{pedidoData.id}
+									</td>
+									<td>
+										{pedidoData.idinsucursal}
+									</td>
+									<td>
+										{pedidoData.items.length}
+									</td>
+									<th className="bg-base text-right">
+										{moneda(pedidoData.base)}
+									</th>
+									<th className="bg-venta text-right">
+										{moneda(pedidoData.venta)}
+									</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				:null
 			:null}
 			<table className="table">
 				<thead>
 					<tr>
-						<th className="cell2">Ct.</th>
-						<th className="cell2">Ct Real.</th>
+						<th className="">Ct.</th>
+						<th className="">Ct Real.</th>
 						
-						<th className="cell2">Barras</th>
-						<th className="cell2">Barras REAl</th>
+						<th className="">Barras</th>
+						<th className="">Barras REAl</th>
 
-						<th className="cell2">Alterno</th>
-						<th className="cell2">Alterno REAl</th>
+						<th className="">Alterno</th>
+						<th className="">Alterno REAl</th>
 						
-						<th className="cell4">Descripción <button className="btn btn-sm btn-outline-success" onClick={()=>setshowCantidadCarrito("buscar")}><i className="fa fa-plus"></i></button></th>
+						<th className="">Descripción</th>
 						
 						
-						<th className="cell2">P.U.</th>
-						<th className="cell2 text-right">Tot.</th>
+						<th className="">P.U.</th>
+						<th className=" text-right">Tot.</th>
 					</tr>
 				</thead>
 				<tbody>
 
 					{pedidoData?
 						pedidoData.items?pedidoData.items.map(e=>
-							<tr key={e.id} onDoubleClick={setDelCarrito} data-id={e.id} className="pointer">
-								<td className="align-middle cell2">
-									<span className="text-success fst-italic pointer" onClick={setCtCarrito} data-id={e.id}>{e.cantidad}</span>
+							<tr key={e.id} className="pointer">
+								<td className="">
+									<span className="pointer" onClick={setCtCarrito} data-id={e.id}>{e.cantidad}</span>
 								</td>
-								<td className="align-middle cell2">
-									<span className="text-sinapsis fst-italic pointer" data-id={e.id}>{e.ct_real}</span>
-								</td>
-
-								<td className="align-middle cell2">
-									<span className="text-success fst-italic pointer" data-id={e.id}>{e.producto.codigo_barras}</span>
-								</td>
-								<td className="align-middle cell2">
-									<span className="text-sinapsis fst-italic pointer" data-id={e.id}>{e.barras_real}</span>
+								<td className="">
+									<span className="fst-italic pointer" data-id={e.id}>{e.ct_real}</span>
 								</td>
 
-								<td className="align-middle cell2">
-									<span className="text-success fst-italic pointer" data-id={e.id}>{e.producto.codigo_proveedor}</span>
+								<td className="">
+									<span className="pointer" data-id={e.id}>{e.producto?e.producto.codigo_barras:null}</span>
 								</td>
-								<td className="align-middle cell2">
-									<span className="text-sinapsis fst-italic pointer" data-id={e.id}>{e.alterno_real}</span>
+								<td className="">
+									<span className="fst-italic pointer" data-id={e.id}>{e.barras_real}</span>
 								</td>
 
-
-
-								<td className="cell4"> 
-									<small>{e.producto.descripcion}</small> 
+								<td className="">
+									<span className="pointer" data-id={e.id}>{e.producto?e.producto.codigo_proveedor:null}</span>
 								</td>
-								<td className="align-middle cell2">
-									{e.producto.precio}
+								<td className="">
+									<span className="fst-italic pointer" data-id={e.id}>{e.alterno_real}</span>
 								</td>
-								<td className="align-middle cell2 text-right">
+
+								<td className=""> 
+									<small>{e.producto?e.producto.descripcion:null}</small> 
+								</td>
+								<td className="">
+									{e.producto?e.producto.precio:null}
+								</td>
+								<td className="">
 									{moneda(e.monto)}
 								</td>
 
@@ -105,15 +139,14 @@ export default function PedidoSelect({
 					:null}	
 				</tbody>
 			</table>
-			<small className="text-muted fst-italic">Doble click al producto para eliminarlo</small>
 			<div className="form-group d-flex justify-content-center align-items-center">
 				{pedidoData?
-					pedidoData.estado!=2?
-    				<button className="btn btn-circle btn-sm m-3 btn-outline-danger" onClick={delPedido}><i className="fa fa-times"></i></button>
+					pedidoData.estado==1?
+    					<button className="btn m-3 btn-danger" onClick={delPedido}><i className="fa fa-times"></i></button>
 					:null
 				:null}
 
-				<button className="btn btn-circle btn-xl m-3 btn-outline-success" title="Ver reporte sucursal" onClick={showPedidoBarras}><i className="fa fa-print fa-3x"></i></button>
+				<button className="btn m-3 btn-success" title="Ver reporte sucursal" onClick={showPedidoBarras}><i className="fa fa-print fa-3x"></i></button>
 				{pedidoData?
 					pedidoData.estado==3?
 						<button className="btn fs-3 m-3 btn-outline-success" title="Enviar a sucursal" onClick={aprobarRevisionPedido}>Aprobar Revisión</button>

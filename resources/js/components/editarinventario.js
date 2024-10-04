@@ -346,8 +346,6 @@ export default function Editarinventario({
                     getProductos={buscarInventarioModal}
                     productos={productosInventarioModal}
 
-
-                    
                     setproductosInventarioModal={setproductosInventarioModal}
                     InvnumModal={InvnumModal}
                     setInvnumModal={setInvnumModal}
@@ -358,8 +356,6 @@ export default function Editarinventario({
                     InvorderByModal={InvorderByModal}
                     setInvorderByModal={setInvorderByModal}
                     
-
-
                     margin={1}
                     inputbuscarcentralforvincular={inputbuscarcentralforvincular}
                     x={modalmovilx}

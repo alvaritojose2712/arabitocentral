@@ -117,12 +117,13 @@ export default function Pedidos({
 
 			/>
 		:null} */}
-		<div className="container">
-			<div className="btn-group mb-2">
-				{/* <button className="btn btn-sinapsis" onClick={()=>setshowCantidadCarrito("buscar")}>BUSCAR</button>
-				<button className="btn btn-sinapsis" onClick={()=>setshowCantidadCarrito("carrito")}>CARRITO</button> */}
-				<button className={"btn btn-"+(showCantidadCarrito=="procesar"?"":"outline-")+"sinapsis"} onClick={()=>setshowCantidadCarrito("procesar")}>PROCESAR</button>
-				<button className={"btn btn-"+(showCantidadCarrito=="pedidoSelect"?"":"outline-")+"sinapsis"} onClick={()=>setshowCantidadCarrito("pedidoSelect")}>PEDIDOSELECT</button>
+			<div className="d-flex justify-content-center">
+				<div className="btn-group mb-2">
+					{/* <button className="btn btn-sinapsis" onClick={()=>setshowCantidadCarrito("buscar")}>BUSCAR</button>
+					<button className="btn btn-sinapsis" onClick={()=>setshowCantidadCarrito("carrito")}>CARRITO</button> */}
+					<button className={"btn btn-"+(showCantidadCarrito=="procesar"?"":"outline-")+"sinapsis"} onClick={()=>setshowCantidadCarrito("procesar")}>LISTA</button>
+					<button className={"btn btn-"+(showCantidadCarrito=="pedidoSelect"?"":"outline-")+"sinapsis"} onClick={()=>setshowCantidadCarrito("pedidoSelect")}>DETALLES</button>
+				</div>
 			</div>
 			{showCantidadCarrito=="procesar"?
 				<PedidosList
@@ -168,10 +169,6 @@ export default function Pedidos({
 					showPedidoBarras={showPedidoBarras}
 				/>
 			:null}
-		</div>
-
-			
-
 		</>
 	)
 }

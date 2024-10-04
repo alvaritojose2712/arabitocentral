@@ -1976,18 +1976,7 @@ function Home() {
     getVentas()
   }, [selectfechaventa])
 
-  useEffect(() => {
-    getPedidos()
-  }, [
-    qpedido,
-    qpedidoDateFrom,
-    qpedidoDateTo,
-    qpedidoOrderBy,
-    qpedidoOrderByDescAsc,
-    qestadopedido,
-    qpedidosucursal,
-    qpedidosucursaldestino,
-  ])
+ 
 
 
   useEffect(() => {
@@ -2270,29 +2259,11 @@ function formatAmount( number, simbol ) {
       }
     }
   }
-  const selectPedido = e => {
-    setLoading(true)
-    let id;
-    if (e) {
-      id = e.currentTarget.attributes["data-id"].value
-    } else {
-      if (pedidoData.id) {
-        id = pedidoData.id
-      } else {
-        alert("No hay pedido seleccionado")
-      }
-    }
-
-    if (id) {
-      db.getPedido({ id }).then(res => {
-        setLoading(false)
-        setpedidoData(res.data)
-
-        if (res.data) {
-          setshowCantidadCarrito("pedidoSelect")
-        }
-
-      })
+  const selectPedido = id => {
+    let fil = pedidos.filter(e=>e.id==id)
+    if (fil.length) {
+      setpedidoData(fil[0])
+      setshowCantidadCarrito("pedidoSelect")
     }
   }
 
@@ -3280,10 +3251,12 @@ function formatAmount( number, simbol ) {
     })
   }
   const changeAprobarFact = (id) => {
-    db.changeAprobarFact({id}).then(res=>{
-      selectCuentaPorPagarProveedorDetallesFun()
-      setSelectCuentaPorPagarDetalle(null)
-    })
+    if (confirm("Confirme")) {
+      db.changeAprobarFact({id}).then(res=>{
+        selectCuentaPorPagarProveedorDetallesFun()
+        setSelectCuentaPorPagarDetalle(null)
+      })
+    }
   }
   
   useEffect(()=>{
@@ -6071,6 +6044,7 @@ function formatAmount( number, simbol ) {
                 permiso={permiso}
               />
               <ComprasCargarFactsDigitales
+                changeAprobarFact={changeAprobarFact}
                 setfactInpImagen={setfactInpImagen}
                 numfact_select_imagen={numfact_select_imagen}
                 showFilescxp={showFilescxp}
@@ -6603,7 +6577,19 @@ function formatAmount( number, simbol ) {
               />
               {subViewInventario == "gestion" ?
                 <ComprascargarFactsItems
-                  
+                  buscarInventarioModal={buscarInventarioModal}
+                  productosInventarioModal={productosInventarioModal}
+                  qBuscarInventarioModal={qBuscarInventarioModal}
+                  id_sucursal_select_internoModal={id_sucursal_select_internoModal}
+                  setid_sucursal_select_internoModal={setid_sucursal_select_internoModal}
+                  setproductosInventarioModal={setproductosInventarioModal}
+                  setqBuscarInventarioModal={setqBuscarInventarioModal}
+                  InvorderColumnModal={InvorderColumnModal}
+                  setInvorderColumnModal={setInvorderColumnModal}
+                  InvorderByModal={InvorderByModal}
+                  setInvorderByModal={setInvorderByModal}
+                  InvnumModal={InvnumModal}
+                  setInvnumModal={setInvnumModal}
 
                   modalmovilx={modalmovilx}
                   setmodalmovilx={setmodalmovilx}

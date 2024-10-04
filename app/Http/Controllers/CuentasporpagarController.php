@@ -1280,9 +1280,9 @@ class CuentasporpagarController extends Controller
                 //3 "En Revision"
                 //4 "Revisado"
 
-                $check_no_proce = pedidos::where("id_cxp",$id_cxp)->where("estado","<>","1")->get();
-              /*   return $ch
-                if (!$check_no_proce) { */
+                $check_no_proce = pedidos::where("id_cxp",$id_cxp)->where("estado","1")->get();
+
+                if (!$check_no_proce) { 
                     foreach ($groupListbyIdSucursal as $id_sucursal => $e) {
                         $lastid = pedidos::orderBy("id","desc")->first("id");
                         if (!$lastid) {
@@ -1323,9 +1323,9 @@ class CuentasporpagarController extends Controller
                     }
                     return Response::json(["msj"=>"$count Items Procesados".$codeError,"estado"=>true]);
 
-              /*   }else{
-                    return Response::json(["msj"=>"Error: Algún PEDIDO procesado","estado"=>false]);
-                } */
+                }else{
+                    return Response::json(["msj"=>"Error: Ya se TRANSFIRIÓ","estado"=>false]);
+                } 
 
                 
             }else{

@@ -162,7 +162,19 @@ export default function ComprascargarFactsItems({
     openVincularSucursalwithCentral,
     linkproductocentralsucursal,
 
-
+    buscarInventarioModal,
+    productosInventarioModal,
+    qBuscarInventarioModal,
+    id_sucursal_select_internoModal,
+    setid_sucursal_select_internoModal,
+    setproductosInventarioModal,
+    setqBuscarInventarioModal,
+    InvorderColumnModal,
+    setInvorderColumnModal,
+    InvorderByModal,
+    setInvorderByModal,
+    InvnumModal,
+    setInvnumModal,
 }){
 
     const [showInputGeneral, setshowInputGeneral] = useState(false)
@@ -303,26 +315,43 @@ export default function ComprascargarFactsItems({
 
    
 
-
     
     return (
         <>
             {modalmovilshow ? (
                 <Modalmovil
-                    inputbuscarcentralforvincular={inputbuscarcentralforvincular}
-                    getProductos={buscarInventario}
+                    getProductos={buscarInventarioModal}
+                    productos={productosInventarioModal}
 
+                    setproductosInventarioModal={setproductosInventarioModal}
+                    InvnumModal={InvnumModal}
+                    setInvnumModal={setInvnumModal}
+                    qBuscarInventarioModal={qBuscarInventarioModal}
+                    setqBuscarInventarioModal={setqBuscarInventarioModal}
+                    InvorderColumnModal={InvorderColumnModal}
+                    setInvorderColumnModal={setInvorderColumnModal}
+                    InvorderByModal={InvorderByModal}
+                    setInvorderByModal={setInvorderByModal}
+                    
                     margin={1}
+                    inputbuscarcentralforvincular={inputbuscarcentralforvincular}
                     x={modalmovilx}
                     y={modalmovily}
                     setmodalmovilshow={setmodalmovilshow}
                     modalmovilshow={modalmovilshow}
                     modalmovilRef={modalmovilRef}
-                    productos={productosInventario}
                     linkproductocentralsucursal={linkproductocentralsucursal}
                     id_sucursal_select={facturaSelectAddItemsSelect?facturaSelectAddItemsSelect.id_sucursal:null}
+                    sucursales={sucursales}
+                    id_sucursal_select_internoModal={id_sucursal_select_internoModal}
+                    setid_sucursal_select_internoModal={setid_sucursal_select_internoModal}
+
+                    idselectproductoinsucursalforvicular={idselectproductoinsucursalforvicular}
                 />
             ) : null}
+
+
+
 
             {subviewcargaritemsfact=="cargar"?
                 <>

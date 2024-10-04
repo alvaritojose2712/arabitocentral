@@ -27,4 +27,8 @@ class pedidos extends Model
     public function sucursal() { 
         return $this->hasOne(\App\Models\sucursal::class,"id","id_destino"); 
     }
+
+    public function cxp() { 
+        return $this->hasOne(\App\Models\cuentasporpagar::class,"id","id_cxp"); 
+    }
 }
