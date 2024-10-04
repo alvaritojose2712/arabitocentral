@@ -30,6 +30,9 @@ class ItemsPedidosController extends Controller
                         $items_pedidos->ct_real = isset($item["ct_real"])?$item["ct_real"]:null;
                         $items_pedidos->barras_real = isset($item["barras_real"])?$item["barras_real"]:null;
                         $items_pedidos->alterno_real = isset($item["alterno_real"])?$item["alterno_real"]:null;
+
+                        $items_pedidos->descripcion_real = isset($item["descripcion_real"])?$item["descripcion_real"]:null;
+                        $items_pedidos->vinculo_real = isset($item["vinculo_real"])?$item["vinculo_real"]:null;
                         $items_pedidos->save();
                     }
 

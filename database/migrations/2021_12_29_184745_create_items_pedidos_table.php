@@ -33,6 +33,9 @@ class CreateItemsPedidosTable extends Migration
             $table->string("barras_real")->nullable()->default(null);
             $table->string("alterno_real")->nullable()->default(null);
 
+            $table->string("descripcion_real")->nullable()->default(null);
+            $table->integer("vinculo_real")->nullable()->default(null);
+
             
             $table->timestamps();
 

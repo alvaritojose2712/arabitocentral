@@ -9,6 +9,8 @@ use App\Models\pedidos;
 use App\Models\inventario;
 use App\Models\sucursal;
 use App\Models\items_pedidos;
+use App\Models\vinculossucursales;
+
 use App\Http\Requests\StorepedidosRequest;
 use App\Http\Requests\UpdatepedidosRequest;
 
@@ -160,10 +162,23 @@ class PedidosController extends Controller
         ->get()
         ->map(function($q){
             $estado = $q->estado;
-            $q->items = $q->items->map(function($q) use ($estado){
+            $id_destino = $q->id_destino;
+            $q->items = $q->items->map(function($q) use ($estado,$id_destino){
                 if ($estado==4) {
                     $q->aprobado=true;
                 }
+                $idinsucursal_vinculo = null;
+
+                $vin = vinculossucursales::where("id_producto_local",$q->id_producto)->where("id_sucursal_fore",$id_destino)->first();
+                if ($vin) {
+                    $idinsucursal_vinculo =  $vin->idinsucursal_fore;
+                }
+                
+                $q->idinsucursal_vinculo = $idinsucursal_vinculo;
+
+
+
+
                 return $q;
             });
 

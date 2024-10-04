@@ -23,6 +23,12 @@ class items_pedidos extends Model
         "id_producto",
         "id_pedido",
         "cantidad",
+        "descuento",
         "monto",
+        "ct_real",
+        "barras_real",
+        "alterno_real",
+        "descripcion_real",
+        "vinculo_real",
     ];
 }
