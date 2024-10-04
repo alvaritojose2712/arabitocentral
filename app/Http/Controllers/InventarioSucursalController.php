@@ -572,6 +572,19 @@ class InventarioSucursalController extends Controller
             return Response::json(["estado"=>false]);
         }
     }
+    function clean($val,$type) {
+        $val = strtoupper($val);
+        
+        if ($type=="descripcion") {
+            return str_replace(["'",'"', '*'], "", $val) ;
+        }
+        if ($type=="codigo_barras" ) {
+            return str_replace(["'",'"', '*'," "], "", $val);
+        }
+        if ($type=="codigo_proveedor") {
+            return $val;
+        }
+    }
     function guardarmodificarInventarioDici(Request $req) {
         try {
             $msj = "";
@@ -580,16 +593,56 @@ class InventarioSucursalController extends Controller
                 if (isset($ee["type"])) {
                     if ($ee["type"]==="update"||$ee["type"]==="new") {
 
-
-                       $guardar = (new TareasSucursalesController)->setTarea($ee,1); 
-                        if ($guardar) {
-                            $num++;
-                        }else{
-                            return Response::json(["msj"=>$msj, "estado"=>false]);   
+                        if (isset($ee["id_sucursal"])) {
+                            if ($ee["id_sucursal"]!=13) {
+                                $guardar = (new TareasSucursalesController)->setTarea($ee,1); 
+                                 if ($guardar) {
+                                     $num++;
+                                 }else{
+                                     return Response::json(["msj"=>$msj, "estado"=>false]);   
+                                 }
+                            }else{
+                                $crearProducto = inventario_sucursal::updateOrCreate([
+                                    "id" => $ee["id"]? $ee["id"]:null
+                                ],[
+                                    "id_sucursal" => 13,
+                                    
+                                    "codigo_barras" => $this->clean(@$ee["codigo_barras"],"codigo_barras"),
+                                    "codigo_proveedor" => $this->clean(@$ee["codigo_proveedor"],"codigo_proveedor"),
+                                    "descripcion" => $this->clean(@$ee["descripcion"],"descripcion"),
+                                    "codigo_proveedor2" => @$ee["codigo_proveedor2"],
+                                    "id_deposito" => @$ee["id_deposito"],
+                                    "unidad" => @$ee["unidad"],
+                                    "iva" => @$ee["iva"],
+                                    "porcentaje_ganancia" => @$ee["porcentaje_ganancia"],
+                                    "precio_base" => @$ee["precio_base"],
+                                    "precio" => @$ee["precio"],
+                                    "precio1" => @$ee["precio1"],
+                                    "precio2" => @$ee["precio2"],
+                                    "precio3" => @$ee["precio3"],
+                                    "bulto" => @$ee["bulto"],
+                                    "cantidad" => @$ee["cantidad"],
+                                    "push" => @$ee["push"],
+                                    "id_vinculacion" => @$ee["id_vinculacion"],
+                                    "n1" => @$ee["n1"],
+                                    "n2" => @$ee["n2"],
+                                    "n3" => @$ee["n3"],
+                                    "n4" => @$ee["n4"],
+                                    "n5" => @$ee["n5"],
+                                    "id_proveedor" => @$ee["id_proveedor"],
+                                    "id_categoria" => @$ee["id_categoria"],
+                                    "id_catgeneral" => @$ee["id_catgeneral"],
+                                    "id_marca" => @$ee["id_marca"],
+                                    "id_marca" => @$ee["id_marca"],
+                                    "stockmin" => @$ee["stockmin"],
+                                    "stockmax" => @$ee["stockmax"],
+                                ]); 
+                            }
                         }
                     }else if ($ee["type"]==="delete") {
                         //$this->delProductoFun($ee["id"]);
                     }
+
                 }   
             }
             return Response::json(["msj"=> "PROCESADOS: ".count($req->lotes)." / ".$num, "estado"=>true]);   

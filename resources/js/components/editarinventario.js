@@ -376,6 +376,9 @@ export default function Editarinventario({
                     idselectproductoinsucursalforvicular={idselectproductoinsucursalforvicular}
                 />
             ) : null}
+
+            
+
                 <div className="row">
                     <div className="col">
                         <form className="input-group" onSubmit={e=>{e.preventDefault();buscarInventario()}}>
@@ -401,9 +404,14 @@ export default function Editarinventario({
                         </form>
                     </div>
                     <div className="col-sm text-right">
-                        <div className="btn btn-success text-light" onClick={guardarmodificarInventarioDici}><i className="fa fa-send"></i> GUARDAR</div>
+                        <div className="btn-group">
+                            <div className="btn btn-warning" onClick={() => changeInventarioModificarDici(null, null, "add")}><i className="fa fa-plus"></i></div>
+                            <div className="btn btn-success text-light" onClick={guardarmodificarInventarioDici}><i className="fa fa-send"></i> GUARDAR</div>
+                        </div>
                     </div>
                 </div>
+
+
             <table className="table">
                 <thead>
                     <tr>
@@ -517,7 +525,9 @@ export default function Editarinventario({
                                 <input type="text" className="form-control form-control-sm"  value={stockmaxvaluegeneral} onChange={e=>setstockmaxvaluegeneral(e.target.value)}/>
                             </form>
                         </th>
-                        <th>INV</th>
+                        <th>
+                            INV <i className="fa fa-refresh" onClick={()=>getDatinputSelectVinculacion()}></i>
+                        </th>
                     </tr>
                 </thead>
                 {productosInventario.length?productosInventario.map((e,i)=>
@@ -544,8 +554,8 @@ export default function Editarinventario({
                                 </small>
                             </td>
                             <td>
-                                <button className={"btn w-100 fw-bolder fs-5"} style={{backgroundColor:colorSucursal(e.sucursal.codigo)}}>
-                                    {e.sucursal.codigo}
+                                <button className={"btn w-100 fw-bolder fs-5"} style={{backgroundColor:colorSucursal(e.sucursal?e.sucursal.codigo:"")}}>
+                                    {e.sucursal?e.sucursal.codigo:""}
                                 </button>
                             </td>
                             <td>
@@ -590,7 +600,7 @@ export default function Editarinventario({
                                 </>
                                 :
                                     <div className="d-flex justify-content-between">
-                                        <textarea className="form-control" onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "descripcion")} value={e.descripcion}></textarea>
+                                        <textarea className="form-control" cols="120" onChange={event=>changeInventarioModificarDici(event.target.value, i, "changeInput", "descripcion")} value={e.descripcion}></textarea>
                                         {e.id_sucursal==13?
                                             <button
                                                 type="button"

@@ -13871,11 +13871,22 @@ function Editarinventario(_ref) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "col-sm text-right",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "btn btn-success text-light",
-          onClick: guardarmodificarInventarioDici,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-            className: "fa fa-send"
-          }), " GUARDAR"]
+          className: "btn-group",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: "btn btn-warning",
+            onClick: function onClick() {
+              return changeInventarioModificarDici(null, null, "add");
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+              className: "fa fa-plus"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "btn btn-success text-light",
+            onClick: guardarmodificarInventarioDici,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+              className: "fa fa-send"
+            }), " GUARDAR"]
+          })]
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
@@ -14256,8 +14267,13 @@ function Editarinventario(_ref) {
                 }
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-            children: "INV"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("th", {
+            children: ["INV ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+              className: "fa fa-refresh",
+              onClick: function onClick() {
+                return getDatinputSelectVinculacion();
+              }
+            })]
           })]
         })
       }), productosInventario.length ? productosInventario.map(function (e, i) {
@@ -14283,9 +14299,9 @@ function Editarinventario(_ref) {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
                 className: "btn w-100 fw-bolder fs-5",
                 style: {
-                  backgroundColor: colorSucursal(e.sucursal.codigo)
+                  backgroundColor: colorSucursal(e.sucursal ? e.sucursal.codigo : "")
                 },
-                children: e.sucursal.codigo
+                children: e.sucursal ? e.sucursal.codigo : ""
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
               children: type(e.type) ? e.codigo_proveedor : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
@@ -14348,6 +14364,7 @@ function Editarinventario(_ref) {
                 className: "d-flex justify-content-between",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("textarea", {
                   className: "form-control",
+                  cols: "120",
                   onChange: function onChange(event) {
                     return changeInventarioModificarDici(event.target.value, i, "changeInput", "descripcion");
                   },
@@ -80141,21 +80158,36 @@ function Home() {
         break;
       case "add":
         var pro = "";
-        var newObj = [{
+        var newObj = [_defineProperty(_defineProperty(_defineProperty(_defineProperty({
           id: null,
+          id_sucursal: 13,
+          codigo_barras: "",
+          codigo_proveedor: "",
+          codigo_proveedor2: "",
+          id_deposito: "",
+          unidad: "",
+          descripcion: "",
+          iva: "",
+          porcentaje_ganancia: "",
+          precio_base: "",
+          precio: "",
+          precio1: "",
+          precio2: "",
+          precio3: "",
+          bulto: "",
+          cantidad: "",
+          push: 0,
+          id_vinculacion: "",
           n1: "",
           n2: "",
           n3: "",
           n4: "",
           n5: "",
-          id_marca: "",
           id_proveedor: "",
           id_categoria: "",
           id_catgeneral: "",
-          stockmin: "",
-          stockmax: "",
-          type: "new"
-        }];
+          id_marca: ""
+        }, "id_marca", ""), "stockmin", ""), "stockmax", ""), "type", "new")];
         obj = newObj.concat(obj);
         break;
       case "delMode":
@@ -82453,8 +82485,8 @@ function Home() {
     event.preventDefault();
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delPersonalNomina({
       id: indexSelectNomina
-    }).then(function (_ref) {
-      var data = _ref.data;
+    }).then(function (_ref2) {
+      var data = _ref2.data;
       if (data.estado) {
         getPersonalNomina();
       }
@@ -82476,8 +82508,8 @@ function Home() {
       nominaid_sucursal_disponible: nominaid_sucursal_disponible,
       nominaactivo: nominaactivo,
       id: indexSelectNomina
-    }).then(function (_ref2) {
-      var data = _ref2.data;
+    }).then(function (_ref3) {
+      var data = _ref3.data;
       if (data.estado) {
         getPersonalNomina();
         setshownewpersonal(false);
@@ -82510,8 +82542,8 @@ function Home() {
       qSucursalNominaOrdenCampo: qSucursalNominaOrdenCampo,
       qSucursalNominaEstatus: qSucursalNominaEstatus,
       type: subViewNomina
-    }).then(function (_ref3) {
-      var data = _ref3.data;
+    }).then(function (_ref4) {
+      var data = _ref4.data;
       setnominaData(data);
     });
   };
@@ -82520,8 +82552,8 @@ function Home() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getPersonalNomina({
       qNomina: qNomina,
       type: "buscar"
-    }).then(function (_ref4) {
-      var data = _ref4.data;
+    }).then(function (_ref5) {
+      var data = _ref5.data;
       setnominaData(data);
       if (callback !== null) {
         callback(data);
@@ -82548,8 +82580,8 @@ function Home() {
   var delPersonalCargos = function delPersonalCargos() {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delPersonalCargos({
       id: indexSelectCargo
-    }).then(function (_ref5) {
-      var data = _ref5.data;
+    }).then(function (_ref6) {
+      var data = _ref6.data;
       if (data.estado) {
         getPersonalCargos();
       }
@@ -82562,8 +82594,8 @@ function Home() {
       cargosDescripcion: cargosDescripcion,
       cargosSueldo: cargosSueldo,
       id: indexSelectCargo
-    }).then(function (_ref6) {
-      var data = _ref6.data;
+    }).then(function (_ref7) {
+      var data = _ref7.data;
       if (data.estado) {
         getPersonalCargos(null);
       }
@@ -82576,8 +82608,8 @@ function Home() {
     }
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].getPersonalCargos({
       qCargos: qCargos
-    }).then(function (_ref7) {
-      var data = _ref7.data;
+    }).then(function (_ref8) {
+      var data = _ref8.data;
       setcargosData(data);
     });
   };
