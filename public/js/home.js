@@ -22507,7 +22507,7 @@ function ComprascargarFactsItems(_ref) {
                     })]
                   })
                 }), productosInventario.length ? productosInventario.map(function (e, i) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tbody", {
+                  return e ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tbody", {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
                       className: " align-bottom border-top border-top-1 border-dark pointer " + (e.type_vinculo ? e.type_vinculo == "maestro" ? "bg-vinculo-maestro" : "bg-vinculo-sucursal" : null),
                       onDoubleClick: function onDoubleClick() {
@@ -23001,7 +23001,7 @@ function ComprascargarFactsItems(_ref) {
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {})]
                       })
                     }) : null]
-                  }, i);
+                  }, i) : null;
                 }) : null]
               })
             })]

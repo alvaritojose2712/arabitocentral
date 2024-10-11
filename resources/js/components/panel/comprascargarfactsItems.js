@@ -615,333 +615,335 @@ export default function ComprascargarFactsItems({
                                             </tr>
                                         </thead>
                                             {productosInventario.length?productosInventario.map((e,i)=>
-                                                <tbody key={i}>
-                                                    <tr className={(" align-bottom border-top border-top-1 border-dark pointer ")+(
-                                                        e.type_vinculo?
-                                                            e.type_vinculo=="maestro"?"bg-vinculo-maestro":"bg-vinculo-sucursal"
-                                                        :null
-                                                    )} onDoubleClick={() => changeInventario(null, i, "update")}>
-                                                        <td>{i+1}</td>
-                                                        <td className="">
-                                                            {e.id}
-                                                        </td>
-                                                        {type(e.type)?
-                                                        <>
-                                                            <th className="">{e.codigo_proveedor}</th>
-                                                            <th className="">{e.codigo_barras}</th>
-                                                            <th className="">{e.unidad}</th>
-                                                            <th className="">{e.descripcion}</th>
-                                                            <th className="bg-ct"></th>
-                                                            <th className=""></th>
-                                                            <th className="bg-base">{e.precio_base}</th>
-                                                            <th className="bg-venta">{e.precio}</th>
-                                                            <th className="">{e.categoria?e.categoria.descripcion:null}</th>
-                                                            <th className="">{e.catgeneral?e.catgeneral.descripcion:null}</th>
-                                                            <th className="">{e.iva}</th> 
-                                                        </>
+                                                e?
+                                                    <tbody key={i}>
+                                                        <tr className={(" align-bottom border-top border-top-1 border-dark pointer ")+(
+                                                            e.type_vinculo?
+                                                                e.type_vinculo=="maestro"?"bg-vinculo-maestro":"bg-vinculo-sucursal"
+                                                            :null
+                                                        )} onDoubleClick={() => changeInventario(null, i, "update")}>
+                                                            <td>{i+1}</td>
+                                                            <td className="">
+                                                                {e.id}
+                                                            </td>
+                                                            {type(e.type)?
+                                                            <>
+                                                                <th className="">{e.codigo_proveedor}</th>
+                                                                <th className="">{e.codigo_barras}</th>
+                                                                <th className="">{e.unidad}</th>
+                                                                <th className="">{e.descripcion}</th>
+                                                                <th className="bg-ct"></th>
+                                                                <th className=""></th>
+                                                                <th className="bg-base">{e.precio_base}</th>
+                                                                <th className="bg-venta">{e.precio}</th>
+                                                                <th className="">{e.categoria?e.categoria.descripcion:null}</th>
+                                                                <th className="">{e.catgeneral?e.catgeneral.descripcion:null}</th>
+                                                                <th className="">{e.iva}</th> 
+                                                            </>
 
-                                                        :
-                                                        <>
-                                                            <td className="align-top">
-                                                                <div className="input-group">
-                                                                    {e.type_vinculo?
-                                                                        <button onClick={()=>{if(e.type_vinculo!="maestro")getotrasopcionesalterno(i)}} className={("btn me-2 ")+(e.type_vinculo=="maestro"?"bg-vinculo-maestro-fuerte":"bg-vinculo-sucursal-fuerte")}>
-                                                                            <i className="fa fa-check"></i>
-                                                                        </button>
-                                                                    :null}
+                                                            :
+                                                            <>
+                                                                <td className="align-top">
+                                                                    <div className="input-group">
+                                                                        {e.type_vinculo?
+                                                                            <button onClick={()=>{if(e.type_vinculo!="maestro")getotrasopcionesalterno(i)}} className={("btn me-2 ")+(e.type_vinculo=="maestro"?"bg-vinculo-maestro-fuerte":"bg-vinculo-sucursal-fuerte")}>
+                                                                                <i className="fa fa-check"></i>
+                                                                            </button>
+                                                                        :null}
+                                                                        <input type="text"
+                                                                            disabled={type(e.type)} className="form-control form-control-sm"
+                                                                            value={!e.codigo_proveedor?"":e.codigo_proveedor}
+                                                                            onChange={e => changeInventario((e.target.value), i, "changeInput", "codigo_proveedor")}
+                                                                            placeholder="codigo_proveedor..." />
+                                                                    </div>
+
+                                                                        {e.type_vinculo?
+                                                                            <>
+                                                                                {e.type_vinculo=="maestro"?
+                                                                                    <small className="text-dorado">
+                                                                                        VINCULO MAESTRO
+                                                                                    </small>
+                                                                                :
+                                                                                    <small className="text-primary">
+                                                                                        VINCULO CON SUCURSAL {e.type_vinculo}
+                                                                                    </small>
+                                                                                }
+                                                                            </>
+                                                                        :null}
+                                                                        {/* <button className="btn btn-success mt-2" onClick={()=>getBarrasCargaItems(i)}>Obtener Barras</button> */}
+                                                                        {indexotrasopcionesalterno==i?
+                                                                            <table className="table">
+                                                                                <tbody>
+                                                                                    {dataotrasopcionesalterno.length?
+                                                                                        dataotrasopcionesalterno.map(ee=>
+                                                                                            <tr key={ee.id} className="hover" onClick={()=>setotrasopcionesalterno(i,ee.id)}>
+                                                                                                <th><i>{ee.codigo_barras}</i></th>
+                                                                                                <td>{ee.descripcion}</td>
+                                                                                                <td><button className="btn w-100" style={{backgroundColor:ee.sucursal.background}}>{ee.sucursal.codigo}</button></td>
+                                                                                            </tr>
+                                                                                        )
+                                                                                    :null}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        :null}
+                                                                </td>
+                                                                <td className="align-top">
                                                                     <input type="text"
                                                                         disabled={type(e.type)} className="form-control form-control-sm"
-                                                                        value={!e.codigo_proveedor?"":e.codigo_proveedor}
-                                                                        onChange={e => changeInventario((e.target.value), i, "changeInput", "codigo_proveedor")}
-                                                                        placeholder="codigo_proveedor..." />
-                                                                </div>
+                                                                        value={!e.codigo_barras?"":e.codigo_barras}
+                                                                        onChange={e => changeInventario((e.target.value), i, "changeInput", "codigo_barras")}
+                                                                        placeholder="codigo_barras..." />
+                                                                        {!e.codigo_barras_antes?"": <span className="text-muted fst-italic">{e.codigo_barras_antes}</span> }
 
-                                                                    {e.type_vinculo?
-                                                                        <>
-                                                                            {e.type_vinculo=="maestro"?
-                                                                                <small className="text-dorado">
-                                                                                    VINCULO MAESTRO
-                                                                                </small>
-                                                                            :
-                                                                                <small className="text-primary">
-                                                                                    VINCULO CON SUCURSAL {e.type_vinculo}
-                                                                                </small>
-                                                                            }
-                                                                        </>
-                                                                    :null}
-                                                                    {/* <button className="btn btn-success mt-2" onClick={()=>getBarrasCargaItems(i)}>Obtener Barras</button> */}
-                                                                    {indexotrasopcionesalterno==i?
-                                                                        <table className="table">
-                                                                            <tbody>
-                                                                                {dataotrasopcionesalterno.length?
-                                                                                    dataotrasopcionesalterno.map(ee=>
-                                                                                        <tr key={ee.id} className="hover" onClick={()=>setotrasopcionesalterno(i,ee.id)}>
-                                                                                            <th><i>{ee.codigo_barras}</i></th>
-                                                                                            <td>{ee.descripcion}</td>
-                                                                                            <td><button className="btn w-100" style={{backgroundColor:ee.sucursal.background}}>{ee.sucursal.codigo}</button></td>
-                                                                                        </tr>
-                                                                                    )
-                                                                                :null}
-                                                                            </tbody>
-                                                                        </table>
-                                                                    :null}
-                                                            </td>
-                                                            <td className="align-top">
-                                                                <input type="text"
-                                                                    disabled={type(e.type)} className="form-control form-control-sm"
-                                                                    value={!e.codigo_barras?"":e.codigo_barras}
-                                                                    onChange={e => changeInventario((e.target.value), i, "changeInput", "codigo_barras")}
-                                                                    placeholder="codigo_barras..." />
-                                                                    {!e.codigo_barras_antes?"": <span className="text-muted fst-italic">{e.codigo_barras_antes}</span> }
-
-                                                            </td>
-                                                            <td className="align-top">
-                                                                <select
-                                                                    disabled={type(e.type)}
-                                                                    className="form-control form-control-sm"
-                                                                    value={!e.unidad?"":e.unidad}
-                                                                    onChange={e => changeInventario((e.target.value), i, "changeInput", "unidad")}
-                                                                >
-                                                                    <option value="">--Select--</option>
-                                                                    <option value="UND">UND</option>
-                                                                    <option value="PAR">PAR</option>
-                                                                    <option value="JUEGO">JUEGO</option>
-                                                                    <option value="PQT">PQT</option>
-                                                                    <option value="MTR">MTR</option>
-                                                                    <option value="KG">KG</option>
-                                                                    <option value="GRS">GRS</option>
-                                                                    <option value="LTR">LTR</option>
-                                                                    <option value="ML">ML</option>
-                                                                </select>
-                                                            </td>
-                                                            <td className="align-top">
-                                                                <textarea type="text"
-                                                                    cols={100}
-                                                                    rows={3}
-                                                                    disabled={type(e.type)} className="form-control form-control-sm"
-                                                                    value={!e.descripcion?"":e.descripcion}
-                                                                    onChange={e => changeInventario((e.target.value), i, "changeInput", "descripcion")}
-                                                                    placeholder="descripcion..."></textarea>
-                                                                    {!e.descripcion_antes?"": <span className="text-muted fst-italic">{e.descripcion_antes}</span> }
-
-                                                            </td>
-                                                            <td className="align-top">
-                                                                <input type="text"
-                                                                    disabled={type(e.type)} className="form-control form-control-sm"
-                                                                    value={!e.cantidad?"":e.cantidad}
-                                                                    onChange={e => changeInventario((e.target.value), i, "changeInput", "cantidad")}
-                                                                    placeholder="Cantidad..."/>
-                                                            </td>
-                                                            <td className="align-top">
-                                                                <input type="text"
-                                                                    disabled={type(e.type)} className="form-control form-control-sm"
-                                                                    value={!e.basef?"":e.basef}
-                                                                    onChange={e => changeInventario((e.target.value), i, "changeInput", "basef")}
-                                                                    placeholder="Base F..."/>
-                                                            </td>
-                                                            <td className="align-top bg-base">
-                                                                <input type="text"
-                                                                    disabled={type(e.type)} className="form-control form-control-sm"
-                                                                    value={!e.precio_base?"":e.precio_base}
-                                                                    onChange={e => changeInventario(number(e.target.value), i, "changeInput", "precio_base")}
-                                                                    placeholder="Costo..." />
-                                                            </td>
-                                                            <td className="align-top bg-venta"> 
-                                                                <input type="text"
-                                                                    disabled={type(e.type)} className="form-control form-control-sm"
-                                                                    value={!e.precio?"":e.precio}
-                                                                    onChange={e => changeInventario(number(e.target.value), i, "changeInput", "precio")}
-                                                                    placeholder="Venta..." />
-                                                            </td>
-                                                            {/* <td className="align-top">
-                                                                <select
-                                                                    disabled={type(e.type)} 
-                                                                    className="form-control form-control-sm"
-                                                                    value={!e.id_marca?"":e.id_marca}
-                                                                    onChange={e => changeInventario((e.target.value), i, "changeInput", "id_marca")}
-                                                                >
-                                                                    <option value="">--Select--</option>
-                                                                    {marcas.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
-                                                                    
-                                                                </select>
-                                                            </td> */}
-
-                                                            <td className="align-top">
-                                                                <select
-                                                                    disabled={type(e.type)} 
-                                                                    className="form-control form-control-sm"
-                                                                    value={!e.id_categoria?"":e.id_categoria}
-                                                                    onChange={e => changeInventario((e.target.value), i, "changeInput", "id_categoria")}
-                                                                >
-                                                                    <option value="">--Select--</option>
-                                                                    {categorias.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
-                                                                    
+                                                                </td>
+                                                                <td className="align-top">
+                                                                    <select
+                                                                        disabled={type(e.type)}
+                                                                        className="form-control form-control-sm"
+                                                                        value={!e.unidad?"":e.unidad}
+                                                                        onChange={e => changeInventario((e.target.value), i, "changeInput", "unidad")}
+                                                                    >
+                                                                        <option value="">--Select--</option>
+                                                                        <option value="UND">UND</option>
+                                                                        <option value="PAR">PAR</option>
+                                                                        <option value="JUEGO">JUEGO</option>
+                                                                        <option value="PQT">PQT</option>
+                                                                        <option value="MTR">MTR</option>
+                                                                        <option value="KG">KG</option>
+                                                                        <option value="GRS">GRS</option>
+                                                                        <option value="LTR">LTR</option>
+                                                                        <option value="ML">ML</option>
                                                                     </select>
+                                                                </td>
+                                                                <td className="align-top">
+                                                                    <textarea type="text"
+                                                                        cols={100}
+                                                                        rows={3}
+                                                                        disabled={type(e.type)} className="form-control form-control-sm"
+                                                                        value={!e.descripcion?"":e.descripcion}
+                                                                        onChange={e => changeInventario((e.target.value), i, "changeInput", "descripcion")}
+                                                                        placeholder="descripcion..."></textarea>
+                                                                        {!e.descripcion_antes?"": <span className="text-muted fst-italic">{e.descripcion_antes}</span> }
+
+                                                                </td>
+                                                                <td className="align-top">
+                                                                    <input type="text"
+                                                                        disabled={type(e.type)} className="form-control form-control-sm"
+                                                                        value={!e.cantidad?"":e.cantidad}
+                                                                        onChange={e => changeInventario((e.target.value), i, "changeInput", "cantidad")}
+                                                                        placeholder="Cantidad..."/>
+                                                                </td>
+                                                                <td className="align-top">
+                                                                    <input type="text"
+                                                                        disabled={type(e.type)} className="form-control form-control-sm"
+                                                                        value={!e.basef?"":e.basef}
+                                                                        onChange={e => changeInventario((e.target.value), i, "changeInput", "basef")}
+                                                                        placeholder="Base F..."/>
+                                                                </td>
+                                                                <td className="align-top bg-base">
+                                                                    <input type="text"
+                                                                        disabled={type(e.type)} className="form-control form-control-sm"
+                                                                        value={!e.precio_base?"":e.precio_base}
+                                                                        onChange={e => changeInventario(number(e.target.value), i, "changeInput", "precio_base")}
+                                                                        placeholder="Costo..." />
+                                                                </td>
+                                                                <td className="align-top bg-venta"> 
+                                                                    <input type="text"
+                                                                        disabled={type(e.type)} className="form-control form-control-sm"
+                                                                        value={!e.precio?"":e.precio}
+                                                                        onChange={e => changeInventario(number(e.target.value), i, "changeInput", "precio")}
+                                                                        placeholder="Venta..." />
+                                                                </td>
+                                                                {/* <td className="align-top">
+                                                                    <select
+                                                                        disabled={type(e.type)} 
+                                                                        className="form-control form-control-sm"
+                                                                        value={!e.id_marca?"":e.id_marca}
+                                                                        onChange={e => changeInventario((e.target.value), i, "changeInput", "id_marca")}
+                                                                    >
+                                                                        <option value="">--Select--</option>
+                                                                        {marcas.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
+                                                                        
+                                                                    </select>
+                                                                </td> */}
+
+                                                                <td className="align-top">
+                                                                    <select
+                                                                        disabled={type(e.type)} 
+                                                                        className="form-control form-control-sm"
+                                                                        value={!e.id_categoria?"":e.id_categoria}
+                                                                        onChange={e => changeInventario((e.target.value), i, "changeInput", "id_categoria")}
+                                                                    >
+                                                                        <option value="">--Select--</option>
+                                                                        {categorias.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
+                                                                        
+                                                                        </select>
+                                                                
+                                                                </td>
+                                                                <td className="align-top">
+                                                                    <select
+                                                                        disabled={type(e.type)} 
+                                                                        className="form-control form-control-sm"
+                                                                        value={!e.id_catgeneral?"":e.id_catgeneral}
+                                                                        onChange={e => changeInventario((e.target.value), i, "changeInput", "id_catgeneral")}
+                                                                    >
+                                                                        <option value="">--Select--</option>
+                                                                        {catGenerals.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
+                                                                        
+                                                                    </select>
+                                                                </td>
+                                                                <td className="align-top">
+                                                                    <input type="text"
+                                                                        disabled={type(e.type)} className="form-control form-control-sm"
+                                                                        value={!e.iva?"":e.iva}
+                                                                        onChange={e => changeInventario(number(e.target.value,2), i, "changeInput", "iva")}
+                                                                        placeholder="iva..." />
+                                                                </td> 
+                                                            </>
+                                                            }
+                                                                <td className="align-top">
+                                                                    <div className='d-flex justify-content-between'>
+                                                                        {!e.type ?
+                                                                            <>
+                                                                                <span className="btn-sm btn btn-danger" onClick={() => changeInventario(null, i, "delMode")}><i className="fa fa-trash"></i></span>
+                                                                                <span className="btn-sm btn btn-warning" onClick={() => changeInventario(null, i, "update")}><i className="fa fa-pencil"></i></span>
+                                                                            </>
+                                                                            : null}
+                                                                        {e.type === "new" ?
+                                                                            <span className="btn-sm btn btn-danger" onClick={() => changeInventario(null, i, "delNew")}><i className="fa fa-times"></i></span>
+                                                                            : null}
+                                                                        {e.type === "update" ?
+                                                                            <span className="btn-sm btn btn-warning" onClick={() => changeInventario(null, i, "delModeUpdateDelete")}><i className="fa fa-times"></i></span>
+                                                                            : null}
+                                                                        {e.type === "delete" ?
+                                                                            <span className="btn-sm btn btn-danger" onClick={() => changeInventario(null, i, "delModeUpdateDelete")}><i className="fa fa-arrow-left"></i></span>
+                                                                            : null}
+                                                                    </div>
+                                                                </td>
                                                             
+                                                        </tr>
+                                                        <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
+                                                            <td colSpan={4}></td>
+                                                            <td>
+                                                                <table className="table table-sm">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                {e.n1? e.n1+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion1:"")}</span>}
+                                                                            </td>
+                                                                            <td>
+                                                                                {e.n2? e.n2+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion2:"")}</span>}
+                                                                            </td>
+                                                                            <td>
+                                                                                {e.n3? e.n3+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion3:"")}</span>}
+                                                                            </td>
+                                                                            <td>
+                                                                                {e.marca? e.marca+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacionmarca:"")}</span>}
+
+                                                                            </td>
+                                                                        </tr>
+                                                                        {selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?<>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input type="text" className="" value={qvinculacion1} onChange={event=>setqvinculacion1(event.target.value)} placeholder="N1" />
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    <input type="text" className="" value={qvinculacion2} onChange={event=>setqvinculacion2(event.target.value)} placeholder="N2" />
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    <input type="text" className="" value={qvinculacion3} onChange={event=>setqvinculacion3(event.target.value)} placeholder="N3" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text" className="" value={qvinculacionmarca} onChange={event=>setqvinculacionmarca(event.target.value)} placeholder="Marca" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <select type="text" className=" text-primary" value={inputselectvinculacion1} onChange={()=>setinputselectvinculacion1} placeholder="VIN 1">
+                                                                                        <option value=""></option>
+                                                                                        {datavinculacion1.map(data=>
+                                                                                            <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                                                                        )}
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select type="text" className=" text-info" value={inputselectvinculacion2} onChange={()=>setinputselectvinculacion2} placeholder="VIN 2">
+                                                                                        <option value=""></option>
+                                                                                        {datavinculacion2.map(data=>
+                                                                                            <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                                                                        )}
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select type="text" className=" text-sinapsis" value={inputselectvinculacion3} onChange={()=>setinputselectvinculacion3} placeholder="VIN 3">
+                                                                                        <option value=""></option>
+                                                                                        {datavinculacion3.map(data=>
+                                                                                            <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                                                                        )}
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select type="text" className=" text-success" value={inputselectvinculacionmarca} onChange={()=>setinputselectvinculacionmarca} placeholder="VIN marca">
+                                                                                    <option value=""></option>
+                                                                                    {datavinculacionmarca.map(data=>
+                                                                                        <option value={data.descripcion} key={data.id}>{data.descripcion}</option>
+                                                                                    )}</select>
+                                                                                </td>
+                                                                            </tr>
+                                                                        
+                                                                        </>:null}
+                                                                    </tbody>
+                                                                </table>
+                                                                {selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?<>
+                                                                    <button className="btn btn-success" type="button" onClick={()=>saveCuatroNombres()}>GUARDAR</button>
+                                                                </>:null}
+                                                            
+                                                                    {/* {e.n4? e.n4+"  ":""} */}
                                                             </td>
-                                                            <td className="align-top">
-                                                                <select
-                                                                    disabled={type(e.type)} 
-                                                                    className="form-control form-control-sm"
-                                                                    value={!e.id_catgeneral?"":e.id_catgeneral}
-                                                                    onChange={e => changeInventario((e.target.value), i, "changeInput", "id_catgeneral")}
-                                                                >
-                                                                    <option value="">--Select--</option>
-                                                                    {catGenerals.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
-                                                                    
-                                                                </select>
-                                                            </td>
-                                                            <td className="align-top">
-                                                                <input type="text"
-                                                                    disabled={type(e.type)} className="form-control form-control-sm"
-                                                                    value={!e.iva?"":e.iva}
-                                                                    onChange={e => changeInventario(number(e.target.value,2), i, "changeInput", "iva")}
-                                                                    placeholder="iva..." />
-                                                            </td> 
-                                                        </>
-                                                        }
-                                                            <td className="align-top">
-                                                                <div className='d-flex justify-content-between'>
-                                                                    {!e.type ?
-                                                                        <>
-                                                                            <span className="btn-sm btn btn-danger" onClick={() => changeInventario(null, i, "delMode")}><i className="fa fa-trash"></i></span>
-                                                                            <span className="btn-sm btn btn-warning" onClick={() => changeInventario(null, i, "update")}><i className="fa fa-pencil"></i></span>
-                                                                        </>
-                                                                        : null}
-                                                                    {e.type === "new" ?
-                                                                        <span className="btn-sm btn btn-danger" onClick={() => changeInventario(null, i, "delNew")}><i className="fa fa-times"></i></span>
-                                                                        : null}
-                                                                    {e.type === "update" ?
-                                                                        <span className="btn-sm btn btn-warning" onClick={() => changeInventario(null, i, "delModeUpdateDelete")}><i className="fa fa-times"></i></span>
-                                                                        : null}
-                                                                    {e.type === "delete" ?
-                                                                        <span className="btn-sm btn btn-danger" onClick={() => changeInventario(null, i, "delModeUpdateDelete")}><i className="fa fa-arrow-left"></i></span>
-                                                                        : null}
-                                                                </div>
-                                                            </td>
+                                                            <td className="text-muted" colSpan={7}></td>
                                                         
-                                                    </tr>
-                                                    <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
-                                                        <td colSpan={4}></td>
-                                                        <td>
-                                                            <table className="table table-sm">
-                                                                <tbody>
-                                                                    <tr>
+                                                        </tr>
+                                                        {
+                                                            selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?
+                                                                <>
+                                                                    <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    
+
+                                                                        {/* <td>
+                                                                            <div>
+                                                                                <div className="form-group">
+                                                                                    <input type="text" className="" value={qvinculacion4} onChange={event=>setqvinculacion4(event.target.value)} placeholder="BUSCAR VIN 4" />
+                                                                                </div>
+                                                                                <div className="form-group">
+                                                                                    <select type="text" className=" text-danger" value={inputselectvinculacion4} onChange={()=>setinputselectvinculacion4} placeholder="VIN 4">
+                                                                                        <option value=""></option>
+                                                                                        {datavinculacion4.map(data=>
+                                                                                            <option value={data.nombre} key={data.id}>{data.nombre}</option>
+                                                                                        )}
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div>
+
+                                                                            </div>
+                                                                        </td> */}
+
                                                                         <td>
-                                                                            {e.n1? e.n1+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion1:"")}</span>}
-                                                                        </td>
-                                                                        <td>
-                                                                            {e.n2? e.n2+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion2:"")}</span>}
-                                                                        </td>
-                                                                        <td>
-                                                                            {e.n3? e.n3+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacion3:"")}</span>}
-                                                                        </td>
-                                                                        <td>
-                                                                            {e.marca? e.marca+"  ":<span className="text-success fw-bold">{(selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?inputselectvinculacionmarca:"")}</span>}
 
                                                                         </td>
                                                                     </tr>
-                                                                    {selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?<>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <input type="text" className="" value={qvinculacion1} onChange={event=>setqvinculacion1(event.target.value)} placeholder="N1" />
-                                                                            </td>
+                                                                                    
+                                                                </>
+                                                            :null
+                                                        }
 
-                                                                            <td>
-                                                                                <input type="text" className="" value={qvinculacion2} onChange={event=>setqvinculacion2(event.target.value)} placeholder="N2" />
-                                                                            </td>
-
-                                                                            <td>
-                                                                                <input type="text" className="" value={qvinculacion3} onChange={event=>setqvinculacion3(event.target.value)} placeholder="N3" />
-                                                                            </td>
-                                                                            <td>
-                                                                                <input type="text" className="" value={qvinculacionmarca} onChange={event=>setqvinculacionmarca(event.target.value)} placeholder="Marca" />
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <select type="text" className=" text-primary" value={inputselectvinculacion1} onChange={()=>setinputselectvinculacion1} placeholder="VIN 1">
-                                                                                    <option value=""></option>
-                                                                                    {datavinculacion1.map(data=>
-                                                                                        <option value={data.nombre} key={data.id}>{data.nombre}</option>
-                                                                                    )}
-                                                                                </select>
-                                                                            </td>
-                                                                            <td>
-                                                                                <select type="text" className=" text-info" value={inputselectvinculacion2} onChange={()=>setinputselectvinculacion2} placeholder="VIN 2">
-                                                                                    <option value=""></option>
-                                                                                    {datavinculacion2.map(data=>
-                                                                                        <option value={data.nombre} key={data.id}>{data.nombre}</option>
-                                                                                    )}
-                                                                                </select>
-                                                                            </td>
-                                                                            <td>
-                                                                                <select type="text" className=" text-sinapsis" value={inputselectvinculacion3} onChange={()=>setinputselectvinculacion3} placeholder="VIN 3">
-                                                                                    <option value=""></option>
-                                                                                    {datavinculacion3.map(data=>
-                                                                                        <option value={data.nombre} key={data.id}>{data.nombre}</option>
-                                                                                    )}
-                                                                                </select>
-                                                                            </td>
-                                                                            <td>
-                                                                                <select type="text" className=" text-success" value={inputselectvinculacionmarca} onChange={()=>setinputselectvinculacionmarca} placeholder="VIN marca">
-                                                                                <option value=""></option>
-                                                                                {datavinculacionmarca.map(data=>
-                                                                                    <option value={data.descripcion} key={data.id}>{data.descripcion}</option>
-                                                                                )}</select>
-                                                                            </td>
-                                                                        </tr>
-                                                                    
-                                                                    </>:null}
-                                                                </tbody>
-                                                            </table>
-                                                            {selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?<>
-                                                                <button className="btn btn-success" type="button" onClick={()=>saveCuatroNombres()}>GUARDAR</button>
-                                                            </>:null}
-                                                        
-                                                                {/* {e.n4? e.n4+"  ":""} */}
-                                                        </td>
-                                                        <td className="text-muted" colSpan={7}></td>
-                                                    
-                                                    </tr>
-                                                    {
-                                                        selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?
-                                                            <>
-                                                                <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                
-
-                                                                    {/* <td>
-                                                                        <div>
-                                                                            <div className="form-group">
-                                                                                <input type="text" className="" value={qvinculacion4} onChange={event=>setqvinculacion4(event.target.value)} placeholder="BUSCAR VIN 4" />
-                                                                            </div>
-                                                                            <div className="form-group">
-                                                                                <select type="text" className=" text-danger" value={inputselectvinculacion4} onChange={()=>setinputselectvinculacion4} placeholder="VIN 4">
-                                                                                    <option value=""></option>
-                                                                                    {datavinculacion4.map(data=>
-                                                                                        <option value={data.nombre} key={data.id}>{data.nombre}</option>
-                                                                                    )}
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div>
-
-                                                                        </div>
-                                                                    </td> */}
-
-                                                                    <td>
-
-                                                                    </td>
-                                                                </tr>
-                                                                                
-                                                            </>
-                                                        :null
-                                                    }
-
-                                                </tbody>
+                                                    </tbody>
+                                                :null
                                             ):null}
                                     </table>
                                 </form>
