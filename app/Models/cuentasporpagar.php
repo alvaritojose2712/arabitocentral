@@ -31,6 +31,9 @@ class cuentasporpagar extends Model
     public function items() { 
         return $this->hasMany('App\Models\cuentasporpagar_items',"id_cuenta","id"); 
     }
+    public function novedades() { 
+        return $this->hasMany('App\Models\compras_notascreditodebito',"id_factura","id"); 
+    }
 
     public function banco() { 
         return $this->hasMany('App\Models\puntosybiopagos',"id_cxp","id"); 

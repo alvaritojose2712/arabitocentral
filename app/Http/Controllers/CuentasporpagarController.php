@@ -916,7 +916,7 @@ class CuentasporpagarController extends Controller
         
         $todayWithoutDateTime = (new NominaController)->today();
         $today = new \DateTime($todayWithoutDateTime);
-        $detalles = cuentasporpagar::with(["banco","efectivo","items"=>function($q){
+        $detalles = cuentasporpagar::with(["novedades","banco","efectivo","items"=>function($q){
             $q->with(["producto"=>function($q) {
                 $q->with(["sucursal"]);
             }]);
@@ -1096,7 +1096,7 @@ class CuentasporpagarController extends Controller
         }
     
         $detalles_modified = $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact, $todayWithoutDateTime) {
-            $novedades_sum = compras_notascreditodebito::where("id_factura",$q->id)->sum("monto");
+            $novedades_sum = $q->novedades->sum("monto");
             $q->monto = $q->monto-$novedades_sum;
 
 

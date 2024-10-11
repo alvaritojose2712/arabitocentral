@@ -1418,8 +1418,8 @@ function Home() {
           e.codigo_proveedor2 = datanew.codigo_proveedor2
           e.id_deposito = datanew.id_deposito
           e.porcentaje_ganancia = datanew.porcentaje_ganancia
-          e.precio_base = datanew.precio_base
-          e.precio = datanew.precio
+          /* e.precio_base = datanew.precio_base
+          e.precio = datanew.precio */
           e.precio1 = datanew.precio1
           e.precio2 = datanew.precio2
           e.precio3 = datanew.precio3

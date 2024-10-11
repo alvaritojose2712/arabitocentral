@@ -816,8 +816,8 @@ class InventarioSucursalController extends Controller
                 $lotes[$i]["codigo_proveedor2"] = $ispermissionData["codigo_proveedor2"];
                 $lotes[$i]["id_deposito"] = $ispermissionData["id_deposito"];
                 $lotes[$i]["porcentaje_ganancia"] = $ispermissionData["porcentaje_ganancia"];
-                $lotes[$i]["precio_base"] = $ispermissionData["precio_base"];
-                $lotes[$i]["precio"] = $ispermissionData["precio"];
+                /* $lotes[$i]["precio_base"] = $ispermissionData["precio_base"];
+                $lotes[$i]["precio"] = $ispermissionData["precio"]; */
                 $lotes[$i]["precio1"] = $ispermissionData["precio1"];
                 $lotes[$i]["precio2"] = $ispermissionData["precio2"];
                 $lotes[$i]["precio3"] = $ispermissionData["precio3"];
