@@ -12,6 +12,8 @@ use App\Models\items_pedidos;
 use App\Models\vinculossucursales;
 use App\Models\cuentasporpagar;
 use App\Models\cuentasporpagar_items;
+use App\Models\compras_notascreditodebito;
+
 
 
 use App\Http\Requests\StorepedidosRequest;
