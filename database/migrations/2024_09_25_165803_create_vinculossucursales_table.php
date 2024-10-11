@@ -25,7 +25,6 @@ class CreateVinculossucursalesTable extends Migration
             $table->integer("id_sucursal")->unsigned();
             $table->foreign('id_sucursal')->references('id')->on('sucursals');
 
-            $table->unique(["idinsucursal","id_sucursal"]);
 
 
             $table->timestamps();

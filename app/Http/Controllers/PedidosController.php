@@ -10,12 +10,15 @@ use App\Models\inventario;
 use App\Models\sucursal;
 use App\Models\items_pedidos;
 use App\Models\vinculossucursales;
+use App\Models\cuentasporpagar;
+
 
 use App\Http\Requests\StorepedidosRequest;
 use App\Http\Requests\UpdatepedidosRequest;
 
 use Illuminate\Http\Request;
 use Response;
+use DB;
 
 class PedidosController extends Controller
 {   
@@ -38,48 +41,28 @@ class PedidosController extends Controller
                     $ped = new pedidos;
 
                     $ped->idinsucursal = $e["id"];
-                    $ped->estado = 4;
+                    $ped->estado = 3;
                     // EL CORRECTO, MUTEADO PROVISIONALMENTE MIENTRAS COMPRAS CAMINA          $ped->estado = 1;
                     $ped->id_origen = $id_origen;
                     $ped->id_destino = $id_destino;//id Destino
                     if ($ped->save()) {
                         $count = 0;
                         foreach ($e["items"] as $k => $ee) {
-
-                            $id_categoria = null;
-                            if (isset($ee["producto"]["categoria"])) {
-                                $ifcat =  categorias::where("descripcion",$ee["producto"]["categoria"]["descripcion"])->first();
-                                if ($ifcat) {
-                                    $id_categoria = $ifcat->id;
-                                }else{
-                                    $newcat = new categorias; 
-                                    $newcat->descripcion = $ee["producto"]["categoria"]["descripcion"];
-                                    $newcat->save();
-                                    $id_categoria = $newcat->id;
-                                }
-                            }
-
-                            $id_proveedor = null;
-                            $ifpro =  proveedores::where("rif",$ee["producto"]["proveedor"]["rif"])->first();
-                            if ($ifpro) {
-                                $id_proveedor = $ifpro->id;
+                            $id_producto = null;
+                            $check = inventario_sucursal::where("id_sucursal",13)->where("codigo_barras",$ee["producto"]["codigo_barras"])->first();
+                            if ($check) {
+                                $id_producto = $check->id;
                             }else{
-
-                                $id_proveedor = $ee["producto"]["proveedor"]["id"];
-
-                            }
-
                                 $inv = inventario_sucursal::updateOrCreate([
-                                    "id_sucursal" => $id_origen,
-                                    "idinsucursal" => $ee["producto"]["id"],
+                                    "id" => null,
                                 ],[
-                                    "id_sucursal" => $id_origen,
-                                    "idinsucursal" => $ee["producto"]["id"],
+                                    "id_sucursal" => 13,
+                                    "idinsucursal" => null,
                                     
                                     "codigo_barras" => $ee["producto"]["codigo_barras"],
                                     "codigo_proveedor" => $ee["producto"]["codigo_proveedor"],
-                                    "id_proveedor" => $id_proveedor,
-                                    "id_categoria" => $id_categoria,
+                                    "id_proveedor" => $ee["producto"]["id_proveedor"],
+                                    "id_categoria" => $ee["producto"]["id_categoria"],
                                     "id_marca" => $ee["producto"]["id_marca"],
                                     "unidad" => $ee["producto"]["unidad"],
                                     "id_deposito" => $ee["producto"]["id_deposito"],
@@ -94,24 +77,73 @@ class PedidosController extends Controller
                                     "bulto" => $ee["producto"]["bulto"],
                                     "stockmin" => $ee["producto"]["stockmin"],
                                     "stockmax" => $ee["producto"]["stockmax"],
-                                    "cantidad" => $ee["producto"]["cantidad"],
-                                    "push" => $ee["producto"]["push"],
-                                    "id_vinculacion" => $ee["producto"]["id_vinculacion"],
                                 ]);
-                                if ($inv) {
-                                    
-                                    $items_pedidos = new items_pedidos;
-                                    
-                                    $items_pedidos->id_producto = $inv->id;
-                                    $items_pedidos->id_pedido = $ped->id;
-                                    $items_pedidos->cantidad = $ee["cantidad"];
-                                    $items_pedidos->descuento = $ee["descuento"];
-                                    $items_pedidos->monto = $ee["monto"];
+                                $id_producto = $inv->id;
+                            }
 
-                                    if ($items_pedidos->save()) {
-                                        $count++;  
-                                    }
-                                } 
+                            /* $vinculo_envio = vinculossucursales::where("id_sucursal",13)
+                            ->where("id_sucursal_fore",$origen)
+                            ->where("id_producto_local",$id_producto)
+                            ->first();
+
+                            if (!$vinculo_envio) { */
+                                $vinculo_envio = vinculossucursales::updateOrCreate([
+                                    "id_sucursal" => 13, //CENTRAL
+                                    "id_producto_local" => $id_producto, //PROD CENTRAL
+                                    "idinsucursal_fore" => $ee["producto"]["id"], //PROD SUC
+                                    "id_sucursal_fore" => $id_origen, //SUC
+                                ],[
+                                    "idinsucursal" => null, // INSUCURSAl, SOLO REF
+                                ]);
+                            /* } */
+
+                            $vinculo_recepcion = vinculossucursales::where("id_sucursal",$id_destino)
+                            ->where("id_sucursal_fore",$id_origen)
+                            ->where("idinsucursal_fore",$ee["producto"]["id"])
+                            ->first();
+
+                            if ($vinculo_recepcion) {
+                                vinculossucursales::updateOrCreate([
+                                    "id_producto_local" => $id_producto, //PROD CENTRAL
+                                    "id_sucursal" => 13, //CENTRAL
+                                    "id_sucursal_fore" => $id_destino, //SUC
+                                    "idinsucursal_fore" => $vinculo_recepcion->id_producto_local, //PROD SUC
+                                ],[
+                                    "idinsucursal" => null, // INSUCURSAl, SOLO REF
+                                ]);
+                            }
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+                            $vinculo_recepcion_desdeenvio = vinculossucursales::where("id_sucursal",$id_origen)
+                            ->where("id_sucursal_fore",$id_destino)
+                            ->where("id_producto_local",$ee["producto"]["id"])
+                            ->first();
+
+                            if ($vinculo_recepcion_desdeenvio) {
+                                vinculossucursales::updateOrCreate([
+                                    "id_producto_local" => $id_producto, //PROD CENTRAL
+                                    "id_sucursal" => 13, //CENTRAL
+                                    "id_sucursal_fore" => $id_destino, //SUC
+                                    "idinsucursal_fore" => $vinculo_recepcion_desdeenvio->idinsucursal_fore, //PROD SUC
+                                ],[
+                                    "idinsucursal" => null, // INSUCURSAl, SOLO REF
+                                ]);
+                            }
+//////////////////////////////////////////////////////////////////////////////
+
+                            $items_pedidos = new items_pedidos;
+                            $items_pedidos->id_producto = $id_producto;
+                            $items_pedidos->id_pedido = $ped->id;
+                            $items_pedidos->cantidad = $ee["cantidad"];
+                            $items_pedidos->descuento = $ee["descuento"];
+                            $items_pedidos->monto = $ee["monto"];
+
+                            if ($items_pedidos->save()) {
+                                $count++;  
+                            }
+                                
                         }
                         return ["estado"=>true, "msj"=>"Desde Central: $count items exportados"];
                     }
@@ -136,6 +168,74 @@ class PedidosController extends Controller
             return ["estado"=>false, "msj"=>"Error: ".$e->getMessage()." ".$e->getLine()];
         }
     }
+    function getPedidoCentralImport(Request $req) {
+
+        $id_pedido = $req->id_pedido;
+        $ped = $this->getPedidoFun($id_pedido);
+
+        if ($id_pedido) {
+            if (isset($ped["id"])) {
+                $estado = $ped->estado;
+                if ($estado==4) {
+                    return ["estado"=>true,"msj"=>"","pedido"=>$ped];
+                }else{
+                    return ["estado"=>false,"msj"=>"Aún no se ha CHECKEADO en CENTRAL. ESTADO: ".$estado,"pedido"=>null];
+                }
+                
+            }
+        }
+        return ["estado"=>false,"msj"=>"No se encontró PEDIDO getPedidoCentralImport ".$id_pedido,"pedido"=>null];
+
+    }
+
+
+    function sendTareasPendientesCentral(Request $req) {
+
+        DB::beginTransaction();
+
+        try {
+            $data = $req->data;
+            $codigo_origen = $req->codigo_origen;
+    
+            $id_pedido = $data["id_pedido"];
+            $ids = $data["ids"];
+    
+            $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
+            $id_sucursal = $id_ruta["id_origen"];
+    
+            $p = pedidos::find($id_pedido);
+            $p->estado = 2;
+            $p->save();
+    
+            foreach ($ids as $i => $e) {
+                $id_productoincentral = $e["id_productoincentral"];
+                $id_productosucursal = $e["id_productosucursal"];
+    
+                
+                vinculossucursales::updateOrCreate([
+                    "id_producto_local" => $id_productoincentral,
+                    "id_sucursal_fore" => $id_sucursal, 
+                    "idinsucursal_fore" => $id_productosucursal,
+                ],[
+                    "id_producto_local" => $id_productoincentral,
+                    "id_sucursal_fore" => $id_sucursal, 
+                    "id_sucursal" => 13,
+                    "idinsucursal_fore" => $id_productosucursal,
+                    "idinsucursal" => null, // INSUCURSAl, SOLO REF
+                ]);
+            }
+
+
+            DB::commit();
+            return ["estado"=>true, "msj" => "Éxito"];
+        }catch (\Exception $e) {
+            DB::rollback();
+            return Response::json(["msj"=>"Error sendTareasPendientesCentral".$e->getMessage()." ".$e->getLine(),"estado"=>false]);
+        } 
+        
+
+
+    }
     public function changeExtraidoEstadoPed(Request $req)
     {
         $p = pedidos::find($req->id);
@@ -151,32 +251,35 @@ class PedidosController extends Controller
         $id_origen = $id_ruta["id_origen"];
 
 
-        $ped = pedidos::with(["destino","origen","items"=>function($q){
-            $q->with(["producto"=>function($q){
-                $q->with(["categoria","proveedor"]);
-            }]);
-        }])
-        ->whereIn("estado",[1,3,4])
+        $ped = pedidos::whereIn("estado",[1,3,4])
         ->where("id_destino",$id_origen)
         ->orderBy("id","desc")
         ->get()
         ->map(function($q){
-            $estado = $q->estado;
+           /*  $estado = $q->estado;
             $id_destino = $q->id_destino;
             $q->items = $q->items->map(function($q) use ($estado,$id_destino){
                 if ($estado==4) {
                     $q->aprobado=true;
                 }
-                $idinsucursal_vinculo = null;
 
+                //////
+                $idinsucursal_vinculo = null;
+                $idinsucursal_producto_sugerido = null;
+                $idinsucursal_producto = null;
+
+                $vinculo_real = $q->vinculo_real;
                 $vin = vinculossucursales::where("id_producto_local",$q->id_producto)->where("id_sucursal_fore",$id_destino)->first();
                 if ($vin) {
                     $idinsucursal_vinculo =  $vin->idinsucursal_fore;
+                    $idinsucursal_producto_sugerido = inventario_sucursal::where("id_sucursal",$id_destino)->where("idinsucursal",$vinculo_real)->first();
+                    $idinsucursal_producto = inventario_sucursal::where("id_sucursal",$id_destino)->where("idinsucursal",$vin->idinsucursal_fore)->first();
                 }
-                
                 $q->idinsucursal_vinculo = $idinsucursal_vinculo;
+                $q->idinsucursal_producto_sugerido = $idinsucursal_producto_sugerido;
+                $q->idinsucursal_producto = $idinsucursal_producto;
 
-
+                /////
 
 
                 return $q;
@@ -184,9 +287,11 @@ class PedidosController extends Controller
 
 
             $q->base = $q->items->map(function($q){
-                return $q->producto->precio_base*$q->cantidad;
+                return $q->producto? $q->producto->precio_base*$q->cantidad:0;
             })->sum();
-            $q->venta = $q->items->sum("monto");
+            $q->venta = $q->items->sum("monto"); */
+
+            $q = $this->getPedidoFun($q->id);
             
             return $q;
 
@@ -337,20 +442,79 @@ class PedidosController extends Controller
             
         }   
     }
-    public function getPedidoFun($id)
+    public function getPedidoFun($id_pedido)
     {
-        $pedido = pedidos::with(["sucursal","items"=>function($q){
+        $ped = pedidos::with(["origen","destino","sucursal","items"=>function($q){
             $q->with("producto");
-        }])->find($id);
-
-        if ($pedido) {
-            $pedido->base = $pedido->items->map(function($q){
-                return $q->producto->precio_base*$q->cantidad;
+        },"cxp"=>function($q){
+            $q->with(["proveedor"]);
+        }])
+        ->find($id_pedido);
+        if ($ped) {
+            $ped->base = $ped->items->map(function($q){
+                return $q->producto?$q->producto->precio_base*$q->cantidad:0;
             })->sum();
-            $pedido->venta = $pedido->items->sum("monto");
+            $ped->venta = $ped->items->sum("monto");
+            
+            $estado = $ped->estado;
+            $id_destino = $ped->id_destino;
+            
+            $ped->items = $ped->items->map(function($q) use ($estado,$id_destino){
+                if ($estado==4) {
+                    $q->aprobado=true;
+                }
+    
+                ///
+                $vinculo_real = $q->vinculo_real;
+                $idinsucursal_vinculo = null;
+                $idinsucursal_producto_sugerido = inventario_sucursal::where("id_sucursal",$id_destino)->where("idinsucursal",$vinculo_real)->first();
+                $idinsucursal_producto = null;
+                
+                $vin = vinculossucursales::where("id_producto_local",$q->id_producto)->where("id_sucursal_fore",$id_destino)->first();
+                if ($vin) {
+                    $idinsucursal_vinculo =  $vin->idinsucursal_fore;
+                    $idinsucursal_producto = inventario_sucursal::where("id_sucursal",$id_destino)->where("idinsucursal",$vin->idinsucursal_fore)->first();
+                }
+                $q->idinsucursal_vinculo = $idinsucursal_vinculo;
+                $q->idinsucursal_producto_sugerido = $idinsucursal_producto_sugerido;
+                $q->idinsucursal_producto = $idinsucursal_producto;
+                ///
+    
+    
+    
+                return $q;
+            });
+    
+            $c = cuentasporpagar::find($ped->id_cxp);
+            $id_proveedor = null;
+            $monto = null;
+            $numfact = null;
+    
+            $fechavencimiento = null;
+            $fecharecepcion = null;
+            $fechaemision = null;
+    
+            if ($c) {
+                $id_proveedor = $c->id_proveedor;
+                $monto = $c->monto;
+                $numfact = $c->numfact;
+                $fechaemision = $c->fechaemision;
+                $fechavencimiento = $c->fechavencimiento;
+                $fecharecepcion = $c->fecharecepcion;
+    
+                
+            }
+    
+            $ped->id_proveedor = $id_proveedor;
+            $ped->monto = $monto;
+    
+            $ped->numfact = $numfact;
+            $ped->fechaemision = $fechaemision;
+            $ped->fechavencimiento = $fechavencimiento;
+            $ped->fecharecepcion = $fecharecepcion;
+            return $ped;
         }
-
-        return $pedido;
+        return ["estado" => false, "msj"=>"Error al FIND PEDIDO ".$id_pedido];
     }
     public function getPedido(Request $req)
     {
@@ -359,7 +523,145 @@ class PedidosController extends Controller
         return $this->getPedidoFun($id);
         
     }
+    function revolverNovedadItemTrans(Request $req) {
 
+        try {
+            $iditem = $req->iditem;
+            $type = $req->type;
+            $accion = $req->accion;
+            
+            $item = items_pedidos::find($iditem);
+            $ped = pedidos::find($item->id_pedido);
+            $id_cxp = $ped->id_cxp;
+            $id_destino = $ped->id_destino;
+            $id_productolocal = $item->id_producto;
+            if ($accion=="rechazar") {
+                
+                switch ($type) {
+                    case 'barras_real':
+                        $getcodigo_barras = inventario_sucursal::find($id_productolocal);
+                        if ($getcodigo_barras) {
+                            if (!$getcodigo_barras->codigo_barras) {
+                                return ["estado"=>false,"msj"=>"No es POSIBLE RECHAZAR AJUSTE"];
+                            }
+                        }
+                        break;
+                    case 'alterno_real':
+                        $getcodigo_proveedor = inventario_sucursal::find($id_productolocal);
+                        if ($getcodigo_proveedor) {
+                            if (!$getcodigo_proveedor->codigo_proveedor) {
+                                return ["estado"=>false,"msj"=>"No es POSIBLE RECHAZAR AJUSTE"];
+                            }
+                        }
+                        break;
+                    case 'descripcion_real':
+                        $getdescripcion = inventario_sucursal::find($id_productolocal);
+                        if ($getdescripcion) {
+                            if (!$getdescripcion->descripcion) {
+                                return ["estado"=>false,"msj"=>"No es POSIBLE RECHAZAR AJUSTE"];
+                            }
+                        }
+                        break;
+                    }
+                $item->update(["$type"=>null]);
+            }
+            
+            if ($accion=="aprobar") {
+    
+               
+                
+    
+                $vinculo_real = $item->vinculo_real;
+    
+                $barras_real = $item->barras_real;
+                $alterno_real = $item->alterno_real;
+                $descripcion_real = $item->descripcion_real;
+    
+                $ct_real = $item->ct_real;
+    
+                $cantidad = $item->cantidad;
+                
+    
+                switch ($type) {
+                    case 'vinculo_real':
+                        vinculossucursales::updateOrCreate([
+                            "id_producto_local"=>$id_productolocal,
+                            "id_sucursal_fore"=>$id_destino,
+                            "id_sucursal"=>13
+                        ],[
+                            "idinsucursal_fore"=>$vinculo_real,
+                            "idinsucursal" => null
+                        ]);
+
+                        $modify_vin_real = items_pedidos::find($iditem);
+                        $modify_vin_real->vinculo_real = null;
+                        $modify_vin_real->save();
+                    break;
+                    case 'barras_real':
+                        inventario_sucursal::find($id_productolocal)->update(["codigo_barras"=>(new InventarioSucursalController)->clean($barras_real,"codigo_barras")]);
+                        $modify = items_pedidos::find($iditem);
+                        $modify->barras_real = null;
+                        $modify->save();
+                    break;
+                    case 'alterno_real':
+                        inventario_sucursal::find($id_productolocal)->update(["codigo_proveedor"=>(new InventarioSucursalController)->clean($alterno_real,"codigo_proveedor")]);
+                        $modify = items_pedidos::find($iditem);
+                        $modify->alterno_real = null;
+                        $modify->save();
+                    break;
+                    case 'descripcion_real':
+                        inventario_sucursal::find($id_productolocal)->update(["descripcion"=>(new InventarioSucursalController)->clean($descripcion_real,"descripcion")]);
+                        $modify = items_pedidos::find($iditem);
+                        $modify->descripcion_real = null;
+                        $modify->save();
+                    break;
+                    case 'ct_real':
+                        if ($ct_real!=$cantidad) {
+                            $c = cuentasporpagar::find($id_cxp);
+                            if ($c) {
+                                $ci = cuentasporpagar_items::where("id_cuenta",$id_cxp)->where("id_producto",$id_productolocal)->first();
+                                if ($ci) {
+                                    $ct = $ct_real-$cantidad;
+                                    $basef = $ci->basef;
+                                    $monto = $ct*$basef;
+                                    $nota = compras_notascreditodebito::updateOrCreate([
+                                        "id_producto" => $id_productolocal,
+                                        "id_factura" => $id_cxp,
+                                    ],[
+                                        "tipo" => $ct<0?0:1,
+                                        "num" => $c->numfact,
+                                        "id_proveedor" => $c->id_proveedor,
+                                        "id_sucursal" => $c->id_sucursal,
+                                        "estatus" => 0,
+                                        "monto" => $monto,
+                                        "cantidad" => $ct,
+                                        "id_factura" => $id_cxp,
+                                    ]);
+                                    if ($nota) {
+                                        $item->cantidad = $ct_real;
+                                        $item->ct_real = null;
+                                        $item->save();
+    
+                                        $ci->cantidad = $ct_real;
+                                        $ci->save();
+                                    }
+                                }
+                            }
+                        }
+                    break;
+                    
+                }
+            }
+            
+    
+            $ped =  $this->getPedidoFun($item->id_pedido);
+    
+            return ["pedido"=>$ped,"estado"=>true,"msj"=>"Éxito"];
+        } catch (\Exception $e) {
+            return ["msj"=>"Error: ".$e->getMessage()." ".$e->getLine(),"estado"=>false];
+           
+        }
+    }
     public function getPedidos(Request $req)
     {
         $qpedido = $req->qpedido;
@@ -377,7 +679,7 @@ class PedidosController extends Controller
         if ($qpedidoDateFrom=="" AND $qpedidoDateTo=="") {
             $qpedidoDateFrom = "0000-00-00";
             $qpedidoDateTo = "9999-12-31";
-            $limit = 10;
+            $limit = 50;
         }else if($qpedidoDateFrom == ""){
             $qpedidoDateFrom = "0000-00-00";
             $limit = 10;
@@ -399,7 +701,7 @@ class PedidosController extends Controller
                 ->orwhere("idinsucursal","LIKE","$qpedido%");
             });
         })
-        ->when($qestadopedido, function($q) use($qestadopedido) {
+        ->when($qestadopedido!="", function($q) use($qestadopedido) {
             $q->where("estado",$qestadopedido);
         })
         ->when($qpedidosucursal,function($q) use ($qpedidosucursal) {
@@ -410,14 +712,40 @@ class PedidosController extends Controller
         })
         
         ->whereBetween("created_at",["$qpedidoDateFrom 00:00:00","$qpedidoDateTo 23:59:59"])
+        ->orderBy("created_at","desc")
         ->orderBy("id_origen","desc")
         ->limit($limit)
         ->get()
         ->map(function($q){
-            $q->base = $q->items->map(function($q){
+            /* $q->base = $q->items->map(function($q){
                 return $q->producto?$q->producto->precio_base*$q->cantidad:0;
             })->sum();
             $q->venta = $q->items->sum("monto");
+
+            $estado = $q->estado;
+            $id_destino = $q->id_destino;
+            $q->items = $q->items->map(function($q) use ($estado,$id_destino){
+                if ($estado==4) {
+                    $q->aprobado=true;
+                }
+                $idinsucursal_vinculo = null;
+                $idinsucursal_producto_sugerido = null;
+                $idinsucursal_producto = null;
+
+                $vinculo_real = $q->vinculo_real;
+                $vin = vinculossucursales::where("id_producto_local",$q->id_producto)->where("id_sucursal_fore",$id_destino)->first();
+                if ($vin) {
+                    $idinsucursal_vinculo =  $vin->idinsucursal_fore;
+                    $idinsucursal_producto_sugerido = inventario_sucursal::where("id_sucursal",$id_destino)->where("idinsucursal",$vinculo_real)->first();
+                    $idinsucursal_producto = inventario_sucursal::where("id_sucursal",$id_destino)->where("idinsucursal",$vin->idinsucursal_fore)->first();
+                }
+                $q->idinsucursal_vinculo = $idinsucursal_vinculo;
+                $q->idinsucursal_producto_sugerido = $idinsucursal_producto_sugerido;
+                $q->idinsucursal_producto = $idinsucursal_producto;
+
+                return $q;
+            }); */
+            $q = $this->getPedidoFun($q->id);
             return $q;
         });
     }
@@ -454,29 +782,33 @@ class PedidosController extends Controller
     function aprobarRevisionPedido(Request $req) {
         try {
             $id = $req->id;
+            $estado = $req->estado;
             if ($id) {
-                $check = true;
-                $items_pedidos = items_pedidos::where("id_pedido",$id)->get();
-
-                foreach ($items_pedidos as $i => $item) {
-                        
-                    $inv = inventario_sucursal::find($item->id_producto);
-                    if (!$inv->codigo_barras) {
-                        if (!$item->barras_real) {
-                           $check = false;
-                        }
-                        $inv->codigo_barras = $item->barras_real;
-                        $inv->save();
+                $ped = pedidos::with("items")->find($id);
+                foreach ($ped["items"] as $i => $item) {
+                    $codigo_barras = $item->producto->codigo_barras;
+                    $codigo_proveedor = $item->producto->codigo_proveedor;
+                    $descripcion = $item->producto->descripcion;
+                     
+                    if (!$codigo_barras) {
+                        return ["estado"=>false,"msj"=>"Error: FALTA codigo_barras DEL ITEM ".$item->id];
                     }
-                }
-                if ($check) {
-                    $ped = pedidos::find($id);
-                    $ped->estado = 4;
-                    $ped->save();
-                }
+                    if ($ped->id_origen==13) {
+                        if (!$codigo_proveedor) {
+                            return ["estado"=>false,"msj"=>"Error: FALTA codigo_proveedor DEL ITEM ".$item->id];
+                        }
+                    }
+                    
+                    if (!$descripcion) {
+                        return ["estado"=>false,"msj"=>"Error: FALTA descripcion DEL ITEM ".$item->id];
+                    }
+                }   
+
+                $ped->estado = $estado;
+                $ped->save();
                 
             }
-            return Response::json(["msj"=>"Éxito al Revisar. Pedido #".$id,"estado"=>true]);
+            return Response::json(["msj"=>"Nuevo estado ".$estado,"estado"=>true]);
             
         } catch (\Exception $e) {
             return Response::json(["msj"=>"Error: ".$e->getMessage(),"estado"=>false]);

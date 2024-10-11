@@ -407,6 +407,10 @@ body{
 .text-right{
   text-align: right;
 }
+.text-dorado{
+  color: #ddbb22 !important;
+}
+
 .monto-header {
     color: rgb(249, 212, 185);
 }
@@ -459,6 +463,22 @@ body{
   border-style: groove !important;
 
 }
+.bg-vinculo-maestro{
+  background-color: antiquewhite !important;
+}
+.bg-vinculo-sucursal{
+  background-color: #ecffff !important;
+}
+
+
+.bg-vinculo-maestro-fuerte{
+  background-color: rgb(249, 179, 88) !important;
+}
+.bg-vinculo-sucursal-fuerte{
+  background-color: #64fafa !important;
+}
+
+
 .bg-gastosfijos{
   background-color: #d89494;
 }

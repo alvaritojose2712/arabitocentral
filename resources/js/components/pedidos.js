@@ -3,6 +3,8 @@ import CantidadCarrito from '../components/catidadCarrito';
 
 import PedidosList from '../components/pedidosList';
 import PedidoSelect from '../components/pedidoSelect';
+import NovedadesPedidos from '../components/novedadesPedidos';
+
 
 export default function Pedidos({
 	inputBuscarInventario,
@@ -71,6 +73,12 @@ export default function Pedidos({
 
 	qpedidosucursaldestino,
 	setqpedidosucursaldestino,
+	revolverNovedadItemTrans,
+
+	qnovedadesPedidodos,
+	setqnovedadesPedidodos,
+	novedadesPedidosData,
+	getNovedadesPedidosData,
 
 }){
 	return (
@@ -123,6 +131,7 @@ export default function Pedidos({
 					<button className="btn btn-sinapsis" onClick={()=>setshowCantidadCarrito("carrito")}>CARRITO</button> */}
 					<button className={"btn btn-"+(showCantidadCarrito=="procesar"?"":"outline-")+"sinapsis"} onClick={()=>setshowCantidadCarrito("procesar")}>LISTA</button>
 					<button className={"btn btn-"+(showCantidadCarrito=="pedidoSelect"?"":"outline-")+"sinapsis"} onClick={()=>setshowCantidadCarrito("pedidoSelect")}>DETALLES</button>
+					<button className={"btn btn-"+(showCantidadCarrito=="novedadespedidos"?"":"")+"warning"} onClick={()=>setshowCantidadCarrito("novedadespedidos")}>NOVEDADES</button>
 				</div>
 			</div>
 			{showCantidadCarrito=="procesar"?
@@ -167,8 +176,19 @@ export default function Pedidos({
 					moneda={moneda}
 					sendPedidoSucursal={sendPedidoSucursal}
 					showPedidoBarras={showPedidoBarras}
+					revolverNovedadItemTrans={revolverNovedadItemTrans}
 				/>
 			:null}
+			{showCantidadCarrito=="novedadespedidos"?
+				<NovedadesPedidos
+					qnovedadesPedidodos={qnovedadesPedidodos}
+					setqnovedadesPedidodos={setqnovedadesPedidodos}
+					novedadesPedidosData={novedadesPedidosData}
+					getNovedadesPedidosData={getNovedadesPedidosData}
+				/>
+			:null}
+
+
 		</>
 	)
 }

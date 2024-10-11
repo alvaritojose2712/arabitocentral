@@ -77,7 +77,6 @@ class inventario_sucursal extends Model
         "id_categoria",
         "id_catgeneral",
         "id_marca",
-        "id_marca",
         "stockmin",
         "stockmax",
     ];

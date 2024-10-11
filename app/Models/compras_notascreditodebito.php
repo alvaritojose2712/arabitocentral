@@ -17,5 +17,7 @@ class compras_notascreditodebito extends Model
         "monto",
         "estatus",
         "id_factura",
+        "id_producto",
+        "cantidad",
     ];
 }

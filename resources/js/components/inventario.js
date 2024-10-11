@@ -300,7 +300,7 @@ export default function Inventario({
                 <button className={("fs-5 btn btn")+(subviewdici=="pedidos"?"":"-outline")+("-primary")} onClick={()=>setsubviewdici("pedidos")}> PEDIDOS</button>
                 <button className={("fs-5 btn btn")+(subviewdici=="garantias"?"":"-outline")+("-primary")} onClick={()=>setsubviewdici("garantias")}> GARANTÍAS</button>
             {/*     <button className={("fs-5 btn btn")+(subviewdici=="novedades"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("novedades")}> NOVEDADES</button> */}
-                <button className={("fs-5 btn btn")+(subviewdici=="inventariogeneral"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("inventariogeneral")}> INVENTARIO</button>
+                <button className={("fs-5 btn btn")+(subviewdici=="inventariogeneral"?"":"-outline")+("-sinapsis")} onClick={()=>setsubviewdici("inventariogeneral")}> VINCULACIONES</button>
                 <button className={("fs-5 btn btn")+(subviewdici=="editarinventario"?"":"-outline")+("-secondary")} onClick={()=>setsubviewdici("editarinventario")}> EDITAR INVENTARIO</button>
                 <button className={("fs-5 btn btn")+(subviewdici=="gestionarnombres"?"":"-outline")+("-secondary")} onClick={()=>setsubviewdici("gestionarnombres")}> EDITAR NOMBRES</button>
                 <button className={("fs-5 btn btn")+(subviewdici=="tareaspendientes"?"":"-outline")+("-secondary")} onClick={()=>setsubviewdici("tareaspendientes")}> TAREAS PENDIENTES</button>

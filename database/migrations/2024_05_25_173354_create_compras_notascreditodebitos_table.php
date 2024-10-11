@@ -27,6 +27,8 @@ class CreateComprasNotascreditodebitosTable extends Migration
             $table->decimal("monto",10,2)->nullable()->default(0);
             $table->integer("estatus")->nullable()->default(0);
             $table->integer("id_factura")->nullable()->default(null);
+            $table->integer("id_producto")->nullable()->default(null);
+            $table->decimal("cantidad",12,3)->nullable()->default(null);
 
             $table->timestamps();
         });

@@ -175,6 +175,13 @@ export default function ComprascargarFactsItems({
     setInvorderByModal,
     InvnumModal,
     setInvnumModal,
+    verificarproductomaestro,
+    getotrasopcionesalterno,
+    dataotrasopcionesalterno,
+    setotrasopcionesalterno,
+    indexotrasopcionesalterno,
+    setindexotrasopcionesalterno,
+    autovincularPedido,
 }){
 
     const [showInputGeneral, setshowInputGeneral] = useState(false)
@@ -430,7 +437,10 @@ export default function ComprascargarFactsItems({
                                                 <th></th>
                                                 <th>ALTERNO</th>
                                                 <th>BARRAS</th>
-                                                <th>DESCRIPCION</th>
+                                                <th>
+                                                    DESCRIPCION <i className="fa fa-link" onClick={()=>autovincularPedido(facturaSelectAddItemsSelect.id)}></i>
+
+                                                </th>
                                                 <th className="bg-ct">CT</th>
                                                 <th>BASE F</th>
                                                 <th className="bg-base">BASE</th>
@@ -450,7 +460,7 @@ export default function ComprascargarFactsItems({
                                                                 <td>{item.producto.codigo_proveedor}</td>
                                                                 <td>{item.producto.codigo_barras}</td>
                                                                 <td>
-                                                                    {item.producto.descripcion} <button
+                                                                    {item.producto.descripcion} <small className="text-muted">({item.producto.sucursal?item.producto.sucursal.codigo:null})</small> <button
                                                                         type="button"
                                                                         className={(idselectproductoinsucursalforvicular.index==i?"btn-warning":"btn-warning")+(" btn fs-10px btn-sm")}
                                                                         onClick={(event)=>openVincularSucursalwithCentral(event,{id_producto_central: item.id_producto , index: i,})}
@@ -474,7 +484,7 @@ export default function ComprascargarFactsItems({
                                                             
                                                             <td>{item.producto_insucursal.codigo_proveedor}</td>
                                                             <td>{item.producto_insucursal.codigo_barras}</td>
-                                                            <td>{item.producto_insucursal.descripcion}</td>
+                                                            <td>{item.producto_insucursal.descripcion} <small className="text-muted">({item.producto_insucursal.sucursal?item.producto_insucursal.sucursal.codigo:null})</small></td>
                                                         </tr>
 
                                                     :null}
@@ -556,6 +566,7 @@ export default function ComprascargarFactsItems({
                                         <option value="desc">Desc</option>
                                     </select>
                                     
+                                    <div className="btn btn-warning text-dark" onClick={verificarproductomaestro}><i className="fa fa-cogs"></i> AUTOVINCULAR</div>
                                     <div className="btn btn-success text-light" onClick={guardarNuevoProductoLote}><i className="fa fa-send"></i> ASIGNAR</div>
                                 </form>
                                 
@@ -605,7 +616,11 @@ export default function ComprascargarFactsItems({
                                         </thead>
                                             {productosInventario.length?productosInventario.map((e,i)=>
                                                 <tbody key={i}>
-                                                    <tr className={" align-bottom border-top border-top-1 border-dark pointer "} /* onClick={()=>funIdVinc(e.id,e.n1,e.n2,e.n3,e.n4,e.marca)} */ onDoubleClick={() => changeInventario(null, i, "update")}>
+                                                    <tr className={(" align-bottom border-top border-top-1 border-dark pointer ")+(
+                                                        e.type_vinculo?
+                                                            e.type_vinculo=="maestro"?"bg-vinculo-maestro":"bg-vinculo-sucursal"
+                                                        :null
+                                                    )} onDoubleClick={() => changeInventario(null, i, "update")}>
                                                         <td>{i+1}</td>
                                                         <td className="">
                                                             {e.id}
@@ -628,12 +643,48 @@ export default function ComprascargarFactsItems({
                                                         :
                                                         <>
                                                             <td className="align-top">
-                                                                <input type="text"
-                                                                    disabled={type(e.type)} className="form-control form-control-sm"
-                                                                    value={!e.codigo_proveedor?"":e.codigo_proveedor}
-                                                                    onChange={e => changeInventario((e.target.value), i, "changeInput", "codigo_proveedor")}
-                                                                    placeholder="codigo_proveedor..." />
-                                                                    <button className="btn btn-success mt-2" onClick={()=>getBarrasCargaItems(i)}>Obtener Barras</button>
+                                                                <div className="input-group">
+                                                                    {e.type_vinculo?
+                                                                        <button onClick={()=>{if(e.type_vinculo!="maestro")getotrasopcionesalterno(i)}} className={("btn me-2 ")+(e.type_vinculo=="maestro"?"bg-vinculo-maestro-fuerte":"bg-vinculo-sucursal-fuerte")}>
+                                                                            <i className="fa fa-check"></i>
+                                                                        </button>
+                                                                    :null}
+                                                                    <input type="text"
+                                                                        disabled={type(e.type)} className="form-control form-control-sm"
+                                                                        value={!e.codigo_proveedor?"":e.codigo_proveedor}
+                                                                        onChange={e => changeInventario((e.target.value), i, "changeInput", "codigo_proveedor")}
+                                                                        placeholder="codigo_proveedor..." />
+                                                                </div>
+
+                                                                    {e.type_vinculo?
+                                                                        <>
+                                                                            {e.type_vinculo=="maestro"?
+                                                                                <small className="text-dorado">
+                                                                                    VINCULO MAESTRO
+                                                                                </small>
+                                                                            :
+                                                                                <small className="text-primary">
+                                                                                    VINCULO CON SUCURSAL {e.type_vinculo}
+                                                                                </small>
+                                                                            }
+                                                                        </>
+                                                                    :null}
+                                                                    {/* <button className="btn btn-success mt-2" onClick={()=>getBarrasCargaItems(i)}>Obtener Barras</button> */}
+                                                                    {indexotrasopcionesalterno==i?
+                                                                        <table className="table">
+                                                                            <tbody>
+                                                                                {dataotrasopcionesalterno.length?
+                                                                                    dataotrasopcionesalterno.map(ee=>
+                                                                                        <tr key={ee.id} className="hover" onClick={()=>setotrasopcionesalterno(i,ee.id)}>
+                                                                                            <th><i>{ee.codigo_barras}</i></th>
+                                                                                            <td>{ee.descripcion}</td>
+                                                                                            <td><button className="btn w-100" style={{backgroundColor:ee.sucursal.background}}>{ee.sucursal.codigo}</button></td>
+                                                                                        </tr>
+                                                                                    )
+                                                                                :null}
+                                                                            </tbody>
+                                                                        </table>
+                                                                    :null}
                                                             </td>
                                                             <td className="align-top">
                                                                 <input type="text"
@@ -666,7 +717,7 @@ export default function ComprascargarFactsItems({
                                                             <td className="align-top">
                                                                 <textarea type="text"
                                                                     cols={100}
-                                                                    rows={5}
+                                                                    rows={3}
                                                                     disabled={type(e.type)} className="form-control form-control-sm"
                                                                     value={!e.descripcion?"":e.descripcion}
                                                                     onChange={e => changeInventario((e.target.value), i, "changeInput", "descripcion")}

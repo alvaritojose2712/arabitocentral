@@ -662,12 +662,28 @@ class InventarioSucursalController extends Controller
             if ($cuentasporpagar->aprobado==1) {
                 return ["msj"=>"Error: Cuenta ya aprobada, no se puede modificar", "estado"=>false];
             }else{
+                $alternoduplicado = [];
+                $barrasduplicado = [];
                 foreach ($req->lotes as $i => $ee) {
-
-
-                    if (!$ee["codigo_barras"]) {
-                        return ["msj"=>"Error: codigo_barras NO VALIDO","estado"=>false];
+                    
+                    if (!array_key_exists($ee["codigo_proveedor"],$alternoduplicado)) {
+                        $alternoduplicado[$ee["codigo_proveedor"]] = 1;
+                    }else{
+                        return ["msj"=>"Error: codigo_proveedor DUPLICADO: ".$ee["codigo_proveedor"],"estado"=>false];
                     }
+
+                    if ($ee["codigo_barras"]!="") {
+                        if (!array_key_exists($ee["codigo_barras"],$barrasduplicado)) {
+                            $barrasduplicado[$ee["codigo_barras"]] = 1;
+                        }else{
+                            return ["msj"=>"Error: codigo_barras DUPLICADO: ".$ee["codigo_barras"],"estado"=>false];
+                        }
+                    }
+
+
+                   /*  if (!$ee["codigo_barras"]) {
+                        return ["msj"=>"Error: codigo_barras NO VALIDO","estado"=>false];
+                    } */
                     if (!$ee["codigo_proveedor"]) {
                         return ["msj"=>"Error: codigo_proveedor NO VALIDO","estado"=>false];
                     }
@@ -694,8 +710,6 @@ class InventarioSucursalController extends Controller
                         return ["msj"=>"Error: cantidad NO VALIDO","estado"=>false];
                     } 
                      
-                    
-
 
 
                     $sum_subtotal = 0;
@@ -716,9 +730,9 @@ class InventarioSucursalController extends Controller
                         return ["msj"=>"Valor de Items supera monto de factura [$ee[codigo_barras]]", "estado"=>false];
                     }
                     if (!$ee["id"]) {
-                        $barras = inventario_sucursal::where("codigo_barras",$ee["codigo_barras"])->first();
-                        $codigo_proveedor = inventario_sucursal::where("codigo_proveedor",$ee["codigo_proveedor"])->first();
-                        $descripcion = inventario_sucursal::where("descripcion",$ee["descripcion"])->first();
+                        $barras = inventario_sucursal::where("id_sucursal",13)->where("codigo_barras",$ee["codigo_barras"])->first();
+                        $codigo_proveedor = inventario_sucursal::where("id_sucursal",13)->where("codigo_proveedor",$ee["codigo_proveedor"])->first();
+                        $descripcion = inventario_sucursal::where("id_sucursal",13)->where("descripcion",$ee["descripcion"])->first();
     
                         if(!preg_match("/^[A-Za-z\\-0-9]*$/", $ee["codigo_barras"])){
                             return ["msj"=>"CÓDIGO DE BARRAS SOLO DEBE CONTENER LETRAS, NÚMEROS O GUIONES [$ee[codigo_barras]]", "estado"=>false];   
@@ -728,15 +742,15 @@ class InventarioSucursalController extends Controller
                         }
     
     
-                       /*  if ($barras) {
-                            return ["msj"=>"CÓDIGO DE BARRAS YA EXISTE [$ee[codigo_barras]]", "estado"=>false];   
+                        if ($barras) {
+                            return ["msj"=>"CÓDIGO DE BARRAS [$ee[codigo_barras]] YA EXISTE en PRODUCTO MAESTRO", "estado"=>false];   
                         }
                         if ($codigo_proveedor) {
-                            return ["msj"=>"CÓDIGO ALTERNO YA EXISTE [$ee[codigo_proveedor]]", "estado"=>false];   
+                            return ["msj"=>"CÓDIGO ALTERNO [$ee[codigo_proveedor]] YA EXISTE en PRODUCTO MAESTRO", "estado"=>false];   
                         }
                         if ($descripcion) {
-                            return ["msj"=>"DESCRIPCIÓN YA EXISTE [$ee[descripcion]]", "estado"=>false];   
-                        } */
+                            return ["msj"=>"DESCRIPCIÓN [$ee[descripcion]] YA EXISTE en PRODUCTO MAESTRO", "estado"=>false];   
+                        }
                     }
                 }
             }
@@ -759,16 +773,146 @@ class InventarioSucursalController extends Controller
             return Response::json(["msj"=>"Error: ".$e->getMessage()." LINEA ".$e->getLine(),"estado"=>false]);
         }  
     }
+    function verificarproductomaestro(Request $req) {
+        $lotes = $req->lotes;
+
+        foreach ($lotes as $i => $e) {
+            $ispermission = false;
+            $ispermissionData = [];
+            $ispermissionType = null;
+
+            $codigo_proveedor = $e["codigo_proveedor"];
+            $alternomaestro = inventario_sucursal::where("id_sucursal",13)->where("codigo_proveedor",$codigo_proveedor)->first();
+
+            if ($alternomaestro) {
+                $lotes[$i]["id"] = $alternomaestro->id;
+                $ispermission = true;
+                $ispermissionData = $alternomaestro;
+                $ispermissionType = "maestro";
+            }else{
+                $alternoenotrasucursal = inventario_sucursal::with("sucursal")->where("codigo_proveedor",$codigo_proveedor)->first();
+                if ($alternoenotrasucursal) {
+                    $lotes[$i]["id"] = null;
+                    $ispermission = true;
+                    $ispermissionData = $alternoenotrasucursal;
+                    $ispermissionType = $alternoenotrasucursal->sucursal->codigo;
+                }
+            }
+
+            if ($ispermission) {
+                $lotes[$i]["codigo_barras_antes"] = $e["codigo_barras"];
+                $lotes[$i]["descripcion_antes"] = $e["descripcion"];
+
+                $lotes[$i]["codigo_barras"] = $ispermissionData["codigo_barras"];
+                $lotes[$i]["descripcion"] = $ispermissionData["descripcion"];
+                $lotes[$i]["codigo_proveedor"] = $ispermissionData["codigo_proveedor"];
+                $lotes[$i]["unidad"] = $ispermissionData["unidad"];
+                $lotes[$i]["id_categoria"] = $ispermissionData["id_categoria"];
+                $lotes[$i]["id_catgeneral"] = $ispermissionData["id_catgeneral"];
+                $lotes[$i]["iva"] = $ispermissionData["iva"];
+                $lotes[$i]["id_marca"] = $ispermissionData["id_marca"];
+
+
+                $lotes[$i]["codigo_proveedor2"] = $ispermissionData["codigo_proveedor2"];
+                $lotes[$i]["id_deposito"] = $ispermissionData["id_deposito"];
+                $lotes[$i]["porcentaje_ganancia"] = $ispermissionData["porcentaje_ganancia"];
+                $lotes[$i]["precio_base"] = $ispermissionData["precio_base"];
+                $lotes[$i]["precio"] = $ispermissionData["precio"];
+                $lotes[$i]["precio1"] = $ispermissionData["precio1"];
+                $lotes[$i]["precio2"] = $ispermissionData["precio2"];
+                $lotes[$i]["precio3"] = $ispermissionData["precio3"];
+                $lotes[$i]["n1"] = $ispermissionData["n1"];
+                $lotes[$i]["n2"] = $ispermissionData["n2"];
+                $lotes[$i]["n3"] = $ispermissionData["n3"];
+                $lotes[$i]["n4"] = $ispermissionData["n4"];
+                $lotes[$i]["n5"] = $ispermissionData["n5"];
+                $lotes[$i]["id_proveedor"] = $ispermissionData["id_proveedor"];
+                $lotes[$i]["stockmin"] = $ispermissionData["stockmin"];
+                $lotes[$i]["stockmax"] = $ispermissionData["stockmax"];
+                
+                $lotes[$i]["type_vinculo"] = $ispermissionType;
+
+            }
+        }
+
+        return $lotes;
+    }
+
+    function getotrasopcionesalterno(Request $req) {
+        $data = $req->alterno;
+        $alterno = $data["codigo_proveedor"];
+        $data = inventario_sucursal::with("sucursal")->where("codigo_proveedor",$alterno)->get();
+        return $data;
+    }
+    function autovincularPedido(Request $req) {
+        try {
+            $id_cuenta = $req->id_cuenta;
+            $num = 0;
+            $numTotal = 0;
+            $cuenta = cuentasporpagar::find($id_cuenta);
+            if ($cuenta) {
+                
+                $items = cuentasporpagar_items::with("producto")->where("id_cuenta",$id_cuenta)->get();
+                
+                foreach ($items as $item) {
+                    $match_alterno = inventario_sucursal::where("id_sucursal",$cuenta->id_sucursal)->where("codigo_proveedor",$item->producto->codigo_proveedor)->first();
+                    if ($match_alterno) {
+                        $match_vinculo = vinculossucursales::where("id_producto_local",$item->id_producto)
+                        ->where("idinsucursal_fore",$match_alterno->idinsucursal)
+                        ->where("id_sucursal_fore",$cuenta->id_sucursal)
+                        ->first();
+                        if (!$match_vinculo) {
+                            $v = vinculossucursales::updateOrCreate([
+                                "id_producto_local" => $item->id_producto, //PROD CENTRAL
+                                "idinsucursal_fore" => $match_alterno->idinsucursal, //PROD SUC
+                                "id_sucursal_fore" => $cuenta->id_sucursal, //SUC
+                                "id_sucursal" => 13, //CENTRAL
+                    
+                            ],[
+                                "id_producto_local" => $item->id_producto, //PROD CENTRAL
+                                "id_sucursal" => 13, //CENTRAL
+                                "idinsucursal_fore" => $match_alterno->idinsucursal, //PROD SUC
+                                "id_sucursal_fore" => $cuenta->id_sucursal, //SUC
+                                
+                                "idinsucursal" => null, // INSUCURSAl, SOLO REF
+                            ]);
+                            $num++;
+                        }
+                    }
+                    $numTotal++;
+                }
+            }
+            return ["estado"=>true, "msj"=>"Éxito: $num/$numTotal VINCULOS NUEVOS"];
+
+        } catch (\Exception $e) {
+            return ["estado"=>false, "msj"=>"Error: ".$e->getMessage()];
+        }
+
+    }
+    function setotrasopcionesalterno(Request $req) {
+        
+    }
+
     public function guardarProducto($arr){
         $id_factura = $arr["id_factura"];
         
+        $id = null;
+        if ($arr["id"]) {
+            $i = inventario_sucursal::find($arr["id"]);
+            if ($i) {
+                if ($i->id_sucursal==13) {
+                    $id = $arr["id"];
+                }
+            }
+        }
+
         $crearProducto = inventario_sucursal::updateOrCreate([
-            "id" => $arr["id"]? $arr["id"]:null
+            "id" => $id
         ],[
             "id_sucursal" => 13,
-            "codigo_barras" => $arr["codigo_barras"],
-            "codigo_proveedor" => $arr["codigo_proveedor"],
-            "descripcion" => strtoupper($arr["descripcion"]),
+            "codigo_barras" => $this->clean($arr["codigo_barras"],"codigo_barras"),
+            "codigo_proveedor" => $this->clean($arr["codigo_proveedor"],"codigo_proveedor"),
+            "descripcion" => $this->clean($arr["descripcion"],"descripcion"),
             "unidad" => $arr["unidad"],
             "id_categoria" => $arr["id_categoria"],
             "id_catgeneral" => $arr["id_catgeneral"],
@@ -777,6 +921,8 @@ class InventarioSucursalController extends Controller
             "precio_base" => $arr["precio_base"],
             "cantidad" => 0,
         ]); 
+
+
         if ($crearProducto) {
             $i = inventario_sucursal::find($crearProducto->id);
             $i->idinsucursal = $crearProducto->id;

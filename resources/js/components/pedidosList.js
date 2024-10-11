@@ -74,9 +74,9 @@ export default function PedidosList({
 			<table className="table">
 				<thead>
 					<tr>
+						<th>ESTADO</th>
 						<th>FECHA</th>
 						<th>CXP</th>
-						<th>ESTADO</th>
 						<th>ORIGEN</th>
 						<th>DESTINO</th>
 						<th>ID PED</th>
@@ -89,6 +89,12 @@ export default function PedidosList({
 				<tbody>
 					{pedidos.map(e=>
 						<tr onClick={()=>selectPedido(e.id)} data-id={e.id}  className="pointer" key={e.id}>
+							<td className={(e.estado==1?"bg-danger":"")+(e.estado==3?"bg-warning":"")+(e.estado==4?"bg-info":"")+(e.estado==2?"bg-success":"")}>
+								{e.estado==1?"PENDIENTE":null}
+								{e.estado==3?"EN REVISIÓN":null}
+								{e.estado==4?"REVISADO":null}
+								{e.estado==2?"PROCESADO":null}
+							</td>
 							<td>
 								<small className="text-muted">{e.created_at}</small>
 							</td>
@@ -100,12 +106,6 @@ export default function PedidosList({
 									<b>{e.cxp.proveedor.descripcion}</b>
 								</>
 								:null}
-							</td>
-							<td className={(e.estado==1?"bg-danger":"")+(e.estado==3?"bg-warning":"")+(e.estado==4?"bg-info":"")+(e.estado==2?"bg-success":"")}>
-								{e.estado==1?"PENDIENTE":null}
-								{e.estado==3?"EN REVISIÓN":null}
-								{e.estado==4?"REVISADO":null}
-								{e.estado==2?"PROCESADO":null}
 							</td>
 							<td style={{backgroundColor:e.origen.background}}>
 								{e.origen.codigo}  

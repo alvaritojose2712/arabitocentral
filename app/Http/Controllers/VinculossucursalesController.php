@@ -28,7 +28,7 @@ class VinculossucursalesController extends Controller
             "idinsucursal_fore" => $idinsucursal, //PROD SUC
             "id_sucursal_fore" => $id_sucursal, //SUC
             
-            "idinsucursal" => ($last_id->id)+1, // INSUCURSAl, SOLO REF
+            "idinsucursal" => ($last_id?$last_id->id:0)+1, // INSUCURSAl, SOLO REF
         ]);
         if ($v) {
             return ["estado"=>1,"msj"=>"Éxito al Vincular"];

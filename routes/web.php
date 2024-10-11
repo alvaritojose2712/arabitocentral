@@ -57,6 +57,8 @@ use App\Http\Controllers\NominaController;
 use App\Http\Controllers\NominapagosController;
 use App\Http\Controllers\ComovamosController;
 use App\Http\Controllers\TareasSucursalesController;
+use App\Http\Controllers\ComprasNotascreditodebitoController;
+
 
 
 use App\Models\puntosybiopagos;
@@ -487,6 +489,9 @@ Route::get('', [home::class,"index"]);
     Route::post('getPedidosList', [PedidosController::class,"getPedidosList"]);
     
     Route::post('getPedidos', [PedidosController::class,"getPedidos"]);
+    Route::post('revolverNovedadItemTrans', [PedidosController::class,"revolverNovedadItemTrans"]);
+    Route::post('getNovedadesPedidosData', [ComprasNotascreditodebitoController::class,"getNovedadesPedidosData"]);
+    
     Route::post('delPedido', [PedidosController::class,"delPedido"]);
     Route::post('getPedido', [PedidosController::class,"getPedido"]);
     Route::post('setConfirmFacturas', [PedidosController::class,"setConfirmFacturas"]);
@@ -507,6 +512,12 @@ Route::get('', [home::class,"index"]);
     Route::post('sendItemsPedidosChecked', [ItemsPedidosController::class,"sendItemsPedidosChecked"]);
     
     Route::post('guardarNuevoProductoLote', [InventarioSucursalController::class,"guardarNuevoProductoLote"]);
+    Route::post('verificarproductomaestro', [InventarioSucursalController::class,"verificarproductomaestro"]);
+    Route::post('getotrasopcionesalterno', [InventarioSucursalController::class,"getotrasopcionesalterno"]);
+    Route::post('setotrasopcionesalterno', [InventarioSucursalController::class,"setotrasopcionesalterno"]);
+    Route::post('autovincularPedido', [InventarioSucursalController::class,"autovincularPedido"]);
+    
+    
     Route::post('guardarmodificarInventarioDici', [InventarioSucursalController::class,"guardarmodificarInventarioDici"]);
 
     Route::post('getTareasPendientes', [TareasSucursalesController::class,"getTareasPendientes"]);
@@ -628,6 +639,9 @@ Route::get('', [home::class,"index"]);
     Route::post('setPedidoInCentralFromMasters', [PedidosController::class,"setPedidoInCentralFromMasters"]);
     Route::post('respedidos', [PedidosController::class,"respedidos"]);
     Route::post('changeExtraidoEstadoPed', [PedidosController::class,"changeExtraidoEstadoPed"]);
+    Route::post('getPedidoCentralImport', [PedidosController::class,"getPedidoCentralImport"]);
+    Route::post('sendTareasPendientesCentral', [PedidosController::class,"sendTareasPendientesCentral"]);
+    
     Route::post('setComovamos', [ComovamosController::class,"setComovamos"]);
     
     

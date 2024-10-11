@@ -1351,6 +1351,110 @@ function Home() {
     }
   }
 
+  const verificarproductomaestro = () => {
+    if (confirm("Confirme VINCULO PRODUCTO MAESTRO")) {
+      
+      let lotesFil = productosInventario.map((e,i)=>{e.index = i;return e}).filter(e => e.type)
+      db.verificarproductomaestro({
+        lotes: lotesFil,
+  
+      }).then(res=>{
+        let dataModify = res.data
+        let clone = cloneDeep(productosInventario)
+        setProductosInventario(clone.map((ee,ii)=>{
+  
+          ee = dataModify.filter(e=>e.index==ii)[0]
+          return ee
+        }))
+      })
+    }
+  }
+  
+  const [dataotrasopcionesalterno,setdataotrasopcionesalterno] = useState([])
+  const [indexotrasopcionesalterno,setindexotrasopcionesalterno] = useState(null)
+  
+  const getotrasopcionesalterno = index =>{
+    if (indexotrasopcionesalterno==index) {
+      setindexotrasopcionesalterno(null)
+    }else{
+      setindexotrasopcionesalterno(index)
+      let fil = productosInventario.filter((e,i)=>index==i)
+      if (fil.length) {
+        setdataotrasopcionesalterno([])
+        db.getotrasopcionesalterno({
+          alterno: fil[0]
+        }).then(res=>{
+          setdataotrasopcionesalterno(res.data)
+        })
+      }else{
+        console.log("getotrasopcionesalterno",fil)
+      }
+    }
+  }
+
+  const setotrasopcionesalterno = (indexmodify,idproducto) =>{
+    let fil = dataotrasopcionesalterno.filter(e=>e.id==idproducto)
+    
+    if (fil.length) {
+      let clone = cloneDeep(productosInventario)
+      let datanew = fil[0]
+      
+      setProductosInventario(clone.map((e,i)=>{
+        if (indexmodify==i) {
+          
+          e.id = null
+          e.codigo_barras_antes = e.codigo_barras_antes?e.codigo_barras_antes:e.codigo_barras
+          e.descripcion_antes = e.descripcion_antes?e.descripcion_antes:e.descripcion
+
+          e.codigo_barras = datanew.codigo_barras
+          e.descripcion = datanew.descripcion
+
+          e.unidad = datanew.unidad
+          e.id_categoria = datanew.id_categoria
+          e.id_catgeneral = datanew.id_catgeneral
+          e.iva = datanew.iva
+          e.id_marca = datanew.id_marca
+
+          e.codigo_proveedor2 = datanew.codigo_proveedor2
+          e.id_deposito = datanew.id_deposito
+          e.porcentaje_ganancia = datanew.porcentaje_ganancia
+          e.precio_base = datanew.precio_base
+          e.precio = datanew.precio
+          e.precio1 = datanew.precio1
+          e.precio2 = datanew.precio2
+          e.precio3 = datanew.precio3
+          e.n1 = datanew.n1
+          e.n2 = datanew.n2
+          e.n3 = datanew.n3
+          e.n4 = datanew.n4
+          e.n5 = datanew.n5
+          e.id_proveedor = datanew.id_proveedor
+          e.stockmin = datanew.stockmin
+          e.stockmax = datanew.stockmax
+
+          e.type_vinculo = datanew.sucursal.codigo
+          
+        }
+        return e
+      }))
+    }else{
+      console.log("setotrasopcionesalterno",fil)
+    }
+
+  }
+
+  const autovincularPedido = id_cuenta => {
+    if (confirm("CONFIRME AUTOVINCULO")) {
+      db.autovincularPedido({id_cuenta})
+      .then(res=>{
+        if (res.data.estado) {
+          selectCuentaPorPagarProveedorDetallesFun()
+        }
+      })
+    }
+  }
+  
+
   
   const changeInventario = (val, i, type, name = null) => {
     let obj = cloneDeep(productosInventario)
@@ -2221,6 +2325,33 @@ function formatAmount( number, simbol ) {
     })
   }
 
+//// NOVEDADES PEDIDOS
+const [qnovedadesPedidodos,setqnovedadesPedidodos] = useState("")
+const [novedadesPedidosData,setnovedadesPedidosData] = useState([])
+
+const getNovedadesPedidosData = () => {
+  db.getNovedadesPedidosData({qnovedadesPedidodos})
+  .then(res=>{
+    setnovedadesPedidosData(res.data)
+  })
+}
+
+
+////
+
+  const revolverNovedadItemTrans = (iditem,type,accion) => {
+    db.revolverNovedadItemTrans({
+      iditem,
+      type,
+      accion,
+    })
+    .then(res=>{
+      if (res.data.estado) {
+        setpedidoData(res.data.pedido)
+      }
+      notificar(res)
+    })
+  }
   const getPedidos = e => {
     setLoading(true)
     db.getPedidos({ 
@@ -2294,15 +2425,19 @@ function formatAmount( number, simbol ) {
   }
 
 
-  const aprobarRevisionPedido = () => {
+  const aprobarRevisionPedido = (estado) => {
     if (pedidoData) {
       if (pedidoData.id) {
-        if (confirm("¿Realmente desea enviar el pedido " + pedidoData.id + " a " + pedidoData.sucursal.nombre)) {
+        if (confirm("Confirme")) {
           setLoading(true)
-          db.aprobarRevisionPedido({ id: pedidoData.id }).then(res => {
+          db.aprobarRevisionPedido({ id: pedidoData.id, estado }).then(res => {
             notificar(res)
-            getPedidos()
-            setshowCantidadCarrito("procesar")
+            if (res.data) {
+              if (res.data.estado) {
+                getPedidos()
+                setshowCantidadCarrito("procesar")
+              }
+            }
             setLoading(false)
           })
         }
@@ -6158,6 +6293,11 @@ function formatAmount( number, simbol ) {
               permiso={permiso}
             />
             <Pedidos 
+              qnovedadesPedidodos={qnovedadesPedidodos}
+              setqnovedadesPedidodos={setqnovedadesPedidodos}
+              novedadesPedidosData={novedadesPedidosData}
+              getNovedadesPedidosData={getNovedadesPedidosData}
+              revolverNovedadItemTrans={revolverNovedadItemTrans}
               qpedidosucursaldestino={qpedidosucursaldestino}
               setqpedidosucursaldestino={setqpedidosucursaldestino}
               inputBuscarInventario={inputBuscarInventario}
@@ -6577,6 +6717,13 @@ function formatAmount( number, simbol ) {
               />
               {subViewInventario == "gestion" ?
                 <ComprascargarFactsItems
+                  autovincularPedido={autovincularPedido}
+                  indexotrasopcionesalterno={indexotrasopcionesalterno}
+                  setindexotrasopcionesalterno={setindexotrasopcionesalterno}
+                  setotrasopcionesalterno={setotrasopcionesalterno}
+                  getotrasopcionesalterno={getotrasopcionesalterno}
+                  dataotrasopcionesalterno={dataotrasopcionesalterno}
+                  verificarproductomaestro={verificarproductomaestro}
                   buscarInventarioModal={buscarInventarioModal}
                   productosInventarioModal={productosInventarioModal}
                   qBuscarInventarioModal={qBuscarInventarioModal}

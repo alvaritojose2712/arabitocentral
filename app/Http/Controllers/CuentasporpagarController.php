@@ -915,7 +915,9 @@ class CuentasporpagarController extends Controller
         $todayWithoutDateTime = (new NominaController)->today();
         $today = new \DateTime($todayWithoutDateTime);
         $detalles = cuentasporpagar::with(["banco","efectivo","items"=>function($q){
-            $q->with("producto");
+            $q->with(["producto"=>function($q) {
+                $q->with(["sucursal"]);
+            }]);
         },"sucursal","proveedor","pagos"=>function($q) {
             
             $q->orderBy("id","desc");

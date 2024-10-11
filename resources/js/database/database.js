@@ -112,6 +112,9 @@ const db = {
   getPedidosList: data=>axios.post(host+"getPedidosList",data),
 
   getPedidos: data=>axios.post(host+"getPedidos",data),
+  revolverNovedadItemTrans: data=>axios.post(host+"revolverNovedadItemTrans",data),
+  getNovedadesPedidosData: data=>axios.post(host+"getNovedadesPedidosData",data),
+  
   delPedido: data=>axios.post(host+"delPedido",data),
   getPedido: data=>axios.post(host+"getPedido",data),
 
@@ -146,6 +149,12 @@ const db = {
   setProveedor: data=>axios.post(host+"setProveedor",data),
   openReporteInventario: data=>axios.post(host+"openReporteInventario",data),
   guardarNuevoProductoLote: data=>axios.post(host+"guardarNuevoProductoLote",data),
+  verificarproductomaestro: data=>axios.post(host+"verificarproductomaestro",data),
+  getotrasopcionesalterno: data=>axios.post(host+"getotrasopcionesalterno",data),
+  setotrasopcionesalterno: data=>axios.post(host+"setotrasopcionesalterno",data),
+  autovincularPedido: data=>axios.post(host+"autovincularPedido",data),
+  
+  
   guardarmodificarInventarioDici: data=>axios.post(host+"guardarmodificarInventarioDici",data),
   getTareasPendientes: data=>axios.post(host+"getTareasPendientes",data),
   sendTareaRemoverDuplicado: data=>axios.post(host+"sendTareaRemoverDuplicado",data),
