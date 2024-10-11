@@ -18,6 +18,8 @@ use App\Models\inventario_sucursal;
 use App\Models\puntosybiopagos;
 use App\Models\cajas;
 use App\Models\vinculossucursales;
+use App\Models\compras_notascreditodebito;
+
 
 
 
@@ -1094,12 +1096,19 @@ class CuentasporpagarController extends Controller
         }
     
         $detalles_modified = $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact, $todayWithoutDateTime) {
+            $novedades_sum = compras_notascreditodebito::where("id_factura",$q->id)->sum("monto");
+            $q->monto = $q->monto+$novedades_sum;
+
+
             $q->monto_bruto = $q->monto;
             $q->monto = $q->monto-$q->monto_descuento;
     
             $fechavencimiento = new \DateTime($q->fechavencimiento);
             $monto_abonado = $q->monto_abonado?$q->monto_abonado:0;
+
             $monto = $q->monto;
+
+
             $balance = $q->balance;
             $id_sucursal_destino = $q->id_sucursal;
             
