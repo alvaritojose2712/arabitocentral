@@ -6990,7 +6990,7 @@ function CargarTraspasos(_ref) {
             placeholder: "% Comi\xF3n",
             value: comisionpagomovilinterban,
             onChange: function onChange(event) {
-              return setcomisionpagomovilinterban(event.preventDefault());
+              return setcomisionpagomovilinterban(number(event.target.value));
             }
           }) : null]
         })]
