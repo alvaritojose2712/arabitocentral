@@ -6985,7 +6985,6 @@ function CargarTraspasos(_ref) {
             children: "Genera Comisi\xF3n"
           }), iscomisiongasto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
             type: "text",
-            disabled: true,
             className: "form-control",
             size: 5,
             placeholder: "% Comi\xF3n",
@@ -80529,8 +80528,8 @@ function Home() {
           e.codigo_proveedor2 = datanew.codigo_proveedor2;
           e.id_deposito = datanew.id_deposito;
           e.porcentaje_ganancia = datanew.porcentaje_ganancia;
-          e.precio_base = datanew.precio_base;
-          e.precio = datanew.precio;
+          /* e.precio_base = datanew.precio_base
+          e.precio = datanew.precio */
           e.precio1 = datanew.precio1;
           e.precio2 = datanew.precio2;
           e.precio3 = datanew.precio3;

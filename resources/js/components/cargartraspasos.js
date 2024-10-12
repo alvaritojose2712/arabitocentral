@@ -36,7 +36,7 @@ export default function CargarTraspasos({
                     <div className="input-group w-50 mt-1">
                         <button type="button" className={("btn btn")+(iscomisiongasto==1?"-success":"-danger")} onClick={()=>setiscomisiongasto(iscomisiongasto==1?0:1)}>Genera Comisión</button>
                         {iscomisiongasto?
-                            <input type="text" disabled={true} className="form-control" size={5} placeholder="% Comión" value={comisionpagomovilinterban} onChange={event=>setcomisionpagomovilinterban(event.preventDefault())}/>
+                            <input type="text" className="form-control" size={5} placeholder="% Comión" value={comisionpagomovilinterban} onChange={event=>setcomisionpagomovilinterban(event.preventDefault())}/>
                         :null}
                     </div>
                 </div>
