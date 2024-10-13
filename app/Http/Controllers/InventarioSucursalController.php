@@ -727,7 +727,7 @@ class InventarioSucursalController extends Controller
     
                     if ($sum_subtotal<=$fact_monto) {
                     }else{
-                        return ["msj"=>"Valor de Items supera monto de factura [$ee[codigo_barras]]", "estado"=>false];
+                        //return ["msj"=>"Valor de Items supera monto de factura [$ee[codigo_barras]]", "estado"=>false];
                     }
                     if (!$ee["id"]) {
                         $barras = inventario_sucursal::where("id_sucursal",13)->where("codigo_barras",$ee["codigo_barras"])->first();

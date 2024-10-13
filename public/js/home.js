@@ -84449,7 +84449,7 @@ function Home() {
       <th>VENTA</th> 
      */}
     var obj = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.cloneDeep)(productosInventario);
-    var rows = inputimportitems.replace("\"", "").replace("\'", "").split("\n");
+    var rows = inputimportitems.replace("\"", "").replace("\'", "").split("\n").reverse();
     var cols, row, alterno, barras, unidad, descripcion, ct, basef, base, venta;
     if (inputimportitems) {
       for (var i in rows) {

@@ -4949,7 +4949,7 @@ const getNovedadesPedidosData = () => {
       <th>VENTA</th> 
     */}
     let obj = cloneDeep(productosInventario)
-    let rows = inputimportitems.replace("\"","").replace("\'","").split("\n")
+    let rows = inputimportitems.replace("\"","").replace("\'","").split("\n").reverse()
     let cols,row, alterno,barras,unidad,descripcion,ct,basef,base,venta;
     if (inputimportitems) {
       for(let i in rows){
