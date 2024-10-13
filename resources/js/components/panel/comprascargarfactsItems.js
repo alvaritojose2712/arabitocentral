@@ -824,7 +824,7 @@ export default function ComprascargarFactsItems({
                                                                 </td>
                                                             
                                                         </tr>
-                                                        <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
+                                                        {/* <tr className={(selectIdVinculacion.indexOf(e.id)!=-1?" bg-success-superlight ":"")}>
                                                             <td colSpan={4}></td>
                                                             <td>
                                                                 <table className="table table-sm">
@@ -902,11 +902,11 @@ export default function ComprascargarFactsItems({
                                                                     <button className="btn btn-success" type="button" onClick={()=>saveCuatroNombres()}>GUARDAR</button>
                                                                 </>:null}
                                                             
-                                                                    {/* {e.n4? e.n4+"  ":""} */}
+                                                                {e.n4? e.n4+"  ":""}
                                                             </td>
                                                             <td className="text-muted" colSpan={7}></td>
                                                         
-                                                        </tr>
+                                                        </tr> */}
                                                         {
                                                             selectIdVinculacion.indexOf(e.id)!=-1&&e.type!="delete"?
                                                                 <>
