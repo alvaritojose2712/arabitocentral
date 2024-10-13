@@ -225,7 +225,7 @@ export default function PedidoSelect({
 
 				<button className="btn m-3 btn-success" title="Ver reporte sucursal" onClick={showPedidoBarras}><i className="fa fa-print fa-3x"></i></button>
 				{pedidoData?
-					pedidoData.estado==3?
+					pedidoData.estado==3||pedidoData.estado==4?
 						<>
 							<button className="btn fs-3 m-3 btn-outline-success" title="Enviar a sucursal" onClick={()=>aprobarRevisionPedido(4)}>Aprobar Revisión</button>
 							<button className="btn fs-3 m-3 btn-outline-danger" title="Rechazar REVISION" onClick={()=>aprobarRevisionPedido(1)}>RECHAZAR</button>
