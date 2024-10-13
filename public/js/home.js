@@ -80122,12 +80122,15 @@ function Home() {
       }).then(function (res) {
         var dataModify = res.data;
         var clone = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.cloneDeep)(productosInventario);
-        setProductosInventario(clone.map(function (ee, ii) {
+        var cloneModify = clone.map(function (ee, ii) {
           ee = dataModify.filter(function (e) {
             return e.index == ii;
           })[0];
           return ee;
-        }));
+        }).filter(function (e) {
+          return e;
+        });
+        setProductosInventario(cloneModify);
       });
     }
   };

@@ -1372,11 +1372,11 @@ function Home() {
       }).then(res=>{
         let dataModify = res.data
         let clone = cloneDeep(productosInventario)
-        setProductosInventario(clone.map((ee,ii)=>{
-  
+        let cloneModify = clone.map((ee,ii)=>{
           ee = dataModify.filter(e=>e.index==ii)[0]
           return ee
-        }))
+        }).filter(e=>e)
+        setProductosInventario(cloneModify)
       })
     }
   }
