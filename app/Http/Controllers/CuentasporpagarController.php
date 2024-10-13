@@ -27,6 +27,7 @@ use App\Models\compras_notascreditodebito;
 
 use Illuminate\Http\Request;
 use Response;
+use DB;
 
 
 class CuentasporpagarController extends Controller
@@ -916,7 +917,7 @@ class CuentasporpagarController extends Controller
         
         $todayWithoutDateTime = (new NominaController)->today();
         $today = new \DateTime($todayWithoutDateTime);
-        $detalles = cuentasporpagar::with(["novedades","banco","efectivo","items"=>function($q){
+        $detalles = cuentasporpagar::with(["pedido","novedades","banco","efectivo","items"=>function($q){
             $q->with(["producto"=>function($q) {
                 $q->with(["sucursal"]);
             }]);
@@ -1234,114 +1235,55 @@ class CuentasporpagarController extends Controller
     }
 
     function sendlistdistribucionselect(Request $req) {
-        //return;
-        $listdistribucionselect = $req->listdistribucionselect;
-        $id_cxp = $req->id;
-        $groupListbyIdItem = [];
-        foreach ($listdistribucionselect as $i => $item_su) {
-            if (array_key_exists($item_su["id_item"], $groupListbyIdItem)) {
-                $last_cantidad = $groupListbyIdItem[$item_su["id_item"]];
-                $groupListbyIdItem[$item_su["id_item"]] = $last_cantidad + $item_su["cantidad"];
-            }else{
-                $groupListbyIdItem[$item_su["id_item"]] = $item_su["cantidad"];
+        DB::beginTransaction();
+
+        try {
+            $id_cxp = $req->id;
+            $count = 0;
+            $items = cuentasporpagar_items::with(["producto"])->where("id_cuenta",$id_cxp)->get();
+            if (!$items->count()) {
+                return Response::json(["msj"=>"Error: Factura SIN ITEMS","estado"=>false]);
             }
-        }
-
-        if (count($listdistribucionselect)) {
-            $check = true;
-            $codeError = "";
-
-            foreach ($groupListbyIdItem as $id_item => $cantidad) {
-                $item = cuentasporpagar_items::with(["producto"])->find($id_item);
-                if ($item) {
-                    $total_ct_itemfact = $item->cantidad;
-                    if ($total_ct_itemfact!=$cantidad) {
-                        $check = false;
-                        if ($item->producto) {
-                            $codeError = "BARRAS: ".$item->producto->codigo_barras;
-                        }else{
-                            $codeError = "ID: ".$item->id;
-                        }
-                    }
-                }
-            }
-            if ($check) {
-                $groupListbyIdSucursal = [];
-                foreach ($listdistribucionselect as $i => $item_su) {
-                    if (array_key_exists($item_su["id_sucursal"], $groupListbyIdSucursal)) {
-                        array_push($groupListbyIdSucursal[$item_su["id_sucursal"]], [
-                            "cantidad" => $item_su["cantidad"],
-                            "id_item" => $item_su["id_item"],
-                        ]);
-                    }else{
-                        $groupListbyIdSucursal[$item_su["id_sucursal"]] = [
-                            [
-                                "cantidad" => $item_su["cantidad"],
-                                "id_item" => $item_su["id_item"],
-                            ]
-                        ];
-                    }
-                }
-                
-                $count = 0;
-                //0 "Pediente"
-                //1 "Procesado"
-                //2 "Extraído"
-
-                //3 "En Revision"
-                //4 "Revisado"
-
-                $check_no_proce = pedidos::where("id_cxp",$id_cxp)->where("estado","1")->first();
-                if (!$check_no_proce) { 
-                    foreach ($groupListbyIdSucursal as $id_sucursal => $e) {
-                        $lastid = pedidos::orderBy("id","desc")->first("id");
-                        if (!$lastid) {
-                            $lastid = 0;
-                        }else{
-                            $lastid = $lastid->id;
-                        }
-                        
-                            $lastid = ($lastid)+1;
-                            $ped = new pedidos;
-                            $ped->id_cxp = $id_cxp;
-                            $ped->idinsucursal = $lastid;
-                            $ped->estado = 1;
-                            $ped->id_origen = 13;
-                            $ped->id_destino = $id_sucursal;//id Destino
-                            if ($ped->save()) {
-                                foreach ($e as $ii => $ee) {
-                                    $cuentaitem = cuentasporpagar_items::with(["producto"])->find($ee["id_item"]);  
-                                    if ($cuentaitem) {
-                                        $inv_master = $cuentaitem->producto;
-                                        $items_pedidos = new items_pedidos;
-                                                
-                                        $items_pedidos->id_producto = $cuentaitem->id_producto;
-                                        $items_pedidos->id_pedido = $ped->id;
-                                        $items_pedidos->cantidad = $ee["cantidad"];
-                                        $items_pedidos->descuento = 0;
-                                        $items_pedidos->monto = $inv_master["precio"]*$ee["cantidad"];
+    
+            $check_no_proce = pedidos::where("id_cxp",$id_cxp)->where("estado","1")->first();
+            if (!$check_no_proce) { 
+                $lastid = pedidos::orderBy("id","desc")->first("id");
+                $cxp = cuentasporpagar::find($id_cxp);
+                if (!$lastid) {$lastid = 0;}else{$lastid = $lastid->id;}
             
-                                        if ($items_pedidos->save()) {
-                                            $count++;  
-                                        }
+                $ped = new pedidos;
+                $ped->id_cxp = $id_cxp;
+                $ped->idinsucursal = ($lastid)+1;
+                $ped->estado = 1;
+                $ped->id_origen = 13;
+                $ped->id_destino = $cxp->id_sucursal;//id Destino
+                if ($ped->save()) {
+                    $items = cuentasporpagar_items::with(["producto"])->where("id_cuenta",$id_cxp)->get();
+                    foreach ($items as $ii => $cuentaitem) {
+                        $inv_master = $cuentaitem->producto;
+                        $items_pedidos = new items_pedidos;
+                        $items_pedidos->id_producto = $cuentaitem->id_producto;
+                        $items_pedidos->cantidad = $cuentaitem->cantidad;
+                        $items_pedidos->monto = $inv_master["precio"]*$cuentaitem->cantidad;
+                        $items_pedidos->id_pedido = $ped->id;
+                        $items_pedidos->descuento = 0;
+                        if ($items_pedidos->save()) {
+                            $count++;  
+                        }
+                    }
+                }
+                DB::commit();
+                return Response::json(["msj"=>"$count ITEMS PROCESADOS","estado"=>true]);
+    
+            }else{
+                return Response::json(["msj"=>"Error: YA SE TRANSFIRIÓ","estado"=>false]);
+            } 
+
+        }catch (\Exception $e) {
+            DB::rollback();
+            return Response::json(["msj"=>"Error sendlistdistribucionselect".$e->getMessage()." ".$e->getLine(),"estado"=>false]);
+        } 
+
         
-                                    }                         
-                                }
-                            }
-                        
-                        
-                    }
-                    return Response::json(["msj"=>"$count Items Procesados".$codeError,"estado"=>true]);
-
-                }else{
-                    return Response::json(["msj"=>"Error: Ya se TRANSFIRIÓ","estado"=>false]);
-                } 
-
-                
-            }else{
-                return Response::json(["msj"=>"Cantidad no coincide ".$codeError,"estado"=>false]);
-            }
-            
-        }
     }
 }

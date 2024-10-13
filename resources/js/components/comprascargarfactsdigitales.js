@@ -122,7 +122,7 @@ export default function Comprascargarfactsdigitales({
                                 :null
                             }
                         </th>
-                        <th className="text-right">
+                        <th className="text-right" colSpan={3}>
                             <button className="btn btn-warning" onClick={()=>handleFacturaxLotes(null,null,"add")}><i className="fa fa-plus"></i></button>
                             <button className="btn btn-success" onClick={()=>saveFacturaLote()}>GUARDAR <i className="fa fa-send"></i></button>
 
@@ -165,6 +165,8 @@ export default function Comprascargarfactsdigitales({
                         <th onClick={()=>{if(qCampocuentasPorPagarDetalles=="monto"){setOrdercuentasPorPagarDetalles(OrdercuentasPorPagarDetalles==="desc"?"asc":"desc")};setqCampocuentasPorPagarDetalles("monto")}} className="pointer  p-3">
                             MONTO
                         </th>
+                        <th></th>
+                        <th>ITEMS</th>
                         <th></th>
                             
                     </tr>
@@ -319,6 +321,9 @@ export default function Comprascargarfactsdigitales({
                                                 :
                                                 <button className="btn btn-danger btn-sm" onClick={()=>changeAprobarFact(e.id, e.proveedor.id)}>DESAPROBAR <i className="fa fa-times"></i></button>
                                             }
+                                    </td>
+                                    <td>
+                                        <span className="fs-3">{e.items?e.items.length:null}</span>
                                     </td>
                                 </>    
                             :null}

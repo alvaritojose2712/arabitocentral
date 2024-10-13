@@ -591,6 +591,7 @@ export default function ComprascargarFactsItems({
                                                         className=""
                                                         value={sameCatValue}
                                                         onChange={e=>setSameCat(e.target.value,"cat")}
+                                                        onDoubleClick={e=>setSameCat(e.target.value,"cat")}
                                                     >
                                                         <option value="">--Select--</option>
                                                         {categorias.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
@@ -603,6 +604,7 @@ export default function ComprascargarFactsItems({
                                                         className=""
                                                         value={sameCateGenValue}
                                                         onChange={e=>setSameCat(e.target.value,"catgeneral")}
+                                                        onDoubleClick={e=>setSameCat(e.target.value,"catgeneral")}
                                                     >
                                                         <option value="">--Select--</option>
                                                         {catGenerals.map(e => <option value={e.id} key={e.id}>{e.descripcion}</option>)}
@@ -955,7 +957,7 @@ export default function ComprascargarFactsItems({
 
 
             {subviewcargaritemsfact=="selectfacts"?
-                <div className="container">
+                <div className="container-fluid">
                     <SearchBarFacturas
                         setqcampoBusquedacuentasPorPagarDetalles={setqcampoBusquedacuentasPorPagarDetalles}
                         qcampoBusquedacuentasPorPagarDetalles={qcampoBusquedacuentasPorPagarDetalles}

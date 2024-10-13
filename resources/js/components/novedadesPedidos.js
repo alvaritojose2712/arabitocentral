@@ -12,7 +12,7 @@ export default function NovedadesPedidos({
             </form>
             <table className="table">
                 <thead>
-                    <tr key={e.id}>
+                    <tr>
                         <th>ID</th>
                         <th>tipo</th>
                         <th>num</th>
@@ -26,7 +26,9 @@ export default function NovedadesPedidos({
                     </tr>
                 </thead>
                 <tbody>
-                    {novedadesPedidosData.map(e=>
+                    {
+                    novedadesPedidosData?
+                        novedadesPedidosData.map(e=>
                         <tr key={e.id}>
                             <td>{e.id}</td>
                             <td>{e.tipo}</td>
@@ -39,7 +41,7 @@ export default function NovedadesPedidos({
                             <td>{e.id_producto}</td>
                             <td>{e.cantidad}</td>
                         </tr>
-                    )}
+                    ):null}
                 </tbody>
             </table>
         </div>

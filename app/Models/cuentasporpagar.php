@@ -28,6 +28,10 @@ class cuentasporpagar extends Model
         return $this->hasOne(\App\Models\sucursal::class,"id","id_sucursal"); 
     }
 
+    public function pedido() { 
+        return $this->hasOne(\App\Models\pedidos::class,"id_cxp","id"); 
+    }
+
     public function items() { 
         return $this->hasMany('App\Models\cuentasporpagar_items',"id_cuenta","id"); 
     }
@@ -45,6 +49,7 @@ class cuentasporpagar extends Model
     public function pagos() { 
         return $this->belongsToMany(\App\Models\cuentasporpagar::class, 'cuentasporpagar_pagos', 'id_factura', 'id_pago')->withPivot('monto');
     }
+
 
 
     public function facturas() { 

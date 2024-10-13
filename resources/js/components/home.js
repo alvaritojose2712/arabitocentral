@@ -1329,26 +1329,37 @@ function Home() {
     }
   }
   const guardarNuevoProductoLote = () => {
-    let id_factura = null
-
-    if (facturaSelectAddItems) {
-      id_factura = facturaSelectAddItems
-    }
-    let lotesFil = productosInventario.filter(e => e.type)
-
-
-    if (lotesFil.length) {
-
-      db.guardarNuevoProductoLote({ lotes: lotesFil, id_factura }).then(res => {
-        selectCuentaPorPagarProveedorDetallesFun()
-        notificar(res);
-        if (res.data.estado) {
-          buscarInventario()
+    try {
+      let id_factura = null
+      if (facturaSelectAddItems) {
+        id_factura = facturaSelectAddItems
+      }
+      let lotesFil = productosInventario.filter(e => {
+        if (e) {
+          if (e.type) {
+            return true
+          }
         }
+        return false;
       })
-    } else {
-      alert("¡Error con los campos! Algunos pueden estar vacíos" + JSON.stringify(checkempty))
+  
+      if (lotesFil.length) {
+        db.guardarNuevoProductoLote({ lotes: lotesFil, id_factura }).then(res => {
+          selectCuentaPorPagarProveedorDetallesFun()
+          notificar(res);
+          if (res.data.estado) {
+            buscarInventario()
+          }
+        })
+      } else {
+        alert("¡Error con los campos! Algunos pueden estar vacíos" + JSON.stringify(checkempty))
+      }
+    } catch (error) {
+      console.log(productosInventario,"produc")
+      console.log(error,"error")
     }
+
+
   }
 
   const verificarproductomaestro = () => {
@@ -4996,6 +5007,7 @@ const getNovedadesPedidosData = () => {
   
         obj = newObj.concat(obj)
       }
+      setinputimportitems("")
       setProductosInventario(obj)
       setshowtextarea(false)
     }
@@ -5067,11 +5079,10 @@ const getNovedadesPedidosData = () => {
     setlistdistribucionselect(list.filter(e=>e.id_sucursal!=id_sucursal))
   }
 
-  const sendlistdistribucionselect = () => {
-    if (listdistribucionselect.length) {
+  const sendlistdistribucionselect = (id_cxp) => {
+    if (confirm("CONFIRME")) {
       db.sendlistdistribucionselect({
-        listdistribucionselect,
-        id:facturaSelectAddItems,
+        id:id_cxp,
       }).then(res=>{
         notificar(res)
         setlistdistribucionselect([])
@@ -5312,13 +5323,13 @@ const getNovedadesPedidosData = () => {
     })
   }
 
-  useState(()=>{
+ /*  useState(()=>{
     getBalanceGeneral()
   },[
     sucursalBalanceGeneral,
     fechaBalanceGeneral,
     fechaHastaBalanceGeneral,
-  ])
+  ]) */
   
 
   let numfact_select_imagen = null

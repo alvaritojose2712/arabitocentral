@@ -70,7 +70,7 @@ export default function ComprasDistribuirFacts({
     return (
     <>
         {subviewDistribuir==="selectfacttodistribuir"?
-            <div className="container">
+            <div className="container-fluid">
                 
                 <SearchBarFacturas
 
@@ -141,6 +141,7 @@ export default function ComprasDistribuirFacts({
                                 <th>
                                     ITEMS
                                 </th>
+                                <th>#TRANSF</th>
                                     
                             </tr>
                         </thead> 
@@ -161,7 +162,7 @@ export default function ComprasDistribuirFacts({
                                         </td>  
                                         <td className="">
                                             
-                                            <span onClick={()=>{if (e.aprobado) { selectFactToDistribuirFun(e.id, e.id_sucursal) }}} className={(returnCondicion(e.condicion))+(" w-100 btn fs-2 pointer fw-bolder text-light ")}> 
+                                            <span className={(returnCondicion(e.condicion))+(" w-100 btn fs-2 pointer fw-bolder text-light ")}> 
                                                 {e.numfact}
                                             </span>
                                         </td>  
@@ -176,6 +177,14 @@ export default function ComprasDistribuirFacts({
                                         <td>
                                             <span className="fs-3">{e.items?e.items.length:null}</span>
                                         </td>
+                                        <td>
+                                            {e.pedido?
+                                                <button className="btn btn-sinapsis">{e.pedido.id} <i className="fa fa-send"></i></button>
+                                                :
+                                                <button className="btn btn-success"  onDoubleClick={()=>{if (e.aprobado) { sendlistdistribucionselect(e.id) }}}><i className="fa fa-send"></i></button>
+                                            
+                                            }
+                                        </td>
                                     </>    
                                 </tr>:null}
                             </tbody>
@@ -187,7 +196,7 @@ export default function ComprasDistribuirFacts({
             </div>  
         :null}
 
-        {subviewDistribuir==="distribuir"?
+        {/* {subviewDistribuir==="distribuir"?
             <div className="container-fluid">
                 {facturaSelectAddItemsSelect?<div className="row mb-4">
                     <div className="col">
@@ -306,7 +315,7 @@ export default function ComprasDistribuirFacts({
                     </div>
                 </div>:null}
             </div>
-        :null}
+        :null} */}
     </>
     )
 }

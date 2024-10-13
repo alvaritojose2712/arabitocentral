@@ -9,7 +9,7 @@ export default function Comprasmenufactsdigital({
             <button className={("fs-2 btn btn")+(viewmainPanel=="cargarfactsitems"?"":"-outline")+("-sinapsis")} onClick={()=>setviewmainPanel("cargarfactsitems")}>ITEMS <span className="badge bg-secondary">2</span></button>
            {/*  <button className={("fs-2 btn btn")+(viewmainPanel=="comprasrevision"?"":"-outline")+("-sinapsis")} onClick={()=>setviewmainPanel("comprasrevision")}>REVISIÓN <span className="badge bg-secondary">3</span></button> */}
             <button className={("fs-2 btn btn")+(viewmainPanel=="distribuirfacts"?"":"-outline")+("-sinapsis")} onClick={()=>setviewmainPanel("distribuirfacts")}>DISTRIBUIR <span className="badge bg-secondary">3</span></button>
-            <button className={("fs-2 btn btn")+(viewmainPanel=="pedidos"?"":"-outline")+("-sinapsis")} onClick={()=>setviewmainPanel("pedidos")}>PEDIDOS <span className="badge bg-secondary">4</span></button>
+            <button className={("fs-2 btn btn")+(viewmainPanel=="pedidos"?"":"-outline")+("-sinapsis")} onClick={()=>setviewmainPanel("pedidos")}>TRANSFERENCIAS <span className="badge bg-secondary">4</span></button>
         </div>
     </div>
 }

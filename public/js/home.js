@@ -2386,7 +2386,7 @@ function Comprasmenufactsdigital(_ref) {
         onClick: function onClick() {
           return setviewmainPanel("pedidos");
         },
-        children: ["PEDIDOS ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+        children: ["TRANSFERENCIAS ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
           className: "badge bg-secondary",
           children: "4"
         })]
@@ -8531,6 +8531,7 @@ function Comprascargarfactsdigitales(_ref) {
             }) : null : null
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
             className: "text-right",
+            colSpan: 3,
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
               className: "btn btn-warning",
               onClick: function onClick() {
@@ -8659,6 +8660,8 @@ function Comprascargarfactsdigitales(_ref) {
             },
             className: "pointer  p-3",
             children: "MONTO"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+            children: "ITEMS"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {})]
         })]
       }), selectCuentaPorPagarId ? selectCuentaPorPagarId.detalles ? selectCuentaPorPagarId.detalles.map(function (e, i) {
@@ -8880,6 +8883,11 @@ function Comprascargarfactsdigitales(_ref) {
                   children: ["DESAPROBAR ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
                     className: "fa fa-times"
                   })]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "fs-3",
+                  children: e.items ? e.items.length : null
                 })
               })]
             }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
@@ -9167,9 +9175,9 @@ function ComprasDistribuirFacts(_ref) {
     }
     return null;
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: [subviewDistribuir === "selectfacttodistribuir" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "container",
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+    children: subviewDistribuir === "selectfacttodistribuir" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "container-fluid",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_searchBarFacturas__WEBPACK_IMPORTED_MODULE_1__["default"], {
         setqcampoBusquedacuentasPorPagarDetalles: setqcampoBusquedacuentasPorPagarDetalles,
         qcampoBusquedacuentasPorPagarDetalles: qcampoBusquedacuentasPorPagarDetalles,
@@ -9268,6 +9276,8 @@ function ComprasDistribuirFacts(_ref) {
               children: "MONTO"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
               children: "ITEMS"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              children: "#TRANSF"
             })]
           })]
         }), selectCuentaPorPagarId ? selectCuentaPorPagarId.detalles ? selectCuentaPorPagarId.detalles.map(function (e, i) {
@@ -9292,11 +9302,6 @@ function ComprasDistribuirFacts(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                   className: "",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                    onClick: function onClick() {
-                      if (e.aprobado) {
-                        selectFactToDistribuirFun(e.id, e.id_sucursal);
-                      }
-                    },
                     className: returnCondicion(e.condicion) + " w-100 btn fs-2 pointer fw-bolder text-light ",
                     children: e.numfact
                   })
@@ -9320,234 +9325,30 @@ function ComprasDistribuirFacts(_ref) {
                     className: "fs-3",
                     children: e.items ? e.items.length : null
                   })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                  children: e.pedido ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+                    className: "btn btn-sinapsis",
+                    children: [e.pedido.id, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+                      className: "fa fa-send"
+                    })]
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                    className: "btn btn-success",
+                    onDoubleClick: function onDoubleClick() {
+                      if (e.aprobado) {
+                        sendlistdistribucionselect(e.id);
+                      }
+                    },
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+                      className: "fa fa-send"
+                    })
+                  })
                 })]
               })
             }) : null
           }, i);
         }) : null : null]
       })]
-    }) : null, subviewDistribuir === "distribuir" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "container-fluid",
-      children: facturaSelectAddItemsSelect ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "row mb-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "col",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "p-1",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-              className: "fa fa-arrow-left fa-2x text-danger",
-              onClick: function onClick() {
-                return setsubviewDistribuir("selectfacttodistribuir");
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
-            className: "table table-borderless table-striped m-0 table-distribucion",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("thead", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                  colSpan: 2,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                    className: "input-group",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("select", {
-                      disabled: true,
-                      className: "form-control form-control-lg",
-                      value: distribucionSelectSucursal,
-                      onChange: function onChange(e) {
-                        return setdistribucionSelectSucursal(e.target.value);
-                      },
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
-                        value: "",
-                        children: "-SUCURSAL-"
-                      }), sucursales.map(function (e) {
-                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
-                          value: e.id,
-                          children: e.codigo
-                        }, e.id);
-                      })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-                      className: "btn btn-success",
-                      onClick: function onClick() {
-                        return addlistdistribucionselect();
-                      },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-                        className: "fa fa-plus"
-                      })
-                    })]
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                  colSpan: 5
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("th", {
-                  className: "bg-ct",
-                  children: ["CT", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-                    className: "btn btn-sinapsis pull-right",
-                    onClick: function onClick() {
-                      return autorepartircantidades("general", null);
-                    },
-                    children: "AUTO REPARTIR"
-                  })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                  children: "BARRAS"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                  children: "DESCRIPCION"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                  children: "BASE F"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                  className: "bg-base",
-                  children: "BASE"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                  className: "bg-venta",
-                  children: "VENTA"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                  className: "text-right",
-                  children: "SUBTOTAL BASE F"
-                })]
-              })]
-            }), facturaSelectAddItemsSelect.items ? facturaSelectAddItemsSelect.items.map(function (item) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tr", {
-                  children: item.producto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      children: item.producto.codigo_barras
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      children: item.producto.descripcion
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      onClick: function onClick() {
-                        return modItemFact(item.id, "basef");
-                      },
-                      children: moneda(item.basef)
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      onClick: function onClick() {
-                        return modItemFact(item.id, "base");
-                      },
-                      className: "bg-base",
-                      children: moneda(item.base)
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      onClick: function onClick() {
-                        return modItemFact(item.id, "venta");
-                      },
-                      className: "bg-venta",
-                      children: moneda(item.venta)
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                      className: "text-right",
-                      children: moneda(item.basef * item.cantidad)
-                    })]
-                  }) : null
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                    onClick: function onClick() {
-                      return modItemFact(item.id, "cantidad");
-                    },
-                    className: "bg-ct fs-2 text-center align-middle",
-                    children: item.cantidad
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                    colSpan: 6,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
-                      className: "",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tr", {
-                          children: listdistribucionselect.filter(function (e) {
-                            return e.id_item == item.id;
-                          }).map(function (sucursalid) {
-                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-                                onClick: function onClick() {
-                                  return dellistdistribucionselect(sucursalid.id_sucursal);
-                                },
-                                className: "btn w-100 fw-bolder",
-                                style: {
-                                  backgroundColor: colorSucursal(sucursalid.id_sucursal ? getSucursalById(sucursalid.id_sucursal) : "")
-                                },
-                                children: getSucursalById(sucursalid.id_sucursal)
-                              })
-                            });
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tr", {
-                          children: listdistribucionselect.filter(function (e) {
-                            return e.id_item == item.id;
-                          }).map(function (sucursalid) {
-                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("th", {
-                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-                                type: "text",
-                                className: "form-control fs-3 text-success",
-                                placeholder: "Ct. " + getSucursalById(sucursalid.id_sucursal),
-                                value: sucursalid.cantidad,
-                                onChange: function onChange(event) {
-                                  return changeInputDistribuirpedido(item.id, sucursalid.id_sucursal, number(event.target.value, 7));
-                                }
-                              }), " "]
-                            });
-                          })
-                        })]
-                      })
-                    })
-                  })]
-                })]
-              }, item.id);
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                  colSpan: 6,
-                  className: "p-0 text-right",
-                  children: listdistribucionselect.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-                    className: "btn btn-success",
-                    onClick: function onClick() {
-                      return sendlistdistribucionselect();
-                    },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-                      className: "fa fa-save"
-                    })
-                  }) : null
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                  className: "text-right p-3",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                    className: "fs-1 fw-bolder text-sinapsis mt-2",
-                    children: moneda(facturaSelectAddItemsSelect.sumitems)
-                  })
-                })]
-              })
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "col-2",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "h-100 d-flex justify-content-center align-items-end ",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-              className: "text-center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                  className: "text-muted fst-italic",
-                  children: facturaSelectAddItemsSelect.created_at
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                  className: "fs-3 fw-bolder",
-                  children: facturaSelectAddItemsSelect.proveedor ? facturaSelectAddItemsSelect.proveedor.descripcion : null
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                  className: returnCondicion(facturaSelectAddItemsSelect.condicion) + " btn fs-2 pointer fw-bolder text-light me-1 ",
-                  children: facturaSelectAddItemsSelect.numfact
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-                  className: "btn fw-bolder fs-2",
-                  style: {
-                    backgroundColor: colorSucursal(facturaSelectAddItemsSelect.sucursal ? facturaSelectAddItemsSelect.sucursal.codigo : "")
-                  },
-                  children: facturaSelectAddItemsSelect.sucursal ? facturaSelectAddItemsSelect.sucursal.codigo : null
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                className: "p-3",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                  className: "fs-1 fw-bolder text-danger mt-2",
-                  children: moneda(facturaSelectAddItemsSelect.monto)
-                })
-              })]
-            })
-          })
-        })]
-      }) : null
-    }) : null]
+    }) : null
   });
 }
 
@@ -20061,9 +19862,9 @@ function NovedadesPedidos(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "cantidad"
           })]
-        }, e.id)
+        })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
-        children: novedadesPedidosData.map(function (e) {
+        children: novedadesPedidosData ? novedadesPedidosData.map(function (e) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: e.id
@@ -20087,7 +19888,7 @@ function NovedadesPedidos(_ref) {
               children: e.cantidad
             })]
           }, e.id);
-        })
+        }) : null
       })]
     })]
   });
@@ -22462,6 +22263,9 @@ function ComprascargarFactsItems(_ref) {
                         onChange: function onChange(e) {
                           return setSameCat(e.target.value, "cat");
                         },
+                        onDoubleClick: function onDoubleClick(e) {
+                          return setSameCat(e.target.value, "cat");
+                        },
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
                           value: "",
                           children: "--Select--"
@@ -22481,6 +22285,9 @@ function ComprascargarFactsItems(_ref) {
                         className: "",
                         value: sameCateGenValue,
                         onChange: function onChange(e) {
+                          return setSameCat(e.target.value, "catgeneral");
+                        },
+                        onDoubleClick: function onDoubleClick(e) {
                           return setSameCat(e.target.value, "catgeneral");
                         },
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
@@ -23008,7 +22815,7 @@ function ComprascargarFactsItems(_ref) {
         })]
       })]
     }) : null, subviewcargaritemsfact == "selectfacts" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "container",
+      className: "container-fluid",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_searchBarFacturas__WEBPACK_IMPORTED_MODULE_2__["default"], {
         setqcampoBusquedacuentasPorPagarDetalles: setqcampoBusquedacuentasPorPagarDetalles,
         qcampoBusquedacuentasPorPagarDetalles: qcampoBusquedacuentasPorPagarDetalles,
@@ -80434,26 +80241,36 @@ function Home() {
     }
   };
   var guardarNuevoProductoLote = function guardarNuevoProductoLote() {
-    var id_factura = null;
-    if (facturaSelectAddItems) {
-      id_factura = facturaSelectAddItems;
-    }
-    var lotesFil = productosInventario.filter(function (e) {
-      return e.type;
-    });
-    if (lotesFil.length) {
-      _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].guardarNuevoProductoLote({
-        lotes: lotesFil,
-        id_factura: id_factura
-      }).then(function (res) {
-        selectCuentaPorPagarProveedorDetallesFun();
-        notificar(res);
-        if (res.data.estado) {
-          buscarInventario();
+    try {
+      var id_factura = null;
+      if (facturaSelectAddItems) {
+        id_factura = facturaSelectAddItems;
+      }
+      var lotesFil = productosInventario.filter(function (e) {
+        if (e) {
+          if (e.type) {
+            return true;
+          }
         }
+        return false;
       });
-    } else {
-      alert("¡Error con los campos! Algunos pueden estar vacíos" + JSON.stringify(checkempty));
+      if (lotesFil.length) {
+        _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].guardarNuevoProductoLote({
+          lotes: lotesFil,
+          id_factura: id_factura
+        }).then(function (res) {
+          selectCuentaPorPagarProveedorDetallesFun();
+          notificar(res);
+          if (res.data.estado) {
+            buscarInventario();
+          }
+        });
+      } else {
+        alert("¡Error con los campos! Algunos pueden estar vacíos" + JSON.stringify(checkempty));
+      }
+    } catch (error) {
+      console.log(productosInventario, "produc");
+      console.log(error, "error");
     }
   };
   var verificarproductomaestro = function verificarproductomaestro() {
@@ -84849,6 +84666,7 @@ function Home() {
         }];
         obj = newObj.concat(obj);
       }
+      setinputimportitems("");
       setProductosInventario(obj);
       setshowtextarea(false);
     }
@@ -84918,11 +84736,10 @@ function Home() {
       return e.id_sucursal != id_sucursal;
     }));
   };
-  var sendlistdistribucionselect = function sendlistdistribucionselect() {
-    if (listdistribucionselect.length) {
+  var sendlistdistribucionselect = function sendlistdistribucionselect(id_cxp) {
+    if (confirm("CONFIRME")) {
       _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].sendlistdistribucionselect({
-        listdistribucionselect: listdistribucionselect,
-        id: facturaSelectAddItems
+        id: id_cxp
       }).then(function (res) {
         notificar(res);
         setlistdistribucionselect([]);
@@ -85188,9 +85005,15 @@ function Home() {
       setbalanceGeneralData(res.data);
     });
   };
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(function () {
-    getBalanceGeneral();
-  }, [sucursalBalanceGeneral, fechaBalanceGeneral, fechaHastaBalanceGeneral]);
+
+  /*  useState(()=>{
+     getBalanceGeneral()
+   },[
+     sucursalBalanceGeneral,
+     fechaBalanceGeneral,
+     fechaHastaBalanceGeneral,
+   ]) */
+
   var numfact_select_imagen = null;
   if (selectFilecxp) {
     if (dataFilescxp.cuentasporpagar_fisicas) {
