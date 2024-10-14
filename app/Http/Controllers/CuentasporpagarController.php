@@ -1098,7 +1098,7 @@ class CuentasporpagarController extends Controller
     
         $detalles_modified = $detalles->get()->map(function($q) use($today,$qcuentasPorPagarTipoFact, $todayWithoutDateTime) {
             $novedades_sum = $q->novedades->sum("monto");
-            $q->monto = $q->monto-$novedades_sum;
+            $q->monto = $q->monto-($novedades_sum<0?$novedades_sum:0);
 
 
             $q->monto_bruto = $q->monto;
