@@ -43,20 +43,59 @@ class CierresController extends Controller
         $items = $all["items"];
         $movs = $all["movs"];
         $vinculos = $all["vinculos"];
+        $inventariofull = $all["inventariofull"];
+        
         $id_last_movs = $all["id_last_movs"];
         $id_last_items = $all["id_last_items"];
 
 
+        inventario_sucursal::where("id_sucursal",$id_sucursal)->delete();
         inventario_sucursal_estadisticas::where("id_sucursal",$id_sucursal)->delete();
         movsinventario::where("id_sucursal",$id_sucursal)->delete();
-        vinculossucursales::where("id_sucursal",$id_sucursal)->delete();
+        //vinculossucursales::where("id_sucursal",$id_sucursal)->delete();
 
-        $update = ultimainformacioncargada::where("id_sucursal",$id_sucursal)->update([
+       /*  $update = ultimainformacioncargada::where("id_sucursal",$id_sucursal)->update([
             "id_last_estadisticas" => null,
             "id_last_movs" => null,
-        ]);
+        ]); */
 
         $today = (new NominaController)->today();
+        ////INVENTARIO SUCURSAL
+        $splitSucursal = array_chunk($inventariofull,500);
+        foreach ($splitSucursal as $i => $e) {
+            $tempArr = [];
+            foreach ($e as $key => $producto) {
+                array_push($tempArr,[
+                    "id_sucursal" => $id_sucursal,
+                    "idinsucursal" => $producto["id"],
+                    "codigo_proveedor" => $producto["codigo_proveedor"],
+                    "codigo_barras" => $producto["codigo_barras"],
+                    "id_proveedor" => $producto["id_proveedor"],
+                    "id_categoria" => $producto["id_categoria"],
+                    "id_marca" => $producto["id_marca"],
+                    "unidad" => $producto["unidad"],
+                    "id_deposito" => $producto["id_deposito"],
+                    "descripcion" => $producto["descripcion"],
+                    "iva" => $producto["iva"],
+                    "porcentaje_ganancia" => $producto["porcentaje_ganancia"],
+                    "precio_base" => $producto["precio_base"],
+                    "precio" => $producto["precio"],
+                    "cantidad" => $producto["cantidad"],
+                    "bulto" => $producto["bulto"],
+                    "precio1" => $producto["precio1"],
+                    "precio2" => $producto["precio2"],
+                    "precio3" => $producto["precio3"],
+                    "stockmin" => $producto["stockmin"],
+                    "stockmax" => $producto["stockmax"],
+                    "id_vinculacion" => $producto["id_vinculacion"],
+                    "push" => $producto["push"],
+                    "created_at" => $today,
+                    "updated_at" => $today,
+                ]);
+            }
+            DB::table("inventario_sucursals")->insert($tempArr);
+        }
+
 
         ///ESTADISTICAS
         $splitItems = array_chunk($items,500);
@@ -76,6 +115,7 @@ class CierresController extends Controller
             }
             DB::table("inventario_sucursal_estadisticas")->insert($tempArr);
         }
+        
 
         ///MOVS INVE
         $splitMovs = array_chunk($movs,500);
@@ -100,7 +140,7 @@ class CierresController extends Controller
 
 
         ///vinculos
-        foreach ($vinculos as $i => $e) {
+  /*       foreach ($vinculos as $i => $e) {
             vinculossucursales::updateOrCreate([
                 "idinsucursal" => $e["id"],
                 "id_sucursal" => $id_sucursal,
@@ -109,7 +149,7 @@ class CierresController extends Controller
                 "idinsucursal_fore" => $e["idinsucursal"],
                 "id_sucursal_fore" => $e["id_sucursal"],
             ]);
-        }
+        } */
 
 
         $last = ultimainformacioncargada::where("id_sucursal",$id_sucursal)->orderBy("fecha","desc")->first();
@@ -152,9 +192,10 @@ class CierresController extends Controller
         if (!isset($sendGarantias["last"])) {return "sendGarantias: ".$sendGarantias;}
         if (!isset($sendFallas["last"])) {return "sendFallas: ".$sendFallas;}
         if (!isset($sendCreditos["last"])) {return "sendCreditos: ".$sendCreditos;}
-        if (!isset($sendestadisticasVenta["last"])) {return "sendestadisticasVenta: ".$sendestadisticasVenta;}
         if (!isset($sendlasmovs_movs["last"])) {return "sendlasmovs_movs: ".$sendlasmovs_movs;}
-
+        
+        if (!isset($sendestadisticasVenta["last"])) {return "sendestadisticasVenta: ".$sendestadisticasVenta;}
+        
         ultimainformacioncargada::updateOrCreate([
             "id_sucursal" =>$id_sucursal,
             "fecha" => $today

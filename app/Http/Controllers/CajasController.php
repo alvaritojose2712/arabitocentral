@@ -179,7 +179,7 @@ class CajasController extends Controller
                 ];
             }else{
                 return [
-                    "msj" => "OK CAJAS ".$counter . " / ".$count_movs,
+                    "msj" => "ERROR: CAJAS ".$counter . " / ".$count_movs,
                     "last" => 0
                 ];
             }

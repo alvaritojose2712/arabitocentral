@@ -906,9 +906,7 @@ class InventarioSucursalController extends Controller
             }
         }
 
-        $crearProducto = inventario_sucursal::updateOrCreate([
-            "id" => $id
-        ],[
+        $arr_insert = [
             "id_sucursal" => 13,
             "codigo_barras" => $this->clean($arr["codigo_barras"],"codigo_barras"),
             "codigo_proveedor" => $this->clean($arr["codigo_proveedor"],"codigo_proveedor"),
@@ -920,7 +918,14 @@ class InventarioSucursalController extends Controller
             "precio" => $arr["precio"],
             "precio_base" => $arr["precio_base"],
             "cantidad" => 0,
-        ]); 
+        ];
+        
+        if (!floatval($arr["precio"])) {unset($arr_insert["precio"]);}
+        if (!floatval($arr["precio_base"])) {unset($arr_insert["precio_base"]);}
+
+        $crearProducto = inventario_sucursal::updateOrCreate([
+            "id" => $id
+        ],$arr_insert); 
 
 
         if ($crearProducto) {

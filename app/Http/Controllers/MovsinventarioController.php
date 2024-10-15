@@ -49,7 +49,7 @@ class MovsinventarioController extends Controller
                  ];
              }else{
                  return [
-                     "msj" => "OK MOVS ".$counter . " / ".$count_movs,
+                     "msj" => "ERROR MOVS ".$counter . " / ".$count_movs,
                      "last" => 0
                  ];
              }

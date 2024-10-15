@@ -68,7 +68,7 @@ class InventarioSucursalEstadisticasController extends Controller
             
         }else{
             return [
-                "msj" => "OK ESTADISTICAS ".$counter . " / ".$count_movs,
+                "msj" => "ERROR: ESTADISTICAS ".$counter . " / ".$count_movs,
                 "last" => 0
             ];
         }
