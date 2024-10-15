@@ -1181,7 +1181,7 @@ class InventarioSucursalController extends Controller
                 "mesnum" => isset($div[1])?$mesNum[$div[1]]:13 
             ]);
         }
-        usort($sumReor, function ($a, $b) {return $a['mesnum'] < $b['mesnum'];});
+        usort($sumReor, function ($a, $b) {return $a['mesnum'] > $b['mesnum'];});
         $producto_master->sumas = $sumReor;
 
         return $producto_master;
