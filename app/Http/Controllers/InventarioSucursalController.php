@@ -1181,7 +1181,9 @@ class InventarioSucursalController extends Controller
                 "mesnum" => isset($div[1])?$mesNum[$div[1]]:13 
             ]);
         }
-        usort($sumReor, function ($a, $b) {return floatval($a['mesnum']) < floatval($b['mesnum']);});
+
+        array_multisort(array_column($sumReor, "mesnum"),  SORT_DESC, $sumReor);
+
         $producto_master->sumas = $sumReor;
 
         return $producto_master;
