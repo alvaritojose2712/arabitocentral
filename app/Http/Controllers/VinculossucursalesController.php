@@ -48,17 +48,17 @@ class VinculossucursalesController extends Controller
         $du = vinculossucursales::selectRaw("id_sucursal,id_sucursal_fore,id_producto_local, count(*) as count")->groupByRaw("id_sucursal,id_sucursal_fore,id_producto_local")->havingRaw("COUNT(*) > 1")->get();
 
         foreach ($du as $key => $val) {
-            $id_sucursal = $val["id_sucursal"]; 
+             $id_sucursal = $val["id_sucursal"]; 
             $id_sucursal_fore = $val["id_sucursal_fore"]; 
             $id_producto_local = $val["id_producto_local"]; 
             $count = $val["count"]-1;
 
-            vinculossucursales::where("id_sucursal",$id_sucursal)
+           /* vinculossucursales::where("id_sucursal",$id_sucursal)
             ->where("id_sucursal_fore",$id_sucursal_fore)
             ->where("id_producto_local",$id_producto_local)
             ->orderBy("created_at","asc")
             ->limit($count)
-            ->delete();
+            ->delete(); */
 
             echo "$id_sucursal __ $id_sucursal_fore __ $id_producto_local ____ $count veces <br>";
         }
