@@ -92,10 +92,10 @@ class PedidosController extends Controller
                             if (!$vinculo_envio) { */
                                 $vinculo_envio = vinculossucursales::updateOrCreate([
                                     "id_sucursal" => 13, //CENTRAL
-                                    "id_producto_local" => $id_producto, //PROD CENTRAL
-                                    "idinsucursal_fore" => $ee["producto"]["id"], //PROD SUC
                                     "id_sucursal_fore" => $id_origen, //SUC
+                                    "id_producto_local" => $id_producto, //PROD CENTRAL
                                 ],[
+                                    "idinsucursal_fore" => $ee["producto"]["id"], //PROD SUC
                                     "idinsucursal" => null, // INSUCURSAl, SOLO REF
                                 ]);
                             /* } */
@@ -107,11 +107,11 @@ class PedidosController extends Controller
 
                             if ($vinculo_recepcion) {
                                 vinculossucursales::updateOrCreate([
-                                    "id_producto_local" => $id_producto, //PROD CENTRAL
                                     "id_sucursal" => 13, //CENTRAL
                                     "id_sucursal_fore" => $id_destino, //SUC
-                                    "idinsucursal_fore" => $vinculo_recepcion->id_producto_local, //PROD SUC
+                                    "id_producto_local" => $id_producto, //PROD CENTRAL
                                 ],[
+                                    "idinsucursal_fore" => $vinculo_recepcion->id_producto_local, //PROD SUC
                                     "idinsucursal" => null, // INSUCURSAl, SOLO REF
                                 ]);
                             }
@@ -126,11 +126,11 @@ class PedidosController extends Controller
 
                             if ($vinculo_recepcion_desdeenvio) {
                                 vinculossucursales::updateOrCreate([
-                                    "id_producto_local" => $id_producto, //PROD CENTRAL
                                     "id_sucursal" => 13, //CENTRAL
                                     "id_sucursal_fore" => $id_destino, //SUC
-                                    "idinsucursal_fore" => $vinculo_recepcion_desdeenvio->idinsucursal_fore, //PROD SUC
+                                    "id_producto_local" => $id_producto, //PROD CENTRAL
                                 ],[
+                                    "idinsucursal_fore" => $vinculo_recepcion_desdeenvio->idinsucursal_fore, //PROD SUC
                                     "idinsucursal" => null, // INSUCURSAl, SOLO REF
                                 ]);
                             }
@@ -216,13 +216,10 @@ class PedidosController extends Controller
     
                 
                 vinculossucursales::updateOrCreate([
-                    "id_producto_local" => $id_productoincentral,
-                    "id_sucursal_fore" => $id_sucursal, 
-                    "idinsucursal_fore" => $id_productosucursal,
-                ],[
-                    "id_producto_local" => $id_productoincentral,
-                    "id_sucursal_fore" => $id_sucursal, 
                     "id_sucursal" => 13,
+                    "id_sucursal_fore" => $id_sucursal, 
+                    "id_producto_local" => $id_productoincentral,
+                ],[
                     "idinsucursal_fore" => $id_productosucursal,
                     "idinsucursal" => null, // INSUCURSAl, SOLO REF
                 ]);
@@ -588,9 +585,9 @@ class PedidosController extends Controller
                 switch ($type) {
                     case 'vinculo_real':
                         vinculossucursales::updateOrCreate([
-                            "id_producto_local"=>$id_productolocal,
+                            "id_sucursal"=>13,
                             "id_sucursal_fore"=>$id_destino,
-                            "id_sucursal"=>13
+                            "id_producto_local"=>$id_productolocal,
                         ],[
                             "idinsucursal_fore"=>$vinculo_real,
                             "idinsucursal" => null
