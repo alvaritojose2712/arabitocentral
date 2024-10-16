@@ -529,6 +529,7 @@ Route::get('', [home::class,"index"]);
     
     Route::post('sendVinculoCentralToSucursal', [VinculossucursalesController::class,"sendVinculoCentralToSucursal"]);
     Route::get('delvinculosduplicate', [VinculossucursalesController::class,"delvinculosduplicate"]);
+    Route::get('autovinculartodo', [VinculossucursalesController::class,"autovinculartodo"]);
     
     
     Route::post('getinventario', [InventarioSucursalController::class,"index"]);

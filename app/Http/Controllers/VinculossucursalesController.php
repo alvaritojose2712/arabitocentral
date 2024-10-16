@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\vinculossucursales;
+use App\Models\inventario_sucursal;
 use App\Http\Requests\StorevinculossucursalesRequest;
 use App\Http\Requests\UpdatevinculossucursalesRequest;
 use Illuminate\Http\Request;
@@ -61,6 +62,28 @@ class VinculossucursalesController extends Controller
             ->delete();
 
             echo "$id_sucursal __ $id_sucursal_fore __ $id_producto_local ____ $count veces <br>";
+        }
+    }
+
+
+    function autovinculartodo() {
+        $allmaestro = inventario_sucursal::where("id_sucursal",13)->get();
+
+        foreach ($allmaestro as $i => $e) {
+            if ($e->codigo_barras) {
+                $match = inventario_sucursal::where("codigo_barras",$e->codigo_barras)->where("id_sucursal","<>",13)->first();
+
+                if ($match) {
+                    vinculossucursales::updateOrCreate([
+                        "id_sucursal" => 13, //CENTRAL
+                        "id_sucursal_fore" => $match->id_sucursal, //SUC
+                        "id_producto_local" => $e->id, //PROD CENTRAL
+                    ],[
+                        "idinsucursal_fore" => $match->idinsucursal, //PROD SUC
+                        "idinsucursal" => null, // INSUCURSAl, SOLO REF
+                    ]);
+                }
+            }
         }
     }
 }
