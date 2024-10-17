@@ -2350,15 +2350,18 @@ const getNovedadesPedidosData = () => {
 
 ////
   const eliminarVinculoCentral = (id) => {
-    db.removeVinculoCentral({
-      id
-    })
-    .then(res=>{
-     /*  if (res.data.estado) {
-        setpedidoData(res.data.pedido)
-      } */
-      notificar(res)
-    })
+    if (confirm("CONFIRME")) {
+      
+      db.removeVinculoCentral({
+        id
+      })
+      .then(res=>{
+       /*  if (res.data.estado) {
+          setpedidoData(res.data.pedido)
+        } */
+        notificar(res)
+      })
+    }
   }
 
 

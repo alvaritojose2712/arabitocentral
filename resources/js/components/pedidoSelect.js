@@ -107,7 +107,7 @@ export default function PedidoSelect({
 											<b className="m-1">{e.idinsucursal_vinculo}</b>
 											{e.idinsucursal_producto?
 												<>
-													<b className="m-1" pnDOubleClick={()=>eliminarVinculoCentral(e.id)}>{e.idinsucursal_producto.codigo_barras}</b> 
+													<b className="m-1" onDoubleClick={()=>eliminarVinculoCentral(e.id)}>{e.idinsucursal_producto.codigo_barras}</b> 
 													<i className="m-1">{e.idinsucursal_producto.codigo_proveedor}</i> 
 													<i className="m-1">{e.idinsucursal_producto.descripcion}</i> 
 												</>
