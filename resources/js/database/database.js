@@ -153,7 +153,7 @@ const db = {
   getotrasopcionesalterno: data=>axios.post(host+"getotrasopcionesalterno",data),
   setotrasopcionesalterno: data=>axios.post(host+"setotrasopcionesalterno",data),
   autovincularPedido: data=>axios.post(host+"autovincularPedido",data),
-  removeVinculoCentral: data=>axios.post(host+"eliminarVinculoCentral",data),
+  removeVinculoCentral: data=>axios.post(host+"removeVinculoCentral",data),
   
   
   guardarmodificarInventarioDici: data=>axios.post(host+"guardarmodificarInventarioDici",data),

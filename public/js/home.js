@@ -27802,7 +27802,7 @@ var db = (_db = {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "autovincularPedido", data);
   },
   removeVinculoCentral: function removeVinculoCentral(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "eliminarVinculoCentral", data);
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "removeVinculoCentral", data);
   },
   guardarmodificarInventarioDici: function guardarmodificarInventarioDici(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "guardarmodificarInventarioDici", data);
