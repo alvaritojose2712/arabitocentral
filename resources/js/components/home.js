@@ -2349,6 +2349,18 @@ const getNovedadesPedidosData = () => {
 
 
 ////
+  const eliminarVinculoCentral = (id) => {
+    db.removeVinculoCentral({
+      id
+    })
+    .then(res=>{
+     /*  if (res.data.estado) {
+        setpedidoData(res.data.pedido)
+      } */
+      notificar(res)
+    })
+  }
+
 
   const revolverNovedadItemTrans = (iditem,type,accion) => {
     db.revolverNovedadItemTrans({
@@ -6304,6 +6316,7 @@ const getNovedadesPedidosData = () => {
               permiso={permiso}
             />
             <Pedidos 
+              eliminarVinculoCentral={eliminarVinculoCentral}
               qnovedadesPedidodos={qnovedadesPedidodos}
               setqnovedadesPedidodos={setqnovedadesPedidodos}
               novedadesPedidosData={novedadesPedidosData}

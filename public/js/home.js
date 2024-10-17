@@ -24552,7 +24552,8 @@ function PedidoSelect(_ref) {
     sendPedidoSucursal = _ref.sendPedidoSucursal,
     showPedidoBarras = _ref.showPedidoBarras,
     aprobarRevisionPedido = _ref.aprobarRevisionPedido,
-    revolverNovedadItemTrans = _ref.revolverNovedadItemTrans;
+    revolverNovedadItemTrans = _ref.revolverNovedadItemTrans,
+    eliminarVinculoCentral = _ref.eliminarVinculoCentral;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "container-fluid p-3",
     children: [pedidoData ? pedidoData.sucursal ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -24674,6 +24675,9 @@ function PedidoSelect(_ref) {
                 }), e.idinsucursal_producto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
                     className: "m-1",
+                    pnDOubleClick: function pnDOubleClick() {
+                      return eliminarVinculoCentral(e.id);
+                    },
                     children: e.idinsucursal_producto.codigo_barras
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
                     className: "m-1",
@@ -24931,7 +24935,8 @@ function Pedidos(_ref) {
     qnovedadesPedidodos = _ref.qnovedadesPedidodos,
     setqnovedadesPedidodos = _ref.setqnovedadesPedidodos,
     novedadesPedidosData = _ref.novedadesPedidosData,
-    getNovedadesPedidosData = _ref.getNovedadesPedidosData;
+    getNovedadesPedidosData = _ref.getNovedadesPedidosData,
+    eliminarVinculoCentral = _ref.eliminarVinculoCentral;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "d-flex justify-content-center",
@@ -24983,6 +24988,7 @@ function Pedidos(_ref) {
       moneda: moneda,
       setshowCantidadCarrito: setshowCantidadCarrito
     }) : null, showCantidadCarrito == "pedidoSelect" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_pedidoSelect__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      eliminarVinculoCentral: eliminarVinculoCentral,
       aprobarRevisionPedido: aprobarRevisionPedido,
       setshowCantidadCarrito: setshowCantidadCarrito,
       pedidoData: pedidoData,
@@ -27794,6 +27800,9 @@ var db = (_db = {
   },
   autovincularPedido: function autovincularPedido(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "autovincularPedido", data);
+  },
+  eliminarVinculoCentral: function eliminarVinculoCentral(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "eliminarVinculoCentral", data);
   },
   guardarmodificarInventarioDici: function guardarmodificarInventarioDici(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "guardarmodificarInventarioDici", data);
@@ -81077,7 +81086,16 @@ function Home() {
   };
 
   ////
-
+  var eliminarVinculoCentral = function eliminarVinculoCentral(id) {
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].removeVinculoCentral({
+      id: id
+    }).then(function (res) {
+      /*  if (res.data.estado) {
+         setpedidoData(res.data.pedido)
+       } */
+      notificar(res);
+    });
+  };
   var revolverNovedadItemTrans = function revolverNovedadItemTrans(iditem, type, accion) {
     _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].revolverNovedadItemTrans({
       iditem: iditem,
@@ -85659,6 +85677,7 @@ function Home() {
             setviewmainPanel: setviewmainPanel,
             permiso: permiso
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_pedidos__WEBPACK_IMPORTED_MODULE_43__["default"], {
+            eliminarVinculoCentral: eliminarVinculoCentral,
             qnovedadesPedidodos: qnovedadesPedidodos,
             setqnovedadesPedidodos: setqnovedadesPedidodos,
             novedadesPedidosData: novedadesPedidosData,

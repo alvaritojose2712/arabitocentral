@@ -79,6 +79,7 @@ export default function Pedidos({
 	setqnovedadesPedidodos,
 	novedadesPedidosData,
 	getNovedadesPedidosData,
+	eliminarVinculoCentral,
 
 }){
 	return (
@@ -167,6 +168,7 @@ export default function Pedidos({
 			:null}
 			{showCantidadCarrito=="pedidoSelect"?
 				<PedidoSelect
+					eliminarVinculoCentral={eliminarVinculoCentral}
 					aprobarRevisionPedido={aprobarRevisionPedido}
 					setshowCantidadCarrito={setshowCantidadCarrito}
 					pedidoData={pedidoData}
