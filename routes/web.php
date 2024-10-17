@@ -643,6 +643,8 @@ Route::get('', [home::class,"index"]);
     Route::post('respedidos', [PedidosController::class,"respedidos"]);
     Route::post('changeExtraidoEstadoPed', [PedidosController::class,"changeExtraidoEstadoPed"]);
     Route::post('getPedidoCentralImport', [PedidosController::class,"getPedidoCentralImport"]);
+    Route::post('removeVinculoCentral', [VinculossucursalesController::class,"removeVinculoCentral"]);
+    
     Route::post('sendTareasPendientesCentral', [PedidosController::class,"sendTareasPendientesCentral"]);
     
     Route::post('setComovamos', [ComovamosController::class,"setComovamos"]);

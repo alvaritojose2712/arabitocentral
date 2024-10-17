@@ -54,7 +54,7 @@ class CajasController extends Controller
         $catnombre = $data["cat"]["nombre"];
         $cattipo = $data["cat"]["tipo"];
         $catindice = $data["cat"]["id"];
-        if (strpos($catnombre,"NOMINA QUINCENA")) {
+        if (strpos($catnombre,"BONO PRODUCTIVIDAD")) {
             $split = explode("=",$data["concepto"]);
             if (isset($split[1])) {
                 $ci = $split[1];

@@ -116,7 +116,7 @@ export default function ModalNuevoEfectivo({
                         :null}
 
 
-                        {catselect.indexOf("NOMINA QUINCENA")!==-1 || catselect.indexOf("NOMINA ADELANTO")!==-1 || catselect.indexOf("NOMINA ABONO")!==-1 || catselect.indexOf("NOMINA PRESTAMO")!==-1?
+                        {catselect.indexOf("BONO PRODUCTIVIDAD")!==-1 || catselect.indexOf("NOMINA ADELANTO")!==-1 || catselect.indexOf("NOMINA ABONO")!==-1 || catselect.indexOf("NOMINA PRESTAMO")!==-1?
                             <>
                                 <div className="input-group">
                                     <input type="text" className="form-control" placeholder="Buscar Personal..." value={buscadorPersonal} onChange={e=>setbuscadorPersonal(e.target.value)} />
@@ -128,7 +128,7 @@ export default function ModalNuevoEfectivo({
                                     <ul className="list-group">
                                         {personalNomina.personal?personalNomina.personal.filter(e=> !buscadorPersonal?true: (e.nominanombre.toLowerCase().indexOf(buscadorPersonal.toLowerCase())!==-1) ).map(e=>{
                                             let palabra = ""
-                                            if(catselect.indexOf("NOMINA QUINCENA")!==-1){palabra = "PAGO"} 
+                                            if(catselect.indexOf("BONO PRODUCTIVIDAD")!==-1){palabra = "PAGO"} 
                                             if(catselect.indexOf("NOMINA ADELANTO")!==-1){palabra = "ADELANTO"} 
                                             if(catselect.indexOf("NOMINA ABONO")!==-1){palabra = "ABONO"} 
                                             if(catselect.indexOf("NOMINA PRESTAMO")!==-1){palabra = "PRESTAMO"}

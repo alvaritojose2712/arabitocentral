@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\vinculossucursales;
 use App\Models\inventario_sucursal;
+use App\Models\items_pedidos;
+use App\Models\pedidos;
+
 use App\Http\Requests\StorevinculossucursalesRequest;
 use App\Http\Requests\UpdatevinculossucursalesRequest;
 use Illuminate\Http\Request;
@@ -84,6 +87,28 @@ class VinculossucursalesController extends Controller
                     ]);
                 }
             }
+        }
+    }
+
+    function removeVinculoCentral(Request $req) {
+        
+        $id = $req->id;
+
+        $item = items_pedidos::find($id);
+
+        if ($item) {
+           $id_producto = $item->id_producto;
+           $pedido = pedidos::find($item->id_pedido);
+
+           $delvin = vinculossucursales::where("id_sucursal",13)
+           ->where("id_producto_local",$id_producto)
+           ->where("id_producto_local",$id_producto)
+           ->where("id_sucursal_fore",$pedido->id_destino)
+           ->delete();
+            if ($delvin) {
+                return ["estado"=>true, "id_pedido"=>$item->id_pedido, "id_item"=>$id];
+            }
+            return ["estado"=>false];
         }
     }
 }

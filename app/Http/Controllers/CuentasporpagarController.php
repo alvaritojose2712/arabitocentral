@@ -1110,7 +1110,7 @@ class CuentasporpagarController extends Controller
             $monto = $q->monto;
 
 
-            $balance = $q->balance;
+            $balance = $q->balance-($novedades_sum<0?$novedades_sum:0);
             $id_sucursal_destino = $q->id_sucursal;
             
             $hoy = new \DateTime($todayWithoutDateTime);

@@ -973,7 +973,7 @@ class PuntosybiopagosController extends Controller
                         $ci = $personal->nominacedula;
                         $monto = $montoDolar? ($montoDolar/$divisor): (($montoBs/$taseBs)/$divisor);
     
-                        if (strpos($catnombre,"NOMINA QUINCENA")) {
+                        if (strpos($catnombre,"BONO PRODUCTIVIDAD")) {
                             (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $cajas->id, $gastosFecha);
                         }
                         if (strpos($catnombre,"NOMINA ABONO") || strpos($catnombre,"NOMINA PRESTAMO")) {
@@ -1074,7 +1074,7 @@ class PuntosybiopagosController extends Controller
                         $ci = $personal->nominacedula;
                         $monto = $montoDolar? ($montoDolar/$divisor): (($montoBs/$taseBs)/$divisor);
     
-                        if (strpos($catnombre,"NOMINA QUINCENA")) {
+                        if (strpos($catnombre,"BONO PRODUCTIVIDAD")) {
                             (new NominapagosController)->setPagoNomina($ci, $monto, $id_sucursal, $p->id, $gastosFecha);
                         }
                         if (strpos($catnombre,"NOMINA ABONO") || strpos($catnombre,"NOMINA PRESTAMO")) {

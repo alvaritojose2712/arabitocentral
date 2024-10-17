@@ -786,7 +786,7 @@ function Home() {
     26:	{color:"#00ff00",	desc:"INGRESO DESDE CIERRE"},
     27:	{color:"#d9ead3",	desc:"CAJA FUERTE: EFECTIVO ADICIONAL"},
     28:	{color:"#ffff00",	desc:"CAJA FUERTE: NOMINA ABONO"},
-    29:	{color:"#ffff00",	desc:"CAJA FUERTE: NOMINA QUINCENA "},
+    29:	{color:"#ffff00",	desc:"CAJA FUERTE: BONO PRODUCTIVIDAD "},
     30:	{color:"#ffff00",	desc:"CAJA FUERTE: NOMINA PRESTAMO "},
     31:	{color:"#b4a7d6",	desc:"CAJA FUERTE: SERVICIOS: ELECTRICIDAD "},
     32:	{color:"#b4a7d6",	desc:"CAJA FUERTE: SERVICIOS: AGUA "},

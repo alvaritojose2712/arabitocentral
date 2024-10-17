@@ -17804,7 +17804,7 @@ function ModalNuevoEfectivo(_ref) {
               })
             })
           })]
-        }) : null, catselect.indexOf("NOMINA QUINCENA") !== -1 || catselect.indexOf("NOMINA ADELANTO") !== -1 || catselect.indexOf("NOMINA ABONO") !== -1 || catselect.indexOf("NOMINA PRESTAMO") !== -1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+        }) : null, catselect.indexOf("BONO PRODUCTIVIDAD") !== -1 || catselect.indexOf("NOMINA ADELANTO") !== -1 || catselect.indexOf("NOMINA ABONO") !== -1 || catselect.indexOf("NOMINA PRESTAMO") !== -1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
             className: "input-group",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
@@ -17833,7 +17833,7 @@ function ModalNuevoEfectivo(_ref) {
                 return !buscadorPersonal ? true : e.nominanombre.toLowerCase().indexOf(buscadorPersonal.toLowerCase()) !== -1;
               }).map(function (e) {
                 var palabra = "";
-                if (catselect.indexOf("NOMINA QUINCENA") !== -1) {
+                if (catselect.indexOf("BONO PRODUCTIVIDAD") !== -1) {
                   palabra = "PAGO";
                 }
                 if (catselect.indexOf("NOMINA ADELANTO") !== -1) {
@@ -79367,7 +79367,7 @@ function Home() {
     },
     29: {
       color: "#ffff00",
-      desc: "CAJA FUERTE: NOMINA QUINCENA "
+      desc: "CAJA FUERTE: BONO PRODUCTIVIDAD "
     },
     30: {
       color: "#ffff00",
