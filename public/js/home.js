@@ -27801,7 +27801,7 @@ var db = (_db = {
   autovincularPedido: function autovincularPedido(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "autovincularPedido", data);
   },
-  eliminarVinculoCentral: function eliminarVinculoCentral(data) {
+  removeVinculoCentral: function removeVinculoCentral(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "eliminarVinculoCentral", data);
   },
   guardarmodificarInventarioDici: function guardarmodificarInventarioDici(data) {
