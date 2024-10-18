@@ -804,7 +804,7 @@ public function checkFalla($id,$ct)
 
 
     function unicoin() {
-        /* $arr = [
+         $arr = [
             ["AIRE ACONDICIONADO 25000BTU 220V GTRONIC","A/A-25000-GTRONIC","DGWF-25CMUMA"],
             ["AIRE ACONDICIONADO MYSTIC 36000 BTU 3T","A-A-36000-MYSTIC-3T","A/A-3T"],
             ["AIRE ACONDICIONADO MYSTIC 60000 BTU 5T","A/A-60000-MYSTIC-5T","A/A-5T"],
@@ -3840,8 +3840,8 @@ public function checkFalla($id,$ct)
             ["VENTILADOR SUPER MEGATURBO 18","MEGATURBO-18","MEGATURBO-18"],
             ["VENTILADOR TECZON 10","VEN-TECZON-18",""],
         ];
- */
-        $arr = [
+ 
+        /*$arr = [
             ["PINTURA HAKUNA BLANCO 1G","PIN-H-BLANCO-1G","PIN-H-BLANCO-1G"],
             ["PINTURA HAKUNA MARFIL 1G","PIN-H-MARFIL-1G","PIN-H-MARFIL-1G"],
             ["PINTURA HAKUNA AMARILLO 1G","PIN-H-AMARILLO-1G","PIN-H-AMARILLO-1G"],
@@ -3856,7 +3856,7 @@ public function checkFalla($id,$ct)
             ["PINTURA HAKUNA GRIS 1G","PIN-H-GRIS-1G","PIN-H-GRIS-1G"],
             ["PINTURA HAKUNA FUCSIA 1G","PIN-H-FUCSIA-1G","PIN-H-FUCSIA-1G"],
             ["PINTURA HAKUNA TURQUESA 1G","PIN-H-TURQUESA-1G","PIN-H-TURQUESA-1G"],
-        ];
+        ];*/
         $sucursales = sucursal::where("id","<>",13)->get();
 
         foreach ($sucursales as $isuc => $suc) {
