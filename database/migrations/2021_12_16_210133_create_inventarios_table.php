@@ -19,48 +19,25 @@ class CreateInventariosTable extends Migration
             $table->string("codigo_barras")->nullable()->default(null);//->unique();
             $table->string("codigo_proveedor")->nullable()->default(null);
             $table->string("codigo_proveedor2")->nullable()->default(null);
-
-            $table->integer("id_categoria")->unsigned();
-            $table->foreign('id_categoria')->references('id')->on('categorias');
-
-            $table->integer("id_catgeneral")->unsigned();
-            $table->foreign('id_catgeneral')->references('id')->on('cat_generals');
-
-            
-            $table->string("unidad")->nullable()->default("UND");
-            
+            $table->integer("id_categoria")->nullable();
+            $table->integer("id_catgeneral")->nullable();
+            $table->string("unidad")->nullable();
             $table->string("descripcion");
-            
             $table->decimal("iva",5,2)->nullable()->default(0);
-            
-            $table->decimal("precio_base",8,2)->default(0);
-            $table->decimal("precio",8,2)->default(0);
-            
+            $table->decimal("precio_base",8,2)->nullable()->default(0);
+            $table->decimal("precio",8,2)->nullable()->default(0);
             $table->decimal("precio1",8,3)->nullable();
             $table->decimal("precio2",8,3)->nullable();
             $table->decimal("precio3",8,3)->nullable();
             $table->integer("bulto")->nullable();
-            
             $table->integer("stockmin")->nullable();
             $table->integer("stockmax")->nullable();
-            
-            $table->decimal("cantidad",9,2)->default(0);
-            
-            $table->string("marca")->nullable(true);
-            $table->foreign('marca')->references('descripcion')->on('marcas');
-
-            $table->string("n1")->nullable(true);
-            $table->foreign('n1')->references('nombre')->on('productonombre1s');
-
-            $table->string("n2")->nullable(true);
-            $table->foreign('n2')->references('nombre')->on('productonombre2s');
-
-            $table->string("n3")->nullable(true);
-            $table->foreign('n3')->references('nombre')->on('productonombre3s');
-
-            $table->string("n4")->nullable(true);
-            $table->foreign('n4')->references('nombre')->on('productonombre4s');
-
+            $table->decimal("cantidad",9,2)->nullable()->default(0);
+            $table->string("marca")->nullable();
+            $table->string("n1")->nullable();
+            $table->string("n2")->nullable();
+            $table->string("n3")->nullable();
+            $table->string("n4")->nullable();
 
             $table->timestamps();
 
