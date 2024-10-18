@@ -49,9 +49,9 @@ class CierresController extends Controller
         $id_last_items = $all["id_last_items"];
 
 
-        inventario_sucursal::where("id_sucursal",$id_sucursal)->delete();
+        /* inventario_sucursal::where("id_sucursal",$id_sucursal)->delete();
         inventario_sucursal_estadisticas::where("id_sucursal",$id_sucursal)->delete();
-        movsinventario::where("id_sucursal",$id_sucursal)->delete();
+        movsinventario::where("id_sucursal",$id_sucursal)->delete(); */
         //vinculossucursales::where("id_sucursal",$id_sucursal)->delete();
 
        /*  $update = ultimainformacioncargada::where("id_sucursal",$id_sucursal)->update([
@@ -61,7 +61,7 @@ class CierresController extends Controller
 
         $today = (new NominaController)->today();
         ////INVENTARIO SUCURSAL
-        $splitSucursal = array_chunk($inventariofull,500);
+        /* $splitSucursal = array_chunk($inventariofull,500);
         foreach ($splitSucursal as $i => $e) {
             $tempArr = [];
             foreach ($e as $key => $producto) {
@@ -94,11 +94,11 @@ class CierresController extends Controller
                 ]);
             }
             DB::table("inventario_sucursals")->insert($tempArr);
-        }
+        } */
 
 
         ///ESTADISTICAS
-        $splitItems = array_chunk($items,500);
+        /* $splitItems = array_chunk($items,500);
         foreach ($splitItems as $i => $e) {
             $tempArr = [];
             foreach ($e as $key => $item) {
@@ -114,11 +114,11 @@ class CierresController extends Controller
                 ]);
             }
             DB::table("inventario_sucursal_estadisticas")->insert($tempArr);
-        }
+        } */
         
 
         ///MOVS INVE
-        $splitMovs = array_chunk($movs,500);
+        /* $splitMovs = array_chunk($movs,500);
         foreach ($splitMovs as $i => $e) {
             $tempArr = [];
             foreach ($e as $key => $item) {
@@ -136,7 +136,7 @@ class CierresController extends Controller
                 ]);
             }
             DB::table("movsinventarios")->insert($tempArr);
-        }
+        } */
 
 
         ///vinculos
@@ -152,12 +152,12 @@ class CierresController extends Controller
         } */
 
 
-        $last = ultimainformacioncargada::where("id_sucursal",$id_sucursal)->orderBy("fecha","desc")->first();
+        /* $last = ultimainformacioncargada::where("id_sucursal",$id_sucursal)->orderBy("fecha","desc")->first();
 
         $lastEdit = ultimainformacioncargada::find($last->id);
         $lastEdit->id_last_estadisticas = $id_last_items;
         $lastEdit->id_last_movs = $id_last_movs;
-        $lastEdit->save();
+        $lastEdit->save(); */
 
         
     }

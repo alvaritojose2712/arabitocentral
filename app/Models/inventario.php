@@ -14,6 +14,10 @@ class inventario extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
+    public function nivel2() { 
+        return $this->hasMany('App\Models\vinculomaestro',"id_producto_maestro","id"); 
+    }
+
     
   
 

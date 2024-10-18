@@ -115,7 +115,7 @@ class NominapagosController extends Controller
                 "idinsucursal" => $idinsucursal,
             ],[
                 "monto" => $monto,
-                "descripcion" => "PAGO NOMINA",
+                "descripcion" => "BONO PRODUCTIVIDAD",
                 "id_nomina" => $id_nomina,
                 "id_sucursal" => $id_sucursal,
                 "idinsucursal" => $idinsucursal,

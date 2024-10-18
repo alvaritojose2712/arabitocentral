@@ -9,12 +9,14 @@ ini_set('memory_limit', '4095M');
 
 use Illuminate\Http\Request;
 use App\Models\inventario_sucursal;
+use App\Models\inventario;
+use App\Models\vinculomaestro;
+
 use App\Models\sucursal;
 use App\Models\categorias;
 use App\Models\proveedores;
 use App\Models\moneda;
 use App\Models\tareas;
-use App\Models\inventario;
 use App\Models\cuentasporpagar;
 use App\Models\cuentasporpagar_items;
 
@@ -1346,6 +1348,14 @@ class InventarioSucursalController extends Controller
             }
 
         } */
+        
+        $maestros = inventario::with(["nivel2"=>function($q) {
+          $q->with("producto");  
+        }])
+        ->limit(10)
+        ->get();
+
+
 
         $estadisticas = inventario_sucursal::with(["sucursal","vinculados"=>function($q) {
             $q->orderBy("id_sucursal_fore","asc");
@@ -1373,6 +1383,7 @@ class InventarioSucursalController extends Controller
         return [
             "data" => $estadisticas,
             "sumas" => $sumas,
+            "maestros" => $maestros,
         ];
 
 

@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\VinculomaestroController;
 use App\Http\Controllers\VinculossucursalesController;
 use App\Http\Controllers\AlquileresController;
 use App\Http\Controllers\BancosController;
@@ -527,9 +528,11 @@ Route::get('', [home::class,"index"]);
     Route::post('notiNewInv', [TareasSucursalesController::class,"notiNewInv"]);
     
     
+    Route::post('sendVinculoCentralToMaestro', [VinculomaestroController::class,"sendVinculoCentralToMaestro"]);
     Route::post('sendVinculoCentralToSucursal', [VinculossucursalesController::class,"sendVinculoCentralToSucursal"]);
     Route::get('delvinculosduplicate', [VinculossucursalesController::class,"delvinculosduplicate"]);
     Route::get('autovinculartodo', [VinculossucursalesController::class,"autovinculartodo"]);
+    Route::get('unicoin', [InventarioController::class,"unicoin"]);
     
     
     Route::post('getinventario', [InventarioSucursalController::class,"index"]);

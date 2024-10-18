@@ -1,4 +1,5 @@
 import Chart from "react-apexcharts";
+import Modalmovil from "./modalmovil";
 
 export default function Inventariogeneral({
     setinvsuc_q,
@@ -40,6 +41,31 @@ export default function Inventariogeneral({
     setinventariogeneralProEsta,
     getEstadiscaSelectProducto,
     delVinculoSucursal,
+
+    
+    idselectproductoinsucursalforvicularMaestro,
+    setidselectproductoinsucursalforvicularMaestro,
+    linkproductocentralmaestro,
+    openVincularSucursalwithMaestro,
+    buscarInventarioModal,
+    productosInventarioModal,
+    setproductosInventarioModal,
+    InvnumModal,
+    setInvnumModal,
+    qBuscarInventarioModal,
+    setqBuscarInventarioModal,
+    InvorderColumnModal,
+    setInvorderColumnModal,
+    InvorderByModal,
+    setInvorderByModal,
+    inputbuscarcentralforvincular,
+    modalmovilx,
+    modalmovily,
+    setmodalmovilshow,
+    modalmovilshow,
+    modalmovilRef,
+    id_sucursal_select_internoModal,
+    setid_sucursal_select_internoModal,
 }){
     /* Object.entries(anual[1]).map(mes=>mes[0]+"-"+anual[0])
     Object.entries(anual[1]).map(mes=>mes[1]["ct"].toFixed(2)) */
@@ -118,6 +144,37 @@ export default function Inventariogeneral({
     }
     return (
         <div className="container-fluid">
+
+            {modalmovilshow ? (
+                <Modalmovil
+                    getProductos={buscarInventarioModal}
+                    productos={productosInventarioModal}
+                    setproductosInventarioModal={setproductosInventarioModal}
+                    InvnumModal={InvnumModal}
+                    setInvnumModal={setInvnumModal}
+                    qBuscarInventarioModal={qBuscarInventarioModal}
+                    setqBuscarInventarioModal={setqBuscarInventarioModal}
+                    InvorderColumnModal={InvorderColumnModal}
+                    setInvorderColumnModal={setInvorderColumnModal}
+                    InvorderByModal={InvorderByModal}
+                    setInvorderByModal={setInvorderByModal}
+                    margin={1}
+                    inputbuscarcentralforvincular={inputbuscarcentralforvincular}
+                    x={modalmovilx}
+                    y={modalmovily}
+                    setmodalmovilshow={setmodalmovilshow}
+                    modalmovilshow={modalmovilshow}
+                    modalmovilRef={modalmovilRef}
+                    linkproductocentralsucursal={linkproductocentralmaestro}
+                    id_sucursal_select={null}
+                    sucursales={sucursales}
+                    id_sucursal_select_internoModal={id_sucursal_select_internoModal}
+                    setid_sucursal_select_internoModal={setid_sucursal_select_internoModal}
+                    idselectproductoinsucursalforvicular={idselectproductoinsucursalforvicularMaestro}
+                />
+            ) : null}
+
+
             <div>
                 <form className="input-group" onSubmit={event=>{getInventarioGeneral();event.preventDefault()}}>
                     <input type="text" className="form-control" placeholder="Buscar...(esc)" onChange={e => setinvsuc_q(e.target.value)} value={invsuc_q} />
@@ -202,6 +259,33 @@ export default function Inventariogeneral({
                     </div>
                 </div>
             </div> */}
+
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>DESCRIPCIÓN</th>
+                    </tr>
+                </thead>
+                {inventariogeneralData?
+                    inventariogeneralData.maestros?
+                        inventariogeneralData.maestros.map(e=>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {e.descripcion}  <span
+                                            className={("text-muted")+(" fs-10px")}
+                                            onClick={(event)=>openVincularSucursalwithMaestro(event,{id_producto_central: e.id , index: i, vinculados:e.vinculados})}
+                                        >
+                                            <i className="fa fa-link fa-2x"></i>
+                                        </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        )
+                    :null
+                :null}
+            </table>
+
             <table className="table table-responsive">
                 <thead>
                     <tr>
@@ -238,104 +322,6 @@ export default function Inventariogeneral({
                                 <tbody key={e.id}>
 
                                     <tr className="bg-success-light">
-                                        {/* Object.entries(inventariogeneralData.data).map(e=>
-                                            <tbody key={e.id}>
-                                                <tr>
-                                                    <th className="fs-2" colSpan={11}>
-                                                        {e[0]}
-                                                    </th>
-
-                                                    {Object.entries(inventariogeneralData.sumas[e[0]]["totalsucursales"]).map(mesyct=>
-                                                        <td className={(mesyct[0].indexOf("-")!==-1?"":"bg-sinapsis-light")+" notwrap"}>
-                                                            <b>{mesyct[0]}</b>
-                                                            <hr />
-                                                            {mesyct[1].toFixed(2)}
-                                                        </td> 
-                                                    )}
-                                                </tr>
-
-                                                {Object.entries(e[1]).map(sucursalgroup=>
-                                                    <>
-                                                        <tr>
-                                                            <td></td>
-                                                            <th>
-                                                                <button className={"btn w-100 fw-bolder fs-3"} style={{backgroundColor:colorSucursal(sucursalgroup[0])}}>
-                                                                    {sucursalgroup[0]}
-                                                                </button>
-                                                            </th>
-                                                            <td colSpan={9}></td>
-                                                            {Object.entries(inventariogeneralData.sumas[e[0]][sucursalgroup[0]]).map(mesyct=>
-                                                                <td className={(mesyct[0].indexOf("-")!==-1?"":"bg-warning")+" notwrap"}>
-                                                                    <b>{mesyct[0]}</b>
-                                                                    <hr />
-                                                                    {mesyct[1].toFixed(2)}
-                                                                </td> 
-                                                            )}
-                                                        </tr>
-
-                                                        {sucursalgroup[1].map(ee=>
-                                                            <>
-                                                                <tr key={ee.id}>
-                                                                    <td></td>
-                                                                    <td className="text-center">
-                                                                        <span className="text-muted fst-italic">
-                                                                            {ee.sucursal.codigo}
-                                                                        </span>
-                                                                    </td>
-                                                                    <td className="">{ee.idinsucursal}</td>
-                                                                    <td className="">{ee.codigo_proveedor}</td>
-                                                                    <td className="">{ee.codigo_barras}</td>
-                                                                    <td className="">{ee.unidad}</td>
-                                                                    <td className="">{ee.descripcion}</td>
-                                                                    <th className="">{ee.cantidad}</th>
-                                                                    <td className="">{ee.precio_base}</td>
-                                                                    <td className="text-success">{ee.precio}</td>
-                                                                    <td className="">{ee.updated_at}</td>
-                                                                    <td className="bg-sinapsis">
-                                                                        <b>
-                                                                            {Object.entries(ee.anual).map(anual=>anual[0]+" ")}
-                                                                        </b>  
-                                                                        <hr />
-                                                                        {Object.entries(ee.anual).map(anual=> Object.entries(anual[1]).map(mes=>mes[1]["ct"]).reduce((partialSum, a) => partialSum + a, 0) ).reduce((partialSum, a) => partialSum + a, 0).toFixed(2)} 
-                                                                    </td> 
-                                                                    {Object.entries(ee.anual).map(anual=>
-                                                                        <>
-                                                                            <td className="bg-warning-light">
-                                                                                <b>{anual[0]}</b>
-                                                                                <hr />
-                                                                                {Object.entries(anual[1]).map(mes=>mes[1]["ct"]).reduce((partialSum, a) => partialSum + a, 0).toFixed(2)}
-                                                                            </td>
-                                                                            {Object.entries(anual[1]).map(mes=>
-                                                                                <td className="notwrap">
-                                                                                    <b>{anual[0]} - {mes[0]}</b>
-                                                                                    <hr />
-                                                                                    {mes[1]["ct"].toFixed(2)}
-                                                                                </td>
-                                                                            )}
-                                                                        </>
-                                                                    )}
-                                                                    
-                                                                </tr>
-                                                            <tr>
-                                                                    <td></td>
-                                                                        {Object.entries(ee.anual).map(anual=>
-                                                                            <td className="">
-                                                                                    <Chart
-                                                                                        options={chartConfig("options",Object.entries(anual[1]).map(mes=>mes[0]+"-"+anual[0]))}
-                                                                                        series={chartConfig("series",Object.entries(anual[1]).map(mes=>mes[1]["ct"].toFixed(2)))}
-                                                                                        type="line"
-                                                                                        width="400"
-                                                                                    />
-                                                                                    
-                                                                            </td>
-                                                                        )}
-                                                                </tr> 
-                                                            </>
-                                                        )}
-                                                    </>
-                                                )}
-                                            </tbody>
-                                        ) */}
                                         <td>
                                             <span className="fst-italic" style={{backgroundColor:e.sucursal.background,color:"#000"}}>
                                                 {e.sucursal.codigo} <b>({e.vinculados.length})</b>

@@ -283,6 +283,11 @@ export default function Inventario({
     getEstadiscaSelectProducto,
     idselectproductoinsucursalforvicular,
     delVinculoSucursal,
+
+    idselectproductoinsucursalforvicularMaestro,
+    setidselectproductoinsucursalforvicularMaestro,
+    linkproductocentralmaestro,
+    openVincularSucursalwithMaestro,
 }){
     useEffect(()=>{
         getDatinputSelectVinculacion()
@@ -416,6 +421,31 @@ export default function Inventario({
 
         {subviewdici=="inventariogeneral"?
             <Inventariogeneral
+                idselectproductoinsucursalforvicularMaestro={idselectproductoinsucursalforvicularMaestro}
+                setidselectproductoinsucursalforvicularMaestro={setidselectproductoinsucursalforvicularMaestro}
+                linkproductocentralmaestro={linkproductocentralmaestro}
+                openVincularSucursalwithMaestro={openVincularSucursalwithMaestro}
+
+                buscarInventarioModal={buscarInventarioModal}
+                productosInventarioModal={productosInventarioModal}
+                setproductosInventarioModal={setproductosInventarioModal}
+                InvnumModal={InvnumModal}
+                setInvnumModal={setInvnumModal}
+                qBuscarInventarioModal={qBuscarInventarioModal}
+                setqBuscarInventarioModal={setqBuscarInventarioModal}
+                InvorderColumnModal={InvorderColumnModal}
+                setInvorderColumnModal={setInvorderColumnModal}
+                InvorderByModal={InvorderByModal}
+                setInvorderByModal={setInvorderByModal}
+                inputbuscarcentralforvincular={inputbuscarcentralforvincular}
+                modalmovilx={modalmovilx}
+                modalmovily={modalmovily}
+                setmodalmovilshow={setmodalmovilshow}
+                modalmovilshow={modalmovilshow}
+                modalmovilRef={modalmovilRef}
+                id_sucursal_select_internoModal={id_sucursal_select_internoModal}
+                setid_sucursal_select_internoModal={setid_sucursal_select_internoModal}
+
                 delVinculoSucursal={delVinculoSucursal}
                 selectcampobusquedaestadistica={selectcampobusquedaestadistica}
                 setselectcampobusquedaestadistica={setselectcampobusquedaestadistica}

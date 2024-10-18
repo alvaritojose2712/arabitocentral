@@ -2778,6 +2778,55 @@ const getNovedadesPedidosData = () => {
       setidselectproductoinsucursalforvicular(id_producto_central);
   };
 
+  const [idselectproductoinsucursalforvicularMaestro,setidselectproductoinsucursalforvicularMaestro] = useState({ index: null, id_producto_central: null });
+  const linkproductocentralmaestro = (idinsucursal,id_sucursal) => {
+    if (confirm("Confirme VINCULO")) {
+      
+      db.sendVinculoCentralToMaestro({
+        idinsucursal,
+        id_sucursal,
+        id_producto_central: idselectproductoinsucursalforvicularMaestro.id_producto_central,
+      })
+      .then(res=>{
+          notificar(res)
+          if (res.data.estado) {
+            selectCuentaPorPagarProveedorDetallesFun()
+            
+          }
+      })
+    }
+  };
+
+  const openVincularSucursalwithMaestro = (e, id_producto_central) => {
+      //setmodalmovilshow(true);
+      /* console.log(idinsucursal,"idinsucursal")
+      console.log(e,"idinsucursal e") */
+      if (
+        id_producto_central.index == idselectproductoinsucursalforvicularMaestro.index &&
+          modalmovilshow
+      ) {
+          setmodalmovilshow(false);
+      } else {
+          setmodalmovilshow(true);
+
+          if (modalmovilRef) {
+              if (modalmovilRef.current) {
+                  modalmovilRef.current?.scrollIntoView({ block: "nearest", behavior: 'smooth' });
+              }
+          }
+      }
+
+
+      let p = e.currentTarget.getBoundingClientRect();
+      let y = p.top + window.scrollY;
+      let x = p.left;
+      setmodalmovily(y);
+      setmodalmovilx(x);
+
+      setidselectproductoinsucursalforvicularMaestro(id_producto_central);
+  };
+
+
   const linkproductocentralsucursal = (idinsucursal,id_sucursal) => {
       //if (!inventarioSucursalFromCentral.filter(e => e.id_vinculacion == idinsucursal).length) {
           /* changeInventarioFromSucursalCentral(
@@ -6387,6 +6436,11 @@ const getNovedadesPedidosData = () => {
           {permiso([1,2,10,14]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              idselectproductoinsucursalforvicularMaestro={idselectproductoinsucursalforvicularMaestro}
+              setidselectproductoinsucursalforvicularMaestro={setidselectproductoinsucursalforvicularMaestro}
+              linkproductocentralmaestro={linkproductocentralmaestro}
+              openVincularSucursalwithMaestro={openVincularSucursalwithMaestro}
+
               delVinculoSucursal={delVinculoSucursal}
               id_sucursal_select_internoModal={id_sucursal_select_internoModal}
               setid_sucursal_select_internoModal={setid_sucursal_select_internoModal}
