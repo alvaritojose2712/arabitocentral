@@ -3868,6 +3868,7 @@ public function checkFalla($id,$ct)
                 $newped->idinsucursal = ($lastid)+1;
                 $newped->estado = 1;
                 $newped->id_origen = 13;
+                $newped->updated_at = "2024-12-24 12:59:59";
                 $newped->id_destino = $suc->id;//id Destino
                 if ($newped->save()) {
                     
