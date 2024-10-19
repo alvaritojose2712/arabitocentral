@@ -794,9 +794,9 @@ class PedidosController extends Controller
                         return ["estado"=>false,"msj"=>"Error: FALTA codigo_barras DEL ITEM ".$item->id];
                     }
                     if ($ped->id_origen==13) {
-                        if (!$codigo_proveedor) {
-                            return ["estado"=>false,"msj"=>"Error: FALTA codigo_proveedor DEL ITEM ".$item->id];
-                        }
+                        //if (!$codigo_proveedor) {
+                            //return ["estado"=>false,"msj"=>"Error: FALTA codigo_proveedor DEL ITEM ".$item->id];
+                        //}
                     }
                     
                     if (!$descripcion) {
