@@ -3857,7 +3857,7 @@ public function checkFalla($id,$ct)
             ["PINTURA HAKUNA FUCSIA 1G","PIN-H-FUCSIA-1G","PIN-H-FUCSIA-1G"],
             ["PINTURA HAKUNA TURQUESA 1G","PIN-H-TURQUESA-1G","PIN-H-TURQUESA-1G"],
         ];*/
-        $sucursales = sucursal::where("id","<>",13)->whereIn("id",[1,2])->get();
+        $sucursales = sucursal::where("id","<>",13)->get();
 
         foreach ($sucursales as $isuc => $suc) {
             $splitItems = array_chunk($arr,50);
