@@ -736,12 +736,12 @@ class InventarioSucursalController extends Controller
                         $codigo_proveedor = inventario_sucursal::where("id_sucursal",13)->where("codigo_proveedor",$ee["codigo_proveedor"])->first();
                         $descripcion = inventario_sucursal::where("id_sucursal",13)->where("descripcion",$ee["descripcion"])->first();
     
-                        if(!preg_match("/^[A-Za-z\\-0-9]*$/", $ee["codigo_barras"])){
+                       /*  if(!preg_match("/^[A-Za-z\\-0-9]*$/", $ee["codigo_barras"])){
                             return ["msj"=>"CÓDIGO DE BARRAS SOLO DEBE CONTENER LETRAS, NÚMEROS O GUIONES [$ee[codigo_barras]]", "estado"=>false];   
                         }
                         if(!preg_match("/^[A-Za-z\\-0-9]*$/", $ee["codigo_proveedor"])){
                             return ["msj"=>"CÓDIGO ALTERNO SOLO DEBE CONTENER LETRAS, NÚMEROS O GUIONES [$ee[codigo_proveedor]]", "estado"=>false];   
-                        }
+                        } */
     
     
                         if ($barras) {
