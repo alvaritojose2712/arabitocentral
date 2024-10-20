@@ -163,7 +163,7 @@
 					{{$numventas}}
 					<br>
 					<b>
-						{{moneda(($efectivo+$debito+$transferencia+$biopago)/$numventas)}}
+						{{moneda( dividir(($efectivo+$debito+$transferencia+$biopago),$numventas) )}}
 					</b>
 				</td>
 			</tr>
@@ -226,7 +226,7 @@
 					</td>
 					<td>
 						{{$e["numventas"]}} <br>
-						<b>{{moneda($e["total"]/$e["numventas"])}}</b>
+						<b>{{moneda(dividir($e["total"],$e["numventas"]))}}</b>
 					</td>
 
 				</tr>

@@ -55,6 +55,24 @@ if (! function_exists('toLetras')) {
         return $val;
     }
 }
+if (! function_exists('dividir')) {
+    function dividir($dividendo,$divisor) {
+        $dividendo = floatval($dividendo);
+        
+        if (intval($dividendo)==0) {
+            return 0;
+        }else{
+            if ($divisor==0) {
+                return 0;
+            }else{
+                return floatval($dividendo)/floatval($divisor);
+    
+            }
+    
+        }
+    }
+}
+
 
   
  ?>
