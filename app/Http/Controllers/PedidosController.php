@@ -55,6 +55,10 @@ class PedidosController extends Controller
                             $check = inventario_sucursal::where("id_sucursal",13)->where("codigo_barras",$ee["producto"]["codigo_barras"])->first();
                             if ($check) {
                                 $id_producto = $check->id;
+                                $check->precio_base = $ee["producto"]["precio_base"];
+                                $check->precio = $ee["producto"]["precio"];
+                                $check->save();
+
                             }else{
                                 $inv = inventario_sucursal::updateOrCreate([
                                     "id" => null,
