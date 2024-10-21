@@ -26687,17 +26687,17 @@ function Tareassucursalespendientes(_ref) {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
                         children: "BARRAS:"
-                      }), " ", e.prodantesproducto.codigo_barras, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
+                      }), " ", e.prodantesproducto ? e.prodantesproducto.codigo_barras : null, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
                         children: "ALTERNO:"
-                      }), " ", e.prodantesproducto.codigo_alterno]
+                      }), " ", e.prodantesproducto ? e.prodantesproducto.codigo_alterno : null]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                      children: e.prodantesproducto.descripcion
+                      children: e.prodantesproducto ? e.prodantesproducto.descripcion : null
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                      children: ["CT:", e.prodantesproducto.cantidad]
+                      children: ["CT:", e.prodantesproducto ? e.prodantesproducto.cantidad : null]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                      children: ["B:", e.prodantesproducto.precio_base]
+                      children: ["B:", e.prodantesproducto ? e.prodantesproducto.precio_base : null]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                      children: ["V:", e.prodantesproducto.precio]
+                      children: ["V:", e.prodantesproducto ? e.prodantesproducto.precio : null]
                     })]
                   })
                 })

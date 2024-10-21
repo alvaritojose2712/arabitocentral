@@ -82,13 +82,13 @@ export default function Tareassucursalespendientes({
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <b>BARRAS:</b> {e.prodantesproducto.codigo_barras} <br />
-                                                        <b>ALTERNO:</b> {e.prodantesproducto.codigo_alterno}
+                                                        <b>BARRAS:</b> {e.prodantesproducto?e.prodantesproducto.codigo_barras:null} <br />
+                                                        <b>ALTERNO:</b> {e.prodantesproducto?e.prodantesproducto.codigo_alterno:null}
                                                     </td>
-                                                    <td>{e.prodantesproducto.descripcion}</td>
-                                                    <td>CT:{e.prodantesproducto.cantidad}</td>
-                                                    <td>B:{e.prodantesproducto.precio_base}</td>
-                                                    <td>V:{e.prodantesproducto.precio}</td>
+                                                    <td>{e.prodantesproducto?e.prodantesproducto.descripcion:null}</td>
+                                                    <td>CT:{e.prodantesproducto?e.prodantesproducto.cantidad:null}</td>
+                                                    <td>B:{e.prodantesproducto?e.prodantesproducto.precio_base:null}</td>
+                                                    <td>V:{e.prodantesproducto?e.prodantesproducto.precio:null}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
