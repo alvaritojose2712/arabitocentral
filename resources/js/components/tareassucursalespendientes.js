@@ -10,6 +10,7 @@ export default function Tareassucursalespendientes({
     setqTareaPendienteEstado,
     qTareaPendienteNum,
     setqTareaPendienteNum,
+    aprobarPermisoModDici,
 }){
     return (
         <div className="container-fluid">
@@ -54,6 +55,7 @@ export default function Tareassucursalespendientes({
             <table className="table">
                 <thead>
                     <tr>
+                        <th>PERMISO</th>
                         <th>ID</th>
                         <th>SUCURSAL</th>
                         <th>FECHA</th>
@@ -66,6 +68,7 @@ export default function Tareassucursalespendientes({
                     {tareasPendientesData.data?
                         tareasPendientesData.data.map(e=>
                             <tr key={e.id}>
+                                <td>{e.permiso==1?<i className="fa fa-check text-success"></i>: <i className="fa fa-times text-danger"></i>     }</td>
                                 <td>{e.id}</td>
                                 <td>{e.sucursal.codigo}</td>
                                 <td>{e.created_at}</td>
@@ -79,11 +82,13 @@ export default function Tareassucursalespendientes({
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <b>CB:</b> {e.prodantesproducto.codigo_barras} <br />
-                                                        <b>CA:</b> {e.prodantesproducto.codigo_alterno}
+                                                        <b>BARRAS:</b> {e.prodantesproducto.codigo_barras} <br />
+                                                        <b>ALTERNO:</b> {e.prodantesproducto.codigo_alterno}
                                                     </td>
                                                     <td>{e.prodantesproducto.descripcion}</td>
-                                                    <td>{e.prodantesproducto.cantidad}</td>
+                                                    <td>CT:{e.prodantesproducto.cantidad}</td>
+                                                    <td>B:{e.prodantesproducto.precio_base}</td>
+                                                    <td>V:{e.prodantesproducto.precio}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -100,11 +105,13 @@ export default function Tareassucursalespendientes({
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <b>CB:</b> {e.prodcambiarproducto.codigo_barras} <br />
-                                                        <b>CA:</b> {e.prodcambiarproducto.codigo_alterno}
+                                                        <b>BARRAS:</b> {e.prodcambiarproducto.codigo_barras} <br />
+                                                        <b>ALTERNO:</b> {e.prodcambiarproducto.codigo_alterno}
                                                     </td>
                                                     <td>{e.prodcambiarproducto.descripcion}</td>
-                                                    <td>{e.prodcambiarproducto.cantidad}</td>
+                                                    <td>CT:{e.prodcambiarproducto.cantidad}</td>
+                                                    <td>B:{e.prodcambiarproducto.precio_base}</td>
+                                                    <td>V:{e.prodcambiarproducto.precio}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -119,6 +126,13 @@ export default function Tareassucursalespendientes({
                                         }
                                     </button>
                                 </td>
+                                <th>
+                                    {e.estado==0?
+                                        <button className="btn btn-success" onDoubleClick={()=>aprobarPermisoModDici(e.id,"1")}>
+                                            APROBAR MODIFICACIÓN
+                                        </button>
+                                    :null}
+                                </th>
                             </tr>
                     ):null}
                 </tbody>

@@ -254,10 +254,29 @@ class PedidosController extends Controller
         $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen,$codigo_origen);
         $id_origen = $id_ruta["id_origen"];
 
+        $qpedidoscentralq = $req->qpedidoscentralq;
+        $qpedidocentrallimit = $req->qpedidocentrallimit;
+        $qpedidocentralestado = $req->qpedidocentralestado;
+        $qpedidocentralemisor = $req->qpedidocentralemisor;
+
+
+
 
         $ped = pedidos::whereIn("estado",[1,3,4])
         ->where("id_destino",$id_origen)
+        ->when($qpedidocentralemisor!="",function($q) use ($qpedidocentralemisor) {
+            $q->where("id_origen",$qpedidocentralemisor);
+        })
+
+        ->when($qpedidocentralestado!="",function($q) use ($qpedidocentralestado) {
+            $q->where("estado",$qpedidocentralestado);
+        })
+
+        ->when($qpedidoscentralq!="",function($q) use ($qpedidoscentralq) {
+            $q->where("id",$qpedidoscentralq);
+        })
         ->orderBy("id","desc")
+        ->limit($qpedidocentrallimit?$qpedidocentrallimit:10)
         ->get()
         ->map(function($q){
            /*  $estado = $q->estado;

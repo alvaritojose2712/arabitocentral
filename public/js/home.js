@@ -16265,7 +16265,8 @@ function Inventario(_ref) {
     idselectproductoinsucursalforvicularMaestro = _ref.idselectproductoinsucursalforvicularMaestro,
     setidselectproductoinsucursalforvicularMaestro = _ref.setidselectproductoinsucursalforvicularMaestro,
     linkproductocentralmaestro = _ref.linkproductocentralmaestro,
-    openVincularSucursalwithMaestro = _ref.openVincularSucursalwithMaestro;
+    openVincularSucursalwithMaestro = _ref.openVincularSucursalwithMaestro,
+    aprobarPermisoModDici = _ref.aprobarPermisoModDici;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getDatinputSelectVinculacion();
   }, []);
@@ -16767,6 +16768,7 @@ function Inventario(_ref) {
       buscarInventarioModal: buscarInventarioModal,
       idselectproductoinsucursalforvicular: idselectproductoinsucursalforvicular
     }) : null, subviewdici == "tareaspendientes" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_tareassucursalespendientes__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      aprobarPermisoModDici: aprobarPermisoModDici,
       sucursales: sucursales,
       setqTareaPendienteFecha: setqTareaPendienteFecha,
       qTareaPendienteFecha: qTareaPendienteFecha,
@@ -26560,7 +26562,8 @@ function Tareassucursalespendientes(_ref) {
     qTareaPendienteEstado = _ref.qTareaPendienteEstado,
     setqTareaPendienteEstado = _ref.setqTareaPendienteEstado,
     qTareaPendienteNum = _ref.qTareaPendienteNum,
-    setqTareaPendienteNum = _ref.setqTareaPendienteNum;
+    setqTareaPendienteNum = _ref.setqTareaPendienteNum,
+    aprobarPermisoModDici = _ref.aprobarPermisoModDici;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "container-fluid",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
@@ -26644,6 +26647,8 @@ function Tareassucursalespendientes(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            children: "PERMISO"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "ID"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "SUCURSAL"
@@ -26661,6 +26666,12 @@ function Tareassucursalespendientes(_ref) {
         children: tareasPendientesData.data ? tareasPendientesData.data.map(function (e) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.permiso == 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                className: "fa fa-check text-success"
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                className: "fa fa-times text-danger"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: e.id
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: e.sucursal.codigo
@@ -26675,14 +26686,18 @@ function Tareassucursalespendientes(_ref) {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
-                        children: "CB:"
+                        children: "BARRAS:"
                       }), " ", e.prodantesproducto.codigo_barras, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
-                        children: "CA:"
+                        children: "ALTERNO:"
                       }), " ", e.prodantesproducto.codigo_alterno]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                       children: e.prodantesproducto.descripcion
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                      children: e.prodantesproducto.cantidad
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
+                      children: ["CT:", e.prodantesproducto.cantidad]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
+                      children: ["B:", e.prodantesproducto.precio_base]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
+                      children: ["V:", e.prodantesproducto.precio]
                     })]
                   })
                 })
@@ -26694,14 +26709,18 @@ function Tareassucursalespendientes(_ref) {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
-                        children: "CB:"
+                        children: "BARRAS:"
                       }), " ", e.prodcambiarproducto.codigo_barras, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
-                        children: "CA:"
+                        children: "ALTERNO:"
                       }), " ", e.prodcambiarproducto.codigo_alterno]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                       children: e.prodcambiarproducto.descripcion
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                      children: e.prodcambiarproducto.cantidad
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
+                      children: ["CT:", e.prodcambiarproducto.cantidad]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
+                      children: ["B:", e.prodcambiarproducto.precio_base]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
+                      children: ["V:", e.prodcambiarproducto.precio]
                     })]
                   })
                 })
@@ -26715,6 +26734,14 @@ function Tareassucursalespendientes(_ref) {
                   className: "fa fa-check"
                 })
               })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              children: e.estado == 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                className: "btn btn-success",
+                onDoubleClick: function onDoubleClick() {
+                  return aprobarPermisoModDici(e.id, "1");
+                },
+                children: "APROBAR MODIFICACI\xD3N"
+              }) : null
             })]
           }, e.id);
         }) : null
@@ -27614,6 +27641,9 @@ var db = (_db = {
     var type = _ref.type,
       fecha = _ref.fecha;
     return window.open(host + "sendReporteDiario?type=" + type + "&fecha=" + fecha, "targed=blank");
+  },
+  aprobarPermisoModDici: function aprobarPermisoModDici(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "aprobarPermisoModDici", data);
   },
   sendVinculoCentralToMaestro: function sendVinculoCentralToMaestro(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "sendVinculoCentralToMaestro", data);
@@ -81834,6 +81864,14 @@ function Home() {
       });
     }
   };
+  var aprobarPermisoModDici = function aprobarPermisoModDici(id, dato) {
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].aprobarPermisoModDici({
+      id: id,
+      dato: dato
+    }).then(function (res) {
+      notificar(res);
+    });
+  };
   var openVincularSucursalwithMaestro = function openVincularSucursalwithMaestro(e, id_producto_central) {
     //setmodalmovilshow(true);
     /* console.log(idinsucursal,"idinsucursal")
@@ -85896,6 +85934,7 @@ function Home() {
           })]
         }), permiso([1, 2, 10, 14]) && viewmainPanel === "dici" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_inventario__WEBPACK_IMPORTED_MODULE_53__["default"], {
+            aprobarPermisoModDici: aprobarPermisoModDici,
             idselectproductoinsucursalforvicularMaestro: idselectproductoinsucursalforvicularMaestro,
             setidselectproductoinsucursalforvicularMaestro: setidselectproductoinsucursalforvicularMaestro,
             linkproductocentralmaestro: linkproductocentralmaestro,

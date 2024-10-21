@@ -520,6 +520,7 @@ Route::get('', [home::class,"index"]);
     
     
     Route::post('guardarmodificarInventarioDici', [InventarioSucursalController::class,"guardarmodificarInventarioDici"]);
+    Route::post('sendNovedadCentral', [TareasSucursalesController::class,"sendNovedadCentral"]);
 
     Route::post('getTareasPendientes', [TareasSucursalesController::class,"getTareasPendientes"]);
     Route::get('getTareasCentral', [TareasSucursalesController::class,"getTareasCentral"]);
@@ -563,8 +564,8 @@ Route::get('', [home::class,"index"]);
     
     
     Route::post('guardarNuevoProducto', [InventarioController::class,"guardarNuevoProducto"]);
-    Route::post('sendNovedadCentral', [InventarioController::class,"sendNovedadCentral"]);
     
+    Route::post('aprobarPermisoModDici', [TareasSucursalesController::class,"aprobarPermisoModDici"]);
     Route::post('delProducto', [InventarioController::class,"delProducto"]);
     Route::post('getFallas', [InventarioController::class,"getFallas"]);
     Route::post('setFalla', [InventarioController::class,"setFalla"]);

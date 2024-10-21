@@ -7,6 +7,8 @@ use App\Models\inventario_sucursal;
 use App\Http\Requests\StoretareasSucursalesRequest;
 use App\Http\Requests\UpdatetareasSucursalesRequest;
 use Illuminate\Http\Request;
+use DB;
+use Response;
 
 
 class TareasSucursalesController extends Controller
@@ -121,6 +123,53 @@ class TareasSucursalesController extends Controller
             return $new->save();
         }
     }
+    function aprobarPermisoModDici(Request $req) {
+        $id = $req->id;
+        $dato = $req->dato;
+        $t = tareasSucursales::find($id);
+
+        if ($t->estado==0) {
+            $t->permiso = $dato;
+            $t->save();
+            return ["estado"=>true,"msj"=>"Éxito al PERMITIR MODIFICACION"];
+        }
+
+    }
+    function sendNovedadCentral(Request $req) {
+
+        DB::beginTransaction();
+
+        try {
+            $codigo_origen = $req->codigo_origen;
+            $id_ruta = (new InventarioSucursalController)->retOrigenDestino($codigo_origen, $codigo_origen);
+            $id_sucursal = $id_ruta["id_origen"];
+            $novedad = $req->novedad;
+            $antes = $req->antes;
+            
+                $new = new tareasSucursales;
+                $new->id_sucursal = $id_sucursal; 
+                $new->tipo = 1;
+                $new->estado = 0;
+                
+                $new->antesproducto = json_encode($antes);
+                $new->cambiarproducto = json_encode($novedad);
+                $new->idinsucursal = $novedad["id"];
+                
+                
+                
+                $new->id_producto_verde = null;
+                $new->id_producto_rojo = null;
+                $new->save();
+                DB::commit();
+                return ["estado"=>true, "msj" => "Novedad enviada a CENTRAL con Éxito. Esperar Aprobacion..."];
+        } catch (\Exception $e) {
+             
+            DB::rollback();
+            return Response::json(["msj"=>"Error sendNovedadCentral".$e->getMessage()." ".$e->getLine(),"estado"=>false]);
+        } 
+        
+    }
+    
 
     function notiNewInv(Request $req) {
         $idinsucursal_producto = $req->idinsucursal_producto;
@@ -196,6 +245,7 @@ class TareasSucursalesController extends Controller
         $tareas = tareasSucursales::with("sucursal")
         ->where("id_sucursal",$id_sucursal)
         ->where("estado",0)
+        ->where("permiso",1)
         ->orderBy("created_at","desc")
         ->get()
         ->map(function($q) {

@@ -2797,6 +2797,15 @@ const getNovedadesPedidosData = () => {
     }
   };
 
+  const aprobarPermisoModDici = (id,dato) => {
+    db.aprobarPermisoModDici({
+      id,
+      dato
+    }).then(res=>{
+      notificar(res)
+    })
+  }
+
   const openVincularSucursalwithMaestro = (e, id_producto_central) => {
       //setmodalmovilshow(true);
       /* console.log(idinsucursal,"idinsucursal")
@@ -6436,6 +6445,7 @@ const getNovedadesPedidosData = () => {
           {permiso([1,2,10,14]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              aprobarPermisoModDici={aprobarPermisoModDici}
               idselectproductoinsucursalforvicularMaestro={idselectproductoinsucursalforvicularMaestro}
               setidselectproductoinsucursalforvicularMaestro={setidselectproductoinsucursalforvicularMaestro}
               linkproductocentralmaestro={linkproductocentralmaestro}

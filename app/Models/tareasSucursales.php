@@ -27,5 +27,6 @@ class tareasSucursales extends Model
         "idinsucursal",
         "id_producto_verde",
         "id_producto_rojo",
+        "permiso",
     ];
 }

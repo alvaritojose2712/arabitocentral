@@ -27,6 +27,7 @@ class CreateTareasSucursalesTable extends Migration
             // 0 EMITIDO
             // 1 PROCESADO
             
+            $table->integer("permiso")->default(0);
             $table->integer("idinsucursal")->nullable();
             $table->json("antesproducto")->nullable();
             $table->json("cambiarproducto")->nullable();
