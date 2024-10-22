@@ -288,7 +288,8 @@ export default function Inventario({
     setidselectproductoinsucursalforvicularMaestro,
     linkproductocentralmaestro,
     openVincularSucursalwithMaestro,
-    aprobarPermisoModDici
+    aprobarPermisoModDici,
+    delTareaPendiente
 }){
     useEffect(()=>{
         getDatinputSelectVinculacion()
@@ -666,6 +667,7 @@ export default function Inventario({
 
         {subviewdici=="tareaspendientes"?
             <TareasSucursalesPendientes
+                delTareaPendiente={delTareaPendiente}
                 aprobarPermisoModDici={aprobarPermisoModDici}
                 sucursales={sucursales}
                 setqTareaPendienteFecha={setqTareaPendienteFecha}

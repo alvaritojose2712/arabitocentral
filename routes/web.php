@@ -565,6 +565,7 @@ Route::get('', [home::class,"index"]);
     
     Route::post('guardarNuevoProducto', [InventarioController::class,"guardarNuevoProducto"]);
     
+    Route::post('delTareaPendiente', [TareasSucursalesController::class,"delTareaPendiente"]);
     Route::post('aprobarPermisoModDici', [TareasSucursalesController::class,"aprobarPermisoModDici"]);
     Route::post('delProducto', [InventarioController::class,"delProducto"]);
     Route::post('getFallas', [InventarioController::class,"getFallas"]);

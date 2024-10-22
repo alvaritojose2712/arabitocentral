@@ -133,8 +133,18 @@ class TareasSucursalesController extends Controller
             $t->save();
             return ["estado"=>true,"msj"=>"Éxito al PERMITIR MODIFICACION"];
         }
-
     }
+
+    function delTareaPendiente(Request $req) {
+        $id = $req->id;
+        $t = tareasSucursales::find($id);
+        if ($t) {
+            $t->delete();
+            return ["estado"=>true,"msj"=>"Éxito"];
+        }
+        
+    }
+
     function sendNovedadCentral(Request $req) {
 
         DB::beginTransaction();
@@ -220,7 +230,7 @@ class TareasSucursalesController extends Controller
         ->when($qTareaPendienteSucursal, function($q) use ($qTareaPendienteSucursal) {
             $q->where("id_sucursal",$qTareaPendienteSucursal);
         })
-        ->when($qTareaPendienteFecha,function($q) {
+        ->when($qTareaPendienteFecha,function($q) use ($qTareaPendienteFecha) {
             $q->where("created_at","LIKE","%$qTareaPendienteFecha%");
         })
         ->limit($qTareaPendienteNum)

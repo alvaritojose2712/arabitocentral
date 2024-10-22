@@ -16266,7 +16266,8 @@ function Inventario(_ref) {
     setidselectproductoinsucursalforvicularMaestro = _ref.setidselectproductoinsucursalforvicularMaestro,
     linkproductocentralmaestro = _ref.linkproductocentralmaestro,
     openVincularSucursalwithMaestro = _ref.openVincularSucursalwithMaestro,
-    aprobarPermisoModDici = _ref.aprobarPermisoModDici;
+    aprobarPermisoModDici = _ref.aprobarPermisoModDici,
+    delTareaPendiente = _ref.delTareaPendiente;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getDatinputSelectVinculacion();
   }, []);
@@ -16768,6 +16769,7 @@ function Inventario(_ref) {
       buscarInventarioModal: buscarInventarioModal,
       idselectproductoinsucursalforvicular: idselectproductoinsucursalforvicular
     }) : null, subviewdici == "tareaspendientes" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_tareassucursalespendientes__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      delTareaPendiente: delTareaPendiente,
       aprobarPermisoModDici: aprobarPermisoModDici,
       sucursales: sucursales,
       setqTareaPendienteFecha: setqTareaPendienteFecha,
@@ -26551,6 +26553,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
+
 function Tareassucursalespendientes(_ref) {
   var sucursales = _ref.sucursales,
     setqTareaPendienteFecha = _ref.setqTareaPendienteFecha,
@@ -26563,7 +26566,8 @@ function Tareassucursalespendientes(_ref) {
     setqTareaPendienteEstado = _ref.setqTareaPendienteEstado,
     qTareaPendienteNum = _ref.qTareaPendienteNum,
     setqTareaPendienteNum = _ref.setqTareaPendienteNum,
-    aprobarPermisoModDici = _ref.aprobarPermisoModDici;
+    aprobarPermisoModDici = _ref.aprobarPermisoModDici,
+    delTareaPendiente = _ref.delTareaPendiente;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "container-fluid",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
@@ -26649,103 +26653,120 @@ function Tareassucursalespendientes(_ref) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "PERMISO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            children: "ID"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "SUCURSAL"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "FECHA"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "TIPO"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            children: "ANTES"
+            children: "VERDE"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-            children: "DESPUES"
+            children: "ROJO"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            children: "BARRAS"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            children: "ALTERNO"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            children: "DESCRIPCI\xD3N"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            children: "CT"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            children: "BASE"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            children: "VENTA"
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
-        children: tareasPendientesData.data ? tareasPendientesData.data.map(function (e) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+      }), tareasPendientesData.data ? tareasPendientesData.data.map(function (e) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tbody", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              rowSpan: 2,
               children: e.permiso == 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
                 className: "fa fa-check text-success"
               }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
                 className: "fa fa-times text-danger"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: e.id
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              rowSpan: 2,
               children: e.sucursal.codigo
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              rowSpan: 2,
               children: e.created_at
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
+              rowSpan: 2,
               children: [e.tipo == 1 ? "MODIFICAR" : null, e.tipo == 2 ? "ELIMINAR DUPLICADOS" : null]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-              children: [e.antesproducto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("table", {
-                className: "table",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
-                        children: "BARRAS:"
-                      }), " ", e.prodantesproducto ? e.prodantesproducto.codigo_barras : null, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
-                        children: "ALTERNO:"
-                      }), " ", e.prodantesproducto ? e.prodantesproducto.codigo_alterno : null]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                      children: e.prodantesproducto ? e.prodantesproducto.descripcion : null
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                      children: ["CT:", e.prodantesproducto ? e.prodantesproducto.cantidad : null]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                      children: ["B:", e.prodantesproducto ? e.prodantesproducto.precio_base : null]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                      children: ["V:", e.prodantesproducto ? e.prodantesproducto.precio : null]
-                    })]
-                  })
-                })
-              }) : null, e.id_producto_verde ? e.id_producto_verde : null]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-              children: [e.id_producto_rojo ? e.id_producto_rojo : null, e.cambiarproducto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("table", {
-                className: "table",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
-                        children: "BARRAS:"
-                      }), " ", e.prodcambiarproducto.codigo_barras, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("b", {
-                        children: "ALTERNO:"
-                      }), " ", e.prodcambiarproducto.codigo_alterno]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                      children: e.prodcambiarproducto.descripcion
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                      children: ["CT:", e.prodcambiarproducto.cantidad]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                      children: ["B:", e.prodcambiarproducto.precio_base]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                      children: ["V:", e.prodcambiarproducto.precio]
-                    })]
-                  })
-                })
-              }) : null]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+              rowSpan: 2,
+              children: e.id_producto_verde ? e.id_producto_verde : null
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              rowSpan: 2,
+              children: e.id_producto_rojo ? e.id_producto_rojo : null
+            }), e.cambiarproducto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                className: "bg-danger-light",
+                children: e.prodantesproducto ? e.prodantesproducto.codigo_barras : null
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                className: "bg-danger-light",
+                children: e.prodantesproducto ? e.prodantesproducto.codigo_proveedor : null
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                className: "bg-danger-light",
+                children: e.prodantesproducto ? e.prodantesproducto.descripcion : null
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                className: "bg-danger-light",
+                children: e.prodantesproducto ? e.prodantesproducto.cantidad : null
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                className: "bg-danger-light",
+                children: e.prodantesproducto ? e.prodantesproducto.precio_base : null
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                className: "bg-danger-light",
+                children: e.prodantesproducto ? e.prodantesproducto.precio : null
+              })]
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("th", {
+              rowSpan: 2,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
                 className: "btn btn-" + (qTareaPendienteEstado == 0 ? "sinapsis" : "success"),
                 children: qTareaPendienteEstado == 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
                   className: "fa fa-clock-o"
                 }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
                   className: "fa fa-check"
                 })
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              children: e.estado == 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-                className: "btn btn-success",
+              }), e.estado == 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                className: " btn btn-" + (e.estado == 0 ? "btn-success" : "btn-sinapsis"),
                 onDoubleClick: function onDoubleClick() {
-                  return aprobarPermisoModDici(e.id, "1");
+                  return aprobarPermisoModDici(e.id, e.estado == 0 ? 1 : 0);
                 },
-                children: "APROBAR MODIFICACI\xD3N"
+                children: e.estado == 0 ? "APROBAR MODIFICACIÓN" : "RECHAZAR"
+              }) : null]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              rowSpan: 2,
+              children: e.estado == 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", {
+                className: "btn btn-danger",
+                onDoubleClick: function onDoubleClick() {
+                  return delTareaPendiente(e.id);
+                },
+                children: ["ELIMINAR ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                  className: "fa fa-times"
+                })]
               }) : null
             })]
-          }, e.id);
-        }) : null
-      })]
+          }), e.antesproducto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            className: "bg-success-light",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.prodcambiarproducto.codigo_barras
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.prodcambiarproducto.codigo_proveedor
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.prodcambiarproducto.descripcion
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.prodcambiarproducto.cantidad
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.prodcambiarproducto.precio_base
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+              children: e.prodcambiarproducto.precio
+            })]
+          }) : null]
+        }, e.id);
+      }) : null]
     })]
   });
 }
@@ -27641,6 +27662,9 @@ var db = (_db = {
     var type = _ref.type,
       fecha = _ref.fecha;
     return window.open(host + "sendReporteDiario?type=" + type + "&fecha=" + fecha, "targed=blank");
+  },
+  delTareaPendiente: function delTareaPendiente(data) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "delTareaPendiente", data);
   },
   aprobarPermisoModDici: function aprobarPermisoModDici(data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default().post(host + "aprobarPermisoModDici", data);
@@ -81872,6 +81896,14 @@ function Home() {
       notificar(res);
     });
   };
+  var delTareaPendiente = function delTareaPendiente(id) {
+    _database_database__WEBPACK_IMPORTED_MODULE_3__["default"].delTareaPendiente({
+      id: id
+    }).then(function (res) {
+      notificar(res);
+      getTareasPendientes();
+    });
+  };
   var openVincularSucursalwithMaestro = function openVincularSucursalwithMaestro(e, id_producto_central) {
     //setmodalmovilshow(true);
     /* console.log(idinsucursal,"idinsucursal")
@@ -85934,6 +85966,7 @@ function Home() {
           })]
         }), permiso([1, 2, 10, 14]) && viewmainPanel === "dici" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.Fragment, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_54__.jsx)(_inventario__WEBPACK_IMPORTED_MODULE_53__["default"], {
+            delTareaPendiente: delTareaPendiente,
             aprobarPermisoModDici: aprobarPermisoModDici,
             idselectproductoinsucursalforvicularMaestro: idselectproductoinsucursalforvicularMaestro,
             setidselectproductoinsucursalforvicularMaestro: setidselectproductoinsucursalforvicularMaestro,

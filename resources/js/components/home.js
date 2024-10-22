@@ -2805,6 +2805,16 @@ const getNovedadesPedidosData = () => {
       notificar(res)
     })
   }
+  const delTareaPendiente = (id) => {
+    db.delTareaPendiente({
+      id,
+    }).then(res=>{
+      notificar(res)
+      getTareasPendientes()
+    })
+  }
+
+  
 
   const openVincularSucursalwithMaestro = (e, id_producto_central) => {
       //setmodalmovilshow(true);
@@ -6445,6 +6455,7 @@ const getNovedadesPedidosData = () => {
           {permiso([1,2,10,14]) && viewmainPanel === "dici" &&
           <>
             <Inventario
+              delTareaPendiente={delTareaPendiente}
               aprobarPermisoModDici={aprobarPermisoModDici}
               idselectproductoinsucursalforvicularMaestro={idselectproductoinsucursalforvicularMaestro}
               setidselectproductoinsucursalforvicularMaestro={setidselectproductoinsucursalforvicularMaestro}

@@ -11,6 +11,7 @@ export default function Tareassucursalespendientes({
     qTareaPendienteNum,
     setqTareaPendienteNum,
     aprobarPermisoModDici,
+    delTareaPendiente,
 }){
     return (
         <div className="container-fluid">
@@ -56,86 +57,85 @@ export default function Tareassucursalespendientes({
                 <thead>
                     <tr>
                         <th>PERMISO</th>
-                        <th>ID</th>
                         <th>SUCURSAL</th>
                         <th>FECHA</th>
                         <th>TIPO</th>
-                        <th>ANTES</th>
-                        <th>DESPUES</th>
+                        <th>VERDE</th>
+                        <th>ROJO</th>
+
+                        <th>BARRAS</th>
+                        <th>ALTERNO</th>
+                        <th>DESCRIPCIÓN</th>
+                        <th>CT</th>
+                        <th>BASE</th>
+                        <th>VENTA</th>
                     </tr>
                 </thead>
-                <tbody>
                     {tareasPendientesData.data?
                         tareasPendientesData.data.map(e=>
-                            <tr key={e.id}>
-                                <td>{e.permiso==1?<i className="fa fa-check text-success"></i>: <i className="fa fa-times text-danger"></i>     }</td>
-                                <td>{e.id}</td>
-                                <td>{e.sucursal.codigo}</td>
-                                <td>{e.created_at}</td>
-                                <td>
-                                    {e.tipo==1?"MODIFICAR":null}
-                                    {e.tipo==2?"ELIMINAR DUPLICADOS":null}
-                                </td>
-                                <td>
-                                    {e.antesproducto?
-                                        <table className="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <b>BARRAS:</b> {e.prodantesproducto?e.prodantesproducto.codigo_barras:null} <br />
-                                                        <b>ALTERNO:</b> {e.prodantesproducto?e.prodantesproducto.codigo_alterno:null}
-                                                    </td>
-                                                    <td>{e.prodantesproducto?e.prodantesproducto.descripcion:null}</td>
-                                                    <td>CT:{e.prodantesproducto?e.prodantesproducto.cantidad:null}</td>
-                                                    <td>B:{e.prodantesproducto?e.prodantesproducto.precio_base:null}</td>
-                                                    <td>V:{e.prodantesproducto?e.prodantesproducto.precio:null}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    :null}
+                            <tbody key={e.id}>
+                                <tr>
+                                    <td rowSpan={2}>{e.permiso==1?<i className="fa fa-check text-success"></i>: <i className="fa fa-times text-danger"></i>}</td>
+                                    <td rowSpan={2}>{e.sucursal.codigo}</td>
+                                    <td rowSpan={2}>{e.created_at}</td>
+                                    <td rowSpan={2}>
+                                        {e.tipo==1?"MODIFICAR":null}
+                                        {e.tipo==2?"ELIMINAR DUPLICADOS":null}
+                                    </td>
+                                    <td rowSpan={2}>
+                                        {e.id_producto_verde?e.id_producto_verde:null}
+                                    </td>
+                                    <td rowSpan={2}>
+                                        {e.id_producto_rojo?e.id_producto_rojo:null} 
 
-
-                                    {e.id_producto_verde?e.id_producto_verde:null}
-                                </td>
-                                <td>
-                                    {e.id_producto_rojo?e.id_producto_rojo:null} 
-
+                                        
+                                    </td>
+                                   
                                     {e.cambiarproducto?
-                                        <table className="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <b>BARRAS:</b> {e.prodcambiarproducto.codigo_barras} <br />
-                                                        <b>ALTERNO:</b> {e.prodcambiarproducto.codigo_alterno}
-                                                    </td>
-                                                    <td>{e.prodcambiarproducto.descripcion}</td>
-                                                    <td>CT:{e.prodcambiarproducto.cantidad}</td>
-                                                    <td>B:{e.prodcambiarproducto.precio_base}</td>
-                                                    <td>V:{e.prodcambiarproducto.precio}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <>
+                                            <td className="bg-danger-light">{e.prodantesproducto?e.prodantesproducto.codigo_barras:null}</td>
+                                            <td className="bg-danger-light">{e.prodantesproducto?e.prodantesproducto.codigo_proveedor:null}</td>
+                                            <td className="bg-danger-light">{e.prodantesproducto?e.prodantesproducto.descripcion:null}</td>
+                                            <td className="bg-danger-light">{e.prodantesproducto?e.prodantesproducto.cantidad:null}</td>
+                                            <td className="bg-danger-light">{e.prodantesproducto?e.prodantesproducto.precio_base:null}</td>
+                                            <td className="bg-danger-light">{e.prodantesproducto?e.prodantesproducto.precio:null}</td>
+                                        </>
                                     :null}
-                                </td>
-                                <td>
-                                    <button className={("btn btn-"+(qTareaPendienteEstado==0?"sinapsis":"success"))}>
-                                        {qTareaPendienteEstado==0?
-                                            <i className="fa fa-clock-o"></i>
-                                            :
-                                            <i className="fa fa-check"></i>
-                                        }
-                                    </button>
-                                </td>
-                                <th>
-                                    {e.estado==0?
-                                        <button className="btn btn-success" onDoubleClick={()=>aprobarPermisoModDici(e.id,"1")}>
-                                            APROBAR MODIFICACIÓN
+                                    <th rowSpan={2}>
+                                        <button className={("btn btn-"+(qTareaPendienteEstado==0?"sinapsis":"success"))}>
+                                            {qTareaPendienteEstado==0?
+                                                <i className="fa fa-clock-o"></i>
+                                                :
+                                                <i className="fa fa-check"></i>
+                                            }
                                         </button>
-                                    :null}
-                                </th>
-                            </tr>
+
+                                        {e.estado==0?
+                                            <button className={(" btn btn-")+(e.estado==0?"btn-success":"btn-sinapsis")} onDoubleClick={()=>aprobarPermisoModDici(e.id,(e.estado==0?1:0))}>
+                                                {e.estado==0?"APROBAR MODIFICACIÓN":"RECHAZAR"}
+                                            </button>
+                                        :null}
+                                    </th>
+                                    <th rowSpan={2}>
+                                        {e.estado==0?
+                                            <button className="btn btn-danger" onDoubleClick={()=>delTareaPendiente(e.id)}>ELIMINAR <i className="fa fa-times"></i></button>
+                                        :null}
+                                    </th>
+                                </tr>
+
+                                {e.antesproducto?
+                                    <tr className="bg-success-light">
+                                        <td>{e.prodcambiarproducto.codigo_barras}</td>
+                                        <td>{e.prodcambiarproducto.codigo_proveedor}</td>
+                                        <td>{e.prodcambiarproducto.descripcion}</td>
+                                        <td>{e.prodcambiarproducto.cantidad}</td>
+                                        <td>{e.prodcambiarproducto.precio_base}</td>
+                                        <td>{e.prodcambiarproducto.precio}</td>
+                                    </tr>
+                                :null}
+                            </tbody>
+
                     ):null}
-                </tbody>
             </table>
         </div>
     )
