@@ -26731,7 +26731,7 @@ function Tareassucursalespendientes(_ref) {
                   className: "fa fa-check"
                 })
               }), e.estado == 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-                className: " btn btn-" + (e.estado == 0 ? "btn-success" : "btn-sinapsis"),
+                className: " btn " + (e.estado == 0 ? "btn-success" : "btn-sinapsis"),
                 onDoubleClick: function onDoubleClick() {
                   return aprobarPermisoModDici(e.id, e.estado == 0 ? 1 : 0);
                 },

@@ -111,7 +111,7 @@ export default function Tareassucursalespendientes({
                                         </button>
 
                                         {e.estado==0?
-                                            <button className={(" btn btn-")+(e.estado==0?"btn-success":"btn-sinapsis")} onDoubleClick={()=>aprobarPermisoModDici(e.id,(e.estado==0?1:0))}>
+                                            <button className={(" btn ")+(e.estado==0?"btn-success":"btn-sinapsis")} onDoubleClick={()=>aprobarPermisoModDici(e.id,(e.estado==0?1:0))}>
                                                 {e.estado==0?"APROBAR MODIFICACIÓN":"RECHAZAR"}
                                             </button>
                                         :null}
